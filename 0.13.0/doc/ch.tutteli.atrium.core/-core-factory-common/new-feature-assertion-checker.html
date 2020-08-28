@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newFeatureAssertionChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-feature-assertion-checker.html">newFeatureAssertionChecker</a><br/>
+<br/>
+<h1>newFeatureAssertionChecker</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionHolder)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">newFeatureAssertionChecker</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionHolder)/originalAssertionHolder">originalAssertionHolder</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-holder/index.html"><span class="identifier">AssertionHolder</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/CoreFactory.kt#L446">(source)</a><br/>
+<strong>Deprecated:</strong> Do no longer use AssertionCheckers, use a specialised Expect instead; e.g. DelegatingExpect, FeatureExpect; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates an <a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html">ch.tutteli.atrium.checking.AssertionChecker</a> which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+<a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> instead of checking assertions and delegates this task to the given
+<a href="new-feature-assertion-checker.html#ch.tutteli.atrium.core.CoreFactoryCommon$newFeatureAssertionChecker(ch.tutteli.atrium.creating.AssertionHolder)/originalAssertionHolder">originalAssertionHolder</a> by adding (see <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">AssertionPlant.addAssertion</a>) the created assertion group to it.</p>
+<h3>Parameters</h3>
+<p><a name="originalAssertionHolder"></a>
+<code>originalAssertionHolder</code> - The assertion plant to which the created <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> of <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+<a href="../../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> will be <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">added</a>.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion checker.</p>
+</BODY>
+</HTML>

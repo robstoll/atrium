@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isSuccess - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a>&nbsp;/&nbsp;<a href="./is-success.html">isSuccess</a><br/>
+<br/>
+<h1>isSuccess</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isSuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSuccess</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultAssertions.kt#L17">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a Success
+and returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the inner type <a href="is-success.html#E">E</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given assertion is not a success.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> if the given assertion is success</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isSuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSuccess</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isSuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.E)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultAssertions.kt#L29">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a Success and
+that it holds all assertions the given <a href="is-success.html#ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$isSuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess.E)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given assertions are not success.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+</BODY>
+</HTML>

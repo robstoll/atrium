@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>collectForComposition - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic</a>&nbsp;/&nbsp;<a href="./collect-for-composition.html">collectForComposition</a><br/>
+<br/>
+<h1>collectForComposition</h1>
+<a name="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">collectForComposition</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils.kt#L86">(source)</a>
+<p>Use this function if you want to collect <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+<p>This basically delegates to <a href="../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/collect-for-composition.html">AssertionCollector.collectForComposition</a> using the subject of the assertion
+as <code>maybeSubject</code>.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - A lambda which defines the assertions for the feature.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the given <a href="collect-for-composition.html#ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> did not create a single
+assertion.</p>
+<p><strong>Return</strong><br/>
+The collected assertions as a <code>List&lt;[Assertion]&gt;</code>.</p>
+</BODY>
+</HTML>

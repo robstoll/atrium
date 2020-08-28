@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>useSingleService - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.core.polyfills</a>&nbsp;/&nbsp;<a href="./use-single-service.html">useSingleService</a><br/>
+<br/>
+<h1>useSingleService</h1>
+<a name="ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">useSingleService</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="use-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/itr">itr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><a href="use-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="use-single-service.html#T"><span class="identifier">T</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/polyfills/loadService.kt#L29">(source)</a>
+<p>Returns the single service contained in <a href="use-single-service.html#ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/itr">itr</a> and throws if there is any ore more than one.</p>
+<h3>Exceptions</h3>
+<p><a name="NoSuchElementException"></a>
+<code>NoSuchElementException</code> - in case there is no service found for <a href="use-single-service.html#ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/kClass">kClass</a>.</p>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case there is more than one service found for <a href="use-single-service.html#ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/kClass">kClass</a>.</p>
+</BODY>
+</HTML>

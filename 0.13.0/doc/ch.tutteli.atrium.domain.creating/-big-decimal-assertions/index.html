@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BigDecimalAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating</a>&nbsp;/&nbsp;<a href="./index.html">BigDecimalAssertions</a><br/>
+<br/>
+<h1>BigDecimalAssertions</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">BigDecimalAssertions</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/BigDecimalAssertions.kt#L31">(source)</a><br/>
+<strong>Deprecated:</strong> Use BigDecimalAssertions from atrium-logic; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html">BigDecimal</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-equal-including-scale.html">isEqualIncludingScale</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <span class="identifier">isEqualIncludingScale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isEqualIncludingScale(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T, kotlin.String)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isEqualIncludingScale(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T, kotlin.String)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isEqualIncludingScale(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isEqualIncludingScale.T, kotlin.String)/nameOfIsNumericallyEqualTo">nameOfIsNumericallyEqualTo</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-not-equal-including-scale.html">isNotEqualIncludingScale</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <span class="identifier">isNotEqualIncludingScale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNotEqualIncludingScale(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotEqualIncludingScale.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotEqualIncludingScale.T)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-not-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNotEqualIncludingScale(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotEqualIncludingScale.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotEqualIncludingScale.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-not-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-not-numerically-equal-to.html">isNotNumericallyEqualTo</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <span class="identifier">isNotNumericallyEqualTo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNotNumericallyEqualTo(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotNumericallyEqualTo.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotNumericallyEqualTo.T)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-not-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNotNumericallyEqualTo(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotNumericallyEqualTo.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNotNumericallyEqualTo.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-not-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-numerically-equal-to.html">isNumericallyEqualTo</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <span class="identifier">isNumericallyEqualTo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNumericallyEqualTo(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNumericallyEqualTo.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNumericallyEqualTo.T)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.BigDecimalAssertions$isNumericallyEqualTo(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNumericallyEqualTo.T)), ch.tutteli.atrium.domain.creating.BigDecimalAssertions.isNumericallyEqualTo.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.creating/-big-decimal-assertions-builder/index.html">BigDecimalAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">BigDecimalAssertionsBuilder</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BigDecimalAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">BigDecimalAssertions</a>.
+In detail, it implements <a href="./index.html">BigDecimalAssertions</a> by delegating to <a href="../big-decimal-assertions.html">bigDecimalAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

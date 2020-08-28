@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>fixedClaimGroup - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./fixed-claim-group.html">fixedClaimGroup</a><br/>
+<br/>
+<h1>fixedClaimGroup</h1>
+<a name="ch.tutteli.atrium.assertions.builders$fixedClaimGroup#ch.tutteli.atrium.assertions.builders.AssertionBuilder"></a>
+<code><span class="keyword">val </span><a href="-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">fixedClaimGroup</span><span class="symbol">: </span><a href="-fixed-claim-group/-group-type-option/index.html"><span class="identifier">FixedClaimGroup.GroupTypeOption</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/fixedClaimGroup.kt#L21">(source)</a>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>).</p>
+<p>The intended use case is if all <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> are <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an
+<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>. Such groups always return <code>true</code> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> but you might want to
+explain a complex failing assertion with those groups. In such a use case this builder is your choice.</p>
+</BODY>
+</HTML>

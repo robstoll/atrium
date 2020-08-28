@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBe - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3</a>&nbsp;/&nbsp;<a href="./to-be.html">toBe</a><br/>
+<br/>
+<h1>toBe</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.success)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="to-be.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.success)/success">success</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b/success.html"><span class="identifier">success</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/kotlin_1_3/resultAssertions.kt#L19">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a Success
+and returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the inner type <a href="to-be.html#E">E</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given assertion is not a success.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> if the given assertion is success</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.E)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="to-be.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3$toBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.T)), ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator((ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe.E)))/success">success</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-success-with-creator/index.html"><span class="identifier">SuccessWithCreator</span></a><span class="symbol">&lt;</span><a href="to-be.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/infix-en_GB/extensions/kotlin_1_3/atrium-api-infix-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/kotlin_1_3/resultAssertions.kt#L33">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>]) is a Success and
+that it holds all assertions the given <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-success-with-creator/assertion-creator.html">SuccessWithCreator.assertionCreator</a> creates.</p>
+<p>Use the function <code>success { ... }</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-success-with-creator/index.html">SuccessWithCreator</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given assertions are not success.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

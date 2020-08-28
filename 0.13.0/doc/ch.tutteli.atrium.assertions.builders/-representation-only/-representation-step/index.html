@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RepresentationOnly.RepresentationStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="../index.html">RepresentationOnly</a>&nbsp;/&nbsp;<a href="./index.html">RepresentationStep</a><br/>
+<br/>
+<h1>RepresentationStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationStep</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/representationOnly.kt#L31">(source)</a>
+<p>Step which allows to specify an <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/representation.html">RepresentationOnlyAssertion.representation</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="test.html">test</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">test</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>The previously defined test which is used to determine <a href="../../../ch.tutteli.atrium.assertions/-assertion/holds.html">DescriptiveAssertion.holds</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-representation.html">withRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.RepresentationOnly.RepresentationStep$withRepresentation(kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">RepresentationOnly.FinalStep</span></a></code>
+<p>Uses the given <a href="with-representation.html#ch.tutteli.atrium.assertions.builders.RepresentationOnly.RepresentationStep$withRepresentation(kotlin.Any)/representation">representation</a> as <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/representation.html">RepresentationOnlyAssertion.representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.RepresentationOnly.RepresentationStep.Companion$create(kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">RepresentationOnly.RepresentationStep</span></a></code>
+<p>Factory method to create the <a href="./index.html">RepresentationStep</a> in the building process
+of an <a href="../../../ch.tutteli.atrium.assertions/-representation-only-assertion/index.html">RepresentationOnlyAssertion</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>get - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./get.html">get</a><br/>
+<br/>
+<h1>get</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/listAssertions.kt#L15">(source)</a>
+<p>Expects that the given <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</a> is within the bounds of the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at that position.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</a> is out of bound.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at position <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</a>.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator((ch.tutteli.atrium.api.infix.en_GB.get.E)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator((ch.tutteli.atrium.api.infix.en_GB.get.E)))/index">index</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/index.html"><span class="identifier">IndexWithCreator</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/listAssertions.kt#L29">(source)</a>
+<p>Expects that the given <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/--index--.html">index</a> is within the bounds of the subject of the assertion
+(a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and that the element at that position holds all assertions the given
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/assertion-creator.html">IndexWithCreator.assertionCreator</a> creates for it.</p>
+<p>Use the function <code>index(Int) { ... }</code> to create an <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/index.html">IndexWithCreator</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator((ch.tutteli.atrium.api.infix.en_GB.get.E)))/index">index</a> is out of bound or
+if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This assertion container to support a fluent API.</p>
+</BODY>
+</HTML>

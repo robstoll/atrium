@@ -1,0 +1,341 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.creating - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.creating</h2>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-container/index.html">AssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionContainer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="-assertion-container/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point of the logic level for subjects of type <a href="-assertion-container/index.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-holder/index.html">AssertionHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionHolder</span></code>
+<p>Represents a general interface which merely defines that assertions can be added to this type via the <a href="-assertion-holder/add-assertion.html">addAssertion</a>
+method.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-plant/index.html">AssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s based on a non nullable <a href="#">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-plant-nullable.html">AssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AssertionPlantNullable</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents an assertion plant for nullable types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-plant-with-common-fields/index.html">AssertionPlantWithCommonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AssertionPlantWithCommonFields</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>An assertion plant which has <a href="-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-assertion-plant/index.html">BaseAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">BaseAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-assertion-plant/index.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="-base-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers methods to <a href="-base-assertion-plant/add-assertion.html">addAssertion</a>s to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-collecting-assertion-plant/index.html">BaseCollectingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">BaseCollectingAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-collecting-assertion-plant/index.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-collecting-assertion-plant/index.html"><span class="identifier">BaseCollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-collecting-assertion-plant/index.html#A"><span class="identifier">A</span></a><span class="symbol">,</span>&nbsp;<a href="-base-collecting-assertion-plant/index.html#C"><span class="identifier">C</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-collecting-assertion-plant/index.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-base-assertion-plant/index.html">BaseAssertionPlant</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this assertion plant collects the so created assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-expect-config/index.html">BaseExpectConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">BaseExpectConfig</span></s></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-reporting-assertion-plant.html">BaseReportingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">BaseReportingAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-reporting-assertion-plant.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-base-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-base-reporting-assertion-plant.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-assertion-plant-with-common-fields/index.html"><span class="identifier">AssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><a href="-base-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers methods to <a href="-base-assertion-plant/add-assertion.html">addAssertion</a>s to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-checking-assertion-plant/index.html">CheckingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">CheckingAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-checking-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers the possibility to check whether <a href="-checking-assertion-plant/all-assertions-hold.html">allAssertionsHold</a> which have been
+<a href="#">added</a> to this plant (since the last check).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collecting-assertion-container/index.html">CollectingAssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">CollectingAssertionContainer</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-container/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a container for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this <a href="-expect/index.html">Expect</a> collects the assertions created this ways.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collecting-assertion-plant/index.html">CollectingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">CollectingAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-base-collecting-assertion-plant/index.html"><span class="identifier">BaseCollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-assertion-plant/index.html">AssertionPlant</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this assertion plant collects the so created assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collecting-assertion-plant-nullable.html">CollectingAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">CollectingAssertionPlantNullable</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-base-collecting-assertion-plant/index.html"><span class="identifier">BaseCollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="-collecting-assertion-plant-nullable.html"><span class="identifier">CollectingAssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-collecting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-assertion-plant-nullable.html">AssertionPlantNullable</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this assertion plant collects the so created assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collecting-expect/index.html">CollectingExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CollectingExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-collecting-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a container for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this <a href="-expect/index.html">Expect</a> collects the assertions created this way.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-delegating-expect/index.html">DelegatingExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DelegatingExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-delegating-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-expect/index.html">Expect</a> which passes on appended assertions to a given <a href="-assertion-holder/index.html">AssertionHolder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-error-messages/index.html">ErrorMessages</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ErrorMessages</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html"><span class="identifier">StringBasedTranslatable</span></a></code>
+<p>Contains translations which are used in error like messages.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect/index.html">Expect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Expect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> functions and sophisticated builders for subjects of type <a href="-expect/index.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect-internal.html">ExpectInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExpectInternal</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-expect-internal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="-expect-internal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="-assertion-container/index.html">AssertionContainer</a> from newcomers which usually don't have to deal with
+this.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-expect/index.html">FeatureExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-feature-expect/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-expect/index.html">Expect</a> which results due to a change of the <a href="-subject-provider/maybe-subject.html">Expect.maybeSubject</a> to a feature of the subject.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-expect-config/index.html">FeatureExpectConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">FeatureExpectConfig</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-expect-config/index.html"><span class="identifier">BaseExpectConfig</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-expect-options/index.html">FeatureExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FeatureExpectOptions</span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Additional (non-mandatory) options to create a <a href="-feature-expect/index.html">FeatureExpect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-maybe-subject/index.html">MaybeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><s><span class="identifier">MaybeSubject</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents a subject of an assertion which might be <a href="-maybe-subject/-present/index.html">Present</a> or <a href="-maybe-subject/-absent/index.html">Absent</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporting-assertion-container/index.html">ReportingAssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">ReportingAssertionContainer</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-root-expect/index.html"><span class="identifier">RootExpect</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-container/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a container for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers the possibility to <a href="#">addAssertion</a>s which are reported
+in case they do not hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporting-assertion-plant.html">ReportingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">ReportingAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-base-reporting-assertion-plant.html"><span class="identifier">BaseReportingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers the possibility to <a href="#">addAssertion</a>s and to report them.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporting-assertion-plant-nullable.html">ReportingAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">ReportingAssertionPlantNullable</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-base-reporting-assertion-plant.html"><span class="identifier">BaseReportingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="-reporting-assertion-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents an assertion plant for nullable types and offers the possibility to <a href="#">addAssertion</a>s and to report them.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-expect/index.html">RootExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RootExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-root-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the root of an <a href="-expect/index.html">Expect</a> chain, intended as extension point for functionality
+which should only be available on the root.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-expect-config/index.html">RootExpectConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">RootExpectConfig</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-expect-config/index.html"><span class="identifier">BaseExpectConfig</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-expect-options/index.html">RootExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RootExpectOptions</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Additional (non-mandatory) options to create a <a href="-root-expect/index.html">RootExpect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-subject-provider/index.html">SubjectProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SubjectProvider</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-holder/index.html"><span class="identifier">AssertionHolder</span></a></code>
+<p>Provides the subject of an <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Annotations</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assert-marker/index.html">AssertMarker</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><s><span class="identifier">AssertMarker</span></s></code>
+<p>DSL Marker for <a href="-assertion-plant/index.html">AssertionPlant</a> (and its type alias <a href="-assert.html">Assert</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect-marker/index.html">ExpectMarker</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">ExpectMarker</span></code>
+<p>DSL Marker for <a href="-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-experimental-expect-config/index.html">ExperimentalExpectConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><s><span class="identifier">ExperimentalExpectConfig</span></s></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">PlantHasNoSubjectException</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/index.html"><span class="identifier">RuntimeException</span></a></code>
+<p>Represents the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a> that an <a href="-subject-provider/subject.html">AssertionPlant.subject</a> was not defined but one tried to access it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Type Aliases</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assert.html">Assert</a></p>
+</td>
+<td>
+<code><span class="keyword">typealias </span><s><span class="identifier">Assert</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<a href="-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="-assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Type alias for <a href="-assertion-plant/index.html">AssertionPlant</a> which should be used in API modules.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

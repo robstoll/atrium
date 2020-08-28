@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableContains.Checker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.iterable.contains</a>&nbsp;/&nbsp;<a href="index.html">IterableContains</a>&nbsp;/&nbsp;<a href="./-checker.html">Checker</a><br/>
+<br/>
+<h1>Checker</h1>
+<code><span class="keyword">interface </span><span class="identifier">Checker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/index.html"><span class="identifier">Contains.Checker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains/IterableContains.kt#L57">(source)</a>
+<p>Represents a check for the search result such as:
+the object is contained exactly once in the input of the search.</p>
+<p>It provides the method <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/create-assertion.html">createAssertion</a> which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> representing this check.</p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/create-assertion.html">createAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.basic.contains.Contains.Checker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> representing this check based on the given <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker/create-assertion.html#ch.tutteli.atrium.domain.creating.basic.contains.Contains.Checker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</a> which is the result
+of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">Checker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Checker</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker.html"><span class="identifier">Contains.Checker</span></a><span class="symbol">, </span><a href="./-checker.html"><span class="identifier">IterableContains.Checker</span></a></code>
+<p>Represents a check for the search result such as: the object is contained exactly once in the input of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

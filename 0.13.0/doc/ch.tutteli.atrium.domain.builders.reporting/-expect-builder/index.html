@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExpectBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ExpectBuilder</a><br/>
+<br/>
+<h1>ExpectBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExpectBuilder</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/ExpectBuilder.kt#L22">(source)</a>
+<p>Defines the contract to create custom assertion verbs, <code>Expect&lt;T&gt;</code> respectively.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-verb-step/index.html">AssertionVerbStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionVerbStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to specify the assertion verb which shall be used.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Final step in the assertion verb building process, creates a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> based on the so far specified options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-chooser/index.html">OptionsChooser</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsChooser</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Helper lambda to specify <a href="../-expect-options/index.html">ExpectOptions</a> via convenience methods.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-step/index.html">OptionsStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to override previously defined properties -- such as use a different assertion verb -- but
+also allows to define options where usually a default value is used, such as use a customer <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="for-subject.html">forSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">forSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion$forSubject(ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion.forSubject.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="for-subject.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-assertion-verb-step/index.html"><span class="identifier">ExpectBuilder.AssertionVerbStep</span></a><span class="symbol">&lt;</span><a href="for-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="./index.html">ExpectBuilder</a> which helps in creating
+an assertion verb for the given <a href="for-subject.html#ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion$forSubject(ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion.forSubject.T)/subject">subject</a> or in other words an <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="for-subject.html#ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion$forSubject(ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder.Companion.forSubject.T)/subject">subject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

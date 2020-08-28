@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumErrorAdjusterCommon - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AtriumErrorAdjusterCommon</a><br/>
+<br/>
+<h1>AtriumErrorAdjusterCommon</h1>
+<code><span class="keyword">interface </span><span class="identifier">AtriumErrorAdjusterCommon</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/AtriumErrorAdjuster.kt#L16">(source)</a>
+<p>Defines the general contract for <a href="../-atrium-error/index.html">AtriumError</a> adjusters which all platforms have to fulfil.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="adjust.html">adjust</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">adjust</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adjusts the given <a href="adjust.html#ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</a> -  typically this involves filtering the stack trace
+(<code>stackTrace</code> in JVM, <code>stack</code> in JS) in some way or another as well as the stack traces of a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a>
+and other stack traces (e.g. stack traces of suppressed throwable in JVM).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="adjust-other-than-stacks.html">adjustOtherThanStacks</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">adjustOtherThanStacks</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjustOtherThanStacks(kotlin.Throwable)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adjusts parts of the given <a href="adjust-other-than-stacks.html#ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjustOtherThanStacks(kotlin.Throwable)/throwable">throwable</a> but not its stack trace.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">AtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AtriumErrorAdjusterCommon</span></a></code>
+<p>Responsible to adjust a given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> (usually an <a href="../-atrium-error/index.html">AtriumError</a>) for improved error reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

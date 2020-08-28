@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BasicDescriptiveAssertion - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">BasicDescriptiveAssertion</a><br/>
+<br/>
+<h1>BasicDescriptiveAssertion</h1>
+<code><span class="keyword">class </span><s><span class="identifier">BasicDescriptiveAssertion</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/assertions/BasicDescriptiveAssertion.kt#L14">(source)</a><br/>
+<strong>Deprecated:</strong> Use DescriptiveAssertion, do not rely on this specific type, will be made internal with 1.0.0<br/>
+<br/>
+<p>A default implementation for <a href="../-descriptive-assertion/index.html">DescriptiveAssertion</a> which lazily evaluates <a href="holds.html">holds</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BasicDescriptiveAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Boolean)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Boolean)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Boolean)/holds">holds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code>
+<p>Constructor overload with an eager <a href="holds.html">BasicDescriptiveAssertion.holds</a>.</p>
+<code><span class="identifier">BasicDescriptiveAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicDescriptiveAssertion$<init>(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code>
+<p>Constructor overload with a lazy <a href="holds.html">BasicDescriptiveAssertion.holds</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The <a href="description.html">BasicDescriptiveAssertion.description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The <a href="representation.html">BasicDescriptiveAssertion.representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-descriptive-assertion/expected.html">expected</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><s><span class="identifier">expected</span></s><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether the assertion holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

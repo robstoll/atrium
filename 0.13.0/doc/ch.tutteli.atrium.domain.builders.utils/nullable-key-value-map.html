@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>nullableKeyValueMap - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.domain.builders.utils</a>&nbsp;/&nbsp;<a href="./nullable-key-value-map.html">nullableKeyValueMap</a><br/>
+<br/>
+<h1>nullableKeyValueMap</h1>
+<a name="ch.tutteli.atrium.domain.builders.utils$nullableKeyValueMap(kotlin.collections.Map((ch.tutteli.atrium.domain.builders.utils.nullableKeyValueMap.K, ch.tutteli.atrium.domain.builders.utils.nullableKeyValueMap.V)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <span class="identifier">nullableKeyValueMap</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.utils$nullableKeyValueMap(kotlin.collections.Map((ch.tutteli.atrium.domain.builders.utils.nullableKeyValueMap.K, ch.tutteli.atrium.domain.builders.utils.nullableKeyValueMap.V)))/map">map</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="nullable-key-value-map.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="nullable-key-value-map.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="nullable-key-value-map.html#K"><span class="identifier">K</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="nullable-key-value-map.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92">(source)</a>
+<p>Turns a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> into a map with a nullable key and a nullable value type.</p>
+<p>Intended to be used in conjunction with <a href="https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types">platform types</a>
+such as <code>Map&lt;Int!, </code>String!`&gt;! or in other words, when you deal with Java and you want to turn a platform type into a
+nullable type.</p>
+<p>Basically it is a replacement for cast but without introducing one explicitly (we only give an additional hint to the
+compiler that we expect a nullable type and not a non-nullable one). For instance, instead of writing
+<code>getPersons() as Map&lt;String?, Person?&gt;</code> you can write <code>nullableKeyValueMap(getPersons())</code></p>
+</BODY>
+</HTML>

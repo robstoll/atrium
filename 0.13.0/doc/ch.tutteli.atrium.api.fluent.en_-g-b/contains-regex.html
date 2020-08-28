@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>containsRegex - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./contains-regex.html">containsRegex</a><br/>
+<br/>
+<h1>containsRegex</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="contains-regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsRegex</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/pattern">pattern</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/otherPatterns">otherPatterns</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="contains-regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/charSequenceAssertions.kt#L104">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given
+regular expression <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/pattern">pattern</a> as well as the <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/otherPatterns">otherPatterns</a> (if given), using a non disjoint search.</p>
+<p>It is a shortcut for <code>contains.atLeast(1).regex(pattern, *otherPatterns)</code>.</p>
+<p>By non disjoint is meant that <code>"aa"</code> in <code>"aaaa"</code> is found three times and not only two times.
+Also notice, that it does not search for unique matches. Meaning, if the input of the search is <code>"ab"</code> and <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/pattern">pattern</a>
+is defined as <code>"a(b)?"</code> and one of the <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.String, kotlin.Array((kotlin.String)))/otherPatterns">otherPatterns</a> is defined as <code>"a(b)?"</code> as well, then both match, even though
+they match the same sequence in the input of the search. Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to
+control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+<code>contains.exactly(2).regex("a(b)?")</code>
+instead of:
+<code>contains.atLeast(1).regex("a(b)?", "a(b)?")</code></p>
+<h3>Parameters</h3>
+<p><a name="pattern"></a>
+<code>pattern</code> - The pattern which is expected to have a match against the input of the search.</p>
+<p><a name="otherPatterns"></a>
+<code>otherPatterns</code> - Additional patterns which are expected to have a match against the input of the search.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="contains-regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsRegex</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/pattern">pattern</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/otherPatterns">otherPatterns</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="contains-regex.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/charSequenceAssertions.kt#L132">(source)</a>
+<p>Expects that the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given
+regular expression <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/pattern">pattern</a> as well as the <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/otherPatterns">otherPatterns</a> (if given), using a non disjoint search.</p>
+<p>It is a shortcut for <code>contains.atLeast(1).regex(pattern, *otherPatterns)</code>.</p>
+<p>By non disjoint is meant that <code>"aa"</code> in <code>"aaaa"</code> is found three times and not only two times.
+Also notice, that it does not search for unique matches. Meaning, if the input of the search is <code>"ab"</code> and <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/pattern">pattern</a>
+is defined as <code>"a(b)?"</code> and one of the <a href="contains-regex.html#ch.tutteli.atrium.api.fluent.en_GB$containsRegex(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.containsRegex.T)), kotlin.text.Regex, kotlin.Array((kotlin.text.Regex)))/otherPatterns">otherPatterns</a> is defined as <code>"a(b)?"</code> as well, then both match, even though
+they match the same sequence in the input of the search. Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to
+control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+<code>contains.exactly(2).regex(Regex("a(b)?"))</code>
+instead of:
+<code>contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))</code></p>
+<h3>Parameters</h3>
+<p><a name="pattern"></a>
+<code>pattern</code> - The pattern which is expected to have a match against the input of the search.</p>
+<p><a name="otherPatterns"></a>
+<code>otherPatterns</code> - Additional patterns which are expected to have a match against the input of the search.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+</BODY>
+</HTML>

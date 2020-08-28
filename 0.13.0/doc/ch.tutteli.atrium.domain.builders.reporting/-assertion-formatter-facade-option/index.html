@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterFacadeOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AssertionFormatterFacadeOption</a><br/>
+<br/>
+<h1>AssertionFormatterFacadeOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterFacadeOption</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/AssertionFormatterFacadeOption.kt#L13">(source)</a>
+<p>Provides options to create an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-formatter-controller.html">assertionFormatterController</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionFormatterController</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="object-formatter.html">objectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">objectFormatter</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html"><span class="identifier">ObjectFormatter</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="translator.html">translator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">translator</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-assertion-formatter-facade.html">withAssertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withAssertionFormatterFacade</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterFacadeOption$withAssertionFormatterFacade(kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatterFacade)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-assertion-pair-formatter-option/index.html"><span class="identifier">AssertionPairFormatterOption</span></a></code>
+<p>Uses the given <a href="with-assertion-formatter-facade.html#ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterFacadeOption$withAssertionFormatterFacade(kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionFormatterFacade)))/factory">factory</a> to build a custom <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-default-assertion-formatter-facade.html">withDefaultAssertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDefaultAssertionFormatterFacade</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-assertion-pair-formatter-option/index.html"><span class="identifier">AssertionPairFormatterOption</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory-common/new-assertion-formatter-facade.html">CoreFactory.newAssertionFormatterFacade</a> as <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterFacadeOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/assertionFormatterController">assertionFormatterController</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterFacadeOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/objectFormatter">objectFormatter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html"><span class="identifier">ObjectFormatter</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AssertionFormatterFacadeOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.ObjectFormatter, ch.tutteli.atrium.reporting.translating.Translator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html"><span class="identifier">Translator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionFormatterFacadeOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

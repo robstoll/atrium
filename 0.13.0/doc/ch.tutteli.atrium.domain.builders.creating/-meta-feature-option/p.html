@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MetaFeatureOption.p - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating</a>&nbsp;/&nbsp;<a href="index.html">MetaFeatureOption</a>&nbsp;/&nbsp;<a href="./p.html">p</a><br/>
+<br/>
+<h1>p</h1>
+<a name="ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption$p(kotlin.reflect.KProperty0((ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption.p.R)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">p</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption$p(kotlin.reflect.KProperty0((ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption.p.R)))/property">property</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property0/index.html"><span class="identifier">KProperty0</span></a><span class="symbol">&lt;</span><a href="p.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating/-meta-feature/index.html"><span class="identifier">MetaFeature</span></a><span class="symbol">&lt;</span><a href="p.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/NewFeatureAssertionsBuilder.kt#L214">(source)</a>
+<p>Creates a <a href="../../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a> for the given property <a href="p.html#ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption$p(kotlin.reflect.KProperty0((ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption.p.R)))/property">property</a>.</p>
+<p>Notice for assertion function writers: you should use <a href="../../ch.tutteli.atrium.domain.builders/-expect-impl/index.html">ExpectImpl</a>.<a href="../../ch.tutteli.atrium.domain.builders/-expect-impl/feature.html">feature</a> and pass a
+class reference instead of using this convenience function (e.g. <code>ExpectImpl.feature(List&lt;Int&gt;::size)</code>).
+This way we are always able to report the property, even if the subject is not defined which occurs if a
+previous transformation of the subject could not be carried out.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumErrorAdjusterOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">AtriumErrorAdjusterOption</a><br/>
+<br/>
+<h1>AtriumErrorAdjusterOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">AtriumErrorAdjusterOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-atrium-error-adjuster-common-option/index.html"><span class="identifier">AtriumErrorAdjusterCommonOption</span></a><span class="symbol">&lt;</span><a href="../-reporter-option/index.html"><span class="identifier">ReporterOption</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/reporting/AtriumErrorAdjusterOption.kt#L13">(source)</a>
+<p>Provides options to create an <a href="./index.html">AtriumErrorAdjusterOption</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-formatter-facade.html">assertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionFormatterFacade</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-custom-reporter.html">withCustomReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">withCustomReporter</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AtriumErrorAdjusterOption$withCustomReporter(kotlin.Function1((ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.Reporter)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-builder-final-step/index.html"><span class="identifier">ReporterBuilderFinalStep</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="with-default-atrium-error-adjusters.html">withDefaultAtriumErrorAdjusters</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withDefaultAtriumErrorAdjusters</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-option/index.html"><span class="identifier">ReporterOption</span></a></code>
+<p>Uses <a href="with-multiple-adjusters.html">withMultipleAdjusters</a> and applies <a href="../-atrium-error-adjuster-common-option/with-remove-runner-atrium-error-adjuster.html">withRemoveRunnerAtriumErrorAdjuster</a>
+and <a href="../-atrium-error-adjuster-common-option/with-remove-atrium-from-atrium-error-adjuster.html">withRemoveAtriumFromAtriumErrorAdjuster</a> -- the default configuration might change in the future.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-multiple-adjusters.html">withMultipleAdjusters</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withMultipleAdjusters</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AtriumErrorAdjusterOption$withMultipleAdjusters(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.MultipleAdjustersOption, kotlin.Unit)))/configure">configure</span><span class="symbol">:</span>&nbsp;<a href="../-multiple-adjusters-option/index.html"><span class="identifier">MultipleAdjustersOption</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-option/index.html"><span class="identifier">ReporterOption</span></a></code>
+<p>Uses the <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which are defined via the <a href="with-multiple-adjusters.html#ch.tutteli.atrium.domain.builders.reporting.AtriumErrorAdjusterOption$withMultipleAdjusters(kotlin.Function1((ch.tutteli.atrium.domain.builders.reporting.MultipleAdjustersOption, kotlin.Unit)))/configure">configure</a> lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-no-op-atrium-error-adjuster.html">withNoOpAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withNoOpAtriumErrorAdjuster</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-option/index.html"><span class="identifier">ReporterOption</span></a></code>
+<p>Uses an <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which does not adjust a given <a href="../../ch.tutteli.atrium.reporting/-atrium-error/index.html">AtriumError</a> but functions as an identity function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-only-failure-reporter.html">withOnlyFailureReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">withOnlyFailureReporter</span></s><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-builder-final-step/index.html"><span class="identifier">ReporterBuilderFinalStep</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-atrium-error-adjuster-common-option/with-atrium-error-adjuster.html">withAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withAtriumErrorAdjuster</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AtriumErrorAdjusterCommonOption$withAtriumErrorAdjuster(ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/adjuster">adjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-atrium-error-adjuster-common-option/index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses the given <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> as custom <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-atrium-error-adjuster-common-option/with-remove-atrium-from-atrium-error-adjuster.html">withRemoveAtriumFromAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRemoveAtriumFromAtriumErrorAdjuster</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-atrium-error-adjuster-common-option/index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses an <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which removes stackBacktrace frames of Atrium from a given <a href="../../ch.tutteli.atrium.reporting/-atrium-error/index.html">AtriumError</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-atrium-error-adjuster-common-option/with-remove-runner-atrium-error-adjuster.html">withRemoveRunnerAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRemoveRunnerAtriumErrorAdjuster</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-atrium-error-adjuster-common-option/index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses an <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which removes stackBacktrace frames of test runners from a given <a href="../../ch.tutteli.atrium.reporting/-atrium-error/index.html">AtriumError</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.AtriumErrorAdjusterOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterFacade)/assertionFormatterFacade">assertionFormatterFacade</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AtriumErrorAdjusterOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

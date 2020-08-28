@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBeNullIfNullGivenElse - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-be-null-if-null-given-else.html">toBeNullIfNullGivenElse</a><br/>
+<br/>
+<h1>toBeNullIfNullGivenElse</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toBeNullIfNullGivenElse(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-null-if-null-given-else.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeNullIfNullGivenElse</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toBeNullIfNullGivenElse(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-null-if-null-given-else.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-null-if-null-given-else.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyAssertions.kt#L55">(source)</a>
+<p>Expects that the subject of the assertion is either <code>null</code> in case <a href="to-be-null-if-null-given-else.html#ch.tutteli.atrium.api.fluent.en_GB$toBeNullIfNullGivenElse(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a>
+is <code>null</code> or is not <code>null</code> and holds all assertions <a href="to-be-null-if-null-given-else.html#ch.tutteli.atrium.api.fluent.en_GB$toBeNullIfNullGivenElse(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBeNullIfNullGivenElse.T)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> creates.</p>
+<p>Depending on the implementation, it is not much more than a shortcut for</p>
+<pre><code class="lang-kotlin">if (assertionCreatorOrNull == null) toBe(null)
+else notToBeNull(assertionCreatorOrNull)
+</code></pre>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

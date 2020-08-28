@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectChanger.FailureHandler - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.changers</a>&nbsp;/&nbsp;<a href="../index.html">SubjectChanger</a>&nbsp;/&nbsp;<a href="./index.html">FailureHandler</a><br/>
+<br/>
+<h1>FailureHandler</h1>
+<code><span class="keyword">interface </span><span class="identifier">FailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/changers/SubjectChanger.kt#L110">(source)</a>
+<p>Represents a handler which is responsible to create the assertion resulting from a failed subject change.</p>
+<p>A handler should augment the failing assertion with explanatory assertions in case the user supplied an
+assertionCreator lambda. Yet, a failure handler might also add additional information -- e.g. regarding the
+current subject.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the subject</p>
+<p><a name="R"></a>
+<code>R</code> - The type of the subject after the subject change (if it were possible).</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-assertion.html">createAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler$createAssertion(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.T)), ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.core.Option((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.R)), kotlin.Unit)))))/originalAssertionContainer">originalAssertionContainer</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler$createAssertion(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.T)), ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.core.Option((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.R)), kotlin.Unit)))))/descriptiveAssertion">descriptiveAssertion</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler$createAssertion(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.T)), ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.core.Option((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.R)), kotlin.Unit)))))/maybeAssertionCreator">maybeAssertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates the failing assertion most likely based on the given <a href="create-assertion.html#ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler$createAssertion(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.T)), ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.core.Option((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.R)), kotlin.Unit)))))/descriptiveAssertion">descriptiveAssertion</a> -- which in turn
+is based on the previously specified description, representation etc. -- and should incorporate
+the assertions <a href="create-assertion.html#ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler$createAssertion(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.T)), ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.core.Option((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler.R)), kotlin.Unit)))))/maybeAssertionCreator">maybeAssertionCreator</a> would have created for the new subject as explanatory assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-failure-handler-adapter/index.html">FailureHandlerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FailureHandlerAdapter</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R1</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="../../-failure-handler-adapter/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../-failure-handler-adapter/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="./index.html">SubjectChanger.FailureHandler</a> which as an adapter for another failure handler by mapping first
+the given subject to another type <a href="../../-failure-handler-adapter/index.html#R1">R1</a> which is understood as input of the other failure handler.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

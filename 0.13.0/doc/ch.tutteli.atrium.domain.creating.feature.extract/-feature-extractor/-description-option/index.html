@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor.DescriptionOption - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractor</a>&nbsp;/&nbsp;<a href="./index.html">DescriptionOption</a><br/>
+<br/>
+<h1>DescriptionOption</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">DescriptionOption</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L39">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Option step which allows to specify the description which will be used to describe the feature.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="feature.html">feature</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">feature</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$feature(kotlin.Function0((kotlin.String)))/featureRepresentation">featureRepresentation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameter-object-option/index.html"><span class="identifier">FeatureExtractor.ParameterObjectOption</span></a></code>
+<p>Uses the given <a href="feature.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$feature(kotlin.Function0((kotlin.String)))/featureRepresentation">featureRepresentation</a> as description.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="method-call.html">methodCall</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">methodCall</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameter-object-option/index.html"><span class="identifier">FeatureExtractor.ParameterObjectOption</span></a></code>
+<p>Uses <a href="../../../ch.tutteli.atrium.core/core-factory.html">coreFactory</a>.<a href="../../../ch.tutteli.atrium.core/-core-factory-common/new-method-call-formatter.html">newMethodCallFormatter</a> to create a description
+of a method call with the given <a href="method-call.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</a> and the given <a href="method-call.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameter-object-option/index.html"><span class="identifier">FeatureExtractor.ParameterObjectOption</span></a></code>
+<p>Uses the given <a href="with-description.html#ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.DescriptionOption$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> as description of the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

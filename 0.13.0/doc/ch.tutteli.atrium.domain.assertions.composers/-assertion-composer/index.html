@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionComposer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.assertions.composers</a>&nbsp;/&nbsp;<a href="./index.html">AssertionComposer</a><br/>
+<br/>
+<h1>AssertionComposer</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">AssertionComposer</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/assertions/composers/AssertionComposer.kt#L23">(source)</a><br/>
+<strong>Deprecated:</strong> Use ExpectImpl.builder.descriptive.withFailureHint instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Responsible to compose <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s based on the <a href="../../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-descriptive-with-failure-hint.html">createDescriptiveWithFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createDescriptiveWithFailureHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/showHint">showHint</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Shall create kind of a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> if <a href="create-descriptive-with-failure-hint.html#ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/test">test</a> holds or an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which includes additionally
+a failure hint created by the given <a href="create-descriptive-with-failure-hint.html#ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</a> in case <a href="create-descriptive-with-failure-hint.html#ch.tutteli.atrium.domain.assertions.composers.AssertionComposer$createDescriptiveWithFailureHint(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function0((kotlin.Boolean)), kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/showHint">showHint</a> evaluates to <code>true</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

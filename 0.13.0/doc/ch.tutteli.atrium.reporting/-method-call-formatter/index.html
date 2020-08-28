@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MethodCallFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">MethodCallFormatter</a><br/>
+<br/>
+<h1>MethodCallFormatter</h1>
+<code><span class="keyword">interface </span><span class="identifier">MethodCallFormatter</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/MethodCallFormatter.kt#L6">(source)</a>
+<p>Responsible to format a method call in reporting.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">format</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.MethodCallFormatter$format(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.MethodCallFormatter$format(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns a lazy representation of the method call to a method named <a href="format.html#ch.tutteli.atrium.reporting.MethodCallFormatter$format(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</a> with the given <a href="format.html#ch.tutteli.atrium.reporting.MethodCallFormatter$format(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format-argument.html">formatArgument</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatArgument</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.MethodCallFormatter$formatArgument(kotlin.Any)/argument">argument</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Formats the given <a href="format-argument.html#ch.tutteli.atrium.reporting.MethodCallFormatter$formatArgument(kotlin.Any)/argument">argument</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format-call.html">formatCall</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatCall</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.MethodCallFormatter$formatCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.MethodCallFormatter$formatCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns a representation of a method call to a method named <a href="format-call.html#ch.tutteli.atrium.reporting.MethodCallFormatter$formatCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</a> with the given <a href="format-call.html#ch.tutteli.atrium.reporting.MethodCallFormatter$formatCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

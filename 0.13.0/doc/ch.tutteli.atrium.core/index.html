@@ -1,0 +1,175 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.core - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.core</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.core</h2>
+<p>Contains the <a href="./ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-core-factory/index.html">CoreFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">CoreFactory</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-core-factory-common/index.html"><span class="identifier">CoreFactoryCommon</span></a></code>
+<p>The platform specific minimum contract of the 'abstract factory' of atrium-core.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-core-factory-common/index.html">CoreFactoryCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CoreFactoryCommon</span></code>
+<p>The minimum contract of the 'abstract factory' of atrium-core for any platform.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-either/index.html">Either</a></p>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">Either</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">L</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Represents a disjoint union i.e. a type with two possibilities, either <a href="-left/index.html">Left</a> or <a href="-right/index.html">Right</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-left/index.html">Left</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Left</span><span class="symbol">&lt;</span><span class="identifier">L</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="-left/index.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code>
+<p>The left case of an <a href="-either/index.html">Either</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-none.html">None</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">None</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an absent value in terms of <a href="-option/index.html">Option</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-option/index.html">Option</a></p>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">Option</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an optional value with <a href="-option/map.html">map</a>, <a href="-option/flat-map.html">flatMap</a>, <a href="-option/fold.html">fold</a> and <a href="get-or-else.html">getOrElse</a> to transform it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-right/index.html">Right</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Right</span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">,</span>&nbsp;<a href="-right/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>The right case of an <a href="-either/index.html">Either</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-some/index.html">Some</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Some</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="-some/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a present value in terms of <a href="-option/index.html">Option</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Annotations</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-experimental-new-expect-types/index.html">ExperimentalNewExpectTypes</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">ExperimentalNewExpectTypes</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="kotlin.-function0/index.html">kotlin.Function0</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="core-factory.html">coreFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">coreFactory</span><span class="symbol">: </span><a href="-core-factory/index.html"><span class="identifier">CoreFactory</span></a></code>
+<p>The access point to an implementation of <a href="-core-factory/index.html">CoreFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="false-provider.html">falseProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">falseProvider</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns <code>false</code> on calling.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="true-provider.html">trueProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">trueProvider</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns <code>true</code> on calling.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="flat-map.html">flatMap</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">L</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">flatMap</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$flatMap(ch.tutteli.atrium.core.Either((ch.tutteli.atrium.core.flatMap.L, ch.tutteli.atrium.core.flatMap.R)), kotlin.Function1((ch.tutteli.atrium.core.flatMap.R, ch.tutteli.atrium.core.Either((ch.tutteli.atrium.core.flatMap.L, ch.tutteli.atrium.core.flatMap.T)))))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="flat-map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="flat-map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-or-else.html">getOrElse</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="get-or-else.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOrElse</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$getOrElse(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.getOrElse.T)), kotlin.Function0((ch.tutteli.atrium.core.getOrElse.T)))/default">default</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="get-or-else.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="get-or-else.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="new-reporting-plant-nullable.html">newReportingPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-core-factory-common/index.html"><span class="identifier">CoreFactoryCommon</span></a><span class="symbol">.</span><s><span class="identifier">newReportingPlantNullable</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.reporting.Reporter, kotlin.Any)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.reporting.Reporter, kotlin.Any)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="new-reporting-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.reporting.Reporter, kotlin.Any)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.reporting.Reporter, kotlin.Any)/nullRepresentation">nullRepresentation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Text.NULL<span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-reporting-assertion-plant-nullable.html"><span class="identifier">ReportingAssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="new-reporting-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-core-factory-common/index.html"><span class="identifier">CoreFactoryCommon</span></a><span class="symbol">.</span><s><span class="identifier">newReportingPlantNullable</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.checking.AssertionChecker, kotlin.Any)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.checking.AssertionChecker, kotlin.Any)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="new-reporting-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.checking.AssertionChecker, kotlin.Any)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core$newReportingPlantNullable(ch.tutteli.atrium.core.CoreFactoryCommon, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((ch.tutteli.atrium.core.newReportingPlantNullable.T)), ch.tutteli.atrium.checking.AssertionChecker, kotlin.Any)/nullRepresentation">nullRepresentation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Text.NULL<span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-reporting-assertion-plant-nullable.html"><span class="identifier">ReportingAssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="new-reporting-plant-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="../ch.tutteli.atrium.creating/-reporting-assertion-plant-nullable.html">ReportingAssertionPlantNullable</a> which is the entry point for assertions about nullable types.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

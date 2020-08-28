@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReportingAssertionContainer.AssertionCheckerDecorator - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="../index.html">ReportingAssertionContainer</a>&nbsp;/&nbsp;<a href="./index.html">AssertionCheckerDecorator</a><br/>
+<br/>
+<h1>AssertionCheckerDecorator</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionCheckerDecorator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/ReportingAssertionContainer.kt#L33">(source)</a>
+<p>Represents a decorator for <a href="../../../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a> which passes a specified assertion verb, representation
+and assertions to <a href="../../../ch.tutteli.atrium.checking/-assertion-checker/check.html">AssertionChecker.check</a> for the given <a href="maybe-subject.html">maybeSubject</a>.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the <a href="maybe-subject.html">maybeSubject</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-checker.html">assertionChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionChecker</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a></code>
+<p>The <a href="../../../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a> which shall be used for checking the assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="assertion-verb.html">assertionVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionVerb</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="maybe-subject.html">maybeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maybeSubject</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Either <a href="../../../ch.tutteli.atrium.core/-some/index.html">Some</a> wrapping the subject of the current assertion or
+<a href="../../../ch.tutteli.atrium.core/-none.html">None</a> in case a previous subject change was not successful.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="check.html">check</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">check</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator$check(kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses <a href="assertion-checker.html">assertionChecker</a> to check the given <a href="check.html#ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator$check(kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> (see <a href="../../../ch.tutteli.atrium.checking/-assertion-checker/check.html">AssertionChecker.check</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion$create(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion.create.T)), kotlin.Any, ch.tutteli.atrium.checking.AssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion$create(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion.create.T)), kotlin.Any, ch.tutteli.atrium.checking.AssertionChecker)/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion$create(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion.create.T)), kotlin.Any, ch.tutteli.atrium.checking.AssertionChecker)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion$create(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator.Companion.create.T)), kotlin.Any, ch.tutteli.atrium.checking.AssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ReportingAssertionContainer.AssertionCheckerDecorator</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="./index.html">AssertionCheckerDecorator</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

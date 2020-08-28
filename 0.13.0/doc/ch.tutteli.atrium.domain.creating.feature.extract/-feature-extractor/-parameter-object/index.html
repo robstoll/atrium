@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractor.ParameterObject - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.feature.extract</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractor</a>&nbsp;/&nbsp;<a href="./index.html">ParameterObject</a><br/>
+<br/>
+<h1>ParameterObject</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">ParameterObject</span></s><span class="symbol">&lt;</span><span class="identifier">TSubject</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/feature/extract/FeatureExtractor.kt#L167">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from `Assert` to `Expect` and use then FeatureExtractor from package ch.tutteli.atrium.domain.creating.changers instead; will be removed with 1.0.0<br/>
+<br/>
+<p>A parameter object which contains all necessary information to extract a feature -- however, not to create
+assertions.</p>
+<h3>Parameters</h3>
+<p><a name="subjectPlant"></a>
+<code>subjectPlant</code> - The <a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> which contains the subject from which the subject is extracted.</p>
+<p><a name="extractionNotSuccessful"></a>
+<code>extractionNotSuccessful</code> - Used as <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a> in case <a href="can-be-extracted.html">canBeExtracted</a>
+evaluates to false.</p>
+<p><a name="warningCannotEvaluate"></a>
+<code>warningCannotEvaluate</code> - The <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> used to explain why the extraction could not be carried out.</p>
+<p><a name="canBeExtracted"></a>
+<code>canBeExtracted</code> - Indicates whether it is safe to extract the feature or not (e.g. <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/contains-key.html">Map.containsKey</a> as
+counter part to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html">Map.get</a>)</p>
+<p><a name="featureExtraction"></a>
+<code>featureExtraction</code> - The feature extraction as such (e.g. <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html">Map.get</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html">List.get</a> etc.)</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ParameterObject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject$<init>(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, kotlin.Boolean)), kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.T)))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject$<init>(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, kotlin.Boolean)), kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.T)))/extractionNotSuccessful">extractionNotSuccessful</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject$<init>(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, kotlin.Boolean)), kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.T)))/warningCannotEvaluate">warningCannotEvaluate</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject$<init>(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, kotlin.Boolean)), kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.T)))/canBeExtracted">canBeExtracted</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject$<init>(ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, kotlin.Boolean)), kotlin.Function1((ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.TSubject, ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor.ParameterObject.T)))/featureExtraction">featureExtraction</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span></code>
+<p>A parameter object which contains all necessary information to extract a feature -- however, not to create
+assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="can-be-extracted.html">canBeExtracted</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canBeExtracted</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether it is safe to extract the feature or not (e.g. <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/contains-key.html">Map.containsKey</a> as
+counter part to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html">Map.get</a>)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="extraction-not-successful.html">extractionNotSuccessful</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">extractionNotSuccessful</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>Used as <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a> in case <a href="can-be-extracted.html">canBeExtracted</a>
+evaluates to false.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="feature-extraction.html">featureExtraction</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">featureExtraction</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>The feature extraction as such (e.g. <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html">Map.get</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html">List.get</a> etc.)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject-plant.html">subjectPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">subjectPlant</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#TSubject"><span class="identifier">TSubject</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span></code>
+<p>The <a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> which contains the subject from which the subject is extracted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="warning-cannot-evaluate.html">warningCannotEvaluate</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">warningCannotEvaluate</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> used to explain why the extraction could not be carried out.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

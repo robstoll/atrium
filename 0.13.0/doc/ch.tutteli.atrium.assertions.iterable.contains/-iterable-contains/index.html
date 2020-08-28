@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableContains - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.iterable.contains</a>&nbsp;/&nbsp;<a href="./index.html">IterableContains</a><br/>
+<br/>
+<h1>IterableContains</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">IterableContains</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/atrium-domain-api-deprecated/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains/IterableContains.kt#L18">(source)</a><br/>
+<strong>Deprecated:</strong> Use the interface from package domain.creating; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the <em>deprecated</em> contract for sophisticated <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> <code>contains</code> assertions.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-checker.html">Checker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Checker</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker.html"><span class="identifier">Contains.Checker</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker.html"><span class="identifier">IterableContains.Checker</span></a></code>
+<p>Represents a check for the search result such as: the object is contained exactly once in the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Creator</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator.html"><span class="identifier">Contains.Creator</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-creator.html"><span class="identifier">IterableContains.Creator</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">SearchBehaviour</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-search-behaviour.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html"><span class="identifier">IterableContains.SearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-creator.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

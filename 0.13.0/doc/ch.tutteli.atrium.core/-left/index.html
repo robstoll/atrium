@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Left - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="./index.html">Left</a><br/>
+<br/>
+<h1>Left</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Left</span><span class="symbol">&lt;</span><span class="identifier">L</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="index.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/core/Either.kt#L25">(source)</a>
+<p>The left case of an <a href="../-either/index.html">Either</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Left</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Left$<init>(ch.tutteli.atrium.core.Left.L)/l">l</span><span class="symbol">:</span>&nbsp;<a href="index.html#L"><span class="identifier">L</span></a><span class="symbol">)</span></code>
+<p>The left case of an <a href="../-either/index.html">Either</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="l.html">l</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">l</span><span class="symbol">: </span><a href="index.html#L"><span class="identifier">L</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-either/fold.html">fold</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">fold</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Either$fold(kotlin.Function1((ch.tutteli.atrium.core.Either.L, ch.tutteli.atrium.core.Either.fold.T)), kotlin.Function1((ch.tutteli.atrium.core.Either.R, ch.tutteli.atrium.core.Either.fold.T)))/fL">fL</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-either/index.html#L"><span class="identifier">L</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-either/fold.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.Either$fold(kotlin.Function1((ch.tutteli.atrium.core.Either.L, ch.tutteli.atrium.core.Either.fold.T)), kotlin.Function1((ch.tutteli.atrium.core.Either.R, ch.tutteli.atrium.core.Either.fold.T)))/fR">fR</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-either/index.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-either/fold.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-either/fold.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-either/map.html">map</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">map</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.Either$map(kotlin.Function1((ch.tutteli.atrium.core.Either.R, ch.tutteli.atrium.core.Either.map.T)))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-either/index.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-either/map.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="../-either/index.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="../-either/map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-either/to-option.html">toOption</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toOption</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../-either/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../flat-map.html">flatMap</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">L</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="../flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="../flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">flatMap</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core$flatMap(ch.tutteli.atrium.core.Either((ch.tutteli.atrium.core.flatMap.L, ch.tutteli.atrium.core.flatMap.R)), kotlin.Function1((ch.tutteli.atrium.core.flatMap.R, ch.tutteli.atrium.core.Either((ch.tutteli.atrium.core.flatMap.L, ch.tutteli.atrium.core.flatMap.T)))))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../flat-map.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="../flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="../flat-map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-either/index.html"><span class="identifier">Either</span></a><span class="symbol">&lt;</span><a href="../flat-map.html#L"><span class="identifier">L</span></a><span class="symbol">,</span>&nbsp;<a href="../flat-map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

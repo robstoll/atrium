@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.creating.changers - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.creating.changers</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.creating.changers</h2>
+<p>Contains contracts for subject-change related functionality such as 
+<a href="./ch.tutteli.atrium.domain.creating.changers/-subject-changer/index.html">SubjectChanger</a>
+and <a href="./ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html">ExtractedFeaturePostStep</a></p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-changed-subject-post-step/index.html">ChangedSubjectPostStep</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ChangedSubjectPostStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-post-final-step/index.html"><span class="identifier">PostFinalStep</span></a><span class="symbol">&lt;</span><a href="-changed-subject-post-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-changed-subject-post-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-changed-subject-post-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to decide what should be done with the transformed subject of type <a href="-changed-subject-post-step/index.html#R">R</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-extracted-feature-post-step/index.html">ExtractedFeaturePostStep</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExtractedFeaturePostStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-post-final-step/index.html"><span class="identifier">PostFinalStep</span></a><span class="symbol">&lt;</span><a href="-extracted-feature-post-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-extracted-feature-post-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="-extracted-feature-post-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-extracted-feature-post-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to decide what should be done with the extracted feature of type <a href="-extracted-feature-post-step/index.html#R">R</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-failure-handler-adapter/index.html">FailureHandlerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FailureHandlerAdapter</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R1</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-subject-changer/-failure-handler/index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="-failure-handler-adapter/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-failure-handler-adapter/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-subject-changer/-failure-handler/index.html">SubjectChanger.FailureHandler</a> which as an adapter for another failure handler by mapping first
+the given subject to another type <a href="-failure-handler-adapter/index.html#R1">R1</a> which is understood as input of the other failure handler.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-extractor/index.html">FeatureExtractor</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractor</span></code>
+<p>Defines the contract for sophisticated <code>safe feature extractions</code> including assertion creation for the feature.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-post-final-step/index.html">PostFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">PostFinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-post-final-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Step which kind of holds the state of a previous final step related to a subject change/feature extraction etc.
+and now allows to decide what should happen with it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-subject-changer/index.html">SubjectChanger</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SubjectChanger</span></code>
+<p>Defines the contract to change the subject of an assertion container (e.g. the subject of <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>) by creating
+a new <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> whereas the new <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> delegates assertion checking to a given original assertion container.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="feature-extractor.html">featureExtractor</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">featureExtractor</span><span class="symbol">: </span><a href="-feature-extractor/index.html"><span class="identifier">FeatureExtractor</span></a></code>
+<p>The access point to an implementation of <a href="-feature-extractor/index.html">FeatureExtractor</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject-changer.html">subjectChanger</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">subjectChanger</span><span class="symbol">: </span><a href="-subject-changer/index.html"><span class="identifier">SubjectChanger</span></a></code>
+<p>The access point to an implementation of <a href="-subject-changer/index.html">SubjectChanger</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

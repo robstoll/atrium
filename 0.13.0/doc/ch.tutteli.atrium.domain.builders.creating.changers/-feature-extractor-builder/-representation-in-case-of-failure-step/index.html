@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder.RepresentationInCaseOfFailureStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.builders.creating.changers</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractorBuilder</a>&nbsp;/&nbsp;<a href="./index.html">RepresentationInCaseOfFailureStep</a><br/>
+<br/>
+<h1>RepresentationInCaseOfFailureStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationInCaseOfFailureStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/changers/FeatureExtractorBuilder.kt#L80">(source)</a>
+<p>Step which allows to to define the representation which shall be used
+in case the extraction cannot be performed.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the current subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously specified description which describes the kind of feature extraction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="original-assertion-container.html">originalAssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">originalAssertionContainer</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified assertion container from which we are going to extract the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-representation-for-failure.html">withRepresentationForFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withRepresentationForFailure</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep$withRepresentationForFailure(kotlin.Function0((kotlin.Any)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-feature-extraction-step/index.html"><span class="identifier">FeatureExtractorBuilder.FeatureExtractionStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-representation-for-failure.html#ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep$withRepresentationForFailure(kotlin.Function0((kotlin.Any)))/representationProvider">representationProvider</a>, by turning it into a <a href="../../../ch.tutteli.atrium.reporting/-lazy-representation/index.html">LazyRepresentation</a>,
+to get the representation which will be used in case the extraction cannot be performed.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRepresentationForFailure</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep$withRepresentationForFailure(kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-feature-extraction-step/index.html"><span class="identifier">FeatureExtractorBuilder.FeatureExtractionStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-representation-for-failure.html#ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep$withRepresentationForFailure(kotlin.Any)/representation">representation</a> in case the extraction cannot be performed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep.Companion$create(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep.Companion.create.T)), ch.tutteli.atrium.reporting.translating.Translatable)/originalAssertionContainer">originalAssertionContainer</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep.Companion$create(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep.Companion.create.T)), ch.tutteli.atrium.reporting.translating.Translatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FeatureExtractorBuilder.RepresentationInCaseOfFailureStep</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="./index.html">RepresentationInCaseOfFailureStep</a> in the context of the <a href="../index.html">FeatureExtractorBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

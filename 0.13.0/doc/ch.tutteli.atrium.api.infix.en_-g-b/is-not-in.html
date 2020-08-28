@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isNotIn - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./is-not-in.html">isNotIn</a><br/>
+<br/>
+<h1>isNotIn</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$isNotIn(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isNotIn.T)), kotlin.Any)"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-not-in.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotIn</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$isNotIn(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isNotIn.T)), kotlin.Any)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-not-in.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L257">(source)</a>
+<p>Expects that the subject of the assertion is not (equal to) any value of <a href="is-not-in.html#ch.tutteli.atrium.api.infix.en_GB$isNotIn(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isNotIn.T)), kotlin.Any)/expected">expected</a>.</p>
+<p>Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> or one of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a> types
+are passed. This function expects <a href="../ch.tutteli.atrium.domain.creating.typeutils/-iterable-like.html">IterableLike</a> (which is a typealias for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>) to avoid cluttering the API.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the iterable is empty.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.13.0</p>
+</BODY>
+</HTML>

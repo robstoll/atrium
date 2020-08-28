@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToBe - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-be.html">notToBe</a><br/>
+<br/>
+<h1>notToBe</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">notToBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/anyAssertions.kt#L64">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> is not (equal to) <a href="not-to-be.html#ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)/expected">expected</a>.</p>
+<p>This method might enforce in the future, that <a href="not-to-be.html#ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)/expected">expected</a> has to be the same type as <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a>.
+Currently the following is possible: <code>assert(1).notToBe(1.0)</code></p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Keyword)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">notToBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Keyword)/keyword">keyword</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/-keyword.html"><span class="identifier">Keyword</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html"><span class="identifier">Nothing</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/anyAssertions.kt#L69">(source)</a><br/>
+<strong>Deprecated:</strong> This call will most probably fail at runtime because the given subject is not a collection as you might have assumed. If you really want to compare the subject against the keyword, then cast the keyword to Any<br/>
+<br/>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">notToBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty)/Empty">Empty</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/-empty.html"><span class="identifier">Empty</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/charSequenceAssertions.kt#L341">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-not-empty.html">kotlin.text.isNotEmpty</a>.</p>
+<h3>Parameters</h3>
+<p><a name="Empty"></a>
+<code>Empty</code> - Has to be <code>Empty</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Blank)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">notToBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$notToBe(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Blank)/Blank">Blank</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/-blank.html"><span class="identifier">Blank</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.13.0/misc/deprecated/apis/cc-infix-en_GB/atrium-api-cc-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/cc/infix/en_GB/charSequenceAssertions.kt#L362">(source)</a><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-not-blank.html">kotlin.text.isNotBlank</a>.</p>
+<h3>Parameters</h3>
+<p><a name="Blank"></a>
+<code>Blank</code> - Has to be <code>Blank</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>
