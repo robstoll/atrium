@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.impl.StaticName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
@@ -24,11 +23,11 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
     private val containsNotFun: KFunction2<Expect<String>, Any, Expect<String>> = Expect<String>::containsNot
     protected val containsNotValues = "${containsNotFun.name} values"
     protected val containsRegex = fun1<String, String>(Expect<String>::containsRegex).name
-    protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
-    protected val butAtMost = AtLeastCheckerOption<*, *>::butAtMost.name
-    protected val exactly = CharSequenceContains.Builder<*, *>::exactly.name
-    protected val atMost = CharSequenceContains.Builder<*, *>::atMost.name
-    protected val notOrAtMost = CharSequenceContains.Builder<*, *>::notOrAtMost.name
+    protected val atLeast = StaticName.atLeast
+    protected val butAtMost = StaticName.butAtMost
+    protected val exactly = StaticName.exactly
+    protected val atMost = StaticName.atMost
+    protected val notOrAtMost = StaticName.notOrAtMost
     private val regexKFun: KFunction2<
         CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>,
         String,

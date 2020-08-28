@@ -90,7 +90,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
 
 
-    fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<CharSequence> {
+    fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $expected\\E.*$separator" +
                 "$toBeAfterSuccess: $expected"
@@ -102,7 +102,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         toIndex: Int,
         actual: List<Double?>,
         vararg expected: String
-    ): Expect<CharSequence> {
+    ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -111,7 +111,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         )
     }
 
-    fun Expect<String>.indexFail(index: Int, actual: Any, expected: Double): Expect<CharSequence> {
+    fun Expect<String>.indexFail(index: Int, actual: Any, expected: Double): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected"
@@ -123,7 +123,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         toIndex: Int,
         actual: List<Double?>,
         vararg expected: String
-    ): Expect<CharSequence> {
+    ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +

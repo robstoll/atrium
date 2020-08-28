@@ -112,7 +112,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
 
 
-    fun Expect<String>.indexSuccess(index: Int, actual: Any, expected: String): Expect<CharSequence> {
+    fun Expect<String>.indexSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
@@ -125,7 +125,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         toIndex: Int,
         actual: List<Double?>,
         vararg expected: String
-    ): Expect<CharSequence> {
+    ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -134,7 +134,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         )
     }
 
-    fun Expect<String>.indexFail(index: Int, actual: Any, expected: String): Expect<CharSequence> {
+    fun Expect<String>.indexFail(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
@@ -147,7 +147,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         toIndex: Int,
         actual: List<Double?>,
         vararg expected: String
-    ): Expect<CharSequence> {
+    ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +

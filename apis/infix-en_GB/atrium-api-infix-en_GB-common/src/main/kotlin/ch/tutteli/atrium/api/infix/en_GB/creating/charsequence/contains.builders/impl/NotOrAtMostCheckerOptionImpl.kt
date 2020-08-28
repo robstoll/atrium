@@ -26,5 +26,5 @@ internal class NotOrAtMostCheckerOptionImpl<out T : CharSequence, out S : CharSe
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::notOrAtMost.name} $it`" }
+    { "`notOrAtMost $it`" }
 ), NotOrAtMostCheckerOption<T, S>

@@ -3,16 +3,13 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
-
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -24,7 +21,7 @@ import ch.tutteli.atrium.logic.*
  */
 infix fun <T : CharSequence> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
-): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = ExpectImpl.charSequence.containsBuilder(this)
+): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = _logic.containsBuilder()
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -36,7 +33,7 @@ infix fun <T : CharSequence> Expect<T>.contains(
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
-): NotCheckerOption<T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
+): NotCheckerOption<T, NotSearchBehaviour> = _logic.containsNotCheckerOption()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains the [expected]'s [toString] representation.

@@ -26,5 +26,5 @@ internal class ExactlyCheckerOptionImpl<out T : CharSequence, out S : CharSequen
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::exactly.name} $it`" }
+    { "`exactly $it`" }
 ), ExactlyCheckerOption<T, S>

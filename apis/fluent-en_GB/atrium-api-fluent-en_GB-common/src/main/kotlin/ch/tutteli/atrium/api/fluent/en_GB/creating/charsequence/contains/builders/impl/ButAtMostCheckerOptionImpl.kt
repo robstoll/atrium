@@ -1,12 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl
 
-import ch.tutteli.atrium.api.fluent.en_GB.atLeast
-import ch.tutteli.atrium.api.fluent.en_GB.atMost
-import ch.tutteli.atrium.api.fluent.en_GB.butAtMost
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.ButAtMostCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.ButAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
@@ -32,9 +28,9 @@ internal class ButAtMostCheckerOptionImpl<out T : CharSequence, out S : CharSequ
     atLeastBuilder,
     containsBuilder,
     nameContainsNotValuesFun,
-    { l, u -> "${containsBuilder::atLeast.name}($l).${atLeastBuilder::butAtMost.name}($u)" },
-    { "${containsBuilder::atMost.name}($it)" },
-    { "${containsBuilder::atLeast.name}($it)" },
-    { "${atLeastBuilder::butAtMost.name}($it)" },
-    { "${containsBuilder::exactly.name}($it)" }
+    { l, u -> "atLeast($l).butAtMost($u)" },
+    { "atMost($it)" },
+    { "atLeast($it)" },
+    { "butAtMost($it)" },
+    { "exactly($it)" }
 ), ButAtMostCheckerOption<T, S>

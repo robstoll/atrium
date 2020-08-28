@@ -42,7 +42,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
     fun entry(index: Int) = String.format(entryWithIndex, index)
 
-    fun Expect<String>.entrySuccess(index: Int, expected: String): Expect<CharSequence> {
+    fun Expect<String>.entrySuccess(index: Int, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $expected\\E.*$separator" +
                 "$toBeAfterSuccess: $expected"
@@ -51,7 +51,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
 
     fun Expect<String>.entrySuccess(index: Int, expected: Double) = entrySuccess(index, expected.toString())
 
-    fun Expect<String>.entryFailing(index: Int, actual: Any, expected: Double): Expect<CharSequence> {
+    fun Expect<String>.entryFailing(index: Int, actual: Any, expected: Double): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected"

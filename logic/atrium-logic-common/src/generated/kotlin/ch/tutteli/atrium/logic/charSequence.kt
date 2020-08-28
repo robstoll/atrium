@@ -8,10 +8,15 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
 
-    //TODO add with 0.14.0
-//fun <T : CharSequence> AssertionContainer<T>.containsBuilder(): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = _charSequenceImpl.containsBuilder(this)
-//fun <T : CharSequence> AssertionContainer<T>.containsNotBuilder(): CharSequenceContains.Builder<T, NotSearchBehaviour> = _charSequenceImpl.containsNotBuilder(this)
+
+fun <T : CharSequence> AssertionContainer<T>.containsBuilder(): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = _charSequenceImpl.containsBuilder(this)
+
+fun <T : CharSequence> AssertionContainer<T>.containsNotCheckerOption(): NotCheckerOption<T, NotSearchBehaviour> = _charSequenceImpl.containsNotCheckerOption(this)
 
 fun <T : CharSequence> AssertionContainer<T>.startsWith(expected: CharSequence): Assertion = _charSequenceImpl.startsWith(this, expected)
 fun <T : CharSequence> AssertionContainer<T>.startsNotWith(expected: CharSequence): Assertion = _charSequenceImpl.startsNotWith(this, expected)

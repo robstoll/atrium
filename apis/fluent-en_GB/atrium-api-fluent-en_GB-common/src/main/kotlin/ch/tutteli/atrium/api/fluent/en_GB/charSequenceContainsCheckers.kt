@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.*
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.*
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticName
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we are looking
@@ -18,7 +19,8 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(
     times: Int
-): AtLeastCheckerOption<T, S> = AtLeastCheckerOptionImpl(times, this)
+): AtLeastCheckerOption<T, S> =
+    _logic.atLeastCheckerOption(times, StaticName.containsNotValuesFun) { "${StaticName.atLeast}($it)" }
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the value which we
@@ -37,7 +39,15 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.a
  */
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(
     times: Int
-): ButAtMostCheckerOption<T, S> = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
+): ButAtMostCheckerOption<T, S> = _logic.butAtMostCheckerOption(
+    times,
+    StaticName.containsNotValuesFun,
+    { l, u -> "${StaticName.atLeast}($l).${StaticName.butAtMost}($u)" },
+    { "${StaticName.atLeast}($it)" },
+    { "${StaticName.butAtMost}($it)" },
+    { "${StaticName.exactly}($it)" },
+    { "${StaticName.atMost}($it)" }
+)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -52,7 +62,8 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(
     times: Int
-): ExactlyCheckerOption<T, S> = ExactlyCheckerOptionImpl(times, this)
+): ExactlyCheckerOption<T, S> =
+    _logic.exactlyCheckerOption(times, StaticName.containsNotValuesFun) { "${StaticName.exactly}($it)" }
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -72,7 +83,13 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.e
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(
     times: Int
-): AtMostCheckerOption<T, S> = AtMostCheckerOptionImpl(times, this)
+): AtMostCheckerOption<T, S> = _logic.atMostCheckerOption(
+    times,
+    StaticName.containsNotValuesFun,
+    { "${StaticName.atMost}($it)" },
+    { "${StaticName.atLeast}($it)" },
+    { "${StaticName.exactly}($it)" }
+)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -87,4 +104,5 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.a
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(
     times: Int
-): NotOrAtMostCheckerOption<T, S> = NotOrAtMostCheckerOptionImpl(times, this)
+): NotOrAtMostCheckerOption<T, S> =
+    _logic.notOrAtMostCheckerOption(times, StaticName.containsNotValuesFun) { "${StaticName.notOrAtMost}($it)" }

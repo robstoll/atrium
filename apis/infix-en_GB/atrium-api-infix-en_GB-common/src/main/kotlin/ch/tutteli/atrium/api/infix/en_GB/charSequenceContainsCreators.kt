@@ -4,15 +4,18 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Builder
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.Builder
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgnoringCase
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import kotlin.jvm.JvmName
 
 /**
@@ -65,7 +68,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, values.toList()))
+): Expect<T> = _logicAppend { values(values.toList()) }
 
 
 /**
@@ -120,7 +123,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, values.toList()))
+): Expect<T> = _logicAppend { valuesIgnoringCase(values.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -230,7 +233,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
-    addAssertion(ExpectImpl.charSequence.contains.regex(this, patterns.toList()))
+    _logicAppend { regex(patterns.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [patterns]
@@ -256,8 +259,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns:
  * @since 0.12.0
  */
 infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(patterns: All<Regex>): Expect<T> =
-    addAssertion(ExpectImpl.charSequence.contains.regex(this, patterns.toList()))
-
+    _logicAppend { regex(patterns.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -297,7 +299,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
-    addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, patterns.toList()))
+    _logicAppend { regexIgnoringCase(patterns.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]

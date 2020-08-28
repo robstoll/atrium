@@ -1,14 +1,39 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.CharSequenceAssertions
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.creating.basic.contains.checkers.NotChecker
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl.DefaultNotChecker
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl.NoOpSearchBehaviourImpl
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl.NotSearchBehaviourImpl
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.BuilderImpl
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.NotCheckerOptionImpl
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerOption
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 
 class DefaultCharSequenceAssertions : CharSequenceAssertions {
+    override fun <T : CharSequence> containsBuilder(
+        container: AssertionContainer<T>
+    ): CharSequenceContains.Builder<T, NoOpSearchBehaviour> =
+        BuilderImpl(container, NoOpSearchBehaviourImpl())
+
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class)
+    override fun <T : CharSequence> containsNotCheckerOption(
+        container: AssertionContainer<T>
+    ): NotCheckerOption<T, NotSearchBehaviour> =
+        BuilderImpl(container, NotSearchBehaviourImpl())._logic.notCheckerOption()
+
     override fun <T : CharSequence> startsWith(container: AssertionContainer<T>, expected: CharSequence): Assertion =
         container.createDescriptiveAssertion(STARTS_WITH, expected) { it.startsWith(expected) }
 
@@ -25,7 +50,7 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
         container.createDescriptiveAssertion(IS, EMPTY) { it.isEmpty() }
 
     override fun <T : CharSequence> isNotEmpty(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(IS_NOT, EMPTY) { !it.isEmpty() }
+        container.createDescriptiveAssertion(IS_NOT, EMPTY) { it.isNotEmpty() }
 
     override fun <T : CharSequence> isNotBlank(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(IS_NOT, BLANK) { it.isNotBlank() }

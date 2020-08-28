@@ -28,7 +28,7 @@ internal class AtMostCheckerOptionImpl<out T : CharSequence, out S : CharSequenc
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::atMost.name} $it`" },
-    { "`${containsBuilder::atLeast.name} $it`" },
-    { "`${containsBuilder::exactly.name} $it`" }
+    { "`atMost $it`" },
+    { "`atLeast $it`" },
+    { "`exactly $it`" }
 ), AtMostCheckerOption<T, S>

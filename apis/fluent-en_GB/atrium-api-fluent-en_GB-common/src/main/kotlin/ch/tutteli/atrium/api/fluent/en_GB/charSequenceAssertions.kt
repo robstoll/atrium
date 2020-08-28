@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -17,7 +15,7 @@ import ch.tutteli.atrium.logic.*
  * @return The newly created builder.
  */
 val <T : CharSequence> Expect<T>.contains: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-    get() = ExpectImpl.charSequence.containsBuilder(this)
+    get() = _logic.containsBuilder()
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
@@ -26,7 +24,7 @@ val <T : CharSequence> Expect<T>.contains: CharSequenceContains.Builder<T, NoOpS
  * @return The newly created builder.
  */
 val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehaviour>
-    get() = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
+    get() = _logic.containsNotCheckerOption()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains [expected]'s [toString] representation

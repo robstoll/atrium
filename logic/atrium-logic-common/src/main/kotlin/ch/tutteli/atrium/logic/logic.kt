@@ -13,10 +13,11 @@ inline fun <T> Expect<T>._logicAppend(factory: AssertionContainer<T>.() -> Asser
     addAssertion(_logic.factory())
 
 /**
- * Entry point to the logic of Atrium which is a level deeper than the API and does not return new [Expect] but
- * [Assertion]s and the like.
+ * Entry point to the logic level of Atrium -- which is one level deeper than the API --
+ * and does not return new [Expect] but [Assertion]s and the like.
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to this [Expect].
  */
-inline val <T> Expect<T>._logic get() = this.toAssertionContainer()
+inline val <T> Expect<T>._logic: AssertionContainer<T>
+    get() = this.toAssertionContainer()
 

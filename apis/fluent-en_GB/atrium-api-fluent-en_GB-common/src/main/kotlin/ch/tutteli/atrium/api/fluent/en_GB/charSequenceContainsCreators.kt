@@ -1,15 +1,18 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Builder
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.Builder
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgnoringCase
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
@@ -64,7 +67,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Cha
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.values(this, expected glue otherExpected))
+): Expect<T> = _logicAppend { values(expected glue otherExpected) }
 
 
 /**
@@ -121,7 +124,7 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
+): Expect<T> = _logicAppend { valuesIgnoringCase(expected glue otherExpected) }
 
 
 /**
@@ -198,7 +201,7 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
@@ -227,7 +230,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -254,7 +257,7 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = addAssertion(ExpectImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
+): Expect<T> = _logicAppend { regexIgnoringCase(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
