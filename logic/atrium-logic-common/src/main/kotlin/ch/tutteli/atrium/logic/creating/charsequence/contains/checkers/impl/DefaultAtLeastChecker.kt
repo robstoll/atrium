@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.AtLeastCh
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_LEAST
 
 /**
- * Represents a check that an expected object is contained at least [times] in the search input.
+ * Represents a check that an expected search criterion is contained at least [times] in the search input.
  *
  * @param times The number which the check uses to compare against the actual number of times an expected object is
  *   found in the input of the search.

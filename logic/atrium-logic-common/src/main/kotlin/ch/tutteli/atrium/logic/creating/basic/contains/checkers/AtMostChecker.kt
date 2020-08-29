@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.logic.creating.basic.contains.checkers
 
 /**
- * Represents a check that an expected object is contained at most [times] in the search input.
+ * Represents a check that an expected search criterion is contained at most [times] in the search input.
  */
 interface AtMostChecker : WithTimesChecker {
 

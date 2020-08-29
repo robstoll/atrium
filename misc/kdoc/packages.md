@@ -459,8 +459,55 @@ has to provide for the Kotlin 1.3 extension.
 Contains all the assertion interfaces (e.g. [AnyAssertions](./ch.tutteli.atrium.logic/-any-assertions/index.html)
 as well as [_logic](./ch.tutteli.atrium.logic/_logic.html) and helper functions for [AssertionContainer](./ch.tutteli.atrium.creating/-assertion-container/index.html)
 
+# ch.tutteli.atrium.logic.creating.basic.contains
+Contains the abstract contract sophisticated `contains` assertion builders: [Contains](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/index.html)
+
+# ch.tutteli.atrium.logic.creating.basic.contains.checkers
+Contains interfaces implementing [Contains.Checker](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html)
+
+# ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.basic.contains.checkers].
+
+# ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
+Contains base classes which can be handy to implement [Contains.Creator](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html)
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains
+Contains the contract for sophisticated `CharSequence.contains` assertion builders: [CharSequenceContains](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/index.html)
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.checkers
+Contains interfaces implementing [CharSequence.Checker](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html)
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.checkers].
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.creators
+Contains [CharSequenceContainsAssertions](./ch.tutteli.atrium.logic.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html) 
+which defines the minimum set of [CharSequence.Creator](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-creator.html)s 
+an implementation has to deliver as well as some extension functions which delegate to those.
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.creators].
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
+Contains interfaces implementing [CharSequence.SearchBehaviour](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html)
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours].
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl
+Contains implementations of [CharSequence.Searcher](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html)
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.steps
+Contains steps for sophisticated `CharSequence.contains` assertion builders.
+
+# ch.tutteli.atrium.logic.impl
+Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic].
+
 # ch.tutteli.atrium.logic.kotlin_1_3
 Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. [ResultAssertions](./ch.tutteli.atrium.logic.kotlin_1_3/-result-assertions/index.html)
+
+# ch.tutteli.atrium.logic.kotlin_1_3.impl
+Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic.kotlin_1_3].
 
 # ch.tutteli.atrium.reporting
 Everything involved in reporting [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.

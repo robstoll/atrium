@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.logic.creating.basic.contains.checkers
 
 /**
- * Validates that times is not `1`; throws an IllegalArgumentException otherwise, pointing the user to use the given
+ * Validates that times is not `1`; throws an [IllegalArgumentException] otherwise, pointing the user to use the given
  * [exactlyCall] instead of the given [atMostCall].
+ * @throws IllegalArgumentException in case [times] is `1`
  */
 fun validateAtMost(
     times: Int,
@@ -17,8 +18,10 @@ fun validateAtMost(
 }
 
 /**
- * Validates that [atLeastTimes] is not equal to or greater than [butAtMostTimes]; throws IllegalArgumentException
+ * Validates that [atLeastTimes] is not equal to or greater than [butAtMostTimes]; throws an [IllegalArgumentException]
  * otherwise, pointing the user to use the given [exactlyCall] in case [atLeastTimes] equals [butAtMostTimes].
+ *
+ * @throws IllegalArgumentException in case [atLeastTimes] is equal or greater than [butAtMostTimes]
  */
 fun validateButAtMost(
     atLeastTimes: Int,

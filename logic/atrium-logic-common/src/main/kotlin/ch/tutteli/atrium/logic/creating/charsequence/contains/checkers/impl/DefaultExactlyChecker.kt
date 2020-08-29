@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.ExactlyCh
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
 
 /**
- * Represents a check that an expected object is contained exactly [times] in the search input.
+ * Represents a check that an expected search criterion is contained exactly [times] in the search input.
  *
  * @param times The number which the check uses to compare against the actual number of times an expected object is
  *   found in the input of the search.

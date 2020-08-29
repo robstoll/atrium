@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.basic.contains.checkers
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 
 /**
- * Represents a checker which is based the number of [times] a search criterion is found within the search input.
+ * Represents a checker which is based on the number of [times] a search criterion is found within the search input.
  */
 interface WithTimesChecker : Contains.Checker {
     /**

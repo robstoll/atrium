@@ -8,7 +8,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSeque
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [CharSequence] `contains` [Assertion] builders.
+ * Defines the contract for sophisticated [CharSequence] contains assertion builders.
  *
  * The building process is typically started by the creation of a [Builder],
  * goes on by specifying a desired [SearchBehaviour],
