@@ -13,22 +13,22 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 interface CharSequenceContainsAssertions {
 
     fun <T : CharSequence> values(
-        checkerOption: CharSequenceContains.CheckerOptionLogic<T, NoOpSearchBehaviour>,
+        checkerStepLogic: CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>,
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup
 
     fun <T : CharSequence> valuesIgnoringCase(
-        checkerOption: CharSequenceContains.CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>,
+        checkerStepLogic: CharSequenceContains.CheckerStepLogic<T, IgnoringCaseSearchBehaviour>,
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup
 
     fun <T : CharSequence> regex(
-        checkerOption: CharSequenceContains.CheckerOptionLogic<T, NoOpSearchBehaviour>,
+        checkerStepLogic: CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>,
         expected: List<Regex>
     ): AssertionGroup
 
     fun <T : CharSequence> regexIgnoringCase(
-        checkerOption: CharSequenceContains.CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>,
+        checkerStepLogic: CharSequenceContains.CheckerStepLogic<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>
     ): AssertionGroup
 }

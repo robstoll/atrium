@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.
  *
- * The entry point for the contract constitutes a [Contains.Builder].
+ * The entry point for the contract constitutes a [Contains.EntryPointStep].
  * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
  * [Creator] to finish the building process.
  */
@@ -17,18 +17,18 @@ interface Contains {
 
     /**
      * The entry point of the contract.
-     * Use `_logic` to retrieve the [BuilderLogic] counterpart in case you want to extend the building process.
+     * Use `_logic` to retrieve the [EntryPointStepLogic] counterpart in case you want to extend the building process.
      */
-    interface Builder<T : Any, out S : SearchBehaviour>
+    interface EntryPointStep<T : Any, out S : SearchBehaviour>
 
     /**
      * The entry point of the contract, containing the [container] -- i.e. the subject of the assertion
      * for which the sophisticated `contain` assertion should be created -- as well as the chosen [searchBehaviour].
      *
-     * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
+     * The [searchBehaviour] might me modified in which case it is recommended that a new [EntryPointStep] is created (retain
      * immutability).
      */
-    interface BuilderLogic<T : Any, out S : SearchBehaviour> {
+    interface EntryPointStepLogic<T : Any, out S : SearchBehaviour> {
         /**
          * The [AssertionContainer] from which this building process started and to which the resulting [Assertion]
          * should be appended.
@@ -44,14 +44,14 @@ interface Contains {
     /**
      * The step of choosing/defining [Checker]s.
      */
-    interface CheckerOption<T : Any, out S : SearchBehaviour, out C : Checker, out B : Builder<T, S>>
+    interface CheckerStep<T : Any, out S : SearchBehaviour, out C : Checker, out B : EntryPointStep<T, S>>
 
     /**
      * The step of choosing/defining [Checker]s on the logic level.
      */
-    interface CheckerOptionLogic<T : Any, out S : SearchBehaviour, out C : Checker, out B : BuilderLogic<T, S>> {
+    interface CheckerStepLogic<T : Any, out S : SearchBehaviour, out C : Checker, out B : EntryPointStepLogic<T, S>> {
         /**
-         * The previously chosen [Builder], containing inter alia the [AssertionContainer] to which the resulting
+         * The previously chosen [EntryPointStep], containing inter alia the [AssertionContainer] to which the resulting
          * [Assertion] shall be appended.
          */
         val containsBuilder: B

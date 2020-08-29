@@ -5,20 +5,27 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [CharSequence] type.
  */
 interface CharSequenceAssertions {
 
+    /**
+     * Starts the building process of a sophisticated `contains` assertions.
+     */
     fun <T : CharSequence> containsBuilder(
         container: AssertionContainer<T>
-    ): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
+    ): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
 
-    fun <T : CharSequence> containsNotCheckerOption(
+    /**
+     * Starts the building process of a sophisticated `contains` assertions and already applies a [NotCheckerStep] with
+     * a [NotSearchBehaviour].
+     */
+    fun <T : CharSequence> containsNotBuilder(
         container: AssertionContainer<T>
-    ): NotCheckerOption<T, NotSearchBehaviour>
+    ): NotCheckerStep<T, NotSearchBehaviour>
 
     fun <T : CharSequence> startsWith(container: AssertionContainer<T>, expected: CharSequence): Assertion
     fun <T : CharSequence> startsNotWith(container: AssertionContainer<T>, expected: CharSequence): Assertion

@@ -11,12 +11,19 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 
 
-fun <T : CharSequence> AssertionContainer<T>.containsBuilder(): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = _charSequenceImpl.containsBuilder(this)
+    /**
+     * Starts the building process of a sophisticated `contains` assertions.
+     */
+fun <T : CharSequence> AssertionContainer<T>.containsBuilder(): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour> = _charSequenceImpl.containsBuilder(this)
 
-fun <T : CharSequence> AssertionContainer<T>.containsNotCheckerOption(): NotCheckerOption<T, NotSearchBehaviour> = _charSequenceImpl.containsNotCheckerOption(this)
+    /**
+     * Starts the building process of a sophisticated `contains` assertions and already applies a [NotCheckerStep] with
+     * a [NotSearchBehaviour].
+     */
+fun <T : CharSequence> AssertionContainer<T>.containsNotBuilder(): NotCheckerStep<T, NotSearchBehaviour> = _charSequenceImpl.containsNotBuilder(this)
 
 fun <T : CharSequence> AssertionContainer<T>.startsWith(expected: CharSequence): Assertion = _charSequenceImpl.startsWith(this, expected)
 fun <T : CharSequence> AssertionContainer<T>.startsNotWith(expected: CharSequence): Assertion = _charSequenceImpl.startsNotWith(this, expected)

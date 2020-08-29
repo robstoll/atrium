@@ -5,23 +5,26 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.ignoringCase
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerStep
 
 /**
  * Defines that the v behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase: CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-    get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour> = _logic.ignoringCase
+val <T : CharSequence> CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>.ignoringCase: CharSequenceContains.EntryPointStep<T, IgnoringCaseSearchBehaviour>
+    get() : CharSequenceContains.EntryPointStep<T, IgnoringCaseSearchBehaviour> = _logic.ignoringCase
 
 /**
  * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase: NotCheckerOption<T, IgnoringCaseSearchBehaviour>
-    get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour> =
-        _logic.containsBuilder.ignoringCase._logic.notCheckerOption()
+//TODO if we change containsNot to contains.not then it would make sense to remove this with 1.0.0 and
+// only keep the above so that we have contains.ignoringCase.not -- seems like a better fit
+// as we don't have to re-create the containsBuilder but use NotChecker only as checker as all other checkers
+val <T : CharSequence> NotCheckerStep<T, NotSearchBehaviour>.ignoringCase: NotCheckerStep<T, IgnoringCaseSearchBehaviour>
+    get() : NotCheckerStep<T, IgnoringCaseSearchBehaviour> =
+        _logic.containsBuilder.ignoringCase._logic.notCheckerStep()

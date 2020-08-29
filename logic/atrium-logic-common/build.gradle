@@ -14,10 +14,10 @@ dependencies {
 apply from: "$project.projectDir/../generateLogic.gradle"
 def generateLogic = createGenerateLogicTask(project, "impls", '',
     ['/creating/charsequence/contains/creators' : new Tuple5(
-        'CharSequenceContains.CheckerOptionLogic',
+        'CharSequenceContains.CheckerStepLogic',
         'ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains',
-        /checkerOption: (CharSequenceContains.CheckerOptionLogic<T, [^>]+>)/,
-        '<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerOptionLogic<T, S>',
+        /checkerStepLogic: (CharSequenceContains.CheckerStepLogic<T, [^>]+>)/,
+        '<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>',
         'containsBuilder.container.getImpl'
     )])
 compileKotlinCommon.dependsOn(generateLogic)

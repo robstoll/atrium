@@ -8,8 +8,8 @@ import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.Builder
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
@@ -36,7 +36,7 @@ import kotlin.jvm.JvmName
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
 ): Expect<T> = this the values(expected)
 
@@ -66,7 +66,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
 ): Expect<T> = _logicAppend { values(values.toList()) }
 
@@ -90,7 +90,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
 ): Expect<T> = this the values(expected)
 
@@ -121,7 +121,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
 ): Expect<T> = _logicAppend { valuesIgnoringCase(values.toList()) }
 
@@ -143,7 +143,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
 ): Expect<T> = this atLeast 1 value expected
 
@@ -176,7 +176,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
 ): Expect<T> = this atLeast 1 the values
 
@@ -191,7 +191,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String): Expect<T> =
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(pattern: String): Expect<T> =
     this the regexPatterns(pattern)
 
 /**
@@ -207,7 +207,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(pattern
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex
 ): Expect<T> = this matchFor all(pattern)
 
@@ -232,7 +232,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     _logicAppend { regex(patterns.toList()) }
 
 /**
@@ -258,7 +258,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.the(patterns:
  *
  * @since 0.12.0
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(patterns: All<Regex>): Expect<T> =
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(patterns: All<Regex>): Expect<T> =
     _logicAppend { regex(patterns.toList()) }
 
 /**
@@ -273,7 +273,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.matchFor(patt
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
     this the regexPatterns(pattern)
 
 /**
@@ -298,7 +298,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     _logicAppend { regexIgnoringCase(patterns.toList()) }
 
 /**
@@ -312,7 +312,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.the(p
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
     this atLeast 1 regex pattern
 
 /**
@@ -338,7 +338,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(patte
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     this atLeast 1 the patterns
 
 /**
@@ -364,7 +364,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.the(pattern
  * TODO remove with 1.0.0
  * @since 0.12.0
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
@@ -396,7 +396,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * @since 0.12.0
  */
 @JvmName("elementsOfIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
@@ -427,7 +427,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.eleme
  * @since 0.12.0
  */
 @JvmName("elementsOfIgnoringCase")
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<CharSequenceOrNumberOrChar>
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
@@ -455,7 +455,7 @@ infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
  *
  * @since 0.13.0
  */
-infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
@@ -485,7 +485,7 @@ infix fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * @since 0.13.0
  */
 @JvmName("elementsOfIgnoringCase")
-infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
@@ -514,7 +514,7 @@ infix fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.eleme
  * @since 0.13.0
  */
 @JvmName("elementsOfIgnoringCase")
-infix fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
+infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)

@@ -9,17 +9,17 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl.IgnoringCaseSearchBehaviourImpl
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.*
 
-fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.atLeastCheckerOption(
+fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.atLeastCheckerStep(
     times: Int,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
-): AtLeastCheckerOption<T, S> = GenericTimesCheckerOption(
+): AtLeastCheckerStep<T, S> = GenericTimesCheckerStep(
     times,
     this,
     listOf(atLeastChecker(container, times, nameContainsNotFun, atLeastCall))
 )
 
-fun <T : CharSequence, S : SearchBehaviour> WithTimesCheckerOptionLogic<T, S>.butAtMostCheckerOption(
+fun <T : CharSequence, S : SearchBehaviour> WithTimesCheckerStepLogic<T, S>.butAtMostCheckerStep(
     times: Int,
     nameContainsNotFun: String,
     atLeastButAtMostCall: (Int, Int) -> String,
@@ -27,7 +27,7 @@ fun <T : CharSequence, S : SearchBehaviour> WithTimesCheckerOptionLogic<T, S>.bu
     butAtMostCall: (Int) -> String,
     exactlyCall: (Int) -> String,
     atMostCall: (Int) -> String
-): ButAtMostCheckerOption<T, S> = ButAtMostCheckerOptionImpl(
+): ButAtMostCheckerStep<T, S> = ButAtMostCheckerStepImpl(
     times,
     this,
     nameContainsNotFun,
@@ -39,13 +39,13 @@ fun <T : CharSequence, S : SearchBehaviour> WithTimesCheckerOptionLogic<T, S>.bu
     containsBuilder
 )
 
-fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.atMostCheckerOption(
+fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.atMostCheckerStep(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,
     atLeastCall: (Int) -> String,
     exactlyCall: (Int) -> String
-): AtMostCheckerOption<T, S> = AtMostCheckerOptionImpl(
+): AtMostCheckerStep<T, S> = AtMostCheckerStepImpl(
     times,
     nameContainsNotFun,
     atMostCall,
@@ -62,30 +62,30 @@ fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.atMostCheckerOpti
     "DEPRECATION"
 )
 @UseExperimental(ExperimentalNewExpectTypes::class)
-fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.exactlyCheckerOption(
+fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.exactlyCheckerStep(
     times: Int,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
-): ExactlyCheckerOption<T, S> = GenericTimesCheckerOption(
+): ExactlyCheckerStep<T, S> = GenericTimesCheckerStep(
     times,
     this,
     listOf(container.getImpl(ExactlyChecker::class) { DefaultExactlyChecker(times, nameContainsNotFun, exactlyCall) })
 )
 
-fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.notOrAtMostCheckerOption(
+fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.notOrAtMostCheckerStep(
     times: Int,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
-): NotOrAtMostCheckerOption<T, S> = NotOrAtMostCheckerOptionImpl(
+): NotOrAtMostCheckerStep<T, S> = NotOrAtMostCheckerStepImpl(
     times,
     nameContainsNotFun,
     notOrAtMostCall,
     this
 )
 
-fun <T : CharSequence, S : SearchBehaviour> BuilderLogic<T, S>.notCheckerOption(): NotCheckerOption<T, S> =
-    NotCheckerOptionImpl(this)
+fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.notCheckerStep(): NotCheckerStep<T, S> =
+    NotCheckerStepImpl(this)
 
-val <T : CharSequence, S : NoOpSearchBehaviour> BuilderLogic<T, S>.ignoringCase: Builder<T, IgnoringCaseSearchBehaviour>
-    get() = BuilderImpl(container, IgnoringCaseSearchBehaviourImpl(searchBehaviour))
+val <T : CharSequence, S : NoOpSearchBehaviour> EntryPointStepLogic<T, S>.ignoringCase: EntryPointStep<T, IgnoringCaseSearchBehaviour>
+    get() = EntryPointStepImpl(container, IgnoringCaseSearchBehaviourImpl(searchBehaviour))
 

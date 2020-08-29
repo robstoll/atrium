@@ -13,10 +13,10 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.I
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 
 
-fun <T : CharSequence> CharSequenceContains.CheckerOptionLogic<T, NoOpSearchBehaviour>.values(expected: List<CharSequenceOrNumberOrChar>): AssertionGroup = _charSequenceContainsImpl.values(this, expected)
+fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>.values(expected: List<CharSequenceOrNumberOrChar>): AssertionGroup = _charSequenceContainsImpl.values(this, expected)
 
-fun <T : CharSequence> CharSequenceContains.CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>.valuesIgnoringCase(expected: List<CharSequenceOrNumberOrChar>): AssertionGroup = _charSequenceContainsImpl.valuesIgnoringCase(this, expected)
+fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, IgnoringCaseSearchBehaviour>.valuesIgnoringCase(expected: List<CharSequenceOrNumberOrChar>): AssertionGroup = _charSequenceContainsImpl.valuesIgnoringCase(this, expected)
 
-fun <T : CharSequence> CharSequenceContains.CheckerOptionLogic<T, NoOpSearchBehaviour>.regex(expected: List<Regex>): AssertionGroup = _charSequenceContainsImpl.regex(this, expected)
+fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>.regex(expected: List<Regex>): AssertionGroup = _charSequenceContainsImpl.regex(this, expected)
 
-fun <T : CharSequence> CharSequenceContains.CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>.regexIgnoringCase(expected: List<String>): AssertionGroup = _charSequenceContainsImpl.regexIgnoringCase(this, expected)
+fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, IgnoringCaseSearchBehaviour>.regexIgnoringCase(expected: List<String>): AssertionGroup = _charSequenceContainsImpl.regexIgnoringCase(this, expected)

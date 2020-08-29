@@ -3,16 +3,16 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.validateAtMost
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtMostCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtMostCheckerStep
 
-internal class AtMostCheckerOptionImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
+internal class AtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,
     atLeastCall: (Int) -> String,
     exactlyCall: (Int) -> String,
-    override val containsBuilder: CharSequenceContains.BuilderLogic<T, S>
-) : AtMostCheckerOption<T, S>, CharSequenceContains.CheckerOptionInternal<T, S> {
+    override val containsBuilder: CharSequenceContains.EntryPointStepLogic<T, S>
+) : AtMostCheckerStep<T, S>, CharSequenceContains.CheckerStepInternal<T, S> {
 
     init {
         validateAtMost(

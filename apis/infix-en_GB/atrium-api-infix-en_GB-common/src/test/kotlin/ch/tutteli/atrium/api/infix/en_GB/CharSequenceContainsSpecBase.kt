@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
@@ -13,10 +13,10 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
 abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
-    private val containsProp: KFunction2<Expect<String>, o, CharSequenceContains.Builder<String, NoOpSearchBehaviour>> =
+    private val containsProp: KFunction2<Expect<String>, o, CharSequenceContains.EntryPointStep<String, NoOpSearchBehaviour>> =
         Expect<String>::contains
     protected val contains = containsProp.name
-    private val containsNotProp: KFunction2<Expect<String>, o, NotCheckerOption<String, NotSearchBehaviour>> =
+    private val containsNotProp: KFunction2<Expect<String>, o, NotCheckerStep<String, NotSearchBehaviour>> =
         Expect<String>::containsNot
     protected val containsNot = containsNotProp.name
 
@@ -29,13 +29,13 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
     protected val atMost = StaticName.atMost
     protected val notOrAtMost = StaticName.notOrAtMost
     private val regexKFun: KFunction2<
-        CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>,
+        CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
         String,
         Expect<*>
-        > = CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>::regex
+        > = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
     protected val ignoringCase =
-        "${CharSequenceContains.Builder<*, NoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
+        "${CharSequenceContains.EntryPointStep<*, NoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

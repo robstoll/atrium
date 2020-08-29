@@ -22,13 +22,13 @@ abstract class CharSequenceContainsSpecBase {
     protected val atMost = StaticName.atMost
     protected val notOrAtMost = StaticName.notOrAtMost
     private val regexKFun: KFunction3<
-        CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>,
+        CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
         String,
         Array<out String>,
         Expect<*>
-        > = CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>::regex
+        > = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
-    protected val ignoringCase = CharSequenceContains.Builder<*, NoOpSearchBehaviour>::ignoringCase.name
+    protected val ignoringCase = CharSequenceContains.EntryPointStep<*, NoOpSearchBehaviour>::ignoringCase.name
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

@@ -9,11 +9,10 @@ import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * a sophisticated `contains` assertion.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @param o The filler object [o].
  *
@@ -21,11 +20,11 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerOp
  */
 infix fun <T : CharSequence> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
-): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = _logic.containsBuilder()
+): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour> = _logic.containsBuilder()
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains not` assertion.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
+ * [NotCheckerStep].
  *
  * @param o The filler object [o].
  *
@@ -33,7 +32,7 @@ infix fun <T : CharSequence> Expect<T>.contains(
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
-): NotCheckerOption<T, NotSearchBehaviour> = _logic.containsNotCheckerOption()
+): NotCheckerStep<T, NotSearchBehaviour> = _logic.containsNotBuilder()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains the [expected]'s [toString] representation.

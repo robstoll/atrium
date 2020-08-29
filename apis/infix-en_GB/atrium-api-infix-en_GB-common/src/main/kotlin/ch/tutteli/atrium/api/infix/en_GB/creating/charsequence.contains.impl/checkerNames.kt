@@ -4,9 +4,8 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheckerOption
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheckerStep
 import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
 
 internal object StaticName {
     val containsNotValuesFun: String = {
@@ -18,9 +17,9 @@ internal object StaticName {
         "`${f.name} values`"
     }()
 
-    val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
-    val butAtMost = AtLeastCheckerOption<*, *>::butAtMost.name
-    val atMost = CharSequenceContains.Builder<*, *>::atMost.name
-    val exactly = CharSequenceContains.Builder<*, *>::exactly.name
-    val notOrAtMost = CharSequenceContains.Builder<*, *>::notOrAtMost.name
+    val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
+    val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
+    val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name
+    val exactly = CharSequenceContains.EntryPointStep<*, *>::exactly.name
+    val notOrAtMost = CharSequenceContains.EntryPointStep<*, *>::notOrAtMost.name
 }

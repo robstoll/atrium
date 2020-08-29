@@ -5,5 +5,5 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 
 
-fun <T : CharSequence> CharSequenceContains.CheckerOptionLogic<T, NoOpSearchBehaviour>.regex(expected: List<String>): AssertionGroup =
+fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>.regex(expected: List<String>): AssertionGroup =
     regex(expected.map { it.toRegex() })

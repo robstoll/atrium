@@ -1,12 +1,9 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsAssertions
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.IgnoringCaseIndexSearcher
@@ -15,23 +12,22 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.Ind
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.RegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
-import kotlin.jvm.JvmName
 
 class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
     override fun <T : CharSequence> values(
-        checkerOption: CheckerOptionLogic<T, NoOpSearchBehaviour>,
+        checkerStepLogic: CheckerStepLogic<T, NoOpSearchBehaviour>,
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup =
-        checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
+        checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerStepLogic, IndexSearcher(), expected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
-        checkerOption: CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>,
+        checkerStepLogic: CheckerStepLogic<T, IgnoringCaseSearchBehaviour>,
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup =
-        checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
+        checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerStepLogic, IgnoringCaseIndexSearcher(), expected)
 
     private fun <T : CharSequence, S : SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
-        checkerOption: CheckerOptionLogic<T, S>,
+        checkerStepLogic: CheckerStepLogic<T, S>,
         searcher: Searcher<S, CharSequenceOrNumberOrChar>,
         expected: List<CharSequenceOrNumberOrChar>
     ): AssertionGroup {
@@ -51,41 +47,41 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
                 "Searching for an empty CharSequence does not make sense. You probably forgot to specify the search criterion."
             }
         }
-        return createAssertionGroup(checkerOption, searcher, expected, DescriptionCharSequenceAssertion.VALUE)
+        return createAssertionGroup(checkerStepLogic, searcher, expected, DescriptionCharSequenceAssertion.VALUE)
     }
 
     override fun <T : CharSequence> regex(
-        checkerOption: CheckerOptionLogic<T, NoOpSearchBehaviour>,
+        checkerStepLogic: CheckerStepLogic<T, NoOpSearchBehaviour>,
         expected: List<Regex>
     ): AssertionGroup = createAssertionGroup(
-        checkerOption,
+        checkerStepLogic,
         RegexSearcher(),
         expected,
         DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX
     )
 
     override fun <T : CharSequence> regexIgnoringCase(
-        checkerOption: CheckerOptionLogic<T, IgnoringCaseSearchBehaviour>,
+        checkerStepLogic: CheckerStepLogic<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>
     ): AssertionGroup = createAssertionGroup(
-        checkerOption,
+        checkerStepLogic,
         IgnoringCaseRegexSearcher(),
         expected,
         DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX
     )
 
     private fun <T : CharSequence, SC : CharSequenceOrNumberOrChar, S : SearchBehaviour> createAssertionGroup(
-        checkerOption: CheckerOptionLogic<T, S>,
+        checkerStepLogic: CheckerStepLogic<T, S>,
         searcher: Searcher<S, SC>,
         expected: List<SC>,
         groupDescription: Translatable
     ): AssertionGroup {
         val creator = CharSequenceContainsAssertionCreator<T, SC, S>(
-            checkerOption.containsBuilder.searchBehaviour,
+            checkerStepLogic.containsBuilder.searchBehaviour,
             searcher,
-            checkerOption.checkers,
+            checkerStepLogic.checkers,
             groupDescription
         )
-        return creator.createAssertionGroup(checkerOption.containsBuilder.container, expected)
+        return creator.createAssertionGroup(checkerStepLogic.containsBuilder.container, expected)
     }
 }

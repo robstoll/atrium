@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName", "FunctionName")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -14,7 +16,7 @@ inline fun <T> Expect<T>._logicAppend(factory: AssertionContainer<T>.() -> Asser
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
- * and does not return new [Expect] but [Assertion]s and the like.
+ * on which assertion functions do not return [Expect]s but [Assertion]s and the like.
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to this [Expect].
  */
