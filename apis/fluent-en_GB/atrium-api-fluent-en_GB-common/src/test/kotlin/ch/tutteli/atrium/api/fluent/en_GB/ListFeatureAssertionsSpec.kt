@@ -1,14 +1,42 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.feature1
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
-object ListFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
-    feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
-    fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
-    feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
-    fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get).withNullableSuffix()
-) {
+object ListFeatureAssertionsSpec : Spek({
+    include(ListSpec)
+    include(IterableSpec)
+}) {
+    object ListSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
+        feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
+        fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
+        feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
+        fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get).withNullableSuffix(),
+        "[Atrium][List] "
+    )
+
+    object IterableSpec : Spek({
+       describe("Narrow Iterable down to List") {
+           it("Containing the same List after narrowing down the type") {
+               val list = listOf(1, 2, 3)
+               expect(list as Iterable<Int>).asList().toBe(list)
+           }
+
+           it("Containing the same List after narrowing down the type using the assertionCreator") {
+               val list = listOf(1, 2, 3)
+               expect(list as Iterable<Int>).asList {
+                  toBe(list)
+               }
+           }
+       }
+    })
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<AbstractList<Int>> = notImplemented()
