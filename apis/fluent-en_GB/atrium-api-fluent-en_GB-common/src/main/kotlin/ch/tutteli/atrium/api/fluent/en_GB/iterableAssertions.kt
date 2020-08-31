@@ -365,7 +365,7 @@ fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
+ * Use `feature of({ f(it::toList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return An [Expect] for the current subject of the assertion.
  *
