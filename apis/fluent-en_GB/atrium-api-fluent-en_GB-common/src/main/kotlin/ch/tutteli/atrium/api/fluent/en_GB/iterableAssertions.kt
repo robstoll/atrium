@@ -352,7 +352,7 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
  * Turns `Expect<E, T : Iterable<E>>` into `Expect<List<E>`.
  *
  * The transformation as such is not reflected in reporting.
- * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
+ * Use `feature { f(it::toList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
  *
