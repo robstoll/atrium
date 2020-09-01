@@ -76,7 +76,7 @@ abstract class DetailedObjectFormatterCommon(
     private fun format(throwable: Throwable) = throwable::class.fullName
 
     private fun classNameAndIdentity(any: Any): String = INDENT + "(${any::class.fullName}${identityHash(" ", any)})"
-    private fun limitRepresentation(value: String, limit: Int = 10000) = if (value.length > limit) value.substring(0, limit) else value
+    private fun limitRepresentation(value: String) = if (value.length > 10000) value.substring(0, 10000) else value
 
     protected abstract fun format(kClass: KClass<*>): String
     protected abstract fun identityHash(indent: String, any: Any): String
