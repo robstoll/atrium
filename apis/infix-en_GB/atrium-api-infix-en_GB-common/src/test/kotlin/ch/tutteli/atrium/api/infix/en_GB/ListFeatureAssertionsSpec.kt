@@ -14,6 +14,7 @@ import kotlin.jvm.JvmName
 class ListFeatureAssertionsSpec : Spek({
     include(ListSpec)
     include(IterableSpec)
+    include(SequenceSpec)
 }) {
     object ListSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
         feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
@@ -36,6 +37,24 @@ class ListFeatureAssertionsSpec : Spek({
                 val expect: Expect<Iterable<Int>> = expect(list)
                 expect asList {
                     it toBe list
+                }
+            }
+        }
+    })
+
+    object SequenceSpec : Spek({
+        describe("Terminate Sequence by transforming it to a List") {
+            it("Containing the same sequence of values after transforming the Sequence to a List ") {
+                val sequence = sequenceOf(1, 2, 3)
+                val expect: Expect<Sequence<Int>> = expect(sequence)
+                expect asList o toBe listOf(1, 2, 3)
+            }
+
+            it("Containing the same sequence of values after transforming the Sequence to a List using the assertionCreator") {
+                val sequence = sequenceOf(1, 2, 3)
+                val expect: Expect<Sequence<Int>> = expect(sequence)
+                expect asList {
+                    it toBe listOf(1, 2, 3)
                 }
             }
         }

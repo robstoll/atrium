@@ -12,6 +12,7 @@ import org.spekframework.spek2.style.specification.describe
 object ListFeatureAssertionsSpec : Spek({
     include(ListSpec)
     include(IterableSpec)
+    include(SequenceSpec)
 }) {
     object ListSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
         feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
@@ -35,6 +36,22 @@ object ListFeatureAssertionsSpec : Spek({
                }
            }
        }
+    })
+
+    object SequenceSpec : Spek({
+        describe("Terminate Sequence by transforming it to a List") {
+            it("Containing the same sequence of values after transforming the Sequence to a List ") {
+                val sequence = sequenceOf(1, 2, 3)
+                expect(sequence).asList().toBe(listOf(1, 2, 3))
+            }
+
+            it("Containing the same sequence of values after transforming the Sequence to a List using the assertionCreator") {
+                val sequence = sequenceOf(1, 2, 3)
+                expect(sequence).asList {
+                    toBe(listOf(1, 2, 3))
+                }
+            }
+        }
     })
 
     @Suppress("unused", "UNUSED_VALUE")
