@@ -48,7 +48,7 @@ fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @since 0.12.0
+ * @since 0.14.0
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
