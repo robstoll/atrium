@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -10,6 +13,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.crea
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 
+@Deprecated("use CharSequenceContainsAssertions of atrium-logic; will be removed with 1.0.0")
 class CharSequenceContainsAssertionsImpl : CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(

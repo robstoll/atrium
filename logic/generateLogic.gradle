@@ -18,11 +18,41 @@ static def getInterfaces(String path) {
     }
 }
 
-def createGenerateLogicTask(Project project, String implsFileName, String suffix = '') {
-    String packagePath = "ch/tutteli/atrium/logic" + (suffix != '' ? "/" + suffix : '')
+def createGenerateLogicTask(
+    Project project,
+    String implsFileName,
+    String suffix = '',
+    Map<String, Tuple5<String, String, String, String, String>> additionalPackages = [:]
+) {
+    def generateLogic = task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {}
+    (
+        ['': new Tuple5<String, String, String, String, String>(
+            'AssertionContainer', 'ch.tutteli.atrium.creating.AssertionContainer', 'container: (AssertionContainer<.+?>)', '<T> AssertionContainer<T>', 'getImpl'
+        )] + additionalPackages
+    ).forEach { relativePackagePath, tuple ->
+        def task = createGenerateLogicTaskForPackage(project, implsFileName, relativePackagePath, suffix, tuple.first, tuple.second, tuple.third, tuple.fourth, tuple.fifth)
+        generateLogic.dependsOn(task)
+    }
+    return generateLogic
+}
+
+def createGenerateLogicTaskForPackage(
+    Project project,
+    String implsFileName,
+    String relativePackagePath,
+    String suffix,
+    String extensionTypeWithoutTP,
+    String importType,
+    String paramSignature,
+    String extensionTypeSignature,
+    String getImpl
+) {
+
     String generatedFolder = project.generatedFolder
 
-    return task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {
+    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for $extensionTypeWithoutTP based on interfaces") {
+        def packagePath = 'ch/tutteli/atrium/logic' + relativePackagePath + (suffix != '' ? "/" + suffix : '')
+        def fullPackage = packagePath.replaceAll('/', '.')
         def path = "$project.projectDir/src/main/kotlin/$packagePath/"
         def interfaces = getInterfaces(path)
         def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
@@ -49,23 +79,22 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                 """.stripIndent().replace("\n", ln)
 
             new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
-                def packageSuffix = suffix != '' ? '.' + suffix : ''
                 w << header
                 w << """\
                     @file:JvmMultifileClass
                     @file:JvmName("ImplsKt")
-                    package ch.tutteli.atrium.logic$packageSuffix
+                    package $fullPackage
 
                     import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
                     import kotlin.jvm.JvmMultifileClass
                     import kotlin.jvm.JvmName
 
-                    import ch.tutteli.atrium.creating.AssertionContainer
+                    import $importType
                     """.stripIndent().replace("\n", ln)
 
                 interfaces.forEach {
                     def type = getType(it)
-                    w << "import ch.tutteli.atrium.logic${packageSuffix}.impl.Default${type}Assertions$ln"
+                    w << "import ${fullPackage}.impl.Default${type}Assertions$ln"
                 }
 
                 w << "$ln"
@@ -76,8 +105,8 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
                         @PublishedApi
                         @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
                         @UseExperimental(ExperimentalNewExpectTypes::class)
-                        internal inline val <T> AssertionContainer<T>._${type.uncapitalize()}Impl
-                            get() = getImpl(${type}Assertions::class) { Default${type}Assertions() }
+                        internal inline val ${extensionTypeSignature}._${type.uncapitalize()}Impl
+                            get() = $getImpl(${type}Assertions::class) { Default${type}Assertions() }
 
                         """.stripIndent().replace("\n", ln)
                 }
@@ -86,7 +115,7 @@ def createGenerateLogicTask(Project project, String implsFileName, String suffix
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?container: (AssertionContainer<.+?>)/
+            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?$paramSignature/
             def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
             def returnType = /(?:$newLineAndIndent)?\)(:.+)/
 

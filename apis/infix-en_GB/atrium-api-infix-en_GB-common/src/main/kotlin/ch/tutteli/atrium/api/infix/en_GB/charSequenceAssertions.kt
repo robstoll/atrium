@@ -1,22 +1,26 @@
+//TODO remove both annotations with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceAssertionsKt")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
+
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
-
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * a sophisticated `contains` assertion.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @param o The filler object [o].
  *
@@ -24,11 +28,11 @@ import ch.tutteli.atrium.logic.*
  */
 infix fun <T : CharSequence> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
-): CharSequenceContains.Builder<T, NoOpSearchBehaviour> = ExpectImpl.charSequence.containsBuilder(this)
+): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour> = _logic.containsBuilder()
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains not` assertion.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
+ * [NotCheckerStep].
  *
  * @param o The filler object [o].
  *
@@ -36,7 +40,7 @@ infix fun <T : CharSequence> Expect<T>.contains(
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
-): NotCheckerOption<T, NotSearchBehaviour> = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
+): NotCheckerStep<T, NotSearchBehaviour> = _logic.containsNotBuilder()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains the [expected]'s [toString] representation.

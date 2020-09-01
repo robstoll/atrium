@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,6 +16,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
+@Deprecated("Use class from atrium-logic; will be removed with 1.0.0")
 class ExactlyChecker(
     times: Int,
     nameContainsNotFun: String,

@@ -75,6 +75,7 @@ object ExpectImpl {
      * Returns [CharSequenceAssertionsBuilder]
      * which inter alia delegates to the implementation of [CharSequenceAssertions].
      */
+    @Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
     inline val charSequence get() = CharSequenceAssertionsBuilder
 
     /**

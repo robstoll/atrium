@@ -92,10 +92,11 @@ inline fun <T> collectForComposition(
  * Casts this [Expect] to an [AssertionContainer] so that you have access to the functionality provided on the
  * logic level.
  */
+//is not internal as it is used by extensions, however it is not made visible via module-info.java
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
         is ExpectInternal<T> -> this
-        else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20Expect%20to%20toAssertionContainer")
+        else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20Expect.toAssertionContainer")
     }
 
 /**
@@ -104,5 +105,5 @@ fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
 fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
     when (this) {
         is ExpectInternal<T> -> this
-        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer%20to%20Expect%")
+        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer.toExpect")
     }

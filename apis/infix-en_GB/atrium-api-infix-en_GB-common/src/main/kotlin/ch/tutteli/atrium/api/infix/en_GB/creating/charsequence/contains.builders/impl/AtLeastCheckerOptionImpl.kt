@@ -1,6 +1,8 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.atLeast
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.AtLeastCheckerOptionBase
@@ -26,5 +28,5 @@ internal class AtLeastCheckerOptionImpl<out T : CharSequence, out S : CharSequen
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::atLeast.name} $it`" }
+    { "`atLeast $it`" }
 ), AtLeastCheckerOption<T, S>

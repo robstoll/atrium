@@ -1,32 +1,35 @@
+//TODO remove both annotations with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceAssertionsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains` assertions.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Expect<T>.contains: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
-    get() = ExpectImpl.charSequence.containsBuilder(this)
+val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
+    get() = _logic.containsBuilder()
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains not` assertions.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
+ * [NotCheckerStep].
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Expect<T>.containsNot: NotCheckerOption<T, NotSearchBehaviour>
-    get() = NotCheckerOptionImpl(ExpectImpl.charSequence.containsNotBuilder(this))
+val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehaviour>
+    get() = _logic.containsNotBuilder()
 
 /**
  * Expects that the subject of the assertion (a [CharSequence]) contains [expected]'s [toString] representation

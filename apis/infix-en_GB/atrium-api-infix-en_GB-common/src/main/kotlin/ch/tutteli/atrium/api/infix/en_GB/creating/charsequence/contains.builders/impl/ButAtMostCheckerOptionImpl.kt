@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.infix.en_GB.atLeast
@@ -32,9 +35,9 @@ internal class ButAtMostCheckerOptionImpl<out T : CharSequence, out S : CharSequ
     atLeastBuilder,
     containsBuilder,
     nameContainsNotValuesFun,
-    { l, u -> "`${containsBuilder::atLeast.name} $l ${atLeastBuilder::butAtMost.name} $u`" },
-    { "`${containsBuilder::atMost.name} $it`" },
-    { "`${containsBuilder::atLeast.name} $it`" },
-    { "`${atLeastBuilder::butAtMost.name} $it`" },
-    { "`${containsBuilder::exactly.name} $it`" }
+    { l, u -> "`atLeast $l butAtMost $u`" },
+    { "`atMost $it`" },
+    { "`atLeast $it`" },
+    { "`butAtMost $it`" },
+    { "`exactly $it`" }
 ), ButAtMostCheckerOption<T, S>

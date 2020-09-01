@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -29,6 +32,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
+@Deprecated("Use class from atrium-logic; will be removed with 1.0.0")
 class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC : Any, S : SearchBehaviour>(
     searchBehaviour: S,
     private val searcher: Searcher<S, SC>,

@@ -1,8 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.NotOrAtMostCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.fluent.en_GB.notOrAtMost
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
@@ -26,5 +28,5 @@ internal class NotOrAtMostCheckerOptionImpl<out T : CharSequence, out S : CharSe
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "${containsBuilder::notOrAtMost.name}($it)" }
+    { "notOrAtMost($it)" }
 ), NotOrAtMostCheckerOption<T, S>

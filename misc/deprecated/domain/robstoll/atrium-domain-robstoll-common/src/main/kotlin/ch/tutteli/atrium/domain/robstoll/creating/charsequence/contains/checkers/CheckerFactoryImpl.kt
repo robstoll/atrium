@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -7,7 +10,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.chec
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.ExactlyChecker
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.NotChecker
 
-
+@Deprecated("use extension functions of atrium-logic; will be removed with 1.0.0")
 class CheckerFactoryImpl : CheckerFactory {
 
     override fun newAtLeastChecker(

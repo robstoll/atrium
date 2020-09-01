@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers
 
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher
@@ -8,6 +11,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * It performs a non-disjoint search, meaning searching 'aa?' in 'aaaa' has 4 hits.
  */
+@Deprecated("Use class from atrium-logic; will be removed with 1.0.0")
 class RegexSearcher : Searcher<NoOpSearchBehaviour, Regex> {
     override fun search(searchIn: CharSequence, searchFor: Regex): Int {
         var counter = 0

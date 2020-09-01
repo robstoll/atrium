@@ -22,7 +22,7 @@ class DeprecationSpek2ExecutionListener(
             println("forgiving ${test.path}")
             listener.testExecutionFinish(test, ExecutionResult.Success)
         } else {
-            println("path of test: ${test.path}")
+            println("path of test in case you want to forgive it failing:\n ${test.path}")
             listener.testExecutionFinish(test, result)
         }
     }

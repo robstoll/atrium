@@ -1,8 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.ExactlyCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.ExactlyCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
@@ -26,5 +28,5 @@ internal class ExactlyCheckerOptionImpl<out T : CharSequence, out S : CharSequen
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "${containsBuilder::exactly.name}($it)" }
+    { "exactly($it)" }
 ), ExactlyCheckerOption<T, S>

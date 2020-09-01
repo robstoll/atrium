@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -8,4 +11,5 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  * It furthermore implements a no operation for [decorateDescription], meaning it passes back the description which
  * is passed in (identity function).
  */
+@Deprecated("Use class from atrium-logic; will be removed with 1.0.0")
 class NoOpSearchBehaviourImpl : NoOpSearchBehaviour
