@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -8,6 +11,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use the CharSequence.Contains.Checker's from atrium-logic; will be removed with 1.0.0")
 val checkerFactory by lazy { loadSingleService(CheckerFactory::class) }
 
 
@@ -15,6 +19,7 @@ val checkerFactory by lazy { loadSingleService(CheckerFactory::class) }
  * Defines the minimum set of [CharSequenceContains.Checker]s an implementation of the domain of Atrium
  * has to provide.
  */
+@Deprecated("Use the `CharSequence.Contains.Checker`s from atrium-logic; will be removed with 1.0.0")
 interface CheckerFactory {
     /**
      * Creates an [CharSequenceContains.Checker] which verifies that an expected object is contained at least [times]

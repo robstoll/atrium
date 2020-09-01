@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.NotOrAtMostCheckerOption

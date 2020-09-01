@@ -1,10 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.atLeast
-import ch.tutteli.atrium.api.infix.en_GB.atMost
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.AtMostCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.infix.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.AtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 

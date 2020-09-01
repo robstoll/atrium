@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.charsequence.contains
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -16,6 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * is finalized by one of the [CharSequenceContainsAssertions]
  * which usually use a [Creator] which in turn use a [Searcher].
  */
+@Deprecated("Use the CharSequenceContains from atrium-logic; will be removed with 1.0.0")
 interface CharSequenceContains {
 
     /**

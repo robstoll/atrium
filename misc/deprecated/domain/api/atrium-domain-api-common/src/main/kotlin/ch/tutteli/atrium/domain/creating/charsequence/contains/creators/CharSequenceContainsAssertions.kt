@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -13,6 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use the CharSequenceContainsAssertions from atrium-logic; will be removed with 1.0.0")
 val charSequenceContainsAssertions by lazy { loadSingleService(CharSequenceContainsAssertions::class) }
 
 
@@ -20,6 +24,7 @@ val charSequenceContainsAssertions by lazy { loadSingleService(CharSequenceConta
  * Defines the minimum set of `contains` assertion functions for [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
  */
+@Deprecated("Use the CharSequenceContainsAssertions from atrium-logic; will be removed with 1.0.0")
 interface CharSequenceContainsAssertions {
 
     fun <T : CharSequence> values(
