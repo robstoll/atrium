@@ -36,7 +36,7 @@ infix fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Ite
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.12.0
+ * @since 0.14.0
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asList(
     @Suppress("UNUSED_PARAMETER") o: o
