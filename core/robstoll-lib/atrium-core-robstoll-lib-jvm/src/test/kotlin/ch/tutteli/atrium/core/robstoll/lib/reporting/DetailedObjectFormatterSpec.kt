@@ -118,6 +118,28 @@ object DetailedObjectFormatterSpec : Spek({
                     expect(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.name}")
                 }
             }
+
+        }
+
+        context("output type information") {
+            it("type information is still given in the output if no textual limiting occurs") {
+                val numbers = mutableListOf<Int>()
+                repeat(10) { numbers += it }
+                val result = testee.format(numbers)
+                val expected = "[${numbers.joinToString(", ")}]$INDENT(${numbers::class.qualifiedName} <${System.identityHashCode(numbers)}>)"
+                expect(result).toBe(expected)
+            }
+
+            it("type information is still given in the output if the textual representation is too long") {
+                val numbers = mutableListOf<Int>()
+                repeat(5000) { numbers += it }
+                val result = testee.format(numbers)
+                val expected =
+                    "${numbers
+                        .joinToString(prefix = "[", separator = ", ")
+                        .substring(0, 10000)}...$INDENT(${numbers::class.qualifiedName} <${System.identityHashCode(numbers)}>)"
+                expect(result).toBe(expected)
+            }
         }
 
         mapOf(
