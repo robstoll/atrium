@@ -35,7 +35,7 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.12.0
+ * @since 0.14.0
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
