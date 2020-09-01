@@ -41,7 +41,7 @@ abstract class DetailedObjectFormatterCommon(
      * @return The formatted [value].
      */
     @Suppress( /* TODO remove with 1.0.0 */ "DEPRECATION")
-    override fun format(value: Any?): String = when (value) {
+    override fun format(value: Any?): String = limitRepresentation(when (value) {
         null -> Text.NULL.string
         is LazyRepresentation -> format(safeEval(value))
         is Char -> "'$value'"
@@ -58,7 +58,7 @@ abstract class DetailedObjectFormatterCommon(
         is ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString -> translator.translate(value.translatable)
 
         else -> value.toString() + classNameAndIdentity(value)
-    }
+    })
 
     private fun safeEval(lazyRepresentation: LazyRepresentation) =
         //TODO remove try-catch with 1.0.0 should no longer be necessary
@@ -76,6 +76,7 @@ abstract class DetailedObjectFormatterCommon(
     private fun format(throwable: Throwable) = throwable::class.fullName
 
     private fun classNameAndIdentity(any: Any): String = INDENT + "(${any::class.fullName}${identityHash(" ", any)})"
+    private fun limitRepresentation(value: String, limit: Int = 10000) = if (value.length > limit) value.substring(0, limit) else value
 
     protected abstract fun format(kClass: KClass<*>): String
     protected abstract fun identityHash(indent: String, any: Any): String
