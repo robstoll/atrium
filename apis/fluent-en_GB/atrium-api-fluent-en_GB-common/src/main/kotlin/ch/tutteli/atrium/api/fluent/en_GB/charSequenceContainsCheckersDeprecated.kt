@@ -1,14 +1,14 @@
-//TODO remove JvmMultifileClass with 1.0.0
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceContainsCheckersKt")
 
-package ch.tutteli.atrium.api.infix.en_GB
+package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.impl.StaticName
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.*
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders.impl.*
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
@@ -23,10 +23,9 @@ import kotlin.jvm.JvmName
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(
     times: Int
-): AtLeastCheckerStep<T, S> =
-    _logic.atLeastCheckerStep(times, StaticName.containsNotValuesFun) { "`${StaticName.atLeast} $it`" }
+): AtLeastCheckerOption<T, S> = AtLeastCheckerOptionImpl(times, this)
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the value which we
@@ -43,17 +42,9 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
+fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(
     times: Int
-): ButAtMostCheckerStep<T, S> = _logic.butAtMostCheckerStep(
-    times,
-    StaticName.containsNotValuesFun,
-    { l, u -> "`${StaticName.atLeast} $l ${StaticName.butAtMost} $u`" },
-    { "`${StaticName.atLeast} $it`" },
-    { "`${StaticName.butAtMost} $it`" },
-    { "`${StaticName.exactly} $it`" },
-    { "`${StaticName.atMost} $it`" }
-)
+): ButAtMostCheckerOption<T, S> = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -66,10 +57,9 @@ infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAt
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.exactly(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(
     times: Int
-): ExactlyCheckerStep<T, S> =
-    _logic.exactlyCheckerStep(times, StaticName.containsNotValuesFun) { "`${StaticName.exactly} $it`" }
+): ExactlyCheckerOption<T, S> = ExactlyCheckerOptionImpl(times, this)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -87,15 +77,9 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atMost(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(
     times: Int
-): AtMostCheckerStep<T, S> = _logic.atMostCheckerStep(
-    times,
-    StaticName.containsNotValuesFun,
-    { "`${StaticName.atMost} $it`" },
-    { "`${StaticName.atLeast} $it`" },
-    { "`${StaticName.exactly} $it`" }
-)
+): AtMostCheckerOption<T, S> = AtMostCheckerOptionImpl(times, this)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -108,7 +92,6 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(
     times: Int
-): NotOrAtMostCheckerStep<T, S> =
-    _logic.notOrAtMostCheckerStep(times, StaticName.containsNotValuesFun) { "`${StaticName.notOrAtMost} $it`" }
+): NotOrAtMostCheckerOption<T, S> = NotOrAtMostCheckerOptionImpl(times, this)

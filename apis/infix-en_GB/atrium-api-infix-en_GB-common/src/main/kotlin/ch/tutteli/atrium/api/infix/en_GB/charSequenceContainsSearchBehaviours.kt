@@ -1,3 +1,7 @@
+//TODO remove JvmMultifileClass with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceContainsSearchBehavioursKt")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.logic._logic
@@ -8,6 +12,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.ignoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerStep
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.

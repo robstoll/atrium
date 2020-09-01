@@ -1,3 +1,7 @@
+//TODO remove JvmMultifileClass with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceContainsCheckersKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticName
@@ -5,6 +9,8 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we are looking

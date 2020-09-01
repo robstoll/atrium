@@ -1,3 +1,7 @@
+//TODO remove JvmMultifileClass with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceContainsCreatersKt")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
@@ -16,6 +20,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
