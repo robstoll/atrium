@@ -50,9 +50,7 @@ private fun KClass<*>.objFallback(@Suppress("UNUSED_PARAMETER") obj: Any): Strin
 
 
 actual fun <T : Any> KClass<T>.cast(any: Any?): T {
-    //TODO remove `this == any::class` if https://youtrack.jetbrains.com/issue/KT-23178 is fixed
-    // added because isInstance doesn't work with reified primitive types
-    return if (any != null && (this == any::class || isInstance(any))) {
+    return if (any != null && isInstance(any)) {
         @Suppress("UNCHECKED_CAST")
         val t = any as T
         t
