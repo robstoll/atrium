@@ -36,7 +36,7 @@ fun <T : CharSequence, S : SearchBehaviour> WithTimesCheckerStepLogic<T, S>.butA
     butAtMostCall,
     exactlyCall,
     atMostCall,
-    containsBuilder
+    entryPointStepLogic
 )
 
 fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.atMostCheckerStep(

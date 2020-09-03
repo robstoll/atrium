@@ -18,7 +18,7 @@ def generateLogic = createGenerateLogicTask(project, "impls", '',
         'ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains',
         /checkerStepLogic: (CharSequenceContains.CheckerStepLogic<T, [^>]+>)/,
         '<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>',
-        'containsBuilder.container.getImpl'
+        'entryPointStepLogic.container.getImpl'
     )])
 compileKotlinCommon.dependsOn(generateLogic)
 

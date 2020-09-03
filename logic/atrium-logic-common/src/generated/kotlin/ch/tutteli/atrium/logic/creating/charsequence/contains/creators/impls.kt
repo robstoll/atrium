@@ -19,5 +19,5 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl.Defa
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>._charSequenceContainsImpl
-    get() = containsBuilder.container.getImpl(CharSequenceContainsAssertions::class) { DefaultCharSequenceContainsAssertions() }
+    get() = entryPointStepLogic.container.getImpl(CharSequenceContainsAssertions::class) { DefaultCharSequenceContainsAssertions() }
 

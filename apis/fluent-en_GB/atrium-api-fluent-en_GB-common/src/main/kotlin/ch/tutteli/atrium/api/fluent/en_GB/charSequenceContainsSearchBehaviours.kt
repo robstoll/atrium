@@ -33,4 +33,4 @@ val <T : CharSequence> CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviou
 // as we don't have to re-create the containsBuilder but use NotChecker only as checker as all other checkers
 val <T : CharSequence> NotCheckerStep<T, NotSearchBehaviour>.ignoringCase: NotCheckerStep<T, IgnoringCaseSearchBehaviour>
     get() : NotCheckerStep<T, IgnoringCaseSearchBehaviour> =
-        _logic.containsBuilder.ignoringCase._logic.notCheckerStep()
+        _logic.entryPointStepLogic.ignoringCase._logic.notCheckerStep()

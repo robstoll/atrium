@@ -77,11 +77,11 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
         groupDescription: Translatable
     ): AssertionGroup {
         val creator = CharSequenceContainsAssertionCreator<T, SC, S>(
-            checkerStepLogic.containsBuilder.searchBehaviour,
+            checkerStepLogic.entryPointStepLogic.searchBehaviour,
             searcher,
             checkerStepLogic.checkers,
             groupDescription
         )
-        return creator.createAssertionGroup(checkerStepLogic.containsBuilder.container, expected)
+        return creator.createAssertionGroup(checkerStepLogic.entryPointStepLogic.container, expected)
     }
 }

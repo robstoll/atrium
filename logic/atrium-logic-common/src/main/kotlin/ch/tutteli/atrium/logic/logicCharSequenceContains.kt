@@ -35,7 +35,7 @@ inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
 inline fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     CharSequenceContains.CheckerStep<T, S>._logicAppend(factory: CharSequenceContains.CheckerStepLogic<T, S>.() -> Assertion): Expect<T> {
     val l = _logic
-    return l.containsBuilder.container.toExpect().addAssertion(l.factory())
+    return l.entryPointStepLogic.container.toExpect().addAssertion(l.factory())
 }
 
 /**
