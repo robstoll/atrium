@@ -36,4 +36,4 @@ infix fun <T : CharSequence> CharSequenceContains.EntryPointStep<T, NoOpSearchBe
 infix fun <T : CharSequence> NotCheckerStep<T, NotSearchBehaviour>.ignoring(
     @Suppress("UNUSED_PARAMETER") case: case
 ): NotCheckerStep<T, IgnoringCaseSearchBehaviour> =
-    _logic.containsBuilder.ignoringCase._logic.notCheckerStep()
+    _logic.entryPointStepLogic.ignoringCase._logic.notCheckerStep()

@@ -14,7 +14,7 @@ internal class ButAtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceCo
     butAtMostCall: (Int) -> String,
     exactlyCall: (Int) -> String,
     atMostCall: (Int) -> String,
-    override val containsBuilder: CharSequenceContains.EntryPointStepLogic<T, S>
+    override val entryPointStepLogic: CharSequenceContains.EntryPointStepLogic<T, S>
 ) : ButAtMostCheckerStep<T, S>, CharSequenceContains.CheckerStepInternal<T, S> {
 
     init {
@@ -30,6 +30,6 @@ internal class ButAtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceCo
 
     override val checkers: List<CharSequenceContains.Checker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        atMostChecker(containsBuilder.container, times, nameContainsNotFun, atMostCall)
+        atMostChecker(entryPointStepLogic.container, times, nameContainsNotFun, atMostCall)
     )
 }

@@ -7,10 +7,10 @@ internal class NotOrAtMostCheckerStepImpl<T : CharSequence, out S : CharSequence
     times: Int,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String,
-    override val containsBuilder: CharSequenceContains.EntryPointStepLogic<T, S>
+    override val entryPointStepLogic: CharSequenceContains.EntryPointStepLogic<T, S>
 ) : NotOrAtMostCheckerStep<T, S>, CharSequenceContains.CheckerStepInternal<T, S> {
 
     override val checkers = listOf(
-        atMostChecker(containsBuilder.container, times, nameContainsNotFun, notOrAtMostCall)
+        atMostChecker(entryPointStepLogic.container, times, nameContainsNotFun, notOrAtMostCall)
     )
 }

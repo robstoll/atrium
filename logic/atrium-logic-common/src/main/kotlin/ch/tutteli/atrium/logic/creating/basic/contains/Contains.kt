@@ -54,7 +54,7 @@ interface Contains {
          * The previously chosen [EntryPointStep], containing inter alia the [AssertionContainer] to which the resulting
          * [Assertion] shall be appended.
          */
-        val containsBuilder: B
+        val entryPointStepLogic: B
 
         /**
          * Contains all [Checker]s which should be applied to the search result.
