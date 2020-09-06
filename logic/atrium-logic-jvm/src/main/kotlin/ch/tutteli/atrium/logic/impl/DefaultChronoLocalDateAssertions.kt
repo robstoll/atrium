@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ChronoLocalDateAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 
 class DefaultChronoLocalDateAssertions : ChronoLocalDateAssertions {
@@ -47,4 +48,38 @@ class DefaultChronoLocalDateAssertions : ChronoLocalDateAssertions {
         expected: ChronoLocalDate
     ): Assertion = container.createDescriptiveAssertion(SAME_DAY, expected) { it.isEqual(expected) }
 
+    override fun <T : ChronoLocalDate> isBefore(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE, expected) {
+        it.isBefore(LocalDate.parse(expected))
+    }
+
+    override fun <T : ChronoLocalDate> isBeforeOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE_OR_EQUAL, expected) {
+        val date = LocalDate.parse(expected)
+        it.isBefore(date) || it.isEqual(date)
+    }
+
+    override fun <T : ChronoLocalDate> isAfter(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion = container.createDescriptiveAssertion(IS_AFTER, expected) {
+        it.isAfter(LocalDate.parse(expected))
+    }
+
+    override fun <T : ChronoLocalDate> isAfterOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion = container.createDescriptiveAssertion(IS_AFTER_OR_EQUAL, expected) {
+        val date = LocalDate.parse(expected)
+        it.isAfter(date) || it.isEqual(date)
+    }
+
+    override fun <T : ChronoLocalDate> isEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion = container.createDescriptiveAssertion(SAME_DAY, expected) { it.isEqual(LocalDate.parse(expected)) }
 }
