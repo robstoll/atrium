@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
 import kotlin.jvm.JvmName
 
 /**
@@ -11,8 +12,8 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAnyOrder: Builder<E, T, InAnyOrderSearchBehaviour>
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
+val <E, T : Iterable<E>> EntryPointStep<E, T, NoOpSearchBehaviour>.inAnyOrder: EntryPointStep<E, T, InAnyOrderSearchBehaviour>
+    get() = _logic.inAnyOrder
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -20,10 +21,9 @@ val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAnyOrder: Builder<
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.only: Builder<E, T, InAnyOrderOnlySearchBehaviour>
+val <E, T : Iterable<E>> EntryPointStep<E, T, InAnyOrderSearchBehaviour>.only: EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>
     @JvmName("butOnly")
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
-
+    get() = _logic.butOnly
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [Iterable]" shall be applied to this
@@ -31,8 +31,8 @@ val <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.only: Builder<
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inOrder: Builder<E, T, InOrderSearchBehaviour>
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrder(this)
+val <E, T : Iterable<E>> EntryPointStep<E, T, NoOpSearchBehaviour>.inOrder: EntryPointStep<E, T, InOrderSearchBehaviour>
+    get() = _logic.inOrder
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -40,9 +40,9 @@ val <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inOrder: Builder<E, 
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.only: Builder<E, T, InOrderOnlySearchBehaviour>
+val <E, T : Iterable<E>> EntryPointStep<E, T, InOrderSearchBehaviour>.only: EntryPointStep<E, T, InOrderOnlySearchBehaviour>
     @JvmName("andOnly")
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
+    get() = _logic.andOnly
 
 /**
  * Defines that the [Iterable] contains `in order only` groups of entries
@@ -50,13 +50,13 @@ val <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.only: Builder<E, 
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.grouped: Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
+val <E, T : Iterable<E>> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.grouped: EntryPointStep<E, T, InOrderOnlyGroupedSearchBehaviour>
+    get() = _logic.grouped
 
 /**
  * A filler word to emphasis that the next step defines the order within expected groups of values.
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within: Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
-    get() = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)
+val <E, T : Iterable<E>> EntryPointStep<E, T, InOrderOnlyGroupedSearchBehaviour>.within: EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
+    get() = _logic.within

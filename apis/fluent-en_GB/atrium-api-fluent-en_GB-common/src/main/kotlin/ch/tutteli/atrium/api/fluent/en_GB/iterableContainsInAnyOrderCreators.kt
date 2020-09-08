@@ -1,12 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.CheckerOption
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.kbox.glue
 
 /**
@@ -20,7 +21,7 @@ import ch.tutteli.kbox.glue
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -43,10 +44,10 @@ fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(ex
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
+fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
+): Expect<T> = _logicAppend { values(expected glue otherExpected) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -62,7 +63,7 @@ fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
+fun <E : Any, T : Any> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -81,15 +82,10 @@ fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entries(
+fun <E : Any, T : Any> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInAnyOrder(
-        this,
-        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
-    )
-)
+): Expect<T> = _logicAppend { entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
@@ -107,7 +103,7 @@ fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.
  * @since 0.9.0
  * TODO remove with 1.0.0
  */
-inline fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+inline fun <reified E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterable)
@@ -133,7 +129,7 @@ inline fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBeha
  *
  * @since 0.13.0
  */
-inline fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+inline fun <reified E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterableLike)

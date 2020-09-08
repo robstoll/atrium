@@ -12,14 +12,35 @@ dependencies {
 
 
 apply from: "$project.projectDir/../generateLogic.gradle"
-def generateLogic = createGenerateLogicTask(project, "impls", '',
-    ['/creating/charsequence/contains/creators' : new Tuple5(
-        'CharSequenceContains.CheckerStepLogic',
-        'ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains',
-        /checkerStepLogic: (CharSequenceContains.CheckerStepLogic<T, [^>]+>)/,
-        '<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>',
-        'entryPointStepLogic.container.getImpl'
-    )])
+
+Map<String, Closure<Tuple4<String, String, String, String>>> map = [
+    '/creating/charsequence/contains/creators': {
+        new Tuple3(
+            'import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains',
+            '<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>',
+            'entryPointStepLogic.container.getImpl'
+        )
+    },
+    '/creating/iterable/contains/creators'    : { java.nio.file.Path path ->
+        def fileNameAsString = path.fileName.toString()
+        if (fileNameAsString == 'IterableLikeContainsInAnyOrderAssertions.kt') {
+            return new Tuple3(
+                'import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains\nimport ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour',
+                '<E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>',
+                'entryPointStepLogic.container.getImpl'
+            )
+        } else if (fileNameAsString == 'IterableLikeContainsAssertions.kt') {
+            return new Tuple3(
+                '',
+                '<E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>',
+                'container.getImpl'
+            )
+        } else {
+            throw new IllegalStateException("define a configuration for this new file $fileNameAsString")
+        }
+    }
+]
+def generateLogic = createGenerateLogicTask(project, "impls", '', map)
 compileKotlinCommon.dependsOn(generateLogic)
 
 sourceSets {

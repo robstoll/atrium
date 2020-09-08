@@ -26,6 +26,7 @@ interface GroupWithNullableEntries<out T : Any?> : Group<T>
  * Adds the given [firstGroup], the [secondGroup] and the [otherGroups] into a new [List] and returns it.
  * @return a [List] containing [firstGroup], [secondGroup] and [otherGroups].
  */
+//TODO copy and move to atrium-logic
 fun <T> groupsToList(firstGroup: Group<T>, secondGroup: Group<T>, otherGroups: Array<out Group<T>>): List<List<T>> {
     val groups = ArrayList<List<T>>(otherGroups.size + 2)
     requireNotEmptyAndAdd(groups, firstGroup)

@@ -1,12 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnlyGrouped
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnlyGrouped
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
 import kotlin.jvm.JvmName
 
 /**
@@ -22,16 +23,11 @@ import kotlin.jvm.JvmName
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
+fun <E, T : Iterable<E>> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.valuesInOrderOnlyGrouped(
-        this,
-        groupsToList(firstGroup, secondGroup, otherExpectedGroups)
-    )
-)
+): Expect<T> = _logicAppend { valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups)) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [firstGroup] as well as
@@ -52,13 +48,8 @@ fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")
-fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
+fun <E : Any, T : Iterable<E?>> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInOrderOnlyGrouped(
-        this,
-        groupsToList(firstGroup, secondGroup, otherExpectedGroups)
-    )
-)
+): Expect<T> = _logicAppend { entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups)) }

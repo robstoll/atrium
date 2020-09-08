@@ -1,12 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyOrderOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.kbox.glue
 
 /**
@@ -24,7 +27,7 @@ import ch.tutteli.kbox.glue
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : Iterable<E>> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -43,10 +46,10 @@ fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expe
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
+fun <E, T : Iterable<E>> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
+): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -66,7 +69,7 @@ fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T : Iterable<E?>> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -98,15 +101,10 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.en
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = addAssertion(
-    ExpectImpl.iterable.contains.entriesInAnyOrderOnly(
-        this,
-        assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
-    )
-)
+): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements in
@@ -128,7 +126,7 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.en
  * @since 0.9.0
  * TODO remove with 1.0.0
  */
-inline fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T : Iterable<E>> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterable)
@@ -158,7 +156,7 @@ inline fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehavi
  *
  * @since 0.13.0
  */
-inline fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T : Iterable<E>> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterableLike)

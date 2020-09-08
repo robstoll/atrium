@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.creating.basic.contains.checkers.NotChecker
+import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.NotChecker
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl.DefaultNotChecker

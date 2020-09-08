@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.*
-import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.*
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl.StaticName
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we are looking
@@ -16,9 +17,10 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atLeast(
+fun <E, T : Any, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.atLeast(
     times: Int
-): AtLeastCheckerOption<E, T, S> = AtLeastCheckerOptionImpl(times, this)
+): AtLeastCheckerStep<E, T, S> =
+    _logic.atLeastCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.atLeast}($it)" }
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the entry which we
@@ -35,9 +37,18 @@ fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.butAtMost(
+fun <E, T : Any, S : InAnyOrderSearchBehaviour> AtLeastCheckerStep<E, T, S>.butAtMost(
     times: Int
-): ButAtMostCheckerOption<E, T, S> = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
+): ButAtMostCheckerStep<E, T, S> = _logic.butAtMostCheckerStep(
+    times,
+    StaticName.containsNotValuesFun,
+    { l, u -> "${StaticName.atLeast}($l).${StaticName.butAtMost}($u)" },
+    { "${StaticName.atLeast}($it)" },
+    { "${StaticName.butAtMost}($it)" },
+    { "${StaticName.exactly}($it)" },
+    { "${StaticName.atMost}($it)" }
+)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -50,9 +61,10 @@ fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, 
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.exactly(
+fun <E, T : Any, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.exactly(
     times: Int
-): ExactlyCheckerOption<E, T, S> = ExactlyCheckerOptionImpl(times, this)
+): ExactlyCheckerStep<E, T, S> =
+    _logic.exactlyCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.exactly}($it)" }
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -70,9 +82,15 @@ fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atMost(
+fun <E, T : Any, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.atMost(
     times: Int
-): AtMostCheckerOption<E, T, S> = AtMostCheckerOptionImpl(times, this)
+): AtMostCheckerStep<E, T, S> = _logic.atMostCheckerStep(
+    times,
+    StaticName.containsNotValuesFun,
+    { "${StaticName.atMost}($it)" },
+    { "${StaticName.atLeast}($it)" },
+    { "${StaticName.exactly}($it)" }
+)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -85,6 +103,7 @@ fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S : InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.notOrAtMost(
+fun <E, T : Any, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.notOrAtMost(
     times: Int
-): NotOrAtMostCheckerOption<E, T, S> = NotOrAtMostCheckerOptionImpl(times, this)
+): NotOrAtMostCheckerStep<E, T, S> =
+    _logic.notOrAtMostCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.notOrAtMost}($it)" }

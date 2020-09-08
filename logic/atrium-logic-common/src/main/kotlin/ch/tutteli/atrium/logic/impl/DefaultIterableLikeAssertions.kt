@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
@@ -11,6 +12,14 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NoOpSearchBehaviourImpl
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NotSearchBehaviourImpl
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointStepImpl
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.impl.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -19,6 +28,17 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
+    override fun <T : Any, E> containsBuilder(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> =
+        EntryPointStepImpl(container, converter, NoOpSearchBehaviourImpl())
+
+    override fun <T : Any, E> containsNotBuilder(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): NotCheckerStep<E, T, NotSearchBehaviour> =
+        EntryPointStepImpl(container, converter, NotSearchBehaviourImpl())._logic.notCheckerStep()
 
     override fun <T : Any, E : Any> all(
         container: AssertionContainer<T>,
