@@ -4,17 +4,31 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import org.spekframework.spek2.Spek
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.JapaneseDate
 
-class ChronoLocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAssertionSpec(
-    fun1(Expect<ChronoLocalDate>::isBefore),
-    fun1(Expect<ChronoLocalDate>::isBeforeOrEqual),
-    fun1(Expect<ChronoLocalDate>::isAfter),
-    fun1(Expect<ChronoLocalDate>::isAfterOrEqual),
-    fun1(Expect<ChronoLocalDate>::isEqual)
-) {
+class ChronoLocalDateAssertionsSpec : Spek({
+    include(ChronoLocalDateSpec)
+    include(ChronoLocalDateAsStringSpec)
+}) {
+    object ChronoLocalDateSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAssertionSpec(
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBefore),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBeforeOrEqual),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isAfter),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isAfterOrEqual),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isEqual)
+    )
+
+    object ChronoLocalDateAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAsStringAssertionSpec(
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBefore),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBeforeOrEqual),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isAfter),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isAfterOrEqual),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isEqual)
+    )
+
     companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -58,5 +72,17 @@ class ChronoLocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.Chrono
         a2 = a2 isAfter chronoLocalDate
         a2 = a2 isAfterOrEqual chronoLocalDate
         a2 = a2 isEqual chronoLocalDate
+
+        a1 = a1 isBefore "also not ambiguous if string is passed"
+        a1 = a1 isBeforeOrEqual "also not ambiguous if string is passed"
+        a1 = a1 isAfter "also not ambiguous if string is passed"
+        a1 = a1 isAfterOrEqual "also not ambiguous if string is passed"
+        a1 = a1 isEqual "also not ambiguous if string is passed"
+
+        a2 = a2 isBefore "also not ambiguous if string is passed"
+        a2 = a2 isBeforeOrEqual "also not ambiguous if string is passed"
+        a2 = a2 isAfter "also not ambiguous if string is passed"
+        a2 = a2 isAfterOrEqual "also not ambiguous if string is passed"
+        a2 = a2 isEqual "also not ambiguous if string is passed"
     }
 }
