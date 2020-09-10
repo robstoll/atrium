@@ -29,21 +29,18 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         "contains o atLeast 1 elementsOf",
         "hello",
-        { input -> it contains o atLeast 1 elementsOf input },
         { input -> it contains o atLeast 1 elementsOf input }
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         " contains o ignoring case atLeast 1 elementsOf",
         "hello",
-        { input -> it contains o ignoring case atLeast 1 elementsOf input },
         { input -> it contains o ignoring case atLeast 1 elementsOf input }
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         "contains o ignoring case elementsOf",
         "hello",
-        { input -> it contains o ignoring case elementsOf input },
         { input -> it contains o ignoring case elementsOf input }
     ) {})
 }) {

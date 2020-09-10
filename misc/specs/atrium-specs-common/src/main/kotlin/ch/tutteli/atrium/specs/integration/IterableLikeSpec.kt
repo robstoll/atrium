@@ -11,8 +11,6 @@ import org.spekframework.spek2.style.specification.describe
 abstract class IterableLikeSpec<T>(
     description: String,
     subject: T,
-    // TODO remove with 1.0.0
-    funIterable: Expect<T>.(Iterable<Int>) -> Expect<T>,
     funIterableLike: Expect<T>.(IterableLike) -> Expect<T>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
@@ -21,7 +19,7 @@ abstract class IterableLikeSpec<T>(
         context("context: expecting an Iterable") {
             it("passing an empty iterable throws an IllegalArgumentException") {
                 expect {
-                    expect(subject).funIterable(listOf())
+                    expect(subject).funIterableLike(listOf<T>())
                 }.toThrow<IllegalArgumentException>()
             }
         }

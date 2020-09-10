@@ -29,14 +29,12 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         "contains.atLeast(1).elementsOf",
         "hello",
-        { input -> contains.atLeast(1).elementsOf(input) },
         { input -> contains.atLeast(1).elementsOf(input) }
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         "contains.ignoringCase.atLeast(1).elementsOf",
         "hello",
-        { input -> contains.ignoringCase.atLeast(1).elementsOf(input) },
         { input -> contains.ignoringCase.atLeast(1).elementsOf(input) }
     ) {})
 
@@ -44,7 +42,6 @@ class CharSequenceContainsAtLeastAssertionsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeSpec<String>(
         "contains.ignoringCase.elementsOf",
         "hello",
-        { input -> contains.ignoringCase.elementsOf(input) },
         { input -> contains.ignoringCase.elementsOf(input) }
     ) {})
 }) {
