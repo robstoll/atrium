@@ -12,21 +12,23 @@ import ch.tutteli.kbox.glue
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
- * value shall be searched within the [Iterable].
+ * value shall be searched within the [IterableLike].
  *
  * Delegates to [values].
  *
- * @param expected The value which is expected to be contained within this [Iterable].
+ * @param expected The value which is expected to be contained within this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
- * value as well as the [otherExpected] values (if given) shall be searched within the [Iterable].
+ * value as well as the [otherExpected] values (if given) shall be searched within the [IterableLike].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
  * [expected] is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match,
@@ -38,13 +40,15 @@ fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E)
  * instead of:
  *   `contains.inAnyOrder.atLeast(1).values('a', 'a')`
  *
- * @param expected The object which is expected to be contained within this [Iterable].
- * @param otherExpected Additional objects which are expected to be contained within this [Iterable].
+ * @param expected The object which is expected to be contained within this [IterableLike].
+ * @param otherExpected Additional objects which are expected to be contained within this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
+fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = _logicAppend { values(expected glue otherExpected) }
@@ -62,8 +66,10 @@ fun <E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T : Any> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
+fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -81,38 +87,18 @@ fun <E : Any, T : Any> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T : Any> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entries(
+fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = _logicAppend { entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
 
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched within the [Iterable].
- *
- * Delegates to [values] which also means that it does not search for unique matches
- * (see [values] for more information).
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
- *
- * @since 0.9.0
- * TODO remove with 1.0.0
- */
-inline fun <reified E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<E>
-): Expect<T> {
-    val (first, rest) = toVarArg<E>(expectedIterable)
-    return values(first, *rest)
-}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched within the [Iterable].
+ * shall be searched within the [IterableLike].
  *
  * Delegates to [values] which also means that it does not search for unique matches
  * (see [values] for more information).
@@ -120,16 +106,17 @@ inline fun <reified E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.ele
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
- * or the given [expectedIterableLike] does not have elements (is empty).
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not
+ *   an [IterableLike], [Sequence] or one of the [Array] types
+ *   or the given [expectedIterableLike] does not have elements (is empty).
  *
- * @since 0.13.0
+ * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
-inline fun <reified E, T : Any> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+inline fun <reified E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterableLike)
