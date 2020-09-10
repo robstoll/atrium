@@ -1,3 +1,7 @@
+//TODO remove both annotations with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("IterableAssertionsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -8,6 +12,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpS
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.kbox.identity
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * Starts a sophisticated `contains` assertion building process based on this [Expect].
