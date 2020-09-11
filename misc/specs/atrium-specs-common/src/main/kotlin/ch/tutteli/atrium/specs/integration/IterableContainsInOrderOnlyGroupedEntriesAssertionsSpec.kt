@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
@@ -81,7 +82,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
-        "$prefix\\Q$bulletPoint\\E${featureArrow}size: $actual[^:]+: $expected"
+        "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
 
 
     val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"

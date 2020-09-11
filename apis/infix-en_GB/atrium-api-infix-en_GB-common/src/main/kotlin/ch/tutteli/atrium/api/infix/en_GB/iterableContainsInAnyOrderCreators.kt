@@ -1,32 +1,38 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.creating.basic.contains.addAssertion
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.CheckerOption
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]
- * value shall be searched within the [Iterable].
+ * value shall be searched within the [IterableLike].
  *
  * Delegates to `the values(expected)`.
  *
- * @param expected The value which is expected to be contained within this [Iterable].
+ * @param expected The value which is expected to be contained within this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
+infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
     this the values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
- * shall be searched within the [Iterable].
+ * shall be searched within the [IterableLike].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
  * [Values] is defined as `values("a", "a")`, then both match,
@@ -38,14 +44,16 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.va
  * instead of:
  *   `to contain inAny order exactly 1 the values('a', 'a')`
  *
- * @param values The values which are expected to be contained within the [Iterable]
+ * @param values The values which are expected to be contained within the [IterableLike]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Expect<T> =
-    addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrder(this, values.toList()))
+infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Expect<T> =
+    _logicAppend { values(values.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -60,8 +68,10 @@ infix fun <E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.th
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(
+infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = this the entries(assertionCreatorOrNull)
 
@@ -72,42 +82,21 @@ infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehav
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of
  * the [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
  *
- * @param entries The entries which are expected to be contained within the [Iterable]
+ * @param entries The entries which are expected to be contained within the [IterableLike]
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E : Any, T : Iterable<E?>> CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(
+infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.the(
     entries: Entries<E>
-): Expect<T> = addAssertion(ExpectImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched within the [Iterable].
- *
- * Delegates to [values] which also means that it does not search for unique matches
- * (see [values] for more information).
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
- *
- * TODO remove with 1.0.0
- * @since 0.12.0
- */
-inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<E>
-): Expect<T> {
-    val (first, rest) = toVarArg<E>(expectedIterable)
-    return this the values(first, *rest)
-}
+): Expect<T> = _logicAppend { entries(entries.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched within the [Iterable].
+ * shall be searched within the [IterableLike].
  *
  * Delegates to [values] which also means that it does not search for unique matches
  * (see [values] for more information).
@@ -115,16 +104,17 @@ inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSear
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
- * or the given [expectedIterableLike] does not have elements (is empty).
+ * @throws IllegalArgumentException in case [expectedIterableLike] is not an
+ *   [Iterable], [Sequence] or one of the [Array] types
+ *   or the given [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
  */
-inline infix fun <reified E, T : Iterable<E>> CheckerOption<E, T, InAnyOrderSearchBehaviour>.elementsOf(
+inline infix fun <reified E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
     val (first, rest) = toVarArg<E>(expectedIterableLike)

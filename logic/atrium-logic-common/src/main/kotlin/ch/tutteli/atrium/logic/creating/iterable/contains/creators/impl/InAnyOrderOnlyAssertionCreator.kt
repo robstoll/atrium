@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 
@@ -58,7 +59,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             }
             assertions.add(
                 assertionBuilder.feature
-                    .withDescriptionAndRepresentation(Untranslatable("size"), Text(actualSize.toString()))
+                    .withDescriptionAndRepresentation(DescriptionCollectionAssertion.SIZE, Text(actualSize.toString()))
                     .withAssertions(featureAssertions)
                     .build()
             )

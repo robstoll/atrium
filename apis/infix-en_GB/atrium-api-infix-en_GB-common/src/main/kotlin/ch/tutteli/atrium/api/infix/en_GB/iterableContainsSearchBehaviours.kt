@@ -1,68 +1,83 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Builder
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
 
 /**
- * Defines that the search behaviour "find entries `in any order` in the [Iterable]" shall be applied to this
- * sophisticated `contains` in [Iterable] assertion.
+ * Defines that the search behaviour "find entries `in any order` in the [IterableLike]" shall be applied to this
+ * sophisticated `contains` in [IterableLike] assertion.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inAny(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, NoOpSearchBehaviour>.inAny(
     @Suppress("UNUSED_PARAMETER") order: order
-): Builder<E, T, InAnyOrderSearchBehaviour> = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
+): EntryPointStep<E, T, InAnyOrderSearchBehaviour> = _logic.inAnyOrder
 
 /**
- * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
- * sophisticated `contains` [Iterable] assertion.
+ * Defines that the constraint "`only` the specified entries exist in the [IterableLike]" shall be applied to this
+ * sophisticated `contains` [IterableLike] assertion.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderSearchBehaviour>.but(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderSearchBehaviour>.but(
     @Suppress("UNUSED_PARAMETER") only: only
-): Builder<E, T, InAnyOrderOnlySearchBehaviour> = ExpectImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
+): EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour> = _logic.butOnly
 
 
 /**
- * Defines that the search behaviour "find entries `in order` in the [Iterable]" shall be applied to this
- * sophisticated `contains` in [Iterable] assertion.
+ * Defines that the search behaviour "find entries `in order` in the [IterableLike]" shall be applied to this
+ * sophisticated `contains` in [IterableLike] assertion.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, NoOpSearchBehaviour>.inGiven(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, NoOpSearchBehaviour>.inGiven(
     @Suppress("UNUSED_PARAMETER") order: order
-): Builder<E, T, InOrderSearchBehaviour> = ExpectImpl.iterable.contains.searchBehaviours.inOrder(this)
+): EntryPointStep<E, T, InOrderSearchBehaviour> = _logic.inOrder
 
 /**
- * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
- * sophisticated `contains in order` [Iterable] assertion.
+ * Defines that the constraint "`only` the specified entries exist in the [IterableLike]" shall be applied to this
+ * sophisticated `contains in order` [IterableLike] assertion.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, InOrderSearchBehaviour>.and(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderSearchBehaviour>.and(
     @Suppress("UNUSED_PARAMETER") only: only
-): Builder<E, T, InOrderOnlySearchBehaviour> = ExpectImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
+): EntryPointStep<E, T, InOrderOnlySearchBehaviour> = _logic.andOnly
 
 /**
- * Defines that the [Iterable] contains `in order only` groups of entries
+ * Defines that the [IterableLike] contains `in order only` groups of entries
  * whereas the order within the group is specified as next step.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlySearchBehaviour>.grouped(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.grouped(
     @Suppress("UNUSED_PARAMETER") entries: entries
-): Builder<E, T, InOrderOnlyGroupedSearchBehaviour> =
-    ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
+): EntryPointStep<E, T, InOrderOnlyGroupedSearchBehaviour> = _logic.grouped
 
 /**
  * A filler word to emphasis that the next step defines the order within expected groups of values.
  *
  * @return The newly created builder.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within(
+infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedSearchBehaviour>.within(
     @Suppress("UNUSED_PARAMETER") group: group
-): Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour> =
-    ExpectImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)
+): EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour> = _logic.within
 

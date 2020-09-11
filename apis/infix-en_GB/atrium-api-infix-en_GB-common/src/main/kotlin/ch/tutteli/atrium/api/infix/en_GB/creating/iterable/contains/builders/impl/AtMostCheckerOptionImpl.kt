@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.atLeast
-import ch.tutteli.atrium.api.infix.en_GB.atMost
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.AtMostCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.infix.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.AtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -28,7 +25,7 @@ internal class AtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAny
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::atMost.name} $it`" },
-    { "`${containsBuilder::atLeast.name} $it`" },
-    { "`${containsBuilder::exactly.name} $it`" }
+    { "`atMost $it`" },
+    { "`atLeast $it`" },
+    { "`exactly $it`" }
 ), AtMostCheckerOption<E, T, S>

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -51,7 +52,7 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val separator = lineSeperator
 
         fun Expect<String>.containsSize(actual: Int, expected: Int) =
-            contains.exactly(1).regex("size: $actual[^:]+: $expected")
+            contains.exactly(1).regex("${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected")
 
         fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)
         private fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.im
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.NotOrAtMostCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.infix.en_GB.notOrAtMost
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.NotOrAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -26,5 +25,5 @@ internal class NotOrAtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : 
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "`${containsBuilder::notOrAtMost.name} $it`" }
+    { "`notOrAtMost $it`" }
 ), NotOrAtMostCheckerOption<E, T, S>

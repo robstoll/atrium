@@ -1,13 +1,16 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.infix.en_GB.grouped
+import ch.tutteli.atrium.api.infix.en_GB.within
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
@@ -17,47 +20,55 @@ abstract class IterableContainsSpecBase : WithAsciiReporter() {
     private val Entries = "entries"
 
     //@formatter:off
-    protected val atLeast = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerOption<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
-    protected val exactly = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::exactly.name
-    protected val atMost = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::atMost.name
-    protected val notOrAtMost = IterableContains.Builder<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
-    protected val inAnyOrder = "${IterableContains.Builder<*, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
-    protected val butOnly = "${IterableContains.Builder<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
-    private val theInAnyOrderFun: KFunction2<IterableContains.CheckerOption<Int, Iterable<Int>, InAnyOrderSearchBehaviour>, Values<Int>, Expect<Iterable<Int>>>
-        = IterableContains.CheckerOption<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::the
+    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
+    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
+    protected val inAnyOrder =
+        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
+    protected val butOnly =
+        "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
+    private val theInAnyOrderFun: KFunction2<IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
+        IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::the
     private val theInAnyOrder = theInAnyOrderFun.name
     protected val inAnyOrderEntries = "$theInAnyOrder $Entries"
     protected val inAnyOrderValues = "$theInAnyOrder $Values"
-    protected val inAnyOrderElementsOf = IterableContains.CheckerOption<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::elementsOf.name
+    protected val inAnyOrderElementsOf =
+        IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::elementsOf.name
 
-    private val theInAnyOrderOnlyFun: KFunction2<IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>>
-        = IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::the
+    private val theInAnyOrderOnlyFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::the
     private val theInAnyOrderOnly = theInAnyOrderOnlyFun.name
     protected val inAnyOrderOnlyValues = "$theInAnyOrderOnly $Values"
     protected val inAnyOrderOnlyEntries = "$theInAnyOrderOnly $Entries"
-    protected val inAnyOrderOnlyElementsOf = IterableContains.Builder<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
+    protected val inAnyOrderOnlyElementsOf =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
 
-    protected val inOrder = "${IterableContains.Builder<*, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
-    protected val andOnly = "${IterableContains.Builder<Int, Iterable<Int>, InOrderSearchBehaviour>::and.name} ${only::class.simpleName}"
-    private val theInOrderOnlyFun: KFunction2<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>>
-        = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::the
+    protected val inOrder =
+        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
+    protected val andOnly =
+        "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderSearchBehaviour>::and.name} ${only::class.simpleName}"
+    private val theInOrderOnlyFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::the
     private val theInOrderOnly = theInOrderOnlyFun.name
     protected val inOrderOnlyValues = "$theInOrderOnly $Values"
     protected val inOrderOnlyEntries = "$theInOrderOnly $Entries"
-    protected val inOrderElementsOf = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
-    protected val grouped = "${IterableContains.Builder<*, *, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
-    protected val within = IterableContains.Builder<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
-    private val withinInAnyOrderFun : KFunction2<IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, Expect<Iterable<Int>>>
-        = IterableContains.Builder<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
+    protected val inOrderElementsOf =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
+    protected val grouped =
+        "${IterableLikeContains.EntryPointStep<*, *, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
+    protected val within = IterableLikeContains.EntryPointStep<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
+    private val withinInAnyOrderFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, Expect<Iterable<Int>>> =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = withinInAnyOrderFun.name
     //@formatter:on
 
     protected val filler = o::class.simpleName
-    private val containsProp: KFunction2<Expect<Iterable<Int>>, o, IterableContains.Builder<Int, Iterable<Int>, NoOpSearchBehaviour>> =
+    private val containsProp: KFunction2<Expect<Iterable<Int>>, o, IterableLikeContains.EntryPointStep<Int, Iterable<Int>, NoOpSearchBehaviour>> =
         Expect<Iterable<Int>>::contains
     protected val contains = containsProp.name
-    private val containsNotProp: KFunction2<Expect<Iterable<Int>>, o, NotCheckerOption<Int, Iterable<Int>, NotSearchBehaviour>> =
+    private val containsNotProp: KFunction2<Expect<Iterable<Int>>, o, NotCheckerStep<Int, Iterable<Int>, NotSearchBehaviour>> =
         Expect<Iterable<Int>>::containsNot
     protected val containsNot = "${containsNotProp.name} $Values"
 
@@ -67,6 +78,7 @@ abstract class IterableContainsSpecBase : WithAsciiReporter() {
         val nullableList: Expect<Set<Number?>> = notImplemented()
         val subList: Expect<ArrayList<out Number>> = notImplemented()
         val star: Expect<Collection<*>> = notImplemented()
+        val any: Expect<Collection<Any>> = notImplemented()
 
         list contains 1
         list contains 1f
@@ -275,12 +287,13 @@ abstract class IterableContainsSpecBase : WithAsciiReporter() {
         list contains o inGiven order and only grouped entries within group inAny order(
             value(1),
             values(1f),
-            values(1f, 1)
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
+            values<Number>(1f, 1)
         )
         subList contains o inGiven order and only grouped entries within group inAny order(
             value(1),
             values(1f),
-            values(1f, 1)
+            values<Number>(1f, 1)
         )
         nullableList contains o inGiven order and only grouped entries within group inAny order(
             value(null),
@@ -296,26 +309,45 @@ abstract class IterableContainsSpecBase : WithAsciiReporter() {
             values(1, null),
             values(null, null)
         )
+        any contains o inGiven order and only grouped entries within group inAny order(
+            value(1),
+            values(2),
+            values(1f, 2),
+            values(1, 1),
+            values("je", 'a')
+        )
 
         list contains o inGiven order and only grouped entries within group inAny order(
-            entry {},
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
+            entry<Number> {},
             entries({}),
             entries({}, {})
         )
         subList contains o inGiven order and only grouped entries within group inAny order(
-            entry {},
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
+            entry<Number> {},
             entries({}),
             entries({}, {})
         )
         nullableList contains o inGiven order and only grouped entries within group inAny order(
-            entry(null),
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
+            entry<Number>(null),
             entries(null),
             entries(null, {}),
             entries({}, null),
             entries(null, null)
         )
         star contains o inGiven order and only grouped entries within group inAny order(
-            entry(null),
+            //TODO this should fail IMO
+            entry<Number>(null),
+            entries(null),
+            entries(null, {}),
+            entries({}, null),
+            entries(null, null)
+        )
+        any contains o inGiven order and only grouped entries within group inAny order(
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
+            entry<Any>(null),
             entries(null),
             entries(null, {}),
             entries({}, null),

@@ -239,6 +239,7 @@ abstract class IterableContainsSpecBase {
         list.contains.inOrder.only.grouped.within.inAnyOrder(
             Value(1),
             Values(1f),
+            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
             Values<Number>(1f, 1)
         )
         subList.contains.inOrder.only.grouped.within.inAnyOrder(
@@ -285,6 +286,7 @@ abstract class IterableContainsSpecBase {
             Entries({}, null),
             Entries(null, null)
         )
+        //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
         star.contains.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
             Entry(null),
             Entries(null),
