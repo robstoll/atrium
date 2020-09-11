@@ -20,7 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 
 @Deprecated(
     "Use ThrowableThrownFailureHandler of atrium.logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.impl.creating.changers.ThrowableThrownFailureHandler")
+    ReplaceWith("ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler")
 )
 class ThrowableThrownFailureHandler<T : Throwable?, R>(
     private val maxStackTrace: Int

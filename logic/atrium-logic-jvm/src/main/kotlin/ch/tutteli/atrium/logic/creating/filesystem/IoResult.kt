@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.logic.impl.creating.filesystem
+package ch.tutteli.atrium.logic.creating.filesystem
 
 import java.io.IOException
 import java.nio.file.Path

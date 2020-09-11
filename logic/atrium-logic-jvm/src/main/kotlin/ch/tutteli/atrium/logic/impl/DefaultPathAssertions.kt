@@ -13,11 +13,11 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.impl.creating.filesystem.Failure
-import ch.tutteli.atrium.logic.impl.creating.filesystem.IoResult
-import ch.tutteli.atrium.logic.impl.creating.filesystem.Success
-import ch.tutteli.atrium.logic.impl.creating.filesystem.hints.*
-import ch.tutteli.atrium.logic.impl.creating.filesystem.runCatchingIo
+import ch.tutteli.atrium.logic.creating.filesystem.Failure
+import ch.tutteli.atrium.logic.creating.filesystem.IoResult
+import ch.tutteli.atrium.logic.creating.filesystem.Success
+import ch.tutteli.atrium.logic.creating.filesystem.hints.*
+import ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic

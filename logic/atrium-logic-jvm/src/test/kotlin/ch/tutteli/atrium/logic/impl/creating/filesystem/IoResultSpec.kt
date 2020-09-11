@@ -2,6 +2,10 @@ package ch.tutteli.atrium.logic.impl.creating.filesystem
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.logic.creating.filesystem.Failure
+import ch.tutteli.atrium.logic.creating.filesystem.IoResult
+import ch.tutteli.atrium.logic.creating.filesystem.Success
+import ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.nio.file.Paths
