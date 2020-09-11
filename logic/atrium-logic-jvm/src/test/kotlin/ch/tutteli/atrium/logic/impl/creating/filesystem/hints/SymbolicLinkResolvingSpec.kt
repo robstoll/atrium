@@ -8,6 +8,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.filesystem.hints.explainForResolvedLink
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks

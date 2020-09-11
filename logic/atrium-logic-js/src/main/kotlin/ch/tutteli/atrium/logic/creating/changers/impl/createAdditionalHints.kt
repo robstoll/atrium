@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.logic.impl.creating.changers
+package ch.tutteli.atrium.logic.creating.changers.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.logic.Fun0Assertions
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.impl.creating.changers.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.reporting.reporter

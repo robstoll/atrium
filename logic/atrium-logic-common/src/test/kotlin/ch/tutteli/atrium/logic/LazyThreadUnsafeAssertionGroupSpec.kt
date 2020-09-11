@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.logic.impl.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 

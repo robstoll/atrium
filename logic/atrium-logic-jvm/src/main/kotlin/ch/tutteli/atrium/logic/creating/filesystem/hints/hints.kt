@@ -1,14 +1,14 @@
-package ch.tutteli.atrium.logic.impl.creating.filesystem.hints
+package ch.tutteli.atrium.logic.creating.filesystem.hints
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.impl.creating.changers.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.logic.impl.creating.filesystem.Failure
-import ch.tutteli.atrium.logic.impl.creating.filesystem.IoResult
-import ch.tutteli.atrium.logic.impl.creating.filesystem.Success
+import ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.creating.filesystem.Failure
+import ch.tutteli.atrium.logic.creating.filesystem.IoResult
+import ch.tutteli.atrium.logic.creating.filesystem.Success
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
