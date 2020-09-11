@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class ArrayAsListAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListAssertionsSpec(
     "asList",
@@ -26,7 +27,7 @@ class ArrayAsListAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsLis
     Companion::booleanArrayWithCreator
 ) {
 
-    companion object {
+    companion object : WithAsciiReporter() {
         fun arrayInt(expect: Expect<Array<Int>>) = expect asList o
         fun byteArray(expect: Expect<ByteArray>) = expect asList o
         fun charArray(expect: Expect<CharArray>) = expect asList o

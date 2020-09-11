@@ -1,33 +1,36 @@
+//TODO remove both annotations with 1.0.0
+@file:JvmMultifileClass
+@file:JvmName("IterableAssertionsKt")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.kbox.identity
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
- * Creates an [IterableContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains` assertions.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Expect<T>.contains: IterableContains.Builder<E, T, NoOpSearchBehaviour>
-    get() = ExpectImpl.iterable.containsBuilder(this)
+val <E, T : Iterable<E>> Expect<T>.contains: IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour>
+    get() = _logic.containsBuilder(::identity)
 
 /**
- * Creates an [IterableContains.Builder] based on this [Expect] which allows to define
- * more sophisticated `contains not` assertions.
+ * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
+ * [NotCheckerStep].
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerOption<E, T, NotSearchBehaviour>
-    get() = NotCheckerOptionImpl(ExpectImpl.iterable.containsNotBuilder(this))
+val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBehaviour>
+    get() = _logic.containsNotBuilder(::identity)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the

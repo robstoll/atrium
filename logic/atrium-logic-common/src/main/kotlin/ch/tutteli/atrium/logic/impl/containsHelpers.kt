@@ -2,6 +2,7 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
@@ -56,5 +57,14 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 )
             }
         }
+        .build()
+}
+
+internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boolean): AssertionGroup {
+    return assertionBuilder.fixedClaimGroup
+        .withListType
+        .withClaim(found)
+        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH)
+        .withAssertion(explanatoryGroup)
         .build()
 }

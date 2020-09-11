@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
@@ -62,8 +63,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anEntryWhichIs: $it\\E" }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
-        "$prefix\\Q$bulletPoint\\E${featureArrow}size: $actual[^:]+: $expected"
-
+        "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
 
     val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun failAfterFail(vararg expected: Double?) = entry(afterFail, failingBulletPoint, expected)

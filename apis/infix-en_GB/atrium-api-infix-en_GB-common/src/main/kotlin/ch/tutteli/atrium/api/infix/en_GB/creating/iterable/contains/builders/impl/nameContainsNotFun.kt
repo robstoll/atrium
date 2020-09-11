@@ -1,24 +1,8 @@
-@file:Suppress("DEPRECATION" /* will be removed with 1.0.0 */)
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.containsNot
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.NotCheckerOption
-import ch.tutteli.atrium.api.infix.en_GB.o
-import ch.tutteli.atrium.api.infix.en_GB.the
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import kotlin.reflect.KFunction2
-
 internal object StaticName {
-    val nameContainsNotValuesFun: String = {
-        val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerOption<Double, Iterable<Double>, NotSearchBehaviour>> =
-            Expect<Iterable<Double>>::containsNot
-        //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)
-//        val values : KFunction2<Int, Array<out Int>, Values<Int>> = ::values
-//        "`${f.name} ${o::class.simpleName} ${fThe.name} ${values.name}`"
-        "`${containsNotKf.name} values`"
-    }()
+    val nameContainsNotValuesFun: String = "`containsNot values`"
 }

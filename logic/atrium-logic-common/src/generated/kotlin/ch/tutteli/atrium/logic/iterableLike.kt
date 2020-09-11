@@ -10,18 +10,16 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.NotCheckerStepImpl
 
 
-    //TODO add with 0.14.0
-//    fun <T : Any, E> iterableLikeContainsBuilder(
-//        container: AssertionContainer<T>,
-//        converter: (T) -> Iterable<E>
-//    ): IterableLikeContains.Builder<T, E, NoOpSearchBehaviour>
-//
-//    fun <T : Any, E> iterableLikeContainsNotBuilder(
-//        container: AssertionContainer<T>,
-//        converter: (T) -> Iterable<E>
-//    ): IterableLikeContains.Builder<T, E, NotSearchBehaviour>
+fun <T : Any, E> AssertionContainer<T>.containsBuilder(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = _iterableLikeImpl.containsBuilder(this, converter)
+
+fun <T : Any, E> AssertionContainer<T>.containsNotBuilder(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = _iterableLikeImpl.containsNotBuilder(this, converter)
 
 fun <T : Any, E : Any> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
     _iterableLikeImpl.all(this, converter, assertionCreatorOrNull)

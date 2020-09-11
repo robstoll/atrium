@@ -4,10 +4,10 @@ import java.nio.file.Paths
 import java.util.regex.Pattern
 import java.util.stream.Collectors
 
-static def getInterfaces(String path) {
+static List<Path> getInterfaces(String path) {
     Files.walk(Paths.get(path), 1).withCloseable { stream ->
         return stream
-            .filter { file -> file.getFileName().toString().endsWith("Assertions.kt") }
+            .filter { file -> file.fileName.toString().endsWith("Assertions.kt") }
             .sorted(new Comparator<Path>() {
                 @Override
                 int compare(Path a, Path b) {
@@ -22,18 +22,26 @@ def createGenerateLogicTask(
     Project project,
     String implsFileName,
     String suffix = '',
-    Map<String, Tuple5<String, String, String, String, String>> additionalPackages = [:]
+    Map<String, Closure<Tuple3<String, String, String>>> additionalPackages = [:]
 ) {
     def generateLogic = task('generateLogic', description: 'generates ext. methods for AssertionContainer based on interfaces') {}
-    (
-        ['': new Tuple5<String, String, String, String, String>(
-            'AssertionContainer', 'ch.tutteli.atrium.creating.AssertionContainer', 'container: (AssertionContainer<.+?>)', '<T> AssertionContainer<T>', 'getImpl'
-        )] + additionalPackages
-    ).forEach { relativePackagePath, tuple ->
-        def task = createGenerateLogicTaskForPackage(project, implsFileName, relativePackagePath, suffix, tuple.first, tuple.second, tuple.third, tuple.fourth, tuple.fifth)
+    Map<String, Closure<Tuple3<String, String, String>>> all = (['': { Path p ->
+        new Tuple3(
+            'import ch.tutteli.atrium.creating.AssertionContainer',
+            '<T> AssertionContainer<T>',
+            'getImpl'
+        )
+    }] + additionalPackages)
+    all.forEach { relativePackagePath, f ->
+        def task = createGenerateLogicTaskForPackage(project, implsFileName, relativePackagePath, suffix, f)
         generateLogic.dependsOn(task)
     }
     return generateLogic
+}
+
+static String getType(Path input) {
+    def fileName = input.getFileName().toString()
+    return fileName.substring(0, fileName.length() - "Assertions.kt".length())
 }
 
 def createGenerateLogicTaskForPackage(
@@ -41,20 +49,19 @@ def createGenerateLogicTaskForPackage(
     String implsFileName,
     String relativePackagePath,
     String suffix,
-    String extensionTypeWithoutTP,
-    String importType,
-    String paramSignature,
-    String extensionTypeSignature,
-    String getImpl
+    Closure<Tuple3<String, String, String>> f
 ) {
 
     String generatedFolder = project.generatedFolder
 
-    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for $extensionTypeWithoutTP based on interfaces") {
+    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for pacakge $relativePackagePath") {
         def packagePath = 'ch/tutteli/atrium/logic' + relativePackagePath + (suffix != '' ? "/" + suffix : '')
         def fullPackage = packagePath.replaceAll('/', '.')
         def path = "$project.projectDir/src/main/kotlin/$packagePath/"
         def interfaces = getInterfaces(path)
+        Map<Path, Tuple3<String, String, String>> interfacesWithTuple =
+            interfaces.collectEntries { [it, f(it)] }
+
         def generatedPath = "$project.projectDir/$generatedFolder/$packagePath"
         inputs.files(interfaces)
         outputs.dir(generatedPath)
@@ -65,10 +72,6 @@ def createGenerateLogicTaskForPackage(
 
             //TODO delete all files in folder first
 
-            def getType = { Path input ->
-                def fileName = input.getFileName().toString()
-                fileName.substring(0, fileName.length() - "Assertions.kt".length())
-            }
             def header = """\
                 //---------------------------------------------------
                 //  Generated content, modify:
@@ -89,18 +92,23 @@ def createGenerateLogicTaskForPackage(
                     import kotlin.jvm.JvmMultifileClass
                     import kotlin.jvm.JvmName
 
-                    import $importType
                     """.stripIndent().replace("\n", ln)
 
-                interfaces.forEach {
-                    def type = getType(it)
-                    w << "import ${fullPackage}.impl.Default${type}Assertions$ln"
+                interfacesWithTuple.collect { _, tuple -> tuple.first }.unique().forEach {
+                    w << "$it".replace("\n", ln)
+                }
+                interfacesWithTuple.forEach { interfacePath, tuple ->
+                    def type = getType(interfacePath)
+                    w << "${ln}import ${fullPackage}.impl.Default${type}Assertions"
                 }
 
-                w << "$ln"
+                w << "$ln$ln"
 
-                interfaces.forEach {
-                    def type = getType(it)
+                interfacesWithTuple.forEach { interfacePath, tuple ->
+                    def type = getType(interfacePath)
+                    def (String importStatements,
+                    String      extensionTypeSignature,
+                    String      getImpl) = tuple
                     w << """\
                         @PublishedApi
                         @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -115,10 +123,10 @@ def createGenerateLogicTaskForPackage(
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?$paramSignature/
             def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
             def returnType = /(?:$newLineAndIndent)?\)(:.+)/
 
+            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?$identifier: ($identifier(?:\.$identifier)*<.+>)/
             def patterns = (6..0).collect {
                 def steps = (0..<it * 2).findAll { it % 2 == 0 }
                 new Tuple3<Pattern, String, String>(
@@ -128,11 +136,12 @@ def createGenerateLogicTaskForPackage(
                 )
             }
 
-            interfaces.forEach { input ->
-                def type = getType(input)
+            interfacesWithTuple.forEach { interfacePath, tuple ->
+                def type = getType(interfacePath)
+
                 def uncapitalized = type.uncapitalize()
                 def output = new File("$generatedPath/${uncapitalized}.kt")
-                def content = input.text
+                def content = interfacePath.text
                 def interfaceName = "${type}Assertions"
                 def implValName = "_${uncapitalized}Impl"
 

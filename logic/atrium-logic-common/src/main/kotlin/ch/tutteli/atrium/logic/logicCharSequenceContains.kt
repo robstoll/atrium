@@ -29,9 +29,14 @@ inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     WithTimesCheckerStep<T, S>._logic: WithTimesCheckerStepLogic<T, S>
     get() = when (this) {
         is WithTimesCheckerStepInternal<T, S> -> this
-        else -> throw UnsupportedOperationException("Unsupported WithTimesCheckerStep: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20WithTimesCheckerStep._logic")
+        else -> throw UnsupportedOperationException("Unsupported WithTimesCheckerStep: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20CharSequenceContains%20WithTimesCheckerStep._logic")
     }
 
+/**
+ * Appends the [Assertion] the given [factory] creates based on this [CharSequenceContains.CheckerStep].
+ *
+ * Use [_logic] for more sophisticated scenarios.
+ */
 inline fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     CharSequenceContains.CheckerStep<T, S>._logicAppend(factory: CharSequenceContains.CheckerStepLogic<T, S>.() -> Assertion): Expect<T> {
     val l = _logic

@@ -1,8 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.ExactlyCheckerOption
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ExactlyCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -26,5 +28,5 @@ internal class ExactlyCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAn
     times,
     containsBuilder,
     nameContainsNotValuesFun,
-    { "${containsBuilder::exactly.name}($it)" }
+    { "exactly($it)" }
 ), ExactlyCheckerOption<E, T, S>

@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
+
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
@@ -34,6 +37,7 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehav
 /**
  * Helper function to create an [Order] based on the given [firstGroup], [secondGroup] and [otherExpectedGroups].
  */
+//TODO move to iterableLikeContainsInOrderOnlyGroupedCreators with 1.0.0 - here to retain bbc
 fun <E> order(
     firstGroup: Group<E>,
     secondGroup: Group<E>,

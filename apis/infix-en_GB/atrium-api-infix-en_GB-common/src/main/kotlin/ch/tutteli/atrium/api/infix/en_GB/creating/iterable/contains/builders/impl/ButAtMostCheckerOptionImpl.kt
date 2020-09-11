@@ -1,12 +1,11 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl
 
-import ch.tutteli.atrium.api.infix.en_GB.atLeast
-import ch.tutteli.atrium.api.infix.en_GB.atMost
-import ch.tutteli.atrium.api.infix.en_GB.butAtMost
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.ButAtMostCheckerOption
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders.impl.StaticName.nameContainsNotValuesFun
-import ch.tutteli.atrium.api.infix.en_GB.exactly
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ButAtMostCheckerOptionBase
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -32,9 +31,9 @@ internal class ButAtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : In
     atLeastBuilder,
     containsBuilder,
     nameContainsNotValuesFun,
-    { l, u -> "`${containsBuilder::atLeast.name} $l ${atLeastBuilder::butAtMost.name} $u`" },
-    { "`${containsBuilder::atMost.name} $it`" },
-    { "`${containsBuilder::atLeast.name} $it`" },
-    { "`${atLeastBuilder::butAtMost.name} $it`" },
-    { "`${containsBuilder::exactly.name} $it`" }
+    { l, u -> "`atLeast $l butAtMost $u`" },
+    { "`atMost $it`" },
+    { "`atLeast $it`" },
+    { "`butAtMost $it`" },
+    { "`exactly $it`" }
 ), ButAtMostCheckerOption<E, T, S>

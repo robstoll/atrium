@@ -16,7 +16,6 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionSpec : Spek({
     object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
         "contains o inAny order but only elementsOf",
         listOf(1, 2),
-        { input -> it contains o inAny order but only elementsOf input },
         { input -> it contains o inAny order but only elementsOf input }
     )
 

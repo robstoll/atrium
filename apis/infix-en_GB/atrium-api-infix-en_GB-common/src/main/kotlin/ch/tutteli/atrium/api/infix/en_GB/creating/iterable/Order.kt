@@ -13,4 +13,10 @@ class Order<out T, out G : Group<T>> internal constructor(
     val firstGroup: G,
     val secondGroup: G,
     val otherExpectedGroups: Array<out G>
-)
+) {
+    fun toList(): List<List<T>> = ch.tutteli.atrium.domain.builders.utils.groupsToList(
+        firstGroup,
+        secondGroup,
+        otherExpectedGroups
+    )
+}

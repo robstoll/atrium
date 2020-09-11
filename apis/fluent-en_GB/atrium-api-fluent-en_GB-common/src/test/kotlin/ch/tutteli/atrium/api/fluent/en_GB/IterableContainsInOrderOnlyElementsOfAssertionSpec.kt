@@ -28,14 +28,12 @@ class IterableContainsInOrderOnlyElementsOfAssertionSpec : Spek({
     object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
         "contains.inOrder.only.elementsOf",
         listOf(1, 2),
-        { input -> contains.inOrder.only.elementsOf(input) },
         { input -> contains.inOrder.only.elementsOf(input) }
     )
 
     object ShortcutIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
         "containsExactlyElementsOf",
         listOf(1, 2),
-        { input -> containsExactlyElementsOf(input) },
         { input -> containsExactlyElementsOf(input) }
     )
 
