@@ -18,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  *
  * @return The plant to support a fluent API.
  */
+@Deprecated("Will be removed with 1.0.0")
 fun <T : Any, B : Contains.Builder<T, *>> Contains.CheckerOption<T, *, *, B>.addAssertion(
     assertion: Assertion
 ): Expect<T> = addAssertion(containsBuilder.subjectProvider, assertion)
@@ -29,6 +30,7 @@ fun <T : Any, B : Contains.Builder<T, *>> Contains.CheckerOption<T, *, *, B>.add
  *
  * @return The plant to support a fluent API.
  */
+@Deprecated("Will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertion(
     assertion: Assertion
 ): Expect<T> = addAssertion(subjectProvider, assertion)
@@ -52,6 +54,7 @@ private fun <T : Any> addAssertion(
  *
  * @return The plant to support a fluent API.
  */
+@Deprecated("Will be removed with 1.0.0")
 fun <T : Any, B : Contains.Builder<T, *>> Contains.CheckerOption<T, *, *, B>.addAssertionForAssert(
     assertion: Assertion
 ): Assert<T> = addAssertionForAssert(containsBuilder.subjectProvider, assertion)
@@ -63,6 +66,7 @@ fun <T : Any, B : Contains.Builder<T, *>> Contains.CheckerOption<T, *, *, B>.add
  *
  * @return The plant to support a fluent API.
  */
+@Deprecated("Will be removed with 1.0.0")
 fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.Builder<E, T, S>.addAssertionForAssert(
     assertion: Assertion
 ): Assert<T> = addAssertionForAssert(subjectProvider, assertion)

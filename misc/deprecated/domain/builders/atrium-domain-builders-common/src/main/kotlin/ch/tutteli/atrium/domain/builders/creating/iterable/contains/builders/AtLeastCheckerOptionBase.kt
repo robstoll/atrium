@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -23,6 +26,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param atLeastCall The name of the function which was called and created this builder.
  */
+@Deprecated("Use AtLeastCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class AtLeastCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     final override val times: Int,
     final override val containsBuilder: IterableContains.Builder<E, T, S>,

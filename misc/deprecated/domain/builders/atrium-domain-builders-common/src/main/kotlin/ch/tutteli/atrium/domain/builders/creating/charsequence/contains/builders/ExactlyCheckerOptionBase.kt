@@ -26,6 +26,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerF
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param exactlyCall The function call which should not be used if [times] equals to zero.
  */
+@Deprecated("Use ExactlyCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class ExactlyCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     final override val times: Int,
     final override val containsBuilder: CharSequenceContains.Builder<T, S>,

@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.WithTimesCheckerOption

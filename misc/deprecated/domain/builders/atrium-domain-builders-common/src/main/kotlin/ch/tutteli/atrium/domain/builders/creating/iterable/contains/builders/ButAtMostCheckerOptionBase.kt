@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.domain.builders.utils.validateButAtMost
@@ -27,6 +30,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  * @param atMostCall The name of the function which was called and created this builder.
  * @param exactlyCall The name of the function which represents a `Iterable contains exactly` assertion.
  */
+@Deprecated("Use ButAtMostCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class ButAtMostCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     final override val times: Int,
     atLeastBuilder: WithTimesCheckerOption<E, T, S>,
