@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.steps
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.ExactlyChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.*
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 fun <E, T : IterableLike, S : SearchBehaviour> EntryPointStepLogic<E, T, S>.atLeastCheckerStep(
     times: Int,

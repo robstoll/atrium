@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.C
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]

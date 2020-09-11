@@ -6,8 +6,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep

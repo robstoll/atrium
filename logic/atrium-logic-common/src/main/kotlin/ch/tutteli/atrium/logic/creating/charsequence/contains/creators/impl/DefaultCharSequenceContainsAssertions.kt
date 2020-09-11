@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
@@ -10,6 +9,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.Ign
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.IgnoringCaseRegexSearcher
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.IndexSearcher
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.RegexSearcher
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 

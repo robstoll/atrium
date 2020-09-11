@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotOrAtMostCheckerStep
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 internal class NotOrAtMostCheckerStepImpl<E, T : IterableLike, out S : IterableLikeContains.SearchBehaviour>(
     times: Int,

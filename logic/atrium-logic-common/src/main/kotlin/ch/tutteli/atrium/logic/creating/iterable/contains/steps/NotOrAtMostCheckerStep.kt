@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.steps
 
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Represents the extension point for another step after a `contains not or at most`-check within

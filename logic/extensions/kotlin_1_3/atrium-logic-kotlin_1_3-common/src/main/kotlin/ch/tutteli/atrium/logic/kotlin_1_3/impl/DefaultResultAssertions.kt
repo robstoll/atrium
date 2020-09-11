@@ -8,8 +8,8 @@ import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.logic.kotlin_1_3.ResultAssertions
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer

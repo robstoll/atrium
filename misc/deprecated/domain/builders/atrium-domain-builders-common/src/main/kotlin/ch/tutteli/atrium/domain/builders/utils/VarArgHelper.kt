@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.domain.creating.typeutils.IterableLike

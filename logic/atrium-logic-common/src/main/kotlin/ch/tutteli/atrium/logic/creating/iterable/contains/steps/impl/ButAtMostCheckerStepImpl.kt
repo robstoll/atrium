@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.validateButAtMost
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.ButAtMostCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 internal class ButAtMostCheckerStepImpl<E, T : IterableLike, out S : IterableLikeContains.SearchBehaviour>(
     times: Int,
