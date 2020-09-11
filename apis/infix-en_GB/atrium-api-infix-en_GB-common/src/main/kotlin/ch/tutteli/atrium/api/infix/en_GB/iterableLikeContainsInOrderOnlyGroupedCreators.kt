@@ -33,15 +33,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
 ): Expect<T> = _logicAppend { valuesInOrderOnlyGrouped(order.toList()) }
 
 /**
- * Helper function to create an [Order] based on the given [firstGroup], [secondGroup] and [otherExpectedGroups].
- */
-fun <E> order(
-    firstGroup: Group<E>,
-    secondGroup: Group<E>,
-    vararg otherExpectedGroups: Group<E>
-): Order<E, Group<E>> = Order(firstGroup, secondGroup, otherExpectedGroups)
-
-/**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of identification lambdas, identifying an entry,
  * need to be contained in [IterableLike] in the specified order whereas the identification lambdas within the groups
