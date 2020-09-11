@@ -72,6 +72,7 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
  * In detail, it implements [CharSequenceContainsAssertions] by delegating to [charSequenceContainsAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
 
     override inline fun <T : CharSequence> values(
@@ -124,6 +125,7 @@ object CharSequenceContainsAssertionsBuilder : CharSequenceContainsAssertions {
  * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object CharSequenceContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <T : CharSequence> ignoringCase(
