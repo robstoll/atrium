@@ -5,7 +5,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
@@ -319,7 +318,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return values(first, *rest)
 }
 
@@ -348,7 +347,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return values(first, *rest)
 }
 
@@ -377,6 +376,6 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return values(first, *rest)
 }

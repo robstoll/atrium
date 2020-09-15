@@ -1,19 +1,17 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.toVarArg
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
@@ -130,6 +128,6 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<E>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<E>(expectedIterableLike)
     return this the values(first, *rest)
 }

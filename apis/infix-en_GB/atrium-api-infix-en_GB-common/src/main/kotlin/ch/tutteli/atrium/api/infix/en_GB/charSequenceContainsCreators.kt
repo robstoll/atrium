@@ -8,19 +8,19 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.toVarArg
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
@@ -371,7 +371,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return this the Values(first, rest)
 }
 
@@ -401,7 +401,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return this the Values(first, rest)
 }
 
@@ -430,6 +430,6 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.element
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
     return this the Values(first, rest)
 }

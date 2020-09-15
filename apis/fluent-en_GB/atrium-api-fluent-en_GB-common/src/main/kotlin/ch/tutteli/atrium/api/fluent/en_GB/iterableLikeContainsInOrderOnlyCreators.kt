@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
@@ -27,7 +28,7 @@ import ch.tutteli.kbox.glue
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -47,7 +48,7 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value(
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.values(
+fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
 ): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected) }
@@ -72,7 +73,7 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.values
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -97,7 +98,7 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehavi
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
@@ -126,9 +127,9 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehavi
  *
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
-inline fun <reified E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<E>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<E>(expectedIterableLike)
     return values(first, *rest)
 }

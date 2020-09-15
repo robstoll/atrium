@@ -39,11 +39,13 @@ interface VarArgHelper<out T> {
  *
  * @throws IllegalArgumentException in case the iterable is empty.
  */
-//TODO copy/moveto atrium-logic 0.14.0 (or 0.15.0)
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use toVarArg from atrium-logic; will be removed with 1.0.0")
 inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> =
     iterableToPair(iterableLikeToIterable(iterableLike))
 
-//TODO copy/move to atrium-logic 0.14.0 (or 0.15.0)
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Use iterableLikeToIterable from atrium-logic; will be removed with 1.0.0")
 inline fun <reified T> iterableLikeToIterable(iterableLike: IterableLike): Iterable<T> =
     when (iterableLike) {
         is Sequence<*> -> iterableLike.map { it as T }.asIterable()
@@ -60,7 +62,10 @@ inline fun <reified T> iterableLikeToIterable(iterableLike: IterableLike): Itera
         else -> throw IllegalArgumentException("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
     }
 
-//TODO copy/move to atrium-logic 0.14.0 (or 0.15.0)
+@Deprecated(
+    "Use toVarArg from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.utils.toVarArg(iterable)")
+)
 inline fun <reified T> iterableToPair(iterable: Iterable<T>): Pair<T, Array<out T>> {
     require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
     return iterable.first() to iterable.drop(1).toTypedArray()
