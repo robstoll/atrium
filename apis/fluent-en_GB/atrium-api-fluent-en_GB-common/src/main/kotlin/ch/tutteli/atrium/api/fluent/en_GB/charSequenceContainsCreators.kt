@@ -6,8 +6,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep
@@ -17,6 +16,9 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
@@ -292,98 +294,6 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
 ): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched, using a non disjoint search.
- *
- * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
- * (see [values] for more information).
- *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
- * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
- * so that you can mix [String] and [Int] for instance.
- *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
- * [expectedIterable] does not have elements (is empty).
- *
- * @since 0.9.0
- * TODO remove with 1.0.0
- */
-fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
-): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
-    return values(first, *rest)
-}
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched (ignoring case), using a non disjoint search.
- *
- * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
- * (see [values] for more information).
- *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
- * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
- * so that you can mix [String] and [Int] for instance.
- *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
- * [expectedIterable] does not have elements (is empty).
- *
- * @since 0.9.0
- * TODO remove with 1.0.0
- */
-@JvmName("elementsOfIgnoringCase")
-fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
-): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
-    return values(first, *rest)
-}
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterable]
- * shall be searched (ignoring case), using a non disjoint search.
- *
- * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
- * (see [values] for more information).
- *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
- * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
- * so that you can mix [String] and [Int] for instance.
- *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
- * [expectedIterable] does not have elements (is empty).
- *
- * @since 0.11.0
- * TODO remove with 1.0.0
- */
-@JvmName("elementsOfIgnoringCase")
-fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
-    expectedIterable: Iterable<CharSequenceOrNumberOrChar>
-): Expect<T> {
-    val (first, rest) = toVarArg<CharSequenceOrNumberOrChar>(expectedIterable)
-    return values(first, *rest)
-}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
