@@ -2340,15 +2340,15 @@ Therefore you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
+- [`nullable`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L19)
   turns a type into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L40)
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L40)
   turns an `Iterable` into an iterable with nullable element type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L66)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L79)
   turns a `Map` into a map with a nullable value type.
-- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
+- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
     
  

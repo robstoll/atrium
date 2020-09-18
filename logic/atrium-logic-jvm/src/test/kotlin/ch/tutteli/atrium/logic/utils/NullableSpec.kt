@@ -1,13 +1,10 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
-
-package ch.tutteli.atrium.domain.builders.utils
+package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.logic.Test
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.toBeDescr
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KFunction1
