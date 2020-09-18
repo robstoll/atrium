@@ -2013,7 +2013,7 @@ because Kotlin cannot infer the types automatically.
 <code-own-compose-6>
 
 ```kotlin
-import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.logic.utils.mapArguments
 
 fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
@@ -2048,9 +2048,9 @@ fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
 </code-own-compose-7>
 
 There are a few additional methods which you can call after `mapArguments`.
-See [KDoc of ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html).
-In case you want to provide your own implementation it suffices to create an 
-extension function for `ArgumentMapperBuilder`. 
+See [KDoc of ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.logic.utils/-argument-mapper-builder/index.html).
+In case you want to provide your own implementation, 
+it suffices to create an extension function for `ArgumentMapperBuilder`. 
 
 ## Enhanced Reporting
 

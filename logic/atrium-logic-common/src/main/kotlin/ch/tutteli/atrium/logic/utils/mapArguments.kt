@@ -1,15 +1,8 @@
-@file:Suppress(
-/* TODO remove annotation with 1.0.0 */ "DEPRECATION",
-/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
-)
+package ch.tutteli.atrium.logic.utils
 
-package ch.tutteli.atrium.domain.builders.utils
-
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.domain.builders.utils.subExpect
 import kotlin.js.JsName
 
 /**
@@ -23,22 +16,14 @@ import kotlin.js.JsName
  * }
  * ```
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("mapArguments(first, others)", "ch.tutteli.atrium.logic.utils.mapArguments")
-)
 fun <T> mapArguments(first: T, others: Array<out T>): ArgumentMapperBuilder<T> = ArgumentMapperBuilder(first, others)
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (T) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -46,23 +31,15 @@ inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Byte, others: ByteArray): ArgumentMapperBuilder<Byte> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byte) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -70,23 +47,15 @@ inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byt
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Char, others: CharArray): ArgumentMapperBuilder<Char> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Char) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -94,23 +63,15 @@ inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Cha
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Short, others: ShortArray): ArgumentMapperBuilder<Short> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (Short) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -118,22 +79,14 @@ inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (S
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Int, others: IntArray): ArgumentMapperBuilder<Int> = mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -141,23 +94,15 @@ inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) 
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Long, others: LongArray): ArgumentMapperBuilder<Long> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Long) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -165,23 +110,15 @@ inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Lon
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Float, others: FloatArray): ArgumentMapperBuilder<Float> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (Float) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -189,23 +126,15 @@ inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (F
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Double, others: DoubleArray): ArgumentMapperBuilder<Double> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: (Double) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -213,23 +142,15 @@ inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: 
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
-)
 fun mapArguments(first: Boolean, others: BooleanArray): ArgumentMapperBuilder<Boolean> =
     mapArguments(first, others.toTypedArray())
 
 /**
  * Maps the given [first] and [others] to the given type [R] with the help of the given [mapper].
  *
- * Use the overload without `mapper` in case you want to map to an [Assert][AssertionPlant] lambda with receiver
+ * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
-@Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
-)
 inline fun <reified R> mapArguments(
     first: Boolean,
     others: BooleanArray,
@@ -239,7 +160,6 @@ inline fun <reified R> mapArguments(
 /**
  * Builder to map variable length arguments formulated as ([first]: [T], `vararg` [others] : [T]) to something else.
  */
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
 class ArgumentMapperBuilder<out T>(
     val first: T,
     val others: Array<out T>
@@ -254,31 +174,6 @@ class ArgumentMapperBuilder<out T>(
     inline fun <reified R> toExpect(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
     ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t -> subExpect<R> { assertionCreator(t) } }
-
-    /**
-     * Maps each argument to an [Assert][AssertionPlant]&lt;[R]&gt; lambda with receiver
-     * using the given [assertionCreator] (passing in the argument).
-     *
-     * @returns The mapped [first] and [others].
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <reified R : Any> toAssert(
-        crossinline assertionCreator: Assert<R>.(T) -> Unit
-    ): Pair<Assert<R>.() -> Unit, Array<out Assert<R>.() -> Unit>> = to { t -> subAssert<R> { assertionCreator(t) } }
-
-    /**
-     * Maps each argument to an [AssertionPlantNullable]&lt;[R]&gt; lambda with receiver by
-     * using the given [assertionCreator] (passing in the argument).
-     *
-     * Notice, a future version might constrain [T] with a lower bound `Nothing?`.
-     *
-     * @returns The mapped [first] and [others].
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <reified R> toAssertionPlantNullable(
-        crossinline assertionCreator: AssertionPlantNullable<R>.(T) -> Unit
-    ): Pair<AssertionPlantNullable<R>.() -> Unit, Array<out AssertionPlantNullable<R>.() -> Unit>> =
-        to { t -> subAssertNullable<R> { assertionCreator(t) } }
 
     /**
      * Maps each argument to the given type [R] by using the given [mapper]
@@ -298,8 +193,6 @@ class ArgumentMapperBuilder<out T>(
  *
  * @returns The mapped [ArgumentMapperBuilder.first] and [ArgumentMapperBuilder.others].
  */
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
 fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilder<T> =
     ArgumentToNullOrMapperBuilder(this)
 
@@ -319,7 +212,6 @@ fun <T : Any> ArgumentMapperBuilder<T>.toNullOr(): Nothing =
  * type if the argument is not null in order that the non-nullable type can be used/passed to function which expect
  * a non-nullable type.
  */
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
 class ArgumentToNullOrMapperBuilder<T : Any>(
     val argumentMapperBuilder: ArgumentMapperBuilder<T?>
 ) {
@@ -333,16 +225,4 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
     ): Pair<(Expect<R>.() -> Unit)?, Array<out (Expect<R>.() -> Unit)?>> =
         argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subExpect<R> { assertionCreator(t) } } }
-
-    /**
-     * Maps each argument to `null` if it is already `null` and if not, then to an [AssertionPlantNullable]&lt;[R]&gt;
-     * lambda with receiver by using the given [assertionCreator] (passing in the argument).
-     *
-     * @returns The mapped arguments.
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <R : Any> toAssert(
-        crossinline assertionCreator: Assert<R>.(T) -> Unit
-    ): Pair<(Assert<R>.() -> Unit)?, Array<out (Assert<R>.() -> Unit)?>> =
-        argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subAssert<R> { assertionCreator(t) } } }
 }

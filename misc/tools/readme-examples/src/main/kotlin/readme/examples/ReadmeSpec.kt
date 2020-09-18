@@ -11,7 +11,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
-import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
 //snippet-subExpect-start
 import ch.tutteli.atrium.domain.builders.utils.subExpect

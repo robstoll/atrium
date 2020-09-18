@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import kotlin.jvm.JvmName
@@ -25,7 +25,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
             expect: Expect<Map<out String, Int>>,
             keyValue: Pair<String, Expect<Int>.() -> Unit>,
             otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
-        ) = mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
+        ) = mapArguments<Pair<String, Expect<Int>.() -> Unit>>(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let { (first, others) ->
             expect.contains(first, *others)
         }
 

@@ -1,12 +1,9 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
 
-package ch.tutteli.atrium.domain.builders.utils
+package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
-import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
@@ -45,34 +42,6 @@ object MapArgumentsSpec : Spek({
                 others[1](expect("caramel"))
             }
 
-            it("toAssert") {
-                @Suppress("DEPRECATION")
-                fun it(i: String, vararg iX: String) =
-                    mapArguments(i, iX).toAssert<String> { asExpect().startsWith(it) }
-
-                val (first, others) = it("a", "b", "c")
-                @Suppress("DEPRECATION")
-                deprecatedAssert("apple").first()
-                @Suppress("DEPRECATION")
-                others[0](deprecatedAssert("banana"))
-                @Suppress("DEPRECATION")
-                others[1](deprecatedAssert("caramel"))
-            }
-
-            it("toAssertNullable") {
-                @Suppress("DEPRECATION")
-                fun it(i: String, vararg iX: String) =
-                    mapArguments(i, iX).toAssertionPlantNullable<String?> { asExpect().notToBeNull { startsWith(it) } }
-
-                val (first, others) = it("a", "b", "c")
-                @Suppress("DEPRECATION")
-                deprecatedAssert("apple" as String?).first()
-                @Suppress("DEPRECATION")
-                others[0](deprecatedAssert("banana" as String?))
-                @Suppress("DEPRECATION")
-                others[1](deprecatedAssert("caramel" as String?))
-            }
-
             context("toNullOr...") {
 
                 it("toExpect") {
@@ -86,37 +55,8 @@ object MapArgumentsSpec : Spek({
                             _logic.changeSubject.unreported { "banana" }.assertionCreator()
                         }
                     }
-                    @Suppress("DEPRECATION")
-                    deprecatedAssert(others[1]).asExpect().notToBeNull {
-                        maybeSubject.map { assertionCreator ->
-                            _logic.changeSubject.unreported { "caramel" }.assertionCreator()
-                        }
-                    }
                 }
 
-                it("toAssert") {
-                    @Suppress("DEPRECATION")
-                    fun it(i: String?, vararg iX: String?) =
-                        mapArguments(i, iX).toNullOr().toAssert<String> { asExpect().startsWith(it) }
-
-                    val (first, others) = it(null, "b", "c")
-                    @Suppress("DEPRECATION")
-                    deprecatedAssert(first).asExpect().toBe(null)
-                    @Suppress("DEPRECATION")
-                    deprecatedAssert(others[0]).asExpect().notToBeNull {
-                        maybeSubject.map { assertionCreator ->
-                            @Suppress("DEPRECATION")
-                            _logic.changeSubject.unreported { "banana" }.asAssert().assertionCreator()
-                        }
-                    }
-                    @Suppress("DEPRECATION")
-                    deprecatedAssert(others[1]).asExpect().notToBeNull {
-                        maybeSubject.map { assertionCreator ->
-                            @Suppress("DEPRECATION")
-                            _logic.changeSubject.unreported { "caramel" }.asAssert().assertionCreator()
-                        }
-                    }
-                }
 
                 it("on non-nullable arguments") {
                     @Suppress("DEPRECATION")
