@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.iterableLikeToIterable
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -255,7 +255,7 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  * @since 0.13.0
  */
 inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
-    val iterable = iterableLikeToIterable<T>(expected)
+    val iterable = _logic.iterableLikeToIterable<T>(expected)
     require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
     return _logicAppend { isNotIn(iterable.toList()) }
 }

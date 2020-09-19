@@ -7,7 +7,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour

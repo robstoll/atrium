@@ -4,11 +4,11 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Defines the minimum set of `contains` assertion functions for [Iterable],

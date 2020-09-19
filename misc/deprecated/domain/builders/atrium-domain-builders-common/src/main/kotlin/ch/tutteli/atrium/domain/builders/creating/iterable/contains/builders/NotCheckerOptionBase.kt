@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -14,6 +17,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFacto
  * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
  *   sophisticated `contains` assertion for [Iterable].
  */
+@Deprecated("Use NotCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class NotCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     override val containsBuilder: IterableContains.Builder<E, T, S>
 ) : IterableContains.CheckerOption<E, T, S> {

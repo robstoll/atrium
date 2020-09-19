@@ -1,9 +1,12 @@
+@file:Suppress("DeprecatedCallableAddReplaceWith")
+
 package ch.tutteli.atrium.domain.builders.utils
 
 /**
  * Validates that times is not `1`; throws an IllegalArgumentException otherwise, pointing the user to use the given
  * [exactlyCall] instead of the given [atMostCall].
  */
+@Deprecated("will be only available to internal with 1.0.0")
 fun validateAtMost(
     times: Int,
     atMostCall: (Int) -> String,
@@ -20,6 +23,7 @@ fun validateAtMost(
  * Validates that [atLeastTimes] is not equal to or greater than [butAtMostTimes]; throws IllegalArgumentException
  * otherwise, pointing the user to use the given [exactlyCall] in case [atLeastTimes] equals [butAtMostTimes].
  */
+@Deprecated("will be only available to internal with 1.0.0")
 fun validateButAtMost(
     atLeastTimes: Int,
     butAtMostTimes: Int,

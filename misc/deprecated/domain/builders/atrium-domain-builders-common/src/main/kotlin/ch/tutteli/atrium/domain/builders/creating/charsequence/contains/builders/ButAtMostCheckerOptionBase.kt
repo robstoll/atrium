@@ -30,6 +30,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerF
  * @param butAtMostCall The name of the function which was called and created this builder.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
+@Deprecated("Use ButAtMostCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class ButAtMostCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     final override val times: Int,
     atLeastBuilder: WithTimesCheckerOption<T, S>,

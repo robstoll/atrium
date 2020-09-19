@@ -23,6 +23,10 @@ import ch.tutteli.atrium.creating.Expect
  * @return your passed lambda.
  */
 @Suppress("NOTHING_TO_INLINE")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith("expectLambda(assertionCreator)", "ch.tutteli.atrium.logic.utils.expectLambda")
+)
 inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) = assertionCreator
 
 
@@ -39,8 +43,16 @@ inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) 
  * @return your passed lambda.
  */
 @Suppress("NOTHING_TO_INLINE")
+@Deprecated(
+    "Switch from Assert to Expect; will be removed with 1.0.0",
+    ReplaceWith("expectLambda(assertionCreator)", "ch.tutteli.atrium.logic.utils.expectLambda")
+)
 inline fun <T> subAssertNullable(noinline assertionCreator: AssertionPlantNullable<T>.() -> Unit) =
     assertionCreator
 
 @Suppress("NOTHING_TO_INLINE")
+@Deprecated(
+    "Use expectLambda from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("expectLambda(assertionCreator)", "ch.tutteli.atrium.logic.utils.expectLambda")
+)
 inline fun <T> subExpect(noinline assertionCreator: Expect<T>.() -> Unit) = assertionCreator

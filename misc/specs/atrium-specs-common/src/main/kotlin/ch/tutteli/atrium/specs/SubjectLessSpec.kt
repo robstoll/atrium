@@ -66,8 +66,3 @@ abstract class SubjectLessSpec<T>(
         }
     }
 }
-
-/**
- * Helper function to map an arbitrary `Expect<T>.(...) -> Unit` function to a parameter-less one.
- */
-fun <T> expectLambda(createAssertion: Expect<T>.() -> Unit): Expect<T>.() -> Unit = createAssertion

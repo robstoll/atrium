@@ -26,6 +26,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerF
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param notOrAtMostCall The name of the function which was called and created this builder.
  */
+@Deprecated("Use NotOrAtMostCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class NotOrAtMostCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     final override val times: Int,
     final override val containsBuilder: CharSequenceContains.Builder<T, S>,

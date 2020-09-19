@@ -3,10 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsNotEntriesAssertionsSpec(
     containsNotEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
@@ -35,7 +34,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         *containsNotEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
-            { isGreaterThan(8.0) }, arrayOf(subExpect { isGreaterThan(10.0) })
+            { isGreaterThan(8.0) }, arrayOf(expectLambda { isGreaterThan(10.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
@@ -43,7 +42,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
         *containsNotNullableEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
-            { isGreaterThan(8.0) }, arrayOf(subExpect { isGreaterThan(10.0) })
+            { isGreaterThan(8.0) }, arrayOf(expectLambda { isGreaterThan(10.0) })
         )
     ) {})
 

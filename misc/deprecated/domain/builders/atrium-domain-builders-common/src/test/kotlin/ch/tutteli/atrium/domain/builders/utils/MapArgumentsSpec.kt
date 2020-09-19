@@ -1,8 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect

@@ -21,6 +21,7 @@ import ch.tutteli.atrium.domain.creating.iterableAssertions
  * In detail, it implements [IterableAssertions] by delegating to [iterableAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object IterableAssertionsBuilder : IterableAssertions {
 
     override inline fun <E, T : Iterable<E>> containsBuilder(subjectProvider: SubjectProvider<T>) =
@@ -68,6 +69,7 @@ object IterableAssertionsBuilder : IterableAssertions {
  * In detail, it implements [IterableContainsAssertions] by delegating to [iterableContainsAssertions]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object IterableContainsAssertionsBuilder : IterableContainsAssertions {
 
     override inline fun <E, T : Iterable<E>> valuesInAnyOrder(
@@ -154,6 +156,7 @@ object IterableContainsAssertionsBuilder : IterableContainsAssertions {
  * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
  * which in turn delegates to the implementation via [loadSingleService].
  */
+@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
 object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <E, T : Iterable<E>> inAnyOrder(builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>) =

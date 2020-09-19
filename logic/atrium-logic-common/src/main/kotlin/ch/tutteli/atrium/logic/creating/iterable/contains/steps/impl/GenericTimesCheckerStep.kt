@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.ButAtMostCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.ExactlyCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepInternal
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 internal class GenericTimesCheckerStep<E, T : IterableLike, out S : IterableLikeContains.SearchBehaviour>(
     override val times: Int,

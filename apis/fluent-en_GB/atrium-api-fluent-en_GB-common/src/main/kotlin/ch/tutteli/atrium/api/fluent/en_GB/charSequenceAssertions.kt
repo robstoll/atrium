@@ -5,7 +5,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour

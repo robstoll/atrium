@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.mfun2
 import ch.tutteli.atrium.specs.notImplemented
@@ -47,7 +47,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
             otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
         ): Expect<Map<out String, Int>> =
             if (otherKeyValues.isEmpty()) expect contains keyValue(keyValue.first, keyValue.second)
-            else mapArguments(keyValue, otherKeyValues)
+            else mapArguments<Pair<String, Expect<Int>.() -> Unit>>(keyValue, otherKeyValues)
                 .to { keyValue(it.first, it.second) }
                 .let { (first, others) -> expect contains all(first, *others) }
 

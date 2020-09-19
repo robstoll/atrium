@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.ErrorMessages
 
@@ -30,14 +30,14 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         describePrefix, listOf(1.2, 2.0),
         *containsInAnyOrderEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
         *containsInAnyOrderNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(subExpect { toBe(2.0) })
+            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
         )
     ) {})
 

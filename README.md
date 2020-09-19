@@ -1440,13 +1440,13 @@ We are going to reuse the `myFun` from above:
 <ex-data-driven-2>
 
 ```kotlin
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 
 expect("calling myFun with ...") {
     mapOf(
-        1 to subExpect<Char> { isLessThan('f') },
-        2 to subExpect { toBe('c') },
-        3 to subExpect { isGreaterThan('e') }
+        1 to expectLambda<Char> { isLessThan('f') },
+        2 to expectLambda { toBe('c') },
+        3 to expectLambda { isGreaterThan('e') }
     ).forEach { (arg, assertionCreator) ->
         feature({ f(::myFun, arg) }, assertionCreator)
     }
@@ -1460,8 +1460,8 @@ expected that subject: "calling myFun with ..."        <1234789>
 ```
 </ex-data-driven-2>
 
-The example should be self explanatory.
-One detail to note though is the usage of `subExpect`. 
+The example should be self-explanatory.
+One detail to note though is the usage of `expectLambda`. 
 It is a helper function which circumvents certain [Kotlin type inference bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
 involved in a `Pair` is not (yet) inferred correctly by Kotlin.
@@ -1481,12 +1481,12 @@ fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
 
 expect("calling myNullableFun with ...") {
     mapOf(
-        Int.MIN_VALUE to subExpect<String> { contains("min") },
+        Int.MIN_VALUE to expectLambda<String> { contains("min") },
         -1 to null,
         0 to null,
-        1 to subExpect { toBe("1") },
-        2 to subExpect { endsWith("2") },
-        Int.MAX_VALUE to subExpect { toBe("max") }
+        1 to expectLambda { toBe("1") },
+        2 to expectLambda { endsWith("2") },
+        Int.MAX_VALUE to expectLambda { toBe("max") }
     ).forEach { (arg, assertionCreatorOrNull) ->
         feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
     }
@@ -2013,7 +2013,7 @@ because Kotlin cannot infer the types automatically.
 <code-own-compose-6>
 
 ```kotlin
-import ch.tutteli.atrium.domain.builders.utils.mapArguments
+import ch.tutteli.atrium.logic.utils.mapArguments
 
 fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
@@ -2048,9 +2048,9 @@ fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
 </code-own-compose-7>
 
 There are a few additional methods which you can call after `mapArguments`.
-See [KDoc of ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.utils/-argument-mapper-builder/index.html).
-In case you want to provide your own implementation it suffices to create an 
-extension function for `ArgumentMapperBuilder`. 
+See [KDoc of ArgumentMapperBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.logic.utils/-argument-mapper-builder/index.html).
+In case you want to provide your own implementation, 
+it suffices to create an extension function for `ArgumentMapperBuilder`. 
 
 ## Enhanced Reporting
 
@@ -2340,15 +2340,15 @@ Therefore you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L19)
+- [`nullable`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L19)
   turns a type into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L40)
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L40)
   turns an `Iterable` into an iterable with nullable element type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L66)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L66)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L79)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L79)
   turns a `Map` into a map with a nullable value type.
-- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/domain/builders/atrium-domain-builders-common/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L92)
+- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L92)
   turns a `Map` into a map with a nullable key and nullable value type. 
     
  

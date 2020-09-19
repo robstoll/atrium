@@ -2,8 +2,8 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.steps
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Represents a "no [IterableLikeContains.Checker]" option, meaning no checker shall be applied to a search result.

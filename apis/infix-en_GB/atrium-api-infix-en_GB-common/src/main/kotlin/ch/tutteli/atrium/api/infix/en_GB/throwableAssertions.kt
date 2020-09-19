@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.cause
 

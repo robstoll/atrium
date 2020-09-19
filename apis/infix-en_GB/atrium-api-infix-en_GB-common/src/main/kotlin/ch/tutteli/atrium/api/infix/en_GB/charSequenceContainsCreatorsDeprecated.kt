@@ -16,8 +16,8 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.domain.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 

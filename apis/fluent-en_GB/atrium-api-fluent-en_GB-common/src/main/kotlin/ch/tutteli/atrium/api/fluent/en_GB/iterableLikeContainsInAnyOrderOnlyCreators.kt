@@ -2,7 +2,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.toVarArg
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
@@ -10,6 +11,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyO
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
@@ -142,6 +144,6 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
 inline fun <reified E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> {
-    val (first, rest) = toVarArg<E>(expectedIterableLike)
+    val (first, rest) = _logic.toVarArg<E>(expectedIterableLike)
     return values(first, *rest)
 }

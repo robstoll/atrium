@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageContains
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.specs.emptyIterableLikeTypes
 import org.spekframework.spek2.style.specification.describe
 
@@ -36,7 +36,10 @@ abstract class IterableLikeSpec<T>(
                 expect {
                     expect(subject).funIterableLike("test")
                 }.toThrow<IllegalArgumentException> {
-                    messageContains("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
+                    messageContains(
+                        "IterableLikeToIterableTransformer accepts arguments of types:",
+                        "Iterable, Sequence, Array, CharArray, ByteArray, ShortArray, IntArray, LongArray, FloatArray, DoubleArray and BooleanArray"
+                    )
                 }
             }
         }

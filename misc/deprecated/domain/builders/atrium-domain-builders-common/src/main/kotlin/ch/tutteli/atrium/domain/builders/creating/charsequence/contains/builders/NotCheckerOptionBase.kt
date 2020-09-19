@@ -17,6 +17,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerF
  * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
  *   sophisticated `contains` assertion for [CharSequence].
  */
+@Deprecated("Use NotCheckerStep from atrium-logic; will be removed with 1.0.0")
 abstract class NotCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     override val containsBuilder: CharSequenceContains.Builder<T, S>
 ) : CharSequenceContains.CheckerOption<T, S> {
