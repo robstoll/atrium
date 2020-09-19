@@ -1,6 +1,4 @@
-package ch.tutteli.atrium.logic.utils
-
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+package ch.tutteli.atrium.logic.creating.typeutils
 
 interface IterableLikeToIterableTransformer {
     /**

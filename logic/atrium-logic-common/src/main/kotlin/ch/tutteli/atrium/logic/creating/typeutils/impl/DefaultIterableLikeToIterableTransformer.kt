@@ -1,9 +1,25 @@
-package ch.tutteli.atrium.logic.utils.impl
+package ch.tutteli.atrium.logic.creating.typeutils.impl
 
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.utils.IterableLikeToIterableTransformer
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.kbox.appendToStringBuilder
 
+/**
+ * Transforms [Sequence] and all [Array] types to [Iterable].
+ *
+ * following a more precise list:
+ * - Iterable
+ * - Sequence
+ * - Array
+ * - CharArray
+ * - ByteArray
+ * - ShortArray
+ * - IntArray
+ * - LongArray
+ * - FloatArray
+ * - DoubleArray
+ * - BooleanArray
+ */
 class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransformer {
 
     override fun <T> transform(iterableLike: IterableLike): Iterable<T> {
