@@ -20,6 +20,7 @@ import ch.tutteli.atrium.logic.size
 import ch.tutteli.atrium.logic.toBe
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
@@ -57,7 +58,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         itr: Iterator<E?>
     ): Assertion {
         return assertionCollector.collect(Some(iterableAsList)) {
-            _logic.size().addToInitial {
+            _logic.size(::identity).addToInitial {
                 _logicAppend { toBe(expectedSize) }
                 if (iterableAsList.size > expectedSize) {
                     addAssertion(LazyThreadUnsafeAssertionGroup {

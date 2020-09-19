@@ -68,6 +68,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+//TODO 0.15.0 consider to use CollectionLike and remove this from MapAssertions
 fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
 
@@ -77,6 +78,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+//TODO 0.15.0 consider to use CollectionLike and remove this from MapAssertions
 fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty() }
 

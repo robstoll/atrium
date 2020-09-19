@@ -15,7 +15,7 @@ import kotlin.jvm.JvmName
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
 import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
-import ch.tutteli.atrium.logic.impl.DefaultCollectionAssertions
+import ch.tutteli.atrium.logic.impl.DefaultCollectionLikeAssertions
 import ch.tutteli.atrium.logic.impl.DefaultComparableAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 import ch.tutteli.atrium.logic.impl.DefaultFloatingPointAssertions
@@ -43,8 +43,8 @@ internal inline val <T> AssertionContainer<T>._charSequenceImpl
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-internal inline val <T> AssertionContainer<T>._collectionImpl
-    get() = getImpl(CollectionAssertions::class) { DefaultCollectionAssertions() }
+internal inline val <T> AssertionContainer<T>._collectionLikeImpl
+    get() = getImpl(CollectionLikeAssertions::class) { DefaultCollectionLikeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
