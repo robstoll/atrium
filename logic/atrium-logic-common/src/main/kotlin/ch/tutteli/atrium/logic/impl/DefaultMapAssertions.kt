@@ -1,5 +1,3 @@
-@file:Suppress(/* TODO remove annotation with 1.0.0 */ "DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
-
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -8,10 +6,9 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
-import ch.tutteli.atrium.domain.builders.utils.subExpect
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
@@ -28,7 +25,7 @@ class DefaultMapAssertions : MapAssertions {
         container: AssertionContainer<T>,
         keyValuePairs: List<Pair<K, V>>
     ): Assertion = containsKeyWithValueAssertion(container, keyValuePairs.map { (key, value) ->
-        key to subExpect<V> { _logicAppend { toBe(value) } }
+        key to expectLambda<V> { _logicAppend { toBe(value) } }
     })
 
     override fun <K, V : Any, T : Map<out K, V?>> containsKeyWithValueAssertions(
@@ -36,7 +33,7 @@ class DefaultMapAssertions : MapAssertions {
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
     ): Assertion = containsKeyWithValueAssertion(container, keyValues.map { (key, assertionCreatorOrNull) ->
-        key to subExpect<V?> { _logicAppend { toBeNullIfNullGivenElse(valueType, assertionCreatorOrNull) } }
+        key to expectLambda<V?> { _logicAppend { toBeNullIfNullGivenElse(valueType, assertionCreatorOrNull) } }
     })
 
     private fun <K, V, T : Map<out K, V>> containsKeyWithValueAssertion(

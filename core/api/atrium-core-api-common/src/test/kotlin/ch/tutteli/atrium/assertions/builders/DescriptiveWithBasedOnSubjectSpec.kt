@@ -3,8 +3,8 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.expectLambda
 import org.spekframework.spek2.Spek
 
 class DescriptiveWithBasedOnSubjectSpec : Spek({

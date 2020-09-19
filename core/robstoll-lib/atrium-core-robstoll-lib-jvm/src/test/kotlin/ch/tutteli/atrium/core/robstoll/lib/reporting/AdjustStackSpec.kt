@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import org.spekframework.spek2.Spek
@@ -35,7 +35,7 @@ class AdjustStackSpec : Spek({
     }
 
     fun mapStartsWith(list: List<String>): Pair<Expect<String>.() -> Unit, Array<out Expect<String>.() -> Unit>> {
-        val asserts = list.map { c -> subExpect<String> { startsWith(c) } }
+        val asserts = list.map { c -> expectLambda<String> { startsWith(c) } }
         return asserts.first() to asserts.drop(1).toTypedArray()
     }
 

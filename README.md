@@ -1440,13 +1440,13 @@ We are going to reuse the `myFun` from above:
 <ex-data-driven-2>
 
 ```kotlin
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 
 expect("calling myFun with ...") {
     mapOf(
-        1 to subExpect<Char> { isLessThan('f') },
-        2 to subExpect { toBe('c') },
-        3 to subExpect { isGreaterThan('e') }
+        1 to expectLambda<Char> { isLessThan('f') },
+        2 to expectLambda { toBe('c') },
+        3 to expectLambda { isGreaterThan('e') }
     ).forEach { (arg, assertionCreator) ->
         feature({ f(::myFun, arg) }, assertionCreator)
     }
@@ -1460,8 +1460,8 @@ expected that subject: "calling myFun with ..."        <1234789>
 ```
 </ex-data-driven-2>
 
-The example should be self explanatory.
-One detail to note though is the usage of `subExpect`. 
+The example should be self-explanatory.
+One detail to note though is the usage of `expectLambda`. 
 It is a helper function which circumvents certain [Kotlin type inference bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) (upvote them please).
 Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
 involved in a `Pair` is not (yet) inferred correctly by Kotlin.
@@ -1481,12 +1481,12 @@ fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
 
 expect("calling myNullableFun with ...") {
     mapOf(
-        Int.MIN_VALUE to subExpect<String> { contains("min") },
+        Int.MIN_VALUE to expectLambda<String> { contains("min") },
         -1 to null,
         0 to null,
-        1 to subExpect { toBe("1") },
-        2 to subExpect { endsWith("2") },
-        Int.MAX_VALUE to subExpect { toBe("max") }
+        1 to expectLambda { toBe("1") },
+        2 to expectLambda { endsWith("2") },
+        Int.MAX_VALUE to expectLambda { toBe("max") }
     ).forEach { (arg, assertionCreatorOrNull) ->
         feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
     }

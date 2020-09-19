@@ -2,7 +2,6 @@ package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
-import ch.tutteli.atrium.domain.builders.utils.subExpect
 import kotlin.js.JsName
 
 /**
@@ -173,7 +172,7 @@ class ArgumentMapperBuilder<out T>(
      */
     inline fun <reified R> toExpect(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
-    ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t -> subExpect<R> { assertionCreator(t) } }
+    ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t -> expectLambda<R> { assertionCreator(t) } }
 
     /**
      * Maps each argument to the given type [R] by using the given [mapper]
@@ -224,5 +223,5 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
     inline fun <R : Any> toExpect(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
     ): Pair<(Expect<R>.() -> Unit)?, Array<out (Expect<R>.() -> Unit)?>> =
-        argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subExpect<R> { assertionCreator(t) } } }
+        argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> expectLambda<R> { assertionCreator(t) } } }
 }

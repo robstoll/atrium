@@ -4,7 +4,7 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.subExpect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.jvm.JvmName
@@ -107,7 +107,7 @@ inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>
             this.name + " - second empty",
             containsNot2,
             { this@forAssertionCreatorSpec(this, subAssert, subAsserts) },
-            { this@forAssertionCreatorSpec(this, subAssert, arrayOf(subExpect<R> {}) + subAsserts.drop(1)) }
+            { this@forAssertionCreatorSpec(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1)) }
         )
     )
 

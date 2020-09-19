@@ -13,9 +13,9 @@ import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
 import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
-//snippet-subExpect-start
-import ch.tutteli.atrium.domain.builders.utils.subExpect
-//snippet-subExpect-end
+//snippet-expectLambda-start
+import ch.tutteli.atrium.logic.utils.expectLambda
+//snippet-expectLambda-end
 //snippet-import-AssertionContainer-start
 import ch.tutteli.atrium.creating.AssertionContainer
 //snippet-import-AssertionContainer-end
@@ -366,13 +366,13 @@ object ReadmeSpec2 : Spek({
     }
 
     test("ex-data-driven-2") {
-        //snippet-subExpect-insert
+        //snippet-expectLambda-insert
 
         expect("calling myFun with ...") {
             mapOf(
-                1 to subExpect<Char> { isLessThan('f') },
-                2 to subExpect { toBe('c') },
-                3 to subExpect { isGreaterThan('e') }
+                1 to expectLambda<Char> { isLessThan('f') },
+                2 to expectLambda { toBe('c') },
+                3 to expectLambda { isGreaterThan('e') }
             ).forEach { (arg, assertionCreator) ->
                 feature({ f(::myFun, arg) }, assertionCreator)
             }
@@ -388,12 +388,12 @@ object ReadmeSpec2 : Spek({
 
         expect("calling myNullableFun with ...") {
             mapOf(
-                Int.MIN_VALUE to subExpect<String> { contains("min") },
+                Int.MIN_VALUE to expectLambda<String> { contains("min") },
                 -1 to null,
                 0 to null,
-                1 to subExpect { toBe("1") },
-                2 to subExpect { endsWith("2") },
-                Int.MAX_VALUE to subExpect { toBe("max") }
+                1 to expectLambda { toBe("1") },
+                2 to expectLambda { endsWith("2") },
+                Int.MAX_VALUE to expectLambda { toBe("max") }
             ).forEach { (arg, assertionCreatorOrNull) ->
                 feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
             }
