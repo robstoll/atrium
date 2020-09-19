@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.identity
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
@@ -10,7 +11,7 @@ import ch.tutteli.atrium.logic.*
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
-    _logicAppend { isEmpty() }
+    _logicAppend { isEmpty(::identity) }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
@@ -19,7 +20,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty() }
+    _logicAppend { isNotEmpty(::identity) }
 
 /**
  * Expects that the subject of the assertion (a [Collection]) has the given [expected] size.
@@ -39,7 +40,7 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
  * @return The newly created [Expect] for the extracted feature.
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _logic.size().getExpectOfFeature()
+    get() = _logic.size(::identity).getExpectOfFeature()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -50,4 +51,4 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic.size().addToInitial(assertionCreator)
+    _logic.size(::identity).addToInitial(assertionCreator)

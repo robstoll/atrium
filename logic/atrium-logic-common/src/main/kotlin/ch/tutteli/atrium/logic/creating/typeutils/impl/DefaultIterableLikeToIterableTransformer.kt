@@ -1,12 +1,28 @@
-package ch.tutteli.atrium.logic.utils.impl
+package ch.tutteli.atrium.logic.creating.typeutils.impl
 
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.utils.IterableLikeToIterableTransformer
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.kbox.appendToStringBuilder
 
+/**
+ * Transforms [Sequence] and all [Array] types to [Iterable].
+ *
+ * following a more precise list:
+ * - Iterable
+ * - Sequence
+ * - Array
+ * - CharArray
+ * - ByteArray
+ * - ShortArray
+ * - IntArray
+ * - LongArray
+ * - FloatArray
+ * - DoubleArray
+ * - BooleanArray
+ */
 class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransformer {
 
-    override fun <T> transform(iterableLike: IterableLike): Iterable<T> {
+    override fun <T> unsafeTransform(iterableLike: IterableLike): Iterable<T> {
         val iAny: Iterable<*> = when (iterableLike) {
             is Iterable<*> -> iterableLike
             is Sequence<*> -> iterableLike.asIterable()
@@ -26,7 +42,11 @@ class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransform
             )
         }
 
-        @Suppress(/* is OK as we don't change the elements of IterableLike above */ "UNCHECKED_CAST")
+        @Suppress(
+            // We push the responsibility to define a correct `T` to the caller and therefore it is OK
+            // because we don't change the elements of IterableLike above
+            "UNCHECKED_CAST"
+        )
         return iAny as Iterable<T>
     }
 

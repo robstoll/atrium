@@ -5,7 +5,8 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.utils.impl.DefaultIterableLikeToIterableTransformer
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
+import ch.tutteli.atrium.logic.creating.typeutils.impl.DefaultIterableLikeToIterableTransformer
 
 /**
  * Transforms the given [IterableLike] to `Pair<T, Array<out T>>` with the intend that it can be easily used for a function
@@ -62,7 +63,7 @@ inline fun <reified T> AssertionContainer<*>.toVarArg(iterableLike: IterableLike
 fun <T> AssertionContainer<*>.iterableLikeToIterable(iterableLike: IterableLike): Iterable<T> =
     getImpl(IterableLikeToIterableTransformer::class) {
         DefaultIterableLikeToIterableTransformer()
-    }.transform(iterableLike)
+    }.unsafeTransform(iterableLike)
 
 /**
  * Transforms the given [Iterable] to `Pair<T, Array<out T>>` with the intend that it can be easily used for a function
