@@ -22,7 +22,7 @@ import ch.tutteli.kbox.appendToStringBuilder
  */
 class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransformer {
 
-    override fun <T> transform(iterableLike: IterableLike): Iterable<T> {
+    override fun <T> unsafeTransform(iterableLike: IterableLike): Iterable<T> {
         val iAny: Iterable<*> = when (iterableLike) {
             is Iterable<*> -> iterableLike
             is Sequence<*> -> iterableLike.asIterable()
@@ -42,7 +42,11 @@ class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransform
             )
         }
 
-        @Suppress(/* is OK as we don't change the elements of IterableLike above */ "UNCHECKED_CAST")
+        @Suppress(
+            // We push the responsibility to define a correct `T` to the caller and therefore it is OK
+            // because we don't change the elements of IterableLike above
+            "UNCHECKED_CAST"
+        )
         return iAny as Iterable<T>
     }
 

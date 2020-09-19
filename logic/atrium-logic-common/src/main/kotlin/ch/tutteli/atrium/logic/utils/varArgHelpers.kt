@@ -63,7 +63,7 @@ inline fun <reified T> AssertionContainer<*>.toVarArg(iterableLike: IterableLike
 fun <T> AssertionContainer<*>.iterableLikeToIterable(iterableLike: IterableLike): Iterable<T> =
     getImpl(IterableLikeToIterableTransformer::class) {
         DefaultIterableLikeToIterableTransformer()
-    }.transform(iterableLike)
+    }.unsafeTransform(iterableLike)
 
 /**
  * Transforms the given [Iterable] to `Pair<T, Array<out T>>` with the intend that it can be easily used for a function
