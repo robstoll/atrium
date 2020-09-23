@@ -5,10 +5,10 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.logic.kotlin_1_3.ResultAssertions
 import ch.tutteli.atrium.logic.manualFeature
@@ -29,10 +29,10 @@ class DefaultResultAssertions : ResultAssertions {
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class)
-    override fun <TExpected : Throwable> isFailure(
+    override fun <TExpected : Throwable> isFailureOfType(
         container: AssertionContainer<out Result<*>>,
         expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<Throwable?, TExpected> =
+    ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(EXCEPTION) { exceptionOrNull() }.getExpectOfFeature().let { previousExpect ->
             FeatureExpect(
                 previousExpect,

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.cause
+import ch.tutteli.atrium.logic.causeIsA
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
@@ -57,7 +57,7 @@ fun <T : Throwable> Expect<T>.messageContains(
  * @since 0.10.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
-    _logic.cause(TExpected::class).getExpectOfFeature()
+    _logic.causeIsA(TExpected::class).transform()
 
 /**
  *
@@ -74,4 +74,4 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.cause(TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = _logic.causeIsA(TExpected::class).transformAndAppend(assertionCreator)

@@ -2,11 +2,10 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import kotlin.reflect.KClass
@@ -39,18 +38,18 @@ class DefaultAnyAssertions : AnyAssertions {
         container: AssertionContainer<T?>,
         type: KClass<T>,
         assertionCreator: Expect<T>.() -> Unit
-    ) = container.notToBeNull(type).collect(assertionCreator)
+    ) = container.notToBeNullBut(type).collect(assertionCreator)
 
 
-    override fun <T : Any> notToBeNull(
+    override fun <T : Any> notToBeNullBut(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ): ChangedSubjectPostStep<T?, T> = container.isA(subType)
+    ):  SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
 
     override fun <T, TSub : Any> isA(
         container: AssertionContainer<T>,
         subType: KClass<TSub>
-    ): ChangedSubjectPostStep<T, TSub> =
+    ):  SubjectChangerBuilder.ExecutionStep<T, TSub> =
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()

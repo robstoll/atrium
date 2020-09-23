@@ -63,20 +63,18 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
-    _logic.notToBeNull(T::class).getExpectOfFeature()
+    _logic.notToBeNullBut(T::class).transform()
 
 /**
  * Expects that the subject of the assertion is not null and
  * that it holds all assertions the given [assertionCreator] creates.
- *
- * It delegates to [isA] with [T] as type.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.notToBeNull(T::class).addToFeature(assertionCreator)
+    _logic.notToBeNullBut(T::class).transformAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
@@ -99,7 +97,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCrea
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    _logic.isA(TSub::class).getExpectOfFeature()
+    _logic.isA(TSub::class).transform()
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -143,7 +141,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    _logic.isA(TSub::class).addToFeature(assertionCreator)
+    _logic.isA(TSub::class).transformAndAppend(assertionCreator)
 
 /**
  * Can be used to separate single assertions.

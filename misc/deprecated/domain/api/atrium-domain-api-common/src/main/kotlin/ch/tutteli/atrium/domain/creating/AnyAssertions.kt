@@ -47,6 +47,8 @@ interface AnyAssertions {
     /**
      * Convenience method for nullable-types which delegates to [isA].
      */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Use AnyAssertions from atrium-logic and the method notToBeNullBut; will be removed with 1.0.0")
     fun <T : Any> notToBeNull(expect: Expect<T?>, subType: KClass<T>) =
         isA(expect, subType)
 

@@ -7,10 +7,10 @@ import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
 import ch.tutteli.atrium.logic.Fun0Assertions
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.creating.changers.impl.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.reporting.reporter
@@ -24,7 +24,7 @@ class DefaultFun0Assertions : Fun0Assertions {
     override fun <TExpected : Throwable> toThrow(
         container: AssertionContainer<out () -> Any?>,
         expectedType: KClass<TExpected>
-    ): ChangedSubjectPostStep<*, TExpected> =
+    ):  SubjectChangerBuilder.ExecutionStep<*, TExpected> =
         container.manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this)
                 .fold({ it }, { /* use null as subject in case no exception occurred*/ null })
@@ -47,7 +47,7 @@ class DefaultFun0Assertions : Fun0Assertions {
             Left(throwable)
         }
 
-    override fun <R, T : () -> R> notToThrow(container: AssertionContainer<T>): ChangedSubjectPostStep<*, R> =
+    override fun <R, T : () -> R> notToThrow(container: AssertionContainer<T>):  SubjectChangerBuilder.ExecutionStep<*, R> =
         container.changeSubject.unreported { catchAndAdjustThrowable(it) }
             .toAssertionContainer().changeSubject.reportBuilder()
             .withDescriptionAndRepresentation(IS_NOT_THROWING_1, IS_NOT_THROWING_2)
