@@ -43,12 +43,6 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
- * Depending on the implementation, it is not much more than a shortcut for
- * ```kotlin
- * if (assertionCreatorOrNull == null) toBe(null)
- * else notToBeNull(assertionCreatorOrNull)
- * ```
- *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -59,8 +53,6 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
- *
- * It delegates to [isA] with [T] as type.
  *
  * @param o The filler object [o].
  *
@@ -257,5 +249,5 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
 inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
     val iterable = _logic.iterableLikeToIterable<T>(expected)
     require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
-    return _logicAppend { isNotIn(iterable.toList()) }
+    return _logicAppend { isNotIn(iterable) }
 }

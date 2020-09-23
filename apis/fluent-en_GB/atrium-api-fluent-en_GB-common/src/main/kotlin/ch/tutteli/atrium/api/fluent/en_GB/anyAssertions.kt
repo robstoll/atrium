@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.iterableLikeToIterable
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
@@ -44,12 +43,6 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
- * Depending on the implementation, it is not much more than a shortcut for
- * ```kotlin
- * if (assertionCreatorOrNull == null) toBe(null)
- * else notToBeNull(assertionCreatorOrNull)
- * ```
- *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -59,8 +52,6 @@ inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
- *
- * It delegates to [isA] with [T] as type.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -196,7 +187,7 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
 inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
     val iterable = _logic.iterableLikeToIterable<T>(expected)
     require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
-    return _logicAppend { isNotIn(iterable.toList()) }
+    return _logicAppend { isNotIn(iterable) }
 }
 
 
