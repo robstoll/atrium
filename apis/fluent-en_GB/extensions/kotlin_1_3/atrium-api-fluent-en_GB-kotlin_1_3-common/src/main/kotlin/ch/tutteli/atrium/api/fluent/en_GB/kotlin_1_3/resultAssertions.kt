@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.kotlin_1_3.isFailure
+import ch.tutteli.atrium.logic.kotlin_1_3.isFailureOfType
 import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
 
 /**
@@ -39,7 +39,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
  * @since 0.9.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
-    _logic.isFailure(TExpected::class).getExpectOfFeature()
+    _logic.isFailureOfType(TExpected::class).transform()
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure,
@@ -53,4 +53,4 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.isFailure(TExpected::class).addToFeature(assertionCreator)
+): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)

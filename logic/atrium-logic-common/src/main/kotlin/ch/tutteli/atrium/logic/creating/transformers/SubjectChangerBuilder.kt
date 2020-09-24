@@ -1,24 +1,13 @@
-@file:Suppress(
-/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION", "DEPRECATION",
-    "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE"
-)
-
-package ch.tutteli.atrium.domain.builders.creating.changers
+package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.cast
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
-import ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger.*
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
-import ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter
-import ch.tutteli.atrium.domain.creating.changers.SubjectChanger
-import ch.tutteli.atrium.domain.creating.changers.subjectChanger
+import ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.*
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -26,32 +15,16 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import kotlin.reflect.KClass
 
 /**
- * Defines the contract for sophisticated `change subject` processes.
+ * Helps in using [SubjectChanger] by providing a guide to set the different parameters in form of a fluent builder.
  */
-@Deprecated(
-    "Use SubjectChangerBuilder from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder")
-)
 interface SubjectChangerBuilder {
 
     companion object {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
-        @Deprecated(
-            "Use SubjectChangerBuilder from atrium-logic; will be removed with 1.0.0",
-            ReplaceWith(
-                "ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder(expect._logic)",
-                "ch.tutteli.atrium.logic._logic"
-            )
-        )
-        fun <T> create(expect: Expect<T>): KindStep<T> = KindStepImpl(expect)
-
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-        fun <T> create(
-            originalPlant: SubjectProvider<T>
-        ): DeprecatedKindStep<T> = DeprecatedKindStepImpl(originalPlant)
+        operator fun <T> invoke(assertionContainer: AssertionContainer<T>): KindStep<T> =
+            KindStepImpl(assertionContainer)
     }
 
     /**
@@ -59,51 +32,21 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    interface DeprecatedKindStep<T> {
-        /**
-         * The previously specified assertion plant to which the new [Assert] will delegate assertion checking.
-         */
-        @Suppress("DEPRECATION")
-        val originalPlant: SubjectProvider<T>
-
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-        fun <R : Any> unreported(
-            transformation: (T) -> R
-        ): Assert<R> = subjectChanger.unreportedToAssert(originalPlant, transformation)
-
-        @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-        @Suppress("DEPRECATION", "DeprecatedCallableAddReplaceWith")
-        fun <R> unreportedNullable(
-            transformation: (T) -> R
-        ): AssertionPlantNullable<R> = subjectChanger.unreportedNullableToAssert(originalPlant, transformation)
-    }
-
-    /**
-     * Step where one has to decide the kind of subject change.
-     *
-     * @param T the type of the current subject.
-     */
-    @Deprecated(
-        "Use SubjectChangerBuilder.KindStep from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.KindStep")
-    )
     interface KindStep<T> {
         /**
-         * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
+         * The previously specified assertion container to which the new [Expect] will delegate.
          */
-        val originalExpect: Expect<T>
+        val container: AssertionContainer<T>
 
 
         /**
-         * First and final step in the change-subject-process -- changes the subject without showing the change as
-         * such in reporting.
+         * First, [FinalStep] as well as [ExecutionStep] in the change-subject-process --
+         * changes the subject without showing the change as such in reporting.
          *
-         * @return The newly created [Expect] for the new subject.
+         * @return The newly created [Expect] for the new subject of type [R].
          */
         fun <R> unreported(transformation: (T) -> R): Expect<R> =
-            subjectChanger.unreported(originalExpect, transformation)
+            container.subjectChanger.unreported(container, transformation)
 
         /**
          * Entry point of the building process to not only change the subject but also report the change in reporting.
@@ -121,23 +64,19 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
-    @Deprecated(
-        "Use SubjectChangerBuilder.DescriptionRepresentationStep from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.DescriptionRepresentationStep")
-    )
     interface DescriptionRepresentationStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
-        val originalExpect: Expect<T>
+        val container: AssertionContainer<T>
 
         /**
          * Uses [DescriptionAnyAssertion.IS_A] as description of the change,
-         * the given [subType] as representation and tries to perform a down-cast of [originalExpect]'s
-         * [Expect.maybeSubject] to the given type [TSub]
+         * the given [subType] as representation and tries to perform a down-cast of [container]'s
+         * [AssertionContainer.maybeSubject] to the given type [TSub]
          */
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
-        fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerOption<T, TSub> =
+        fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerStep<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
@@ -167,9 +106,9 @@ interface SubjectChangerBuilder {
             /**
              * Creates a [DescriptionRepresentationStep] in the context of the [SubjectChangerBuilder].
              */
-            fun <T> create(
-                originalAssertionContainer: Expect<T>
-            ): DescriptionRepresentationStep<T> = DescriptionRepresentationStepImpl(originalAssertionContainer)
+            operator fun <T> invoke(
+                container: AssertionContainer<T>
+            ): DescriptionRepresentationStep<T> = DescriptionRepresentationStepImpl(container)
         }
     }
 
@@ -179,15 +118,11 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
-    @Deprecated(
-        "Use SubjectChangerBuilder.TransformationStep from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.TransformationStep")
-    )
     interface TransformationStep<T> {
         /**
-         * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
+         * The previously specified assertion container to which the new [Expect] will delegate.
          */
-        val originalExpect: Expect<T>
+        val container: AssertionContainer<T>
 
         /**
          * The previously specified description which describes the kind of subject change.
@@ -202,17 +137,17 @@ interface SubjectChangerBuilder {
         /**
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withTransformation(transformation: (T) -> Option<R>): FailureHandlerOption<T, R>
+        fun <R> withTransformation(transformation: (T) -> Option<R>): FailureHandlerStep<T, R>
 
         companion object {
             /**
              * Creates a [TransformationStep] in the context of the [SubjectChangerBuilder].
              */
-            fun <T> create(
-                originalAssertionContainer: Expect<T>,
+            operator fun <T> invoke(
+                container: AssertionContainer<T>,
                 description: Translatable,
                 representation: Any
-            ): TransformationStep<T> = TransformationStepImpl(originalAssertionContainer, description, representation)
+            ): TransformationStep<T> = TransformationStepImpl(container, description, representation)
         }
     }
 
@@ -222,18 +157,14 @@ interface SubjectChangerBuilder {
      * @param T the type of the current subject.
      * @param R the type of the new subject.
      */
-    @Deprecated(
-        "Use SubjectChangerBuilder.FailureHandlerStep from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.FailureHandlerStep")
-    )
-    interface FailureHandlerOption<T, R> {
+    interface FailureHandlerStep<T, R> {
         /**
          * The so far chosen options up to the [TransformationStep] step.
          */
         val transformationStep: TransformationStep<T>
 
         /**
-         * The previously specified new subject.
+         * The previously specified transformation which will yield the new subject.
          */
         val transformation: (T) -> Option<R>
 
@@ -264,30 +195,26 @@ interface SubjectChangerBuilder {
          * Skips this step by using [withDefaultFailureHandler] and calls [FinalStep.build].
          * @return
          */
-        fun build(): ChangedSubjectPostStep<T, R> = withDefaultFailureHandler().build()
+        fun build(): ExecutionStep<T, R> = withDefaultFailureHandler().build()
 
         companion object {
             /**
-             * Creates a [FailureHandlerOption] in the context of the [SubjectChangerBuilder].
+             * Creates a [FailureHandlerStep] in the context of the [SubjectChangerBuilder].
              */
-            fun <T, R> create(
+            operator fun <T, R> invoke(
                 transformationStep: TransformationStep<T>,
                 transformation: (T) -> Option<R>
-            ): FailureHandlerOption<T, R> = FailureHandlerOptionImpl(transformationStep, transformation)
+            ): FailureHandlerStep<T, R> = FailureHandlerStepImpl(transformationStep, transformation)
         }
     }
 
     /**
-     * Final step in the change-subject-process, creates a [ChangedSubjectPostStep]
-     * ased on the previously specified options.
+     * Final step in the help-me-to-call-[SubjectChanger]-process, which creates an [ExecutionStep] incorporating all
+     * chosen options and is able to call [SubjectChanger] accordingly.
      *
      * @param T the type of the current subject.
      * @param R the type of the new subject.
      */
-    @Deprecated(
-        "Use SubjectChangerBuilder.FinalStep from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.FinalStep")
-    )
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [TransformationStep] step.
@@ -308,19 +235,40 @@ interface SubjectChangerBuilder {
          * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
          * options into account.
          *
-         * @return A [ChangedSubjectPostStep] which allows to define what should happen with the new [Expect].
+         * @return The [ExecutionStep] which allows to define who the change shall be carried out.
          */
-        fun build(): ChangedSubjectPostStep<T, R>
+        fun build(): ExecutionStep<T, R>
 
         companion object {
             /**
              * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
              */
-            fun <T, R> create(
+            operator fun <T, R> invoke(
                 transformationStep: TransformationStep<T>,
                 transformation: (T) -> Option<R>,
                 failureHandler: SubjectChanger.FailureHandler<T, R>
             ): FinalStep<T, R> = FinalStepImpl(transformationStep, transformation, failureHandler)
         }
     }
+
+    /**
+     * Step which allows to decide how the transformation shall be executed.
+     *
+     * For instance, if it shall just perform the transformation and return the new [Expect] of type [R] or if it shall
+     * pass an assertionCreator-lambda which creates sub-assertions etc.
+     */
+    interface ExecutionStep<T, R> : TransformationExecutionStep<T, R, Expect<R>> {
+
+        companion object {
+            /**
+             * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
+             */
+            operator fun <T, R> invoke(
+                container: AssertionContainer<T>,
+                action: (AssertionContainer<T>) -> Expect<R>,
+                actionAndApply: (AssertionContainer<T>, Expect<R>.() -> Unit) -> Expect<R>
+            ): ExecutionStep<T, R> = ExecutionStepImpl(container, action, actionAndApply)
+        }
+    }
+
 }

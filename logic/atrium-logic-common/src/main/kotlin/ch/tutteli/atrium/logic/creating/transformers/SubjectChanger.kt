@@ -1,37 +1,19 @@
-@file:Suppress(
-/* TODO remove annotation with 1.0.0 */ "DEPRECATION",
-/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
-)
-
-package ch.tutteli.atrium.domain.creating.changers
+package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.reporting.translating.Translatable
-
-/**
- * The access point to an implementation of [SubjectChanger].
- *
- * It loads the implementation lazily via [loadSingleService].
- */
-@Deprecated("Use _logic.subjectChanger from atrium-logic; will be removed with 1.0.0")
-val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
 
 /**
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
  */
-@Deprecated(
-    "Use SubjectChanger from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChanger")
-)
 interface SubjectChanger {
 
     /**
@@ -39,7 +21,7 @@ interface SubjectChanger {
      * in reporting and returns a new [Expect] for the new subject.
      *
      * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
-     * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer] -
+     * whereas the new [Expect] delegates assertion checking to the given [container] -
      * the change as such will not be reflected in reporting.
      *
      * This method is useful if you want to make feature assertion(s) but you do not want that the feature is shown up
@@ -49,15 +31,13 @@ interface SubjectChanger {
      * Notice, in case the change to the new subject is not always safe (you assert so but it does not have to be),
      * then you should use [reported] so that the assertion is reflected in reporting.
      *
-     * @param originalAssertionContainer the assertion container with the current subject (before the change) --
-     *   if you use `ExpectImpl.changeSubject(...).unreported` within an assertion function (an extension function of
-     *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
+     * @param container the assertion container with the current subject (before the change).
      * @param transformation Provides the subject.
      *
      * @return The newly created [Expect] for the extracted feature.
      */
     fun <T, R> unreported(
-        originalAssertionContainer: Expect<T>,
+        container: AssertionContainer<T>,
         transformation: (T) -> R
     ): Expect<R>
 
@@ -67,8 +47,8 @@ interface SubjectChanger {
      * the change as such is reflected in reporting by the given [description] and [representation].
      *
      * Explained a bit more in depth: it creates a new [Expect] incorporating the given [transformation]
-     * whereas the new [Expect] delegates assertion checking to the given [originalAssertionContainer].
-     * The [transformation] as such can either return the new subject wrapped in a [Some] or [None] in case
+     * whereas the new [Expect] delegates assertion checking to the given [container].
+     * The [transformation] as such can either return the new subject wrapped in a [Some] or return [None] in case
      * the transformation cannot be carried out.
      *
      * This method is useful if you want to change the subject whereas the change as such is assertion like as well, so
@@ -76,7 +56,7 @@ interface SubjectChanger {
      * Since the subject could also be `null` it makes sense to report this assertion instead of failing
      * with an exception.
      *
-     * @param originalAssertionContainer the assertion container with the current subject (before the change) --
+     * @param container the assertion container with the current subject (before the change) --
      *   if you use `ExpectImpl.changeSubject.reported(...)` within an assertion function (an extension function of
      *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
      * @param description Describes the kind of subject change (e.g. in case of a type change `is a`).
@@ -93,7 +73,7 @@ interface SubjectChanger {
      * @return The newly created [Expect] for the extracted feature.
      */
     fun <T, R> reported(
-        originalAssertionContainer: Expect<T>,
+        container: AssertionContainer<T>,
         description: Translatable,
         representation: Any,
         transformation: (T) -> Option<R>,
@@ -111,10 +91,6 @@ interface SubjectChanger {
      * @param T The type of the subject
      * @param R The type of the subject after the subject change (if it were possible).
      */
-    @Deprecated(
-        "Use SubjectChanger.FailureHandler from atrium-logic; will be removed with 1.0.0",
-        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.FailureHandler")
-    )
     interface FailureHandler<T, R> {
         /**
          * Creates the failing assertion most likely based on the given [descriptiveAssertion] -- which in turn
@@ -124,29 +100,15 @@ interface SubjectChanger {
          * @return A failing assertion.
          */
         fun createAssertion(
-            originalAssertionContainer: Expect<T>,
+            container: AssertionContainer<T>,
             descriptiveAssertion: Assertion,
             maybeAssertionCreator: Option<Expect<R>.() -> Unit>
         ): Assertion
     }
-
-    @Suppress("DEPRECATION")
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R : Any> unreportedToAssert(
-        originalPlant: SubjectProvider<T>,
-        transformation: (T) -> R
-    ): Assert<R>
-
-    @Suppress("DEPRECATION")
-    @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
-    fun <T, R> unreportedNullableToAssert(
-        originalPlant: SubjectProvider<T>,
-        transformation: (T) -> R
-    ): AssertionPlantNullable<R>
 }
 
 /**
- * Represents a [SubjectChanger.FailureHandler] which as an adapter for another failure handler by mapping first
+ * Represents a [SubjectChanger.FailureHandler] which acts as an adapter for another failure handler by mapping first
  * the given subject to another type [R1] which is understood as input of the other failure handler.
  *
  * Effectively turning a `FailureHandler<R1, R>` into a `FailureHandler<T, R>` with the help of a mapping
@@ -156,23 +118,20 @@ interface SubjectChanger {
  * @param R1 The type of the mapped subject
  * @param R The type of the subject after the subject change (if it were possible).
  */
-@Deprecated(
-    "Use FailureHandlerAdapter from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FailureHandlerAdapter")
-)
 class FailureHandlerAdapter<T, R1, R>(
     val failureHandler: SubjectChanger.FailureHandler<R1, R>,
     val map: (T) -> R1
 ) : SubjectChanger.FailureHandler<T, R> {
 
     override fun createAssertion(
-        originalAssertionContainer: Expect<T>,
+        container: AssertionContainer<T>,
         descriptiveAssertion: Assertion,
         maybeAssertionCreator: Option<Expect<R>.() -> Unit>
-    ): Assertion {
-        return subjectChanger.unreported(originalAssertionContainer, map)
-            .let {
-                failureHandler.createAssertion(it, descriptiveAssertion, maybeAssertionCreator)
-            }
-    }
+    ): Assertion =
+        container.changeSubject.unreported(map).let {
+            failureHandler.createAssertion(it._logic, descriptiveAssertion, maybeAssertionCreator)
+        }
 }
+
+
+

@@ -1,8 +1,10 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.robstoll.lib.creating.changers
 
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.DelegatingExpect
 import ch.tutteli.atrium.creating.Expect

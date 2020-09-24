@@ -10,6 +10,7 @@ import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
  */
+//TODO move to atrium-logic with 0.14.0
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     expect: Expect<T>,
     assertionCreator: Expect<T>.() -> Unit
@@ -18,6 +19,7 @@ fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAsse
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
  */
+//TODO move to atrium-logic with 0.14.0
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit

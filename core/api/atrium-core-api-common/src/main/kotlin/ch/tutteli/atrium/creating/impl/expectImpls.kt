@@ -53,7 +53,7 @@ abstract class BaseExpectImpl<T>(
     final override val subject: T by lazy {
         maybeSubject.getOrElse {
             @Suppress("DEPRECATION")
-            throw ch.tutteli.atrium.creating.PlantHasNoSubjectException()
+            throw PlantHasNoSubjectException()
         }
     }
 

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ChangedSubjectPostStep
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 
 /**
@@ -23,11 +23,17 @@ interface AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
-    fun <T : Any> notToBeNull(container: AssertionContainer<T?>, subType: KClass<T>): ChangedSubjectPostStep<T?, T>
+    fun <T : Any> notToBeNullBut(
+        container: AssertionContainer<T?>,
+        subType: KClass<T>
+    ): SubjectChangerBuilder.ExecutionStep<T?, T>
 
     //TODO restrict TSub with T once type parameter for upper bounds are supported:
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-    fun <T, TSub : Any> isA(container: AssertionContainer<T>, subType: KClass<TSub>): ChangedSubjectPostStep<T, TSub>
+    fun <T, TSub : Any> isA(
+        container: AssertionContainer<T>,
+        subType: KClass<TSub>
+    ): SubjectChangerBuilder.ExecutionStep<T, TSub>
 
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 }
