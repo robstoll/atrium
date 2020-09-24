@@ -15,7 +15,13 @@ import ch.tutteli.atrium.creating.Expect
  * @param transformAndApply The subject transformation which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
-//TODO 0.14.0 move to atrium-logic, reconsider if we need the distinction to ExtractedFeature
+@Deprecated(
+    "Use SubjectChangerBuilder.ExecutionStep from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith(
+        "ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.ExecutionStep(expect._logic, transform, transformAndApply)",
+        "ch.tutteli.atrium.logic._logic"
+    )
+)
 class ChangedSubjectPostStep<T, R>(
     expect: Expect<T>,
     transform: Expect<T>.() -> Expect<R>,

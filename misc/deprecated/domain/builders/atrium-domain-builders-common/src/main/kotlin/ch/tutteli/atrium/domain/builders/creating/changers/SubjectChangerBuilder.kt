@@ -28,12 +28,23 @@ import kotlin.reflect.KClass
 /**
  * Defines the contract for sophisticated `change subject` processes.
  */
+@Deprecated(
+    "Use SubjectChangerBuilder from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder")
+)
 interface SubjectChangerBuilder {
 
     companion object {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
+        @Deprecated(
+            "Use SubjectChangerBuilder from atrium-logic; will be removed with 1.0.0",
+            ReplaceWith(
+                "ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder(expect._logic)",
+                "ch.tutteli.atrium.logic._logic"
+            )
+        )
         fun <T> create(expect: Expect<T>): KindStep<T> = KindStepImpl(expect)
 
         @Deprecated("Do no longer use Assert, use Expect instead - this method was introduced in 0.9.0 to ease the migration from Assert to Expect; will be removed with 1.0.0")
@@ -74,6 +85,10 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use SubjectChangerBuilder.KindStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.KindStep")
+    )
     interface KindStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
@@ -106,6 +121,10 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use SubjectChangerBuilder.DescriptionRepresentationStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.DescriptionRepresentationStep")
+    )
     interface DescriptionRepresentationStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
@@ -160,6 +179,10 @@ interface SubjectChangerBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use SubjectChangerBuilder.TransformationStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.TransformationStep")
+    )
     interface TransformationStep<T> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
@@ -199,6 +222,10 @@ interface SubjectChangerBuilder {
      * @param T the type of the current subject.
      * @param R the type of the new subject.
      */
+    @Deprecated(
+        "Use SubjectChangerBuilder.FailureHandlerStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.FailureHandlerStep")
+    )
     interface FailureHandlerOption<T, R> {
         /**
          * The so far chosen options up to the [TransformationStep] step.
@@ -257,6 +284,10 @@ interface SubjectChangerBuilder {
      * @param T the type of the current subject.
      * @param R the type of the new subject.
      */
+    @Deprecated(
+        "Use SubjectChangerBuilder.FinalStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.FinalStep")
+    )
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [TransformationStep] step.

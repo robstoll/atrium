@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.changers.impl.subjectchanger
 
 import ch.tutteli.atrium.assertions.Assertion

@@ -21,13 +21,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic.subjectChanger from atrium-logic; will be removed with 1.0.0")
 val subjectChanger by lazy { loadSingleService(SubjectChanger::class) }
 
 /**
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.
  */
-//TODO 0.14.0 move to atrium-logic
+@Deprecated(
+    "Use SubjectChanger from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChanger")
+)
 interface SubjectChanger {
 
     /**
@@ -107,6 +111,10 @@ interface SubjectChanger {
      * @param T The type of the subject
      * @param R The type of the subject after the subject change (if it were possible).
      */
+    @Deprecated(
+        "Use SubjectChanger.FailureHandler from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.FailureHandler")
+    )
     interface FailureHandler<T, R> {
         /**
          * Creates the failing assertion most likely based on the given [descriptiveAssertion] -- which in turn
@@ -148,6 +156,10 @@ interface SubjectChanger {
  * @param R1 The type of the mapped subject
  * @param R The type of the subject after the subject change (if it were possible).
  */
+@Deprecated(
+    "Use FailureHandlerAdapter from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FailureHandlerAdapter")
+)
 class FailureHandlerAdapter<T, R1, R>(
     val failureHandler: SubjectChanger.FailureHandler<R1, R>,
     val map: (T) -> R1
