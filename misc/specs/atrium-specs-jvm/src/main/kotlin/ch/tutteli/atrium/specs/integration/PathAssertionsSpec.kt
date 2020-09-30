@@ -678,7 +678,7 @@ abstract class PathAssertionsSpec(
             }
         }
 
-        context("executable") {
+        context("POSIX: executable", skip = ifPosixNotSupported) {
             it("does not throw for file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
@@ -689,6 +689,22 @@ abstract class PathAssertionsSpec(
             it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
+                    expect(folder).isExecutableFun()
+                }
+            }
+        }
+
+        context("ACL: executable", skip = ifAclNotSupported) {
+            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("executable"))
+                file.whileWithAcl(TestAcls::ownerExecute) {
+                    expect(file).isExecutableFun()
+                }
+            }
+
+            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("executable"))
+                folder.whileWithAcl(TestAcls::ownerExecute) {
                     expect(folder).isExecutableFun()
                 }
             }
@@ -764,7 +780,7 @@ abstract class PathAssertionsSpec(
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
                         containsRegex(
-                            file.expectedAclEntryPartFor("DENY", "READ_DATA"),
+                            file.expectedAclEntryPartFor("DENY", "EXECUTE"),
                             // we only check a few of the allowed options
                             file.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
                             file.expectedAclEntryPartFor("ALLOW", "WRITE_DATA")
@@ -778,7 +794,7 @@ abstract class PathAssertionsSpec(
                 val expectedTypeHint = String.format(
                     FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
                     A_DIRECTORY.getDefault(),
-                    READABLE.getDefault()
+                    EXECUTABLE.getDefault()
                 )
 
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
@@ -1088,6 +1104,10 @@ internal object TestAcls {
     fun ownerNoWrite(owner: UserPrincipal) = listOf(
         aclEntry(DENY, owner, WRITE_DATA),
         aclEntry(ALLOW, owner, *AclEntryPermission.values())
+    )
+
+    fun ownerExecute(owner: UserPrincipal) = listOf(
+        aclEntry(ALLOW, owner, READ_DATA, WRITE_DATA, EXECUTE)
     )
 
     fun ownerNoExecute(owner: UserPrincipal) = listOf(
