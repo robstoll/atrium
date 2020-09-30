@@ -697,14 +697,14 @@ abstract class PathAssertionsSpec(
         context("ACL: executable", skip = ifAclNotSupported) {
             it("does not throw for file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
-                file.whileWithAcl(TestAcls::ownerExecute) {
+                file.whileWithAcl(TestAcls::all) {
                     expect(file).isExecutableFun()
                 }
             }
 
             it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
-                folder.whileWithAcl(TestAcls::ownerExecute) {
+                folder.whileWithAcl(TestAcls::all) {
                     expect(folder).isExecutableFun()
                 }
             }
@@ -1106,8 +1106,8 @@ internal object TestAcls {
         aclEntry(ALLOW, owner, *AclEntryPermission.values())
     )
 
-    fun ownerExecute(owner: UserPrincipal) = listOf(
-        aclEntry(ALLOW, owner, READ_DATA, WRITE_DATA, EXECUTE)
+    fun all(owner: UserPrincipal) = listOf(
+        aclEntry(ALLOW, owner, *AclEntryPermission.values())
     )
 
     fun ownerNoExecute(owner: UserPrincipal) = listOf(
