@@ -59,7 +59,7 @@ fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) exists;
  * meaning that there is a file system entry at the location the [Path] points to.
  *
- * This matcher _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
+ * This assertion _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -74,7 +74,7 @@ fun <T : Path> Expect<T>.exists(): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) does not exist;
  * meaning that there is no file system entry at the location the [Path] points to.
  *
- * This matcher _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
+ * This assertion _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -191,7 +191,7 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  * meaning that there is a file system entry at the location the [Path] points to and
  * that the current thread has the permission to read from it.
  *
- * This matcher _resolves_ symbolic links.
+ * This assertion _resolves_ symbolic links.
  * Therefore, if a symbolic link exists at the location the subject points to,
  * search will continue at the location the link points at.
  *
@@ -212,7 +212,7 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> =
  * meaning that there is a file system entry at the location the [Path] points to and
  * that the current thread has the permission to write to it.
  *
- * This matcher _resolves_ symbolic links.
+ * This assertion _resolves_ symbolic links.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
@@ -234,7 +234,7 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> =
  * systems, it means that the Java virtual machine has permission to search the directory in order to access file or
  * subdirectories.
  *
- * This matcher _resolves_ symbolic links.
+ * This assertion _resolves_ symbolic links.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
@@ -250,7 +250,7 @@ fun <T : Path> Expect<T>.isExecutable(): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) is a file;
  * meaning that there is a file system entry at the location the [Path] points to and that is a regular file.
  *
- * This matcher _resolves_ symbolic links.
+ * This assertion _resolves_ symbolic links.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
@@ -270,7 +270,7 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) is a directory;
  * meaning that there is a file system entry at the location the [Path] points to and that is a directory.
  *
- * This matcher _resolves_ symbolic links.
+ * This assertion _resolves_ symbolic links.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
