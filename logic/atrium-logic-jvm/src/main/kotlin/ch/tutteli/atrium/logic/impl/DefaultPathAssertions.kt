@@ -100,6 +100,9 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion =
         filePermissionAssertion(container, WRITABLE, AccessMode.WRITE)
 
+    override fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion =
+        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE)
+
     override fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_FILE) { it.isRegularFile }
 

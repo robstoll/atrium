@@ -18,6 +18,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Expect<Path>::endsNotWith),
     "toBe ${readable::class.simpleName}" to Companion::isReadable,
     "toBe ${writable::class.simpleName}" to Companion::isWritable,
+    "toBe ${executable::class.simpleName}" to Companion::isExecutable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
     fun1(Expect<Path>::hasSameBinaryContentAs),
@@ -30,6 +31,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun existsNot(expect: Expect<Path>) = expect notToBe existing
         private fun isReadable(expect: Expect<Path>) = expect toBe readable
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
+        private fun isExecutable(expect: Expect<Path>) = expect toBe executable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
 

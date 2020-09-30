@@ -5,8 +5,8 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import java.nio.charset.Charset
@@ -234,6 +234,27 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
     _logicAppend { isWritable() }
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is executable;
+ * meaning that there is a file system entry at the location the [Path] points to and
+ * that the current thread has the permission to execute it.
+ *
+ * The semantics of “permission to execute it” may differ when checking access to a directory. For example, on UNIX
+ * systems, it means that the Java virtual machine has permission to search the directory in order to access file or
+ * subdirectories.
+ *
+ * This matcher _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue
+ * at the location the link points at.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: executable): Expect<T> =
+    _logicAppend { isExecutable() }
 
 /**
  * Expects that the subject of the assertion (a [Path]) is a file;

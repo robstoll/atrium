@@ -17,6 +17,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Expect<Path>::endsNotWith),
     fun0(Expect<Path>::isReadable),
     fun0(Expect<Path>::isWritable),
+    fun0(Expect<Path>::isExecutable),
     fun0(Expect<Path>::isRegularFile),
     fun0(Expect<Path>::isDirectory),
     fun1(Expect<Path>::hasSameBinaryContentAs),

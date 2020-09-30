@@ -7,11 +7,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
-import ch.tutteli.niok.createSymbolicLink
-import ch.tutteli.niok.getFileAttributeView
-import ch.tutteli.niok.posixFilePersmissions
-import ch.tutteli.niok.readAttributes
-import ch.tutteli.niok.setPosixFilePermissions
+import ch.tutteli.niok.*
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
 import io.mockk.every
@@ -27,23 +23,11 @@ import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.nio.file.attribute.AclEntry
-import java.nio.file.attribute.AclEntryPermission
-import java.nio.file.attribute.AclEntryPermission.READ_DATA
-import java.nio.file.attribute.AclEntryPermission.WRITE_DATA
-import java.nio.file.attribute.AclEntryType
+import java.nio.file.attribute.*
+import java.nio.file.attribute.AclEntryPermission.*
 import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
-import java.nio.file.attribute.AclFileAttributeView
-import java.nio.file.attribute.BasicFileAttributes
-import java.nio.file.attribute.PosixFileAttributes
-import java.nio.file.attribute.PosixFilePermission
-import java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE
-import java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE
-import java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE
-import java.nio.file.attribute.PosixFilePermission.OWNER_READ
-import java.nio.file.attribute.PosixFilePermission.OWNER_WRITE
-import java.nio.file.attribute.UserPrincipal
+import java.nio.file.attribute.PosixFilePermission.*
 import java.util.regex.Pattern.quote
 
 abstract class PathAssertionsSpec(
@@ -55,6 +39,7 @@ abstract class PathAssertionsSpec(
     endsNotWith: Fun1<Path, Path>,
     isReadable: Fun0<Path>,
     isWritable: Fun0<Path>,
+    isExecutable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
     isDirectory: Fun0<Path>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
@@ -73,10 +58,11 @@ abstract class PathAssertionsSpec(
         endsNotWith.forSubjectLess(Paths.get("a")),
         isReadable.forSubjectLess(),
         isWritable.forSubjectLess(),
+        isExecutable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
         isDirectory.forSubjectLess(),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
-        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1) ,
+        hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
     ) {})
 
@@ -672,6 +658,153 @@ abstract class PathAssertionsSpec(
         }
     }
 
+    describeFun(isExecutable) {
+        val isExecutableFun = isExecutable.lambda
+        val expectedMessage = "$isDescr: ${EXECUTABLE.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).isExecutableFun()
+                }.toThrow<AssertionError>().message {
+                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    containsExplanationFor(maybeLink)
+                }
+            }
+
+            itPrintsFileAccessProblemDetails { testFile ->
+                expect(testFile).isExecutableFun()
+            }
+        }
+
+        context("executable") {
+            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("executable"))
+                file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
+                    expect(file).isExecutableFun()
+                }
+            }
+
+            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("executable"))
+                folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
+                    expect(folder).isExecutableFun()
+                }
+            }
+        }
+
+        context("POSIX: not executable", skip = ifPosixNotSupported) {
+            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o=")
+
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val expectedTypeHint = String.format(
+                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
+                    A_FILE.getDefault(),
+                    EXECUTABLE.getDefault()
+                )
+
+                val file = maybeLink.create(tempFolder.newFile("not-executable"))
+                file.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
+                    expect {
+                        expect(file).isExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            expectedMessage,
+                            expectedTypeHint,
+                            expectedPermissionHint,
+                            expectedPosixOwnerAndGroupHintFor(file)
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val expectedTypeHint = String.format(
+                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
+                    A_DIRECTORY.getDefault(),
+                    EXECUTABLE.getDefault()
+                )
+
+                val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
+                folder.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
+                    expect {
+                        expect(folder).isExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            expectedMessage,
+                            expectedTypeHint,
+                            expectedPermissionHint,
+                            expectedPosixOwnerAndGroupHintFor(folder)
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+        }
+
+        context("ACL: not executable", skip = ifAclNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val expectedTypeHint = String.format(
+                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
+                    A_FILE.getDefault(),
+                    EXECUTABLE.getDefault()
+                )
+
+                val file = maybeLink.create(tempFolder.newFile("not-executable"))
+                file.whileWithAcl(TestAcls::ownerNoExecute) {
+                    expect {
+                        expect(file).isExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            expectedMessage,
+                            expectedTypeHint,
+                            expectedAclOwnerHintFor(file),
+                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                        )
+                        containsRegex(
+                            file.expectedAclEntryPartFor("DENY", "READ_DATA"),
+                            // we only check a few of the allowed options
+                            file.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
+                            file.expectedAclEntryPartFor("ALLOW", "WRITE_DATA")
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val expectedTypeHint = String.format(
+                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
+                    A_DIRECTORY.getDefault(),
+                    READABLE.getDefault()
+                )
+
+                val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
+                folder.whileWithAcl(TestAcls::ownerNoExecute) {
+                    expect {
+                        expect(folder).isExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        contains(
+                            expectedMessage,
+                            expectedTypeHint,
+                            expectedAclOwnerHintFor(folder),
+                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                        )
+                        containsRegex(
+                            folder.expectedAclEntryPartFor("DENY", "EXECUTE"),
+                            // we only check a few of the allowed options
+                            folder.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
+                            folder.expectedAclEntryPartFor("ALLOW", "WRITE_DATA")
+                        )
+                        containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+        }
+    }
+
     describeFun(isRegularFile) {
         val isRegularFileFun = isRegularFile.lambda
         val expectedMessage = "$isDescr: ${A_FILE.getDefault()}"
@@ -954,6 +1087,11 @@ internal object TestAcls {
 
     fun ownerNoWrite(owner: UserPrincipal) = listOf(
         aclEntry(DENY, owner, WRITE_DATA),
+        aclEntry(ALLOW, owner, *AclEntryPermission.values())
+    )
+
+    fun ownerNoExecute(owner: UserPrincipal) = listOf(
+        aclEntry(DENY, owner, EXECUTE),
         aclEntry(ALLOW, owner, *AclEntryPermission.values())
     )
 }
