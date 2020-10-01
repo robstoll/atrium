@@ -19,7 +19,7 @@ import java.time.ZonedDateTime
  * @since 0.12.0
  */
 val Expect<ZonedDateTime>.year: Expect<Int>
-    get() = _logic.year().getExpectOfFeature()
+    get() = _logic.year().transform()
 
 /**
  * Expects that the property [ZonedDateTime.year][ZonedDateTime.getYear] of the subject of the assertion
@@ -32,7 +32,7 @@ val Expect<ZonedDateTime>.year: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
-    _logic.year().addToInitial(assertionCreator)
+    _logic.year().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue]
@@ -43,7 +43,7 @@ infix fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): 
  * @since 0.12.0
  */
 val Expect<ZonedDateTime>.month: Expect<Int>
-    get() = _logic.month().getExpectOfFeature()
+    get() = _logic.month().transform()
 
 /**
  * Expects that the property [ZonedDateTime.monthValue][ZonedDateTime.getMonthValue] of the subject of the assertion
@@ -56,7 +56,7 @@ val Expect<ZonedDateTime>.month: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
-    _logic.month().addToInitial(assertionCreator)
+    _logic.month().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek]
@@ -67,7 +67,7 @@ infix fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit):
  * @since 0.12.0
  */
 val Expect<ZonedDateTime>.dayOfWeek: Expect<DayOfWeek>
-    get() = _logic.dayOfWeek().getExpectOfFeature()
+    get() = _logic.dayOfWeek().transform()
 
 /**
  * Expects that the property [ZonedDatetime.dayOfWeek][ZonedDateTime.getDayOfWeek] of the subject of the assertion
@@ -80,7 +80,7 @@ val Expect<ZonedDateTime>.dayOfWeek: Expect<DayOfWeek>
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<ZonedDateTime> =
-    _logic.dayOfWeek().addToInitial(assertionCreator)
+    _logic.dayOfWeek().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth]
@@ -91,7 +91,7 @@ infix fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.()
  * @since 0.12.0
  */
 val Expect<ZonedDateTime>.day: Expect<Int>
-    get() = _logic.day().getExpectOfFeature()
+    get() = _logic.day().transform()
 
 /**
  * Expects that the property [ZonedDateTime.dayOfMonth][ZonedDateTime.getDayOfMonth] of the subject of the assertion
@@ -104,4 +104,4 @@ val Expect<ZonedDateTime>.day: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
-    _logic.day().addToInitial(assertionCreator)
+    _logic.day().collectAndAppend(assertionCreator)

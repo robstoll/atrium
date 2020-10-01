@@ -45,7 +45,7 @@ infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
  * @return The newly created [Expect] for the extracted feature.
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _logic.size(::identity).getExpectOfFeature()
+    get() = _logic.size(::identity).transform()
 
 /**
  * Expects that the property [Collection.size] of the subject of the assertion
@@ -56,4 +56,4 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic.size(::identity).addToInitial(assertionCreator)
+    _logic.size(::identity).collectAndAppend(assertionCreator)

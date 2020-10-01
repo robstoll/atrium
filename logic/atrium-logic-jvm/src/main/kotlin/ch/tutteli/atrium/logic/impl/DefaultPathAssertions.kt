@@ -11,13 +11,13 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.filesystem.Failure
 import ch.tutteli.atrium.logic.creating.filesystem.IoResult
 import ch.tutteli.atrium.logic.creating.filesystem.Success
 import ch.tutteli.atrium.logic.creating.filesystem.hints.*
 import ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -148,18 +148,18 @@ class DefaultPathAssertions : PathAssertions {
     }
 
 
-    override fun <T : Path> fileName(container: AssertionContainer<T>): ExtractedFeaturePostStep<T, String> =
+    override fun <T : Path> fileName(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, String> =
         container.manualFeature(FILE_NAME) { fileName.toString() }
 
-    override fun <T : Path> extension(container: AssertionContainer<T>): ExtractedFeaturePostStep<T, String> =
+    override fun <T : Path> extension(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, String> =
         container.manualFeature(EXTENSION) { extension }
 
     override fun <T : Path> fileNameWithoutExtension(
         container: AssertionContainer<T>
-    ): ExtractedFeaturePostStep<T, String> =
+    ): FeatureExtractorBuilder.ExecutionStep<T, String> =
         container.manualFeature(FILE_NAME_WITHOUT_EXTENSION) { fileNameWithoutExtension }
 
-    override fun <T : Path> parent(container: AssertionContainer<T>): ExtractedFeaturePostStep<T, Path> =
+    override fun <T : Path> parent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, Path> =
         container.extractFeature
             .withDescription(PARENT)
             .withRepresentationForFailure(DOES_NOT_HAVE_PARENT)
@@ -173,6 +173,6 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> resolve(
         container: AssertionContainer<T>,
         other: String
-    ): ExtractedFeaturePostStep<T, Path> = container.f1<T, String, Path>(Path::resolve, other)
+    ): FeatureExtractorBuilder.ExecutionStep<T, Path> = container.f1<T, String, Path>(Path::resolve, other)
 
 }

@@ -57,7 +57,7 @@ inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
-    _logic.notToBeNullBut(T::class).transform()
+    _logic.notToBeNullButOfType(T::class).transform()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -67,7 +67,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.notToBeNullBut(T::class).transformAndAppend(assertionCreator)
+    _logic.notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)

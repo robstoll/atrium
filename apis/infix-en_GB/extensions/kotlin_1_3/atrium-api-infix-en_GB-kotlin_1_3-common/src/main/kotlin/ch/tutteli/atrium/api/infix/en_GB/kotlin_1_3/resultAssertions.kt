@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  * @since 0.12.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") success: success): Expect<E> =
-    _logic.isSuccess().getExpectOfFeature()
+    _logic.isSuccess().transform()
 
 /**
  * Expects that the subject of the assertion (a [Result]]) is a Success and
@@ -31,7 +31,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") succes
  * @since 0.12.0
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
-    _logic.isSuccess().addToInitial(success.assertionCreator)
+    _logic.isSuccess().collectAndAppend(success.assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure and

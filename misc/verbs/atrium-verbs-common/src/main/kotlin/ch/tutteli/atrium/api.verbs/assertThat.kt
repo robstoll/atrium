@@ -44,4 +44,4 @@ fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T
     )
 )
 fun <T, R> Expect<T>.assertThat(newSubject: R): FeatureExpect<T, R> =
-    _logic.manualFeature(ASSERT_THAT) { newSubject }.getExpectOfFeature()
+    _logic.manualFeature(ASSERT_THAT) { newSubject }.transform()

@@ -15,7 +15,7 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  * @since 0.9.0
  */
 fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
-    _logic.isSuccess().getExpectOfFeature()
+    _logic.isSuccess().transform()
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Success and
@@ -27,7 +27,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
  * @since 0.9.0
  */
 fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.isSuccess().addToInitial(assertionCreator)
+    _logic.isSuccess().collectAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Result]) is a Failure and

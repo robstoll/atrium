@@ -92,7 +92,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
-    _logic.getExisting(key).getExpectOfFeature()
+    _logic.getExisting(key).transform()
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
@@ -103,7 +103,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *   does not hold.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
-    _logic.getExisting(key).addToInitial(assertionCreator)
+    _logic.getExisting(key).collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
@@ -112,7 +112,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
-    get() = _logic.property(Map<out K, *>::keys).getExpectOfFeature()
+    get() = _logic.property(Map<out K, *>::keys).transform()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
@@ -123,7 +123,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
-    _logic.property(Map<out K, *>::keys).addToInitial(assertionCreator)
+    _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
@@ -132,7 +132,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.()
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
-    get() = _logic.property(Map<out Any?, V>::values).getExpectOfFeature()
+    get() = _logic.property(Map<out Any?, V>::values).transform()
 
 /**
  * Expects that the property [Map.keys] of the subject of the assertion
@@ -143,7 +143,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
-    _logic.property(Map<out K, V>::values).addToInitial(assertionCreator)
+    _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
 
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.

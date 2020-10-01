@@ -38,10 +38,10 @@ class DefaultAnyAssertions : AnyAssertions {
         container: AssertionContainer<T?>,
         type: KClass<T>,
         assertionCreator: Expect<T>.() -> Unit
-    ) = container.notToBeNullBut(type).collect(assertionCreator)
+    ) = container.notToBeNullButOfType(type).collect(assertionCreator)
 
 
-    override fun <T : Any> notToBeNullBut(
+    override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
     ):  SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)

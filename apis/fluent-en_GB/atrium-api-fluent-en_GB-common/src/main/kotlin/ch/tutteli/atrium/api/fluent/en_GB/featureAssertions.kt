@@ -18,7 +18,7 @@ import kotlin.reflect.*
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
-    _logic.property(property).getExpectOfFeature()
+    _logic.property(property).transform()
 
 /**
  * Extracts the [property] out of the current subject of the assertion,
@@ -34,7 +34,7 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R>
 fun <T, R> Expect<T>.feature(
     property: KProperty1<in T, R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.property(property).addToInitial(assertionCreator)
+): Expect<T> = _logic.property(property).collectAndAppend(assertionCreator)
 
 
 /**
@@ -48,7 +48,7 @@ fun <T, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
-    _logic.f0(f).getExpectOfFeature()
+    _logic.f0(f).transform()
 
 /**
  * Extracts the value which is returned when calling [f] on the current subject of the assertion,
@@ -64,7 +64,7 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
 fun <T, R> Expect<T>.feature(
     f: KFunction1<T, R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f0(f).addToInitial(assertionCreator)
+): Expect<T> = _logic.f0(f).collectAndAppend(assertionCreator)
 
 
 /**
@@ -81,7 +81,7 @@ fun <T, R> Expect<T>.feature(
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1
-): FeatureExpect<T, R> = _logic.f1(f, a1).getExpectOfFeature()
+): FeatureExpect<T, R> = _logic.f1(f, a1).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
@@ -99,7 +99,7 @@ fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f1(f, a1).addToInitial(assertionCreator)
+): Expect<T> = _logic.f1(f, a1).collectAndAppend(assertionCreator)
 
 
 /**
@@ -116,7 +116,7 @@ fun <T, A1, R> Expect<T>.feature(
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2
-): FeatureExpect<T, R> = _logic.f2(f, a1, a2).getExpectOfFeature()
+): FeatureExpect<T, R> = _logic.f2(f, a1, a2).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2]
@@ -134,7 +134,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f2(f, a1, a2).addToInitial(assertionCreator)
+): Expect<T> = _logic.f2(f, a1, a2).collectAndAppend(assertionCreator)
 
 
 /**
@@ -151,7 +151,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3
-): FeatureExpect<T, R> = _logic.f3(f, a1, a2, a3).getExpectOfFeature()
+): FeatureExpect<T, R> = _logic.f3(f, a1, a2, a3).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3]
@@ -169,7 +169,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f3(f, a1, a2, a3).addToInitial(assertionCreator)
+): Expect<T> = _logic.f3(f, a1, a2, a3).collectAndAppend(assertionCreator)
 
 
 /**
@@ -186,7 +186,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4
-): FeatureExpect<T, R> = _logic.f4(f, a1, a2, a3, a4).getExpectOfFeature()
+): FeatureExpect<T, R> = _logic.f4(f, a1, a2, a3, a4).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4]
@@ -204,7 +204,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f4(f, a1, a2, a3, a4).addToInitial(assertionCreator)
+): Expect<T> = _logic.f4(f, a1, a2, a3, a4).collectAndAppend(assertionCreator)
 
 
 /**
@@ -220,7 +220,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
-): FeatureExpect<T, R> = _logic.f5(f, a1, a2, a3, a4, a5).getExpectOfFeature()
+): FeatureExpect<T, R> = _logic.f5(f, a1, a2, a3, a4, a5).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4], [a5]
@@ -238,7 +238,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f5(f, a1, a2, a3, a4, a5).addToInitial(assertionCreator)
+): Expect<T> = _logic.f5(f, a1, a2, a3, a4, a5).collectAndAppend(assertionCreator)
 
 
 /**
@@ -255,7 +255,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureExpect<T, R> =
-    _logic.manualFeature(description, provider).getExpectOfFeature()
+    _logic.manualFeature(description, provider).transform()
 
 /**
  * Extracts a feature out of the current subject of the assertion
@@ -276,7 +276,7 @@ fun <T, R> Expect<T>.feature(
     description: String,
     provider: T.() -> R,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.manualFeature(description, provider).addToInitial(assertionCreator)
+): Expect<T> = _logic.manualFeature(description, provider).collectAndAppend(assertionCreator)
 
 
 /**
@@ -294,7 +294,7 @@ fun <T, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
-    extractFeature(provider).getExpectOfFeature()
+    extractFeature(provider).transform()
 
 /**
  * Extracts a feature out of the current subject of the assertion,
@@ -314,7 +314,7 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = extractFeature(provider).addToInitial(assertionCreator)
+): Expect<T> = extractFeature(provider).collectAndAppend(assertionCreator)
 
 private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
     _logic.genericSubjectBasedFeature { MetaFeatureOption(this).provider(it) }

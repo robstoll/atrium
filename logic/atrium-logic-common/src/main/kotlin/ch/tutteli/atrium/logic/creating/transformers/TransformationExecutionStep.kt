@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 
 /**

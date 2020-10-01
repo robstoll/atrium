@@ -22,7 +22,7 @@ fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = _anyImpl.toBeNull(t
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
     _anyImpl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
 
-fun <T : Any> AssertionContainer<T?>.notToBeNullBut(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = _anyImpl.notToBeNullBut(this, subType)
+fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = _anyImpl.notToBeNullButOfType(this, subType)
 
     //TODO restrict TSub with T once type parameter for upper bounds are supported:
     // https://youtrack.jetbrains.com/issue/KT-33262 is implemented

@@ -28,7 +28,7 @@ class DefaultFun0Assertions : Fun0Assertions {
         container.manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this)
                 .fold({ it }, { /* use null as subject in case no exception occurred*/ null })
-        }.getExpectOfFeature().let { previousExpect ->
+        }.transform().let { previousExpect ->
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = { it ?: NO_EXCEPTION_OCCURRED })

@@ -12,15 +12,14 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.chrono.ChronoLocalDateTime
 
-fun AssertionContainer<LocalDate>.year(): ExtractedFeaturePostStep<LocalDate, Int> = _localDateImpl.year(this)
+fun AssertionContainer<LocalDate>.year(): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int> = _localDateImpl.year(this)
 
-fun AssertionContainer<LocalDate>.month(): ExtractedFeaturePostStep<LocalDate, Int> = _localDateImpl.month(this)
+fun AssertionContainer<LocalDate>.month(): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int> = _localDateImpl.month(this)
 
-fun AssertionContainer<LocalDate>.day(): ExtractedFeaturePostStep<LocalDate, Int> = _localDateImpl.day(this)
+fun AssertionContainer<LocalDate>.day(): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int> = _localDateImpl.day(this)
 
-fun AssertionContainer<LocalDate>.dayOfWeek(): ExtractedFeaturePostStep<LocalDate, DayOfWeek> = _localDateImpl.dayOfWeek(this)
+fun AssertionContainer<LocalDate>.dayOfWeek(): FeatureExtractorBuilder.ExecutionStep<LocalDate, DayOfWeek> = _localDateImpl.dayOfWeek(this)

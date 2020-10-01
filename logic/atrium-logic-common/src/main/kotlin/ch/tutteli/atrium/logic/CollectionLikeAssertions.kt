@@ -2,7 +2,7 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
 
 /**
@@ -16,5 +16,5 @@ interface CollectionLikeAssertions {
     fun <T : CollectionLike> size(
         container: AssertionContainer<T>,
         converter: (T) -> Collection<*>
-    ): ExtractedFeaturePostStep<T, Int>
+    ): FeatureExtractorBuilder.ExecutionStep<T, Int>
 }

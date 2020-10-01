@@ -24,7 +24,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
-    get() = _logic.key().getExpectOfFeature()
+    get() = _logic.key().transform()
 
 /**
  * Expects that the property [Map.Entry.key] of the subject of the assertion
@@ -35,7 +35,7 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
-    _logic.key().addToInitial(assertionCreator)
+    _logic.key().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.Entry.value] of the subject of the assertion,
@@ -44,7 +44,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
  * @return The newly created [Expect] for the extracted feature.
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
-    get() = _logic.value().getExpectOfFeature()
+    get() = _logic.value().transform()
 
 /**
  * Expects that the property [Map.Entry.value] of the subject of the assertion
@@ -55,4 +55,4 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
-    _logic.value().addToInitial(assertionCreator)
+    _logic.value().collectAndAppend(assertionCreator)

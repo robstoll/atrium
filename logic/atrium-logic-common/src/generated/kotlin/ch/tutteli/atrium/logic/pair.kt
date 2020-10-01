@@ -7,7 +7,7 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 
-fun <K, T : Pair<K, *>> AssertionContainer<T>.first(): ExtractedFeaturePostStep<T, K> = _pairImpl.first(this)
-fun <V, T : Pair<*, V>> AssertionContainer<T>.second(): ExtractedFeaturePostStep<T, V> = _pairImpl.second(this)
+fun <K, T : Pair<K, *>> AssertionContainer<T>.first(): FeatureExtractorBuilder.ExecutionStep<T, K> = _pairImpl.first(this)
+fun <V, T : Pair<*, V>> AssertionContainer<T>.second(): FeatureExtractorBuilder.ExecutionStep<T, V> = _pairImpl.second(this)

@@ -23,7 +23,7 @@ interface AnyAssertions {
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
-    fun <T : Any> notToBeNullBut(
+    fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
     ): SubjectChangerBuilder.ExecutionStep<T?, T>

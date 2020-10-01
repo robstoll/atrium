@@ -39,7 +39,7 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
  * @since 0.9.0
  */
 fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
-    _logic.isPresent().getExpectOfFeature()
+    _logic.isPresent().transform()
 
 /**
  * Expects that the subject of the assertion (an [Optional]) is present and
@@ -51,4 +51,4 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
  * @since 0.9.0
  */
 fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.isPresent().addToInitial(assertionCreator)
+    _logic.isPresent().collectAndAppend(assertionCreator)

@@ -12,10 +12,11 @@ import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectInternal
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -48,7 +49,7 @@ val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
  * Entry point to use the [FeatureExtractorBuilder] based on this [AssertionContainer].
  */
 val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
-    get() = FeatureExtractorBuilder.create(this.toExpect())
+    get() = FeatureExtractorBuilder(this)
 
 /**
  * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
@@ -107,3 +108,15 @@ fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
         is ExpectInternal<T> -> this
         else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer.toExpect")
     }
+
+/**
+ * Finishes the transformation process by appending the [Assertion]
+ * which is returned when calling [TransformationExecutionStep.collectAndAppend] with [_logicAppend]
+ * and the given [assertionCreator].
+ *
+ * See [collect] for more information.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ */
+fun <T, R> TransformationExecutionStep<T, R, *>.collectAndLogicAppend(assertionCreator: AssertionContainer<R>.() -> Assertion): Expect<T> =
+    collectAndAppend { _logicAppend(assertionCreator) }
