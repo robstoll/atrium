@@ -2451,10 +2451,10 @@ Please have a look at
 for further suggestions and guidelines.
 
 # Sponsors
-We like to thank the following sponsors for their support:
+We would like to thank the following sponsors for their support:
 - [Tegonal GmbH](https://tegonal.com) for sponsoring Support and PR-Review time.
 
-Want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
+Do you want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
 - [robstoll](https://github.com/sponsors/robstoll) (Author and main contributor)
 
 or ping @robstoll in the Slack-Channel if you would like to support the project in another way.
