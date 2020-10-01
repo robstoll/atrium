@@ -20,6 +20,7 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     STARTS_NOT_WITH("does not start with"),
     READABLE("readable"),
     WRITABLE("writable"),
+    EXECUTABLE("executable"),
     A_FILE("a file"),
     A_DIRECTORY("a directory"),
     A_SYMBOLIC_LINK("a symbolic link"),

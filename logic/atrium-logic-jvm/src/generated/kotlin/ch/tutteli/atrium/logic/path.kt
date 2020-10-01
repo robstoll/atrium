@@ -16,7 +16,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.charset.Charset
 import java.nio.file.Path
-import java.util.*
 
 fun <T : Path> AssertionContainer<T>.startsWith(expected: Path): Assertion = _pathImpl.startsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = _pathImpl.startsNotWith(this, expected)
@@ -28,6 +27,7 @@ fun <T : Path> AssertionContainer<T>.existsNot(): Assertion = _pathImpl.existsNo
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = _pathImpl.isReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = _pathImpl.isWritable(this)
+fun <T : Path> AssertionContainer<T>.isExecutable(): Assertion = _pathImpl.isExecutable(this)
 fun <T : Path> AssertionContainer<T>.isRegularFile(): Assertion = _pathImpl.isRegularFile(this)
 fun <T : Path> AssertionContainer<T>.isDirectory(): Assertion = _pathImpl.isDirectory(this)
 

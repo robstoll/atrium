@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
+import ch.tutteli.atrium.api.fluent.en_GB.isExecutable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
@@ -20,6 +21,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun1(Expect<Path>::endsNotWith),
     fun0(Expect<Path>::isReadable),
     fun0(Expect<Path>::isWritable),
+    fun0(Expect<Path>::isExecutable), // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
     fun0(Expect<Path>::isRegularFile),
     fun0(Expect<Path>::isDirectory),
     fun1(Expect<Path>::hasSameBinaryContentAs),

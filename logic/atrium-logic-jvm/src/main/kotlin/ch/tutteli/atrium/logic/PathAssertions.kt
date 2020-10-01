@@ -10,7 +10,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import java.nio.charset.Charset
 import java.nio.file.Path
-import java.util.*
 
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [Path] type.
@@ -26,6 +25,7 @@ interface PathAssertions {
 
     fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion
     fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion
 
