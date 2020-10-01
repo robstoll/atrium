@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
@@ -409,12 +410,6 @@ abstract class PathAssertionsSpec(
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=wx g=x o=")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    READABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
                     expect {
@@ -422,7 +417,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
                         )
@@ -432,12 +427,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    READABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
                     expect {
@@ -445,7 +434,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
                         )
@@ -457,12 +446,6 @@ abstract class PathAssertionsSpec(
 
         context("ACL: not readable", skip = ifAclNotSupported) {
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    READABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithAcl(TestAcls::ownerNoRead) {
                     expect {
@@ -470,7 +453,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -486,12 +469,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    READABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
                     expect {
@@ -499,7 +476,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -555,12 +532,6 @@ abstract class PathAssertionsSpec(
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rx g= o=x")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    WRITABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect {
@@ -568,7 +539,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
                         )
@@ -578,12 +549,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    WRITABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect {
@@ -591,7 +556,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
                         )
@@ -603,12 +568,6 @@ abstract class PathAssertionsSpec(
 
         context("ACL: not writable", skip = ifAclNotSupported) {
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    WRITABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithAcl(TestAcls::ownerNoWrite) {
                     expect {
@@ -616,7 +575,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -630,12 +589,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    WRITABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
                     expect {
@@ -643,7 +596,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -714,12 +667,6 @@ abstract class PathAssertionsSpec(
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o=")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    EXECUTABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
                     expect {
@@ -727,7 +674,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
                         )
@@ -737,12 +684,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    EXECUTABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
                     expect {
@@ -750,7 +691,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
                         )
@@ -762,12 +703,6 @@ abstract class PathAssertionsSpec(
 
         context("ACL: not executable", skip = ifAclNotSupported) {
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_FILE.getDefault(),
-                    EXECUTABLE.getDefault()
-                )
-
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect {
@@ -775,7 +710,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -791,12 +726,6 @@ abstract class PathAssertionsSpec(
             }
 
             it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
-                val expectedTypeHint = String.format(
-                    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
-                    A_DIRECTORY.getDefault(),
-                    EXECUTABLE.getDefault()
-                )
-
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect {
@@ -804,7 +733,7 @@ abstract class PathAssertionsSpec(
                     }.toThrow<AssertionError>().message {
                         contains(
                             expectedMessage,
-                            expectedTypeHint,
+                            expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -1264,3 +1193,9 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
 
 internal fun <T : CharSequence> Expect<T>.containsExplanationFor(maybeLink: MaybeLink) =
     maybeLink.checkAssertionErrorMessage(this)
+
+private fun expectedPermissionTypeHintFor(type: Translatable, being: Translatable) = String.format(
+    FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
+    type.getDefault(),
+    being.getDefault()
+)
