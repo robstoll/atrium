@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
  * @property actionAndApply An action such as transform, extract etc. which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
-//TODO 0.14.0 move to atrium-logic
+@Deprecated("Use TransformationExecutionStep from atrium-logic; will be removed with 1.0.0")
 abstract class PostFinalStep<T, R, E : Expect<R>>(
     protected val expect: Expect<T>,
     protected val action: Expect<T>.() -> E,
@@ -27,9 +27,7 @@ abstract class PostFinalStep<T, R, E : Expect<R>>(
     /**
      * Returns the newly created [Expect] for the feature.
      */
-    //TODO consider for 1.0.0: rename to getFeatureExpect in case also ChangedSubjectPostStep is returning FeatureExpect
     fun getExpectOfFeature(): E = action(expect)
-
 
     /**
      * Collects the assertions the given [assertionCreator] might create for the new [Expect] of the feature

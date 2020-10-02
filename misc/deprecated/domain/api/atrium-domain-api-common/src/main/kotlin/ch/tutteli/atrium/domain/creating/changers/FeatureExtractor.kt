@@ -1,3 +1,4 @@
+//TODO remove with 1.0.0
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.creating.changers
@@ -16,6 +17,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+@Deprecated("Use _logic.featureExtractor from atrium-logic; will be removed with 1.0.0")
 val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
 
 /**
@@ -28,7 +30,10 @@ val featureExtractor by lazy { loadSingleService(FeatureExtractor::class) }
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
-//TODO 0.14.0 move to atrium-logic
+@Deprecated(
+    "Use FeatureExtractor from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor")
+)
 interface FeatureExtractor {
 
     /**

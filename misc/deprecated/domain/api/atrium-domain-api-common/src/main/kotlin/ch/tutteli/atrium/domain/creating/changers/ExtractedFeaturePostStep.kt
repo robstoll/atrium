@@ -1,3 +1,6 @@
+//TODO remove with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.changers
 
 import ch.tutteli.atrium.creating.Expect
@@ -16,7 +19,13 @@ import ch.tutteli.atrium.creating.FeatureExpect
  * @param extractAndApply The extraction of the feature which not only creates and
  *   returns a new [Expect] of type [R] but also applies a given assertionCreator lambda.
  */
-//TODO 0.14.0 move to atrium-logic
+@Deprecated(
+    "Use FeatureExtractorBuilder.ExecutionStep from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith(
+        "ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep(expect._logic, extract, extractAndApply)",
+        "ch.tutteli.atrium.logic._logic"
+    )
+)
 class ExtractedFeaturePostStep<T, R>(
     expect: Expect<T>,
     extract: Expect<T>.() -> FeatureExpect<T, R>,
