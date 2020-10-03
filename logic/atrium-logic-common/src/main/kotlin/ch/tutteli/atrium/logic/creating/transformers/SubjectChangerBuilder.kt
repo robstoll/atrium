@@ -23,8 +23,8 @@ interface SubjectChangerBuilder {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
-        operator fun <T> invoke(assertionContainer: AssertionContainer<T>): KindStep<T> =
-            KindStepImpl(assertionContainer)
+        operator fun <T> invoke(container: AssertionContainer<T>): KindStep<T> =
+            KindStepImpl(container)
     }
 
     /**
@@ -232,10 +232,10 @@ interface SubjectChangerBuilder {
         val failureHandler: SubjectChanger.FailureHandler<T, R>
 
         /**
-         * Finishes the `reported subject change`-process by building a new [Expect] taking the previously chosen
-         * options into account.
+         * Finishes the help-me-to-call-[SubjectChanger]-process by creating an [ExecutionStep] incorporating all
+         * previously chosen options.
          *
-         * @return The [ExecutionStep] which allows to define who the change shall be carried out.
+         * @return The [ExecutionStep] which allows to define how the change shall be carried out.
          */
         fun build(): ExecutionStep<T, R>
 
@@ -254,8 +254,8 @@ interface SubjectChangerBuilder {
     /**
      * Step which allows to decide how the transformation shall be executed.
      *
-     * For instance, if it shall just perform the transformation and return the new [Expect] of type [R] or if it shall
-     * pass an assertionCreator-lambda which creates sub-assertions etc.
+     * For instance, if it shall just perform the transformation and return the new [Expect] of type [R]
+     * or if it shall pass an assertionCreator-lambda which creates sub-assertions etc.
      */
     interface ExecutionStep<T, R> : TransformationExecutionStep<T, R, Expect<R>> {
 

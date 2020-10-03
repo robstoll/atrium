@@ -27,10 +27,10 @@ interface FeatureExpect<T, R> : Expect<R> {
         ): FeatureExpect<T, R> =
             FeatureExpectImpl(previousExpect, maybeSubject, description, assertions, featureExpectOptions)
 
-        @ExperimentalNewExpectTypes
         /**
          * Use this overload if you want to modify the options of a [FeatureExpect].
          */
+        @ExperimentalNewExpectTypes
         operator fun <T, R> invoke(
             featureExpect: FeatureExpect<T, R>,
             featureExpectOptions: FeatureExpectOptions<R>

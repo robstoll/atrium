@@ -3,12 +3,11 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.NotCheckerStepImpl
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 
 /**
  * Collection of assertion functions and builders which are applicable to subjects which can be transformed to an
@@ -45,10 +44,10 @@ interface IterableLikeAssertions {
     fun <T : Any, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E>
+    ): FeatureExtractorBuilder.ExecutionStep<T, E>
 
     fun <T : Any, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E>
+    ): FeatureExtractorBuilder.ExecutionStep<T, E>
 }

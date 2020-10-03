@@ -6,8 +6,8 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
@@ -51,7 +51,7 @@ class DefaultMapAssertions : MapAssertions {
                     .withFeatureExtraction { extractKey(it, key) }
                     .withoutOptions()
                     .build()
-                    .addToInitial(assertionCreator)
+                    .collectAndAppend(assertionCreator)
             }
         }
         return assertionBuilder.list
@@ -93,7 +93,7 @@ class DefaultMapAssertions : MapAssertions {
     override fun <K, V, T : Map<out K, V>> getExisting(
         container: AssertionContainer<T>,
         key: K
-    ): ExtractedFeaturePostStep<T, V> =
+    ): FeatureExtractorBuilder.ExecutionStep<T, V> =
         container.extractFeature
             .methodCall("get", key)
             .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
@@ -102,6 +102,6 @@ class DefaultMapAssertions : MapAssertions {
             .build()
 
 
-    override fun <T : Map<*, *>> size(container: AssertionContainer<T>): ExtractedFeaturePostStep<T, Int> =
+    override fun <T : Map<*, *>> size(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, Int> =
         container.manualFeature(SIZE) { size }
 }

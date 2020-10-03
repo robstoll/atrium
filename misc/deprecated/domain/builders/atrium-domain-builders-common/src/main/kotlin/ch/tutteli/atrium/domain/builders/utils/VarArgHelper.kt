@@ -10,7 +10,7 @@ import ch.tutteli.kbox.glue
  * Represents a parameter object used to express the arguments `T, vararg T`
  * and provides utility functions to transform them.
  */
-//TODO copy/move to atrium-logic with 0.14.0
+//TODO copy/move to atrium-logic with 0.15.0
 interface VarArgHelper<out T> {
     /**
      * The first argument in the argument list `T, vararg T`

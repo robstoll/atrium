@@ -97,7 +97,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.fileName: Expect<String>
-    get() = _logic.fileName().getExpectOfFeature()
+    get() = _logic.fileName().transform()
 
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
@@ -111,7 +111,7 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileName().addToInitial(assertionCreator)
+    _logic.fileName().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
@@ -124,7 +124,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
-    get() = _logic.fileNameWithoutExtension().getExpectOfFeature()
+    get() = _logic.fileNameWithoutExtension().transform()
 
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
@@ -138,7 +138,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileNameWithoutExtension().addToInitial(assertionCreator)
+    _logic.fileNameWithoutExtension().collectAndAppend(assertionCreator)
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and creates an [Expect] for it,
@@ -150,7 +150,7 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.parent: Expect<Path>
-    get() = _logic.parent().getExpectOfFeature()
+    get() = _logic.parent().transform()
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
@@ -162,7 +162,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    _logic.parent().addToInitial(assertionCreator)
+    _logic.parent().collectAndAppend(assertionCreator)
 
 /**
  * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
@@ -174,7 +174,7 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
-    _logic.resolve(other).getExpectOfFeature()
+    _logic.resolve(other).transform()
 
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
@@ -189,7 +189,7 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
-    _logic.resolve(path.path).addToInitial(path.assertionCreator)
+    _logic.resolve(path.path).collectAndAppend(path.assertionCreator)
 
 /**
  * Helper function to create a [PathWithCreator] based on the given [path] and [assertionCreator].
@@ -306,7 +306,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.extension: Expect<String>
-    get() = _logic.extension().getExpectOfFeature()
+    get() = _logic.extension().transform()
 
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
@@ -320,7 +320,7 @@ val <T : Path> Expect<T>.extension: Expect<String>
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.extension().addToInitial(assertionCreator)
+    _logic.extension().collectAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of the assertion (a [Path]) has the same textual content

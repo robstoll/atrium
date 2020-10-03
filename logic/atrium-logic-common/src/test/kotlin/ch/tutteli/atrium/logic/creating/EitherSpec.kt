@@ -8,8 +8,8 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
@@ -59,11 +59,11 @@ object EitherSpec : Spek({
     }
 })
 
-fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = extractLeft().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = extractLeft().transform()
 fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
-    extractLeft().addToInitial(assertionCreator)
+    extractLeft().collectAndAppend(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.extractLeft(): ExtractedFeaturePostStep<Either<A, B>, A> =
+private fun <A, B> Expect<Either<A, B>>.extractLeft(): FeatureExtractorBuilder.ExecutionStep<Either<A, B>, A> =
     _logic.extractFeature
         .withDescription("value of Left")
         .withRepresentationForFailure(Text("❗❗ is not a Left"))
@@ -73,11 +73,11 @@ private fun <A, B> Expect<Either<A, B>>.extractLeft(): ExtractedFeaturePostStep<
         .withoutOptions()
         .build()
 
-fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = extractRight().getExpectOfFeature()
+fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = extractRight().transform()
 fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
-    extractRight().addToInitial(assertionCreator)
+    extractRight().collectAndAppend(assertionCreator)
 
-private fun <A, B> Expect<Either<A, B>>.extractRight(): ExtractedFeaturePostStep<Either<A, B>, B> =
+private fun <A, B> Expect<Either<A, B>>.extractRight(): FeatureExtractorBuilder.ExecutionStep<Either<A, B>, B> =
     _logic.extractFeature
         .withDescription("value of Right")
         .withRepresentationForFailure(Text("❗❗ is not a Right"))

@@ -56,9 +56,7 @@ interface SubjectChanger {
      * Since the subject could also be `null` it makes sense to report this assertion instead of failing
      * with an exception.
      *
-     * @param container the assertion container with the current subject (before the change) --
-     *   if you use `ExpectImpl.changeSubject.reported(...)` within an assertion function (an extension function of
-     *   [Expect]) then you usually pass `this` (so the instance of [Expect]) for this parameter.
+     * @param container the assertion container with the current subject (before the change)
      * @param description Describes the kind of subject change (e.g. in case of a type change `is a`).
      * @param representation Representation of the change (e.g. in case of a type transformation the KClass).
      * @param transformation Provides the subject wrapped into a [Some] if the extraction as such can be carried out

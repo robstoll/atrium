@@ -19,7 +19,7 @@ import java.time.LocalDate
  * @since 0.12.0
  */
 val Expect<LocalDate>.year: Expect<Int>
-    get() = _logic.year().getExpectOfFeature()
+    get() = _logic.year().transform()
 
 /**
  * Expects that the property [LocalDate.year][LocalDate.getYear]of the subject of the assertion
@@ -32,7 +32,7 @@ val Expect<LocalDate>.year: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
-    _logic.year().addToInitial(assertionCreator)
+    _logic.year().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [LocalDate.monthValue][LocalDate.getMonthValue] of the subject of the assertion,
@@ -43,7 +43,7 @@ infix fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expe
  * @since 0.12.0
  */
 val Expect<LocalDate>.month: Expect<Int>
-    get() = _logic.month().getExpectOfFeature()
+    get() = _logic.month().transform()
 
 /**
  * Expects that the property [LocalDate.monthValue][LocalDate.getMonthValue] of the subject of the assertion
@@ -56,7 +56,7 @@ val Expect<LocalDate>.month: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
-    _logic.month().addToInitial(assertionCreator)
+    _logic.month().collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [LocalDate.getDayOfWeek] of the subject of the assertion,
@@ -67,7 +67,7 @@ infix fun Expect<LocalDate>.month(assertionCreator: Expect<Int>.() -> Unit): Exp
  * @since 0.12.0
  */
 val Expect<LocalDate>.dayOfWeek: Expect<DayOfWeek>
-    get() = _logic.dayOfWeek().getExpectOfFeature()
+    get() = _logic.dayOfWeek().transform()
 
 /**
  * Expects that the property [LocalDate.getDayOfWeek] of the subject of the assertion
@@ -80,7 +80,7 @@ val Expect<LocalDate>.dayOfWeek: Expect<DayOfWeek>
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<LocalDate> =
-    _logic.dayOfWeek().addToInitial(assertionCreator)
+    _logic.dayOfWeek().collectAndAppend(assertionCreator)
 
 
 /**
@@ -92,7 +92,7 @@ infix fun Expect<LocalDate>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> 
  * @since 0.12.0
  */
 val Expect<LocalDate>.day: Expect<Int>
-    get() = _logic.day().getExpectOfFeature()
+    get() = _logic.day().transform()
 
 /**
  * Expects that the property [LocalDate.dayOfMonth][LocalDate.getDayOfMonth] of the subject of the assertion
@@ -105,4 +105,4 @@ val Expect<LocalDate>.day: Expect<Int>
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.day(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
-    _logic.day().addToInitial(assertionCreator)
+    _logic.day().collectAndAppend(assertionCreator)

@@ -4,12 +4,9 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
-import ch.tutteli.atrium.logic.ThrowableAssertions
-import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
-import ch.tutteli.atrium.logic.manualFeature
-import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE
 import kotlin.reflect.KClass
@@ -22,7 +19,7 @@ class DefaultThrowableAssertions : ThrowableAssertions {
         container: AssertionContainer<out Throwable>,
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
-        container.manualFeature(OCCURRED_EXCEPTION_CAUSE) { cause }.getExpectOfFeature().let { previousExpect ->
+        container.manualFeature(OCCURRED_EXCEPTION_CAUSE) { cause }.transform().let { previousExpect ->
             //TODO 0.14.0 factor out a pattern, we are doing this more than once, in API we have withOptions
             FeatureExpect(
                 previousExpect,

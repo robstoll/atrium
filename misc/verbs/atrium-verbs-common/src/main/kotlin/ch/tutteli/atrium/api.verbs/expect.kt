@@ -44,4 +44,4 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     )
 )
 fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
-    _logic.manualFeature(EXPECT) { newSubject }.getExpectOfFeature()
+    _logic.manualFeature(EXPECT) { newSubject }.transform()

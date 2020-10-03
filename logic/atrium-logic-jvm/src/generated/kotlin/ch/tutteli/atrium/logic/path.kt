@@ -13,7 +13,7 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.nio.charset.Charset
 import java.nio.file.Path
 
@@ -36,8 +36,8 @@ fun <T : Path> AssertionContainer<T>.hasSameTextualContentAs(targetPath: Path, s
 
 fun <T : Path> AssertionContainer<T>.hasSameBinaryContentAs(targetPath: Path): Assertion = _pathImpl.hasSameBinaryContentAs(this, targetPath)
 
-fun <T : Path> AssertionContainer<T>.fileName(): ExtractedFeaturePostStep<T, String> = _pathImpl.fileName(this)
-fun <T : Path> AssertionContainer<T>.extension(): ExtractedFeaturePostStep<T, String> = _pathImpl.extension(this)
-fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): ExtractedFeaturePostStep<T, String> = _pathImpl.fileNameWithoutExtension(this)
-fun <T : Path> AssertionContainer<T>.parent(): ExtractedFeaturePostStep<T, Path> = _pathImpl.parent(this)
-fun <T : Path> AssertionContainer<T>.resolve(other: String): ExtractedFeaturePostStep<T, Path> = _pathImpl.resolve(this, other)
+fun <T : Path> AssertionContainer<T>.fileName(): FeatureExtractorBuilder.ExecutionStep<T, String> = _pathImpl.fileName(this)
+fun <T : Path> AssertionContainer<T>.extension(): FeatureExtractorBuilder.ExecutionStep<T, String> = _pathImpl.extension(this)
+fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): FeatureExtractorBuilder.ExecutionStep<T, String> = _pathImpl.fileNameWithoutExtension(this)
+fun <T : Path> AssertionContainer<T>.parent(): FeatureExtractorBuilder.ExecutionStep<T, Path> = _pathImpl.parent(this)
+fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> = _pathImpl.resolve(this, other)

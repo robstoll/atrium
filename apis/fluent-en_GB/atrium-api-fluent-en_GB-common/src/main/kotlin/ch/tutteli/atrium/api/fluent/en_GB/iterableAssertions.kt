@@ -155,6 +155,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
 ): Expect<T> = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
+//TODO move to iterableAssertionsDeprecated and use parameter for Expect with 0.14.0 - same same for infix maybe
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterable]
  * in same order
@@ -171,6 +172,7 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
     expectedIterable: Iterable<E>
 ): Expect<T> = contains.inOrder.only.elementsOf(expectedIterable)
 
+//TODO move to iterableAssertionsDeprecated and use parameter for Expect with 0.14.0 - same same for infix maybe
 /** Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterable].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
@@ -251,7 +253,7 @@ fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
-    _logic.min(::identity).getExpectOfFeature()
+    _logic.min(::identity).transform()
 
 /**
  * Expects that the result of calling `min()` on the subject of the assertion
@@ -264,7 +266,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.min(::identity).addToInitial(assertionCreator)
+    _logic.min(::identity).collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
@@ -275,7 +277,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
-    _logic.max(::identity).getExpectOfFeature()
+    _logic.max(::identity).transform()
 
 /**
  * Expects that the result of calling `max()` on  the subject of the assertion
@@ -288,7 +290,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
  * @since 0.9.0
  */
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.max(::identity).addToInitial(assertionCreator)
+    _logic.max(::identity).collectAndAppend(assertionCreator)
 
 
 /**

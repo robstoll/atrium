@@ -63,7 +63,7 @@ inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
-    _logic.notToBeNullBut(T::class).transform()
+    _logic.notToBeNullButOfType(T::class).transform()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -74,7 +74,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.notToBeNullBut(T::class).transformAndAppend(assertionCreator)
+    _logic.notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)

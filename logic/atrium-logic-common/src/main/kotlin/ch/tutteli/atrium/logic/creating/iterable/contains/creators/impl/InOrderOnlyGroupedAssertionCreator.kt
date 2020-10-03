@@ -56,7 +56,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
             }
             .withoutOptions()
             .build()
-            .addToInitial {
+            .collectAndAppend {
                 addSublistAssertion(groupOfSearchCriteria)
             }
     }

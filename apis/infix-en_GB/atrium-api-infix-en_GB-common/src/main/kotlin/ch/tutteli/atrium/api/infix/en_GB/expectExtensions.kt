@@ -3,8 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureExtractorBuilder
-import ch.tutteli.atrium.domain.builders.creating.changers.FeatureOptions
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.Text
@@ -63,8 +61,12 @@ infix fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
 infix fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): Expect<R> =
     withOptions { withRepresentation(textRepresentation) }
 
@@ -79,24 +81,34 @@ infix fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: Stri
  * a `String` and does the wrapping for you.
  *
  * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
 infix fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) -> Any): Expect<R> =
     withOptions { withRepresentation(representationProvider) }
 
 /**
- * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
+ * Uses the given [configuration]-lambda to create an [FeatureExpectOptions] which in turn is used
  * to override (parts) of the existing configuration.
- */
-@ExperimentalWithOptions
-infix fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): Expect<R> =
-    withOptions(FeatureExtractorBuilder.OptionsChooser.createAndBuild(configuration))
-
-/**
- * Uses the given [options] to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
-infix fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureOptions<R>): Expect<R> =
-    FeatureExpect(this, options.toFeatureExpectOptions())
+@UseExperimental(ExperimentalNewExpectTypes::class)
+infix fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): Expect<R> =
+    withOptions(FeatureExpectOptionsChooser(configuration))
+
+/**
+ * Uses the given [options] to override (parts) of the existing configuration.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ */
+@ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+infix fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureExpectOptions<R>): Expect<R> =
+    FeatureExpect(this, options)

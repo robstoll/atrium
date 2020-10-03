@@ -11,7 +11,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import kotlin.reflect.KClass
 
 fun <K, V, T : Map<out K, V>> AssertionContainer<T>.contains(keyValuePairs: List<Pair<K, V>>): Assertion = _mapImpl.contains(this, keyValuePairs)
@@ -25,6 +25,6 @@ fun <K, T : Map<out K, *>> AssertionContainer<T>.containsNotKey(key: K): Asserti
 fun <T : Map<*, *>> AssertionContainer<T>.isEmpty(): Assertion = _mapImpl.isEmpty(this)
 fun <T : Map<*, *>> AssertionContainer<T>.isNotEmpty(): Assertion = _mapImpl.isNotEmpty(this)
 
-fun <K, V, T : Map<out K, V>> AssertionContainer<T>.getExisting(key: K): ExtractedFeaturePostStep<T, V> = _mapImpl.getExisting(this, key)
+fun <K, V, T : Map<out K, V>> AssertionContainer<T>.getExisting(key: K): FeatureExtractorBuilder.ExecutionStep<T, V> = _mapImpl.getExisting(this, key)
 
-fun <T : Map<*, *>> AssertionContainer<T>.size(): ExtractedFeaturePostStep<T, Int> = _mapImpl.size(this)
+fun <T : Map<*, *>> AssertionContainer<T>.size(): FeatureExtractorBuilder.ExecutionStep<T, Int> = _mapImpl.size(this)

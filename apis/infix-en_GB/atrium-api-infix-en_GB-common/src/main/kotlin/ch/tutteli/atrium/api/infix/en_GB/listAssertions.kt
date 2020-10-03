@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.get
  * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
-    _logic.get(index).getExpectOfFeature()
+    _logic.get(index).transform()
 
 /**
  * Expects that the given [index][IndexWithCreator.index] is within the bounds of the subject of the assertion
@@ -27,7 +27,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *   if the assertion made is not correct.
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> =
-    _logic.get(index.index).addToInitial(index.assertionCreator)
+    _logic.get(index.index).collectAndAppend(index.assertionCreator)
 
 /**
  * Helper function to create an [IndexWithCreator] based on the given [index] and [assertionCreator].

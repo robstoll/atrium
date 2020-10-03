@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.creating.changers
 
 import ch.tutteli.atrium.core.*
@@ -20,12 +23,23 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
+@Deprecated(
+    "Use FeatureExtractorBuilder from atrium-logic; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder")
+)
 interface FeatureExtractorBuilder {
 
     companion object {
         /**
          * Entry point to use the [FeatureExtractorBuilder].
          */
+        @Deprecated(
+            "Use FeatureExtractorBuilder from atrium-logic; will be removed with 1.0.0",
+            ReplaceWith(
+                "ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder(expect._logic)",
+                "ch.tutteli.atrium.logic._logic"
+            )
+        )
         fun <T> create(originalAssertionContainer: Expect<T>): DescriptionStep<T> =
             DescriptionStep.create(originalAssertionContainer)
     }
@@ -35,6 +49,10 @@ interface FeatureExtractorBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder.DescriptionStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep")
+    )
     interface DescriptionStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
@@ -77,6 +95,10 @@ interface FeatureExtractorBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder.RepresentationInCaseOfFailureStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.RepresentationInCaseOfFailureStep")
+    )
     interface RepresentationInCaseOfFailureStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
@@ -121,6 +143,10 @@ interface FeatureExtractorBuilder {
      *
      * @param T the type of the current subject.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder.FeatureExtractionStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.FeatureExtractionStep")
+    )
     interface FeatureExtractionStep<T> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
@@ -168,6 +194,10 @@ interface FeatureExtractorBuilder {
      *
      * @param T the type of the subject.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder.OptionsStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep")
+    )
     interface OptionsStep<T, R> {
         /**
          * The so far chosen options up to the [FeatureExtractionStep] step.
@@ -215,6 +245,10 @@ interface FeatureExtractorBuilder {
      *
      * Calling multiple times the same method overrides the previously defined value.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder from atrium-logic and thus FeatureExpectOptionsChooser; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptionsChooser")
+    )
     interface OptionsChooser<R> {
 
         /**
@@ -268,6 +302,10 @@ interface FeatureExtractorBuilder {
      * @param T the type of the current subject.
      * @param R the type of the feature, aka the new subject.
      */
+    @Deprecated(
+        "Use FeatureExtractorBuilder.FinalStep from atrium-logic; will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.FinalStep")
+    )
     interface FinalStep<T, R> {
         /**
          * The so far chosen options up to the [FeatureExtractionStep] step.
@@ -314,6 +352,10 @@ interface FeatureExtractorBuilder {
  * @property description Defines a custom description if not null.
  * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
  */
+@Deprecated(
+    "Use FeatureExtractorBuilder from atrium-logic and thus FeatureExpectOptions; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptions")
+)
 data class FeatureOptions<R>(
     val description: Translatable? = null,
     val representationInsteadOfFeature: ((R) -> Any)? = null
@@ -338,5 +380,9 @@ data class FeatureOptions<R>(
 }
 
 @Suppress("FunctionName")
+@Deprecated(
+    "Use FeatureExpectOptions from atrium-core; will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptions")
+)
 fun <R> FeatureOptions(configuration: FeatureExtractorBuilder.OptionsChooser<R>.() -> Unit): FeatureOptions<R> =
     FeatureExtractorBuilder.OptionsChooser.createAndBuild(configuration)

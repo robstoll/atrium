@@ -1,6 +1,3 @@
-//TODO remove with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -58,7 +55,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         itr: Iterator<E?>
     ): Assertion {
         return assertionCollector.collect(Some(iterableAsList)) {
-            _logic.size(::identity).addToInitial {
+            _logic.size(::identity).collectAndAppend {
                 _logicAppend { toBe(expectedSize) }
                 if (iterableAsList.size > expectedSize) {
                     addAssertion(LazyThreadUnsafeAssertionGroup {

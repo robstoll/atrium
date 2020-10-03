@@ -294,7 +294,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(values: Values<E>): Expect<
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
-    _logic.min(::identity).getExpectOfFeature()
+    _logic.min(::identity).transform()
 
 /**
  * Expects that the result of calling `min()` on the subject of the assertion
@@ -307,7 +307,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_P
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.min(::identity).addToInitial(assertionCreator)
+    _logic.min(::identity).collectAndAppend(assertionCreator)
 
 
 /**
@@ -321,7 +321,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: E
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
-    _logic.max(::identity).getExpectOfFeature()
+    _logic.max(::identity).transform()
 
 /**
  * Expects that the result of calling `max()` on  the subject of the assertion
@@ -334,7 +334,7 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_P
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.max(::identity).addToInitial(assertionCreator)
+    _logic.max(::identity).collectAndAppend(assertionCreator)
 
 
 /**

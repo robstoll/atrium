@@ -4,12 +4,12 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NotSearchBehaviourImpl
@@ -20,6 +20,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -109,19 +110,19 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : Any, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
 
     override fun <T : Any, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): ExtractedFeaturePostStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
 
     private fun <T : Any, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>,
         method: String,
         collect: Iterable<E>.() -> E?
-    ): ExtractedFeaturePostStep<T, E> =
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .methodCall(method)
             .withRepresentationForFailure(DescriptionIterableAssertion.NO_ELEMENTS)
