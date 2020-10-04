@@ -142,7 +142,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V, T : Map<K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
+fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
 
 /**

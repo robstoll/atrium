@@ -10,14 +10,21 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
     mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::contains).withNullableSuffix(),
     mfun2<String, Int, Expect<Int>.() -> Unit>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
-    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }
-        .withNullableSuffix(),
+    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }.withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsKey),
     fun1(Expect<Map<out String?, *>>::containsKey).withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsNotKey),
     fun1(Expect<Map<out String?, *>>::containsNotKey).withNullableSuffix(),
+    feature1<Map<out String, Int>, String, Int>(Expect<Map<out String, Int>>::getExisting),
+    fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>(Expect<Map<out String, Int>>::getExisting),
+    feature1<Map<out String?, Int?>, String?, Int?>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
+    fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
     fun0(Expect<Map<*, *>>::isEmpty),
-    fun0(Expect<Map<*, *>>::isNotEmpty)
+    fun0(Expect<Map<*, *>>::isNotEmpty),
+    fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Set<String>>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Collection<Int>>(Expect<Map<out String, Int>>::values),
+    fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<out String, Int>>::values)
 ) {
 
     companion object {
@@ -49,6 +56,20 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         var nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
+
+        var invariant: Expect<Map<String, Int>> = notImplemented()
+        var covariant: Expect<Map<out String, Int>> = notImplemented()
+        var nullable: Expect<Map<String?, Int?>> = notImplemented()
+
+        //TODO ideally this would not work as the map has not defined the key to be out
+        invariant.getExisting(1)
+        covariant.getExisting(1)
+        nullable.getExisting(null)
+        starMap.getExisting("a")
+
+        invariant = invariant.getExisting("a") { }
+        covariant = covariant.getExisting(1) { }
+        nullable = nullable.getExisting(null) { }
 
         map.contains(1 to "a")
         map.contains(1 to "a", 2 to "b")
@@ -168,6 +189,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         starMap.contains(KeyValue(null, null), KeyValue(null, null))
         starMap.contains(KeyValue(1, null), KeyValue(null) {})
 
+        starMap = starMap.getExisting("a") { }
+
         map.containsKey(1)
         map.containsKey(1f)
         subMap.containsKey(1)
@@ -185,7 +208,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         nullableKeyMap.containsNotKey(1f)
         readOnlyNullableKeyValueMap.containsNotKey(1)
         readOnlyNullableKeyValueMap.containsNotKey(1f)
-
 
         map = map.isEmpty()
         subMap = subMap.isEmpty()

@@ -2,11 +2,9 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.mapArguments
-import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
-import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
-import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.jvm.JvmName
 
 class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
@@ -18,8 +16,16 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     fun1<Map<out String?, *>, String?>(Companion::containsKey).withNullableSuffix(),
     fun1<Map<out String, *>, String>(Companion::containsNotKey),
     fun1<Map<out String?, *>, String?>(Companion::containsNotKey).withNullableSuffix(),
+    feature1<Map<out String, Int>, String, Int>(Expect<Map<out String, Int>>::getExisting),
+    fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>(Companion::getExisting),
+    feature1<Map<out String?, Int?>, String?, Int?>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
+    fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>(Companion::getExisting).withNullableSuffix(),
     "toBe ${empty::class.simpleName}" to Companion::isEmpty,
-    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty
+    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty,
+    fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Set<String>>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Collection<Int>>(Expect<Map<out String, Int>>::values),
+    fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<out String, Int>>::values)
 ) {
     companion object : WithAsciiReporter() {
 
@@ -80,6 +86,19 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
 
         private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe empty
 
+        private fun getExisting(
+            expect: Expect<Map<out String, Int>>,
+            key: String,
+            assertionCreator: Expect<Int>.() -> Unit
+        ): Expect<Map<out String, Int>> = expect getExisting key(key) { assertionCreator() }
+
+        @JvmName("getExistingNullable")
+        private fun getExisting(
+            expect: Expect<Map<out String?, Int?>>,
+            key: String?,
+            assertionCreator: Expect<Int?>.() -> Unit
+        ): Expect<Map<out String?, Int?>> = expect getExisting key(key) { assertionCreator() }
+
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -91,6 +110,20 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         var nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
+
+        var invariant: Expect<Map<String, Int>> = notImplemented()
+        var covariant: Expect<Map<out String, Int>> = notImplemented()
+        var nullable: Expect<Map<String?, Int?>> = notImplemented()
+
+        //TODO ideally this would not work as the map has not defined the key to be out
+        invariant getExisting 1
+        covariant getExisting 1
+        nullable getExisting null as String?
+        starMap getExisting "a"
+
+        invariant = invariant getExisting key("a") { }
+        covariant = covariant getExisting key(1) { }
+        nullable = nullable getExisting key(null) { }
 
         map contains (1 to "a")
         map contains pairs(1 to "a", 2 to "b")
@@ -208,6 +241,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         starMap contains all(keyValue(null, null), keyValue(null, null))
         starMap contains all(keyValue(1, null), keyValue(null) {})
 
+        starMap = starMap getExisting key("a") { }
+
         map containsKey 1
         map containsKey 1f
         subMap containsKey 1
@@ -225,7 +260,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         nullableKeyMap containsNotKey 1f
         readOnlyNullableKeyValueMap containsNotKey 1
         readOnlyNullableKeyValueMap containsNotKey 1f
-
 
         map = map toBe empty
         subMap = subMap toBe empty
