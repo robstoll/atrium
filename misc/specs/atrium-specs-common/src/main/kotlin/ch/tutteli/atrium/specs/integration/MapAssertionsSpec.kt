@@ -62,8 +62,15 @@ abstract class MapAssertionsSpec(
         containsKey.forSubjectLess("a").unchecked1(),
         containsNotKey.forSubjectLess("a").unchecked1(),
         isEmpty.forSubjectLess().unchecked1(),
-        isNotEmpty.forSubjectLess().unchecked1()
+        isNotEmpty.forSubjectLess().unchecked1(),
+        keysFeature.forSubjectLess(),
+        keys.forSubjectLess { isEmpty() },
+        valuesFeature.forSubjectLess(),
+        values.forSubjectLess { isEmpty() },
+        getExistingFeature.forSubjectLess("a"),
+        getExisting.forSubjectLess("a") { isGreaterThan(1) }
     ) {})
+
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
         containsNullable.forSubjectLess(null to 1, arrayOf("a" to null)),
@@ -72,50 +79,39 @@ abstract class MapAssertionsSpec(
             arrayOf(keyNullableValue("a", null))
         ),
         containsKeyNullable.forSubjectLess(null).unchecked1(),
-        containsNotKeyNullable.forSubjectLess(null).unchecked1()
-    ) {})
-
-    include(object : AssertionCreatorSpec<Map<out String, Int>>(
-        describePrefix, mapOf("a" to 1),
-        assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
-            { containsKeyWithValueAssertions(this, keyValue("a") { toBe(1) }, arrayOf()) },
-            { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
-        )
-    ) {})
-    include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
-        "$describePrefix[nullable] ", mapOf("a" to 1),
-        assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
-            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { toBe(1) }, arrayOf()) },
-            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
-        )
-    ) {})
-    include(object : SubjectLessSpec<Map<out String, Int>>(describePrefix,
-        keysFeature.forSubjectLess(),
-        keys.forSubjectLess { isEmpty() },
-        valuesFeature.forSubjectLess(),
-        values.forSubjectLess { isEmpty() },
-        getExistingFeature.forSubjectLess("a"),
-        getExisting.forSubjectLess("a") { isGreaterThan(1) }
-    ) {})
-    include(object : SubjectLessSpec<Map<out String?, Int?>>("$describePrefix[nullable] ",
+        containsNotKeyNullable.forSubjectLess(null).unchecked1(),
         getExistingNullableFeature.forSubjectLess("a"),
         getExistingNullable.forSubjectLess("a") { toBe(null) }
     ) {})
 
     val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-    val fluent = expect(map)
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
+        assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
+            { containsKeyWithValueAssertions(this, keyValue("a") { toBe(1) }, arrayOf()) },
+            { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
+        ),
         keys.forAssertionCreatorSpec("$toBeDescr: a") { containsExactly({ toBe("a") }, { toBe("b") }) },
         values.forAssertionCreatorSpec("$toBeDescr: 1") { containsExactly({ toBe(1) }, { toBe(2) }) },
         getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(2) }
     ) {})
 
+    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
+
+    include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
+        "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
+        assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
+            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { toBe(1) }, arrayOf()) },
+            { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
+        ),
+        getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(null) }
+    ) {})
+
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
+    val fluent = expect(map)
     val nullableFluent = expect(nullableMap)
 
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()

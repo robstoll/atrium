@@ -111,20 +111,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        var invariant: Expect<Map<String, Int>> = notImplemented()
-        var covariant: Expect<Map<out String, Int>> = notImplemented()
-        var nullable: Expect<Map<String?, Int?>> = notImplemented()
-
-        //TODO ideally this would not work as the map has not defined the key to be out
-        invariant getExisting 1
-        covariant getExisting 1
-        nullable getExisting null as String?
-        starMap getExisting "a"
-
-        invariant = invariant getExisting key("a") { }
-        covariant = covariant getExisting key(1) { }
-        nullable = nullable getExisting key(null) { }
-
         map contains (1 to "a")
         map contains pairs(1 to "a", 2 to "b")
         map contains keyValue(1) {}
@@ -277,5 +263,37 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap notToBe empty
         starMap = starMap notToBe empty
 
-    }
+        map = map keys { }
+        subMap = subMap keys { }
+        nullableKeyMap = nullableKeyMap keys { }
+        nullableValueMap = nullableValueMap keys { }
+        nullableKeyValueMap = nullableKeyValueMap keys { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap keys { }
+        starMap = starMap keys { }
+
+        map = map values { }
+        subMap = subMap values { }
+        nullableKeyMap = nullableKeyMap values { }
+        nullableValueMap = nullableValueMap values { }
+        nullableKeyValueMap = nullableKeyValueMap values { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap values { }
+        starMap = starMap values { }
+
+        //TODO ideally this would not work as the map has not defined the key to be out
+        map getExisting 1f
+        subMap getExisting 1f
+        nullableKeyMap getExisting 1
+        nullableValueMap getExisting 1f
+        nullableKeyValueMap getExisting 1
+        readOnlyNullableKeyValueMap getExisting 1f
+        starMap getExisting 1
+
+        map = map getExisting key(1f) { }
+        subMap = subMap getExisting key(1f) { }
+        nullableKeyMap = nullableKeyMap getExisting key(1) { }
+        nullableValueMap = nullableValueMap getExisting key(1f) { }
+        nullableKeyValueMap = nullableKeyValueMap getExisting key(1) { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap getExisting key(1f) { }
+        starMap = starMap getExisting key(1) { }
+     }
 }

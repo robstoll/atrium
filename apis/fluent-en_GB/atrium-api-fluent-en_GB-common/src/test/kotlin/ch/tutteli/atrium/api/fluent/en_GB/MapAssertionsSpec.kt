@@ -57,20 +57,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        var invariant: Expect<Map<String, Int>> = notImplemented()
-        var covariant: Expect<Map<out String, Int>> = notImplemented()
-        var nullable: Expect<Map<String?, Int?>> = notImplemented()
-
-        //TODO ideally this would not work as the map has not defined the key to be out
-        invariant.getExisting(1)
-        covariant.getExisting(1)
-        nullable.getExisting(null)
-        starMap.getExisting("a")
-
-        invariant = invariant.getExisting("a") { }
-        covariant = covariant.getExisting(1) { }
-        nullable = nullable.getExisting(null) { }
-
         map.contains(1 to "a")
         map.contains(1 to "a", 2 to "b")
         map.contains(KeyValue(1) {})
@@ -225,5 +211,53 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.isNotEmpty()
         starMap = starMap.isNotEmpty()
 
+        map.keys
+        subMap.keys
+        nullableKeyMap.keys
+        nullableValueMap.keys
+        nullableKeyValueMap.keys
+        readOnlyNullableKeyValueMap.keys
+        starMap.keys
+
+        map = map.keys { }
+        subMap = subMap.keys { }
+        nullableKeyMap = nullableKeyMap.keys { }
+        nullableValueMap = nullableValueMap.keys { }
+        nullableKeyValueMap = nullableKeyValueMap.keys { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.keys { }
+        starMap = starMap.keys { }
+
+        map.values
+        subMap.values
+        nullableKeyMap.values
+        nullableValueMap.values
+        nullableKeyValueMap.values
+        readOnlyNullableKeyValueMap.values
+        starMap.values
+
+        map = map.values { }
+        subMap = subMap.values { }
+        nullableKeyMap = nullableKeyMap.values { }
+        nullableValueMap = nullableValueMap.values { }
+        nullableKeyValueMap = nullableKeyValueMap.values { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.values { }
+        starMap = starMap.values { }
+
+        //TODO ideally this would not work as the map has not defined the key to be out
+        map.getExisting(1f)
+        subMap.getExisting(1f)
+        nullableKeyMap.getExisting(1)
+        nullableValueMap.getExisting(1f)
+        nullableKeyValueMap.getExisting(1)
+        readOnlyNullableKeyValueMap.getExisting(1f)
+        starMap.getExisting(1)
+
+        map = map.getExisting(1f) { }
+        subMap = subMap.getExisting(1f) { }
+        nullableKeyMap = nullableKeyMap.getExisting(1) { }
+        nullableValueMap = nullableValueMap.getExisting(1f) { }
+        nullableKeyValueMap = nullableKeyValueMap.getExisting(1) { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.getExisting(1f) { }
+        starMap = starMap.getExisting(1) { }
     }
 }
