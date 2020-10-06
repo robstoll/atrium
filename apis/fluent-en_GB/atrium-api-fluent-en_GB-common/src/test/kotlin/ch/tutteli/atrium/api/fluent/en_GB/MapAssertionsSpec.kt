@@ -10,14 +10,21 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
     mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
     mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::contains).withNullableSuffix(),
     mfun2<String, Int, Expect<Int>.() -> Unit>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
-    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }
-        .withNullableSuffix(),
+    mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(Companion::contains).adjustName { "$it ${KeyValue::class.simpleName}" }.withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsKey),
     fun1(Expect<Map<out String?, *>>::containsKey).withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsNotKey),
     fun1(Expect<Map<out String?, *>>::containsNotKey).withNullableSuffix(),
+    feature1<Map<out String, Int>, String, Int>(Expect<Map<out String, Int>>::getExisting),
+    fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>(Expect<Map<out String, Int>>::getExisting),
+    feature1<Map<out String?, Int?>, String?, Int?>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
+    fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
     fun0(Expect<Map<*, *>>::isEmpty),
-    fun0(Expect<Map<*, *>>::isNotEmpty)
+    fun0(Expect<Map<*, *>>::isNotEmpty),
+    fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Set<String>>(Expect<Map<out String, Int>>::keys),
+    property<Map<out String, Int>, Collection<Int>>(Expect<Map<out String, Int>>::values),
+    fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<out String, Int>>::values)
 ) {
 
     companion object {
@@ -168,6 +175,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         starMap.contains(KeyValue(null, null), KeyValue(null, null))
         starMap.contains(KeyValue(1, null), KeyValue(null) {})
 
+        starMap = starMap.getExisting("a") { }
+
         map.containsKey(1)
         map.containsKey(1f)
         subMap.containsKey(1)
@@ -186,7 +195,6 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap.containsNotKey(1)
         readOnlyNullableKeyValueMap.containsNotKey(1f)
 
-
         map = map.isEmpty()
         subMap = subMap.isEmpty()
         nullableKeyMap = nullableKeyMap.isEmpty()
@@ -203,5 +211,53 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.isNotEmpty()
         starMap = starMap.isNotEmpty()
 
+        map.keys
+        subMap.keys
+        nullableKeyMap.keys
+        nullableValueMap.keys
+        nullableKeyValueMap.keys
+        readOnlyNullableKeyValueMap.keys
+        starMap.keys
+
+        map = map.keys { }
+        subMap = subMap.keys { }
+        nullableKeyMap = nullableKeyMap.keys { }
+        nullableValueMap = nullableValueMap.keys { }
+        nullableKeyValueMap = nullableKeyValueMap.keys { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.keys { }
+        starMap = starMap.keys { }
+
+        map.values
+        subMap.values
+        nullableKeyMap.values
+        nullableValueMap.values
+        nullableKeyValueMap.values
+        readOnlyNullableKeyValueMap.values
+        starMap.values
+
+        map = map.values { }
+        subMap = subMap.values { }
+        nullableKeyMap = nullableKeyMap.values { }
+        nullableValueMap = nullableValueMap.values { }
+        nullableKeyValueMap = nullableKeyValueMap.values { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.values { }
+        starMap = starMap.values { }
+
+        //TODO ideally this would not work as the map has not defined the key to be out
+        map.getExisting(1f)
+        subMap.getExisting(1f)
+        nullableKeyMap.getExisting(1)
+        nullableValueMap.getExisting(1f)
+        nullableKeyValueMap.getExisting(1)
+        readOnlyNullableKeyValueMap.getExisting(1f)
+        starMap.getExisting(1)
+
+        map = map.getExisting(1f) { }
+        subMap = subMap.getExisting(1f) { }
+        nullableKeyMap = nullableKeyMap.getExisting(1) { }
+        nullableValueMap = nullableValueMap.getExisting(1f) { }
+        nullableKeyValueMap = nullableKeyValueMap.getExisting(1) { }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.getExisting(1f) { }
+        starMap = starMap.getExisting(1) { }
     }
 }

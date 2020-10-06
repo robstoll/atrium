@@ -27,8 +27,16 @@ abstract class MapAssertionsSpec(
     containsKeyNullable: Fun1<Map<out String?, *>, String?>,
     containsNotKey: Fun1<Map<out String, *>, String>,
     containsNotKeyNullable: Fun1<Map<out String?, *>, String?>,
+    getExistingFeature: Feature1<Map<out String, Int>, String, Int>,
+    getExisting: Fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>,
+    getExistingNullableFeature: Feature1<Map<out String?, Int?>, String?, Int?>,
+    getExistingNullable: Fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>,
     isEmpty: Fun0<Map<*, *>>,
     isNotEmpty: Fun0<Map<*, *>>,
+    keys: Fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>,
+    keysFeature: Feature0<Map<out String, Int>, Set<String>>,
+    valuesFeature: Feature0<Map<out String, Int>, Collection<Int>>,
+    values: Fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -54,8 +62,15 @@ abstract class MapAssertionsSpec(
         containsKey.forSubjectLess("a").unchecked1(),
         containsNotKey.forSubjectLess("a").unchecked1(),
         isEmpty.forSubjectLess().unchecked1(),
-        isNotEmpty.forSubjectLess().unchecked1()
+        isNotEmpty.forSubjectLess().unchecked1(),
+        keysFeature.forSubjectLess(),
+        keys.forSubjectLess { isEmpty() },
+        valuesFeature.forSubjectLess(),
+        values.forSubjectLess { isEmpty() },
+        getExistingFeature.forSubjectLess("a"),
+        getExisting.forSubjectLess("a") { isGreaterThan(1) }
     ) {})
+
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
         containsNullable.forSubjectLess(null to 1, arrayOf("a" to null)),
@@ -64,32 +79,39 @@ abstract class MapAssertionsSpec(
             arrayOf(keyNullableValue("a", null))
         ),
         containsKeyNullable.forSubjectLess(null).unchecked1(),
-        containsNotKeyNullable.forSubjectLess(null).unchecked1()
+        containsNotKeyNullable.forSubjectLess(null).unchecked1(),
+        getExistingNullableFeature.forSubjectLess("a"),
+        getExistingNullable.forSubjectLess("a") { toBe(null) }
     ) {})
 
+    val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
+
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
-        describePrefix, mapOf("a" to 1),
+        describePrefix, map,
         assertionCreatorSpecTriple(containsKeyWithValueAssertions.name, "$toBeDescr: 1",
             { containsKeyWithValueAssertions(this, keyValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
-        )
+        ),
+        keys.forAssertionCreatorSpec("$toBeDescr: a") { containsExactly({ toBe("a") }, { toBe("b") }) },
+        values.forAssertionCreatorSpec("$toBeDescr: 1") { containsExactly({ toBe(1) }, { toBe(2) }) },
+        getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(2) }
     ) {})
+
+    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
+
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
-        "$describePrefix[nullable] ", mapOf("a" to 1),
+        "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
         assertionCreatorSpecTriple(containsKeyWithNullableValueAssertions.name, "$toBeDescr: 1",
             { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { toBe(1) }, arrayOf()) },
             { containsKeyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
-        )
+        ),
+        getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toBe(null) }
     ) {})
-
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-
-    val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
     val fluent = expect(map)
-    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
     val nullableFluent = expect(nullableMap)
 
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
@@ -380,6 +402,84 @@ abstract class MapAssertionsSpec(
             }
             it("${isNotEmpty.name} - does not throw") {
                 expect(map as Map<*, *>).isNotEmptyFun()
+            }
+        }
+    }
+
+    describeFun(keysFeature, keys, valuesFeature, values) {
+        val keysFunctions = unifySignatures(keysFeature, keys)
+        val valuesFunctions = unifySignatures(valuesFeature, values)
+
+        context("map with two entries") {
+            keysFunctions.forEach { (name, keysFun, _) ->
+                it("$name - hasSize(2) holds") {
+                    fluent.keysFun { hasSize(2) }
+                }
+                it("$name - hasSize(1) throws AssertionError") {
+                    expect {
+                        fluent.keysFun { hasSize(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains("keys: [a, b]")
+                    }
+                }
+            }
+            valuesFunctions.forEach { (name, valuesFun, _) ->
+                it("$name - hasSize(2) holds") {
+                    fluent.valuesFun { hasSize(2) }
+                }
+                it("$name - hasSize(1) throws AssertionError") {
+                    expect {
+                        fluent.valuesFun { hasSize(1) }
+                    }.toThrow<AssertionError> {
+                        messageContains("values: [1, 2]")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(getExistingFeature, getExisting) {
+        val getExistingFunctions = unifySignatures(getExistingFeature, getExisting)
+
+        context("map $map") {
+            getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
+                it("$name - can perform sub-assertion on existing key") {
+                    fluent.getExistingFun("a") { toBe(1) }
+                }
+                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        fluent.getExistingFun("c") { toBe(3) }
+                    }.toThrow<AssertionError> {
+                        messageContains("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageContains("$toBeDescr: 3")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(getExistingNullableFeature, getExistingNullable) {
+
+        val getExistingFunctions = unifySignatures(getExistingNullableFeature, getExistingNullable)
+        context("map $nullableMap") {
+            getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
+                it("$name - can perform sub-assertion on existing key") {
+                    nullableFluent.getExistingFun("a") { toBe(null) }
+                }
+                it("$name - can perform sub-assertion on existing key which is null") {
+                    nullableFluent.getExistingFun(null) { toBe(1) }
+                }
+                it("$name - can perform sub-assertion on existing key whose value is null") {
+                    nullableFluent.getExistingFun("b") { toBe(2) }
+                }
+                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        nullableFluent.getExistingFun("c") { toBe(null) }
+                    }.toThrow<AssertionError> {
+                        messageContains("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageContains("$toBeDescr: null")
+                    }
+                }
             }
         }
     }
