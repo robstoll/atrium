@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
-class IteratorFeatureAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorFeatureAssertionSpec(
+class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssertionSpec(
     getHasNextPair(),
     getHasNotNextPair()
 ) {

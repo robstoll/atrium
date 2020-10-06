@@ -16,7 +16,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
 
-abstract class LocalDateFeatureAssertionsSpec(
+abstract class LocalDateAssertionsSpec(
     yearFeature: Feature0<LocalDate, Int>,
     year: Fun1<LocalDate, Expect<Int>.() -> Unit>,
     monthFeature: Feature0<LocalDate, Int>,

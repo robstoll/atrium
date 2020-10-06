@@ -14,7 +14,7 @@ abstract class MapEntryFeatureAssertionsSpec(
     nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
     nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
-) : KeyValueLikeFeatureAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
+) : KeyValueLikeAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
     ::mapEntry,
     ::mapEntry,
     "key",

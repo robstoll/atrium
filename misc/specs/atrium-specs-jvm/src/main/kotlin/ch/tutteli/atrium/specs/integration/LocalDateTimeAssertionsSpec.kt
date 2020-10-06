@@ -13,21 +13,21 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
-abstract class ZonedDateTimeFeatureAssertionsSpec(
-    yearFeature: Feature0<ZonedDateTime, Int>,
-    year: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
-    monthFeature: Feature0<ZonedDateTime, Int>,
-    month: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
-    dayFeature: Feature0<ZonedDateTime, Int>,
-    day: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
-    dayOfWeekFeature: Feature0<ZonedDateTime, DayOfWeek>,
-    dayOfWeek: Fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>,
+abstract class LocalDateTimeAssertionsSpec(
+    yearFeature: Feature0<LocalDateTime, Int>,
+    year: Fun1<LocalDateTime, Expect<Int>.() -> Unit>,
+    monthFeature: Feature0<LocalDateTime, Int>,
+    month: Fun1<LocalDateTime, Expect<Int>.() -> Unit>,
+    dayFeature: Feature0<LocalDateTime, Int>,
+    day: Fun1<LocalDateTime, Expect<Int>.() -> Unit>,
+    dayOfWeekFeature: Feature0<LocalDateTime, DayOfWeek>,
+    dayOfWeek: Fun1<LocalDateTime, Expect<DayOfWeek>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<ZonedDateTime>(describePrefix,
+    include(object : SubjectLessSpec<LocalDateTime>(describePrefix,
         yearFeature.forSubjectLess().adjustName { "$it feature" },
         year.forSubjectLess { isGreaterThan(2000) },
         monthFeature.forSubjectLess().adjustName { "$it feature" },
@@ -38,8 +38,8 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
         dayOfWeek.forSubjectLess { isLessThanOrEqual(DayOfWeek.SUNDAY) }
     ) {})
 
-    include(object : AssertionCreatorSpec<ZonedDateTime>(
-        describePrefix, ZonedDateTime.now().withYear(2040).withDayOfYear(1).withDayOfMonth(15),
+    include(object : AssertionCreatorSpec<LocalDateTime>(
+        describePrefix, LocalDateTime.of(2040, 1, 15, 10, 20, 30),
         year.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(2040) },
         month.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
         day.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(15) },
@@ -49,16 +49,16 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val fluent = expect(ZonedDateTime.now().withMonth(5).withYear(2009).withDayOfMonth(15))
+    val fluent = expect(LocalDateTime.of(2009, 5, 15, 10, 5))
     val monthDescr = DescriptionDateTimeLikeAssertion.MONTH.getDefault()
     val yearDescr = DescriptionDateTimeLikeAssertion.YEAR.getDefault()
-    val dayOfWeekDescr = DescriptionDateTimeLikeAssertion.DAY_OF_WEEK.getDefault()
     val dayDescr = DescriptionDateTimeLikeAssertion.DAY.getDefault()
+    val dayOfWeekDescr = DescriptionDateTimeLikeAssertion.DAY_OF_WEEK.getDefault()
 
     describeFun(yearFeature, year) {
         val yearFunctions = unifySignatures(yearFeature, year)
 
-        context("ZonedDateTime with year 2009") {
+        context("LocalDateTime with year 2009") {
             yearFunctions.forEach { (name, yearFun, _) ->
                 it("$name - is greater than 2009 holds") {
                     fluent.yearFun { isGreaterThan(2008) }
@@ -77,7 +77,7 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     describeFun(monthFeature, month) {
         val monthFunctions = unifySignatures(monthFeature, month)
 
-        context("ZonedDateTime with month May(5)") {
+        context("LocalDateTime with month May(5)") {
             monthFunctions.forEach { (name, monthFun, _) ->
                 it("$name - is greater than February(2) holds") {
                     fluent.monthFun { isGreaterThan(2) }
@@ -93,11 +93,10 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
         }
     }
 
-
     describeFun(dayFeature, day) {
         val dayFunctions = unifySignatures(dayFeature, day)
 
-        context("LocalDate with day of month 15") {
+        context("LocalDateTime with day of month 15") {
             dayFunctions.forEach { (name, dayFun, _) ->
                 it("$name - is greater than 5 holds") {
                     fluent.dayFun { isGreaterThan(5) }
@@ -116,7 +115,7 @@ abstract class ZonedDateTimeFeatureAssertionsSpec(
     describeFun(dayOfWeekFeature, dayOfWeek) {
         val dayOfWeekFunctions = unifySignatures(dayOfWeekFeature, dayOfWeek)
 
-        context("ZonedDateTime with day of week Friday(5)") {
+        context("LocalDateTime with day of week Friday(5)") {
             dayOfWeekFunctions.forEach { (name, dayOfWeekFun, _) ->
                 it("$name - is greater than Monday(1) holds") {
                     fluent.dayOfWeekFun { isGreaterThan(DayOfWeek.MONDAY) }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Feature0
 import ch.tutteli.atrium.specs.Fun1
 
-abstract class PairFeatureAssertionsSpec(
+abstract class PairAssertionsSpec(
     firstFeature: Feature0<Pair<String, Int>, String>,
     first: Fun1<Pair<String, Int>, Expect<String>.() -> Unit>,
     secondFeature: Feature0<Pair<String, Int>, Int>,
@@ -14,7 +14,7 @@ abstract class PairFeatureAssertionsSpec(
     nullableSecondFeature: Feature0<Pair<String?, Int?>, Int?>,
     nullableSecond: Fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
-) : KeyValueLikeFeatureAssertionsSpec<Pair<String, Int>, Pair<String?, Int?>>(
+) : KeyValueLikeAssertionsSpec<Pair<String, Int>, Pair<String?, Int?>>(
     ::Pair,
     ::Pair,
     "first",

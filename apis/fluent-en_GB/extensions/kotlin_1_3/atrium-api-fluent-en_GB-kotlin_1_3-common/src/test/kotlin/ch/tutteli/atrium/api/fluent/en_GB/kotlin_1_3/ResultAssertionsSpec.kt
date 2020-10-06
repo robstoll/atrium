@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-class ResultFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.ResultFeatureAssertionsSpec(
+class ResultAssertionsSpec : ch.tutteli.atrium.specs.integration.ResultAssertionsSpec(
     feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
     feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),

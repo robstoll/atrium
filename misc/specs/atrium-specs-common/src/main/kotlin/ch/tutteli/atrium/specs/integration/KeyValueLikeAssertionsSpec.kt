@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class KeyValueLikeFeatureAssertionsSpec<T : Any, TNullable : Any>(
+abstract class KeyValueLikeAssertionsSpec<T : Any, TNullable : Any>(
     creator: (String, Int) -> T,
     creatorNullable: (String?, Int?) -> TNullable,
     keyName: String,
