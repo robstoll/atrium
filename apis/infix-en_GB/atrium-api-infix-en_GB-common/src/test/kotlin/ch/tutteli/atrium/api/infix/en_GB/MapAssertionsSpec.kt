@@ -263,6 +263,14 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap notToBe empty
         starMap = starMap notToBe empty
 
+        map.keys
+        subMap.keys
+        nullableKeyMap.keys
+        nullableValueMap.keys
+        nullableKeyValueMap.keys
+        readOnlyNullableKeyValueMap.keys
+        starMap.keys
+
         map = map keys { }
         subMap = subMap keys { }
         nullableKeyMap = nullableKeyMap keys { }
@@ -270,6 +278,14 @@ class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
         nullableKeyValueMap = nullableKeyValueMap keys { }
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap keys { }
         starMap = starMap keys { }
+
+        map.values
+        subMap.values
+        nullableKeyMap.values
+        nullableValueMap.values
+        nullableKeyValueMap.values
+        readOnlyNullableKeyValueMap.values
+        starMap.values
 
         map = map values { }
         subMap = subMap values { }
