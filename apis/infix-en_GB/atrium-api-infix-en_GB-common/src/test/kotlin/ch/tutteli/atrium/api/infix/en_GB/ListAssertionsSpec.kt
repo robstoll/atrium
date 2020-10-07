@@ -11,12 +11,12 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.jvm.JvmName
 
-class ListFeatureAssertionsSpec : Spek({
+class ListAssertionsSpec : Spek({
     include(ListSpec)
     include(IterableSpec)
     include(SequenceSpec)
 }) {
-    object ListSpec : ch.tutteli.atrium.specs.integration.ListFeatureAssertionsSpec(
+    object ListSpec : ch.tutteli.atrium.specs.integration.ListAssertionsSpec(
         feature1<List<Int>, Int, Int>(Expect<List<Int>>::get),
         fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Companion::get),
         feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),

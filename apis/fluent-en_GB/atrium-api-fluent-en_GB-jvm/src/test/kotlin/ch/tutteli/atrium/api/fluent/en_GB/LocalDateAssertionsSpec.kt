@@ -1,7 +1,4 @@
-// TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
-package ch.tutteli.atrium.api.fluent.en_GB.jdk8
+package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
@@ -10,7 +7,7 @@ import ch.tutteli.atrium.specs.property
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class LocalDateFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.LocalDateFeatureAssertionsSpec(
+class LocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.LocalDateAssertionsSpec(
     property<LocalDate, Int>(Expect<LocalDate>::year),
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::year),
     property<LocalDate, Int>(Expect<LocalDate>::month),

@@ -7,14 +7,13 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 import ch.tutteli.atrium.translations.DescriptionResultAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class ResultFeatureAssertionsSpec(
+abstract class ResultAssertionsSpec(
     isSuccessFeature: Feature0<Result<Int>, Int>,
     isSuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
     isSuccessFeatureNullable: Feature0<Result<Int?>, Int?>,

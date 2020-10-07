@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IteratorFeatureAssertionSpec(
+abstract class IteratorAssertionSpec(
     hasNext: Fun0<Iterator<Int>>,
     hasNotNext: Fun0<Iterator<Int>>,
     describePrefix: String = "[Atrium] "

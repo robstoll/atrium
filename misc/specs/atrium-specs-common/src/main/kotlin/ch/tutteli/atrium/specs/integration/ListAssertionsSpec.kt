@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class ListFeatureAssertionsSpec(
+abstract class ListAssertionsSpec(
     getFeature: Feature1<List<Int>, Int, Int>,
     get: Fun2<List<Int>, Int, Expect<Int>.() -> Unit>,
     getFeatureNullable: Feature1<List<Int?>, Int, Int?>,
