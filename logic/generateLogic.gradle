@@ -123,16 +123,19 @@ def createGenerateLogicTaskForPackage(
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
-            def returnType = /(?:$newLineAndIndent)?\)(:.+)/
+            def parameter = { paramNumber -> /,(?: |$newLineAndIndent)(?<vararg${paramNumber}>vararg |)(?<paramName$paramNumber>$identifier): (?<typeName$paramNumber>[^:]+?)/}
+            def returnType = /(?:$newLineAndIndent)?\)(?<returnType>:.+)/
 
-            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?$identifier: ($identifier(?:\.$identifier)*<.+>)/
-            def patterns = (6..0).collect {
-                def steps = (0..<it * 2).findAll { it % 2 == 0 }
+            def typeIdentifier = / *fun (?<generics><.+?> )?(?<funcName>$identifier)\((?:$newLineAndIndent)?$identifier: (?<type>$identifier(?:\.$identifier)*<.+>)/
+            def patterns = (6..0).collect { int amountOfParameters ->
+                def params = []
+                if (amountOfParameters > 0) {
+                    params = (1..amountOfParameters).toList()
+                }
                 new Tuple3<Pattern, String, String>(
-                    Pattern.compile(typeIdentifier + parameter * it + returnType),
-                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "$ln    " : " "),
-                    /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+                    Pattern.compile(typeIdentifier + params.collect { paramNumber -> parameter(paramNumber)}.join("") + returnType),
+                    /fun ${ '${generics}${type}.${funcName}' }\(/ + params.collect { paramNumber -> /${'${vararg' + paramNumber + '}${paramName' + paramNumber + '}'}: ${ '${typeName' + paramNumber + '}'}/ }.join(", ") + /\)${ '${returnType}' } =/ + (amountOfParameters > 1 ? "$ln    " : " "),
+                    /.${ '${funcName}' }\(this/ + (amountOfParameters > 0 ? ", " : "") + params.collect { paramNumber -> /${ '${paramName'+ paramNumber + '}'}/ }.join(", ") + /\)/
                 )
             }
 
