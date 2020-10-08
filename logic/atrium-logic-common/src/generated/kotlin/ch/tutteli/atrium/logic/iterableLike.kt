@@ -14,19 +14,26 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpS
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
 
 
-fun <T : Any, E> AssertionContainer<T>.containsBuilder(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = _iterableLikeImpl.containsBuilder(this, converter)
+fun <T : Any, E> AssertionContainer<T>.containsBuilder(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = impl.containsBuilder(this, converter)
 
-fun <T : Any, E> AssertionContainer<T>.containsNotBuilder(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = _iterableLikeImpl.containsNotBuilder(this, converter)
+fun <T : Any, E> AssertionContainer<T>.containsNotBuilder(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = impl.containsNotBuilder(this, converter)
 
 fun <T : Any, E : Any> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
-    _iterableLikeImpl.all(this, converter, assertionCreatorOrNull)
+    impl.all(this, converter, assertionCreatorOrNull)
 
-fun <T : Any, E> AssertionContainer<T>.hasNext(converter: (T) -> Iterable<E>): Assertion = _iterableLikeImpl.hasNext(this, converter)
+fun <T : Any, E> AssertionContainer<T>.hasNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNext(this, converter)
 
-fun <T : Any, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>): Assertion = _iterableLikeImpl.hasNotNext(this, converter)
+fun <T : Any, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNotNext(this, converter)
 
-fun <T : Any, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = _iterableLikeImpl.min(this, converter)
+fun <T : Any, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.min(this, converter)
 
-fun <T : Any, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = _iterableLikeImpl.max(this, converter)
+fun <T : Any, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.max(this, converter)
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: IterableLikeAssertions
+    get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
