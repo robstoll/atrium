@@ -21,11 +21,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.DefaultI
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>._iterableLikeContainsImpl
-    get() = container.getImpl(IterableLikeContainsAssertions::class) { DefaultIterableLikeContainsAssertions() }
+    get(): IterableLikeContainsAssertions = container.getImpl(IterableLikeContainsAssertions::class) { DefaultIterableLikeContainsAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>._iterableLikeContainsInAnyOrderImpl
-    get() = entryPointStepLogic.container.getImpl(IterableLikeContainsInAnyOrderAssertions::class) { DefaultIterableLikeContainsInAnyOrderAssertions() }
+    get(): IterableLikeContainsInAnyOrderAssertions = entryPointStepLogic.container.getImpl(IterableLikeContainsInAnyOrderAssertions::class) { DefaultIterableLikeContainsInAnyOrderAssertions() }
 

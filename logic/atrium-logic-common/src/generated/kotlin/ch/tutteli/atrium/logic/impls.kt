@@ -32,83 +32,83 @@ import ch.tutteli.atrium.logic.impl.DefaultThrowableAssertions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._anyImpl
-    get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }
+    get(): AnyAssertions = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._charSequenceImpl
-    get() = getImpl(CharSequenceAssertions::class) { DefaultCharSequenceAssertions() }
+    get(): CharSequenceAssertions = getImpl(CharSequenceAssertions::class) { DefaultCharSequenceAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._collectionLikeImpl
-    get() = getImpl(CollectionLikeAssertions::class) { DefaultCollectionLikeAssertions() }
+    get(): CollectionLikeAssertions = getImpl(CollectionLikeAssertions::class) { DefaultCollectionLikeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._comparableImpl
-    get() = getImpl(ComparableAssertions::class) { DefaultComparableAssertions() }
+    get(): ComparableAssertions = getImpl(ComparableAssertions::class) { DefaultComparableAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._featureImpl
-    get() = getImpl(FeatureAssertions::class) { DefaultFeatureAssertions() }
+    get(): FeatureAssertions = getImpl(FeatureAssertions::class) { DefaultFeatureAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._floatingPointImpl
-    get() = getImpl(FloatingPointAssertions::class) { DefaultFloatingPointAssertions() }
+    get(): FloatingPointAssertions = getImpl(FloatingPointAssertions::class) { DefaultFloatingPointAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._fun0Impl
-    get() = getImpl(Fun0Assertions::class) { DefaultFun0Assertions() }
+    get(): Fun0Assertions = getImpl(Fun0Assertions::class) { DefaultFun0Assertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._iterableLikeImpl
-    get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
+    get(): IterableLikeAssertions = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._iteratorImpl
-    get() = getImpl(IteratorAssertions::class) { DefaultIteratorAssertions() }
+    get(): IteratorAssertions = getImpl(IteratorAssertions::class) { DefaultIteratorAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._listImpl
-    get() = getImpl(ListAssertions::class) { DefaultListAssertions() }
+    get(): ListAssertions = getImpl(ListAssertions::class) { DefaultListAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._mapImpl
-    get() = getImpl(MapAssertions::class) { DefaultMapAssertions() }
+    get(): MapAssertions = getImpl(MapAssertions::class) { DefaultMapAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._mapEntryImpl
-    get() = getImpl(MapEntryAssertions::class) { DefaultMapEntryAssertions() }
+    get(): MapEntryAssertions = getImpl(MapEntryAssertions::class) { DefaultMapEntryAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._pairImpl
-    get() = getImpl(PairAssertions::class) { DefaultPairAssertions() }
+    get(): PairAssertions = getImpl(PairAssertions::class) { DefaultPairAssertions() }
 
 @PublishedApi
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 internal inline val <T> AssertionContainer<T>._throwableImpl
-    get() = getImpl(ThrowableAssertions::class) { DefaultThrowableAssertions() }
+    get(): ThrowableAssertions = getImpl(ThrowableAssertions::class) { DefaultThrowableAssertions() }
 
