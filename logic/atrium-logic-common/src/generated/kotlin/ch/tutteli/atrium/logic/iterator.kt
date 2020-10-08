@@ -11,3 +11,5 @@ import ch.tutteli.atrium.creating.AssertionContainer
 
 fun <E, T : Iterator<E>> AssertionContainer<T>.hasNext(): Assertion = _iteratorImpl.hasNext(this)
 fun <E, T : Iterator<E>> AssertionContainer<T>.hasNotNext(): Assertion = _iteratorImpl.hasNotNext(this)
+
+fun <E, T : Iterator<E>> AssertionContainer<T>.containsNoDuplicates(): Assertion = _iteratorImpl.containsNoDuplicates(this)

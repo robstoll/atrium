@@ -34,7 +34,8 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     WARNING_MISMATCHES("following entries were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
     NEXT_ELEMENT("a next element"),
-    NO_ELEMENTS("❗❗ cannot be determined, empty Iterable")
+    NO_ELEMENTS("❗❗ cannot be determined, empty Iterable"),
+    DUPLICATE_FOUND("elements in `Iterable`")
 }
 
 internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS = "Could not evaluate the defined assertion(s)"
