@@ -318,7 +318,7 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  *
  * @since 0.14.0
  */
-fun <T : Path> Expect<T>.containss(path: String): Expect<T> =
+fun <T : Path> Expect<T>.containss(path: String, vararg other: String): Expect<T> =
     isDirectory() and {
         resolve(path) { exists() }
     }

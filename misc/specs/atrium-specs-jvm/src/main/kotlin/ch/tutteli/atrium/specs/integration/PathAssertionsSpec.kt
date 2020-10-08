@@ -45,7 +45,7 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     isAbsolute: Fun0<Path>,
     isRelative: Fun0<Path>,
-    contains: Fun1<Path, String>,
+    contains: Fun2<Path, String, Array<out String>>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
@@ -67,7 +67,7 @@ abstract class PathAssertionsSpec(
         isDirectory.forSubjectLess(),
         isAbsolute.forSubjectLess(),
         isRelative.forSubjectLess(),
-        contains.forSubjectLess("a"),
+        contains.forSubjectLess("a", arrayOf("b", "c")),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
@@ -874,11 +874,56 @@ abstract class PathAssertionsSpec(
         val containsFun = contains.lambda
         val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
 
-        it("does not throw if exists") withAndWithoutSymlink { maybeLink ->
+        it("does not throw if the single parameter is a child directory") withAndWithoutSymlink { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
             maybeLink.create(folder.newDirectory("a"))
-            expect(folder).containsFun("a")
+            expect(folder).containsFun("a", emptyArray())
         }
+
+        it("does not throw if both parameters are child directories") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            maybeLink.create(folder.newDirectory("a"))
+            maybeLink.create(folder.newDirectory("b"))
+            expect(folder).containsFun("a", arrayOf("b"))
+        }
+
+        it("does not throw if three parameters are child directories") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            maybeLink.create(folder.newDirectory("a"))
+            maybeLink.create(folder.newDirectory("b"))
+            maybeLink.create(folder.newDirectory("c"))
+            expect(folder).containsFun("a", arrayOf("b", "c"))
+        }
+
+        it("does not throw if the single parameter is a child file") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            maybeLink.create(folder.newFile("a"))
+            expect(folder).containsFun("a", emptyArray())
+        }
+
+        it("does not throw if both parameters are child files") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            maybeLink.create(folder.newFile("a"))
+            maybeLink.create(folder.newFile("b"))
+            expect(folder).containsFun("a", arrayOf("b"))
+        }
+
+        it("does not throw if three parameters are child files") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            maybeLink.create(folder.newFile("a"))
+            maybeLink.create(folder.newFile("b"))
+            maybeLink.create(folder.newFile("c"))
+            expect(folder).containsFun("a", arrayOf("b", "c"))
+        }
+//        it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+//            val file = maybeLink.create(tempFolder.newFile("test"))
+//            expect {
+//                expect(file).isDirectoryFun()
+//            }.toThrow<AssertionError>().message {
+//                contains(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+//                containsExplanationFor(maybeLink)
+//            }
+//        }
     }
 
     describeFun(hasSameBinaryContentAs, hasSameTextualContentAs, hasSameTextualContentAsDefaultArgs) {
