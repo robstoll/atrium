@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun0
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun3
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.*
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -22,6 +19,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isDirectory),
     fun0(Expect<Path>::isAbsolute),
     fun0(Expect<Path>::isRelative),
+    fun1(Expect<Path>::containss),
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Expect<Path>::hasSameTextualContentAs),
     fun1(Companion::hasSameTextualContentAsDefaultArgs)

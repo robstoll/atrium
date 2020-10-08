@@ -311,6 +311,19 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
     _logicAppend { isRelative() }
 
 /**
+ * TODO
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+fun <T : Path> Expect<T>.containss(path: String): Expect<T> =
+    isDirectory() and {
+        resolve(path) { exists() }
+    }
+
+/**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
  * so that further fluent calls are assertions about it.
