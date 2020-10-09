@@ -13,18 +13,25 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import kotlin.reflect.KClass
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultMapAssertions
 
-fun <K, V, T : Map<out K, V>> AssertionContainer<T>.contains(keyValuePairs: List<Pair<K, V>>): Assertion = _mapImpl.contains(this, keyValuePairs)
+fun <K, V, T : Map<out K, V>> AssertionContainer<T>.contains(keyValuePairs: List<Pair<K, V>>): Assertion = impl.contains(this, keyValuePairs)
 
 fun <K, V : Any, T : Map<out K, V?>> AssertionContainer<T>.containsKeyWithValueAssertions(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>): Assertion =
-    _mapImpl.containsKeyWithValueAssertions(this, valueType, keyValues)
+    impl.containsKeyWithValueAssertions(this, valueType, keyValues)
 
-fun <K, T : Map<out K, *>> AssertionContainer<T>.containsKey(key: K): Assertion = _mapImpl.containsKey(this, key)
-fun <K, T : Map<out K, *>> AssertionContainer<T>.containsNotKey(key: K): Assertion = _mapImpl.containsNotKey(this, key)
+fun <K, T : Map<out K, *>> AssertionContainer<T>.containsKey(key: K): Assertion = impl.containsKey(this, key)
+fun <K, T : Map<out K, *>> AssertionContainer<T>.containsNotKey(key: K): Assertion = impl.containsNotKey(this, key)
 
-fun <T : Map<*, *>> AssertionContainer<T>.isEmpty(): Assertion = _mapImpl.isEmpty(this)
-fun <T : Map<*, *>> AssertionContainer<T>.isNotEmpty(): Assertion = _mapImpl.isNotEmpty(this)
+fun <T : Map<*, *>> AssertionContainer<T>.isEmpty(): Assertion = impl.isEmpty(this)
+fun <T : Map<*, *>> AssertionContainer<T>.isNotEmpty(): Assertion = impl.isNotEmpty(this)
 
-fun <K, V, T : Map<out K, V>> AssertionContainer<T>.getExisting(key: K): FeatureExtractorBuilder.ExecutionStep<T, V> = _mapImpl.getExisting(this, key)
+fun <K, V, T : Map<out K, V>> AssertionContainer<T>.getExisting(key: K): FeatureExtractorBuilder.ExecutionStep<T, V> = impl.getExisting(this, key)
 
-fun <T : Map<*, *>> AssertionContainer<T>.size(): FeatureExtractorBuilder.ExecutionStep<T, Int> = _mapImpl.size(this)
+fun <T : Map<*, *>> AssertionContainer<T>.size(): FeatureExtractorBuilder.ExecutionStep<T, Int> = impl.size(this)
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: MapAssertions
+    get() = getImpl(MapAssertions::class) { DefaultMapAssertions() }

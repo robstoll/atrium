@@ -14,10 +14,17 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import java.math.BigDecimal
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultBigDecimalAssertions
 
-fun <T : BigDecimal> AssertionContainer<T>.isNumericallyEqualTo(expected: T): Assertion = _bigDecimalImpl.isNumericallyEqualTo(this, expected)
-fun <T : BigDecimal> AssertionContainer<T>.isNotNumericallyEqualTo(expected: T): Assertion = _bigDecimalImpl.isNotNumericallyEqualTo(this, expected)
+fun <T : BigDecimal> AssertionContainer<T>.isNumericallyEqualTo(expected: T): Assertion = impl.isNumericallyEqualTo(this, expected)
+fun <T : BigDecimal> AssertionContainer<T>.isNotNumericallyEqualTo(expected: T): Assertion = impl.isNotNumericallyEqualTo(this, expected)
 fun <T : BigDecimal> AssertionContainer<T>.isEqualIncludingScale(expected: T, nameOfIsNumericallyEqualTo: String): Assertion =
-    _bigDecimalImpl.isEqualIncludingScale(this, expected, nameOfIsNumericallyEqualTo)
+    impl.isEqualIncludingScale(this, expected, nameOfIsNumericallyEqualTo)
 
-fun <T : BigDecimal> AssertionContainer<T>.isNotEqualIncludingScale(expected: T): Assertion = _bigDecimalImpl.isNotEqualIncludingScale(this, expected)
+fun <T : BigDecimal> AssertionContainer<T>.isNotEqualIncludingScale(expected: T): Assertion = impl.isNotEqualIncludingScale(this, expected)
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+private inline val <T> AssertionContainer<T>.impl: BigDecimalAssertions
+    get() = getImpl(BigDecimalAssertions::class) { DefaultBigDecimalAssertions() }
