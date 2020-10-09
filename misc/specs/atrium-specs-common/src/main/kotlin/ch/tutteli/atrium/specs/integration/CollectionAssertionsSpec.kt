@@ -26,7 +26,7 @@ abstract class CollectionAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
-        describePrefix, listOf(1),
+        describePrefix, listOf(999),
         size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
     ) {})
 
@@ -39,10 +39,9 @@ abstract class CollectionAssertionsSpec(
     val fluent = expect(listOf(1, 2) as Collection<Int>)
     val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
 
-    describeFun(isEmpty, isNotEmpty, sizeFeature, size) {
+    describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda
         val isNotEmptyFun = isNotEmpty.lambda
-        val sizeFunctions = unifySignatures(sizeFeature, size)
 
         context("collection is empty") {
             it("${isEmpty.name} - does not throw") {
@@ -65,6 +64,10 @@ abstract class CollectionAssertionsSpec(
                 expect(listOf(1) as Collection<Int>).isNotEmptyFun()
             }
         }
+    }
+
+    describeFun(sizeFeature, size) {
+        val sizeFunctions = unifySignatures(sizeFeature, size)
 
         context("list with two entries") {
             sizeFunctions.forEach { (name, sizeFun, _) ->
@@ -80,6 +83,6 @@ abstract class CollectionAssertionsSpec(
                 }
             }
         }
-
     }
+
 })
