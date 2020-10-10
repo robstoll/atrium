@@ -1,0 +1,32 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/samples/js/jasmine"
+  schedule:
+      interval: daily
+      time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: gradle
+  directory: "/samples/js/mocha"
+  schedule:
+      interval: daily
+      time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: gradle
+  directory: "/samples/jvm/junit5"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: gradle
+  directory: "/samples/jvm/spek"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: maven
+  directory: "/samples/maven"
+  schedule:
+      interval: daily
+      time: "04:00"
+  open-pull-requests-limit: 10
