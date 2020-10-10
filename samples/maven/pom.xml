@@ -11,7 +11,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <atrium.version>0.11.0</atrium.version>
+        <atrium.version>0.13.0</atrium.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.6.1</junit.version>
