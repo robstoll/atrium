@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -9,6 +10,14 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class MapEntryAssertionsSpec(
     isKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
     isKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
+    keyFeature: Feature0<Map.Entry<String, Int>, String>,
+    key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
+    valueFeature: Feature0<Map.Entry<String, Int>, Int>,
+    value: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
+    nullableKeyFeature: Feature0<Map.Entry<String?, Int?>, String?>,
+    nullableKey: Fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>,
+    nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
+    nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
