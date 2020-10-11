@@ -7,11 +7,13 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.ChronoZonedDateTimeAssertions
-import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import java.time.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
 
 class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
@@ -43,5 +45,72 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
         expected: ChronoZonedDateTime<*>
     ): Assertion = container.createDescriptiveAssertion(IS_EQUAL_TO, expected) {
         it.isEqual(expected)
+    }
+
+    override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion {
+        return container.isBefore(ZonedDateTime.parse(expected))
+    }
+
+    override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion {
+        return container.isBeforeOrEqual(ZonedDateTime.parse(expected))
+    }
+
+    override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion {
+        return container.isAfter(parseZonedDateTime(expected))
+    }
+
+    override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion {
+        return container.isAfterOrEqual(parseZonedDateTime(expected))
+    }
+
+    override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isEqual(
+        container: AssertionContainer<T>,
+        expected: String
+    ): Assertion {
+        return container.isEqual(parseZonedDateTime(expected))
+    }
+
+    private fun parseZonedDateTime(data: String): ZonedDateTime {
+        val formatter = DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .append(DateTimeFormatter.ISO_LOCAL_DATE)
+            .optionalStart().appendLiteral('T').append(DateTimeFormatter.ISO_LOCAL_TIME).optionalEnd()
+            .optionalStart().appendLiteral('Z').optionalStart().appendOffsetId().optionalEnd().optionalEnd()
+            .toFormatter()
+
+        val parsed = formatter.parseBest(
+            data,
+            ZonedDateTime::from,
+            LocalDateTime::from,
+            LocalDate::from
+        )
+
+        return when (parsed) {
+            is LocalDate -> {
+                val parts = data.split("Z")
+                val zoneOffset = if (parts.size > 1) parts.last() else null
+                zoneOffset.let {
+                    if (it == null)
+                        parsed.atStartOfDay(ZoneId.of("Z"))
+                    else
+                        parsed.atStartOfDay(ZoneOffset.of(it))
+                }
+            }
+            is LocalDateTime -> parsed.atZone(ZoneId.of("Z"))
+            is ZonedDateTime -> parsed
+            else -> TODO("Throw a DateTimeParseException? Some information is missing though, like the errorIndex")
+        }
     }
 }

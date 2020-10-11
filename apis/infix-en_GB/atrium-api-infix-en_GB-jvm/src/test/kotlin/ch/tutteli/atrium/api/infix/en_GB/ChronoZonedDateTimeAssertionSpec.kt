@@ -4,18 +4,32 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
+import org.spekframework.spek2.Spek
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
-class ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
-    fun1(Expect<ChronoZonedDateTime<*>>::isBefore),
-    fun1(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
-    fun1(Expect<ChronoZonedDateTime<*>>::isAfter),
-    fun1(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
-    fun1(Expect<ChronoZonedDateTime<*>>::isEqual)
-) {
+class ChronoZonedDateTimeAssertionSpec : Spek({
+    include(ChronoZonedDateTimeAssertionSpec)
+    include(ChronoZonedDateTimeAsStringAssertionSpec)
+}) {
+    object ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBefore),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfter),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isEqual)
+    )
+
+    object ChronoZonedDateTimeAsStringAssertionSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringAssertionSpec(
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBefore),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfter),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isEqual)
+    )
+
     companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -75,5 +89,29 @@ class ChronoZonedDateTimeAssertionSpec : ch.tutteli.atrium.specs.integration.Chr
         a4 = a4 isAfter chronoZonedDateTime
         a4 = a4 isAfterOrEqual chronoZonedDateTime
         a4 = a4 isEqual chronoZonedDateTime
+
+        a1 = a1 isBefore "also not ambiguous if string is passed"
+        a1 = a1 isBeforeOrEqual "also not ambiguous if string is passed"
+        a1 = a1 isAfter "also not ambiguous if string is passed"
+        a1 = a1 isAfterOrEqual "also not ambiguous if string is passed"
+        a1 = a1 isEqual "also not ambiguous if string is passed"
+
+        a2 = a2 isBefore "also not ambiguous if string is passed"
+        a2 = a2 isBeforeOrEqual "also not ambiguous if string is passed"
+        a2 = a2 isAfter "also not ambiguous if string is passed"
+        a2 = a2 isAfterOrEqual "also not ambiguous if string is passed"
+        a2 = a2 isEqual "also not ambiguous if string is passed"
+
+        a3 = a3 isBefore "also not ambiguous if string is passed"
+        a3 = a3 isBeforeOrEqual "also not ambiguous if string is passed"
+        a3 = a3 isAfter "also not ambiguous if string is passed"
+        a3 = a3 isAfterOrEqual "also not ambiguous if string is passed"
+        a3 = a3 isEqual "also not ambiguous if string is passed"
+
+        a4 = a4 isBefore "also not ambiguous if string is passed"
+        a4 = a4 isBeforeOrEqual "also not ambiguous if string is passed"
+        a4 = a4 isAfter "also not ambiguous if string is passed"
+        a4 = a4 isAfterOrEqual "also not ambiguous if string is passed"
+        a4 = a4 isEqual "also not ambiguous if string is passed"
     }
 }

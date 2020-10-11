@@ -13,21 +13,20 @@ class ChronoZonedDateTimeAssertionSpec : Spek({
     include(ChronoLocalDateTimeAssertionSpec.ChronoLocalDateTimeSpec)
 }) {
     object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
-        fun1(Expect<ChronoZonedDateTime<*>>::isBefore),
-        fun1(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
-        fun1(Expect<ChronoZonedDateTime<*>>::isAfter),
-        fun1(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
-        fun1(Expect<ChronoZonedDateTime<*>>::isEqual)
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBefore),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfter),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isEqual)
     )
 
-    companion object {
-        fun isBefore(
-            expect: Expect<ChronoZonedDateTime<*>>,
-            expected: ChronoZonedDateTime<*>
-        ): Expect<ChronoZonedDateTime<*>> =
-            //TODO #482 turn into string in ISO format
-            expect.isBefore(expected)
-    }
+    object ChronoZonedDateTimeAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringAssertionSpec(
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBefore),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfter),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isEqual)
+    )
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -86,5 +85,29 @@ class ChronoZonedDateTimeAssertionSpec : Spek({
         a4 = a4.isAfter(chronoZonedDateTime)
         a4 = a4.isAfterOrEqual(chronoZonedDateTime)
         a4 = a4.isEqual(chronoZonedDateTime)
+
+        a1 = a1.isBefore("also not ambiguous if string is passed")
+        a1 = a1.isBeforeOrEqual("also not ambiguous if string is passed")
+        a1 = a1.isAfter("also not ambiguous if string is passed")
+        a1 = a1.isAfterOrEqual("also not ambiguous if string is passed")
+        a1 = a1.isEqual("also not ambiguous if string is passed")
+
+        a2 = a2.isBefore("also not ambiguous if string is passed")
+        a2 = a2.isBeforeOrEqual("also not ambiguous if string is passed")
+        a2 = a2.isAfter("also not ambiguous if string is passed")
+        a2 = a2.isAfterOrEqual("also not ambiguous if string is passed")
+        a2 = a2.isEqual("also not ambiguous if string is passed")
+
+        a3 = a3.isBefore("also not ambiguous if string is passed")
+        a3 = a3.isBeforeOrEqual("also not ambiguous if string is passed")
+        a3 = a3.isAfter("also not ambiguous if string is passed")
+        a3 = a3.isAfterOrEqual("also not ambiguous if string is passed")
+        a3 = a3.isEqual("also not ambiguous if string is passed")
+
+        a4 = a4.isBefore("also not ambiguous if string is passed")
+        a4 = a4.isBeforeOrEqual("also not ambiguous if string is passed")
+        a4 = a4.isAfter("also not ambiguous if string is passed")
+        a4 = a4.isAfterOrEqual("also not ambiguous if string is passed")
+        a4 = a4.isEqual("also not ambiguous if string is passed")
     }
 }
