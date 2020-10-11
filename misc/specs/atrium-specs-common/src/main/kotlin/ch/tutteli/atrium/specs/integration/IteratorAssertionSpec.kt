@@ -40,7 +40,7 @@ abstract class IteratorAssertionSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).hasNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement")}
+            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement") }
         }
     }
 
@@ -56,7 +56,7 @@ abstract class IteratorAssertionSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).hasNotNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement")}
+            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement") }
         }
     }
 
@@ -64,17 +64,17 @@ abstract class IteratorAssertionSpec(
         val containsNoDuplicatesFun = containsNoDuplicates.lambda
 
         it("empty list doesn't contains duplicates") {
-                expect(emptyList<Int>().iterator()).containsNoDuplicatesFun()
+            expect(emptyList<Int>().iterator()).containsNoDuplicatesFun()
         }
 
         it("list without duplicates") {
-                expect(listOf(1, 2).iterator()).containsNoDuplicatesFun()
+            expect(listOf(1, 2).iterator()).containsNoDuplicatesFun()
         }
 
         it("list with duplicates") {
             expect {
                 expect(listOf(1, 2, 1, 2).iterator()).containsNoDuplicatesFun()
-            }.toThrow<AssertionError> { messageContains("$duplicateNotFound: $duplicateFound")}
+            }.toThrow<AssertionError> { messageContains("$duplicateNotFound: $duplicateFound") }
         }
     }
 })
