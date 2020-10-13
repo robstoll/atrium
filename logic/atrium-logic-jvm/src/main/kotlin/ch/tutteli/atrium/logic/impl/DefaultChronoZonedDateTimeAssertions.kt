@@ -85,7 +85,7 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
 
     private fun parseZonedDateTime(data: String): ZonedDateTime {
         val formatter = DateTimeFormatterBuilder()
-            .parseCaseInsensitive()
+            .parseCaseSensitive()
             .append(DateTimeFormatter.ISO_LOCAL_DATE)
             .optionalStart().appendLiteral('T').append(DateTimeFormatter.ISO_LOCAL_TIME).optionalEnd()
             .optionalStart().appendLiteral('Z').optionalStart().appendOffsetId().optionalEnd().optionalEnd()
