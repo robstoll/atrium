@@ -14,6 +14,7 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.TemporalQuery
 
 class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
@@ -92,9 +93,9 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
 
         val parsed = formatter.parseBest(
             data,
-            ZonedDateTime::from,
-            LocalDateTime::from,
-            LocalDate::from
+            TemporalQuery { temporal -> ZonedDateTime.from(temporal) },
+            TemporalQuery { temporal -> LocalDateTime.from(temporal) },
+            TemporalQuery { temporal -> LocalDate.from(temporal) }
         )
 
         return when (parsed) {
