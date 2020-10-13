@@ -52,14 +52,14 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
         container: AssertionContainer<T>,
         expected: String
     ): Assertion {
-        return container.isBefore(ZonedDateTime.parse(expected))
+        return container.isBefore(parseZonedDateTime(expected))
     }
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         container: AssertionContainer<T>,
         expected: String
     ): Assertion {
-        return container.isBeforeOrEqual(ZonedDateTime.parse(expected))
+        return container.isBeforeOrEqual(parseZonedDateTime(expected))
     }
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
