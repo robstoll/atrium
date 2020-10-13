@@ -100,7 +100,7 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
 
         return when (parsed) {
             is LocalDate -> {
-                val parts = data.split("Z")
+                val parts = data.split("Z").filter(String::isNotEmpty)
                 val zoneOffset = if (parts.size > 1) parts.last() else null
                 zoneOffset.let {
                     if (it == null)
