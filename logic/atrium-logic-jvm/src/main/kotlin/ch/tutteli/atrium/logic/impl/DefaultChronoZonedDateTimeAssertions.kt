@@ -84,6 +84,14 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
     }
 
     private fun parseZonedDateTime(data: String): ZonedDateTime {
+        /**
+         * The specification of the zone can look like this [Europe/Paris]
+         * and needs to be handled by the native jdk implementation.
+         */
+        if (data.indexOf('[') > -1 && (data.indexOf('[') < data.indexOf(']'))) {
+            return ZonedDateTime.parse(data)
+        }
+
         val formatter = DateTimeFormatterBuilder()
             .parseCaseSensitive()
             .append(DateTimeFormatter.ISO_LOCAL_DATE)
@@ -111,7 +119,14 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
             }
             is LocalDateTime -> parsed.atZone(ZoneId.of("Z"))
             is ZonedDateTime -> parsed
-            else -> TODO("Throw a DateTimeParseException? Some information is missing though, like the errorIndex")
+            /**
+             * If neither case should match, than we can still try to parse the [data]
+             * with the native implementation to generate an exception which is more descriptive.
+             *
+             * In reality this case won't be invoked, because [DateTimeFormatter.parseBest]
+             * would throw a [java.time.format.DateTimeParseException] either way and stop the execution flow at this point.
+             */
+            else -> ZonedDateTime.parse(data)
         }
     }
 }
