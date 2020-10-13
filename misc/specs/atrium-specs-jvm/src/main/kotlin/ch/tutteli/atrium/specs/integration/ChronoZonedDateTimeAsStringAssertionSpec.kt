@@ -128,77 +128,77 @@ abstract class ChronoZonedDateTimeAsStringAssertionSpec(
             "2020-01-02T03:04:05Z" to ZonedDateTime.of(2020, 1, 2, 3, 4, 5, 0, ZoneOffset.UTC) as ChronoZonedDateTime<*>,
             "2020-01-02T03:04Z" to ZonedDateTime.of(2020, 1, 2, 3, 4, 0, 0, ZoneOffset.UTC),
             "2020-01-02Z" to ZonedDateTime.of(2020, 1, 2, 0, 0, 0, 0, ZoneOffset.UTC)
-        ).forEach { (localDateTimeAsString, chronoZonedDateTime) ->
+        ).forEach { (zonedDateTimeAsString, chronoZonedDateTime) ->
             val before = chronoZonedDateTime.minus(Duration.ofSeconds(1))
             val after = chronoZonedDateTime.plus(Duration.ofSeconds(1))
-            context("passing $localDateTimeAsString") {
+            context("passing $zonedDateTimeAsString") {
 
-                it("$before ${isBefore.name} $localDateTimeAsString does not throw") {
-                    expect(before).isBeforeFun(localDateTimeAsString)
+                it("$before ${isBefore.name} $zonedDateTimeAsString does not throw") {
+                    expect(before).isBeforeFun(zonedDateTimeAsString)
                 }
-                it("$chronoZonedDateTime ${isBefore.name} $localDateTimeAsString throws an AssertionError") {
+                it("$chronoZonedDateTime ${isBefore.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(chronoZonedDateTime).isBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
+                        expect(chronoZonedDateTime).isBeforeFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $zonedDateTimeAsString") }
                 }
-                it("$after ${isBefore.name} $localDateTimeAsString throws an AssertionError") {
+                it("$after ${isBefore.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(after).isBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
+                        expect(after).isBeforeFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $zonedDateTimeAsString") }
                 }
 
-                it("$before ${isBeforeOrEqual.name} $localDateTimeAsString does not throw") {
-                    expect(before).isBeforeOrEqualFun(localDateTimeAsString)
+                it("$before ${isBeforeOrEqual.name} $zonedDateTimeAsString does not throw") {
+                    expect(before).isBeforeOrEqualFun(zonedDateTimeAsString)
                 }
-                it("$chronoZonedDateTime ${isBeforeOrEqual.name} $localDateTimeAsString does not throw") {
-                    expect(chronoZonedDateTime).isBeforeOrEqualFun(localDateTimeAsString)
+                it("$chronoZonedDateTime ${isBeforeOrEqual.name} $zonedDateTimeAsString does not throw") {
+                    expect(chronoZonedDateTime).isBeforeOrEqualFun(zonedDateTimeAsString)
                 }
-                it("$after ${isBeforeOrEqual.name} $localDateTimeAsString throws an AssertionError") {
+                it("$after ${isBeforeOrEqual.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(after).isBeforeOrEqualFun(localDateTimeAsString)
+                        expect(after).isBeforeOrEqualFun(zonedDateTimeAsString)
                     }.toThrow<AssertionError> {
-                        messageContains("${IS_BEFORE_OR_EQUAL.getDefault()}: $localDateTimeAsString")
+                        messageContains("${IS_BEFORE_OR_EQUAL.getDefault()}: $zonedDateTimeAsString")
                     }
                 }
 
-                it("$before ${isAfter.name} $localDateTimeAsString throws an AssertionError") {
+                it("$before ${isAfter.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(before).isAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
+                        expect(before).isAfterFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $zonedDateTimeAsString") }
                 }
-                it("$chronoZonedDateTime ${isAfter.name} $localDateTimeAsString throws an AssertionError") {
+                it("$chronoZonedDateTime ${isAfter.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(chronoZonedDateTime).isAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
+                        expect(chronoZonedDateTime).isAfterFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $zonedDateTimeAsString") }
                 }
-                it("$after ${isAfter.name} $localDateTimeAsString does not throw") {
-                    expect(after).isAfterFun(localDateTimeAsString)
+                it("$after ${isAfter.name} $zonedDateTimeAsString does not throw") {
+                    expect(after).isAfterFun(zonedDateTimeAsString)
                 }
 
-                it("$before ${isAfterOrEqual.name} $localDateTimeAsString throws an AssertionError") {
+                it("$before ${isAfterOrEqual.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(before).isAfterOrEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER_OR_EQUAL.getDefault()}: $localDateTimeAsString") }
+                        expect(before).isAfterOrEqualFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_AFTER_OR_EQUAL.getDefault()}: $zonedDateTimeAsString") }
                 }
-                it("$chronoZonedDateTime ${isAfterOrEqual.name} $localDateTimeAsString does not throw") {
-                    expect(chronoZonedDateTime).isAfterOrEqualFun(localDateTimeAsString)
+                it("$chronoZonedDateTime ${isAfterOrEqual.name} $zonedDateTimeAsString does not throw") {
+                    expect(chronoZonedDateTime).isAfterOrEqualFun(zonedDateTimeAsString)
                 }
-                it("$after ${isAfterOrEqual.name} $localDateTimeAsString does not throw") {
-                    expect(after).isAfterOrEqualFun(localDateTimeAsString)
+                it("$after ${isAfterOrEqual.name} $zonedDateTimeAsString does not throw") {
+                    expect(after).isAfterOrEqualFun(zonedDateTimeAsString)
                 }
 
-                it("$before ${isEqual.name} $localDateTimeAsString throws an AssertionError") {
+                it("$before ${isEqual.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(before).isEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
+                        expect(before).isEqualFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $zonedDateTimeAsString") }
                 }
-                it("$chronoZonedDateTime ${isEqual.name} $localDateTimeAsString does not throw") {
-                    expect(chronoZonedDateTime).isEqualFun(localDateTimeAsString)
+                it("$chronoZonedDateTime ${isEqual.name} $zonedDateTimeAsString does not throw") {
+                    expect(chronoZonedDateTime).isEqualFun(zonedDateTimeAsString)
                 }
-                it("$after ${isEqual.name} $localDateTimeAsString throws an AssertionError") {
+                it("$after ${isEqual.name} $zonedDateTimeAsString throws an AssertionError") {
                     expect {
-                        expect(after).isEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
+                        expect(after).isEqualFun(zonedDateTimeAsString)
+                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $zonedDateTimeAsString") }
                 }
             }
         }
