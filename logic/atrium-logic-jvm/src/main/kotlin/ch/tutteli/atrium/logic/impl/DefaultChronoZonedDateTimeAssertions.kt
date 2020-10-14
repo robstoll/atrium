@@ -117,7 +117,7 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
                     else -> ZonedDateTime.parse(data)
                 }
             }
-            is LocalDateTime -> parsed.atZone(ZoneId.of("Z"))
+            is LocalDateTime -> parsed.atZone(ZoneOffset.UTC)
             is ZonedDateTime -> parsed
             /**
              * If neither case should match, than we can still try to parse the [data]
