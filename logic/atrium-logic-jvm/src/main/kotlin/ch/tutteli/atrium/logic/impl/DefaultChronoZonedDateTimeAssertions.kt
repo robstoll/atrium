@@ -74,14 +74,6 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
     ): Assertion = container.isEqual(parseZonedDateTime(expected))
 
     private fun parseZonedDateTime(data: String): ZonedDateTime {
-        /**
-         * The specification of the zone can look like this [Europe/Paris]
-         * and needs to be handled by the native jdk implementation.
-         */
-        if (data.indexOf('[') > -1 && (data.indexOf('[') < data.indexOf(']'))) {
-            return ZonedDateTime.parse(data)
-        }
-
         val formatter = DateTimeFormatterBuilder()
             .parseCaseSensitive()
             .append(DateTimeFormatter.ISO_LOCAL_DATE)

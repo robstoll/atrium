@@ -21,9 +21,9 @@ abstract class ChronoZonedDateTimeAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val ten = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 210, ZoneId.of("Europe/Zurich"))
-    val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneId.of("Europe/Zurich"))
-    val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneId.of("Europe/Zurich"))
+    val ten = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 210, ZoneOffset.UTC)
+    val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 210, ZoneOffset.UTC)
+    val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 210, ZoneOffset.UTC)
 
     include(object : SubjectLessSpec<ChronoZonedDateTime<*>>(
         describePrefix,
