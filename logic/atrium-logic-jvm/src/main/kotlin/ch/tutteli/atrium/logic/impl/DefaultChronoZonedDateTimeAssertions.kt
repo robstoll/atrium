@@ -51,37 +51,27 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion {
-        return container.isBefore(parseZonedDateTime(expected))
-    }
+    ): Assertion = container.isBefore(parseZonedDateTime(expected))
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion {
-        return container.isBeforeOrEqual(parseZonedDateTime(expected))
-    }
+    ): Assertion = container.isBeforeOrEqual(parseZonedDateTime(expected))
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfter(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion {
-        return container.isAfter(parseZonedDateTime(expected))
-    }
+    ): Assertion = container.isAfter(parseZonedDateTime(expected))
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isAfterOrEqual(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion {
-        return container.isAfterOrEqual(parseZonedDateTime(expected))
-    }
+    ): Assertion = container.isAfterOrEqual(parseZonedDateTime(expected))
 
     override fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isEqual(
         container: AssertionContainer<T>,
         expected: String
-    ): Assertion {
-        return container.isEqual(parseZonedDateTime(expected))
-    }
+    ): Assertion = container.isEqual(parseZonedDateTime(expected))
 
     private fun parseZonedDateTime(data: String): ZonedDateTime {
         /**
