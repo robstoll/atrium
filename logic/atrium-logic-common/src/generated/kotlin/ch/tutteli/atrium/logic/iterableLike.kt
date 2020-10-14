@@ -30,3 +30,5 @@ fun <T : Any, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>)
 fun <T : Any, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = _iterableLikeImpl.min(this, converter)
 
 fun <T : Any, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = _iterableLikeImpl.max(this, converter)
+
+fun <T : Any, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = _iterableLikeImpl.containsNoDuplicates(this, converter)

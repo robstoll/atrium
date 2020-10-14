@@ -7,7 +7,8 @@ import kotlin.reflect.KFunction2
 
 class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAssertionsSpec(
     getHasNextPair(),
-    getHasNotNextPair()
+    getHasNotNextPair(),
+    getContainsNoDuplicatesPair()
 ) {
     companion object : WithAsciiReporter() {
         private val has: KFunction2<Expect<Iterable<Int>>, next, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::has
@@ -19,6 +20,13 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
 
         private fun getHasNotNextPair() = "${hasNot.name} ${next::class.simpleName}" to Companion::hasNotNext
         private fun hasNotNext(expect: Expect<Iterable<Int>>) = expect hasNot next
+
+        private val containsDuplicates: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
+            Expect<Iterable<Int>>::contains
+        private fun getContainsNoDuplicatesPair() =
+            "${containsDuplicates.name} ${noDuplicates::class.simpleName}" to Companion::containsNoDuplicates
+        private fun containsNoDuplicates(expect: Expect<Iterable<Int>>) = expect contains noDuplicates
+
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -29,11 +37,14 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
 
         a1 = a1 has next
         a1 = a1 hasNot next
+        a1 = a1 contains noDuplicates
 
         a1b = a1b has next
         a1b = a1b hasNot next
+        a1b = a1b contains noDuplicates
 
         star = star has next
         star = star hasNot next
+        star = star contains noDuplicates
     }
 }

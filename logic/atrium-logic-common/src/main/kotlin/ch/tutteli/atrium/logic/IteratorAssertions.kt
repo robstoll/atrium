@@ -9,6 +9,4 @@ import ch.tutteli.atrium.creating.AssertionContainer
 interface IteratorAssertions {
     fun <E, T : Iterator<E>> hasNext(container: AssertionContainer<T>): Assertion
     fun <E, T : Iterator<E>> hasNotNext(container: AssertionContainer<T>): Assertion
-
-    fun <E, T : Iterator<E>> containsNoDuplicates(container: AssertionContainer<T>): Assertion
 }

@@ -7,8 +7,7 @@ import kotlin.reflect.KFunction2
 
 class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssertionSpec(
     getHasNextPair(),
-    getHasNotNextPair(),
-    getContainsNoDuplicatesPair()
+    getHasNotNextPair()
 ) {
     companion object : WithAsciiReporter() {
         private val has: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> = Expect<Iterator<Int>>::has
@@ -21,13 +20,6 @@ class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssert
         private fun getHasNotNextPair() = "${hasNot.name} ${next::class.simpleName}" to Companion::hasNotNext
 
         private fun hasNotNext(expect: Expect<Iterator<Int>>) = expect hasNot next
-
-        private val containsDuplicates: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> =
-            Expect<Iterator<Int>>::containsNoDuplicates
-        private fun getContainsNoDuplicatesPair() =
-            "${containsDuplicates.name} ${next::class.simpleName}" to Companion::containsNoDuplicates
-        private fun containsNoDuplicates(expect: Expect<Iterator<Int>>) = expect containsNoDuplicates next
-
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -36,6 +28,5 @@ class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssert
 
         a1 = a1 has next
         a1 = a1 hasNot next
-        a1 = a1 containsNoDuplicates next
     }
 }

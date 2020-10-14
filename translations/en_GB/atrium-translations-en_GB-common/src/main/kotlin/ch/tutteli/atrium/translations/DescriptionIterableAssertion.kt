@@ -35,6 +35,7 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
     NEXT_ELEMENT("a next element"),
     NO_ELEMENTS("❗❗ cannot be determined, empty Iterable"),
+    //TODO remove or update text
     DUPLICATE_FOUND("elements in `Iterable`")
 }
 

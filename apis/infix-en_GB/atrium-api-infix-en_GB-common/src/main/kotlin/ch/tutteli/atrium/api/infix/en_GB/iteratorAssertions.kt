@@ -27,14 +27,3 @@ infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  */
 infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNotNext() }
-
-/**
- * Expects that the subject of the assertion (an [Iterator]) contains no duplicate elements.
- *
- * @return an [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @since 0.14.0
- */
-infix fun <E, T : Iterator<E>> Expect<T>.containsNoDuplicates(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
-    _logicAppend { containsNoDuplicates() }

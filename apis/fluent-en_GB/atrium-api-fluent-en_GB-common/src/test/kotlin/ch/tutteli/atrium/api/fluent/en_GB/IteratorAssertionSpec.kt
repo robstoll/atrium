@@ -6,8 +6,7 @@ import ch.tutteli.atrium.specs.notImplemented
 
 class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssertionSpec(
     fun0(Expect<Iterator<Int>>::hasNext),
-    fun0(Expect<Iterator<Int>>::hasNotNext),
-    fun0(Expect<Iterator<Int>>::containsNoDuplicates)
+    fun0(Expect<Iterator<Int>>::hasNotNext)
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -16,6 +15,5 @@ class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssert
 
         a1 = a1.hasNext()
         a1 = a1.hasNotNext()
-        a1 = a1.containsNoDuplicates()
     }
 }

@@ -12,6 +12,7 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class IterableAssertionsSpec(
     hasNext: Fun0<Iterable<Int>>,
     hasNotNext: Fun0<Iterable<Int>>,
+    containsNoDuplicates: Fun0<Iterable<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -26,6 +27,8 @@ abstract class IterableAssertionsSpec(
     val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
+    val duplicateNotFound = DescriptionBasic.CONTAINS_DUPLICATES.getDefault()
+    val duplicateFound = DescriptionIterableAssertion.DUPLICATE_FOUND.getDefault()
 
     describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
@@ -52,6 +55,24 @@ abstract class IterableAssertionsSpec(
             expect {
                 expect(listOf(1, 2) as Iterable<Int>).hasNotNextFun()
             }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement") }
+        }
+    }
+
+    describeFun(containsNoDuplicates) {
+        val containsNoDuplicatesFun = containsNoDuplicates.lambda
+
+        it("empty list doesn't contains duplicates") {
+            expect(emptyList<Int>() as Iterable<Int>).containsNoDuplicatesFun()
+        }
+
+        it("list without duplicates") {
+            expect(listOf(1, 2) as Iterable<Int>).containsNoDuplicatesFun()
+        }
+
+        it("list with duplicates") {
+            expect {
+                expect(listOf(1, 2, 1, 2) as Iterable<Int>).containsNoDuplicatesFun()
+            }.toThrow<AssertionError> { messageContains("$duplicateNotFound: $duplicateFound") }
         }
     }
 })

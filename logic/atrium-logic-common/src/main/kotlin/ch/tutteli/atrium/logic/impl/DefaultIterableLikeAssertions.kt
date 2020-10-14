@@ -117,6 +117,24 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
 
+    override fun <T : Any, E> containsNoDuplicates(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion {
+        val finalList = mutableListOf<E>()
+
+        return container.createDescriptiveAssertion(
+            DescriptionBasic.CONTAINS_DUPLICATES,
+            DescriptionIterableAssertion.DUPLICATE_FOUND
+        ) {
+            if(finalList.isEmpty()){
+                finalList.addAll(converter(it).asSequence().toMutableList())
+            }
+
+            HashSet(finalList).size == finalList.size
+        }
+    }
+
     private fun <T : Any, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>,
