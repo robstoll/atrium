@@ -28,6 +28,5 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
     HAS("has"),
     HAS_NOT("has not"),
     WAS("was"),
-    NONE("none"),
-    CONTAINS_DUPLICATES("contains duplicates")
+    NONE("none")
 }

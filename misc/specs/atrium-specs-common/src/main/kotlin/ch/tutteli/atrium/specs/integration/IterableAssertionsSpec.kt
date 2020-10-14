@@ -6,6 +6,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -27,7 +28,7 @@ abstract class IterableAssertionsSpec(
     val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
-    val duplicateNotFound = DescriptionBasic.CONTAINS_DUPLICATES.getDefault()
+    val duplicateNotFound = DescriptionListAssertion.CONTAINS_DUPLICATES.getDefault()
     val duplicateFound = DescriptionIterableAssertion.DUPLICATE_FOUND.getDefault()
 
     describeFun(hasNext) {

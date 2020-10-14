@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
@@ -25,6 +24,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
+import ch.tutteli.atrium.translations.DescriptionListAssertion
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -124,7 +124,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val finalList = mutableListOf<E>()
 
         return container.createDescriptiveAssertion(
-            DescriptionBasic.CONTAINS_DUPLICATES,
+            DescriptionListAssertion.CONTAINS_DUPLICATES,
             DescriptionIterableAssertion.DUPLICATE_FOUND
         ) {
             if(finalList.isEmpty()){

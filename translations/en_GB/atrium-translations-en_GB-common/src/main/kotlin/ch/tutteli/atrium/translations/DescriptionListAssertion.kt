@@ -10,4 +10,5 @@ enum class DescriptionListAssertion(override val value: String) : StringBasedTra
     @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- index out of bounds.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     INDEX_OUT_OF_BOUNDS("❗❗ index out of bounds"),
+    CONTAINS_DUPLICATES("contains duplicates")
 }
