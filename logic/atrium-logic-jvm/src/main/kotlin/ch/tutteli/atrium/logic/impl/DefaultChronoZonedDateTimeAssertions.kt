@@ -91,13 +91,22 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
         return when (parsed) {
             is LocalDate -> {
                 when {
+                    /**
+                     * Covers the input: yyyy-mm-ddZ
+                     */
                     "Z" in data -> {
                         parsed.atStartOfDay(ZoneOffset.UTC)
                     }
+                    /**
+                     * Covers the input: yyyy-mm-dd+hh:mm
+                     */
                     "+" in data -> {
                         val parts = data.split("+")
                         parsed.atStartOfDay(ZoneOffset.of("+${parts.last()}"))
                     }
+                    /**
+                     * Covers the input: yyyy-mm-dd-hh:mm
+                     */
                     "-" in data -> {
                         val parts = data.split("-")
                         parsed.atStartOfDay(ZoneOffset.of("-${parts.last()}"))
