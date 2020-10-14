@@ -86,7 +86,7 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
             .parseCaseSensitive()
             .append(DateTimeFormatter.ISO_LOCAL_DATE)
             .optionalStart().appendLiteral('T').append(DateTimeFormatter.ISO_LOCAL_TIME).optionalEnd()
-            .optionalStart().appendLiteral('Z').optionalStart().appendOffsetId().optionalEnd().optionalEnd()
+            .appendOffsetId()
             .toFormatter()
 
         val parsed = formatter.parseBest(
@@ -98,13 +98,22 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
 
         return when (parsed) {
             is LocalDate -> {
-                val parts = data.split("Z").filter(String::isNotEmpty)
-                val zoneOffset = if (parts.size > 1) parts.last() else null
-                zoneOffset.let {
-                    if (it == null)
-                        parsed.atStartOfDay(ZoneId.of("Z"))
-                    else
-                        parsed.atStartOfDay(ZoneOffset.of(it))
+                when {
+                    "Z" in data -> {
+                        parsed.atStartOfDay(ZoneOffset.UTC)
+                    }
+                    "+" in data -> {
+                        val parts = data.split("+")
+                        parsed.atStartOfDay(ZoneOffset.of("+${parts.last()}"))
+                    }
+                    "-" in data -> {
+                        val parts = data.split("-")
+                        parsed.atStartOfDay(ZoneOffset.of("-${parts.last()}"))
+                    }
+                    /**
+                     * Generate an appropriate exception if the zone offset is not known
+                     */
+                    else -> ZonedDateTime.parse(data)
                 }
             }
             is LocalDateTime -> parsed.atZone(ZoneId.of("Z"))

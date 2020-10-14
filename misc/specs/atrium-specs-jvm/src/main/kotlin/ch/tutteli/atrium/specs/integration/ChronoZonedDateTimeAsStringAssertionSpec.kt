@@ -125,18 +125,26 @@ abstract class ChronoZonedDateTimeAsStringAssertionSpec(
 
     describe("allowed shortcuts") {
         mapOf(
-            "2020-01-02T03:04:05Z" to ZonedDateTime.of(2020, 1, 2, 3, 4, 5, 0, ZoneOffset.UTC) as ChronoZonedDateTime<*>,
-            "2020-01-02T03:04Z" to ZonedDateTime.of(2020, 1, 2, 3, 4, 0, 0, ZoneOffset.UTC),
-            "2020-01-02Z" to ZonedDateTime.of(2020, 1, 2, 0, 0, 0, 0, ZoneOffset.UTC)
-        ).forEach { (zonedDateTimeAsString, chronoZonedDateTime) ->
+            Pair("2020-01-02T03:04:05Z", "2020-01-02T03:04:05Z") to ZonedDateTime.of(2020, 1, 2, 3, 4, 5, 0, ZoneOffset.UTC) as ChronoZonedDateTime<*>,
+            Pair("2020-01-02T03:04Z", "2020-01-02T03:04Z") to ZonedDateTime.of(2020, 1, 2, 3, 4, 0, 0, ZoneOffset.UTC),
+            Pair("2020-01-02Z", "2020-01-02T00:00Z") to ZonedDateTime.of(2020, 1, 2, 0, 0, 0, 0, ZoneOffset.UTC),
+            Pair("2020-01-02+01:30", "2020-01-02T00:00+01:30") to ZonedDateTime.of(2020, 1, 2, 0, 0, 0, 0, ZoneOffset.of("+01:30"))
+        ).forEach { (timePair, chronoZonedDateTime) ->
             val before = chronoZonedDateTime.minus(Duration.ofSeconds(1))
             val after = chronoZonedDateTime.plus(Duration.ofSeconds(1))
+
             /**
+             * The first value of the pair is used as the function input
+             */
+            val zonedDateTimeAsString = timePair.first
+            /**
+             * The second value of the pair is used as comparison value.
              * This construct is needed because some test cases miss the time specification like "2020-01-02Z".
              * "2020-01-02Z" gets parsed to "2020-01-02T00:00Z" where the time is set to 00:00.
              * In this case we need a special reference value for comparing the time within the exception message.
              */
-            val zonedDateTimeReferenceValue = if ("T" in zonedDateTimeAsString) zonedDateTimeAsString else zonedDateTimeAsString.replace("Z", "T00:00Z")
+            val zonedDateTimeReferenceValue = timePair.second
+
             context("passing $zonedDateTimeAsString") {
 
                 it("$before ${isBefore.name} $zonedDateTimeReferenceValue does not throw") {
