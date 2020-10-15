@@ -12,7 +12,6 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
-    getHasNotNextPair(),
     getContainsNoDuplicatesPair()
 ) {
     companion object : WithAsciiReporter() {

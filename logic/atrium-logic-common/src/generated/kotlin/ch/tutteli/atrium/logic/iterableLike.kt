@@ -33,9 +33,9 @@ fun <T : Any, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Ite
 
 fun <T : Any, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.max(this, converter)
 
+fun <T : Any, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = impl.containsNoDuplicates(this, converter)
+
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: IterableLikeAssertions
     get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
-
-fun <T : Any, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = _iterableLikeImpl.containsNoDuplicates(this, converter)
