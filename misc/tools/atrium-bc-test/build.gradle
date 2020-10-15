@@ -421,4 +421,7 @@ createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAs
     createFixSrcTask(apiName, '0.12.0', 'ChronoLocalDateAssertionsSpec.kt') { String content ->
         return content.replaceAll(/ fun1/, ' fun1<ChronoLocalDate, ChronoLocalDate>')
     }
+    createFixSrcTask(apiName, '0.12.0', 'ChronoZonedDateTimeAssertionSpec.kt') { String content ->
+        return content.replaceAll(/ fun1/, ' fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>')
+    }
 }
