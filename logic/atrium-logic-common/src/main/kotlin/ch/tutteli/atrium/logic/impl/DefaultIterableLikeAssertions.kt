@@ -24,7 +24,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
-import ch.tutteli.atrium.translations.DescriptionListAssertion
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -146,14 +145,11 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             val list = turnSubjectToList(iterableContainer).maybeSubject.getOrElse { emptyList() }
             val hasElementAssertion = createHasElementAssertion(list.iterator())
 
-            val duplicates: List<Pair<Int, E>> = list
+            val duplicates = list
                 .mapWithIndex()
                 .filter { (_, element) ->
                     list.count { e -> e == element } > 1
                 }
-                .map { (index, element) -> index to element }
-                .toSet()
-                .toList()
 
             val duplicateAssertions = duplicates.map {
                     (index, element) ->

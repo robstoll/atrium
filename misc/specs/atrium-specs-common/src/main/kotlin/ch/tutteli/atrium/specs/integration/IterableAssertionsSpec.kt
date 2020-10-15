@@ -2,17 +2,19 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.kbox.mapWithIndex
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableAssertionsSpec(
     hasNext: Fun0<Iterable<Int>>,
     hasNotNext: Fun0<Iterable<Int>>,
-    minFeature: Feature0<Iterable<Int>,Int>,
+    minFeature: Feature0<Iterable<Int>, Int>,
     min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     maxFeature: Feature0<Iterable<Int>, Int>,
     max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
@@ -30,7 +32,7 @@ abstract class IterableAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
-        describePrefix, listOf(-20,20,0),
+        describePrefix, listOf(-20, 20, 0),
         min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) },
         max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
     ) {})
@@ -42,6 +44,7 @@ abstract class IterableAssertionsSpec(
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
+    val indexElements = DescriptionIterableAssertion.INDEX.getDefault()
 
     describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
@@ -137,9 +140,26 @@ abstract class IterableAssertionsSpec(
         }
 
         it("list with duplicates") {
+            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4)
+            val duplicates = input
+                .mapWithIndex()
+                .filter { (_, element) ->
+                    input.count { e -> e == element } > 1
+                }
+                .map { (index, element) -> index.toString() to element.toString() }
+
+            val expectedErrors = duplicates
+                .map { (index, element) -> indexElements.format("$index: $element") }
+
             expect {
-                expect(listOf(1, 2, 1, 2, 3, 4, 4, 4) as Iterable<Int>).containsNoDuplicatesFun()
+                expect(input as Iterable<Int>).containsNoDuplicatesFun()
             }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $duplicateElements") }
+
+            expectedErrors.forEach { expectedMessage ->
+                expect {
+                    expect(input as Iterable<Int>).containsNoDuplicatesFun()
+                }.toThrow<AssertionError> { messageContains(expectedMessage) }
+            }
         }
     }
 })
