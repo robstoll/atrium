@@ -117,24 +117,6 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
 
-    override fun <T : Any, E> containsNoDuplicates(
-        container: AssertionContainer<T>,
-        converter: (T) -> Iterable<E>
-    ): Assertion {
-        val finalList = mutableListOf<E>()
-
-        return container.createDescriptiveAssertion(
-            DescriptionListAssertion.CONTAINS_DUPLICATES,
-            DescriptionIterableAssertion.DUPLICATE_FOUND
-        ) {
-            if(finalList.isEmpty()){
-                finalList.addAll(converter(it).asSequence().toMutableList())
-            }
-
-            HashSet(finalList).size == finalList.size
-        }
-    }
-
     private fun <T : Any, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>,
@@ -154,4 +136,45 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             }
             .withoutOptions()
             .build()
+
+    override fun <T : Any, E> containsNoDuplicates(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion {
+        val iterableContainer = container.changeSubject.unreported(converter).toAssertionContainer()
+        return LazyThreadUnsafeAssertionGroup {
+            val list = turnSubjectToList(iterableContainer).maybeSubject.getOrElse { emptyList() }
+            val hasElementAssertion = createHasElementAssertion(list.iterator())
+
+            val duplicates: List<Pair<Int, E>> = list
+                .mapWithIndex()
+                .filter { (_, element) ->
+                    list.count { e -> e == element } > 1
+                }
+                .map { (index, element) -> index to element }
+                .toSet()
+                .toList()
+
+            val duplicateAssertions = duplicates.map {
+                    (index, element) ->
+                assertionBuilder.createDescriptive(
+                    TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+                    element,
+                    falseProvider
+                )
+            }
+            assertionBuilder.invisibleGroup
+                .withAssertions(
+                    hasElementAssertion,
+                    assertionBuilder.fixedClaimGroup
+                        .withListType
+                        .withClaim(duplicates.isEmpty())
+                        .withDescriptionAndRepresentation(DescriptionBasic.HAS, DescriptionIterableAssertion.DUPLICATE_ELEMENTS)
+                        .withAssertions(duplicateAssertions)
+                        .build()
+                )
+                .build()
+        }
+    }
+
 }

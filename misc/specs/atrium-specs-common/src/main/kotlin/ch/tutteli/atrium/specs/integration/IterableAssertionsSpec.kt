@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionListAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -28,8 +27,7 @@ abstract class IterableAssertionsSpec(
     val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
-    val duplicateNotFound = DescriptionListAssertion.CONTAINS_DUPLICATES.getDefault()
-    val duplicateFound = DescriptionIterableAssertion.DUPLICATE_FOUND.getDefault()
+    val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
     describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
@@ -62,18 +60,14 @@ abstract class IterableAssertionsSpec(
     describeFun(containsNoDuplicates) {
         val containsNoDuplicatesFun = containsNoDuplicates.lambda
 
-        it("empty list doesn't contains duplicates") {
-            expect(emptyList<Int>() as Iterable<Int>).containsNoDuplicatesFun()
-        }
-
         it("list without duplicates") {
             expect(listOf(1, 2) as Iterable<Int>).containsNoDuplicatesFun()
         }
 
         it("list with duplicates") {
             expect {
-                expect(listOf(1, 2, 1, 2) as Iterable<Int>).containsNoDuplicatesFun()
-            }.toThrow<AssertionError> { messageContains("$duplicateNotFound: $duplicateFound") }
+                expect(listOf(1, 2, 1, 2, 3, 4, 4, 4) as Iterable<Int>).containsNoDuplicatesFun()
+            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $duplicateElements") }
         }
     }
 })
