@@ -78,7 +78,27 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- * Check [ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions.parseZonedDateTime] to see which values are allowed for [expected].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -92,7 +112,27 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- * Check [ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions.parseZonedDateTime] to see which values are allowed for [expected].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -106,7 +146,27 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- * Check [ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions.parseZonedDateTime] to see which values are allowed for [expected].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -120,7 +180,27 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- * Check [ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions.parseZonedDateTime] to see which values are allowed for [expected].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -134,7 +214,27 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
 /**
  * Expects that the subject of the assertion (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- * Check [ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions.parseZonedDateTime] to see which values are allowed for [expected].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
