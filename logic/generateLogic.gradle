@@ -70,7 +70,7 @@ def createGenerateLogicTaskForPackage(
 
         doFirst {
 
-            //TODO delete all files in folder first
+            //TODO delete all files in folder first (as we might have removed things)
 
             def header = """\
                 //---------------------------------------------------
@@ -81,71 +81,39 @@ def createGenerateLogicTaskForPackage(
 
                 """.stripIndent().replace("\n", ln)
 
-            new File("$generatedPath/${implsFileName}.kt").withWriter('utf-8') { w ->
-                w << header
-                w << """\
-                    @file:JvmMultifileClass
-                    @file:JvmName("ImplsKt")
-                    package $fullPackage
-
-                    import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-                    import kotlin.jvm.JvmMultifileClass
-                    import kotlin.jvm.JvmName
-
-                    """.stripIndent().replace("\n", ln)
-
-                interfacesWithTuple.collect { _, tuple -> tuple.first }.unique().forEach {
-                    w << "$it".replace("\n", ln)
-                }
-                interfacesWithTuple.forEach { interfacePath, tuple ->
-                    def type = getType(interfacePath)
-                    w << "${ln}import ${fullPackage}.impl.Default${type}Assertions"
-                }
-
-                w << "$ln$ln"
-
-                interfacesWithTuple.forEach { interfacePath, tuple ->
-                    def type = getType(interfacePath)
-                    def (String importStatements,
-                    String      extensionTypeSignature,
-                    String      getImpl) = tuple
-                    w << """\
-                        @PublishedApi
-                        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                        @UseExperimental(ExperimentalNewExpectTypes::class)
-                        internal inline val ${extensionTypeSignature}._${type.uncapitalize()}Impl
-                            get() = $getImpl(${type}Assertions::class) { Default${type}Assertions() }
-
-                        """.stripIndent().replace("\n", ln)
-                }
-            }
-
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def parameter = /,(?: |$newLineAndIndent)($identifier): ([^:]+?)/
-            def returnType = /(?:$newLineAndIndent)?\)(:.+)/
+            def parameter = { paramNumber -> /,(?: |$newLineAndIndent)(?<paramName$paramNumber>$identifier): (?<typeName$paramNumber>[^:]+?)/}
+            def returnType = /(?:$newLineAndIndent)?\)(?<returnType>:.+)/
 
-            def typeIdentifier = / *fun (<.+?> )?($identifier)\((?:$newLineAndIndent)?$identifier: ($identifier(?:\.$identifier)*<.+>)/
-            def patterns = (6..0).collect {
-                def steps = (0..<it * 2).findAll { it % 2 == 0 }
+            def typeIdentifier = / *fun (?<generics><.+?> )?(?<funcName>$identifier)\((?:$newLineAndIndent)?$identifier: (?<type>$identifier(?:\.$identifier)*<.+>)/
+            def patterns = (6..0).collect { int numOfParams ->
+                def params = numOfParams > 0 ? (1..numOfParams) : []
                 new Tuple3<Pattern, String, String>(
-                    Pattern.compile(typeIdentifier + parameter * it + returnType),
-                    /fun $1$3.$2\(/ + steps.collect { /$${it + 4}: $${it + 5}/ }.join(", ") + /\)$${it * 2 + 4} =/ + (it > 1 ? "$ln    " : " "),
-                    /.$2\(this/ + (it > 0 ? ", " : "") + steps.collect { /$${it + 4}/ }.join(", ") + /\)/
+                    Pattern.compile(typeIdentifier + params.collect { paramNumber -> parameter(paramNumber)}.join("") + returnType),
+                    /fun ${ '${generics}${type}.${funcName}' }\(/ + params.collect { paramNumber -> /${'${paramName' + paramNumber + '}'}: ${ '${typeName' + paramNumber + '}'}/ }.join(", ") + /\)${ '${returnType}' } =/ + (numOfParams > 1 ? "$ln    " : " "),
+                    /.${ '${funcName}' }\(this/ + (numOfParams > 0 ? ", " : "") + params.collect { paramNumber -> /${ '${paramName'+ paramNumber + '}'}/ }.join(", ") + /\)/
                 )
             }
 
             interfacesWithTuple.forEach { interfacePath, tuple ->
                 def type = getType(interfacePath)
+                def (String importStatements,
+                String      extensionTypeSignature,
+                String      getImpl) = tuple
 
                 def uncapitalized = type.uncapitalize()
                 def output = new File("$generatedPath/${uncapitalized}.kt")
                 def content = interfacePath.text
                 def interfaceName = "${type}Assertions"
-                def implValName = "_${uncapitalized}Impl"
+                def implValName = "impl"
 
-                String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/, "")
+                String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/,
+                    """\
+                    import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+                    import ${fullPackage}.impl.Default${type}Assertions
+                    """.stripIndent().replace("\n", ln))
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }
@@ -154,6 +122,13 @@ def createGenerateLogicTaskForPackage(
                 output.withWriter('utf-8') { w ->
                     w << header
                     w << generatedContent
+                    w << """\
+
+                    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+                    @UseExperimental(ExperimentalNewExpectTypes::class)
+                    private inline val ${extensionTypeSignature}.impl: ${type}Assertions
+                        get() = $getImpl(${type}Assertions::class) { Default${type}Assertions() }
+                     """.stripIndent().replace("\n", ln)
                 }
             }
         }
