@@ -109,6 +109,9 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_DIRECTORY) { it.isDirectory }
 
+    override fun <T : Path> isRelative(container: AssertionContainer<T>): Assertion =
+        container.createDescriptiveAssertion(DescriptionBasic.IS, RELATIVE_PATH) { !it.isAbsolute }
+
     private fun <T : Path> filePermissionAssertion(
         container: AssertionContainer<T>,
         permissionName: Translatable,
@@ -146,7 +149,6 @@ class DefaultPathAssertions : PathAssertions {
             .withDescriptionAndRepresentation(DescriptionBasic.IS, typeName)
             .build()
     }
-
 
     override fun <T : Path> fileName(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, String> =
         container.manualFeature(FILE_NAME) { fileName.toString() }

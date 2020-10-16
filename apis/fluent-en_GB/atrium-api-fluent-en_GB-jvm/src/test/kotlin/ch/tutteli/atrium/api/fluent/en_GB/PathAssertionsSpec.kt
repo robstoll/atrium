@@ -20,6 +20,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isExecutable),
     fun0(Expect<Path>::isRegularFile),
     fun0(Expect<Path>::isDirectory),
+    fun0(Expect<Path>::isRelative),
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Expect<Path>::hasSameTextualContentAs),
     fun1(Companion::hasSameTextualContentAsDefaultArgs)

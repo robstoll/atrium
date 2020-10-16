@@ -13,6 +13,7 @@ import java.nio.file.Path
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Path].
  */
 enum class DescriptionPathAssertion(override val value: String) : StringBasedTranslatable {
+    ABSOLUTE_PATH("ein absoluter Pfad"),
     DOES_NOT_HAVE_PARENT("!! hat keinen Elternpfad"),
     ENDS_NOT_WITH("endet nicht mit"),
     ENDS_WITH("endet mit"),
@@ -44,5 +45,6 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     HINT_CLOSEST_EXISTING_PARENT_DIRECTORY("das nächste, existierende Elternverzeichnis ist %s"),
     HINT_FOLLOWED_SYMBOLIC_LINK("folgte der symbolischen Verknüpfung %s nach %s"),
     HAS_SAME_TEXTUAL_CONTENT("hat denselben textlichen Inhalt mit Kodierung %s, %s"),
-    HAS_SAME_BINARY_CONTENT("hat denselben binären Inhalt")
+    HAS_SAME_BINARY_CONTENT("hat denselben binären Inhalt"),
+    RELATIVE_PATH("ein relativer Pfad")
 }
