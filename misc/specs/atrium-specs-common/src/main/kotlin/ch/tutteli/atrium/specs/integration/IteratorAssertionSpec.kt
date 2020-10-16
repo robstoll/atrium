@@ -37,7 +37,7 @@ abstract class IteratorAssertionSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).hasNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement")}
+            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement") }
         }
     }
 
@@ -53,7 +53,7 @@ abstract class IteratorAssertionSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).hasNotNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement")}
+            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement") }
         }
     }
 })

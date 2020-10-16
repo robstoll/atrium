@@ -4,8 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.IteratorAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic.HAS
-import ch.tutteli.atrium.translations.DescriptionBasic.HAS_NOT
+import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 
 class DefaultIteratorAssertions : IteratorAssertions {

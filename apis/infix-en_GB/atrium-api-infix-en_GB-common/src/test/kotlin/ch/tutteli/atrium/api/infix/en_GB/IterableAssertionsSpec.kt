@@ -11,7 +11,8 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
     minFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max)
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
+    getContainsNoDuplicatesPair()
 ) {
     companion object : WithAsciiReporter() {
         private val has: KFunction2<Expect<Iterable<Int>>, next, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::has
@@ -29,6 +30,13 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
 
         private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::maxFeature
         private fun maxFeature(expect: Expect<Iterable<Int>>) = expect max o
+
+        private val containsDuplicates: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
+            Expect<Iterable<Int>>::contains
+        private fun getContainsNoDuplicatesPair() =
+            "${containsDuplicates.name} ${noDuplicates::class.simpleName}" to Companion::containsNoDuplicates
+        private fun containsNoDuplicates(expect: Expect<Iterable<Int>>) = expect contains noDuplicates
+
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -39,12 +47,15 @@ class IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsser
 
         a1 = a1 has next
         a1 = a1 hasNot next
+        a1 = a1 contains noDuplicates
 
         a1b = a1b has next
         a1b = a1b hasNot next
+        a1b = a1b contains noDuplicates
 
         star = star has next
         star = star hasNot next
+        star = star contains noDuplicates
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>

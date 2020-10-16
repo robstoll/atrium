@@ -354,6 +354,17 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext(::identity) }
 
 /**
+ * Expects that the subject of the assertion (an [Iterable]) does not have duplicate elements.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
+    _logicAppend { containsNoDuplicates(::identity) }
+
+/**
  * Turns `Expect<E, T : Iterable<E>>` into `Expect<List<E>`.
  *
  * The transformation as such is not reflected in reporting.
