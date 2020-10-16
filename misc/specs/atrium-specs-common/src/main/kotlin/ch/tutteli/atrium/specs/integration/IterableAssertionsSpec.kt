@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.kbox.mapWithIndex
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -44,7 +43,6 @@ abstract class IterableAssertionsSpec(
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
-    val indexElements = DescriptionIterableAssertion.INDEX.getDefault()
 
     describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
@@ -131,7 +129,6 @@ abstract class IterableAssertionsSpec(
         }
     }
 
-
     describeFun(containsNoDuplicates) {
         val containsNoDuplicatesFun = containsNoDuplicates.lambda
 
@@ -140,25 +137,16 @@ abstract class IterableAssertionsSpec(
         }
 
         it("list with duplicates") {
-            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4)
-            val duplicates = input
-                .mapWithIndex()
-                .filter { (_, element) ->
-                    input.count { e -> e == element } > 1
-                }
-                .map { (index, element) -> index.toString() to element.toString() }
+            fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
 
-            val expectedErrors = duplicates
-                .map { (index, element) -> indexElements.format("$index: $element") }
-
+            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
             expect {
-                expect(input as Iterable<Int>).containsNoDuplicatesFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $duplicateElements") }
-
-            expectedErrors.forEach { expectedMessage ->
-                expect {
-                    expect(input as Iterable<Int>).containsNoDuplicatesFun()
-                }.toThrow<AssertionError> { messageContains(expectedMessage) }
+                expect(input).containsNoDuplicatesFun()
+            }.toThrow<AssertionError> {
+                message {
+                    contains("$hasDescriptionBasic: $duplicateElements")
+                    contains(index(0, 1), index(1, 2), index(2, 1), index(3, 2), index(5, 4), index(6, 4), index(7, 4))
+                }
             }
         }
     }
