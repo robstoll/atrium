@@ -43,6 +43,7 @@ abstract class PathAssertionsSpec(
     isExecutable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
     isDirectory: Fun0<Path>,
+    isRelative: Fun0<Path>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
@@ -62,6 +63,7 @@ abstract class PathAssertionsSpec(
         isExecutable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
         isDirectory.forSubjectLess(),
+        isRelative.forSubjectLess(),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
@@ -825,6 +827,24 @@ abstract class PathAssertionsSpec(
         it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect(folder).isDirectoryFun()
+        }
+    }
+
+    describeFun(isRelative) {
+        val isRelativeFun = isRelative.lambda
+
+        it("throws an AssertionError for absolute path") {
+            val path = tempFolder.newFile("test")
+            expect {
+                expect(path).isRelativeFun()
+            }.toThrow<AssertionError> {
+                messageContains("$isDescr: ${RELATIVE_PATH.getDefault()}")
+            }
+        }
+
+        it("does not throw for relative path") {
+            val path = Paths.get("test/bla.txt")
+            expect(path).isRelativeFun()
         }
     }
 
