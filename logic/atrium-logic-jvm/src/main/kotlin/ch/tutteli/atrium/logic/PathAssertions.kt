@@ -28,6 +28,7 @@ interface PathAssertions {
     fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion
     fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isRelative(container: AssertionContainer<T>): Assertion
 
     fun <T : Path> hasSameTextualContentAs(
         container: AssertionContainer<T>,

@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
@@ -136,4 +135,42 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             }
             .withoutOptions()
             .build()
+
+    override fun <T : Any, E> containsNoDuplicates(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion {
+        val iterableContainer = container.changeSubject.unreported(converter).toAssertionContainer()
+        return LazyThreadUnsafeAssertionGroup {
+            val list = turnSubjectToList(iterableContainer).maybeSubject.getOrElse { emptyList() }
+            val hasElementAssertion = createHasElementAssertion(list.iterator())
+
+            val duplicates = list
+                .mapWithIndex()
+                .filter { (_, element) ->
+                    list.count { e -> e == element } > 1
+                }
+
+            val duplicateAssertions = duplicates.map {
+                    (index, element) ->
+                assertionBuilder.createDescriptive(
+                    TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+                    element,
+                    falseProvider
+                )
+            }
+            assertionBuilder.invisibleGroup
+                .withAssertions(
+                    hasElementAssertion,
+                    assertionBuilder.fixedClaimGroup
+                        .withListType
+                        .withClaim(duplicates.isEmpty())
+                        .withDescriptionAndRepresentation(DescriptionBasic.HAS, DescriptionIterableAssertion.DUPLICATE_ELEMENTS)
+                        .withAssertions(duplicateAssertions)
+                        .build()
+                )
+                .build()
+        }
+    }
+
 }

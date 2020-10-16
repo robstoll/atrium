@@ -23,6 +23,14 @@ object aRegularFile : Keyword
 object aDirectory : Keyword
 
 /**
+ * A helper construct to allow expressing assertions about a path being relative.
+ * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.14.0
+ */
+object relative : Keyword
+
+/**
  * Represents a helper construct which allows to express blankness.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
@@ -121,3 +129,11 @@ object writable : Keyword
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object executable : Keyword
+
+/**
+ * A helper construct to allow expressing assertions about iterable contains no duplicates.
+ * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.14.0
+ */
+object noDuplicates : Keyword

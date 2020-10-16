@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.containsNoDuplicates
 import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.hasNotNext
 

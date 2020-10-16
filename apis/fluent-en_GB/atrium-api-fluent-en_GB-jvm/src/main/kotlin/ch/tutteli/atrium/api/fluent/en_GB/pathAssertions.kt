@@ -287,6 +287,18 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
     _logicAppend { isDirectory() }
 
 /**
+ * Expects that the subject of the assertion (a [Path]) is a relative path;
+ * meaning that the [Path] specified in this instance does not start at the file system root.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+fun <T : Path> Expect<T>.isRelative(): Expect<T> =
+    _logicAppend { isRelative() }
+
+/**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
  * so that further fluent calls are assertions about it.

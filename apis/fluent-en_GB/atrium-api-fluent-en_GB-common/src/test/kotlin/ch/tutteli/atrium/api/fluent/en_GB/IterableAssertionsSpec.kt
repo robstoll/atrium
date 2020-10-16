@@ -9,7 +9,8 @@ object IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsse
     feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::min),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::max),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max)
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
+    fun0(Expect<Iterable<Int>>::containsNoDuplicates)
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -20,12 +21,15 @@ object IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAsse
 
         a1 = a1.hasNext()
         a1 = a1.hasNotNext()
+        a1 = a1.containsNoDuplicates()
 
         a1b = a1b.hasNext()
         a1b = a1b.hasNotNext()
+        a1b = a1b.containsNoDuplicates()
 
         star = star.hasNext()
         star = star.hasNotNext()
+        star = star.containsNoDuplicates()
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>

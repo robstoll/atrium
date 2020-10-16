@@ -50,4 +50,9 @@ interface IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E>
+
+    fun <T : Any, E> containsNoDuplicates(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion
 }

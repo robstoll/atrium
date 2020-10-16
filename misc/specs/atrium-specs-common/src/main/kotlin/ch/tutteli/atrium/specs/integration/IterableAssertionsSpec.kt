@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -12,10 +13,11 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class IterableAssertionsSpec(
     hasNext: Fun0<Iterable<Int>>,
     hasNotNext: Fun0<Iterable<Int>>,
-    minFeature: Feature0<Iterable<Int>,Int>,
+    minFeature: Feature0<Iterable<Int>, Int>,
     min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     maxFeature: Feature0<Iterable<Int>, Int>,
     max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
+    containsNoDuplicates: Fun0<Iterable<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -29,7 +31,7 @@ abstract class IterableAssertionsSpec(
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
-        describePrefix, listOf(-20,20,0),
+        describePrefix, listOf(-20, 20, 0),
         min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) },
         max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
     ) {})
@@ -40,6 +42,7 @@ abstract class IterableAssertionsSpec(
     val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
     val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
+    val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
     describeFun(hasNext) {
         val hasNextFun = hasNext.lambda
@@ -126,4 +129,25 @@ abstract class IterableAssertionsSpec(
         }
     }
 
+    describeFun(containsNoDuplicates) {
+        val containsNoDuplicatesFun = containsNoDuplicates.lambda
+
+        it("list without duplicates") {
+            expect(listOf(1, 2) as Iterable<Int>).containsNoDuplicatesFun()
+        }
+
+        it("list with duplicates") {
+            fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
+
+            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
+            expect {
+                expect(input).containsNoDuplicatesFun()
+            }.toThrow<AssertionError> {
+                message {
+                    contains("$hasDescriptionBasic: $duplicateElements")
+                    contains(index(0, 1), index(1, 2), index(2, 1), index(3, 2), index(5, 4), index(6, 4), index(7, 4))
+                }
+            }
+        }
+    }
 })
