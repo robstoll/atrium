@@ -41,13 +41,6 @@ dependencies {
 compileTestKotlinJs.configure {
     // mocha requires commonjs
     kotlinOptions.moduleKind = "commonjs"
-
-    // the following allows that debugging tests kind of works within kotlin
-    // sometimes break points within a kotlin file is not taken up by Intellij.
-    // in such a case it is worth while to create a break point in build/classes/kotlin/test/...test.js
-    // stepping through the js code then usually switches to the kotlin file.
-    kotlinOptions.sourceMap = true
-    kotlinOptions.sourceMapEmbedSources = "always"
 }
 
 //gather all required dependencies and put them into the node_modules folder of this (sub)-project
