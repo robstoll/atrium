@@ -16,7 +16,7 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin2js'
+apply plugin: 'org.jetbrains.kotlin.js'
 apply plugin: 'com.github.node-gradle.node'
 
 group 'org.atriumlib.samples'
@@ -36,9 +36,9 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
 }
 
-// we only configure compileTestKotlin2Js and not compileKotlin2Js as well
-// so that you can also use UMD as moduleKind for compileKotlin2Js
-compileTestKotlin2Js.configure {
+// we only configure compileTestKotlinJs and not compileKotlinJs as well
+// so that you can also use UMD as moduleKind for compileKotlinJs
+compileTestKotlinJs.configure {
     // mocha requires commonjs
     kotlinOptions.moduleKind = "commonjs"
 
@@ -51,13 +51,15 @@ compileTestKotlin2Js.configure {
 }
 
 //gather all required dependencies and put them into the node_modules folder of this (sub)-project
-task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
-    from compileKotlin2Js.destinationDir
+task populateNodeModules(type: Copy, dependsOn: compileKotlinJs) {
+    from compileKotlinJs.destinationDir
 
     afterEvaluate {
         // in contrast to kotlin examples we use testRuntimeClasspath this way we also pick up runtimeOnly dependencies
         configurations.testRuntimeClasspath.each {
-            from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+            if (it.name.endsWith("jar")) {
+                from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+            }
         }
     }
 
@@ -82,7 +84,7 @@ node {
 //
 // @Suppress("unused")
 // private val establishDependencyToAtrium = dependOnAtrium()
-task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
+task establishDependencyToAtrium(dependsOn: [compileTestKotlinJs]) {
     doLast {
         def srcFile = file("$buildDir/classes/kotlin/test/${project.name}_test.js")
         String newContent = srcFile.getText('UTF-8')
@@ -91,8 +93,8 @@ task establishDependencyToAtrium(dependsOn: [compileTestKotlin2Js]) {
         srcFile.write(newContent, 'UTF-8')
     }
 }
-task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlin2Js, populateNodeModules, establishDependencyToAtrium]) {
+task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotlinJs, populateNodeModules, establishDependencyToAtrium]) {
     command = "mocha"
-    args = [compileTestKotlin2Js.outputFile, '--full-trace']
+    args = [compileTestKotlinJs.outputFile, '--full-trace']
 }
 check.dependsOn runMocha
