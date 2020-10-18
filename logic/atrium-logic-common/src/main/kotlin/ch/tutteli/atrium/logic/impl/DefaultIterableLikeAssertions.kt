@@ -167,7 +167,9 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val list = transformToList(container, converter)
 
         val duplicates = createIndexAssertions(list) { (_, element) ->
-            list.count { e -> e == element } > 1
+            val first = list.indexOf(element)
+            val second = list.lastIndexOf(element)
+            first != second
         }
         createHasElementPlusFixedClaimGroup(
             list,
