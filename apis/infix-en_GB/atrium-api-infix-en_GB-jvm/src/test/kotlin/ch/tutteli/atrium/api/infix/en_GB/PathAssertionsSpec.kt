@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.containss
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
@@ -23,6 +25,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
     "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
+    fun2(Expect<Path>::containss),
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Companion::hasSameTextualContentAs),
     fun1(Companion::hasSameTextualContentAsDefaultArgs)

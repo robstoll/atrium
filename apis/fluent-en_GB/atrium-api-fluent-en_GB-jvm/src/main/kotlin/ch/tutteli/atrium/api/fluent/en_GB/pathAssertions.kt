@@ -311,7 +311,18 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
     _logicAppend { isRelative() }
 
 /**
- * TODO
+ * Expects that the subject of the assertion (a [Path]) is a directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is a directory.
+ *
+ * Every argument string is expected to exist as a child file or child directory for the subject of the assertion.
+ *
+ * This assertion _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue
+ * at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -320,7 +331,10 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  */
 fun <T : Path> Expect<T>.containss(path: String, vararg other: String): Expect<T> =
     isDirectory() and {
-        resolve(path) { exists() }
+        val allPaths = arrayOf(path) + other
+        allPaths.forEach { p ->
+            resolve(p) { exists() }
+        }
     }
 
 /**
