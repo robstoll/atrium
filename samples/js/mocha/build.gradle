@@ -66,3 +66,4 @@ task runMocha(type: NpxTask, group: 'Verification', dependsOn: [compileTestKotli
     args = [compileTestKotlinJs.outputFile, '--full-trace']
 }
 check.dependsOn runMocha
+nodeTest.dependsOn establishDependencyToAtrium
