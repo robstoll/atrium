@@ -12,6 +12,8 @@ import ch.tutteli.kbox.glue
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBe
  */
 fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 

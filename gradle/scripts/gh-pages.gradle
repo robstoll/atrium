@@ -51,46 +51,14 @@ dokka {
         suffix = '#L'
     }
 
+    samples = findSamples(docProjects)
+
     sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
     rootProject.configure(docProjects) { subProject ->
         subProject.afterEvaluate {
             classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
         }
     }
-
-    //TODO use as soon as https://github.com/Kotlin/dokka/issues/496 is fixed
-//    (docProjects - (docProjects - getAndroidProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["Android"]
-//        }
-//    }
-//    (docProjects - (docProjects - getCommonProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["Common"]
-//        }
-//    }
-//    (docProjects - (docProjects - getJsProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["JS"]
-//        }
-//    }
-//    (docProjects - (docProjects - getJvmProjects())).each { subProject ->
-//        sourceRoot {
-//            // Path to source root
-//            path = subProject.projectDir
-//            // See platforms section of documentation
-//            platforms = ["JVM"]
-//        }
-//    }
 
     [
         "ch.tutteli.atrium.creating.impl",

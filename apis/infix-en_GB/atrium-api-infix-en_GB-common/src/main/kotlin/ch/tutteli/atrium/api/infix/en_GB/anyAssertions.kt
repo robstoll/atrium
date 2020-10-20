@@ -12,6 +12,8 @@ import ch.tutteli.atrium.reporting.Reporter
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyAssertionSamples.toBe
  */
 infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 

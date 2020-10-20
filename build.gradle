@@ -41,6 +41,20 @@ buildscript {
                 !it.name.startsWith("${rootProject.name}-specs")
 
         }
+        findSamples = { Collection<Project> projects ->
+            projects.findAll { it.name.contains("-api-") }
+                .collect { Paths.get(it.projectDir.absolutePath + "/src/test/kotlin/ch/tutteli/atrium/api/") }
+                .findAll { Files.exists(it) }
+                .collect {
+                    List<java.nio.file.Path> l = Files.walk(it, 10).withCloseable { stream ->
+                        return stream
+                            .filter { file -> file.fileName.toString().endsWith("Samples.kt") }
+                            .collect(Collectors.toList())
+                    }
+                    l.collect { it.toAbsolutePath().toString() }
+                }.flatten()
+        }
+
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
@@ -200,12 +214,13 @@ configure(jsProjects) { subProject ->
 }
 
 def nonCommonAndJsProjects = subprojects - commonProjects - jsProjects
-configure(nonCommonAndJsProjects - toolProjects) {
+configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
     dokka {
         logging.setLevel(LogLevel.QUIET)
+        samples = findSamples([subproject])
     }
     compileKotlin {
         kotlinOptions {
@@ -346,7 +361,11 @@ configure(bundleSmokeTests) {
     }
 }
 
+
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.function.Function
+import java.util.stream.Collectors
 
 def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
     Project project = prefixedProject(projectName)
@@ -453,6 +472,8 @@ def createJsTestTask(String... subprojectNames) {
 createJsTestTask(
     'core-api-js',
     'core-robstoll-lib-js',
+    'api-fluent-en_GB-js',
+    'api-infix-en_GB-js',
     'fluent-en_GB-js',
     //TODO remove with 1.0.0
     'cc-de_CH-robstoll-js',
@@ -475,6 +496,8 @@ def useJupiter(String... projectNames) {
 
 useJupiter(
     'core-api-jvm',
+    'api-fluent-en_GB-jvm',
+    'api-infix-en_GB-jvm',
     'cc-de_CH-robstoll-jvm',
     'cc-en_GB-robstoll-jvm',
     'cc-infix-en_GB-robstoll-jvm',
