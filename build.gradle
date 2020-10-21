@@ -521,7 +521,7 @@ task publishForScala(description: 'fast publish to maven local for scala project
 
 gradle.taskGraph.whenReady { graph ->
     if (graph.hasTask(':publishForScala')) {
-        ['test', 'dokka', 'signTutteliPublication'].forEach {
+        ['test', 'dokka', 'signTutteliPublication', 'validateBeforePublish', 'javadocJar', 'sourcesJar'].forEach {
             getSubprojectTasks(it).forEach { it.enabled = false }
         }
     }

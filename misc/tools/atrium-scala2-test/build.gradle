@@ -1,0 +1,17 @@
+def dependsOnTask = { self, String projectName, String taskName ->
+    gradle.ext.getModules(projectName).forEach{ subprojectName ->
+        self.dependsOn gradle.includedBuild(projectName).task(":$subprojectName:$taskName")
+    }
+}
+
+task build {
+    dependsOnTask(delegate, 'atrium-scala2', 'build')
+}
+
+task clean {
+    dependsOnTask(delegate, 'atrium-scala2', 'clean')
+}
+
+task cleanAtrium {
+    dependsOnTask(delegate, 'atrium', 'clean')
+}
