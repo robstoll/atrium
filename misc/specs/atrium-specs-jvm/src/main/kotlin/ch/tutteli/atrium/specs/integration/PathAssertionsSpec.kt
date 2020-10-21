@@ -900,34 +900,43 @@ abstract class PathAssertionsSpec(
 
            it("it throws if the first ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "b"))
-               maybeLink.create(td.factory.invoke(folder, "c"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
+               maybeLink.create(td.factory.invoke(folder, "file3"))
                expect {
-                   expect(folder).containsFun("a", arrayOf("b", "c"))
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
                }.toThrow<AssertionError>().message {
                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   contains("file1")
+                   containsNot("file2")
+                   containsNot("file3")
                }
            }
 
            it("it throws if the second ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "a"))
-               maybeLink.create(td.factory.invoke(folder, "c"))
+               maybeLink.create(td.factory.invoke(folder, "file1"))
+               maybeLink.create(td.factory.invoke(folder, "file3"))
                expect {
-                   expect(folder).containsFun("a", arrayOf("b", "c"))
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
                }.toThrow<AssertionError>().message {
                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   contains("file2")
+                   containsNot("file1")
+                   containsNot("file3")
                }
            }
 
            it("it throws if third ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "a"))
-               maybeLink.create(td.factory.invoke(folder, "b"))
+               maybeLink.create(td.factory.invoke(folder, "file1"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
                expect {
-                   expect(folder).containsFun("a", arrayOf("b", "c"))
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
                }.toThrow<AssertionError>().message {
                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   containsNot("file2")
+                   containsNot("file1")
+                   contains("file3")
                }
            }
         }

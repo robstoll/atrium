@@ -7,6 +7,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.forElementAndForEachIn
 import java.nio.charset.Charset
 import java.nio.file.Path
 
@@ -329,10 +330,9 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  *
  * @since 0.14.0
  */
-fun <T : Path> Expect<T>.containss(path: String, vararg other: String): Expect<T> =
+fun <T : Path> Expect<T>.contains(path: String, vararg otherPaths: String): Expect<T> =
     isDirectory() and {
-        val allPaths = arrayOf(path) + other
-        allPaths.forEach { p ->
+        forElementAndForEachIn(path, otherPaths) { p ->
             resolve(p) { exists() }
         }
     }
