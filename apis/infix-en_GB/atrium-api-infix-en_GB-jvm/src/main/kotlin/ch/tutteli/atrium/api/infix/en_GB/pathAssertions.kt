@@ -297,6 +297,18 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
     _logicAppend { isDirectory() }
 
 /**
+ * Expects that the subject of the assertion (a [Path]) is an absolute path;
+ * meaning that the [Path] specified in this instance starts at the file system root.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: absolute): Expect<T> =
+    _logicAppend { isAbsolute() }
+
+/**
  * Expects that the subject of the assertion (a [Path]) is a relative path;
  * meaning that the [Path] specified in this instance does not start at the file system root.
  *

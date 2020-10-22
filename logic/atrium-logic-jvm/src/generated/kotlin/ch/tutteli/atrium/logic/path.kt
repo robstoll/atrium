@@ -32,6 +32,7 @@ fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(t
 fun <T : Path> AssertionContainer<T>.isExecutable(): Assertion = impl.isExecutable(this)
 fun <T : Path> AssertionContainer<T>.isRegularFile(): Assertion = impl.isRegularFile(this)
 fun <T : Path> AssertionContainer<T>.isDirectory(): Assertion = impl.isDirectory(this)
+fun <T : Path> AssertionContainer<T>.isAbsolute(): Assertion = impl.isAbsolute(this)
 fun <T : Path> AssertionContainer<T>.isRelative(): Assertion = impl.isRelative(this)
 
 fun <T : Path> AssertionContainer<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Assertion =
