@@ -42,7 +42,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
         private fun contains(expect: Expect<Path>, path: String, vararg otherPaths: String) = isDirectory(expect) and {
             forElementAndForEachIn(path, otherPaths) { p ->
-                expect resolve path(p) { exists(expect) }
+                it resolve path(p) { it toBe existing }
             }
         }
 
