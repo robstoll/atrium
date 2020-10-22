@@ -109,6 +109,9 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_DIRECTORY) { it.isDirectory }
 
+    override fun <T : Path> isAbsolute(container: AssertionContainer<T>): Assertion =
+        container.createDescriptiveAssertion(DescriptionBasic.IS, ABSOLUTE_PATH) { it.isAbsolute }
+
     override fun <T : Path> isRelative(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(DescriptionBasic.IS, RELATIVE_PATH) { !it.isAbsolute }
 

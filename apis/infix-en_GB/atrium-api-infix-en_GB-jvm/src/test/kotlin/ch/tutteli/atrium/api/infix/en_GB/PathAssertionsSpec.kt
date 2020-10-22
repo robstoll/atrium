@@ -21,6 +21,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     "toBe ${executable::class.simpleName}" to Companion::isExecutable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
+    "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Companion::hasSameTextualContentAs),
@@ -35,6 +36,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isExecutable(expect: Expect<Path>) = expect toBe executable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
+        private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
 
         private fun hasSameTextualContentAs(
@@ -64,6 +66,7 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 toBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
+        a1 toBe absolute
         a1 toBe relative
         a1 hasSameTextualContentAs withEncoding(Paths.get("a"))
         a1 hasSameTextualContentAs Paths.get("a")
