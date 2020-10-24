@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
@@ -40,6 +41,24 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+
+/**
+ * Allows to state a reason for one or multiple assertions for a given subject.
+ * @param keyWithCreator Combines the two parameters which are needed for [ch.tutteli.atrium.logic.because]
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
+    _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
+
+/**
+ * Helper function to create an [KeyWithCreator] based on the given [reason] and [assertionCreator].
+ */
+fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreator<String, T> =
+    KeyWithCreator(reason, assertionCreator)
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]

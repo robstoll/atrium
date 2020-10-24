@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.WarningAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -42,6 +39,7 @@ class TextExplanatoryAssertionGroupFormatter(
 ) {
     private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class] ?: "❗❗ "
+    private val informationBulletPoint = bulletPoints[InformationAssertionGroupType::class] ?: "ℹ "
 
     override fun formatGroupHeaderAndGetChildParameterObject(
         assertionGroup: AssertionGroup,
@@ -49,6 +47,7 @@ class TextExplanatoryAssertionGroupFormatter(
     ): AssertionFormatterParameterObject {
         val bulletPoint = when (assertionGroup.type) {
             WarningAssertionGroupType -> warningBulletPoint
+            InformationAssertionGroupType -> informationBulletPoint
             else -> explanatoryBulletPoint
         }
         return parameterObject.createForDoNotFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)

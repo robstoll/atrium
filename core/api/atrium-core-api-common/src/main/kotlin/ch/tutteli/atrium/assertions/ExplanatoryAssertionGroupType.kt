@@ -20,3 +20,9 @@ object DefaultExplanatoryAssertionGroupType : ExplanatoryAssertionGroupType
  * For instance, to state that an implicit assumption is not met.
  */
 object WarningAssertionGroupType : ExplanatoryAssertionGroupType
+
+/**
+ * The [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] are used to document
+ * the reason for one or multiple assertions.
+ */
+object InformationAssertionGroupType : ExplanatoryAssertionGroupType

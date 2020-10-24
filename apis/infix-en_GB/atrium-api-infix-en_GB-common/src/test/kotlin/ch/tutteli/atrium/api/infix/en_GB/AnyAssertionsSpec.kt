@@ -34,6 +34,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotIn),
     fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
+    fun2<String, String, Expect<String>.() -> Unit>(Companion::because),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -103,6 +104,9 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
         private fun isNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
             expect isNoneOf values(expected, *otherValues)
+
+        private fun because(expect: Expect<String>, reason: String, assertionCreator: Expect<String>.() -> Unit) =
+           expect because of(reason) { assertionCreator() }
     }
 
     @Suppress("unused")
@@ -122,6 +126,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1.isA<Int> {}
         a1 isNoneOf values(1, 2)
         a1 isNotIn listOf(1, 1.2)
+        a1 because of ("hello") { toBe(1) }
 
         a1b toBe 1
         a1b toBe 1.2
@@ -141,6 +146,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
         a1 and o toBe 1
         a1 and { it toBe 1 }
+
     }
 
     //regression for #298, should compile without the need for E : Any or List<E?>

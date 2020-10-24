@@ -14,6 +14,7 @@ interface AnyAssertions {
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
+    fun <T> because(container: AssertionContainer<T>, reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion
 
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 

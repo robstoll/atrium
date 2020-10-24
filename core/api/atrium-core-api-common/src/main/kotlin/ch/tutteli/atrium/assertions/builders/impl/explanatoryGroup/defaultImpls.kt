@@ -13,6 +13,9 @@ internal object GroupTypeOptionImpl : ExplanatoryGroup.GroupTypeOption {
     override val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryGroup.FinalStep> =
         createAssertionsOption(WarningAssertionGroupType)
 
+    override val withInformationType: AssertionsOption<InformationAssertionGroupType, ExplanatoryGroup.FinalStep> =
+        createAssertionsOption(InformationAssertionGroupType)
+
     override fun <T : ExplanatoryAssertionGroupType> withType(
         groupType: T
     ): AssertionsOption<T, ExplanatoryGroup.FinalStep> = createAssertionsOption(groupType)

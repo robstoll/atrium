@@ -31,6 +31,7 @@ abstract class AssertionFormatterControllerSpec(
     val testee = testeeFactory()
     val arrow = "  >>"
     val warning = "  !!"
+    val information = "ℹ"
     val bulletPoint = "*"
     val listBulletPoint = "=="
     val successfulBulletPoint = "(check)"
@@ -141,6 +142,14 @@ abstract class AssertionFormatterControllerSpec(
                             listOf(failingAssertion)
                         ),
                         warning
+                    ),
+                    Triple(
+                        "$groupName with type ${InformationAssertionGroupType::class.simpleName}",
+                        factory(InformationAssertionGroupType, listOf(holdingAssertion)) to factory(
+                            InformationAssertionGroupType,
+                            listOf(failingAssertion)
+                        ),
+                        information
                     )
                 ).forEach { (description, factories, prefix) ->
                     val (holdingGroup, failingGroup) = factories

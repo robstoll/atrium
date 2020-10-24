@@ -18,6 +18,8 @@ fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, exp
 fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)
 fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
 fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
+fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
+    impl.because(this, reason, assertionCreator)
 
 fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 
