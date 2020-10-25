@@ -36,6 +36,7 @@ jobs:
             - set -e
             - samples/js/jasmine/gradlew -p ./samples/js/jasmine build
             - samples/js/mocha/gradlew -p ./samples/js/mocha build
+            - samples/js/atrium-with-mocha/gradlew -p ./samples/js/atrium-with-mocha build
             - samples/jvm/spek/gradlew -p ./samples/jvm/spek build
             - samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
             # in case of travis problems installing jdk11

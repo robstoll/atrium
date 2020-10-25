@@ -1,4 +1,4 @@
-def samples = ['jasmine', 'mocha', 'junit5', 'spek', 'multiplatform']
+def samples = ['jasmine', 'mocha', 'junit5', 'spek', 'multiplatform', 'atrium-with-mocha']
 
 task build {
     samples.forEach { projectName ->
