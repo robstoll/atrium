@@ -1,7 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.isEmpty
+import ch.tutteli.atrium.logic.isNotEmpty
+import ch.tutteli.atrium.logic.size
 import ch.tutteli.kbox.identity
 
 /**
@@ -9,6 +13,8 @@ import ch.tutteli.kbox.identity
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isEmpty
  */
 fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::identity) }
@@ -18,6 +24,8 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isNotEmpty
  */
 fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::identity) }
@@ -29,6 +37,8 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.hasSize
  */
 fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toBe(expected) }
@@ -38,6 +48,8 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.sizeFeature
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::identity).transform()
@@ -49,6 +61,8 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.size
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::identity).collectAndAppend(assertionCreator)
