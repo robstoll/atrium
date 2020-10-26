@@ -11,16 +11,16 @@ class ArrayAssertionSamples {
     @Test
     fun asListFeature() {
         expect(arrayOf("A", "B"))
-            .asList()
+            .asList()  // subject is now of type List<String>
             .toBe(listOf("A", "B"))
     }
 
     @Test
     fun asList() {
         expect(arrayOf("A", "B"))
-            .asList {
+            .asList { // subject within this block is of type List<String>
                 toBe(listOf("A", "B"))
-            }
+            } // subject here is back to type Array<String>
 
         fails {
             expect(arrayOf("A", "B"))
