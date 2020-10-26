@@ -119,7 +119,8 @@ class AnyAssertionSamples {
 
     @Test
     fun isAFeature() {
-        expect(1)
+        val n: Number = 1
+        expect(n)
             .isA<Int>() // subject is now of type Int
             .isGreaterThan(0)
 
@@ -133,7 +134,8 @@ class AnyAssertionSamples {
 
     @Test
     fun isA() {
-        expect(16).isA<Int> { // subject is now of type Int, within this block but also afterwards
+        val n: Number = 16
+        expect(n).isA<Int> { // subject is now of type Int, within this block but also afterwards
             isGreaterThanOrEqual(15)
         }.isLessThan(20)
 
