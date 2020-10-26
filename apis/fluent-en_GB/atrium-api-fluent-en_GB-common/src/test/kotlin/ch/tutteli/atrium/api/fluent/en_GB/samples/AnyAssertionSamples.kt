@@ -98,17 +98,17 @@ class AnyAssertionSamples {
         fails {
             // because you forgot to define an assertion in the assertion group block
             // use `notToBeNull()` if this is all you want to assert
-            expect<Int?>(1).notToBeNull { } 
+            expect<Int?>(1).notToBeNull { }
         }
 
-        
+
         fails {
             // notToBeNull already fails, reporting mentions that subject was expected `to be: 2`
             expect<Int?>(null).notToBeNull {
                 toBe(2)
             }
         }
-        
+
         fails {
             // sub-assertion fails
             expect<Int?>(1).notToBeNull {
@@ -119,18 +119,23 @@ class AnyAssertionSamples {
 
     @Test
     fun isAFeature() {
-        expect(1).isA<Int>()
+        expect(1)
+            .isA<Int>() // subject is now of type Int
+            .isGreaterThan(0)
 
         fails {
-            expect("A").isA<Long>()
+            expect("A")
+                .isA<Long>()
+                .isLessThan(2L) // not shown in reporting as isA already fails
+
         }
     }
 
     @Test
     fun isA() {
-        expect(16).isA<Int> {
-            toBe(16)
-        }
+        expect(16).isA<Int> { // subject is now of type Int, within this block but also afterwards
+            isGreaterThanOrEqual(15)
+        }.isLessThan(20)
 
         fails {
             // wrong type
