@@ -35,7 +35,7 @@ class ArrayAssertionSamples {
         expect<Array<out String>>(arrayOf("A", "B"))
             .asList { // subject within this block is of type List<String>
                 toBe(listOf("A", "B"))
-            } // subject here is back to type Array<String>
+            } // subject here is back to type Array<out String>
 
         fails {
             expect<Array<out String>>(arrayOf("A", "B"))
