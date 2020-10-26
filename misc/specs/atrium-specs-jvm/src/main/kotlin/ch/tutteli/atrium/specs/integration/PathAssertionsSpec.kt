@@ -939,8 +939,32 @@ abstract class PathAssertionsSpec(
                    contains("file3")
                }
            }
-        }
 
+           it("it throws if the first and third ${td.singleName} do not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   containsNot("file2")
+                   contains("file1")
+                   contains("file3")
+               }
+           }
+
+           it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+               val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                   containsExplanationFor(maybeLink)
+               }
+           }
+        }
     }
 
     describeFun(hasSameBinaryContentAs, hasSameTextualContentAs, hasSameTextualContentAsDefaultArgs) {
