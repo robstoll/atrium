@@ -50,6 +50,7 @@ class AnyAssertionSamples {
 
     @Test
     fun isNotSameAs() {
+       // holds because isSameAs is based on identity, use notToBe for equality
         expect(listOf(2)).isNotSameAs(listOf(2))
 
         fails {
@@ -76,23 +77,38 @@ class AnyAssertionSamples {
 
     @Test
     fun notToBeNullFeature() {
-        expect<Int?>(1).notToBeNull()
+        expect<Int?>(1)
+          .notToBeNull() // subject is now of type Int
+          .isLessThan(2)
 
         fails {
-            expect<Int?>(null).notToBeNull()
+            expect<Int?>(null)
+              .notToBeNull()
+              .isLessThan(2) // not shown in reporting as notToBeNull already fails
         }
     }
 
     @Test
     fun notToBeNull() {
-        expect<Int?>(1).notToBeNull {
-            toBe(1)
-        }
+        expect<Int?>(1).notToBeNull { // subject is now of type Int, within this block but also afterwards
+          isGreaterThan(0)
+          isLessThan(10)
+        }.toBe(1)
 
         fails {
-            expect<Int?>(1).notToBeNull {}
+            // because you forgot to define an assertion in the assertion group block
+            // use `notToBeNull()` if this is all you want to assert
+            expect<Int?>(1).notToBeNull { } 
         }
 
+        
+        fails {
+            // notToBeNull already fails, reporting mentions that subject was expected `to be: 2`
+            expect<Int?>(null).notToBeNull {
+                toBe(2)
+            }
+        }
+        
         fails {
             // sub-assertion fails
             expect<Int?>(1).notToBeNull {
