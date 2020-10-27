@@ -11,15 +11,15 @@ class ListAssertionSamples {
         val list = listOf(1, 2, 3)
 
         expect(list)
-            .get(0)                   // subject of the assertion is now 1
-            .isLessThan(2)   // subject of the assertion is still 1
+            .get(0)          // subject is now of type Int (actually 1)
+            .isLessThan(2)   // subject is still of type Int (still 1)
             .isGreaterThan(0)
 
         fails {
-            // index is out of bound
             expect(list)
-                .get(3)
-                .isLessThan(0) // not reported, because 'get(3)' fails with "index out of bounds"
+                .get(3)        // fails because index 3 is out of bound
+                .isLessThan(0) // not reported
+                               // use `get(index) { ... }` if you want that all assertions are evaluated
         }.message {
             contains("index out of bounds")
             containsNot("is less than: 2")
@@ -28,8 +28,9 @@ class ListAssertionSamples {
         fails {
             expect(list)
                 .get(0)
-                .isGreaterThan(2)
-                .isLessThan(0) // not reported, use `get(index) { ... }` with valid index if you want that all assertions are evaluated
+                .isGreaterThan(2)  // fails
+                .isLessThan(0)     // not reported because `isGreaterThan(2)` already fails
+                                   // use `get(index) { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is greater than: 2")
             containsNot("is less than: 0")
@@ -41,11 +42,11 @@ class ListAssertionSamples {
         val list = listOf(1, 2, 3)
 
         expect(list)
-            .get(0) { // subject inside this block is now 1
+            .get(0) { // subject inside this block is of type Int (actually 1)
                 isLessThan(2)
                 isGreaterThan(0)
-            } // subject here is still list
-            .get(1) { // subject inside this block is now 2 because we passed 1 as an index
+            } // subject here is back to type List<Int>
+            .get(1) { // subject inside this block is of type Int (actually 2)
                 isLessThan(3)
                 isGreaterThan(1)
             }
@@ -56,10 +57,13 @@ class ListAssertionSamples {
 
             expect(list)
                 .get(0) {
-                    isGreaterThan(2)
-                    isLessThan(0)    // still evaluated even though isGreaterThan(2) already fails,
-                    // use the `.get(index).` if you want a fail fast behaviour
+                    isGreaterThan(2) // fails
+                    isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails,
+                                     // use the `.get(index).` if you want a fail fast behaviour
                 }
-        }.messageContains("is greater than: 2", "is less than: 0")
+        }.messageContains(
+            "is greater than: 2",
+            "is less than: 0"
+        )
     }
 }

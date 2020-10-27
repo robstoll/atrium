@@ -11,15 +11,16 @@ class PairAssertionSamples {
         val pair = 1 to "one"
 
         expect(pair)
-            .first           // subject of the assertion is now 1
-            .isLessThan(2)   // subject of the assertion is still 1
+            .first           // subject is now of type Int (actually 1)
+            .isLessThan(2)   // subject is still of type Int (still 1)
             .isGreaterThan(0)
 
         fails {
             expect(pair)
                 .first
-                .isGreaterThan(2)
-                .isLessThan(0)       // not reported, use `first { ... }` if you want that all assertions are evaluated
+                .isGreaterThan(2) // fails
+                .isLessThan(0)    // not reported because `isGreaterThan(2)` already fails
+                                  // use `first { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is greater than: 2")
             containsNot("is less than: 0")
@@ -31,9 +32,9 @@ class PairAssertionSamples {
         val pair = 1 to "one"
 
         expect(pair)
-            .first { //subject inside this block is now 1
+            .first { // subject inside this block is of type Int (actually 1)
                 isLessThan(2)
-            } // subject here is still pair
+            } // subject here is back to type Pair<Int, String>
             .first {
                 isGreaterThan(0)
             }
@@ -44,11 +45,14 @@ class PairAssertionSamples {
 
             expect(pair)
                 .first {
-                    isGreaterThan(2)
-                    isLessThan(0)    // still evaluated even though isGreaterThan(2) already fails,
-                    // use the `.first.` if you want a fail fast behaviour
+                    isGreaterThan(2) // fails
+                    isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails
+                                     // use `.first.` if you want a fail fast behaviour
                 }
-        }.messageContains("is greater than: 2", "is less than: 0")
+        }.messageContains(
+            "is greater than: 2",
+            "is less than: 0"
+        )
     }
 
     @Test
@@ -56,15 +60,16 @@ class PairAssertionSamples {
         val pair = "one" to 1
 
         expect(pair)
-            .second           // subject of the assertion is now 1
-            .isLessThan(2)   // subject of the assertion is still 1
+            .second           // subject now of type Int (actually 1)
+            .isLessThan(2)    // subject is still of type Int (still 1)
             .isGreaterThan(0)
 
         fails {
             expect(pair)
                 .second
-                .isGreaterThan(2)
-                .isLessThan(0)       // not reported, use `second { ... }` if you want that all assertions are evaluated
+                .isGreaterThan(2)    // fails
+                .isLessThan(0)       // not reported because `isGreaterThan(2)` already fails
+                                     // use `second { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is greater than: 2")
             containsNot("is less than: 0")
@@ -76,9 +81,9 @@ class PairAssertionSamples {
         val pair = "one" to 1
 
         expect(pair)
-            .second { //subject inside this block is now 1
+            .second { // subject inside this block is of type Int (actually 1)
                 isLessThan(2)
-            } // subject here is still pair
+            } // subject here is back to type Pair<Int, String>
             .second {
                 isGreaterThan(0)
             }
@@ -89,10 +94,13 @@ class PairAssertionSamples {
 
             expect(pair)
                 .second {
-                    isGreaterThan(2)
-                    isLessThan(0)    // still evaluated even though isGreaterThan(2) already fails,
-                    // use the `.second.` if you want a fail fast behaviour
+                    isGreaterThan(2) // fails
+                    isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails,
+                                     // use `.second.` if you want a fail fast behaviour
                 }
-        }.messageContains("is greater than: 2", "is less than: 0")
+        }.messageContains(
+            "is greater than: 2",
+            "is less than: 0"
+        )
     }
 }
