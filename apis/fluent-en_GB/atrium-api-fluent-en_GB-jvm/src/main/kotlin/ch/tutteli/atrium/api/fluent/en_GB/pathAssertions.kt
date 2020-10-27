@@ -7,6 +7,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.forElementAndForEachIn
 import java.nio.charset.Charset
 import java.nio.file.Path
 
@@ -309,6 +310,32 @@ fun <T : Path> Expect<T>.isAbsolute(): Expect<T> =
  */
 fun <T : Path> Expect<T>.isRelative(): Expect<T> =
     _logicAppend { isRelative() }
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is a directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is a directory.
+ *
+ * Every argument string is expected to exist as a child file or child directory for the subject of the assertion.
+ *
+ * This assertion _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue
+ * at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @since 0.14.0
+ */
+fun <T : Path> Expect<T>.contains(path: String, vararg otherPaths: String): Expect<T> =
+    isDirectory() and {
+        forElementAndForEachIn(path, otherPaths) { p ->
+            resolve(p) { exists() }
+        }
+    }
 
 /**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
