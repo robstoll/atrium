@@ -45,6 +45,7 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     isAbsolute: Fun0<Path>,
     isRelative: Fun0<Path>,
+    contains: Fun2<Path, String, Array<out String>>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
@@ -66,6 +67,7 @@ abstract class PathAssertionsSpec(
         isDirectory.forSubjectLess(),
         isAbsolute.forSubjectLess(),
         isRelative.forSubjectLess(),
+        contains.forSubjectLess("a", arrayOf("b", "c")),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
@@ -868,6 +870,103 @@ abstract class PathAssertionsSpec(
         }
     }
 
+    describeFun(contains) {
+        val containsFun = contains.lambda
+
+       listOf(
+           ContainsTestData( "directory", "directories") { parent, name -> parent.newDirectory(name) },
+           ContainsTestData("file", "files") { parent, name -> parent.newDirectory(name) }
+       ) .forEach {td ->
+           it("does not throw if the single parameter is a child ${td.singleName}") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "a"))
+               expect(folder).containsFun("a", emptyArray())
+           }
+
+           it("does not throw if both parameters are child ${td.multipleName}") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "a"))
+               maybeLink.create(td.factory.invoke(folder, "b"))
+               expect(folder).containsFun("a", arrayOf("b"))
+           }
+
+           it("does not throw if three parameters are child ${td.multipleName}") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "a"))
+               maybeLink.create(td.factory.invoke(folder, "b"))
+               maybeLink.create(td.factory.invoke(folder, "c"))
+               expect(folder).containsFun("a", arrayOf("b", "c"))
+           }
+
+           it("it throws if the first ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
+               maybeLink.create(td.factory.invoke(folder, "file3"))
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   contains("file1")
+                   containsNot("file2")
+                   containsNot("file3")
+               }
+           }
+
+           it("it throws if the second ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "file1"))
+               maybeLink.create(td.factory.invoke(folder, "file3"))
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   contains("file2")
+                   containsNot("file1")
+                   containsNot("file3")
+               }
+           }
+
+           it("it throws if third ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "file1"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   containsNot("file2")
+                   containsNot("file1")
+                   contains("file3")
+               }
+           }
+
+           it("it throws if the first and third ${td.singleName} do not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+               maybeLink.create(td.factory.invoke(folder, "file2"))
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                   containsNot("file2")
+                   contains("file1")
+                   contains("file3")
+               }
+           }
+
+           it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
+               val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+               val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+
+               expect {
+                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
+               }.toThrow<AssertionError>().message {
+                   contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                   containsExplanationFor(maybeLink)
+               }
+           }
+        }
+    }
+
     describeFun(hasSameBinaryContentAs, hasSameTextualContentAs, hasSameTextualContentAsDefaultArgs) {
         val hasSameBinaryContentAsFun = hasSameBinaryContentAs.lambda
         val hasSameTextualContentAsFun = hasSameTextualContentAs.lambda
@@ -1239,3 +1338,5 @@ private fun expectedPermissionTypeHintFor(type: Translatable, being: Translatabl
     type.getDefault(),
     being.getDefault()
 )
+
+internal data class ContainsTestData(val singleName: String, val multipleName: String, val factory: (f: Path, name: String) -> Path)

@@ -12,6 +12,8 @@ import ch.tutteli.atrium.logic.hasNotNext
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorAssertionSamples.hasNext
  */
 fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext() }
@@ -23,6 +25,8 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorAssertionSamples.hasNoNext
  */
 fun <E, T : Iterator<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext() }
