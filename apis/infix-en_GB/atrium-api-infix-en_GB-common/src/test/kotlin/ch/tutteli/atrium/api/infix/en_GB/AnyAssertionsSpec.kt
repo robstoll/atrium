@@ -35,6 +35,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
     fun2<String, String, Expect<String>.() -> Unit>(Companion::because),
+    fun2<Int, String, Expect<Int>.() -> Unit>(Companion::becauseOfInt),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -107,6 +108,9 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
         private fun because(expect: Expect<String>, reason: String, assertionCreator: Expect<String>.() -> Unit) =
            expect because of(reason) { assertionCreator() }
+
+        private fun becauseOfInt(expect: Expect<Int>, reason: String, assertionCreator: Expect<Int>.() -> Unit) =
+            expect because of(reason) { assertionCreator() }
     }
 
     @Suppress("unused")

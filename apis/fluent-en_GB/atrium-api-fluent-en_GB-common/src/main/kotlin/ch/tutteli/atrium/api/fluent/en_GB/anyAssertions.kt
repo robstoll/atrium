@@ -43,7 +43,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
 
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
- * @param reason The explanation for the assertion/s.
+ * @param reason The explanation for the assertion(s) created by [assertionCreator].
  * @param assertionCreator The group of assertions to make.
  *
  * @return An [Expect] for the current subject of the assertion.

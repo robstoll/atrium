@@ -41,6 +41,7 @@ abstract class AnyAssertionsSpec(
     isNotInNullableInt: Fun1<Int?, Iterable<Int?>>,
     isNotInNullableDataClass: Fun1<DataClass?, Iterable<DataClass?>>,
     because: Fun2<String, String, Expect<String>.() -> Unit>,
+    becauseInt: Fun2<Int, String, Expect<Int>.() -> Unit>,
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
@@ -746,9 +747,12 @@ abstract class AnyAssertionsSpec(
     }
 
     prefixedDescribe("because") {
+        val becauseFun = because.lambda
+        val becauseFunForInt = becauseInt.lambda
+
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")
-                .because("? is not allowed in file names on Windows") {
+                .becauseFun("? is not allowed in file names on Windows") {
                     containsNot("?")
                 }
         }
@@ -756,22 +760,26 @@ abstract class AnyAssertionsSpec(
         it("provoke the failing of one assertion") {
             expect {
                 expect("filename?")
-                    .because("? is not allowed in file names on Windows") {
+                    .becauseFun("? is not allowed in file names on Windows") {
                         containsNot("?")
                         startsWith("f")
                     }
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError> {
+                messageContains("ℹ ${String.format(BECAUSE.getDefault(), "? is not allowed in file names on Windows")}")
+            }
         }
 
         it("provoke the failing of two assertions") {
             expect {
                 expect(21)
-                    .because("we use the definition that teens are between 12 and 18 years old") {
+                    .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
                         isGreaterThanOrEqual(12)
                         isLessThan(18)
                         isNoneOf(21)
                     }
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError> {
+                messageContains("ℹ ${String.format(BECAUSE.getDefault(), "we use the definition that teens are between 12 and 18 years old")}")
+            }
         }
     }
 
