@@ -26,56 +26,77 @@ task removeGhPages {
 
 task ghPages {
 //    dependsOn removeGhPages
-    dependsOn dokka
-    dokka.mustRunAfter removeGhPages
+    dependsOn dokkaHtml
+    dokkaHtml.mustRunAfter removeGhPages
     finalizedBy copyCSS
     finalizedBy copyIndex
 }
 
-dokka {
-    moduleName = 'doc'
-    outputFormat = 'html'
-    outputDirectory = "$ghPagesPathWithoutVersion/$ghPages_version"
-
-    includes = ['misc/kdoc/packages.md']
-    jdkVersion = 8
-    reportUndocumented = false
-
+tasks.named("dokkaHtml") {
     doFirst {
         println "going to generate kdoc including the projects: ${docProjects*.name}"
         println "====================="
     }
-    linkMapping {
-        dir = './'
-        url = "$github_url/$dokka_sourceMapping/"
-        suffix = '#L'
-    }
 
-    samples = findSamples(docProjects)
+//    rootProject.configure(docProjects) { subProject ->
+//        subProject.afterEvaluate {
+//            classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
+//        }
+//    }
 
-    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
-    rootProject.configure(docProjects) { subProject ->
-        subProject.afterEvaluate {
-            classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
-        }
-    }
 
-    [
-        "ch.tutteli.atrium.creating.impl",
-        "ch.tutteli.atrium.api.verbs.internal",
-        "ch.tutteli.atrium.logic.creating.basic.contains.steps.impl",
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl",
-        //TODO remove the below with 1.0.0
-        "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
-        "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
-        "ch.tutteli.atrium.assertions.builders.impl",
-        "ch.tutteli.atrium.domain.builders.reporting.impl",
-        "ch.tutteli.atrium.domain.builders.creating.changers.impl",
+    outputDirectory.set(project.file("$ghPagesPathWithoutVersion/$ghPages_version"))
+    moduleName.set("doc")
+    dokkaSourceSets {
+        docProjects.forEach { p ->
+            def sourceSetName = p.name + '-main'
+            register(sourceSetName) {
+                displayName.set(sourceSetName)
+                includes.from(project.file("misc/kdoc/packages.md"))
+//                samples.from(findSamples([p]))
+                jdkVersion.set(8)
+//                perPackageOption {
+//                    reportUndocumented.set(true)
+//                }
 
-    ].each { pkg ->
-        packageOptions {
-            prefix = pkg
-            suppress = true
+//                sourceLink {
+//                    // Unix based directory relative path to the root of the project (where you execute gradle respectively).
+//                    localDirectory.set(file("./"))
+//
+//                    // URL showing where the source code can be accessed through the web browser
+//                    remoteUrl.set("$github_url/$dokka_sourceMapping/".toURL())
+//
+//                    // Suffix which is used to append the line number to the URL. Use #L for GitHub
+//                    remoteLineSuffix.set("#L")
+//                }
+
+                // Was: sourceDirs
+                sourceRoots.from( file("${p.projectDir}/$srcKotlin"))
+
+//                [
+//                    "ch.tutteli.atrium.creating.impl",
+//                    "ch.tutteli.atrium.api.verbs.internal",
+//                    "ch.tutteli.atrium.logic.creating.basic.contains.steps.impl",
+//                    "ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl",
+//                    //TODO remove the below with 1.0.0
+//                    "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
+//                    "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
+//                    "ch.tutteli.atrium.assertions.builders.impl",
+//                    "ch.tutteli.atrium.domain.builders.reporting.impl",
+//                    "ch.tutteli.atrium.domain.builders.creating.changers.impl",
+//
+//                ].each { pkg ->
+//                    perPackageOption {
+//                        prefix.set(pkg)
+//                        suppress.set(true)
+//                    }
+//                }
+            }
         }
     }
 }
+//
+//tasks.dokkaHtmlMultiModule.configure {
+//    outputDirectory.set(buildDir.resolve("dokkaCustomMultiModuleOutput"))
+//    documentationFileName.set("README.md")
+//}

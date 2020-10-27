@@ -84,459 +84,459 @@ You should not rely on them and move to the suggested predecessor:
   Use the replacements suggested in the `@Deprecated` annotations.
 
 
-# ch.tutteli.atrium
+# Package ch.tutteli.atrium
 Contains the `@Deprecated` [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
 
-# ch.tutteli.atrium.api.cc.de_CH
+# Package ch.tutteli.atrium.api.cc.de_CH
 `@Deprecated` API use [ch.tutteli.atrium.api.fluent.de_CH] instead.
 
-# ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `fluent.de_CH`; will all be removed with 1.0.0
 
 
-# ch.tutteli.atrium.api.fluent.de_CH
+# Package ch.tutteli.atrium.api.fluent.de_CH
 Contains API which provides a pure fluent API in German and which has its design focus on usability 
 in conjunction with code completion.
 
-# ch.tutteli.atrium.api.fluent.de_CH.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.fluent.de_CH.creating.charsequence.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
-# ch.tutteli.atrium.api.fluent.de_CH.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.fluent.de_CH.creating.iterable.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
 
 
-# ch.tutteli.atrium.api.cc.en_GB
+# Package ch.tutteli.atrium.api.cc.en_GB
 `@Deprecated` API use [ch.tutteli.atrium.api.fluent.en_GB] instead.
 
-# ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `fluent.en_GB`; will all be removed with 1.0.0
 
 
-# ch.tutteli.atrium.api.fluent.en_GB
+# Package ch.tutteli.atrium.api.fluent.en_GB
 Contains API which provides a pure fluent API in English and which has its design focus on usability 
 in conjunction with code completion.
 
-# ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
-# ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
 
-# ch.tutteli.atrium.api.fluent.en_GB.jdk8
+# Package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 Contains an API for types introduced with jdk8 - `@Deprecated` though as it was merged into [ch.tutteli.atrium.api.fluent.en_GB].
 
-# ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
+# Package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 Contains an API for types introduced with Kotlin 1.3
 
-# ch.tutteli.atrium.api.cc.en_UK
+# Package ch.tutteli.atrium.api.cc.en_UK
 `@Depreacted` API use  [ch.tutteli.atrium.api.fluent.en_GB] instead.
 
-# ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
 
 
-# ch.tutteli.atrium.api.cc.infix.en_GB
+# Package ch.tutteli.atrium.api.cc.infix.en_GB
 `@Depreacted` API use  [ch.tutteli.atrium.api.infix.en_GB] instead.
 
-# ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders
 Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
-# ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
-
-# ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders
-Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
-# ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders
 Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.infix.en_GB.keywords
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders
+Contains `@Deprecated` builders, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
+
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.keywords
 Contains `@Deprecated` pseudo keywords, switch from package `cc.infix` to `infix`; will all be removed with 1.0.0
 
 
-# ch.tutteli.atrium.api.infix.en_GB
+# Package ch.tutteli.atrium.api.infix.en_GB
 Contains API which provides an infix API in English and which has its design focus on usability 
 in conjunction with code completion.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating
+# Package ch.tutteli.atrium.api.infix.en_GB.creating
 Contains parameter objects  .
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.feature
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.feature
 Contains parameter objects related to feature assertions.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.iterable
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.iterable
 Contains parameter objects related to Iterable.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.builders
 Contains the builders -- necessary to provide an extensible fluent API -- which allow to create sophisticated `contains` 
 assertions for Iterable.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.map
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.map
 Contains parameter objects related to Map.
 
-# ch.tutteli.atrium.api.infix.en_GB.creating.path
+# Package ch.tutteli.atrium.api.infix.en_GB.creating.path
 Contains parameter objects related to Path.
 
-# ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
+# Package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 Contains an API for types introduced with Kotlin 1.3
 
-# ch.tutteli.atrium.api.infix.en_GB.workaround
+# Package ch.tutteli.atrium.api.infix.en_GB.workaround
 Contains functions necessary for the infix API to work due to Kotlin related bugs / or insufficient type 
 inference capabilities .
 
-# ch.tutteli.atrium.api.cc.infix.en_UK
+# Package ch.tutteli.atrium.api.cc.infix.en_UK
 `@Depreacted` API use  [ch.tutteli.atrium.api.infix.en_GB] instead.
 
-# ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
 Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders
 Contains `@Deprecated` builders, use the builders from package `en_GB`; will all be removed with 1.0.0
 
 
-# ch.tutteli.atrium.api.verbs
+# Package ch.tutteli.atrium.api.verbs
 Contains the  [out-of-the-box Assertion Verbs](https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs)
 such as [expect](./ch.tutteli.atrium.api.verbs/expect.html), [assert](./ch.tutteli.atrium.api.verbs/assert.html)
 and [assertThat](./ch.tutteli.atrium.api.verbs/assert-that.html).
 
-# ch.tutteli.atrium.api.verbs.internal
+# Package ch.tutteli.atrium.api.verbs.internal
 Contains the assertion verbs Atrium uses internally. 
 Use with care, no backward compatibility guarantees and reporting might change.
 
-# ch.tutteli.atrium.assertions
+# Package ch.tutteli.atrium.assertions
 Contains different types of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html),  
 e.g. [DescriptiveAssertion](./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html).
 Currently it contains also `@Deprecated` impl-functions which will be removed with 1.0.0
 
-# ch.tutteli.atrium.assertions.any.typetransformation
+# Package ch.tutteli.atrium.assertions.any.typetransformation
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.basic.contains
+# Package ch.tutteli.atrium.assertions.basic.contains
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.basic.contains.builders
+# Package ch.tutteli.atrium.assertions.basic.contains.builders
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.basic.contains.checkers
+# Package ch.tutteli.atrium.assertions.basic.contains.checkers
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.basic.contains.creators
+# Package ch.tutteli.atrium.assertions.basic.contains.creators
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.assertions.builders
+# Package ch.tutteli.atrium.assertions.builders
 The [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) 
 and other builders to ease the creation of Assertions.
 
-# ch.tutteli.atrium.assertions.builders.common
+# Package ch.tutteli.atrium.assertions.builders.common
 Package containing/defining common steps for builders. 
 
-# ch.tutteli.atrium.assertions.charsequence.contains
+# Package ch.tutteli.atrium.assertions.charsequence.contains
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.charsequence.contains.builders
+# Package ch.tutteli.atrium.assertions.charsequence.contains.builders
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.charsequence.contains.checkers
+# Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.charsequence.contains.creators
+# Package ch.tutteli.atrium.assertions.charsequence.contains.creators
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
+# Package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.charsequence.contains.searchers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-
-# ch.tutteli.atrium.assertions.iterable.contains
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.iterable.contains.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.iterable.contains.checkers
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.iterable.contains.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.throwable.thrown
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.throwable.thrown.builders
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.throwable.thrown.creators
-Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
-# ch.tutteli.atrium.assertions.throwable.thrown.providers
+# Package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
 
+# Package ch.tutteli.atrium.assertions.iterable.contains
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.iterable.contains.builders
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.iterable.contains.checkers
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.iterable.contains.creators
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.throwable.thrown
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.throwable.thrown.builders
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.throwable.thrown.creators
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
+# Package ch.tutteli.atrium.assertions.throwable.thrown.providers
+Contains `@Deprecated` classes/interfaces/functions, use the ones from package `creating`; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.checking
+
+# Package ch.tutteli.atrium.checking
 Everything involved in checking [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.core
+# Package ch.tutteli.atrium.core
 Contains the [CoreFactory](./ch.tutteli.atrium.core/-core-factory/index.html).
 
-# ch.tutteli.atrium.core.migration
+# Package ch.tutteli.atrium.core.migration
 Contains helper functions which shall ease the migration to a newer version of Atrium. 
 For instance, it contains [toAtriumLocale](./ch.tutteli.atrium.core.migration/java.util.-locale/to-atrium-locale.html)
 to convert a Java `Locale` to an Atrium specific and platform independent representation of an `Locale`.
 
-# ch.tutteli.atrium.core.polyfills
+# Package ch.tutteli.atrium.core.polyfills
 Contains polyfills for functionality which is missing on certain platforms so that they can be used in a common way.
 
-# ch.tutteli.atrium.creating
+# Package ch.tutteli.atrium.creating
 Everything involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.creating.impl
+# Package ch.tutteli.atrium.creating.impl
 Contains implementations which are involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.domain.assertions.composers
+# Package ch.tutteli.atrium.domain.assertions.composers
 The [AssertionComposer](./ch.tutteli.atrium.domain.assertions.composers/-assertion-composer/index.html) 
 which delegates to an implementation which composes different assertions to new 
 [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
 
-# ch.tutteli.atrium.domain.builders
+# Package ch.tutteli.atrium.domain.builders
 Contains [ExpectImpl](./ch.tutteli.atrium.domain.builders/-expect-impl/index.html).
 
-# ch.tutteli.atrium.domain.builders.assertions.builders
+# Package ch.tutteli.atrium.domain.builders.assertions.builders
 Contains extension functions for the 
 [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html).
 
-# ch.tutteli.atrium.domain.builders.creating
+# Package ch.tutteli.atrium.domain.builders.creating
 Builders involved in delegating to assertion implementations.
 
-# ch.tutteli.atrium.domain.builders.creating.basic.contains
+# Package ch.tutteli.atrium.domain.builders.creating.basic.contains
 Contains helper functions for 
 [Contains.Builder](./ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/index.html)
 
-# ch.tutteli.atrium.domain.builders.creating.changers
+# Package ch.tutteli.atrium.domain.builders.creating.changers
 Contains builders for [ch.tutteli.atrium.domain.creating.changers].
 
-# ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders
+# Package ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders
 Contains base classes for 
 [CharSequenceContains.CheckerOption](./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html).
 
-# ch.tutteli.atrium.domain.builders.creating.collectors
+# Package ch.tutteli.atrium.domain.builders.creating.collectors
 Contains the builder behind 
 [ExpectImpl.collector](./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html)
 
-# ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
+# Package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 Contains base classes for 
 [IterableContains.CheckerOption](./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker-option.html).
 
-# ch.tutteli.atrium.domain.builders.kotlin_1_3
+# Package ch.tutteli.atrium.domain.builders.kotlin_1_3
 Builders involved in delegating to assertion implementations.
 
-# ch.tutteli.atrium.domain.builders.kotlin_1_3.creating
+# Package ch.tutteli.atrium.domain.builders.kotlin_1_3.creating
 Builders involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.domain.builders.migration
+# Package ch.tutteli.atrium.domain.builders.migration
 Contains helper functions such as [asExpect](./ch.tutteli.atrium.domain.builders.migration/as-expect.html) 
 to ease the migration from deprecated functionality to new functionality
 
-# ch.tutteli.atrium.domain.builders.reporting
+# Package ch.tutteli.atrium.domain.builders.reporting
 Contains the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html).
 
-# ch.tutteli.atrium.domain.builders.utils
+# Package ch.tutteli.atrium.domain.builders.utils
 Contains utility functions for APIs.
 
 
 
-# ch.tutteli.atrium.domain.creating
+# Package ch.tutteli.atrium.domain.creating
 Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.any.typetransformation
+# Package ch.tutteli.atrium.domain.creating.any.typetransformation
 Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.domain.creating.any.typetransformation.creators
+# Package ch.tutteli.atrium.domain.creating.any.typetransformation.creators
 Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
+# Package ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
 Contains `@Deprecated` functionality in conjunction with `Assert` and type transformations; will all be removed with 1.0.0
 
-# ch.tutteli.atrium.domain.creating.basic.contains
+# Package ch.tutteli.atrium.domain.creating.basic.contains
 Contains the basic contract for contains assertion builders 
 -- [Contains](./ch.tutteli.atrium.domain.creating.basic.contains/-contains/index.html).
 
-# ch.tutteli.atrium.domain.creating.changers
+# Package ch.tutteli.atrium.domain.creating.changers
 Contains contracts for subject-change related functionality such as 
 [SubjectChanger](./ch.tutteli.atrium.domain.creating.changers/-subject-changer/index.html)
 and [ExtractedFeaturePostStep](./ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html)
 
-# ch.tutteli.atrium.domain.creating.charsequence.contains
+# Package ch.tutteli.atrium.domain.creating.charsequence.contains
 Contains the contract for sophisticated CharSequence `contains` assertions 
 -- [CharSequenceContains](./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/index.html)
 
-# ch.tutteli.atrium.domain.creating.charsequence.contains.checkers
+# Package ch.tutteli.atrium.domain.creating.charsequence.contains.checkers
 Contains [CheckerFactory](./ch.tutteli.atrium.domain.creating.charsequence.contains.checkers/-checker-factory/index.html) 
 which defines the minimum set of [CharSequenceContains.Checker](./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html)
 an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.charsequence.contains.creators
+# Package ch.tutteli.atrium.domain.creating.charsequence.contains.creators
 Contains [CharSequenceContainsAssertions](./ch.tutteli.atrium.domain.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html)
 which defines the minimum set of `CharSequence contains` assertion functions (on level domain) an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours
+# Package ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours
 Contains [SearchBehaviourFactory](./ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-search-behaviour-factory/index.html)
 which defines the minimum set of [CharSequenceContains.SearchBehaviour](./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html)
 an implementation has to provide.
 
 
-# ch.tutteli.atrium.domain.creating.collectors
+# Package ch.tutteli.atrium.domain.creating.collectors
 Contains [AssertionCollector](./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html). 
 
-# ch.tutteli.atrium.domain.creating.feature.extract
+# Package ch.tutteli.atrium.domain.creating.feature.extract
 Contains the contract for sophisticated feature extraction assertions
 -- [FeatureExtractor](./ch.tutteli.atrium.domain.creating.feature.extract/-feature-extractor/index.html)
 
-# ch.tutteli.atrium.domain.creating.feature.extract.creators
+# Package ch.tutteli.atrium.domain.creating.feature.extract.creators
 Contains the [FeatureExtractorCreatorFactory](./ch.tutteli.atrium.domain.creating.feature.extract.creators/-feature-extractor-creator-factory/index.html)
 
 
-# ch.tutteli.atrium.domain.creating.iterable.contains
+# Package ch.tutteli.atrium.domain.creating.iterable.contains
 Contains the contract for sophisticated Iterable `contains` assertions 
 -- [IterableContains](./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/index.html)
 
-# ch.tutteli.atrium.domain.creating.iterable.contains.checkers
+# Package ch.tutteli.atrium.domain.creating.iterable.contains.checkers
 Contains [CheckerFactory](./ch.tutteli.atrium.domain.creating.iterable.contains.checkers/-checker-factory/index.html) 
 which defines the minimum set of [IterableContains.Checker](./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-checker.html)
 an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.iterable.contains.creators
+# Package ch.tutteli.atrium.domain.creating.iterable.contains.creators
 Contains [IterableContainsAssertions](./ch.tutteli.atrium.domain.creating.iterable.contains.creators/-iterable-contains-assertions/index.html)
 which defines the minimum set of `Iterable contains` assertion functions (on level domain) an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours
+# Package ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours
 Contains [SearchBehaviourFactory](./ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours/-search-behaviour-factory/index.html)
 which defines the minimum set of [IterableContains.SearchBehaviour](./ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html)
 an implementation has to provide.
 
 
-# ch.tutteli.atrium.domain.creating.throwable.thrown
+# Package ch.tutteli.atrium.domain.creating.throwable.thrown
 Contains the contract for sophisticated a Throwable was thrown assertions 
 -- [ThrowableThrown](./ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/index.html)
 
-# ch.tutteli.atrium.domain.creating.throwable.thrown.creators
+# Package ch.tutteli.atrium.domain.creating.throwable.thrown.creators
 Contains [IterableContainsAssertions](./ch.tutteli.atrium.domain.creating.throwable.thrown.creators/-throwable-thrown-assertions/index.html)
 which defines the minimum set of `a Throwable was thrown` assertion functions (on level domain) an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.throwable.thrown.providers
+# Package ch.tutteli.atrium.domain.creating.throwable.thrown.providers
 Contains [AbsentThrowableMessageProviderFactory](./ch.tutteli.atrium.domain.creating.throwable.thrown.providers/-absent-throwable-message-provider-factory/index.html)
 which defines the minimum set of [IterableContains.AbsentThrowableMessageProvider](./ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html)
 an implementation has to provide.
 
-# ch.tutteli.atrium.domain.creating.typeutils
+# Package ch.tutteli.atrium.domain.creating.typeutils
 Type aliases to improve the API.
 
-# ch.tutteli.atrium.domain.kotlin_1_3.creating
+# Package ch.tutteli.atrium.domain.kotlin_1_3.creating
 Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation 
 has to provide for the Kotlin 1.3 extension.
 
-# ch.tutteli.atrium.logic
+# Package ch.tutteli.atrium.logic
 Contains all the assertion interfaces (e.g. [AnyAssertions](./ch.tutteli.atrium.logic/-any-assertions/index.html)
 as well as [_logic](./ch.tutteli.atrium.logic/_logic.html) and helper functions for [AssertionContainer](./ch.tutteli.atrium.creating/-assertion-container/index.html)
 
-# ch.tutteli.atrium.logic.creating.basic.contains
+# Package ch.tutteli.atrium.logic.creating.basic.contains
 Contains the abstract contract sophisticated `contains` assertion builders: [Contains](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/index.html)
 
-# ch.tutteli.atrium.logic.creating.basic.contains.checkers
+# Package ch.tutteli.atrium.logic.creating.basic.contains.checkers
 Contains interfaces implementing [Contains.Checker](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html)
 
-# ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl
+# Package ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.basic.contains.checkers].
 
-# ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
+# Package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 Contains base classes which can be handy to implement [Contains.Creator](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html)
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains
 Contains the contract for sophisticated `CharSequence.contains` assertion builders: [CharSequenceContains](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/index.html)
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.checkers
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers
 Contains interfaces implementing [CharSequence.Checker](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html)
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.checkers].
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.creators
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.creators
 Contains [CharSequenceContainsAssertions](./ch.tutteli.atrium.logic.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html) 
 which defines the minimum set of [CharSequence.Creator](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-creator.html)s 
 an implementation has to deliver as well as some extension functions which delegate to those.
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.creators].
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
 Contains interfaces implementing [CharSequence.SearchBehaviour](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html)
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours].
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl
 Contains implementations of [CharSequence.Searcher](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html)
 
-# ch.tutteli.atrium.logic.creating.charsequence.contains.steps
+# Package ch.tutteli.atrium.logic.creating.charsequence.contains.steps
 Contains steps for sophisticated `CharSequence.contains` assertion builders.
 
-# ch.tutteli.atrium.logic.impl
+# Package ch.tutteli.atrium.logic.impl
 Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic].
 
-# ch.tutteli.atrium.logic.kotlin_1_3
+# Package ch.tutteli.atrium.logic.kotlin_1_3
 Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. [ResultAssertions](./ch.tutteli.atrium.logic.kotlin_1_3/-result-assertions/index.html)
 
-# ch.tutteli.atrium.logic.kotlin_1_3.impl
+# Package ch.tutteli.atrium.logic.kotlin_1_3.impl
 Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic.kotlin_1_3].
 
-# ch.tutteli.atrium.reporting
+# Package ch.tutteli.atrium.reporting
 Everything involved in reporting [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
-# ch.tutteli.atrium.reporting.translating
+# Package ch.tutteli.atrium.reporting.translating
 Everything involved in translating [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
 
 
-# ch.tutteli.atrium.spec
+# Package ch.tutteli.atrium.spec
 Contains inter alia [DeprecationTestEngine](ch.tutteli.atrium.spec/-deprecation-test-engine/index.html)
 which is used in backward compatibility tests.
 
 
-# ch.tutteli.atrium.translations
+# Package ch.tutteli.atrium.translations
 Contains [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
 
 
-# ch.tutteli.atrium.verbs
+# Package ch.tutteli.atrium.verbs
 Contains the `@Deprecated` [out-of-the-box Assertion Verbs](https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs)
 for `Assert` which is itself `@Deprecated`.
  
-# ch.tutteli.atrium.verbs.assert
+# Package ch.tutteli.atrium.verbs.assert
 The `@Deprecated` version of the assertion verb `assert`; will be removed with 1.0.0
 
-# ch.tutteli.atrium.verbs.assertthat
+# Package ch.tutteli.atrium.verbs.assertthat
 The `@Deprecated` version of the assertion verb `assertThat`; will be removed with 1.0.0
 
-# ch.tutteli.atrium.verbs.expect
+# Package ch.tutteli.atrium.verbs.expect
 The `@Deprecated` version of the assertion verb `expect`; will be removed with 1.0.0
 
-# ch.tutteli.atrium.verbs.internal
+# Package ch.tutteli.atrium.verbs.internal
 Contains the `@Deprecated` assertion verbs Atrium used internally for `Assert`; will all be removed with 1.0.0.
