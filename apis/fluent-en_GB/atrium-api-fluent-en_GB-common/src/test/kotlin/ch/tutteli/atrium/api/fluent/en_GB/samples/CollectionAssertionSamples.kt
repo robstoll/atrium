@@ -44,14 +44,17 @@ class CollectionAssertionSamples {
 
     @Test
     fun sizeFeature() {
-        expect(listOf(1, 2, 3)).size // subject of the assertion is now the size of the list, 3 here
-            .isGreaterThan(1) // subject of the assertion is still 3
+        expect(listOf(1, 2, 3))
+            .size             // subject is now of type Int (actually 3)
+            .isGreaterThan(1) // subject is still of type Int (still 1)
             .isLessThan(4)
 
         fails {
-            expect(listOf(1, 2, 3)).size
-                .isLessThan(1)
-                .isGreaterThan(4) // not reported, use `size { ... }` if you want that all assertions are evaluated
+            expect(listOf(1, 2, 3))
+                .size
+                .isLessThan(1)    // fails
+                .isGreaterThan(4) // not reported because `isLessThan(1)` already fails
+                                  // use `size { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is less than: 1")
             containsNot("is greater than: 4")
@@ -61,10 +64,10 @@ class CollectionAssertionSamples {
     @Test
     fun size() {
         expect(listOf(1, 2, 3))
-            .size { // subject inside this block is now 3
+            .size { // subject inside this block is of type Int (actually 3)
                 isGreaterThan(1)
-            } // subject here is still list
-            .size { // subject inside this block is 3
+            } // subject here is back to type List<Int, String>
+            .size {
                 isLessThan(4)
             }
 
@@ -74,10 +77,13 @@ class CollectionAssertionSamples {
 
             expect(listOf(1, 2, 3))
                 .size {
-                    isLessThan(1)
-                    isGreaterThan(4) // still evaluated even though isLessThan(1) already fails,
-                    // use the `.size.` if you want a fail fast behaviour
+                    isLessThan(1)    // fails
+                    isGreaterThan(4) // still evaluated even though `isLessThan(1)` already fails,
+                                     // use `.size.` if you want a fail fast behaviour
                 }
-        }.messageContains("is less than: 1", "is greater than: 4")
+        }.messageContains(
+            "is less than: 1",
+            "is greater than: 4"
+        )
     }
 }

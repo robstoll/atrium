@@ -64,13 +64,13 @@ class AnyAssertionSamples {
         expect<Int?>(null).toBeNullIfNullGivenElse(null)
 
         expect<Int?>(1).toBeNullIfNullGivenElse {
-            toBe(1)
+            isLessThan(2)
         }
 
         fails {
             // sub-assertion fails
             expect<Int?>(1).toBeNullIfNullGivenElse {
-                toBe(2)
+                isLessThan(0)
             }
         }
     }
@@ -83,7 +83,7 @@ class AnyAssertionSamples {
 
         fails {
             expect<Int?>(null)
-              .notToBeNull()
+              .notToBeNull() // fails
               .isLessThan(2) // not shown in reporting as notToBeNull already fails
         }
     }
@@ -112,7 +112,7 @@ class AnyAssertionSamples {
         fails {
             // sub-assertion fails
             expect<Int?>(1).notToBeNull {
-                toBe(2)
+                isLessThan(0)
             }
         }
     }
@@ -127,7 +127,7 @@ class AnyAssertionSamples {
         fails {
             expect("A")
                 .isA<Long>()
-                .isLessThan(2L) // not shown in reporting as isA already fails
+                .isLessThan(2L) // not shown in reporting as `isA<Long>()` already fails
 
         }
     }
@@ -140,7 +140,7 @@ class AnyAssertionSamples {
         }.isLessThan(20)
 
         fails {
-            // wrong type
+            // because wrong type expected (Long instead of String)
             expect("A").isA<Long> {
                 toBe(43)
             }
@@ -149,41 +149,37 @@ class AnyAssertionSamples {
         fails {
             // type fits, but sub-assertion fails
             expect(54L).isA<Long> {
-                toBe(-1)
+                toBe(-1L)
             }
         }
     }
 
     @Test
     fun andFeature() {
-        expect(13)
-            .isA<Int>()
-            .and
-            .toBe(13)
+        // and is just a filler word does not have any behaviour
+        expect(13).isGreaterThan(5).and.isLessThan(20)
 
-        fails {
-            expect(1)
-                .isA<Long>()
-                .and
-                .toBe(77)
-        }
+        // i.e. the above is equivalent to:
+        expect(13).isGreaterThan(5).isLessThan(20)
     }
 
     @Test
     fun and() {
-        expect(13)
-            .isA<Int>()
-            .and {
-                toBe(13)
-            }
+        expect(13).isA<Int>().and {
+            isGreaterThan(5)
+            isLessThan(20)
+        }
 
         fails {
-            // sub-assertion fails
-            expect(1L)
-                .isA<Long>()
-                .and {
-                    toBe(67)
-                }
+            expect(13).isA<Int>().and {
+                // introduces an assertion group block
+                // all assertions are evaluated inside an assertion group block; for more details:
+                // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+                // use `.and.` if you want fail fast behaviour
+
+                isNoneOf(1, 2, 13) // fails
+                isLessThan(10)     // still evaluated and included in the error report
+            }
         }
     }
 
