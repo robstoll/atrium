@@ -28,7 +28,7 @@ interface ExplanatoryGroup {
         override val withWarningType: AssertionsOption<WarningAssertionGroupType, FinalStep>
 
         /**
-         * Builder to create an [AssertionGroup] with a [InformationAssertionGroupType].
+         * Builder to create an [AssertionGroup] with an [InformationAssertionGroupType].
          */
         override val withInformationType: AssertionsOption<InformationAssertionGroupType, FinalStep>
 

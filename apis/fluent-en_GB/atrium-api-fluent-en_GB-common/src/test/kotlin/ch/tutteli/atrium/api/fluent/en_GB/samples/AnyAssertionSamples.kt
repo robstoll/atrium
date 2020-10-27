@@ -21,4 +21,27 @@ class AnyAssertionSamples {
             expect(arrayOf(1)).toBe(arrayOf(1))
         }
     }
+
+    @Test
+    fun because() {
+        expect(12).because("this is true as anything can ever be") {
+            toBe(12)
+        }
+
+        fails {
+            expect(12).because("won't hold, it's not equal") {
+                toBe(11)
+            }
+        }
+
+        expect(listOf(1)).because("toBe is based on equality, use isSameAs for identity") {
+            toBe(listOf(1))
+        }
+
+        fails {
+            expect(arrayOf(1)).because("array has not implemented equals, so is equivalent to isSameAs") {
+                toBe(arrayOf(1))
+            }
+        }
+    }
 }
