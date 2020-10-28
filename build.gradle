@@ -220,13 +220,6 @@ configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
 
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
-    sourceSets.each {
-        println(it)
-        it.allSource.each {
-            println("SUB " + it)
-        }
-    }
-
     tasks.dokkaHtml {
         logging.setLevel(LogLevel.QUIET)
         dokkaSourceSets {

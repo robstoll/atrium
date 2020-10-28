@@ -33,8 +33,9 @@ task ghPages {
 }
 
 tasks.named("dokkaHtml") {
+    def projects = docProjects.asList().sort{ it.name }.subList(0, 27)
     doFirst {
-        println "going to generate kdoc including the projects: ${docProjects*.name}"
+        println "going to generate kdoc including the projects: ${projects*.name}"
         println "====================="
     }
 
@@ -48,7 +49,7 @@ tasks.named("dokkaHtml") {
     outputDirectory.set(project.file("$ghPagesPathWithoutVersion/$ghPages_version"))
     moduleName.set("doc")
     dokkaSourceSets {
-        docProjects.forEach { p ->
+        projects.forEach { p ->
             def sourceSetName = p.name + '-main'
             register(sourceSetName) {
                 displayName.set(sourceSetName)
