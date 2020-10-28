@@ -321,7 +321,7 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  * the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
  * the entry’s symbolic link will not be followed.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the ssertions work on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
