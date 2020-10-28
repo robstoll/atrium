@@ -54,7 +54,7 @@ def createGenerateLogicTaskForPackage(
 
     String generatedFolder = project.generatedFolder
 
-    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for pacakge $relativePackagePath") {
+    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for package $relativePackagePath") {
         def packagePath = 'ch/tutteli/atrium/logic' + relativePackagePath + (suffix != '' ? "/" + suffix : '')
         def fullPackage = packagePath.replaceAll('/', '.')
         def path = "$project.projectDir/src/main/kotlin/$packagePath/"
@@ -84,7 +84,7 @@ def createGenerateLogicTaskForPackage(
             def identifier = /[a-zA-Z0-9]+/
             def newLine = /(?:\r\n?|\n)/
             def newLineAndIndent = /$newLine\s*/
-            def parameter = { paramNumber -> /,(?: |$newLineAndIndent)(?<paramName$paramNumber>$identifier): (?<typeName$paramNumber>[^:]+?)/}
+            def parameter = { paramNumber -> /,(?: |$newLineAndIndent)(?<vararg$paramNumber>vararg )?(?<paramName$paramNumber>$identifier): (?<typeName$paramNumber>[^:]+?)/}
             def returnType = /(?:$newLineAndIndent)?\)(?<returnType>:.+)/
 
             def typeIdentifier = / *fun (?<generics><.+?> )?(?<funcName>$identifier)\((?:$newLineAndIndent)?$identifier: (?<type>$identifier(?:\.$identifier)*<.+>)/
@@ -92,8 +92,8 @@ def createGenerateLogicTaskForPackage(
                 def params = numOfParams > 0 ? (1..numOfParams) : []
                 new Tuple3<Pattern, String, String>(
                     Pattern.compile(typeIdentifier + params.collect { paramNumber -> parameter(paramNumber)}.join("") + returnType),
-                    /fun ${ '${generics}${type}.${funcName}' }\(/ + params.collect { paramNumber -> /${'${paramName' + paramNumber + '}'}: ${ '${typeName' + paramNumber + '}'}/ }.join(", ") + /\)${ '${returnType}' } =/ + (numOfParams > 1 ? "$ln    " : " "),
-                    /.${ '${funcName}' }\(this/ + (numOfParams > 0 ? ", " : "") + params.collect { paramNumber -> /${ '${paramName'+ paramNumber + '}'}/ }.join(", ") + /\)/
+                    /fun ${ '${generics}${type}.${funcName}' }\(/ + params.collect { paramNumber -> /${'${vararg' + paramNumber + '}'}${'${paramName' + paramNumber + '}'}: ${ '${typeName' + paramNumber + '}'}/ }.join(", ") + /\)${ '${returnType}' } =/ + (numOfParams > 1 ? "$ln    " : " "),
+                    /.${ '${funcName}' }\(this/ + (numOfParams > 0 ? ", " : "") + params.collect { paramNumber -> /${'${vararg' + paramNumber + '}'}${ '${paramName'+ paramNumber + '}'}/ }.join(", ") + /\)/
                 )
             }
 
@@ -117,6 +117,9 @@ def createGenerateLogicTaskForPackage(
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
                 }
+                // when calling a varargs method, the call needs to use the spread operator (“*”), but the regex
+                // can only generate the string “vararg ”
+                tmp = tmp.replaceAll(/(=.*)vararg /, /$1\*/)
 
                 String generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
                 output.withWriter('utf-8') { w ->

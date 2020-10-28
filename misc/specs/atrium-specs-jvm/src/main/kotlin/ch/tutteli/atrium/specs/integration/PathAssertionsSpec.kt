@@ -45,7 +45,8 @@ abstract class PathAssertionsSpec(
     isDirectory: Fun0<Path>,
     isAbsolute: Fun0<Path>,
     isRelative: Fun0<Path>,
-    contains: Fun2<Path, String, Array<out String>>,
+    hasDirectoryEntrySingle: Fun1<Path, String>,
+    hasDirectoryEntryMulti: Fun2<Path, String, Array<out String>>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
@@ -67,7 +68,8 @@ abstract class PathAssertionsSpec(
         isDirectory.forSubjectLess(),
         isAbsolute.forSubjectLess(),
         isRelative.forSubjectLess(),
-        contains.forSubjectLess("a", arrayOf("b", "c")),
+        hasDirectoryEntrySingle.forSubjectLess("a"),
+        hasDirectoryEntryMulti.forSubjectLess("a", arrayOf("b", "c")),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
@@ -870,100 +872,140 @@ abstract class PathAssertionsSpec(
         }
     }
 
-    describeFun(contains) {
-        val containsFun = contains.lambda
+    val hasDirectoryEntryVariations = listOf(
+        DirectoryEntryVariation("directory", "directories") { entry -> newDirectory(entry) },
+        DirectoryEntryVariation("file", "files") { entry -> newFile(entry) },
+        DirectoryEntryVariation("symlink with existing target", "symlinks with existing targets") { entry ->
+            newFile("$entry-target").createSymbolicLink(resolve(entry))
+        },
+        DirectoryEntryVariation("symlink with non-existing target", "symlinks with non-existing targets") { entry ->
+            resolve("$entry-not-existing-target").createSymbolicLink(resolve(entry))
+        }
+    )
 
-       listOf(
-           ContainsTestData( "directory", "directories") { parent, name -> parent.newDirectory(name) },
-           ContainsTestData("file", "files") { parent, name -> parent.newDirectory(name) }
-       ) .forEach {td ->
-           it("does not throw if the single parameter is a child ${td.singleName}") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "a"))
-               expect(folder).containsFun("a", emptyArray())
-           }
+    describeFun(hasDirectoryEntrySingle) {
+        val hasDirectoryEntryFun = hasDirectoryEntrySingle.lambda
 
-           it("does not throw if both parameters are child ${td.multipleName}") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "a"))
-               maybeLink.create(td.factory.invoke(folder, "b"))
-               expect(folder).containsFun("a", arrayOf("b"))
-           }
+        hasDirectoryEntryVariations.forEach { (singleName, _, createEntry) ->
+            it("does not throw if the parameter is a child $singleName") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("a")
+                expect(folder).hasDirectoryEntryFun("a")
+            }
+        }
 
-           it("does not throw if three parameters are child ${td.multipleName}") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "a"))
-               maybeLink.create(td.factory.invoke(folder, "b"))
-               maybeLink.create(td.factory.invoke(folder, "c"))
-               expect(folder).containsFun("a", arrayOf("b", "c"))
-           }
+        it("throws if the parameter does not exist") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            expect {
+                expect(folder).hasDirectoryEntryFun("fileA")
+            }.toThrow<AssertionError>().message {
+                contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                contains("fileA")
+            }
+        }
+    }
 
-           it("it throws if the first ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "file2"))
-               maybeLink.create(td.factory.invoke(folder, "file3"))
-               expect {
-                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
-               }.toThrow<AssertionError>().message {
-                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                   contains("file1")
-                   containsNot("file2")
-                   containsNot("file3")
-               }
-           }
+    describeFun(hasDirectoryEntryMulti) {
+        val hasDirectoryEntryFun = hasDirectoryEntryMulti.lambda
 
-           it("it throws if the second ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "file1"))
-               maybeLink.create(td.factory.invoke(folder, "file3"))
-               expect {
-                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
-               }.toThrow<AssertionError>().message {
-                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                   contains("file2")
-                   containsNot("file1")
-                   containsNot("file3")
-               }
-           }
+        hasDirectoryEntryVariations.forEach { (singleName, multiName, createEntry) ->
+            it("does not throw if the single parameter is a child $singleName") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("a")
+                expect(folder).hasDirectoryEntryFun("a", emptyArray())
+            }
 
-           it("it throws if third ${td.singleName} does not exist") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "file1"))
-               maybeLink.create(td.factory.invoke(folder, "file2"))
-               expect {
-                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
-               }.toThrow<AssertionError>().message {
-                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                   containsNot("file2")
-                   containsNot("file1")
-                   contains("file3")
-               }
-           }
+            it("does not throw if two parameters are child $multiName") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("a")
+                folder.createEntry("b")
+                expect(folder).hasDirectoryEntryFun("a", arrayOf("b"))
+            }
 
-           it("it throws if the first and third ${td.singleName} do not exist") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
-               maybeLink.create(td.factory.invoke(folder, "file2"))
-               expect {
-                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
-               }.toThrow<AssertionError>().message {
-                   contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                   containsNot("file2")
-                   contains("file1")
-                   contains("file3")
-               }
-           }
+            it("does not throw if three parameters are child $multiName") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("a")
+                folder.createEntry("b")
+                folder.createEntry("c")
+                expect(folder).hasDirectoryEntryFun("a", arrayOf("b", "c"))
+            }
 
-           it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
-               val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
-               val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+            it("it throws if the first $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("file2")
+                folder.createEntry("file3")
+                expect {
+                    expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
+                }.toThrow<AssertionError>().message {
+                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    contains("file1")
+                    containsNot("file2")
+                    containsNot("file3")
+                }
+            }
 
-               expect {
-                   expect(folder).containsFun("file1", arrayOf("file2", "file3"))
-               }.toThrow<AssertionError>().message {
-                   contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
-                   containsExplanationFor(maybeLink)
-               }
-           }
+            it("it throws if the second $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("file1")
+                folder.createEntry("file3")
+                expect {
+                    expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
+                }.toThrow<AssertionError>().message {
+                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    contains("file2")
+                    containsNot("file1")
+                    containsNot("file3")
+                }
+            }
+
+            it("it throws if the third $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("file1")
+                folder.createEntry("file2")
+                expect {
+                    expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
+                }.toThrow<AssertionError>().message {
+                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    containsNot("file2")
+                    containsNot("file1")
+                    contains("file3")
+                }
+            }
+
+            it("it throws if the first and third $multiName do not exist") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+                folder.createEntry("file2")
+                expect {
+                    expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
+                }.toThrow<AssertionError>().message {
+                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    containsNot("file2")
+                    contains("file1")
+                    contains("file3")
+                }
+            }
+        }
+
+        it("does not throw when using all entry types") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
+            hasDirectoryEntryVariations.first().createEntry(folder, "file1")
+            hasDirectoryEntryVariations.drop(1).forEachIndexed { index, variation ->
+                variation.createEntry(folder, "file${index + 2}")
+            }
+            val otherEntries = (2..(hasDirectoryEntryVariations.size)).map { "file$it" }.toTypedArray()
+            expect(folder).hasDirectoryEntryFun("file1", otherEntries)
+        }
+
+        it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+            val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+
+            expect {
+                expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
+            }.toThrow<AssertionError>().message {
+                contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                containsExplanationFor(maybeLink)
+            }
         }
     }
 
@@ -1339,4 +1381,8 @@ private fun expectedPermissionTypeHintFor(type: Translatable, being: Translatabl
     being.getDefault()
 )
 
-internal data class ContainsTestData(val singleName: String, val multipleName: String, val factory: (f: Path, name: String) -> Path)
+internal data class DirectoryEntryVariation(
+    val singleName: String,
+    val multipleName: String,
+    val createEntry: Path.(entry: String) -> Path
+)

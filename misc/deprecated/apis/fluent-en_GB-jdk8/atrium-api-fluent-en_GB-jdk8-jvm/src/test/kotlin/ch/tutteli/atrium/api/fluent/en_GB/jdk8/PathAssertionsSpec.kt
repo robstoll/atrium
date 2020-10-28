@@ -3,7 +3,7 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB.jdk8
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.hasDirectoryEntry
 import ch.tutteli.atrium.api.fluent.en_GB.isAbsolute
 import ch.tutteli.atrium.api.fluent.en_GB.isExecutable
 import ch.tutteli.atrium.api.fluent.en_GB.isRelative
@@ -26,15 +26,18 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isDirectory),
     fun0(Expect<Path>::isAbsolute), // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
     fun0(Expect<Path>::isRelative), // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
-    fun2<Path, String, Array<out String>>(Expect<Path>::contains), // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
+    Expect<Path>::hasDirectoryEntry.name to Companion::hasDirectoryEntrySingle, // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
+    fun2<Path, String, Array<out String>>(Expect<Path>::hasDirectoryEntry), // checks the new function from fluent-jvm because it is not implemented in fluent-jkd8
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Expect<Path>::hasSameTextualContentAs),
-    fun1(Companion::hasSameTextualContentAsDefaultArgs)
+    Expect<Path>::hasSameTextualContentAs.name to Companion::hasSameTextualContentAsDefaultArgs
 ) {
 
     companion object {
         private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.hasSameTextualContentAs(targetPath)
+
+        private fun hasDirectoryEntrySingle(expect: Expect<Path>, entry: String) = expect.hasDirectoryEntry(entry)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
