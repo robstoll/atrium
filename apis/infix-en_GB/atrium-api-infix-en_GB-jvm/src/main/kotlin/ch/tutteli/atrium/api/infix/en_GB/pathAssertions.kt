@@ -223,14 +223,14 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
-    _logicAppend { hasDirectoryEntry(directoryEntries.entries) }
+    _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
 
 /**
  * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
  *
  * @since 0.14.0
  */
-fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry glue otherEntries)
+fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry, otherEntries)
 
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
