@@ -254,7 +254,7 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  * Therefore, if a symbolic link exists at the location the subject points to,
  * search will continue at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
@@ -297,7 +297,7 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> = addAssertion(ExpectImpl.path.
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
@@ -320,7 +320,7 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> = addAssertion(ExpectImpl.pa
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *

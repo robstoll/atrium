@@ -262,7 +262,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
  * Therefore, if a symbolic link exists at the location the subject points to,
  * search will continue at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
@@ -320,7 +320,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
@@ -340,7 +340,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions works on.
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion9 works on.
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
