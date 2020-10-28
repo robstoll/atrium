@@ -18,6 +18,8 @@ import kotlin.jvm.JvmName
  * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsFeature
  */
 val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
     get() = _logic.containsBuilder()
@@ -27,6 +29,8 @@ val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T
  * [NotCheckerStep].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsNotFeature
  */
 val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehaviour>
     get() = _logic.containsNotBuilder()
@@ -57,6 +61,8 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehavio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.contains
  */
 fun <T : CharSequence> Expect<T>.contains(
     expected: CharSequenceOrNumberOrChar,
@@ -75,6 +81,8 @@ fun <T : CharSequence> Expect<T>.contains(
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsNot
  */
 fun <T : CharSequence> Expect<T>.containsNot(
     expected: CharSequenceOrNumberOrChar,
@@ -103,6 +111,8 @@ fun <T : CharSequence> Expect<T>.containsNot(
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsRegexString
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatterns: String): Expect<T> =
     contains.atLeast(1).regex(pattern, *otherPatterns)
@@ -131,6 +141,8 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsRegex
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatterns: Regex): Expect<T> =
     contains.atLeast(1).regex(pattern, *otherPatterns)
@@ -140,6 +152,8 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.startsWith
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsWith(expected) }
@@ -149,6 +163,8 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.startsWithChar
  *
  * @since 0.9.0
  */
@@ -160,6 +176,8 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.startsNotWith
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsNotWith(expected) }
@@ -171,6 +189,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.startsNotWithChar
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     startsNotWith(expected.toString())
@@ -181,6 +201,8 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.endsWith
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
@@ -192,6 +214,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.endsWithChar
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     endsWith(expected.toString())
@@ -201,6 +225,8 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.endsNotWith
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsNotWith(expected) }
@@ -212,6 +238,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.endsNotWithChar
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     endsNotWith(expected.toString())
@@ -222,6 +249,8 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.isEmpty
  */
 fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
@@ -231,6 +260,8 @@ fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.isNotEmpty
  */
 fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty() }
@@ -240,6 +271,8 @@ fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.isNotBlank
  */
 fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
     _logicAppend { isNotBlank() }
@@ -253,6 +286,8 @@ fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.matches
  */
 fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
@@ -266,6 +301,8 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.mismatches
  */
 fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     _logicAppend { mismatches(expected) }
