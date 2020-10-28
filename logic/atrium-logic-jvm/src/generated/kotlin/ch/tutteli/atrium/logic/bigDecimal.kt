@@ -12,7 +12,11 @@
 
 package ch.tutteli.atrium.logic
 
-import ch.tutteli.atrium.assertions.Assertionimport ch.tutteli.atrium.core.ExperimentalNewExpectTypesimport ch.tutteli.atrium.creating.AssertionContainerimport ch.tutteli.atrium.logic.impl.DefaultBigDecimalAssertionsimport java.math.BigDecimal
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
+import java.math.BigDecimal
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultBigDecimalAssertions
 
 fun <T : BigDecimal> AssertionContainer<T>.isNumericallyEqualTo(expected: T): Assertion = impl.isNumericallyEqualTo(this, expected)
 fun <T : BigDecimal> AssertionContainer<T>.isNotNumericallyEqualTo(expected: T): Assertion = impl.isNotNumericallyEqualTo(this, expected)

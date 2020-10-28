@@ -7,7 +7,14 @@
 
 package ch.tutteli.atrium.logic
 
-import ch.tutteli.atrium.assertions.Assertionimport ch.tutteli.atrium.core.ExperimentalNewExpectTypesimport ch.tutteli.atrium.creating.AssertionContainerimport ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContainsimport ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviourimport ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviourimport ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStepimport ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
 
 
     /**
