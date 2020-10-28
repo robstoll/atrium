@@ -36,6 +36,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
     fun2<String, String, Expect<String>.() -> Unit>(Companion::because),
     fun2<Int, String, Expect<Int>.() -> Unit>(Companion::becauseOfInt),
+    "(i) ",
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),

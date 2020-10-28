@@ -42,6 +42,7 @@ abstract class AnyAssertionsSpec(
     isNotInNullableDataClass: Fun1<DataClass?, Iterable<DataClass?>>,
     because: Fun2<String, String, Expect<String>.() -> Unit>,
     becauseInt: Fun2<Int, String, Expect<Int>.() -> Unit>,
+    informationBulletPoint: String,
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
@@ -765,7 +766,7 @@ abstract class AnyAssertionsSpec(
                         startsWith("f")
                     }
             }.toThrow<AssertionError> {
-                messageContains("ℹ ${String.format(BECAUSE.getDefault(), "? is not allowed in file names on Windows")}")
+                messageContains("${informationBulletPoint}${String.format(BECAUSE.getDefault(), "? is not allowed in file names on Windows")}")
             }
         }
 
@@ -778,7 +779,7 @@ abstract class AnyAssertionsSpec(
                         isNoneOf(21)
                     }
             }.toThrow<AssertionError> {
-                messageContains("ℹ ${String.format(BECAUSE.getDefault(), "we use the definition that teens are between 12 and 18 years old")}")
+                messageContains("${informationBulletPoint}${String.format(BECAUSE.getDefault(), "we use the definition that teens are between 12 and 18 years old")}")
             }
         }
     }
