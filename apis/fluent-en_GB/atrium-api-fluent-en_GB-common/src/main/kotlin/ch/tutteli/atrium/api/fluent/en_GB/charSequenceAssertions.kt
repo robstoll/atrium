@@ -19,7 +19,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsBuilder
  */
 val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
     get() = _logic.containsBuilder()
@@ -30,7 +30,7 @@ val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T
  *
  * @return The newly created builder.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsNotFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceAssertionsSpec.containsNotBuilder
  */
 val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehaviour>
     get() = _logic.containsNotBuilder()
