@@ -5,10 +5,12 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.glue
 import java.nio.charset.Charset
 import java.nio.file.Path
 
@@ -175,6 +177,60 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  */
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     _logic.resolve(other).transform()
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is a directory having the provided [entry].
+ * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
+ * Furthermore, the argument string resolved against the subject yields an existing file system entry.
+ *
+ * This assertion _resolves_ symbolic links for the subject, but not for the [entry].
+ * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+ * the link points at. If a symbolic link exists at the [entry], this will fulfill the assertion and the entry’s
+ * symbolic link will not be followed.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+ * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @see [has]
+ *
+ * @since 0.14.0
+ */
+infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
+    _logicAppend { hasDirectoryEntry(listOf(entry)) }
+
+/**
+ * Expects that the subject of the assertion (a [Path]) is a directory having the provided entries.
+ * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
+ * Furthermore, every argument string resolved against the subject yields an existing file system entry.
+ *
+ * This assertion _resolves_ symbolic links for the subject, but not for the entries.
+ * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+ * the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
+ * the entry’s symbolic link will not be followed.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+ * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @see [directoryEntries]
+ * @see [hasDirectoryEntry]
+ *
+ * @since 0.14.0
+ */
+infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
+    _logicAppend { hasDirectoryEntry(directoryEntries.entries) }
+
+/**
+ * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
+ *
+ * @since 0.14.0
+ */
+fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry glue otherEntries)
 
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
