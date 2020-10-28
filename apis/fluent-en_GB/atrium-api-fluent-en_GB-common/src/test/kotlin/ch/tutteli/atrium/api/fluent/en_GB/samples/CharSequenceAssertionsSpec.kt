@@ -7,7 +7,7 @@ import kotlin.test.Test
 class CharSequenceAssertionsSpec {
 
     @Test
-    fun containsFeature() {
+    fun containsBuilder() {
         expect("ABC")
             .contains.exactly(1).value("A")
 
@@ -21,7 +21,7 @@ class CharSequenceAssertionsSpec {
     }
 
     @Test
-    fun containsNotFeature() {
+    fun containsNotBuilder() {
         expect("ABC").containsNot.value("X")
 
         fails {
