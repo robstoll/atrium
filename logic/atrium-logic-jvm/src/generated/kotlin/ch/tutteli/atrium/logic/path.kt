@@ -26,8 +26,8 @@ fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = 
 fun <T : Path> AssertionContainer<T>.endsWith(expected: Path): Assertion = impl.endsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.endsNotWith(expected: Path): Assertion = impl.endsNotWith(this, expected)
 
-fun <T : Path> AssertionContainer<T>.exists(vararg linkOptions: LinkOption): Assertion = impl.exists(this, *linkOptions)
-fun <T : Path> AssertionContainer<T>.existsNot(vararg linkOptions: LinkOption): Assertion = impl.existsNot(this, *linkOptions)
+fun <T : Path> AssertionContainer<T>.exists(linkOption: LinkOption? = null): Assertion = impl.exists(this, linkOption)
+fun <T : Path> AssertionContainer<T>.existsNot(linkOption: LinkOption? = null): Assertion = impl.existsNot(this, linkOption)
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = impl.isReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(this)

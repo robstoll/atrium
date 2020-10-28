@@ -59,11 +59,8 @@ class DefaultPathAssertions : PathAssertions {
             it.readAllBytes().contentEquals(targetPath.readAllBytes())
         }
 
-    override fun <T : Path> exists(
-        container: AssertionContainer<T>,
-        vararg linkOptions: LinkOption
-    ): Assertion =
-        changeSubjectToFileAttributes(container, *linkOptions) { fileAttributesExpect ->
+    override fun <T : Path> exists(container: AssertionContainer<T>, linkOption: LinkOption?): Assertion =
+        changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Success }
                 .withIOExceptionFailureHint(fileAttributesExpect) { realPath, exception ->
@@ -81,11 +78,8 @@ class DefaultPathAssertions : PathAssertions {
         }
 
 
-    override fun <T : Path> existsNot(
-        container: AssertionContainer<T>,
-        vararg linkOptions: LinkOption
-    ): Assertion =
-        changeSubjectToFileAttributes(container, *linkOptions) { fileAttributesExpect ->
+    override fun <T : Path> existsNot(container: AssertionContainer<T>, linkOption: LinkOption?): Assertion =
+        changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Failure && it.exception is NoSuchFileException }
                 .withFileAttributesFailureHint(fileAttributesExpect)
@@ -95,10 +89,12 @@ class DefaultPathAssertions : PathAssertions {
 
     private inline fun <T : Path, R> changeSubjectToFileAttributes(
         container: AssertionContainer<T>,
-        vararg linkOptions: LinkOption,
+        linkOption: LinkOption? = null,
         block: (Expect<IoResult<BasicFileAttributes>>) -> R
     ): R = container.changeSubject.unreported {
-        it.runCatchingIo { readAttributes<BasicFileAttributes>(*linkOptions) }
+        it.runCatchingIo<BasicFileAttributes> {
+            if (linkOption == null) readAttributes() else readAttributes(linkOption)
+        }
     }.let(block)
 
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =

@@ -21,8 +21,8 @@ interface PathAssertions {
     fun <T : Path> endsWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> endsNotWith(container: AssertionContainer<T>, expected: Path): Assertion
 
-    fun <T : Path> exists(container: AssertionContainer<T>, vararg linkOptions: LinkOption): Assertion
-    fun <T : Path> existsNot(container: AssertionContainer<T>, vararg linkOptions: LinkOption): Assertion
+    fun <T : Path> exists(container: AssertionContainer<T>, linkOption: LinkOption? = null): Assertion
+    fun <T : Path> existsNot(container: AssertionContainer<T>, linkOption: LinkOption? = null): Assertion
 
     fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
