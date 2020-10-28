@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle
@@ -12,13 +13,13 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
-import ch.tutteli.atrium.logic.impl.DefaultPathAssertions
 import java.nio.charset.Charset
 import java.nio.file.LinkOption
 import java.nio.file.Path
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.impl.DefaultPathAssertions
 
 fun <T : Path> AssertionContainer<T>.startsWith(expected: Path): Assertion = impl.startsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = impl.startsNotWith(this, expected)
@@ -26,8 +27,7 @@ fun <T : Path> AssertionContainer<T>.endsWith(expected: Path): Assertion = impl.
 fun <T : Path> AssertionContainer<T>.endsNotWith(expected: Path): Assertion = impl.endsNotWith(this, expected)
 
 fun <T : Path> AssertionContainer<T>.exists(vararg linkOptions: LinkOption): Assertion = impl.exists(this, *linkOptions)
-fun <T : Path> AssertionContainer<T>.existsNot(vararg linkOptions: LinkOption): Assertion =
-    impl.existsNot(this, *linkOptions)
+fun <T : Path> AssertionContainer<T>.existsNot(vararg linkOptions: LinkOption): Assertion = impl.existsNot(this, *linkOptions)
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = impl.isReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(this)
@@ -37,11 +37,7 @@ fun <T : Path> AssertionContainer<T>.isDirectory(): Assertion = impl.isDirectory
 fun <T : Path> AssertionContainer<T>.isAbsolute(): Assertion = impl.isAbsolute(this)
 fun <T : Path> AssertionContainer<T>.isRelative(): Assertion = impl.isRelative(this)
 
-fun <T : Path> AssertionContainer<T>.hasSameTextualContentAs(
-    targetPath: Path,
-    sourceCharset: Charset,
-    targetCharset: Charset
-): Assertion =
+fun <T : Path> AssertionContainer<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Assertion =
     impl.hasSameTextualContentAs(this, targetPath, sourceCharset, targetCharset)
 
 fun <T : Path> AssertionContainer<T>.hasSameBinaryContentAs(targetPath: Path): Assertion = impl.hasSameBinaryContentAs(this, targetPath)
@@ -50,11 +46,9 @@ fun <T : Path> AssertionContainer<T>.fileName(): FeatureExtractorBuilder.Executi
 fun <T : Path> AssertionContainer<T>.extension(): FeatureExtractorBuilder.ExecutionStep<T, String> = impl.extension(this)
 fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): FeatureExtractorBuilder.ExecutionStep<T, String> = impl.fileNameWithoutExtension(this)
 fun <T : Path> AssertionContainer<T>.parent(): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.parent(this)
-fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> =
-    impl.resolve(this, other)
+fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.resolve(this, other)
 
-fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): Assertion =
-    impl.hasDirectoryEntry(this, entries)
+fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): Assertion = impl.hasDirectoryEntry(this, entries)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

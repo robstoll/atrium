@@ -73,6 +73,7 @@ def createGenerateLogicTaskForPackage(
             //TODO delete all files in folder first (as we might have removed things)
 
             def header = """\
+                // @formatter:off
                 //---------------------------------------------------
                 //  Generated content, modify:
                 //  logic/generateLogic.gradle

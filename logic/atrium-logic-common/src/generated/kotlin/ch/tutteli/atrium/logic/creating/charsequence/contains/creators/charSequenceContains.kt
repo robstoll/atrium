@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle
@@ -6,13 +7,7 @@
 
 package ch.tutteli.atrium.logic.creating.charsequence.contains.creators
 
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl.DefaultCharSequenceContainsAssertions
+import ch.tutteli.atrium.assertions.AssertionGroupimport ch.tutteli.atrium.core.ExperimentalNewExpectTypesimport ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContainsimport ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl.DefaultCharSequenceContainsAssertionsimport ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviourimport ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviourimport ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 
 
 fun <T : CharSequence> CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>.values(expected: List<CharSequenceOrNumberOrChar>): AssertionGroup = impl.values(this, expected)

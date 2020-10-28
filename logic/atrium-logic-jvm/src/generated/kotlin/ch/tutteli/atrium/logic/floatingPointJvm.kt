@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle

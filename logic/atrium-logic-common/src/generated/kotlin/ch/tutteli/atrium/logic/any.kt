@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle
@@ -6,13 +7,7 @@
 
 package ch.tutteli.atrium.logic
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
-import kotlin.reflect.KClass
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
+import ch.tutteli.atrium.assertions.Assertionimport ch.tutteli.atrium.core.ExperimentalNewExpectTypesimport ch.tutteli.atrium.creating.AssertionContainerimport ch.tutteli.atrium.creating.Expectimport ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilderimport ch.tutteli.atrium.logic.impl.DefaultAnyAssertionsimport kotlin.reflect.KClass
 
 fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, expected)
 fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)

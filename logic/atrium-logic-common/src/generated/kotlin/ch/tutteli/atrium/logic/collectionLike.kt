@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle
@@ -6,12 +7,7 @@
 
 package ch.tutteli.atrium.logic
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
-import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultCollectionLikeAssertions
+import ch.tutteli.atrium.assertions.Assertionimport ch.tutteli.atrium.core.ExperimentalNewExpectTypesimport ch.tutteli.atrium.creating.AssertionContainerimport ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilderimport ch.tutteli.atrium.logic.creating.typeutils.CollectionLikeimport ch.tutteli.atrium.logic.impl.DefaultCollectionLikeAssertions
 
 
 fun <T : CollectionLike> AssertionContainer<T>.isEmpty(converter: (T) -> Collection<*>): Assertion = impl.isEmpty(this, converter)
