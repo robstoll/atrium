@@ -185,10 +185,9 @@ class DefaultPathAssertions : PathAssertions {
 
     override fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion =
         assertionBuilder.invisibleGroup.withAssertions(
-            listOf(isDirectory(container)) +
+            listOf(container.isDirectory()) +
                 entries.map { entry ->
-                    resolve(container, entry)
-                        .collect { _logic.addAssertion(exists(_logic, NOFOLLOW_LINKS)) }
+                    container.resolve(entry).collect { _logic.exists(NOFOLLOW_LINKS) }
                 }
         ).build()
 }
