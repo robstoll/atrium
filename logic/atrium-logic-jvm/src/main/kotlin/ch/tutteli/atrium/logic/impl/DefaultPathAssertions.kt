@@ -187,7 +187,7 @@ class DefaultPathAssertions : PathAssertions {
         assertionBuilder.invisibleGroup.withAssertions(
             listOf(container.isDirectory()) +
                 entries.map { entry ->
-                    container.resolve(entry).collect { _logic.exists(NOFOLLOW_LINKS) }
+                    container.resolve(entry).collect { _logicAppend { exists(NOFOLLOW_LINKS) } }
                 }
         ).build()
 }
