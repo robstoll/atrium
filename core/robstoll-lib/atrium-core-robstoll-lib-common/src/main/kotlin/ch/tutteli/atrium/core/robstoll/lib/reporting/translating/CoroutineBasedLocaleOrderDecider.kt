@@ -6,8 +6,6 @@ import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.getDefaultLocale
 import ch.tutteli.kbox.forElementAndForEachIn
-import kotlin.coroutines.experimental.SequenceBuilder
-import kotlin.coroutines.experimental.buildSequence
 
 /**
  * Responsible to determine in which order [Locale]s should be processed.
@@ -24,17 +22,17 @@ import kotlin.coroutines.experimental.buildSequence
 class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
 
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale> {
-        return buildSequence {
-            forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->
-                when (locale.language) {
-                    "zh" -> specialCaseChinese(locale)
-                    else -> normalCase(locale)
-                }
+        val locales = mutableListOf<Locale>()
+        forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->
+            when (locale.language) {
+                "zh" -> locales.specialCaseChinese(locale)
+                else -> locales.normalCase(locale)
             }
         }
+        return locales.asSequence()
     }
 
-    private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {
+    private fun MutableList<Locale>.specialCaseChinese(locale: Locale) {
         val script = if (locale.script == null && locale.country != null) {
             when (locale.country) {
                 "TW", "HK", "MO" -> "Hant"
@@ -47,7 +45,7 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
         normalCase(locale, script = script)
     }
 
-    private suspend fun SequenceBuilder<Locale>.normalCase(
+    private fun MutableList<Locale>.normalCase(
         locale: Locale,
         language: String = locale.language,
         script: String? = locale.script,
@@ -60,8 +58,7 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
         fallbackDueToLanguage(language)
     }
 
-
-    private suspend fun SequenceBuilder<Locale>.fallbackDueToVariant(
+    private fun MutableList<Locale>.fallbackDueToVariant(
         language: String,
         script: String?,
         country: String?,
@@ -71,25 +68,24 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
             var newVariant: String = variant
             do {
                 val fallback = Locale(language, script, country, newVariant)
-                yield(fallback)
+                add(fallback)
                 newVariant = newVariant.substringBeforeLast('_', "")
             } while (newVariant.isNotEmpty())
         }
     }
 
-
-    private suspend fun SequenceBuilder<Locale>.fallbackDueToCountry(
+    private fun MutableList<Locale>.fallbackDueToCountry(
         language: String,
         script: String?,
         country: String?
     ) {
         if (country != null) {
             val fallback = Locale(language, script, country, null)
-            yield(fallback)
+            add(fallback)
         }
     }
 
-    private suspend fun SequenceBuilder<Locale>.fallbackDueToScript(
+    private fun MutableList<Locale>.fallbackDueToScript(
         language: String,
         script: String?,
         country: String?,
@@ -97,7 +93,7 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
     ) {
         if (script != null) {
             val fallback = Locale(language, script, null, null)
-            yield(fallback)
+            add(fallback)
 
             // fallback variants without considering script
             fallbackDueToVariant(language, null, country, variant)
@@ -107,8 +103,8 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
         }
     }
 
-    private suspend fun SequenceBuilder<Locale>.fallbackDueToLanguage(language: String) {
+    private fun MutableList<Locale>.fallbackDueToLanguage(language: String) {
         val fallback = Locale(language)
-        yield(fallback)
+        add(fallback)
     }
 }
