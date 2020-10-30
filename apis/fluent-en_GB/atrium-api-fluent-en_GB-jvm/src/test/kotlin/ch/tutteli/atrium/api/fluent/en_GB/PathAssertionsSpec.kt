@@ -19,15 +19,18 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     fun0(Expect<Path>::isDirectory),
     fun0(Expect<Path>::isAbsolute),
     fun0(Expect<Path>::isRelative),
-    fun2<Path, String, Array<out String>>(Expect<Path>::contains),
+    Expect<Path>::hasDirectoryEntry.name to Companion::hasDirectoryEntrySingle,
+    fun2<Path, String, Array<out String>>(Expect<Path>::hasDirectoryEntry),
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Expect<Path>::hasSameTextualContentAs),
-    fun1(Companion::hasSameTextualContentAsDefaultArgs)
+    Expect<Path>::hasSameTextualContentAs.name to Companion::hasSameTextualContentAsDefaultArgs
 ) {
 
     companion object {
         private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
             expect.hasSameTextualContentAs(targetPath)
+
+        private fun hasDirectoryEntrySingle(expect: Expect<Path>, entry: String) = expect.hasDirectoryEntry(entry)
     }
 
     @Suppress("unused", "UNUSED_VALUE")

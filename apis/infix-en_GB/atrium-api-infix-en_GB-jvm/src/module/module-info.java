@@ -1,6 +1,7 @@
 module ch.tutteli.atrium.api.infix.en_GB {
     requires ch.tutteli.atrium.logic;
     requires kotlin.stdlib;
+    requires ch.tutteli.kbox;
     requires java.base;
 
     exports ch.tutteli.atrium.api.infix.en_GB;

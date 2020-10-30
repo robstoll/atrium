@@ -9,6 +9,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.nio.charset.Charset
+import java.nio.file.LinkOption
 import java.nio.file.Path
 
 /**
@@ -20,8 +21,8 @@ interface PathAssertions {
     fun <T : Path> endsWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> endsNotWith(container: AssertionContainer<T>, expected: Path): Assertion
 
-    fun <T : Path> exists(container: AssertionContainer<T>): Assertion
-    fun <T : Path> existsNot(container: AssertionContainer<T>): Assertion
+    fun <T : Path> exists(container: AssertionContainer<T>, linkOption: LinkOption? = null): Assertion
+    fun <T : Path> existsNot(container: AssertionContainer<T>, linkOption: LinkOption? = null): Assertion
 
     fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
@@ -44,5 +45,10 @@ interface PathAssertions {
     fun <T : Path> extension(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, String>
     fun <T : Path> fileNameWithoutExtension(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, String>
     fun <T : Path> parent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, Path>
-    fun <T : Path> resolve(container: AssertionContainer<T>, other: String): FeatureExtractorBuilder.ExecutionStep<T, Path>
+    fun <T : Path> resolve(
+        container: AssertionContainer<T>,
+        other: String
+    ): FeatureExtractorBuilder.ExecutionStep<T, Path>
+
+    fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion
 }

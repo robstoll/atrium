@@ -5,7 +5,6 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
-import ch.tutteli.kbox.forElementAndForEachIn
 import java.nio.charset.Charset
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -24,7 +23,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
     "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
-    "contains not yet implemented in this API" to Companion::contains,
+    fun1(Expect<Path>::hasDirectoryEntry),
+    "has ${::directoryEntries.name}" to Companion::hasDirectoryEntryMultiple,
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Companion::hasSameTextualContentAs),
     fun1(Companion::hasSameTextualContentAsDefaultArgs)
@@ -40,11 +40,8 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
         private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
-        private fun contains(expect: Expect<Path>, path: String, vararg otherPaths: String) = isDirectory(expect) and {
-            forElementAndForEachIn(path, otherPaths) { p ->
-                it resolve path(p) { it toBe existing }
-            }
-        }
+        private fun hasDirectoryEntryMultiple(expect: Expect<Path>, entry: String, vararg otherEntries: String) =
+            expect has directoryEntries(entry, *otherEntries)
 
         private fun hasSameTextualContentAs(
             expect: Expect<Path>,
@@ -77,6 +74,9 @@ class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpe
         a1 toBe relative
         a1 hasSameTextualContentAs withEncoding(Paths.get("a"))
         a1 hasSameTextualContentAs Paths.get("a")
+        a1 resolve "a"
+        a1 hasDirectoryEntry "a"
+        a1 has directoryEntries("a", "b", "c")
     }
 }
 

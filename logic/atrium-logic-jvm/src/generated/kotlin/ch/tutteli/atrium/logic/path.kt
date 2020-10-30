@@ -1,3 +1,4 @@
+// @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
 //  logic/generateLogic.gradle
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.nio.charset.Charset
+import java.nio.file.LinkOption
 import java.nio.file.Path
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultPathAssertions
@@ -24,8 +26,8 @@ fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = 
 fun <T : Path> AssertionContainer<T>.endsWith(expected: Path): Assertion = impl.endsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.endsNotWith(expected: Path): Assertion = impl.endsNotWith(this, expected)
 
-fun <T : Path> AssertionContainer<T>.exists(): Assertion = impl.exists(this)
-fun <T : Path> AssertionContainer<T>.existsNot(): Assertion = impl.existsNot(this)
+fun <T : Path> AssertionContainer<T>.exists(linkOption: LinkOption? = null): Assertion = impl.exists(this, linkOption)
+fun <T : Path> AssertionContainer<T>.existsNot(linkOption: LinkOption? = null): Assertion = impl.existsNot(this, linkOption)
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = impl.isReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(this)
@@ -45,6 +47,8 @@ fun <T : Path> AssertionContainer<T>.extension(): FeatureExtractorBuilder.Execut
 fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): FeatureExtractorBuilder.ExecutionStep<T, String> = impl.fileNameWithoutExtension(this)
 fun <T : Path> AssertionContainer<T>.parent(): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.parent(this)
 fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.resolve(this, other)
+
+fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): Assertion = impl.hasDirectoryEntry(this, entries)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

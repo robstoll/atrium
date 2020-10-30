@@ -7,6 +7,7 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -24,10 +25,8 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import java.nio.charset.Charset
-import java.nio.file.AccessDeniedException
-import java.nio.file.AccessMode
-import java.nio.file.NoSuchFileException
-import java.nio.file.Path
+import java.nio.file.*
+import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.nio.file.attribute.BasicFileAttributes
 
 class DefaultPathAssertions : PathAssertions {
@@ -60,8 +59,8 @@ class DefaultPathAssertions : PathAssertions {
             it.readAllBytes().contentEquals(targetPath.readAllBytes())
         }
 
-    override fun <T : Path> exists(container: AssertionContainer<T>): Assertion =
-        changeSubjectToFileAttributes(container) { fileAttributesExpect ->
+    override fun <T : Path> exists(container: AssertionContainer<T>, linkOption: LinkOption?): Assertion =
+        changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Success }
                 .withIOExceptionFailureHint(fileAttributesExpect) { realPath, exception ->
@@ -78,8 +77,9 @@ class DefaultPathAssertions : PathAssertions {
                 .build()
         }
 
-    override fun <T : Path> existsNot(container: AssertionContainer<T>): Assertion =
-        changeSubjectToFileAttributes(container) { fileAttributesExpect ->
+
+    override fun <T : Path> existsNot(container: AssertionContainer<T>, linkOption: LinkOption?): Assertion =
+        changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Failure && it.exception is NoSuchFileException }
                 .withFileAttributesFailureHint(fileAttributesExpect)
@@ -89,9 +89,12 @@ class DefaultPathAssertions : PathAssertions {
 
     private inline fun <T : Path, R> changeSubjectToFileAttributes(
         container: AssertionContainer<T>,
+        linkOption: LinkOption? = null,
         block: (Expect<IoResult<BasicFileAttributes>>) -> R
     ): R = container.changeSubject.unreported {
-        it.runCatchingIo { readAttributes<BasicFileAttributes>() }
+        it.runCatchingIo<BasicFileAttributes> {
+            if (linkOption == null) readAttributes() else readAttributes(linkOption)
+        }
     }.let(block)
 
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =
@@ -180,4 +183,11 @@ class DefaultPathAssertions : PathAssertions {
         other: String
     ): FeatureExtractorBuilder.ExecutionStep<T, Path> = container.f1<T, String, Path>(Path::resolve, other)
 
+    override fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion =
+        assertionBuilder.invisibleGroup.withAssertions(
+            listOf(container.isDirectory()) +
+                entries.map { entry ->
+                    container.resolve(entry).collect { _logicAppend { exists(NOFOLLOW_LINKS) } }
+                }
+        ).build()
 }

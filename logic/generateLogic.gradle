@@ -54,7 +54,7 @@ def createGenerateLogicTaskForPackage(
 
     String generatedFolder = project.generatedFolder
 
-    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for pacakge $relativePackagePath") {
+    return task("generateLogic_${relativePackagePath.replaceAll('/', '_')}", description: "generates ext. methods for package $relativePackagePath") {
         def packagePath = 'ch/tutteli/atrium/logic' + relativePackagePath + (suffix != '' ? "/" + suffix : '')
         def fullPackage = packagePath.replaceAll('/', '.')
         def path = "$project.projectDir/src/main/kotlin/$packagePath/"
@@ -73,6 +73,7 @@ def createGenerateLogicTaskForPackage(
             //TODO delete all files in folder first (as we might have removed things)
 
             def header = """\
+                // @formatter:off
                 //---------------------------------------------------
                 //  Generated content, modify:
                 //  logic/generateLogic.gradle
