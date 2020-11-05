@@ -36,14 +36,18 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-js"
 }
 
+kotlin {
+    target {
+        nodejs()
+    }
+}
+
 // we only configure compileTestKotlinJs and not compileKotlinJs as well
 // so that you can also use UMD as moduleKind for compileKotlinJs
 compileTestKotlinJs.configure {
     // mocha requires commonjs
     kotlinOptions.moduleKind = "commonjs"
 }
-
-kotlin.target.nodejs { }
 
 //either you use this task or create a testSetup.kt in your src/test with the following content
 //
