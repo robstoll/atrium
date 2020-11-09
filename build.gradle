@@ -58,7 +58,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.14.0.RC1"
+        dokka_sourceMapping = "tree/master"
 
 
         toolProjects = toolProjectsFun
