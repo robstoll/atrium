@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.14.0.RC1'
+    rootProject.version = '0.14.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
