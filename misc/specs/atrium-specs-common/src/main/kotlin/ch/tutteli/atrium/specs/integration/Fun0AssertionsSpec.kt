@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -84,7 +85,7 @@ abstract class Fun0AssertionsSpec(
                         expect<() -> Any?> { /* no exception occurs */ 1 }.toThrowFun { toBe(IllegalArgumentException("what")) }
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).regex(
+                            contains.exactly(1).values(
                                 "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
                                     DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
                                 "$isADescr: ${IllegalArgumentException::class.simpleName}"
@@ -98,6 +99,16 @@ abstract class Fun0AssertionsSpec(
             notToThrowFunctions.forEach { (name, notToThrowFun, _) ->
                 it("$name - does not throw, allows to make a sub assertion") {
                     expect { 1 }.notToThrowFun { toBe(1) }
+                }
+            }
+
+            notToThrowFunctions.forEach { (name, notToThrowFun, _) ->
+                it("$name - shows return value in case sub-assertion fails") {
+                    expect {
+                        expect { 123456789 }.notToThrowFun { toBe(1) }
+                    }.toThrow<AssertionError>() {
+                        messageContains("123456789")
+                    }
                 }
             }
         }
@@ -146,8 +157,10 @@ abstract class Fun0AssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
-                                "${DescriptionFunLikeAssertion.IS_NOT_THROWING_1.getDefault()}: "+
-                                    DescriptionFunLikeAssertion.IS_NOT_THROWING_2.getDefault(),
+                                "\\Qinvoke()\\E: ${
+                                    DescriptionFunLikeAssertion.THREW.getDefault()
+                                        .format(UnsupportedOperationException::class.fullName)
+                                }",
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )

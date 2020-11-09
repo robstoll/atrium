@@ -44,7 +44,7 @@ class DefaultSubjectChanger : SubjectChanger {
 
         if (shallTransform) {
             expect.addAssertion(descriptiveAssertion)
-            maybeSubAssertions.fold({ /*nothing to do */ }) { assertionCreator ->
+            maybeSubAssertions.fold({ /* nothing to do */ }) { assertionCreator ->
                 expect.addAssertionsCreatedBy(assertionCreator)
             }
         } else {

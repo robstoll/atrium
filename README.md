@@ -448,18 +448,18 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/samples/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L94)</sub> ↓ <sub>Output</sub>
 ```text
 expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$7$1 <1234789>)
-◆ does not: throw when called
-  » Properties of the unexpected IllegalArgumentException
-    » message: "name is empty"        <1234789>
-    » stacktrace: 
-      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
-      ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:51)
-      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:98)
-      ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:51)
-    » cause: java.lang.RuntimeException
-        » message: "a cause"        <1234789>
+◆ ▶ invoke(): ❗❗ threw java.lang.IllegalArgumentException
+      » Properties of the unexpected IllegalArgumentException
+        » message: "name is empty"        <1234789>
         » stacktrace: 
           ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
+          ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:51)
+          ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:98)
+          ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:51)
+        » cause: java.lang.RuntimeException
+            » message: "a cause"        <1234789>
+            » stacktrace: 
+              ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
 ```
 </ex-notToThrow>
 

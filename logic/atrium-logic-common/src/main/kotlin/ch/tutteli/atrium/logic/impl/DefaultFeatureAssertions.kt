@@ -1,16 +1,12 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.FeatureAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.logic.genericFeature
-import ch.tutteli.atrium.logic.toExpect
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
@@ -23,6 +19,7 @@ class DefaultFeatureAssertions : FeatureAssertions {
         extractFeature(container, property.name, property::get)
 
     override fun <T, R> f0(container: AssertionContainer<T>, f: KFunction1<T, R>): FeatureExtractorBuilder.ExecutionStep<T, R> =
+        //TODO 0.15.0 use methodCallFormatter from container via getImpl
         extractFeature(container, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf()), f::invoke)
 
     override fun <T, A1, R> f1(container: AssertionContainer<T>, f: KFunction2<T, A1, R>, a1: A1): FeatureExtractorBuilder.ExecutionStep<T, R> =
@@ -43,73 +40,28 @@ class DefaultFeatureAssertions : FeatureAssertions {
 
     override fun <T, R> manualFeature(
         container: AssertionContainer<T>,
-        description: String,
-        provider: T.() -> R
-    ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, description, provider)
-
-    override fun <T, R> manualFeature(
-        container: AssertionContainer<T>,
         description: Translatable,
         provider: T.() -> R
-    ): FeatureExtractorBuilder.ExecutionStep<T, R> = container.genericFeature(createMetaFeature(container, description, provider))
-
-    override fun <T, R> genericSubjectBasedFeature(
-        container: AssertionContainer<T>,
-        provider: (T) -> MetaFeature<R>
-    ): FeatureExtractorBuilder.ExecutionStep<T, R> =
-        container.genericFeature(createSubjectBasedMetaFeature(container, provider))
+    ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, description, provider)
 
     private fun <T, R> extractFeature(
         container: AssertionContainer<T>,
         description: String,
         provider: (T) -> R
-    ): FeatureExtractorBuilder.ExecutionStep<T, R> =
-        container.genericFeature(createMetaFeature(container, description, provider))
+    ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, Untranslatable(description), provider)
 
-    // TODO 0.14.0 probably not the best place
-    private fun <T, R> createMetaFeature(
-        container: AssertionContainer<T>,
-        description: String,
-        provider: (T) -> R
-    ): MetaFeature<R> = createMetaFeature(container, Untranslatable(description), provider)
-
-    // TODO 0.14.0 probably not the best place
-    @Suppress("DEPRECATION")
-    private fun <T, R> createMetaFeature(
+    private fun <T, R> extractFeature(
         container: AssertionContainer<T>,
         description: Translatable,
         provider: (T) -> R
-    ): MetaFeature<R> =
-        //TODO 0.14.0 replace NewFeatureAssertionsBuilder.meta
-        ch.tutteli.atrium.domain.builders.creating.NewFeatureAssertionsBuilder.meta.create(
-            container.toExpect(), description, provider
-        )
-
-    // TODO 0.14.0 probably not the best place
-    private fun <T, R> createSubjectBasedMetaFeature(
-        container: AssertionContainer<T>,
-        provider: (T) -> MetaFeature<R>
-    ): MetaFeature<R> = container.maybeSubject.fold(this::createFeatureSubjectNotDefined) { provider(it) }
-
-    private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
-        MetaFeature(
-            ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
-            ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED,
-            None
-        )
-
-    override fun <T, R> genericFeature(
-        container: AssertionContainer<T>,
-        metaFeature: MetaFeature<R>
     ): FeatureExtractorBuilder.ExecutionStep<T, R> {
-        val representation: Any = metaFeature.representation ?: Text.NULL
         @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
         @UseExperimental(ExperimentalNewExpectTypes::class)
         return container.extractFeature
-            .withDescription(metaFeature.description)
-            .withRepresentationForFailure(representation)
-            .withFeatureExtraction { metaFeature.maybeSubject }
-            .withOptions { withRepresentation { representation } }
+            .withDescription(description)
+            .withRepresentationForFailure(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)
+            .withFeatureExtraction { Some(provider(it)) }
+            .withoutOptions()
             .build()
     }
 }
