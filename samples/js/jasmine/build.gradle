@@ -6,7 +6,7 @@ buildscript {
         kotlin_version = '1.4.10'
         // for infix-api -> change to 'atrium-infix-en_GB-js'
         atrium_api = 'atrium-fluent-en_GB-js'
-        atrium_version = '0.13.0'
+        atrium_version = '0.14.0.RC1'
     }
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
