@@ -65,7 +65,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  *
  * If you want to use a higher lower bound than one, then use `zumindest(2).aberHoechstens(3)` instead of `hoechstens(3)`.
  * And in case you want to state that it is either not contained at all or at most a certain number of times,
- * then use `notOrAstMost(2)` instead.
+ * then use `notOrAtMost(2)` instead.
  *
  * @param times The number which the check will compare against the number of times an expected entry is
  *   found in the [Iterable].

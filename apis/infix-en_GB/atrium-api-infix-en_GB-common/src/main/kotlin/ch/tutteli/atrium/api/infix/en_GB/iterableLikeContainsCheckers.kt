@@ -78,7 +78,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  *
  * If you want to use a higher lower bound than one, then use `atLeast(2).butAtMost(3)` instead of `atMost(3)`.
  * And in case you want to state that it is either not contained at all or at most a certain number of times,
- * then use `notOrAstMost(2)` instead.
+ * then use `notOrAtMost(2)` instead.
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
  *   found in the [IterableLike].
