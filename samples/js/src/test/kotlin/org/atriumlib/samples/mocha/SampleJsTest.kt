@@ -3,7 +3,7 @@ package org.atriumlib.samples.mocha
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import kotlin.test.Test
 
@@ -37,4 +37,4 @@ class SampleJsTest {
     }
 }
 
-fun Expect<Int>.isEven() = createAndAddAssertion(IS, RawString.create("an even number")) { it % 2 == 0 }
+fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
