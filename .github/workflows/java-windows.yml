@@ -62,6 +62,10 @@ jobs:
                     # too many timeout errors, let's not fail at the moment
                     #fail_ci_if_error: true
 
-            -   name: composite build atrium-samples
+            -   name: composite build atrium-samples-test
                 run: ./gradlew build
                 working-directory: misc\tools\atrium-samples-test
+
+            -   name: composite build atrium-js-sample-test
+                run: ./gradlew build
+                working-directory: misc\tools\atrium-js-sample-test

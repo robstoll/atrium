@@ -42,6 +42,7 @@ jobs:
             - cd samples/maven && ./mvnw -B test && cd ../..
             - samples/multiplatform/gradlew -p ./samples/multiplatform build
             - misc/tools/atrium-samples-test/gradlew -p ./misc/tools/atrium-samples-test build
+            - misc/tools/atrium-js-sample-test/gradlew -p ./misc/tools/atrium-js-sample-test build
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

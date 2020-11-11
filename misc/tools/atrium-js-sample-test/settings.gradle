@@ -1,0 +1,26 @@
+rootProject.name = "js-sample-composite"
+
+includeBuild('../../../') {
+    dependencySubstitution {
+        gradle.includedBuild('atrium').getAvailableModules().collect { pair -> pair.right.projectName }
+            .findAll { it.endsWith("-jvm") }
+            .forEach { projectName ->
+                def withoutSuffix = projectName.substring(0, projectName.length() - 4)
+                substitute module("ch.tutteli.atrium:$withoutSuffix") with project(":$projectName")
+            }
+    }
+}
+// in an own composite build because yarn (or jetbrain's gradle plugin) does not lock correctly on windows
+// leading to the situation where two concurrent kotlinNpmInstall can cause that two yarn processes try to
+// download the same dependencies at the same time leading to the following error:
+//
+// Execution failed for task ':multiplatform:kotlinNpmInstall'.
+//>                 Process 'Resolving NPM dependencies using yarn' returns 1
+//
+//                  yarn install v1.22.4
+//  info No lockfile found.
+//  [1/4] Resolving packages...
+//  [2/4] Fetching packages...
+//  info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+
+includeBuild '../../../samples/js'
