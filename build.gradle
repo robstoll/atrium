@@ -18,7 +18,7 @@ buildscript {
         junit_platform_version = '1.7.0'
         jupiter_version = '5.7.0'
         spek_version = '1.1.5'
-        spek2_version = '2.0.12'
+        spek2_version = '2.0.14-alpha.0.4+88d54d2'
         spekExtensions_version = '1.1.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
         mockk_version = '1.10.0'
@@ -157,6 +157,12 @@ subprojects {
         jcenter()
         maven {
             url 'https://dl.bintray.com/spekframework/spek'
+            content {
+                includeGroupByRegex 'org\\.spekframework(\\..*)?'
+            }
+        }
+        maven {
+            url  "https://dl.bintray.com/spekframework/spek-dev"
             content {
                 includeGroupByRegex 'org\\.spekframework(\\..*)?'
             }
