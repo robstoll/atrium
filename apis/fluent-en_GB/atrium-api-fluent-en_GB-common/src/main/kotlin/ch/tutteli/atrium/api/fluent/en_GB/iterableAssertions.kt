@@ -232,10 +232,10 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
 ): Expect<T> = contains.inAnyOrder.atLeast(1).elementsOf(expectedIterableLike)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) does not contain the [expected] value
- * and neither one of the [otherExpected] values (if given).
+ * Expects that the subject of the assertion (an [Iterable]) has at least one element and
+ * that it does not contain the [expected] value and neither one of the [otherExpected] values (if given).
  *
- *  It is a shortcut for `containsNot.values(expected, *otherExpected)`
+ * It is a shortcut for `containsNot.values(expected, *otherExpected)`
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -307,9 +307,9 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) does not contain a single entry
- * which holds all assertions created by [assertionCreatorOrNull] or does not contain a single entry which is `null`
- * in case [assertionCreatorOrNull] is defined as `null`.
+ * Expects that the subject of the assertion (an [Iterable]) has at least one element and
+ * that it either does not contain a single entry which holds all assertions created by [assertionCreatorOrNull] or
+ * that it does not contain a single entry which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  *  It is a shortcut for `containsNot.entry(assertionCreatorOrNull)`
  *
@@ -321,8 +321,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) has at least one element and
- * that every element holds all assertions created by the [assertionCreatorOrNull] or that all elements are `null`
- * in case [assertionCreatorOrNull] is defined as `null`.
+ * that either every element holds all assertions created by the [assertionCreatorOrNull] or
+ * that all elements are `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
