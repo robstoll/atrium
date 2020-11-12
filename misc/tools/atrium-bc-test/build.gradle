@@ -176,9 +176,6 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             add(confCommon, "$groupId:atrium-specs:$oldVersion") {
                 exclude group: 'ch.tutteli.atrium'
             }
-            add(confCommon, prefixedProject("api-fluent-en_GB-jvm")) {  //required by atrium-specs
-                exclude group: '*'
-            }
             add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by specs in the APIs
                 exclude group: '*'
             }
@@ -186,6 +183,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
 
         //TODO keep only if branch, remove the rest with 1.0.0
         if (isFluentOrInfix) {
+            //required by atrium-specs
             add(confCommon, prefixedProject("$apiName-jvm"))
         } else if (!apiName.endsWith('en_UK')) {
             add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
@@ -382,18 +380,32 @@ createBcAndBbcTasksForApis('0.10.0',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.11.1',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
+        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
+        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)'+
+        ').*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.12.0',
     'forgive=(ch/tutteli/atrium/api/fluent/en_GB/(' +
-        '(PathAssertionsSpec/.*`is(Readable|Writable|RegularFile|Directory)`.*)' +
-    '))|(ch/tutteli/atrium/api/infix/en_GB/(' +
-        '(Fun0AssertionsJvmSpec/.*)|' +
-        '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`.*)' +
-    '))|(ch/tutteli/atrium/api/(fluent|infix)/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
+        '(PathAssertionsSpec/.*`is(Readable|Writable|RegularFile|Directory)`)'+
+    ').*)|(ch/tutteli/atrium/api/infix/en_GB/(' +
+        '(Fun0AssertionsJvmSpec/)|' +
+        '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`)' +
+    ').*)|(ch/tutteli/atrium/api/(fluent|infix)/en_GB/('+
+        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
+        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)'+
+    ').*)',
     'fluent-en_GB','infix-en_GB'
 )
+// we are not setting up bbc/bc tests for 0.13.0. The problem is:
+// We inline toThrow, making atrium-logic part of the API in binary terms. atrium-logic is experimental though and we
+// changed toThrow -- we are no longer using ChangedSubjectPostStep -- making almost every spec fail. Forgiving each
+// does not make sensen
+//createBcAndBbcTasksForApis('0.13.0',
+////    'forgive=(.*(\\(feature\\)|(describe empty assertion creator lambda)).*)',
+//    'forgive=^$',
+//    'fluent-en_GB', 'infix-en_GB')
 //@formatter:on
 
 

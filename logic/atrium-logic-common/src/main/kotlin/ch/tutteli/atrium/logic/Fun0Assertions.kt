@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 
@@ -14,5 +15,5 @@ interface Fun0Assertions {
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<*, TExpected>
 
-    fun <R, T : () -> R> notToThrow(container: AssertionContainer<T>): SubjectChangerBuilder.ExecutionStep<*, R>
+    fun <R, T : () -> R> notToThrow(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<*, R>
 }

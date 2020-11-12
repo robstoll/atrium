@@ -17,7 +17,6 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.*
 
-//TODO extend SubjectChanger from logic
 class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureHandler<T, R> {
 
     override fun createAssertion(
@@ -61,6 +60,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
             explanation: Assertion = createExplanation(throwable)
         ): AssertionGroup =
             assertionBuilder.explanatoryGroup
+                // TODO change to InformationType with 0.15.0
                 .withDefaultType
                 .withAssertions(
                     explanation,
