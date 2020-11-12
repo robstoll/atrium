@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 
 # Feature Request
 
-*Platform* (all, jvm, js, android): all
+*Platform* (all, jvm, js): all
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature
