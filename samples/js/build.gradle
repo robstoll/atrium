@@ -1,0 +1,37 @@
+// Example project to show how to use Atrium in combination with mocha
+// For more information on how to setup Atrium for a JS project -> https://github.com/robstoll/atrium#js
+
+buildscript {
+    ext {
+        // for infix-api -> change to 'atrium-infix-en_GB-js'
+        atrium_api = 'atrium-fluent-en_GB-js'
+        atrium_version = '0.14.0.RC1'
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.js' version '1.4.10'
+}
+
+group 'org.atriumlib.samples'
+version '0.0.1'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+
+    // setup for Atrium:
+    testImplementation("ch.tutteli.atrium:$atrium_api:$atrium_version")
+
+    // setup for mocha:
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+}
+
+kotlin {
+    js {
+        nodejs()
+    }
+}

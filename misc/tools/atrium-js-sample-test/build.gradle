@@ -1,4 +1,4 @@
-def samples = ['junit5', 'spek', 'multiplatform']
+def samples = ['js']
 
 task build {
     samples.forEach { projectName ->

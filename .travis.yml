@@ -34,8 +34,7 @@ jobs:
       - env: MODE=samples
         script:
             - set -e
-            - samples/js/jasmine/gradlew -p ./samples/js/jasmine build
-            - samples/js/mocha/gradlew -p ./samples/js/mocha build
+            - samples/js/gradlew -p ./samples/js build
             - samples/jvm/spek/gradlew -p ./samples/jvm/spek build
             - samples/jvm/junit5/gradlew -p ./samples/jvm/junit5 build
             # in case of travis problems installing jdk11
@@ -43,6 +42,7 @@ jobs:
             - cd samples/maven && ./mvnw -B test && cd ../..
             - samples/multiplatform/gradlew -p ./samples/multiplatform build
             - misc/tools/atrium-samples-test/gradlew -p ./misc/tools/atrium-samples-test build
+            - misc/tools/atrium-js-sample-test/gradlew -p ./misc/tools/atrium-js-sample-test build
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

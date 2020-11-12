@@ -31,13 +31,9 @@ jobs:
                     restore-keys: |
                         samples-${{ runner.os }}-maven-
 
-            -   name: build jasmine sample
+            -   name: build js sample
                 run: ./gradlew build
-                working-directory: samples\js\jasmine
-
-            -   name: build mocha sample
-                run: ./gradlew build
-                working-directory: samples\js\mocha
+                working-directory: samples\js
 
             -   name: build Spek sample
                 run: ./gradlew build
