@@ -127,7 +127,4 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  */
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> {
-    val (first, rest) = _logic.toVarArg<E>(expectedIterableLike)
-    return this the values(first, *rest)
-}
+): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> this the values(first, *rest) }
