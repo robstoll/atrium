@@ -12,8 +12,8 @@ Following a few guidelines so that others can quickly benefit from your contribu
 
 ## Code of Conduct
 This project and everyone participating in it is governed by Atrium's 
-[Code of Conduct](https://github.com/robstoll/atrium/tree/v0.14.0.RC1/.github/CODE_OF_CONDUCT.md). 
-By participating, you are expected to uphold this code. Please report unacceptable behavior to info@tutteli.ch
+[Code of Conduct](https://github.com/robstoll/atrium/tree/v0.14.0/.github/CODE_OF_CONDUCT.md). 
+By participating, you are expected to uphold this code. Please report unacceptable behaviour to info@tutteli.ch
 
 ## How to Contribute
 - Star Atrium if you like it.
@@ -52,10 +52,13 @@ By participating, you are expected to uphold this code. Please report unacceptab
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
-  Nice catch :sunglasses: Please fix it and create a pull request.
+  Nice catch :mag: Please fix it and create a pull request.
     
 - You wrote an assertion function and would like to contribute it to Atrium?  
   Awesome :+1: please review the [pull request checklist](#pull-request-checklist) and create a pull request
+
+- You would like to support the project financially?  
+  Cool :sunglasses: this can be done via [GitHub Sponsors](https://github.com/sponsors/robstoll)  
   
 - You have other ideas how Atrium could be improved?  
   Contact us on 
@@ -101,12 +104,12 @@ and it gives us the chance to have a look at the description again and revise if
 *Git*  
 
 Dealing with Git for the first time? Here are some recommendations for how to set up Git when working on an issue: 
-- create a new branch for the issue using `git checkout -b <branch-name>` (preferrably, the branch name
+- create a new branch for the issue using `git checkout -b <branch-name>` (preferably, the branch name
   should be descriptive of the issue or the change being made, e.g `#108-path-exists`.) Working
   on a new branch makes it easier to make more than one pull request.
 - add this repository as a remote repository using
  `git remote add upstream https://github.com/robstoll/atrium.git`. You will use this to
- fetch changes made in this repository
+  fetch changes made in this repository.
 - to ensure your branch is up-to-date, rebase your work on
   upstream/master using `git rebase upstream/master` or `git pull -r upstream master`.
   This will add all new changes in this repository into your branch and place your
@@ -128,7 +131,7 @@ Finally, when you think your PR (short for pull request) is ready, then please:
 
 1. read the [Pull Request Checklist](#pull-request-checklist) 
 2. Create your first pull-request
-3. 👏👏:clap: you have submitted your first code contribution to Atrium :blush:
+3. 👏👏👏 you have submitted your first code contribution to Atrium :blush:
 
 ## Coding Conventions
 So far we do not try to enforce too much. We will review your patches and comment if necessary.
@@ -143,7 +146,7 @@ However, here a few hints in order that your pull request is merged quickly.
 ## Pull Request Checklist
 Please make sure you can check every item on the following list before you create a pull request:  
 - [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
-- [ ] Your pull request adresses only “one thing”. It cannot be meaningfully split up into mulitple pull requests.
+- [ ] Your pull request addresses only “one thing”. It cannot be meaningfully split up into multiple pull requests.
      
 Once you have created and submitted your pull request, make sure:
 - [ ] your pull request passes Continuous Integration and all other checks
