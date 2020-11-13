@@ -22,7 +22,7 @@ abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
 ) : ExpectInternal<T> {
 
-    // TODO 0.14.0 not every expect should have an own implFactories but only the root,
+    // TODO 0.15.0 not every expect should have an own implFactories but only the root,
     // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
     private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
 
