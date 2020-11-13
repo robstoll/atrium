@@ -187,38 +187,6 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(entries: Entries
     it contains o inGiven order and only the entries
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterable]
- * in same order
- *
- * It is a shortcut for 'contains.inOrder.only.elementsOf(anotherList)'
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * TODO remove with 1.0.0
- * @since 0.12.0
- */
-inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
-    expectedIterable: Iterable<E>
-): Expect<T> = it contains o inGiven order and only elementsOf (expectedIterable)
-
-/** Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterable].
- *
- * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
- *
- * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable].
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
- *
- * TODO remove with 1.0.0
- * @since 0.12.0
- */
-inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(expectedIterable: Iterable<E>): Expect<T> =
-    it contains o inAny order atLeast 1 elementsOf expectedIterable
-
-/**
  * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterableLike]
  * in same order
  *
