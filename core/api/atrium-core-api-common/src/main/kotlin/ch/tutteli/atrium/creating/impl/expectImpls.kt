@@ -179,8 +179,6 @@ internal class FeatureExpectImpl<T, R>(
         addAssertions(assertions)
     }
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalExpectConfig::class)
     override fun addAssertion(assertion: Assertion): Expect<R> {
         assertions.add(assertion)
         //Would be nice if we don't have to add it immediately to the previousExpect but only:

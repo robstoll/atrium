@@ -52,7 +52,7 @@ infix fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChoo
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
+@UseExperimental(ExperimentalNewExpectTypes::class)
 infix fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
     RootExpect(this, options.toRootExpectOptions())
 
