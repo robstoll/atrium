@@ -14,9 +14,9 @@ import kotlin.reflect.KClass
  * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
  * further notice.
  *
- * @param T The type of the [subject] of the assertion.
+ * @param T The type of the subject of the assertion.
  */
-//TODO 0.14.0 remove SubjectProvider
+//TODO 0.15.0 remove SubjectProvider
 interface AssertionContainer<T> : SubjectProvider<T> {
     override val maybeSubject: Option<T>
 

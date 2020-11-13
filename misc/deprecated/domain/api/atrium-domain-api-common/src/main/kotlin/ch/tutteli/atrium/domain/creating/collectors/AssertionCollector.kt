@@ -17,12 +17,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+//TODO 0.15.0 move to atrium-logic
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
-//TODO 0.14.0 move to atrium-logic
+//TODO 0.15.0 move to atrium-logic
 interface AssertionCollector {
 
     /**

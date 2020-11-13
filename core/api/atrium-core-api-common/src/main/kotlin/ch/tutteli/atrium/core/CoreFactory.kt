@@ -212,33 +212,6 @@ interface CoreFactoryCommon {
         assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
     ): ReportingAssertionContainer<T>
 
-
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalExpectConfig::class, ExperimentalNewExpectTypes::class)
-    @Deprecated(
-        "Use FeatureExpect instead; will be removed with 1.0.0", ReplaceWith(
-            "FeatureExpect(\n" +
-                "        previousExpect,\n" +
-                "        maybeSubject,\n" +
-                "        featureConfig.description,\n" +
-                "        assertions,\n" +
-                "        FeatureExpectOptions(representationInsteadOfFeature = { featureConfig.representation ?: Text.NULL })\n" +
-                "    )"
-        )
-    )
-    fun <T, R> newFeatureExpect(
-        previousExpect: Expect<T>,
-        maybeSubject: Option<R>,
-        featureConfig: FeatureExpectConfig,
-        assertions: List<Assertion>
-    ): FeatureExpect<T, R> = FeatureExpect(
-        previousExpect,
-        maybeSubject,
-        featureConfig.description,
-        assertions,
-        FeatureExpectOptions(representationInsteadOfFeature = { featureConfig.representation ?: Text.NULL })
-    )
-
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *

@@ -33,6 +33,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * Or use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
  * on the subject of the assertion.
  */
+//TODO move to logic and expect AssertionContainer with 0.15.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
     subjectProvider: SubjectProvider<T>,
     failureHintFactory: (T) -> Assertion

@@ -22,7 +22,7 @@ abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
 ) : ExpectInternal<T> {
 
-    // TODO 0.14.0 not every expect should have an own implFactories but only the root,
+    // TODO 0.15.0 not every expect should have an own implFactories but only the root,
     // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
     private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
 
@@ -179,8 +179,6 @@ internal class FeatureExpectImpl<T, R>(
         addAssertions(assertions)
     }
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalExpectConfig::class)
     override fun addAssertion(assertion: Assertion): Expect<R> {
         assertions.add(assertion)
         //Would be nice if we don't have to add it immediately to the previousExpect but only:

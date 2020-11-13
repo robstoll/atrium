@@ -115,7 +115,7 @@ object NewFeatureAssertionsBuilder : NewFeatureAssertions {
  * a function which expects 2 arguments).
  */
 //TODO move to API, this could potentially be different per API
-//TODO deprecate in 0.14.0
+//TODO deprecate in 0.15.0
 class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     /**
