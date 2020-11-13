@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CharSequenceContains.CheckerStepLogic - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.charsequence.contains</a>&nbsp;/&nbsp;<a href="index.html">CharSequenceContains</a>&nbsp;/&nbsp;<a href="./-checker-step-logic.html">CheckerStepLogic</a><br/>
+<br/>
+<h1>CheckerStepLogic</h1>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker-step-logic/index.html"><span class="identifier">Contains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-logic.html"><span class="identifier">CharSequenceContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="-checker.html">Checker</a>s on the logic level.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker-step-logic/checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker-step-logic/index.html#C"><span class="identifier">C</span></a><span class="symbol">&gt;</span></code>
+<p>Contains all <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html">Checker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker-step-logic/entry-point-step-logic.html">entryPointStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">entryPointStepLogic</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker-step-logic/index.html#B"><span class="identifier">B</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step.html">EntryPointStep</a>, containing inter alia the <a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> to which the resulting
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be appended.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.creators/regex.html">regex</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="./-checker-step-logic.html"><span class="identifier">CharSequenceContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.creators/regex.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">regex</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.charsequence.contains.creators$regex(ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStepLogic((ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex.T, ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour)), kotlin.collections.List((kotlin.String)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.utils/to-var-arg.html">toVarArg</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./-checker-step-logic.html"><span class="identifier">CharSequenceContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toVarArg</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$toVarArg(ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStepLogic((kotlin.CharSequence, ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour)), kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/to-var-arg.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.utils/to-var-arg.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html">IterableLike</a> to <code>Pair&lt;T, Array&lt;out T&gt;&gt;</code> with the intend that it can be easily used for a function
+requiring <code>T, vararg T</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-checker-step-internal.html">CheckerStepInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepInternal</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-checker-step.html"><span class="identifier">CharSequenceContains.CheckerStep</span></a><span class="symbol">&lt;</span><a href="-checker-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-checker-step-logic.html"><span class="identifier">CharSequenceContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="-checker-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="./-checker-step-logic.html">CheckerStepLogic</a> from newcomers which
+usually don't have to deal with this type and to keep the API clean.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-with-times-checker-step-logic/index.html">WithTimesCheckerStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WithTimesCheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-checker-step-logic.html"><span class="identifier">CharSequenceContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-with-times-checker-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-with-times-checker-step-logic/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>A <a href="./-checker-step-logic.html">CharSequenceContains.CheckerStepLogic</a> which is used to choose
+a <a href="-checker.html">CharSequenceContains.Checker</a> which is based on a number of <a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-with-times-checker-step-logic/times.html">times</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

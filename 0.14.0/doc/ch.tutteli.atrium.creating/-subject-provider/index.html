@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectProvider - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="./index.html">SubjectProvider</a><br/>
+<br/>
+<h1>SubjectProvider</h1>
+<code><span class="keyword">interface </span><span class="identifier">SubjectProvider</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion-holder/index.html"><span class="identifier">AssertionHolder</span></a></code>
+<p>Provides the subject of an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+<p>Notice, this interface has its mere purpose to facilitate the transition from <a href="../-assert.html">Assert</a> to <a href="../-expect/index.html">Expect</a>.
+It might well be that we are going to remove it with 1.0.0 without previous notice.
+Hence, to be on the safe side, you should use <a href="../-expect/index.html">Expect</a> instead.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="maybe-subject.html">maybeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maybeSubject</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Either <a href="../../ch.tutteli.atrium.core/-some/index.html">Some</a> wrapping the subject of an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> or <a href="../../ch.tutteli.atrium.core/-none.html">None</a> in case a previous subject change could not be
+carried out.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><s><span class="identifier">subject</span></s><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>The subject of an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> -- deprecated, will be removed with 1.0.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion-holder/add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionHolder$addAssertion(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-assertion-holder/index.html"><span class="identifier">AssertionHolder</span></a></code>
+<p>Adds the given <a href="../-assertion-holder/add-assertion.html#ch.tutteli.atrium.creating.AssertionHolder$addAssertion(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> to this holder.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion-container/index.html">AssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionContainer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="../-assertion-container/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point of the logic level for subjects of type <a href="../-assertion-container/index.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-assertion-plant/index.html">BaseAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">BaseAssertionPlant</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><a href="../-base-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-base-assertion-plant/index.html#A"><span class="identifier">A</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="../-base-assertion-plant/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers methods to <a href="../-base-assertion-plant/add-assertion.html">addAssertion</a>s to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-expect/index.html">Expect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Expect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="../-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> functions and sophisticated builders for subjects of type <a href="../-expect/index.html#T">T</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder.OptionsStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractorBuilder</a>&nbsp;/&nbsp;<a href="./index.html">OptionsStep</a><br/>
+<br/>
+<h1>OptionsStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">OptionsStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to override previously defined properties -- such as: use a different description -- but
+also allows to define options where usually a default value is used -- e.g. per default the subject itself is
+use as representation, this can be changed.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="feature-extraction.html">featureExtraction</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">featureExtraction</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified feature extraction lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="feature-extraction-step.html">featureExtractionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">featureExtractionStep</span><span class="symbol">: </span><a href="../-feature-extraction-step/index.html"><span class="identifier">FeatureExtractorBuilder.FeatureExtractionStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The so far chosen options up to the <a href="../-feature-extraction-step/index.html">FeatureExtractionStep</a> step.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-options.html">withOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withOptions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep$withOptions(kotlin.Function1((ch.tutteli.atrium.creating.FeatureExpectOptionsChooser((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.R)), kotlin.Unit)))/configuration">configuration</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/index.html"><span class="identifier">FeatureExpectOptionsChooser</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">FeatureExtractorBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Allows to define the <a href="../../../ch.tutteli.atrium.creating/-feature-expect-options/index.html">FeatureExpectOptions</a> via an <a href="../../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/index.html">FeatureExpectOptionsChooser</a>-lambda
+which provides convenience functions.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withOptions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep$withOptions(ch.tutteli.atrium.creating.FeatureExpectOptions((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.R)))/expectOptions">expectOptions</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-feature-expect-options/index.html"><span class="identifier">FeatureExpectOptions</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">FeatureExtractorBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-options.html#ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep$withOptions(ch.tutteli.atrium.creating.FeatureExpectOptions((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.R)))/expectOptions">expectOptions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="without-options.html">withoutOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withoutOptions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">FeatureExtractorBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>States explicitly that no optional <a href="../../../ch.tutteli.atrium.creating/-feature-expect-options/index.html">FeatureExpectOptions</a> are defined, which means, the <a href="../../-feature-extractor/index.html">FeatureExtractor</a>
+will create a new <a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> based on the previously defined mandatory options
+but without any optional options or in other words, the default values are used for the optional options.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion$invoke(ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.FeatureExtractionStep((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.R)))))/featureExtractionStep">featureExtractionStep</span><span class="symbol">:</span>&nbsp;<a href="../-feature-extraction-step/index.html"><span class="identifier">FeatureExtractorBuilder.FeatureExtractionStep</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion$invoke(ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.FeatureExtractionStep((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep.Companion.invoke.R)))))/featureExtraction">featureExtraction</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FeatureExtractorBuilder.OptionsStep</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-options-step-impl/index.html">OptionsStepImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">OptionsStepImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FeatureExtractorBuilder.OptionsStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-options-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-options-step-impl/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

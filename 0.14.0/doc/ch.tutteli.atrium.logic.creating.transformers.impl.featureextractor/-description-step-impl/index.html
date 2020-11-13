@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptionStepImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor</a>&nbsp;/&nbsp;<a href="./index.html">DescriptionStepImpl</a><br/>
+<br/>
+<h1>DescriptionStepImpl</h1>
+<code><span class="keyword">class </span><span class="identifier">DescriptionStepImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/index.html"><span class="identifier">FeatureExtractorBuilder.DescriptionStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DescriptionStepImpl</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.DescriptionStepImpl$<init>(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.DescriptionStepImpl.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="container.html">container</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">container</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified assertion container from which we are going to extract the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.DescriptionStepImpl$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-representation-in-case-of-failure-step/index.html"><span class="identifier">FeatureExtractorBuilder.RepresentationInCaseOfFailureStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/with-description.html#ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> as description of the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/method-call.html">methodCall</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">methodCall</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-representation-in-case-of-failure-step/index.html"><span class="identifier">FeatureExtractorBuilder.RepresentationInCaseOfFailureStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/core-factory.html">coreFactory</a>.<a href="../../ch.tutteli.atrium.core/-core-factory-common/new-method-call-formatter.html">newMethodCallFormatter</a> to create a description
+of a method call with the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/method-call.html#ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/methodName">methodName</a> and the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/method-call.html#ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$methodCall(kotlin.String, kotlin.Array((kotlin.Any)))/arguments">arguments</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$withDescription(kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-representation-in-case-of-failure-step/index.html"><span class="identifier">FeatureExtractorBuilder.RepresentationInCaseOfFailureStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/with-description.html#ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.DescriptionStep$withDescription(kotlin.String)/description">description</a>, wraps it into an <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> and uses it as description of the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RawString - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">RawString</a><br/>
+<br/>
+<h1>RawString</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">RawString</span></s></code><br/>
+<strong>Deprecated:</strong> Use Text instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Marker interface for types which provide a raw string functionality
+and should be treated accordingly in reporting (e.g., in <a href="../-object-formatter/index.html">ObjectFormatter</a>).</p>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-e-m-p-t-y.html">EMPTY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><s><span class="identifier">EMPTY</span></s><span class="symbol">: </span><a href="../-string-based-raw-string/index.html"><span class="identifier">StringBasedRawString</span></a></code>
+<p>An empty string as <a href="./index.html">RawString</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-u-l-l.html">NULL</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><s><span class="identifier">NULL</span></s><span class="symbol">: </span><a href="../-string-based-raw-string/index.html"><span class="identifier">StringBasedRawString</span></a></code>
+<p>The representation for <code>null</code> as <a href="../-string-based-raw-string/index.html">StringBasedRawString</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><s><span class="identifier">create</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.RawString.Companion$create(kotlin.String)/string">string</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">RawString</span></a></code><br/>
+<code><span class="keyword">fun </span><s><span class="identifier">create</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.RawString.Companion$create(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">RawString</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-string-based-raw-string/index.html">StringBasedRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">StringBasedRawString</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RawString</span></a></code>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-translatable-based-raw-string/index.html">TranslatableBasedRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">TranslatableBasedRawString</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RawString</span></a></code>
+<p>Use this class to represent a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> which shall be translated and
+then be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

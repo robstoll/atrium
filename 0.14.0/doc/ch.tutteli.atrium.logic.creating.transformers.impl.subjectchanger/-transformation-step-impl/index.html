@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TransformationStepImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger</a>&nbsp;/&nbsp;<a href="./index.html">TransformationStepImpl</a><br/>
+<br/>
+<h1>TransformationStepImpl</h1>
+<code><span class="keyword">class </span><span class="identifier">TransformationStepImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer-builder/-transformation-step/index.html"><span class="identifier">SubjectChangerBuilder.TransformationStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TransformationStepImpl</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl$<init>(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl$<init>(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl$<init>(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="container.html">container</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">container</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The previously specified assertion container to which the new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> will delegate.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The previously specified description which describes the kind of subject change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The previously specified representation of the change.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-transformation.html">withTransformation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">withTransformation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl$withTransformation(kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl.T, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.TransformationStepImpl.withTransformation.R)))))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="with-transformation.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer-builder/-failure-handler-step/index.html"><span class="identifier">SubjectChangerBuilder.FailureHandlerStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="with-transformation.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Defines the new subject, most likely based on the current subject (but does not need to be).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableLikeContainsInAnyOrderAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators</a>&nbsp;/&nbsp;<a href="./index.html">IterableLikeContainsInAnyOrderAssertions</a><br/>
+<br/>
+<h1>IterableLikeContainsInAnyOrderAssertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">IterableLikeContainsInAnyOrderAssertions</span></code>
+<p>Defines the minimum set of <code>contains</code> assertion functions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="entries.html">entries</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">entries</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions$entries(ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStepLogic((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.E, ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.T, ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour)), kotlin.collections.List((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.E)), kotlin.Unit)))))/checkerStepLogic">checkerStepLogic</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html"><span class="identifier">IterableLikeContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="entries.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="entries.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions$entries(ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStepLogic((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.E, ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.T, ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour)), kotlin.collections.List((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.entries.E)), kotlin.Unit)))))/assertionCreators">assertionCreators</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="entries.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="values.html">values</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">values</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions$values(ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStepLogic((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.E, ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.T, ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.E)))/checkerStepLogic">checkerStepLogic</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html"><span class="identifier">IterableLikeContains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="values.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="values.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions$values(ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStepLogic((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.E, ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.T, ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions.values.E)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="values.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-default-iterable-like-contains-in-any-order-assertions/index.html">DefaultIterableLikeContainsInAnyOrderAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DefaultIterableLikeContainsInAnyOrderAssertions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IterableLikeContainsInAnyOrderAssertions</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

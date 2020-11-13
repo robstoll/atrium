@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FixedClaimGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">FixedClaimGroup</a><br/>
+<br/>
+<h1>FixedClaimGroup</h1>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimGroup</span></code>
+<p>Defines the contract to build an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which has a fixed <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a></code>
+<p>Final step which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> but on the given <a href="-final-step/holds.html">holds</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-group-type-option/index.html">GroupTypeOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">GroupTypeOption</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-fixed-claim-like-group/-group-type-option/index.html"><span class="identifier">FixedClaimLikeGroup.GroupTypeOption</span></a><span class="symbol">&lt;</span><a href="-final-step/index.html"><span class="identifier">FixedClaimGroup.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-holds-option/index.html">HoldsOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">HoldsOption</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-fixed-claim-like-group/-holds-option/index.html"><span class="identifier">FixedClaimLikeGroup.HoldsOption</span></a><span class="symbol">&lt;</span><a href="-holds-option/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-final-step/index.html"><span class="identifier">FixedClaimGroup.FinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> or another fixed part involved
+in calculating <a href="../../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

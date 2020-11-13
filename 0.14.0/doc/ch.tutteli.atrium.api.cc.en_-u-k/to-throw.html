@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toThrow - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.en_UK</a>&nbsp;/&nbsp;<a href="./to-throw.html">toThrow</a><br/>
+<br/>
+<h1>toThrow</h1>
+<a name="ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder)"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">ThrowableThrown.Builder</span></a><span class="symbol">.</span><s><span class="identifier">toThrow</span></s><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="to-throw.html#TExpected">TExpected</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the assertion
+(a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown and is of type <a href="to-throw.html#TExpected">TExpected</a>) holds or not.
+If you want to define subsequent assertions on the down-casted <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>, then use the overload which expects a
+lambda (where you can define subsequent assertions).</p>
+<a name="ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.domain.creating.throwable.thrown/-throwable-thrown/-builder/index.html"><span class="identifier">ThrowableThrown.Builder</span></a><span class="symbol">.</span><s><span class="identifier">toThrow</span></s><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="to-throw.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="to-throw.html#TExpected">TExpected</a> and holds all assertions the
+<a href="to-throw.html#ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> might create in addition.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown) holds or not.
+Define subsequent assertions via the <a href="to-throw.html#ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Builder, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda.</p>
+</BODY>
+</HTML>

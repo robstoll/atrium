@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>runCatchingIo - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.filesystem</a>&nbsp;/&nbsp;<a href="index.html">java.nio.file.Path</a>&nbsp;/&nbsp;<a href="./run-catching-io.html">runCatchingIo</a><br/>
+<br/>
+<h1>runCatchingIo</h1>
+<a name="ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">.</span><span class="identifier">runCatchingIo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="run-catching-io.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-io-result/index.html"><span class="identifier">IoResult</span></a><span class="symbol">&lt;</span><a href="run-catching-io.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Executes the given <a href="run-catching-io.html#ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</a> and catches <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html">IOException</a>s.</p>
+<h3>Exceptions</h3>
+<p><a name="Exception"></a>
+<code>Exception</code> - any exception that is thrown by <a href="run-catching-io.html#ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</a> if it is not an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html">IOException</a></p>
+<p><strong>Return</strong><br/>
+<a href="../-success/index.html">Success</a> with <a href="run-catching-io/-this-.html">this</a> path and <a href="run-catching-io.html#ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</a>’s result if <a href="run-catching-io.html#ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</a> executes successfully.
+<a href="../-failure/index.html">Failure</a> with <a href="run-catching-io/-this-.html">this</a> path and the thrown <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html">IOException</a> if <a href="run-catching-io.html#ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))/block">block</a> throws an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html">IOException</a></p>
+</BODY>
+</HTML>

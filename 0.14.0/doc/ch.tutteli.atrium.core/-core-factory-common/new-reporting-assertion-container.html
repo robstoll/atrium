@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newReportingAssertionContainer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-reporting-assertion-container.html">newReportingAssertionContainer</a><br/>
+<br/>
+<h1>newReportingAssertionContainer</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">newReportingAssertionContainer</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="new-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html"><span class="identifier">AssertionChecker</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/index.html"><span class="identifier">ReportingAssertionContainer</span></a><span class="symbol">&lt;</span><a href="new-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Use RootExpect(...) or DelegatingExpect(..) or FeatureExpect(...) which all do not use a deprecated AssertionChecker; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/index.html">ReportingAssertionContainer</a> which checks and reports added <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<p>It uses the given <a href="new-reporting-assertion-container.html#ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)/assertionChecker">assertionChecker</a> for assertion checking, uses <a href="new-reporting-assertion-container.html#ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)), ch.tutteli.atrium.checking.AssertionChecker)/maybeSubject">maybeSubject</a> as
+<a href="#">ReportingAssertionContainer.maybeSubject</a> and also as representation in reporting.</p>
+<h3>Parameters</h3>
+<p><a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used inter alia in reporting.</p>
+<p><a name="maybeSubject"></a>
+<code>maybeSubject</code> - Used as <a href="#">ReportingAssertionContainer.maybeSubject</a> and
+also as representation in reporting.</p>
+<p><a name="assertionChecker"></a>
+<code>assertionChecker</code> - The checker which will be used to check <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.
+(see <a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/-assertion-checker-decorator/assertion-checker.html">ReportingAssertionContainer.AssertionCheckerDecorator.assertionChecker</a>).</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">newReportingAssertionContainer</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)))/assertionCheckerDecorator">assertionCheckerDecorator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/-assertion-checker-decorator/index.html"><span class="identifier">ReportingAssertionContainer.AssertionCheckerDecorator</span></a><span class="symbol">&lt;</span><a href="new-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/index.html"><span class="identifier">ReportingAssertionContainer</span></a><span class="symbol">&lt;</span><a href="new-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Use RootExpect(...) or DelegatingExpect(..) or FeatureExpect(...) which all do not use a deprecated AssertionChecker; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/index.html">ReportingAssertionContainer</a> which checks and reports added <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<p>It uses the given <a href="new-reporting-assertion-container.html#ch.tutteli.atrium.core.CoreFactoryCommon$newReportingAssertionContainer(ch.tutteli.atrium.creating.ReportingAssertionContainer.AssertionCheckerDecorator((ch.tutteli.atrium.core.CoreFactoryCommon.newReportingAssertionContainer.T)))/assertionCheckerDecorator">assertionCheckerDecorator</a> for assertion checking.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCheckerDecorator"></a>
+<code>assertionCheckerDecorator</code> - The <a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/-assertion-checker-decorator/index.html">ReportingAssertionContainer.AssertionCheckerDecorator</a> which will
+be used for assertion checking.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+</BODY>
+</HTML>

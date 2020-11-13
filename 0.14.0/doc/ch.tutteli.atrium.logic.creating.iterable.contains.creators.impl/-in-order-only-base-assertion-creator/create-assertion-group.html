@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>InOrderOnlyBaseAssertionCreator.createAssertionGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl</a>&nbsp;/&nbsp;<a href="index.html">InOrderOnlyBaseAssertionCreator</a>&nbsp;/&nbsp;<a href="./create-assertion-group.html">createAssertionGroup</a><br/>
+<br/>
+<h1>createAssertionGroup</h1>
+<a name="ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.SC)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">createAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.SC)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.InOrderOnlyBaseAssertionCreator.SC)))/searchCriteria">searchCriteria</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>Overrides <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html">Creator.createAssertionGroup</a></p>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> representing the sophisticated <code>contains</code> assertion for the
+subject of the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/container">container</a>, based on the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</a>.</p>
+<p>The search process as such is usually influenced by a <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-search-behaviour/index.html">SearchBehaviour</a> which defines the search behaviour
+and <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html">Checker</a>s are used to create <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s based on a determined search result which are grouped
+together into an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.
+This resulting <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> represents the sophisticated <code>contains</code> assertion as a whole.</p>
+<h3>Parameters</h3>
+<p><a name="container"></a>
+<code>container</code> - The <a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> from which this building process started.</p>
+<p><a name="searchCriteria"></a>
+<code>searchCriteria</code> - The search criteria - typically not empty.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> in case <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</a> is empty
+and an empty value is not allowed.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+</BODY>
+</HTML>

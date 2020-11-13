@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultExactlyChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl</a>&nbsp;/&nbsp;<a href="./index.html">DefaultExactlyChecker</a><br/>
+<br/>
+<h1>DefaultExactlyChecker</h1>
+<code><span class="keyword">class </span><span class="identifier">DefaultExactlyChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.checkers/-exactly-checker.html"><span class="identifier">ExactlyChecker</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/-contains-checker/index.html"><span class="identifier">ContainsChecker</span></a></code>
+<p>Represents a check that an expected entry is contained exactly <a href="#">times</a> in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+<h3>Parameters</h3>
+<p><a name="times"></a>
+<code>times</code> - The number which the check uses to compare against the actual number of times an expected entry is
+found in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+<p><a name="nameContainsNotFun"></a>
+<code>nameContainsNotFun</code> - The function which should be used instead of <code>exactlyCall</code> when <a href="#">times</a> equals to zero.</p>
+<p><a name="exactlyCall"></a>
+<code>exactlyCall</code> - The function call which was used and should not be used if <a href="#">times</a> equals to zero.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - In case <a href="#">times</a> is smaller than 1.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DefaultExactlyChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/nameContainsNotFun">nameContainsNotFun</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents a check that an expected entry is contained exactly <a href="#">times</a> in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="exactly-call.html">exactlyCall</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">exactlyCall</span><span class="symbol">: </span><span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function call which was used and should not be used if <a href="#">times</a> equals to zero.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name-contains-not-fun.html">nameContainsNotFun</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">nameContainsNotFun</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function which should be used instead of <code>exactlyCall</code> when <a href="#">times</a> equals to zero.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-assertion.html">createAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> representing this check based on the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/create-assertion.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Checker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</a> which is the result
+of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/-contains-checker/create-descriptive-assertion.html">createDescriptiveAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createDescriptiveAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker$createDescriptiveAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker$createDescriptiveAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Boolean)))/check">check</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/-contains-checker/create-descriptive-assertion.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker$createDescriptiveAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Boolean)))/description">description</a>, the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/java.math.-big-decimal/times.html">times</a> as <a href="../../ch.tutteli.atrium.reporting/-text/index.html">Text</a>
+and the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/-contains-checker/create-descriptive-assertion.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker$createDescriptiveAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Boolean)))/check">check</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

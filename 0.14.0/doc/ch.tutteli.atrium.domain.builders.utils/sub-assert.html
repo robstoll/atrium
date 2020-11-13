@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>subAssert - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.domain.builders.utils</a>&nbsp;/&nbsp;<a href="./sub-assert.html">subAssert</a><br/>
+<br/>
+<h1>subAssert</h1>
+<a name="ch.tutteli.atrium.domain.builders.utils$subAssert(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.builders.utils.subAssert.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <s><span class="identifier">subAssert</span></s><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.utils$subAssert(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.builders.utils.subAssert.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="sub-assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="sub-assert.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0<br/>
+<br/>
+<p>Helper function to create an  <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">Assert&amp;lt;T&amp;gt;</a> lambda with receiver;
+helps to circumvent Kotlin type inference bugs involving lambdas.</p>
+<p>Following a few examples of bugs (you might want to vote if you encounter the same):</p>
+<ul><li>https://youtrack.jetbrains.com/issue/KT-24230</li>
+<li>https://youtrack.jetbrains.com/issue/KT-23883</li>
+<li>and probably more</li>
+</ul>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - Your assertion creator lambda.</p>
+<p><strong>Return</strong><br/>
+your passed lambda.</p>
+</BODY>
+</HTML>

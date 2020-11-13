@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.core.polyfills - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.core.polyfills</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.core.polyfills</h2>
+<p>Contains polyfills for functionality which is missing on certain platforms so that they can be used in a common way.</p>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="java.lang.-string-builder/index.html">java.lang.StringBuilder</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="kotlin.reflect.-k-class/index.html">kotlin.reflect.KClass</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="kotlin.-string/index.html">kotlin.String</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="kotlin.-throwable/index.html">kotlin.Throwable</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format-floating-point-number.html">formatFloatingPointNumber</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><s><span class="identifier">formatFloatingPointNumber</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$formatFloatingPointNumber(kotlin.Number)/number">number</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html"><span class="identifier">Number</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Formats the given <a href="format-floating-point-number.html#ch.tutteli.atrium.core.polyfills$formatFloatingPointNumber(kotlin.Number)/number">number</a> in a floating point format.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-atrium-property.html">getAtriumProperty</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="identifier">getAtriumProperty</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$getAtriumProperty(kotlin.String)/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the specified value for the property with the given <a href="get-atrium-property.html#ch.tutteli.atrium.core.polyfills$getAtriumProperty(kotlin.String)/key">key</a> or <code>null</code> in case it is not defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-services.html">loadServices</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">loadServices</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$loadServices(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadServices.T)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="load-services.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="load-services.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Loads all available service for the given <a href="load-services.html#ch.tutteli.atrium.core.polyfills$loadServices(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadServices.T)))/kClass">kClass</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-single-service.html">loadSingleService</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">loadSingleService</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="load-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="load-single-service.html#T"><span class="identifier">T</span></a></code>
+<p>Loads the service for the given <a href="load-single-service.html#ch.tutteli.atrium.core.polyfills$loadSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.loadSingleService.T)))/kClass">kClass</a> and throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a> if it finds more than one.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-atrium-property.html">setAtriumProperty</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="identifier">setAtriumProperty</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$setAtriumProperty(kotlin.String, kotlin.String)/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$setAtriumProperty(kotlin.String, kotlin.String)/newValue">newValue</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets the property with the given <a href="set-atrium-property.html#ch.tutteli.atrium.core.polyfills$setAtriumProperty(kotlin.String, kotlin.String)/key">key</a> to the given <a href="set-atrium-property.html#ch.tutteli.atrium.core.polyfills$setAtriumProperty(kotlin.String, kotlin.String)/newValue">newValue</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="use-single-service.html">useSingleService</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">useSingleService</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="use-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/itr">itr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><a href="use-single-service.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="use-single-service.html#T"><span class="identifier">T</span></a></code>
+<p>Returns the single service contained in <a href="use-single-service.html#ch.tutteli.atrium.core.polyfills$useSingleService(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.useSingleService.T)), kotlin.collections.Iterator((ch.tutteli.atrium.core.polyfills.useSingleService.T)))/itr">itr</a> and throws if there is any ore more than one.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

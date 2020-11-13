@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>hasDirectoryEntry - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./has-directory-entry.html">hasDirectoryEntry</a><br/>
+<br/>
+<h1>hasDirectoryEntry</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$hasDirectoryEntry(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.hasDirectoryEntry.T)), kotlin.String)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="has-directory-entry.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">hasDirectoryEntry</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$hasDirectoryEntry(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.hasDirectoryEntry.T)), kotlin.String)/entry">entry</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="has-directory-entry.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a directory having the provided <a href="has-directory-entry.html#ch.tutteli.atrium.api.infix.en_GB$hasDirectoryEntry(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.hasDirectoryEntry.T)), kotlin.String)/entry">entry</a>.
+That means that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that it is a directory.
+Furthermore, the argument string resolved against the subject yields an existing file system entry.</p>
+<p>This assertion <em>resolves</em> symbolic links for the subject, but not for the <a href="has-directory-entry.html#ch.tutteli.atrium.api.infix.en_GB$hasDirectoryEntry(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.hasDirectoryEntry.T)), kotlin.String)/entry">entry</a>.
+Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+the link points at. If a symbolic link exists at the <a href="has-directory-entry.html#ch.tutteli.atrium.api.infix.en_GB$hasDirectoryEntry(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.hasDirectoryEntry.T)), kotlin.String)/entry">entry</a>, this will fulfill the assertion and the entry’s
+symbolic link will not be followed.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="has.html">has</a></p>
+</p>
+<p><strong>Since</strong><br/>
+0.14.0</p>
+</BODY>
+</HTML>

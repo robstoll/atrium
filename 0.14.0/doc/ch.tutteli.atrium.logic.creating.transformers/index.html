@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.logic.creating.transformers - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.logic.creating.transformers</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.logic.creating.transformers</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-failure-handler-adapter/index.html">FailureHandlerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FailureHandlerAdapter</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R1</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-subject-changer/-failure-handler/index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="-failure-handler-adapter/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-failure-handler-adapter/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-subject-changer/-failure-handler/index.html">SubjectChanger.FailureHandler</a> which acts as an adapter for another failure handler by mapping first
+the given subject to another type <a href="-failure-handler-adapter/index.html#R1">R1</a> which is understood as input of the other failure handler.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-extractor/index.html">FeatureExtractor</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractor</span></code>
+<p>Defines the contract for sophisticated <code>safe feature extractions</code> including assertion creation for the feature.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-extractor-builder/index.html">FeatureExtractorBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractorBuilder</span></code>
+<p>Helps in using <a href="-feature-extractor/index.html">FeatureExtractor</a> by providing a guide to set the different parameters in form of a fluent builder.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-subject-changer/index.html">SubjectChanger</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SubjectChanger</span></code>
+<p>Defines the contract to change the subject of an assertion container (e.g. the subject of <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>) by creating
+a new <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> whereas the new <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> delegates assertion checking to a given original assertion container.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-subject-changer-builder/index.html">SubjectChangerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SubjectChangerBuilder</span></code>
+<p>Helps in using <a href="-subject-changer/index.html">SubjectChanger</a> by providing a guide to set the different parameters in form of a fluent builder.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-transformation-execution-step/index.html">TransformationExecutionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TransformationExecutionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-transformation-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Defines the minimal contract for the execution step of a subject transformation process -
+i.e. the step after choosing all options.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="feature-extractor.html">featureExtractor</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="feature-extractor.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">featureExtractor</span><span class="symbol">: </span><a href="-feature-extractor/index.html"><span class="identifier">FeatureExtractor</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="subject-changer.html">subjectChanger</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="subject-changer.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">subjectChanger</span><span class="symbol">: </span><a href="-subject-changer/index.html"><span class="identifier">SubjectChanger</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

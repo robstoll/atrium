@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtLeastChecker - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.basic.contains.checkers</a>&nbsp;/&nbsp;<a href="./index.html">AtLeastChecker</a><br/>
+<br/>
+<h1>AtLeastChecker</h1>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-with-times-checker/index.html"><span class="identifier">WithTimesChecker</span></a></code>
+<p>Represents a check that an expected search criterion is contained at least <a href="../-with-times-checker/times.html">times</a> in the search input.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="at-least-call.html">atLeastCall</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">atLeastCall</span><span class="symbol">: </span><span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function which was used and should not be used if <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/java.math.-big-decimal/times.html">times</a> equals to zero.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name-contains-not-fun.html">nameContainsNotFun</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">nameContainsNotFun</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function which should be used instead of <a href="at-least-call.html">atLeastCall</a> when <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/java.math.-big-decimal/times.html">times</a> equals to zero.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-with-times-checker/times.html">times</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">times</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The number which the check uses to compare against the actual number of times an expected search criterion
+is found in the search input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.checkers/-at-least-checker.html">AtLeastChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AtLeastChecker</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a></code>
+<p>Represents a check that an expected search criterion is contained at least <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.checkers/-at-least-checker.html">AtLeastChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AtLeastChecker</span></a><span class="symbol">, </span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker.html"><span class="identifier">IterableLikeContains.Checker</span></a></code>
+<p>Represents a check that an expected search criterion is contained at least <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

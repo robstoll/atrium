@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Contains.CheckerStepLogic - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating.basic.contains</a>&nbsp;/&nbsp;<a href="../index.html">Contains</a>&nbsp;/&nbsp;<a href="./index.html">CheckerStepLogic</a><br/>
+<br/>
+<h1>CheckerStepLogic</h1>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-checker/index.html"><span class="identifier">Contains.Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-entry-point-step-logic/index.html"><span class="identifier">Contains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="../-checker/index.html">Checker</a>s on the logic level.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="index.html#C"><span class="identifier">C</span></a><span class="symbol">&gt;</span></code>
+<p>Contains all <a href="../-checker/index.html">Checker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="entry-point-step-logic.html">entryPointStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">entryPointStepLogic</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code>
+<p>The previously chosen <a href="../-entry-point-step.html">EntryPointStep</a>, containing inter alia the <a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> to which the resulting
+<a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be appended.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic.html">CheckerStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">CharSequenceContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Contains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic.html"><span class="identifier">CharSequenceContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="../../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s on the logic level.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html">CheckerStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-search-behaviour.html"><span class="identifier">IterableLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Contains.CheckerStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker.html"><span class="identifier">IterableLikeContains.Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-entry-point-step-logic/index.html"><span class="identifier">IterableLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker-step-logic.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="../../../ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker.html">Checker</a>s on the logic level.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

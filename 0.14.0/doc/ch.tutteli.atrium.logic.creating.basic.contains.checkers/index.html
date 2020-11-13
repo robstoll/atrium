@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.logic.creating.basic.contains.checkers - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.logic.creating.basic.contains.checkers</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.logic.creating.basic.contains.checkers</h2>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html">Contains.Checker</a></p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-at-least-checker/index.html">AtLeastChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-with-times-checker/index.html"><span class="identifier">WithTimesChecker</span></a></code>
+<p>Represents a check that an expected search criterion is contained at least <a href="-with-times-checker/times.html">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-at-most-checker/index.html">AtMostChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtMostChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-with-times-checker/index.html"><span class="identifier">WithTimesChecker</span></a></code>
+<p>Represents a check that an expected search criterion is contained at most <a href="-with-times-checker/times.html">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-exactly-checker/index.html">ExactlyChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExactlyChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-with-times-checker/index.html"><span class="identifier">WithTimesChecker</span></a></code>
+<p>Represents a check that an expected search criterion is contained exactly <a href="-with-times-checker/times.html">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-not-checker.html">NotChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">NotChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a></code>
+<p>Represents a check that an expected search criterion is not contained in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-with-times-checker/index.html">WithTimesChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WithTimesChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html"><span class="identifier">Contains.Checker</span></a></code>
+<p>Represents a checker which is based on the number of <a href="-with-times-checker/times.html">times</a> a search criterion is found within the search input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="validate-at-most.html">validateAtMost</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validateAtMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atMostCall">atMostCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastCall">atLeastCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates that times is not <code>1</code>; throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> otherwise, pointing the user to use the given
+<a href="validate-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</a> instead of the given <a href="validate-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateAtMost(kotlin.Int, kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atMostCall">atMostCall</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="validate-but-at-most.html">validateButAtMost</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validateButAtMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastTimes">atLeastTimes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/butAtMostTimes">butAtMostTimes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastButAtMostCall">atLeastButAtMostCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastCall">atLeastCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/butAtMostCall">butAtMostCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates that <a href="validate-but-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastTimes">atLeastTimes</a> is not equal to or greater than <a href="validate-but-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/butAtMostTimes">butAtMostTimes</a>; throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a>
+otherwise, pointing the user to use the given <a href="validate-but-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</a> in case <a href="validate-but-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/atLeastTimes">atLeastTimes</a> equals <a href="validate-but-at-most.html#ch.tutteli.atrium.logic.creating.basic.contains.checkers$validateButAtMost(kotlin.Int, kotlin.Int, kotlin.Function2((kotlin.Int, , kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)), kotlin.Function1((kotlin.Int, kotlin.String)))/butAtMostTimes">butAtMostTimes</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

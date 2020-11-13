@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>get - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./get.html">get</a><br/>
+<br/>
+<h1>get</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the given <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int)/index">index</a> is within the bounds of the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at that position.</p>
+<pre><code class="lang-kotlin">val list = listOf(1, 2, 3)
+
+expect(list)
+    .get(0)          // subject is now of type Int (actually 1)
+    .isLessThan(2)   // subject is still of type Int (still 1)
+    .isGreaterThan(0)
+
+fails {
+    expect(list)
+        .get(3)        // fails because index 3 is out of bound
+        .isLessThan(0) // not reported
+                       // use `get(index) { ... }` if you want that all assertions are evaluated
+}.message {
+    contains("index out of bounds")
+    containsNot("is less than: 2")
+}
+
+fails {
+    expect(list)
+        .get(0)
+        .isGreaterThan(2)  // fails
+        .isLessThan(0)     // not reported because `isGreaterThan(2)` already fails
+                           // use `get(index) { ... }` if you want that all assertions are evaluated
+}.message {
+    contains("is greater than: 2")
+    containsNot("is less than: 0")
+}</code></pre>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int)/index">index</a> is out of bound.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at position <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int)/index">index</a>.</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the given <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))/index">index</a> is within the bounds of the subject of the assertion (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and that
+the element at that position holds all assertions the given <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it.</p>
+<pre><code class="lang-kotlin">val list = listOf(1, 2, 3)
+
+expect(list)
+    .get(0) { // subject inside this block is of type Int (actually 1)
+        isLessThan(2)
+        isGreaterThan(0)
+    } // subject here is back to type List&lt;Int&gt;
+    .get(1) { // subject inside this block is of type Int (actually 2)
+        isLessThan(3)
+        isGreaterThan(1)
+    }
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(list)
+        .get(0) {
+            isGreaterThan(2) // fails
+            isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails,
+                             // use the `.get(index).` if you want a fail fast behaviour
+        }
+}.messageContains(
+    "is greater than: 2",
+    "is less than: 0"
+)</code></pre>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the given <a href="get.html#ch.tutteli.atrium.api.fluent.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.T)), kotlin.Int, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.get.E)), kotlin.Unit)))/index">index</a> is out of bound.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

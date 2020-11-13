@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MapGetNullableOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders</a>&nbsp;/&nbsp;<a href="./index.html">MapGetNullableOption</a><br/>
+<br/>
+<h1>MapGetNullableOption</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">MapGetNullableOption</span></s><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="index.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Switch from api-cc-infix-en_GB to api-infix-en_GB; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.12.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Represents the extension point for another option after a <code>get key</code>-step within a
+sophisticated <code>get</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>.</p>
+<h3>Parameters</h3>
+<p><a name="K"></a>
+<code>K</code> - The key type of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>.</p>
+<p><a name="V"></a>
+<code>V</code> - the value type of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>.</p>
+<p><a name="T"></a>
+<code>T</code> - A subtype of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="key.html">key</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">key</span><span class="symbol">: </span><a href="index.html#K"><span class="identifier">K</span></a></code>
+<p>The given key which will be used to perform the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html">Map.get</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="plant.html">plant</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">plant</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for which this assertion is created</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assert-it.html">assertIt</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">assertIt</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant-nullable.html"><span class="identifier">AssertionPlantNullable</span></a><span class="symbol">&lt;</span><a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that the <a href="../../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> contains the previously specified <a href="key.html">key</a>
+and that the corresponding nullable value holds all assertions the given <a href="assert-it.html#ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption$assertIt(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlantNullable((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.V)), kotlin.Unit)))/assertionCreator">assertionCreator</a> might create for it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="create.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion$create(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion.create.T)), ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion.create.K)/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion$create(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion.create.T)), ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption.Companion.create.K)/key">key</span><span class="symbol">:</span>&nbsp;<a href="create.html#K"><span class="identifier">K</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">MapGetNullableOption</span></a><span class="symbol">&lt;</span><a href="create.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

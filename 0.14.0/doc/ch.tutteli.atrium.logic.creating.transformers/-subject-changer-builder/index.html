@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SubjectChangerBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="./index.html">SubjectChangerBuilder</a><br/>
+<br/>
+<h1>SubjectChangerBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">SubjectChangerBuilder</span></code>
+<p>Helps in using <a href="../-subject-changer/index.html">SubjectChanger</a> by providing a guide to set the different parameters in form of a fluent builder.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-description-representation-step/index.html">DescriptionRepresentationStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptionRepresentationStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to specify the description and representation of the change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-execution-step/index.html">ExecutionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExecutionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-transformation-execution-step/index.html"><span class="identifier">TransformationExecutionStep</span></a><span class="symbol">&lt;</span><a href="-execution-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to decide how the transformation shall be executed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-failure-handler-step/index.html">FailureHandlerStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FailureHandlerStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Optional step which allows to specify a custom <a href="../-subject-changer/-failure-handler/index.html">SubjectChanger.FailureHandler</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Final step in the help-me-to-call-<a href="../-subject-changer/index.html">SubjectChanger</a>-process, which creates an <a href="-execution-step/index.html">ExecutionStep</a> incorporating all
+chosen options and is able to call <a href="../-subject-changer/index.html">SubjectChanger</a> accordingly.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-kind-step/index.html">KindStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">KindStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step where one has to decide the kind of subject change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-transformation-step/index.html">TransformationStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TransformationStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step to define the transformation which yields the new subject wrapped into a <a href="../../ch.tutteli.atrium.core/-some/index.html">Some</a> if the transformation
+as such can be carried out; otherwise <a href="../../ch.tutteli.atrium.core/-none.html">None</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.Companion$invoke(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder.Companion.invoke.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-kind-step/index.html"><span class="identifier">SubjectChangerBuilder.KindStep</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="./index.html">SubjectChangerBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

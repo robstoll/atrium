@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ResultAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.kotlin_1_3.creating</a>&nbsp;/&nbsp;<a href="./index.html">ResultAssertions</a><br/>
+<br/>
+<h1>ResultAssertions</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">ResultAssertions</span></s></code><br/>
+<strong>Deprecated:</strong> Use ResultAssertions from atrium-logic; will be removed with 1.0.0<br/>
+<br/>
+<p>Defines the minimum set of assertion functions and builders applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>,
+which an implementation of the domain of Atrium has to provide.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-failure.html">isFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">isFailure</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.reflect.KClass((ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions.isFailure.TExpected)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions$isFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.reflect.KClass((ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions.isFailure.TExpected)))/expectedType">expectedType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="is-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-changed-subject-post-step/index.html"><span class="identifier">ChangedSubjectPostStep</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="is-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-success.html">isSuccess</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">isSuccess</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions$isSuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.kotlin_1_3.creating.ResultAssertions.isSuccess.T)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.changers/-extracted-feature-post-step/index.html"><span class="identifier">ExtractedFeaturePostStep</span></a><span class="symbol">&lt;</span><a href="is-success.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="is-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.kotlin_1_3.creating/-result-assertions-builder/index.html">ResultAssertionsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">ResultAssertionsBuilder</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ResultAssertions</span></a></code>
+<p>Delegates inter alia to the implementation of <a href="./index.html">ResultAssertions</a>.
+In detail, it implements <a href="./index.html">ResultAssertions</a> by delegating to <a href="../result-assertions.html">resultAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
