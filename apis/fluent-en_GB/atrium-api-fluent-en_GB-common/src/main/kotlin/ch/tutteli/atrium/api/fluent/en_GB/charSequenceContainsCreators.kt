@@ -317,10 +317,10 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> {
-    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
-    return values(first, *rest)
-}
+): Expect<T> =
+    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+        .let { (first, rest) -> values(first, *rest) }
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
@@ -346,10 +346,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> {
-    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
-    return values(first, *rest)
-}
+): Expect<T> =
+    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+        .let { (first, rest) -> values(first, *rest) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
@@ -375,7 +374,6 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> {
-    val (first, rest) = _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
-    return values(first, *rest)
-}
+): Expect<T> =
+    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+        .let { (first, rest) -> values(first, *rest) }
