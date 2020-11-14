@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.14.0'
+    rootProject.version = '0.15.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -58,7 +58,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.14.0"
+        dokka_sourceMapping = "tree/master"
 
 
         toolProjects = toolProjectsFun
@@ -535,11 +535,14 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=0.14.0
+export ATRIUM_PREVIOUS_VERSION=0.14.0
+export ATRIUM_VERSION=0.15.0
 find ./ -name "*.md" | xargs perl -0777 -i \
+   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/master@tree/v$ATRIUM_VERSION@g;" \
    -pe "s@latest#/doc@$ATRIUM_VERSION/doc@g;"
 perl -0777 -i \
+  -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
   -pe "s@dokka_sourceMapping = \"tree/master\"@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@;" \
   -pe "s/rootProject.version = '$ATRIUM_VERSION-SNAPSHOT'/rootProject.version = '$ATRIUM_VERSION'/;" \
   ./build.gradle
@@ -569,7 +572,6 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
 
 gr ghPages
-export ATRIUM_PREVIOUS_VERSION=0.13.0
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
   ../atrium-gh-pages/latest/index.html
@@ -610,8 +612,8 @@ Prepare next dev cycle
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=0.13.0
-export ATRIUM_NEXT_VERSION=0.14.0
+export ATRIUM_VERSION=0.15.0
+export ATRIUM_NEXT_VERSION=0.15.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/master@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
@@ -619,12 +621,12 @@ find ./ -name "*.md" | xargs perl -0777 -i \
 perl -0777 -i \
   -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/master\"@;" \
   -pe "s/rootProject.version = '$ATRIUM_VERSION'/rootProject.version = '$ATRIUM_NEXT_VERSION-SNAPSHOT'/;" \
-  -pe "s/ATRIUM_PREVIOUS_VERSION=$ATRIUM_VERSION/ATRIUM_PREVIOUS_VERSION=$ATRIUM_NEXT_VERSION/;" \
+  -pe "s/ATRIUM_VERSION=$ATRIUM_VERSION/ATRIUM_VERSION=$ATRIUM_NEXT_VERSION/;" \
   ./build.gradle
 perl -0777 -i \
   -pe 's/(<!-- for master -->\n)<!--\n([\S\s]*?)-->(\n<!-- for a specific release -->)\n([\S\s]*?)\n(\n# <img)/$1\n$2$3\n<!--$4-->\n$5/;' \
   -pe 's/<!(---\n❗ You are taking[^-]*?---)>/$1/;' \
-  -pe "s@(For instance, the \[README of v$ATRIUM_VERSION\].*tree/)master/@$1v$ATRIUM_VERSION/@;" \
+  -pe "s@(For instance, the \[README of v$ATRIUM_VERSION\].*tree/)master/@\$1v$ATRIUM_VERSION/@;" \
   ./README.md
 git commit -a -m "prepare dev cycle of $ATRIUM_NEXT_VERSION"
 

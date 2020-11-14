@@ -1,7 +1,7 @@
 # List of APIs
 Atrium provides different APIs where the API differ in its style and the language in which it is written.
 You have the choice which one(s) you want to use. 
-Hence it is up to you if you want to mix and match different styles or enforce just one style.
+Hence, it is up to you if you want to mix and match different styles or enforce just one style.
 
 Atrium provides so called bundle-modules which merely bundle dependencies (they do not provide additional functionality).
 These modules bundle:
@@ -14,13 +14,13 @@ These modules bundle:
 Following a list of the available bundle-modules. 
 The links point to the KDoc of their included API where you find an overview of all available assertion functions of the API.
 
-- [atrium-fluent-en_GB](https://robstoll.github.io/atrium/0.14.0.RC1/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-infix-en_GB](https://robstoll.github.io/atrium/0.14.0.RC1/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 ----
 
 Following an excerpt of a build.gradle file which uses twit APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/v0.14.0.RC1/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/master/README.md#installation)
 for the rest):
 ```
 dependencies {

@@ -25,13 +25,13 @@ Following the things you need to do:
 *api-fluent*
 - [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
-- [ ] add `@since 0.14.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
+- [ ] add `@since 0.15.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyAssertionsSpec in specs-common (see for instance YzAssertionsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
 
 *api-infix*
 - [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
-- [ ] add `@since 0.14.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
+- [ ] add `@since 0.15.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyAssertionsSpec in specs-common (see for instance YzAssertionsSpec) and extend it in atrium-api-infix-en_GB-common/src/test
 
 
