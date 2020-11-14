@@ -185,6 +185,15 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         if (isFluentOrInfix) {
             //required by atrium-specs
             add(confCommon, prefixedProject("$apiName-jvm"))
+
+            //TODO remove if with 1.0.0
+            // dependencies for samples
+            if (!(oldVersion in ['0.6.0','0.7.0','0.8.0','0.9.0','0.10.0','0.11.0','0.12.0','0.13.0'])) {
+                //for samples
+                add(confCommon, "org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+                add(confCommon, "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
+                add(confCommon, "org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
+            }
         } else if (!apiName.endsWith('en_UK')) {
             add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
         } else {
@@ -201,6 +210,9 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             '--disable-banner',
             '--fail-if-no-tests',
             '--include-engine', isFluentOrInfix ? 'spek2-deprecation' : 'spek1-deprecation',
+            // to execute samples
+            '--include-engine', 'junit-jupiter',
+            '--include-classname', '.*(Samples|Spec)',
             '--config', forgive,
             '--details', 'summary'
         ]
@@ -408,6 +420,10 @@ createBcAndBbcTasksForApis('0.12.0',
 //    'fluent-en_GB', 'infix-en_GB')
 //@formatter:on
 
+createBcAndBbcTasksForApis('0.14.0',
+    'forgive=^$',
+    'fluent-en_GB','infix-en_GB'
+)
 
 ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'].each { apiName ->
     createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
