@@ -6,9 +6,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl.StaticName
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.*
 import kotlin.jvm.JvmName
 
 /**

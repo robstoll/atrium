@@ -7,10 +7,10 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.NotCheckerStep
 import ch.tutteli.kbox.identity
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName

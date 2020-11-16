@@ -4,13 +4,13 @@ package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepInternal
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStep
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepInternal
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStepInternal
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStepLogic
+//import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStep
+//import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStepInternal
+//import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
 /**

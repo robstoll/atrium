@@ -2,11 +2,11 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.impl
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.NotCheckerStep
 import kotlin.reflect.KFunction2
 
 internal object StaticName {

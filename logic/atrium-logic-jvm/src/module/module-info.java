@@ -12,11 +12,11 @@ module ch.tutteli.atrium.logic {
     exports ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours;
     exports ch.tutteli.atrium.logic.creating.charsequence.contains.steps;
 
-    exports ch.tutteli.atrium.logic.creating.iterable.contains;
-    exports ch.tutteli.atrium.logic.creating.iterable.contains.checkers;
-    exports ch.tutteli.atrium.logic.creating.iterable.contains.creators;
-    exports ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours;
-    exports ch.tutteli.atrium.logic.creating.iterable.contains.steps;
+    exports ch.tutteli.atrium.logic.creating.iterablelike.contains;
+    exports ch.tutteli.atrium.logic.creating.iterablelike.contains.checkers;
+    exports ch.tutteli.atrium.logic.creating.iterablelike.contains.creators;
+    exports ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours;
+    exports ch.tutteli.atrium.logic.creating.iterablelike.contains.steps;
 
     exports ch.tutteli.atrium.logic.creating.transformers;
 

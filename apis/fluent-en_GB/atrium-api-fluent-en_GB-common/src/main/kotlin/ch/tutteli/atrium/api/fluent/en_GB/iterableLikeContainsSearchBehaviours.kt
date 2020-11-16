@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.*
 import kotlin.jvm.JvmName
 
 /**

@@ -21,11 +21,11 @@ Map<String, Closure<Tuple4<String, String, String, String>>> map = [
             'entryPointStepLogic.container.getImpl'
         )
     },
-    '/creating/iterable/contains/creators'    : { java.nio.file.Path path ->
+    '/creating/iterablelike/contains/creators'    : { java.nio.file.Path path ->
         def fileNameAsString = path.fileName.toString()
         if (fileNameAsString == 'IterableLikeContainsInAnyOrderAssertions.kt') {
             return new Tuple3(
-                'import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains\nimport ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour',
+                'import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains\nimport ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InAnyOrderSearchBehaviour',
                 '<E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>',
                 'entryPointStepLogic.container.getImpl'
             )

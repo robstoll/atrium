@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction4
 import kotlin.reflect.KProperty

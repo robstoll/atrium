@@ -7,10 +7,10 @@ import ch.tutteli.atrium.api.infix.en_GB.grouped
 import ch.tutteli.atrium.api.infix.en_GB.within
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.*
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2

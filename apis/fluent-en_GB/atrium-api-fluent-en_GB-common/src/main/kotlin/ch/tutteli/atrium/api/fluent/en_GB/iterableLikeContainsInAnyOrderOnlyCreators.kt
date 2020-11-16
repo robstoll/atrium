@@ -1,16 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyOrderOnly
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.entries
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.entriesInAnyOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.values
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.valuesInAnyOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 

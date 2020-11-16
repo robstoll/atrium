@@ -5,10 +5,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnlyGrouped
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnlyGrouped
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.entriesInOrderOnlyGrouped
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.valuesInOrderOnlyGrouped
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
 import kotlin.jvm.JvmName
 
 /**

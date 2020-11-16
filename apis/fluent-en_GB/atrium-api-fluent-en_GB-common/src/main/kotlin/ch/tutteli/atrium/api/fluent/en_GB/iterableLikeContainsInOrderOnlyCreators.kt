@@ -3,10 +3,10 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.entriesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
