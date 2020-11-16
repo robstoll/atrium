@@ -6,7 +6,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 buildscript {
     ext {
         atrium_version = '0.14.0'
-        spek_version = '2.0.13'
+        spek_version = '2.0.14'
     }
 }
 
