@@ -51,7 +51,7 @@ jobs:
             -   name: determine kotlin compile target
                 run: |
                     export KOTLIN_TARGET=$(if [ "${{ matrix.java_version }}" -eq "14" ]; then echo "13"; else echo "${{ matrix.java_version }}"; fi)
-                    echo "::set-env name=KOTLIN_TARGET::$KOTLIN_TARGET"
+                    echo "KOTLIN_TARGET=$KOTLIN_TARGET" >> $GITHUB_ENV
                 shell: bash
 
             -   name: build maven sample
