@@ -246,8 +246,5 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  *
  * @since 0.13.0
  */
-inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
-    val iterable = _logic.iterableLikeToIterable<T>(expected)
-    require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
-    return _logicAppend { isNotIn(iterable) }
-}
+inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
+    _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
