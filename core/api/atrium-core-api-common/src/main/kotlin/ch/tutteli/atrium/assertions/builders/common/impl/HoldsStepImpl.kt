@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.builders.common.impl
 
 import ch.tutteli.atrium.assertions.builders.common.HoldsStep
-import ch.tutteli.atrium.core.trueProvider
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.SubjectProvider
 
 internal abstract class HoldsStepImpl<R> : HoldsStep<R> {
@@ -11,7 +11,7 @@ internal abstract class HoldsStepImpl<R> : HoldsStep<R> {
     override val holding: R = withTest { true }
 
     override fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): R = withTest {
-        subjectProvider.maybeSubject.fold(trueProvider, test)
+        subjectProvider.maybeSubject.fold(falseProvider, test)
     }
 
     final override fun withTest(test: () -> Boolean): R = createNextStep(test)

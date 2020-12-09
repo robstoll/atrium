@@ -1,5 +1,9 @@
 package ch.tutteli.atrium.specs
 
+import ch.tutteli.atrium.api.fluent.en_GB.all
+import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
@@ -18,7 +22,7 @@ abstract class SubjectLessSpec<T>(
     vararg assertionCreator: Pair<String, Expect<T>.() -> Unit>
 ) : Spek({
 
-    describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reportBuilder without failure") {
+    describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and report without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
                 val assertions = CollectingExpect<T>(None)
@@ -44,10 +48,21 @@ abstract class SubjectLessSpec<T>(
                     .withAssertions(assertions)
                     .build()
                 container.addAssertion(explanatoryGroup)
-
             }
         }
     }
+
+    describe("${groupPrefix}assertion function does not hold if there is no subject") {
+        assertionCreator.forEach { (name, createAssertion) ->
+            it("fun `$name`") {
+                val assertions = CollectingExpect<T>(None)
+                    .addAssertionsCreatedBy(createAssertion)
+                    .getAssertions()
+                expect(assertions).all { feature(Assertion::holds).toBe(false) }
+            }
+        }
+    }
+
 }) {
     companion object {
         /**

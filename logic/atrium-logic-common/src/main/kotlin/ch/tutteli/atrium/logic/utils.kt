@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectInternal
@@ -35,9 +34,10 @@ fun <T> AssertionContainer<T>.createDescriptiveAssertion(
     description: Translatable,
     representation: Any?,
     test: (T) -> Boolean
-): Assertion = assertionBuilder.createDescriptive(description, representation) {
-    maybeSubject.fold(trueProvider) { test(it) }
-}
+): Assertion = assertionBuilder.descriptive
+    .withTest(this, test)
+    .withDescriptionAndRepresentation(description, representation)
+    .build()
 
 /**
  * Entry point to use the [SubjectChangerBuilder] based on this [AssertionContainer].

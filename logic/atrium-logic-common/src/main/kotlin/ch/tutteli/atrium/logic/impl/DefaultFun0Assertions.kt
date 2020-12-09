@@ -30,7 +30,7 @@ class DefaultFun0Assertions : Fun0Assertions {
         // because we want to show the planned downCast in the error message
         return container.manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
             catchAndAdjustThrowable(this)
-                .fold({ it }, { /* use null as subject in case no exception occurred*/ null })
+                .fold({ it }, { /* use null as subject in case no exception occurred */ null })
         }.transform().let { previousExpect ->
             FeatureExpect(
                 previousExpect,

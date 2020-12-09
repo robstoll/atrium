@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.builders.impl.descriptive
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
-import ch.tutteli.atrium.core.trueProvider
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -25,7 +25,7 @@ internal object HoldsOptionImpl : Descriptive.HoldsOption {
         subjectProvider: SubjectProvider<T>,
         test: (T) -> Boolean
     ): Descriptive.DescriptionOption<Descriptive.FinalStep> = withTest {
-        subjectProvider.maybeSubject.fold(trueProvider, test)
+        subjectProvider.maybeSubject.fold(falseProvider, test)
     }
 }
 

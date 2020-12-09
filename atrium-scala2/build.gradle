@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.13.0-SNAPSHOT'
+    rootProject.version = '0.15.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
     ext {
         atriumKotlinDep = { name -> "ch.tutteli.atrium:atrium-$name:$rootProject.version" }
