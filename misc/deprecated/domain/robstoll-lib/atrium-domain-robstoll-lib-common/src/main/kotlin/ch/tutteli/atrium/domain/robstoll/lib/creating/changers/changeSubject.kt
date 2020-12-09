@@ -40,7 +40,7 @@ fun <T, R> _changeSubject(
         originalAssertionContainer.maybeSubject.fold(trueProvider, { expect.maybeSubject.isDefined() })
 
     val descriptiveAssertion = assertionBuilder.descriptive
-        .withTest { shallTransform }
+        .withTest(expect) { true }
         .withDescriptionAndRepresentation(description, representation)
         .build()
 
