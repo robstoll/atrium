@@ -2331,7 +2331,7 @@ for more information and to see how the API styles differ.
 
 # Java Interoperability
 Atrium provides some helper functions in case you have to deal with Java Code where not all types are non-nullable. 
-[Platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
+[Platform types](https://kotlinlang.org/docs/java-interop.html#null-safety-and-platform-types)
 are turned into a non-nullable version per default (if possible). 
 
 Yet, that might not be what you want, especially if you know that certain functions return potentially `null` 
