@@ -21,6 +21,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -32,38 +33,44 @@ import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
-    override fun <T : Any, E> containsBuilder(
+    override fun <T : IterableLike, E> builderContainsInIterableLike(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> =
         EntryPointStepImpl(container, converter, NoOpSearchBehaviourImpl())
 
-    override fun <T : Any, E> containsNotBuilder(
+    override fun <T : IterableLike, E> builderContainsNotInIterableLike(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): NotCheckerStep<E, T, NotSearchBehaviour> =
         EntryPointStepImpl(container, converter, NotSearchBehaviourImpl())._logic.notCheckerStep()
 
-    override fun <T : Any, E> hasNext(container: AssertionContainer<T>, converter: (T) -> Iterable<E>): Assertion =
+    override fun <T : IterableLike, E> hasNext(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion =
         container.createDescriptiveAssertion(DescriptionBasic.HAS, NEXT_ELEMENT) { hasNext(it, converter) }
 
-    private fun <E, T : Any> hasNext(it: T, converter: (T) -> Iterable<E>) =
+    private fun <E, T : IterableLike> hasNext(it: T, converter: (T) -> Iterable<E>) =
         converter(it).iterator().hasNext()
 
-    override fun <T : Any, E> hasNotNext(container: AssertionContainer<T>, converter: (T) -> Iterable<E>): Assertion =
+    override fun <T : IterableLike, E> hasNotNext(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): Assertion =
         container.createDescriptiveAssertion(DescriptionBasic.HAS_NOT, NEXT_ELEMENT) { !hasNext(it, converter) }
 
-    override fun <T : Any, E : Comparable<E>> min(
+    override fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
 
-    override fun <T : Any, E : Comparable<E>> max(
+    override fun <T : IterableLike, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
 
-    private fun <T : Any, E : Comparable<E>> collect(
+    private fun <T : IterableLike, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>,
         method: String,
@@ -83,7 +90,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             .withoutOptions()
             .build()
 
-    override fun <T : Any, E : Any> all(
+    override fun <T : IterableLike, E : IterableLike> all(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -117,7 +124,10 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         )
     }
 
-    private fun <T : Any, E> transformToList(container: AssertionContainer<T>, converter: (T) -> Iterable<E>): List<E> =
+    private fun <T : IterableLike, E> transformToList(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): List<E> =
         container.maybeSubject.fold({ emptyList() }) { subject ->
             val iterable = converter(subject)
             when (iterable) {
@@ -145,7 +155,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     private fun <E> createHasElementPlusFixedClaimGroup(
         list: List<E>,
         description: Translatable,
-        representation: Any,
+        representation: IterableLike,
         claim: Boolean,
         assertions: List<Assertion>
     ) = assertionBuilder.invisibleGroup
@@ -160,7 +170,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         )
         .build()
 
-    override fun <T : Any, E> containsNoDuplicates(
+    override fun <T : IterableLike, E> containsNoDuplicates(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion = LazyThreadUnsafeAssertionGroup {

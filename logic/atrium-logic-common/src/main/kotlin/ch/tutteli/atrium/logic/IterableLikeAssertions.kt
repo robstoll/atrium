@@ -8,6 +8,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpS
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Collection of assertion functions and builders which are applicable to subjects which can be transformed to an
@@ -15,43 +16,43 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
  */
 interface IterableLikeAssertions {
 
-    fun <T : Any, E> containsBuilder(
+    fun <T : IterableLike, E> builderContainsInIterableLike(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour>
 
-    fun <T : Any, E> containsNotBuilder(
+    fun <T : IterableLike, E> builderContainsNotInIterableLike(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): NotCheckerStep<E, T, NotSearchBehaviour>
 
-    fun <T : Any, E : Any> all(
+    fun <T : IterableLike, E : IterableLike> all(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Assertion
 
-    fun <T : Any, E> hasNext(
+    fun <T : IterableLike, E> hasNext(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion
 
-    fun <T : Any, E> hasNotNext(
+    fun <T : IterableLike, E> hasNotNext(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion
 
-    fun <T : Any, E : Comparable<E>> min(
+    fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E>
 
-    fun <T : Any, E : Comparable<E>> max(
+    fun <T : IterableLike, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E>
 
-    fun <T : Any, E> containsNoDuplicates(
+    fun <T : IterableLike, E> containsNoDuplicates(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion
