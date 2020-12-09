@@ -26,7 +26,7 @@ import kotlin.jvm.JvmName
  */
 infix fun <E, T : Iterable<E>> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
-): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = _logic.containsBuilder(::identity)
+): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = _logic.builderContainsInIterableLike(::identity)
 
 /**
  * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
@@ -38,7 +38,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.contains(
  */
 infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
-): NotCheckerStep<E, T, NotSearchBehaviour> = _logic.containsNotBuilder(::identity)
+): NotCheckerStep<E, T, NotSearchBehaviour> = _logic.builderContainsNotInIterableLike(::identity)
 
 /**
  *  Expects that the subject of the assertion (an [Iterable]) contains the [expected] value.
