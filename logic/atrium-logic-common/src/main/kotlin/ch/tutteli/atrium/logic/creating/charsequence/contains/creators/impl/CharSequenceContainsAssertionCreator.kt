@@ -46,7 +46,8 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
         container.changeSubject.unreported { it.toString() }.toAssertionContainer()
 
     override fun search(multiConsumableContainer: AssertionContainer<String>, searchCriterion: SC): Int =
-        // if the maybeSubject is None it means we are in an explanation like context in which it does not matter if it is found or not.
+        // if the maybeSubject is None it means we are in an explanation like context in which
+        // it should not matter what this number is. Moreover, we check in the atMostChecker that times is >= 0
         multiConsumableContainer.maybeSubject.fold({ -1 }) { searcher.search(it, searchCriterion) }
 
     override fun decorateAssertion(

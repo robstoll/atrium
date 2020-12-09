@@ -27,7 +27,7 @@ fun <T, R> AssertionContainer<T>.genericSubjectBasedFeature(
 
 private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
     MetaFeature(
-        ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT,
+        ErrorMessages.DESCRIPTION_BASED_ON_SUBJECT,
         ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED,
         None
     )
