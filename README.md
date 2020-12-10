@@ -60,6 +60,7 @@ For instance, the [README of v0.14.0](https://github.com/robstoll/atrium/tree/v0
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)  
   - [Sample Projects](#sample-projects)
+- [Third-party Extensions](#third-party-extensions)    
 - [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
     - [Boolean based Assertions](#boolean-based-assertions)
@@ -116,6 +117,8 @@ dependencies {
     testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
 }
 ```
+
+Also take a look at [Third-party Extensions](#third-party-extensions) which might come in handy as well.
 
 <details>
 <summary>click to see how the setup for the infix API looks like</summary>
@@ -230,6 +233,8 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 Starting with 0.12.0 we no longer deliver a dedicated `-android` jar. Instead you can use the same setup as shown in [JVM setup](#jvm).
 We start adding one again in case we have Android specific assertion functions. 
+
+Also take a look at [Third-party Extensions](#third-party-extensions) which might come in handy as well.
 
 ## Common
 
@@ -1517,15 +1522,22 @@ You can also have a look at the
 [specifications](https://github.com/robstoll/atrium/tree/master/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
 for more examples.
 
-# Sample Projects
+## Sample Projects
 
 Have a look into the [samples](https://github.com/robstoll/atrium/tree/master/samples)
 folder, it currently contains sample projects for 
- [jvm](https://github.com/robstoll/atrium/tree/master/samples/jvm/),
- [js](https://github.com/robstoll/atrium/tree/master/samples/js/)
- as well as a [multiplatform project](https://github.com/robstoll/atrium/tree/master/samples/multiplatform/).
- 
- Are you using a different runner? A PR would be appreciated 😊.
+- [jvm gradle](https://github.com/robstoll/atrium/tree/master/samples/jvm/)
+  - [maven](https://github.com/robstoll/atrium/tree/master/samples/maven/)
+- [js](https://github.com/robstoll/atrium/tree/master/samples/js/)
+- [multiplatform project](https://github.com/robstoll/atrium/tree/master/samples/multiplatform/)
+
+Are you using a different runner? A PR would be appreciated 😊.
+
+# Third-party Extensions
+
+Following extensions are maintained outside of this repository. 
+
+- [atrium-gradle-testkit](jGleitz/atrium-gradle-testkit): Atrium assertions to test Gradle plugins with TestKit.
 
 # How is Atrium different from other Assertion Libraries
 
