@@ -38,10 +38,9 @@ inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
  * Use [_logic] for more sophisticated scenarios.
  */
 inline fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
-    CharSequenceContains.CheckerStep<T, S>._logicAppend(factory: CharSequenceContains.CheckerStepLogic<T, S>.() -> Assertion): Expect<T> {
-    val l = _logic
-    return l.entryPointStepLogic.container.toExpect().addAssertion(l.factory())
-}
+    CharSequenceContains.CheckerStep<T, S>._logicAppend(
+    factory: CharSequenceContains.CheckerStepLogic<T, S>.() -> Assertion
+): Expect<T> = _logic.let { l -> l.entryPointStepLogic.container.toExpect().addAssertion(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

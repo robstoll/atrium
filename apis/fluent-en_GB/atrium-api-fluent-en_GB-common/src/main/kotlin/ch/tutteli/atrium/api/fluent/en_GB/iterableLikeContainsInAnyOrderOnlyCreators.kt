@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.toVarArg
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
@@ -11,11 +10,12 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyO
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only the [expected] value.
  *
  * Delegates to [values].
@@ -24,7 +24,7 @@ import ch.tutteli.kbox.glue
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param expected The value which is expected to be contained within the [IterableLike].
+ * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -35,16 +35,15 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
     values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]
- * value as well as the [otherExpected] values (if given) need to be
- * contained in [IterableLike] where it does not matter in which order but only as
- * many entries should be returned by the [IterableLike] as values defined.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only the [expected] value as well as the [otherExpected] values
+ * where it does not matter in which order.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param expected The value which is expected to be contained within the [IterableLike].
+ * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -58,7 +57,7 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
 ): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -82,12 +81,11 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
 ): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [IterableLike] which holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case
- * [assertionCreatorOrNull] is defined as `null` -- likewise an entry for each
- * [otherAssertionCreatorsOrNulls] needs to be contained in the [IterableLike] where it does not matter
- * in which order the entries appear but only as many entries should be returned by the [IterableLike]
- * as assertion creators are defined.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only an entry for [assertionCreatorOrNull] as well as for the [otherAssertionCreatorsOrNulls]
+ * where it does not matter in which order they appear -- an entry is contained if it either
+ * holds all assertions [assertionCreatorOrNull] creates or
+ * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
@@ -118,14 +116,14 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
 ): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements in
- * [expectedIterableLike] need to be contained in [IterableLike] where it does not matter in which order but only as
- * many entries should be returned by the [IterableLike] as values defined.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only and all elements of [expectedIterableLike] where it does not matter in which order.
  *
  * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ * are passed (this can be changed via [IterableLikeToIterableTransformer]).
+ * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see

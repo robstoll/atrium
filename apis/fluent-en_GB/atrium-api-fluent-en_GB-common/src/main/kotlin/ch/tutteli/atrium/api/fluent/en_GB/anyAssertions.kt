@@ -208,10 +208,7 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNotIn
  */
-inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> {
-    val iterable = _logic.iterableLikeToIterable<T>(expected)
-    require(iterable.iterator().hasNext()) { "IterableLike without elements are not allowed for this function." }
-    return _logicAppend { isNotIn(iterable) }
-}
+inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
+    _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
 
 

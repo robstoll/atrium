@@ -10,11 +10,12 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]
- * value shall be searched within the [IterableLike].
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain the [expected] value.
  *
  * Delegates to `the values(expected)`.
  *
@@ -29,8 +30,9 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.val
     this the values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
- * shall be searched within the [IterableLike].
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain the expected [values] where it does not matter
+ * in which order they appear.
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
  * [Values] is defined as `values("a", "a")`, then both match,
@@ -54,9 +56,9 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the
     _logicAppend { values(values.toList()) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [assertionCreatorOrNull] creates or needs to be `null` in case [assertionCreatorOrNull]
- * is defined as `null`.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain an entry which either holds all assertions [assertionCreatorOrNull] creates or
+ * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `the entries(assertionCreatorOrNull)`
  *
@@ -74,11 +76,12 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
 ): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain an entry for each in [entries] where it does not matter
+ * in which order they appear -- an entry is contained if it either
  * holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or
  * needs to be `null` in case [entries].[assertionCreatorOrNull][Entries.otherAssertionCreatorsOrNulls]
- * is defined as `null` -- likewise an entry (can be the same) is searched for each of
- * the [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls].
+ * is defined as `null`.
  *
  * @param entries The entries which are expected to be contained within the [IterableLike]
  *   -- use the function `entries(t, ...)` to create an [Entries].
@@ -93,14 +96,15 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
 ): Expect<T> = _logicAppend { entries(entries.toList()) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched within the [IterableLike].
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain all elements of the [expectedIterableLike] where it does not matter in which order they appear.
  *
  * Delegates to [values] which also means that it does not search for unique matches
  * (see [values] for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ * are passed (this can be changed via [IterableLikeToIterableTransformer]).
+ * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  *

@@ -8,7 +8,7 @@ import ch.tutteli.kbox.appendToStringBuilder
  * Transforms [Sequence] and all [Array] types to [Iterable].
  *
  * following a more precise list:
- * - Iterable
+ * - Iterable (does not transform anything)
  * - Sequence
  * - Array
  * - CharArray

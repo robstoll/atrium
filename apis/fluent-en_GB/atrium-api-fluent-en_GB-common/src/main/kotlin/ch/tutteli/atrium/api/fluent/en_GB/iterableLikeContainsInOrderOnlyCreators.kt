@@ -8,11 +8,12 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrde
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only the [expected] value.
  *
  * Delegates to [values].
@@ -21,7 +22,7 @@ import ch.tutteli.kbox.glue
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param expected The value which is expected to be contained within the [IterableLike].
+ * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -32,15 +33,15 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
     values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only the [expected] value as well as the [otherExpected] values
- * (if given) in the specified order.
+ * in the specified order.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @param expected The value which is expected to be contained within the [IterableLike].
+ * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
@@ -54,9 +55,9 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
 ): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
- * needs to contain only a single entry which holds all assertions created by the given [assertionCreatorOrNull]
- * or needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
+ * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `entries(assertionCreatorOrNull)`.
  *
@@ -78,10 +79,11 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
 ): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
- * needs to contain only an entry which holds all assertions [assertionCreatorOrNull] creates
- * or is `null` in case [assertionCreatorOrNull] is defined as `null` and likewise a further entry for each
- * [otherAssertionCreatorsOrNulls] (if given) whereas the entries have to appear in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only an entry for [assertionCreatorOrNull] as well as for the [otherAssertionCreatorsOrNulls]
+ * in the specified order -- an entry is contained if it either
+ * holds all assertions [assertionCreatorOrNull] creates or
+ * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
@@ -104,14 +106,14 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
 ): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched within the [IterableLike]
- * (if given) in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only and all elements of [expectedIterableLike] in the specified order.
  *
  * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ * are passed (this can be changed via [IterableLikeToIterableTransformer]).
+ * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see

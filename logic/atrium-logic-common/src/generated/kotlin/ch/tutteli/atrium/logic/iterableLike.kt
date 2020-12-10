@@ -15,26 +15,27 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpS
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
 
 
-fun <T : Any, E> AssertionContainer<T>.containsBuilder(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = impl.containsBuilder(this, converter)
+fun <T : IterableLike, E> AssertionContainer<T>.builderContainsInIterableLike(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = impl.builderContainsInIterableLike(this, converter)
 
-fun <T : Any, E> AssertionContainer<T>.containsNotBuilder(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = impl.containsNotBuilder(this, converter)
+fun <T : IterableLike, E> AssertionContainer<T>.builderContainsNotInIterableLike(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = impl.builderContainsNotInIterableLike(this, converter)
 
-fun <T : Any, E : Any> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
+fun <T : IterableLike, E : IterableLike> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
     impl.all(this, converter, assertionCreatorOrNull)
 
-fun <T : Any, E> AssertionContainer<T>.hasNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNext(this, converter)
+fun <T : IterableLike, E> AssertionContainer<T>.hasNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNext(this, converter)
 
-fun <T : Any, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNotNext(this, converter)
+fun <T : IterableLike, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNotNext(this, converter)
 
-fun <T : Any, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.min(this, converter)
+fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.min(this, converter)
 
-fun <T : Any, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.max(this, converter)
+fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.max(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.max(this, converter)
 
-fun <T : Any, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = impl.containsNoDuplicates(this, converter)
+fun <T : IterableLike, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = impl.containsNoDuplicates(this, converter)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

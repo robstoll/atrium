@@ -21,7 +21,7 @@ import kotlin.jvm.JvmName
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> Expect<T>.contains: IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour>
-    get() = _logic.containsBuilder(::identity)
+    get() = _logic.builderContainsInIterableLike(::identity)
 
 /**
  * Starts a sophisticated `contains` assertion building process based on this [Expect] and already chooses a
@@ -30,7 +30,7 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableLikeContains.EntryPointStep
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBehaviour>
-    get() = _logic.containsNotBuilder(::identity)
+    get() = _logic.builderContainsNotInIterableLike(::identity)
 
 /**
  * Expects that the subject of the assertion (an [Iterable]) contains the

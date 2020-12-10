@@ -1,3 +1,4 @@
+//TODO check if file can be renamed without bbc in API to Like instead of LIke with 0.15.0
 @file:Suppress("ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic
@@ -8,9 +9,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepInternal
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStep
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepInternal
-//import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
 /**
@@ -19,10 +17,9 @@ import ch.tutteli.atrium.reporting.BUG_REPORT_URL
  * Use [_logic] for more sophisticated scenarios.
  */
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
-    IterableLikeContains.EntryPointStep<E, T, S>._logicAppend(factory: IterableLikeContains.EntryPointStepLogic<E, T, S>.() -> Assertion): Expect<T> {
-    val l = _logic
-    return l.container.toExpect().addAssertion(l.factory())
-}
+    IterableLikeContains.EntryPointStep<E, T, S>._logicAppend(
+    factory: IterableLikeContains.EntryPointStepLogic<E, T, S>.() -> Assertion
+): Expect<T> = _logic.let { l -> l.container.toExpect().addAssertion(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
@@ -54,10 +51,9 @@ inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
  * Use [_logic] for more sophisticated scenarios.
  */
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
-    IterableLikeContains.CheckerStep<E, T, S>._logicAppend(factory: IterableLikeContains.CheckerStepLogic<E, T, S>.() -> Assertion): Expect<T> {
-    val l = _logic
-    return l.entryPointStepLogic.container.toExpect().addAssertion(l.factory())
-}
+    IterableLikeContains.CheckerStep<E, T, S>._logicAppend(
+    factory: IterableLikeContains.CheckerStepLogic<E, T, S>.() -> Assertion
+): Expect<T> = _logic.let { l -> l.entryPointStepLogic.container.toExpect().addAssertion(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

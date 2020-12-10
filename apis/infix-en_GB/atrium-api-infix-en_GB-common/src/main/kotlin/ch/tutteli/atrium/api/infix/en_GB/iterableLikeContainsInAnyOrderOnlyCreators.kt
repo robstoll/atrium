@@ -11,10 +11,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only the [expected] value.
  *
  * Delegates to `the values(expected)`.
@@ -32,8 +33,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
     this the values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
- * must be contained in [IterableLike] but it does not matter in which order.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only the expected [values] where it does not matter in which order.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
@@ -49,7 +50,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
     _logicAppend { valuesInAnyOrderOnly(values.toList()) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [IterableLike]
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -71,13 +72,11 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
 ): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [IterableLike] which holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull]
- * creates or it needs to be `null` in case
- * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null` -- likewise an
- * entry for each [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] needs to
- * be contained in the [IterableLike] where it does not matter in which order the entries appear but
- * only as many entries should be returned by the [IterableLike] as assertion creators are defined.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only the given [entries] where it does not matter in which order they appear -- an entry
+ * is contained if it either holds all assertions
+ * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or it needs to be `null` in case
+ * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null`
  *
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
@@ -102,14 +101,14 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
 ): Expect<T> = _logicAppend { entriesInAnyOrderOnly(entries.toList()) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements in
- * [expectedIterableLike] need to be contained in [IterableLike] where it does not matter in which order but only as
- * many entries should be returned by the [IterableLike] as values defined.
+ * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * needs to contain only and all elements of [expectedIterableLike] where it does not matter in which order.
  *
  * Delegates to [values].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
- * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ * are passed (this can be changed via [IterableLikeToIterableTransformer]).
+ * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * Note that we might change the signature of this function with the next version
  * which will cause a binary backward compatibility break (see
