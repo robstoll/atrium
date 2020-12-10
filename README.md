@@ -1537,7 +1537,7 @@ Are you using a different runner? A PR would be appreciated 😊.
 
 Following extensions are maintained outside of this repository. 
 
-- [atrium-gradle-testkit](jGleitz/atrium-gradle-testkit): Atrium assertions to test Gradle plugins with TestKit.
+- [atrium-gradle-testkit](https://github.com/jGleitz/atrium-gradle-testkit): Atrium assertions to test Gradle plugins with TestKit.
 
 # How is Atrium different from other Assertion Libraries
 
