@@ -53,7 +53,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect contains o inAny order atLeast 1 elementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double?>> = expect contains o inAny order atLeast 1 elementsOf sequenceOf(a, *aX)
 
         private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsElementsOf
@@ -64,7 +64,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect containsElementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double>> = expect containsElementsOf arrayOf(a, *aX)
 
         private val containsElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsElementsOf
@@ -75,7 +75,7 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect containsElementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double?>> = expect containsElementsOf sequenceOf(a, *aX).asIterable()
 
     }
 }

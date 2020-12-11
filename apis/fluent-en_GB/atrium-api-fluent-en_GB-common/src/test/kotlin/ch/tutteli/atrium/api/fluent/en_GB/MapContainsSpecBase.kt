@@ -14,8 +14,6 @@ abstract class MapContainsSpecBase {
 
     //@formatter:off
     protected val inAnyOrder = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, NoOpSearchBehaviour>::inAnyOrder.name
-    protected val inOrder = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, NoOpSearchBehaviour>::inOrder.name
-    protected val only = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::only.name
 
     private val keyValuePairF: KFunction2<MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>, Pair<String,Int>, Expect<Map<String, Int>>> =
         MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::entry
@@ -34,6 +32,9 @@ abstract class MapContainsSpecBase {
     protected val keyValues = keyValuesF.name
 
     protected val entriesOf = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::entriesOf.name
+
+    protected val inOrder = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, NoOpSearchBehaviour>::inOrder.name
+    protected val only = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::only.name
     //@formatter:on
 
     @Suppress("unused", "UNUSED_VALUE")

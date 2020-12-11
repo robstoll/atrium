@@ -14,7 +14,7 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
     )
 
     object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
-        "contains.inAnyOrder.only.elementsOf",
+        "$contains.$inAnyOrder.$only.$inAnyOrderOnlyElementsOf",
         listOf(1, 2),
         { input -> contains.inAnyOrder.only.elementsOf(input) }
     )
@@ -36,6 +36,6 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.only.elementsOf(sequenceOf(a, *aX))
     }
 }

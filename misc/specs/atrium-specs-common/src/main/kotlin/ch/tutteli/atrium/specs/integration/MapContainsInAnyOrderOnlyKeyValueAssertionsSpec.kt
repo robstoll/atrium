@@ -6,9 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
-    keyValuePairs: MFun2<String, Int, Int>,
-    keyValuePairsNullable: MFun2<String?, Int?, Int?>,
+abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
     keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
     keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     rootBulletPoint: String,
@@ -33,7 +31,6 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
 
         include(object : SubjectLessSpec<Map<out String, Int>>(
             describePrefix,
-            keyValuePairs.forSubjectLess("key" to 1, arrayOf()),
             keyWithValueAssertions.forSubjectLess(
                 keyValue("a") { toBe(1) },
                 arrayOf(keyValue("a") { isLessThanOrEqual(2) })
@@ -42,7 +39,6 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
 
         include(object : SubjectLessSpec<Map<out String?, Int?>>(
             "$describePrefix[nullable Key] ",
-            keyValuePairsNullable.forSubjectLess(null to 1, arrayOf("a" to null)),
             keyWithNullableValueAssertions.forSubjectLess(
                 keyNullableValue(null) { toBe(1) },
                 arrayOf(keyNullableValue("a", null))
@@ -85,40 +81,12 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
             describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
 
-        describeFun(keyValuePairs, keyValuePairsNullable, keyWithValueAssertions, keyWithValueAssertions) {
-            val containsKeyValuePairsFunctions = uncheckedToNonNullable(keyValuePairs, keyValuePairsNullable)
+        describeFun(keyWithValueAssertions, keyWithValueAssertions) {
             val containsKeyWithValueAssertionFunctions =
                 uncheckedToNonNullable(keyWithValueAssertions, keyWithNullableValueAssertions)
             val emptyMap: Map<out String, Int> = mapOf()
 
             context("empty map") {
-                containsKeyValuePairsFunctions.forEach { (name, containsFun) ->
-                    it("$name - a to 1 throws AssertionError, reports a") {
-                        expect {
-                            expect(emptyMap).containsFun("a" to 1, arrayOf())
-                        }.toThrow<AssertionError> {
-                            message {
-                                containsInAnyOrderOnlyDescr()
-                                containsSize(0, 1)
-                                entryNonExisting("a", "$toBeDescr: 1")
-                            }
-                        }
-                    }
-
-                    it("$name - a to 1, b to 3, c to 4 throws AssertionError, reports a, b and c") {
-                        expect {
-                            expect(emptyMap).containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
-                        }.toThrow<AssertionError> {
-                            message {
-                                containsInAnyOrderOnlyDescr()
-                                containsSize(0, 3)
-                                entryNonExisting("a", "$toBeDescr: 1")
-                                entryNonExisting("b", "$toBeDescr: 3")
-                                entryNonExisting("c", "$toBeDescr: 4")
-                            }
-                        }
-                    }
-                }
                 containsKeyWithValueAssertionFunctions.forEach { (name, containsFun) ->
                     it("$name - a to { toBe(1) } throws AssertionError, reports a") {
                         expect {
@@ -154,44 +122,6 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
             }
 
             context("map $map") {
-                containsKeyValuePairsFunctions.forEach { (name, containsFun) ->
-                    listOf(
-                        listOf("a" to 1, "b" to 2),
-                        listOf("b" to 2, "a" to 1)
-                    ).forEach {
-                        it("$name - ${it.joinToString()} does not throw") {
-                            expect(map).containsFun(it.first(), it.drop(1).toTypedArray())
-                        }
-                    }
-
-                    it("$name - a to 1, a to 1 throws AssertionError, reports second a and missing b") {
-                        expect {
-                            expect(map).containsFun("a" to 1, arrayOf("a" to 1))
-                        }.toThrow<AssertionError> {
-                            message {
-                                containsInAnyOrderOnlyDescr()
-                                entrySuccess("a", 1, "$toBeDescr: 1")
-                                entryNonExisting("a", "$toBeDescr: 1")
-                                additionalEntries("b" to 2)
-                                containsNot(sizeDescr)
-                            }
-                        }
-                    }
-
-                    it("$name - a to 1, b to 3, c to 4 throws AssertionError, reports b and c") {
-                        expect {
-                            expect(map).containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
-                        }.toThrow<AssertionError> {
-                            message {
-                                containsInAnyOrderOnlyDescr()
-                                containsSize(2, 3)
-                                entrySuccess("a", 1, "$toBeDescr: 1")
-                                entryFailing("b", 2, "$toBeDescr: 3")
-                                entryNonExisting("c", "$toBeDescr: 4")
-                            }
-                        }
-                    }
-                }
                 containsKeyWithValueAssertionFunctions.forEach { (name, containsFun) ->
                     listOf(
                         "a to { toBe(1) }, b to { toBe(2) }" to listOf(
@@ -249,20 +179,9 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
             }
         }
 
-        describeFun(keyValuePairsNullable, keyWithNullableValueAssertions) {
-            val containsKeyValuePairNullableFun = keyValuePairsNullable.lambda
+        describeFun(keyWithNullableValueAssertions) {
             val containsKeyWithNullableValueAssertionsFun = keyWithNullableValueAssertions.lambda
             context("map: $nullableMap") {
-                listOf(
-                    listOf("a" to null, null to 1, "b" to 2),
-                    listOf("a" to null, "b" to 2, null to 1),
-                    listOf("b" to 2, null to 1, "a" to null),
-                    listOf(null to 1, "a" to null, "b" to 2)
-                ).forEach {
-                    it("$it does not throw") {
-                        expect(nullableMap).containsKeyValuePairNullableFun(it.first(), it.drop(1).toTypedArray())
-                    }
-                }
                 listOf(
                     "null { toBe(1) }, (a, null), b{ toBe(2) }" to
                         listOf(
@@ -281,21 +200,6 @@ abstract class MapContainsInAnyOrderOnlyAssertionsSpec(
                             keyValues.first(),
                             keyValues.drop(1).toTypedArray()
                         )
-                    }
-                }
-
-                it("a to 1, c to 3, null to null, b to 2 throws AssertionError, reports all but b") {
-                    expect {
-                        expect(nullableMap).containsKeyValuePairNullableFun("a" to 1, arrayOf("c" to 3, null to null, "b" to 2))
-                    }.toThrow<AssertionError> {
-                        message {
-                            containsInAnyOrderOnlyDescr()
-                            containsSize(3, 4)
-                            entryFailing("a", null, "$toBeDescr: 1")
-                            entryNonExisting("c", "$toBeDescr: 3")
-                            entryFailing(null, "1", "$toBeDescr: null")
-                            entrySuccess("b", "2", "$toBeDescr: 2")
-                        }
                     }
                 }
                 it("a to { toBe(1) }, c to { isLessThan(3) }, null to null, b to { isLessThan(3) } throws AssertionError, reports all but b") {

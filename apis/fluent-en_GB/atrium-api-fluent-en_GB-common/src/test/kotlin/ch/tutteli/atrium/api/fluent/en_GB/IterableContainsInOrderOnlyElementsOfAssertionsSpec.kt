@@ -26,7 +26,7 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
     )
 
     object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
-        "contains.inOrder.only.elementsOf",
+        "$contains.$inOrder.$only.$inOrderElementsOf",
         listOf(1, 2),
         { input -> contains.inOrder.only.elementsOf(input) }
     )
@@ -38,7 +38,7 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() = "$contains.$inOrder.$inOrderElementsOf" to Companion::containsInOrderOnlyValues
+        fun getContainsPair() = "$contains.$inOrder.$only.$inOrderElementsOf" to Companion::containsInOrderOnlyValues
 
         private fun containsInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
@@ -47,13 +47,13 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
         ): Expect<Iterable<Double>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
 
         fun getContainsNullablePair() =
-            "$contains.$inOrder.$inOrderElementsOf" to Companion::containsInOrderOnlyNullableValues
+            "$contains.$inOrder.$only.$inOrderElementsOf" to Companion::containsInOrderOnlyNullableValues
 
         private fun containsInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.elementsOf(sequenceOf(a, *aX))
 
         private val containsExactlyElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsExactlyElementsOf
@@ -65,7 +65,7 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.containsExactlyElementsOf(a.glue(aX))
+        ): Expect<Iterable<Double>> = expect.containsExactlyElementsOf(arrayOf(a, *aX))
 
         private val containsExactlyElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::containsExactlyElementsOf
@@ -79,7 +79,7 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.containsExactlyElementsOf(a.glue(aX))
+        ): Expect<Iterable<Double?>> = expect.containsExactlyElementsOf(sequenceOf(a, *aX).asIterable())
 
     }
 }

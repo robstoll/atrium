@@ -1,11 +1,21 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.core.polyfills.format
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.Fun2
+import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.lineSeperator
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
+import kotlin.reflect.KFunction3
+
+typealias MFun2<K, V, T> = Fun2<Map<out K, V>, Pair<K, T>, Array<out Pair<K, T>>>
+
+fun <K, V, T> mfun2(
+    f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
+) = fun2(f)
 
 abstract class MapLikeContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 

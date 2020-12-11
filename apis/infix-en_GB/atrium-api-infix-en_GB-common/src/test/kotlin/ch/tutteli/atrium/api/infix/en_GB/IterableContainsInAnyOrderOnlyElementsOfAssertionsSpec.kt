@@ -36,6 +36,6 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect contains o inAny order but only elementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double?>> = expect contains o inAny order but only elementsOf sequenceOf(a, *aX)
     }
 }
