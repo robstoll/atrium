@@ -38,6 +38,18 @@ Map<String, Closure<Tuple4<String, String, String, String>>> map = [
         } else {
             throw new IllegalStateException("define a configuration for this new file $fileNameAsString")
         }
+    },
+    '/creating/maplike/contains/creators'    : { java.nio.file.Path path ->
+        def fileNameAsString = path.fileName.toString()
+        if (fileNameAsString == 'MapLikeContainsAssertions.kt') {
+            return new Tuple3(
+                '',
+                '<K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>',
+                'container.getImpl'
+            )
+        } else {
+            throw new IllegalStateException("define a configuration for this new file $fileNameAsString")
+        }
     }
 ]
 def generateLogic = createGenerateLogicTask(project, "impls", '', map)

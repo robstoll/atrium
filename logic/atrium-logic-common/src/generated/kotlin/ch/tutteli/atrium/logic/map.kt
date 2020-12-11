@@ -5,7 +5,6 @@
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 
-@file:Suppress(/* TODO remove annotation with 1.0.0 */ "DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
 
 package ch.tutteli.atrium.logic
 
@@ -17,11 +16,8 @@ import kotlin.reflect.KClass
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultMapAssertions
 
-fun <K, V, T : Map<out K, V>> AssertionContainer<T>.contains(keyValuePairs: List<Pair<K, V>>): Assertion = impl.contains(this, keyValuePairs)
 
-fun <K, V : Any, T : Map<out K, V?>> AssertionContainer<T>.containsKeyWithValueAssertions(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>): Assertion =
-    impl.containsKeyWithValueAssertions(this, valueType, keyValues)
-
+    //move to MapLike and use DescriptionMapLike in implementation with 0.15.0
 fun <K, T : Map<out K, *>> AssertionContainer<T>.containsKey(key: K): Assertion = impl.containsKey(this, key)
 fun <K, T : Map<out K, *>> AssertionContainer<T>.containsNotKey(key: K): Assertion = impl.containsNotKey(this, key)
 

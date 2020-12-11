@@ -1225,7 +1225,6 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » is instance of type: Int (kotlin.Int) -- Class: java.lang.Integer
         » equals: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)

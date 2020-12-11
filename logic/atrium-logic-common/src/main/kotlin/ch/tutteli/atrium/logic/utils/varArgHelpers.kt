@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.utils
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.typeutils.*
 
 /**
@@ -85,6 +86,45 @@ private fun <E, T : Iterable<E>> T.requireHasNext(errorMessage: () -> String): T
     require(iterator().hasNext(), errorMessage)
     return this
 }
+
+/**
+ * Transforms the given [MapLike] to `Pair<Pair<K, V>, Array<out Pair<K, V>>>` with the intention that
+ * it can be easily used for a function requiring `Pair<K, V>, vararg Pair<K, V>`.
+ *
+ * @throws IllegalArgumentException in case the [mapLike] is empty.
+ *
+ * @since 0.15.0
+ */
+fun <K, V> MapLikeContains.EntryPointStepLogic<*, *, *, *>.toVarArgPairs(
+    mapLike: MapLike
+): Pair<Pair<K, V>, Array<out Pair<K, V>>> = container.mapLikeToVarArgPairs(mapLike)
+
+/**
+ * Transforms the given [MapLike] to an [Iterable] with an element type [Pair]`<K, V>`.
+ *
+ * @throws IllegalArgumentException in case the [mapLike] is empty.
+ *
+ * @since 0.15.0
+ */
+fun <K, V> AssertionContainer<*>.mapLikeToVarArgPairs(mapLike: MapLike): Pair<Pair<K, V>, Array<out Pair<K, V>>> =
+    toVarArg(mapLikeToIterablePair(mapLike))
+
+
+/**
+ * Transforms the given [MapLike] to `Pair<Pair<K, V>, Array<out Pair<K, V>>>` with the intention that
+ * it can be easily used for a function requiring `Pair<K, V>, vararg Pair<K, V>`.
+ *
+ * Note that an unsafe cast applies, i.e. you need to know that the key and value type of the given [mapLike] is
+ * actually [K] and [V] for all entries. Use `.map { (it.key as K) to (it.value as V) }` afterwards
+ * if you don't know what you are doing.
+ *
+ * @since 0.15.0
+ */
+fun <K, V> AssertionContainer<*>.mapLikeToIterablePair(mapLike: MapLike): List<Pair<K, V>> =
+    mapLikeToMapTransformer
+        .unsafeTransform<K, V>(mapLike)
+        .requireHasNext { "MapLike without entries are not allowed for this function." }
+
 
 /**
  * Transforms the given [Iterable] to `Pair<T, Array<out T>>` with the intention that it can be easily used

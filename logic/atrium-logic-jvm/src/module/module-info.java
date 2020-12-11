@@ -18,6 +18,12 @@ module ch.tutteli.atrium.logic {
     exports ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours;
     exports ch.tutteli.atrium.logic.creating.iterable.contains.steps;
 
+    exports ch.tutteli.atrium.logic.creating.maplike.contains;
+    exports ch.tutteli.atrium.logic.creating.maplike.contains.checkers;
+    exports ch.tutteli.atrium.logic.creating.maplike.contains.creators;
+    exports ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours;
+    exports ch.tutteli.atrium.logic.creating.maplike.contains.steps;
+
     exports ch.tutteli.atrium.logic.creating.transformers;
 
     exports ch.tutteli.atrium.logic.creating.typeutils;

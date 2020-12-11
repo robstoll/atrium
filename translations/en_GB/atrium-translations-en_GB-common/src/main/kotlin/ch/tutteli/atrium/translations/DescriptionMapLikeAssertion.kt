@@ -6,14 +6,16 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Map].
  */
-enum class DescriptionMapAssertion(override val value: String) : StringBasedTranslatable {
-    @Deprecated("Will be removed with 1.0.0")
-    CANNOT_EVALUATE_KEY_DOES_NOT_EXIST("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- given key does not exist.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    //TODO move to DescriptionMapLikeAssertion with 0.15.0
-    CONTAINS_IN_ANY_ORDER("contains, in any order"),
+enum class DescriptionMapLikeAssertion(override val value: String) : StringBasedTranslatable {
+    CONTAINS("contains"),
     CONTAINS_KEY("contains key"),
     CONTAINS_NOT_KEY("does not contain key"),
     ENTRY_WITH_KEY("entry %s"),
+    IN_ANY_ORDER("%s, in any order"),
+    IN_ANY_ORDER_ONLY("%s only, in any order"),
+    IN_ORDER("%, in order"),
+    IN_ORDER_ONLY("%s only, in order"),
     KEY_DOES_NOT_EXIST("❗❗ key does not exist"),
     SIZE("size"),
+    WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
 }

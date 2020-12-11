@@ -3,12 +3,25 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.kbox.glue
+import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
+import ch.tutteli.kbox.identity
+
+/**
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
+ *
+ * @return The newly created builder.
+ */
+val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour>
+    get() = _logic.builderContainsInMapLike(::identity)
+
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
  * are created for the [otherPairs].
+ *
+ * Delegates to `contains.inAnyOrder.entries(keyValuePair, *otherPairs)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValuePair] is
  * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
@@ -20,7 +33,7 @@ import ch.tutteli.kbox.glue
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>
-): Expect<T> = _logicAppend { contains(keyValuePair glue otherPairs) }
+): Expect<T> = contains.inAnyOrder.entries(keyValuePair, *otherPairs)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -28,6 +41,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
  * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Delegates to `contains.inAnyOrder.entries(keyValue, *otherKeyValues)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
  * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
@@ -39,9 +54,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
-): Expect<T> = _logicAppend {
-    containsKeyWithValueAssertions(V::class, (keyValue glue otherKeyValues).map { it.toPair() })
-}
+): Expect<T> = contains.inAnyOrder.entries(keyValue, *otherKeyValues)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key].
