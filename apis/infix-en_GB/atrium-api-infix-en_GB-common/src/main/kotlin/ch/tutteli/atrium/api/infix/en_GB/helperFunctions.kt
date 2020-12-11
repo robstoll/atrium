@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.*
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 
@@ -32,6 +34,15 @@ fun <T : Any> entries(
     vararg otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
 ): Entries<T> = Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)
 
+
+/**
+ * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
+ * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ */
+fun <K, V : Any> keyValues(
+    keyValue: KeyWithValueCreator<K, V>,
+    vararg otherKeyValues: KeyWithValueCreator<K, V>
+): KeyValues<K, V> = KeyValues(keyValue, otherKeyValues)
 
 /**
  * Helper function to create a [Pairs] based on the given [pair] and [otherPairs]
