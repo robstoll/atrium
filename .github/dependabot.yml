@@ -1,15 +1,7 @@
 version: 2
 updates:
 - package-ecosystem: gradle
-  directory: "/samples/js/jasmine"
-  schedule:
-      interval: daily
-      time: "04:00"
-  open-pull-requests-limit: 10
-  labels:
-      - "dependencies"
-- package-ecosystem: gradle
-  directory: "/samples/js/mocha"
+  directory: "/samples/js/"
   schedule:
       interval: daily
       time: "04:00"
