@@ -7,11 +7,11 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheck
 import kotlin.reflect.KFunction3
 
 internal object StaticName {
-    val containsNotValuesFun = {
+    val containsNotValuesFun = run {
         val f: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
             Expect<CharSequence>::containsNot
         f.name
-    }()
+    }
 
     val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
     val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name

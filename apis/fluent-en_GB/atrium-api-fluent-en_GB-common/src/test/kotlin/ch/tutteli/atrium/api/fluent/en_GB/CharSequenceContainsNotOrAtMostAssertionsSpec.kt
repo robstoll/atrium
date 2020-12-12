@@ -14,14 +14,14 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec :
 
         private fun getNotOrAtMostTriple() =
             { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
-                ("$contains.$notOrAtMost" to Companion::containsNotOrAtMost)
+                ("$contains.$notOrAtMost.$value/$values" to Companion::containsNotOrAtMost)
 
         private fun containsNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             expect.contains.notOrAtMost(atMost).values(a, *aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" } to
-                ("$contains.$ignoringCase.$notOrAtMost" to Companion::containsNotOrAtMostIgnoringCase)
+                ("$contains.$ignoringCase.$notOrAtMost.$value/$values" to Companion::containsNotOrAtMostIgnoringCase)
 
         private fun containsNotOrAtMostIgnoringCase(
             expect: Expect<CharSequence>,

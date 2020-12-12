@@ -5,7 +5,7 @@ import org.spekframework.spek2.Spek
 
 class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
     include(BuilderSpec)
-    include(BuilderIterableLikeSpec)
+    include(BuilderIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         getContainsPair(),
@@ -13,7 +13,7 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "
     )
 
-    object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         "$contains.$inAnyOrder.$only.$inAnyOrderOnlyElementsOf",
         listOf(1, 2),
         { input -> contains.inAnyOrder.only.elementsOf(input) }

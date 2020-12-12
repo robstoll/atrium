@@ -14,7 +14,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec :
 
         private fun getNotOrAtMostTriple() =
             { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
-                ("$contains o $notOrAtMost" to Companion::containsNotOrAtMost)
+                ("$contains o $notOrAtMost $value/$values" to Companion::containsNotOrAtMost)
 
         private fun containsNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o notOrAtMost atMost value a
@@ -22,7 +22,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec :
 
         private fun getNotOrAtMostIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" } to
-                ("$contains o $ignoringCase $notOrAtMost" to Companion::containsNotOrAtMostIgnoringCase)
+                ("$contains o $ignoringCase $notOrAtMost $value/$values" to Companion::containsNotOrAtMostIgnoringCase)
 
         private fun containsNotOrAtMostIgnoringCase(
             expect: Expect<CharSequence>,

@@ -1,15 +1,14 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.kbox.glue
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
 class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
-    include(BuilderIterableLikeSpec)
-    include(ShortcutIterableLikeSpec)
+    include(BuilderIterableLikeToIterableSpec)
+    include(ShortcutIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
         getContainsPair(),
@@ -25,13 +24,13 @@ class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
-    object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         "$contains.$inOrder.$only.$inOrderElementsOf",
         listOf(1, 2),
         { input -> contains.inOrder.only.elementsOf(input) }
     )
 
-    object ShortcutIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+    object ShortcutIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         "containsExactlyElementsOf",
         listOf(1, 2),
         { input -> containsExactlyElementsOf(input) }

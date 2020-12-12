@@ -7,8 +7,8 @@ import kotlin.reflect.KFunction2
 class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
-    include(BuilderIterableLikeSpec)
-    include(ShortcutIterableLikeSpec)
+    include(BuilderIterableLikeToIterableSpec)
+    include(ShortcutIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         getContainsPair(),
@@ -24,13 +24,13 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
-    object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
-        "$contains.$inAnyOrder.${atLeast}(1).$inAnyOrderElementsOf",
+    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
+        "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderElementsOf",
         listOf(1, 2),
         { input -> contains.inAnyOrder.atLeast(1).elementsOf(input) }
     )
 
-    object ShortcutIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+    object ShortcutIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         "containsElementsOf",
         listOf(1, 2),
         { input -> containsElementsOf(input) }

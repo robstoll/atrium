@@ -8,11 +8,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerSt
 import kotlin.reflect.KFunction3
 
 internal object StaticName {
-    val containsNotValuesFun = {
+    val containsNotValuesFun = run {
         val f: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::containsNot
         f.name
-    }()
+    }
 
     val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
     val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name

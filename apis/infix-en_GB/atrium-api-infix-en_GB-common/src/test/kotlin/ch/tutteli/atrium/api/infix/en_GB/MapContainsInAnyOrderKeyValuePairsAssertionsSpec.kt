@@ -5,9 +5,9 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.infix.en_GB.MapContainsInAnyOrderKeyValuePaisAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.infix.en_GB.MapContainsInAnyOrderKeyValuePairsAssertionsSpec.Companion as C
 
-class MapContainsInAnyOrderKeyValuePaisAssertionsSpec : Spek({
+class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
@@ -24,39 +24,39 @@ class MapContainsInAnyOrderKeyValuePaisAssertionsSpec : Spek({
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains $filler $inAnyOrder keyValue"
+        val containsKeyValuePair_s = "$contains $filler $inAnyOrder $keyValue/$keyValues"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,
-            pair: Pair<String, Int>,
-            otherPairs: Array<out Pair<String, Int>>
+            a: Pair<String, Int>,
+            aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            if (otherPairs.isEmpty()) expect contains o inAny order entry (pair.first to pair.second)
-            else expect contains o inAny order the pairs(pair, *otherPairs)
+            if (aX.isEmpty()) expect contains o inAny order entry (a.first to a.second)
+            else expect contains o inAny order the pairs(a, *aX)
 
         private fun containsKeyValuePairsNullable(
             expect: Expect<Map<out String?, Int?>>,
-            pair: Pair<String?, Int?>,
-            otherPairs: Array<out Pair<String?, Int?>>
+            a: Pair<String?, Int?>,
+            aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            if (otherPairs.isEmpty()) expect contains o inAny order entry (pair.first to pair.second)
-            else expect contains o inAny order the pairs(pair, *otherPairs)
+            if (aX.isEmpty()) expect contains o inAny order entry (a.first to a.second)
+            else expect contains o inAny order the pairs(a, *aX)
 
         private fun contains(
             expect: Expect<Map<out String, Int>>,
-            pair: Pair<String, Int>,
-            otherPairs: Array<out Pair<String, Int>>
+            a: Pair<String, Int>,
+            aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            if (otherPairs.isEmpty()) expect contains (pair.first to pair.second)
-            else expect contains pairs(pair, *otherPairs)
+            if (aX.isEmpty()) expect contains (a.first to a.second)
+            else expect contains pairs(a, *aX)
 
         @JvmName("containsNullable")
         private fun contains(
             expect: Expect<Map<out String?, Int?>>,
-            pair: Pair<String?, Int?>,
-            otherPairs: Array<out Pair<String?, Int?>>
+            a: Pair<String?, Int?>,
+            aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            if (otherPairs.isEmpty()) expect contains (pair.first to pair.second)
-            else expect contains pairs(pair, *otherPairs)
+            if (aX.isEmpty()) expect contains (a.first to a.second)
+            else expect contains pairs(a, *aX)
     }
 }

@@ -26,7 +26,7 @@ class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValue_s = "$contains $filler $inAnyOrder "
+        val containsKeyValue_s = "$contains $filler $inAnyOrder $keyValue/$keyValues"
 
         private fun containsKeyValues(
             expect: Expect<Map<out String, Int>>,
@@ -48,25 +48,24 @@ class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
                 else expect contains o inAny order the keyValues(first, *others)
             }
 
-        @JvmName("containsKeyWithValueAssertions")
         private fun contains(
             expect: Expect<Map<out String, Int>>,
-            keyValue: Pair<String, Expect<Int>.() -> Unit>,
-            otherKeyValues: Array<out Pair<String, Expect<Int>.() -> Unit>>
+            a: Pair<String, Expect<Int>.() -> Unit>,
+            aX: Array<out Pair<String, Expect<Int>.() -> Unit>>
         ): Expect<Map<out String, Int>> =
-            if (otherKeyValues.isEmpty()) expect contains keyValue(keyValue.first, keyValue.second)
-            else mapArguments(keyValue, otherKeyValues)
+            if (aX.isEmpty()) expect contains keyValue(a.first, a.second)
+            else mapArguments(a, aX)
                 .to { keyValue(it.first, it.second) }
                 .let { (first, others) -> expect contains all(first, *others) }
 
-        @JvmName("containsKeyWithNullableValueAssertions")
+        @JvmName("containsNullable")
         private fun contains(
             expect: Expect<Map<out String?, Int?>>,
-            keyValue: Pair<String?, (Expect<Int>.() -> Unit)?>,
-            otherKeyValues: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
+            a: Pair<String?, (Expect<Int>.() -> Unit)?>,
+            aX: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
         ): Expect<Map<out String?, Int?>> =
-            if (otherKeyValues.isEmpty()) expect contains keyValue(keyValue.first, keyValue.second)
-            else mapArguments(keyValue, otherKeyValues)
+            if (aX.isEmpty()) expect contains keyValue(a.first, a.second)
+            else mapArguments(a, aX)
                 .to { keyValue(it.first, it.second) }
                 .let { (first, others) -> expect contains all(first, *others) }
     }

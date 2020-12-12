@@ -43,7 +43,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
                         "$anElementWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
+                        "$atLeastDescr: 1"
                     )
                 }
             }
@@ -75,7 +75,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
                             "$anElementWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            "$atLeastDescr: 1"
                         )
                     }
                 }
@@ -86,7 +86,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         message {
                             contains.exactly(2).values(
                                 "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                                "$atLeastDescr: 1"
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",

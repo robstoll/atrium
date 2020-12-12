@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
+import ch.tutteli.atrium.specs.integration.mfun2
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
@@ -9,11 +10,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderEntriesOfAssertio
 
 class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
     include(BuilderSpec)
-    //TODO 0.15.0: enable once implemented
-    //include(ShortcutSpec)
-
-    //TODO 0.15.0: enable once implemented
-    //include(MapLikeSpec)
+    include(ShortcutSpec)
+    include(BuilderMapLikeToIterablePairSpec)
+    include(ShortcutMapLikeToIterablePairSpec)
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
@@ -22,12 +21,27 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    //TODO 0.15.0: add MapLikeSpec which tests passing illegal values
-//    object MapLikeSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
-//        mfun2<String, Int, Int>(Expect<Map<out String, Int>>::contains),
-//        mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::contains).withNullableSuffix(),
-//        "[Atrium][Shortcut] "
-//    )
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
+        mfun2<String, Int, Int>(C::containsEntriesOf),
+        mfun2<String?, Int?, Int?>(C::containsEntriesOf).withNullableSuffix(),
+        "[Atrium][Shortcut] "
+    )
+
+    object BuilderMapLikeToIterablePairSpec :
+        ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
+            "$contains.$inAnyOrder.$only.$entriesOf",
+            mapOf("a" to 1),
+            { input -> contains.inAnyOrder.entriesOf(input) }
+        )
+
+    object ShortcutMapLikeToIterablePairSpec :
+        ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
+            //TODO 0.15.0 change to shortcut
+            "$contains.$inAnyOrder.$only.$entriesOf",
+            mapOf("a" to 1),
+            //TODO 0.15.0 change to shortcut
+            { input -> contains.inAnyOrder.entriesOf(input)  }
+        )
 
     companion object : MapContainsSpecBase() {
         val containsKeyValuePair_s = "${contains}.${inAnyOrder}.$entriesOf"
@@ -57,6 +71,7 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
+            //TODO 0.15.0 change to shortcut
             expect.contains.inAnyOrder.entriesOf(sequenceOf(a, *aX))
 
         @JvmName("containsNullable")
@@ -65,6 +80,7 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
+            //TODO 0.15.0 change to shortcut
             expect.contains.inAnyOrder.entriesOf(arrayOf(a, *aX))
     }
 }

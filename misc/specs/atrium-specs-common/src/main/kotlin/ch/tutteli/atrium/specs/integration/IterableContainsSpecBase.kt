@@ -45,8 +45,8 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
         val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
 
-        val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
-        val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
+        val atLeastDescr = DescriptionIterableAssertion.AT_LEAST.getDefault()
+        val atMostDescr = DescriptionIterableAssertion.AT_MOST.getDefault()
 
         val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName

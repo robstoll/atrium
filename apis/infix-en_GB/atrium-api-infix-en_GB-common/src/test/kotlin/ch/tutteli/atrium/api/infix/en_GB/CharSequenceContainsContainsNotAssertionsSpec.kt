@@ -23,13 +23,13 @@ class CharSequenceContainsContainsNotAssertionsSpec : Spek({
 }) {
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getContainsPair() = "$contains o $atLeast 1 value/the Values" to Companion::containsBuilder
+        private fun getContainsPair() = "$contains o $value/$values" to Companion::containsBuilder
 
         private fun containsBuilder(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o atLeast 1 value a
             else expect contains o atLeast 1 the values(a, *aX)
 
-        private fun getContainsNotPair() = "$containsNot o $atLeast 1 value/the Values" to Companion::containsNotBuilder
+        private fun getContainsNotPair() = "$containsNot o  $value/$values" to Companion::containsNotBuilder
         private fun containsNotBuilder(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect containsNot o value a
             else expect containsNot o the values(a, *aX)

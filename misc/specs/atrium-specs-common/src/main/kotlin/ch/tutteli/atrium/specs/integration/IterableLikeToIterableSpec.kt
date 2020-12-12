@@ -6,32 +6,29 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.specs.emptyIterableLikeTypes
+import ch.tutteli.atrium.specs.iterableLikeTypesWithElement1
+import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class IterableLikeSpec<T>(
+abstract class IterableLikeToIterableSpec<T>(
     description: String,
     subject: T,
     funIterableLike: Expect<T>.(IterableLike) -> Expect<T>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsSpecBase({
+) : Spek({
 
     describe(describePrefix + description) {
-        context("context: expecting an Iterable") {
-            it("passing an empty iterable throws an IllegalArgumentException") {
-                expect {
-                    expect(subject).funIterableLike(listOf<T>())
-                }.toThrow<IllegalArgumentException>()
-            }
-        }
-
         context("context: expecting an IterableLike") {
             emptyIterableLikeTypes.forEach { (type, input) ->
                 it("passing an empty $type throws an IllegalArgumentException") {
                     expect {
                         expect(subject).funIterableLike(input)
-                    }.toThrow<IllegalArgumentException>()
+                    }.toThrow<IllegalArgumentException> {
+                        messageContains("IterableLike without elements are not allowed")
+                    }
                 }
             }
+
             it("passing a String instead of an IterableLike throws an IllegalArgumentException") {
                 expect {
                     expect(subject).funIterableLike("test")

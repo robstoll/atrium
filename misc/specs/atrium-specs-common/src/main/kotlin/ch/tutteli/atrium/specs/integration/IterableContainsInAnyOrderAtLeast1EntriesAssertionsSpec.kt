@@ -68,7 +68,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                             "$anElementWhich: $separator",
                             "$isLessThanDescr: 1.0",
                             "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            "$atLeastDescr: 1"
                         )
                     }
                 }
@@ -81,7 +81,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                         contains.exactly(2).values(
                             "$anElementWhich: $separator",
                             "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            "$atLeastDescr: 1"
                         )
                         contains.exactly(1).values(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -118,7 +118,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                                 "$isGreaterThanDescr: 1.0",
                                 "$isLessThanDescr: 2.0",
                                 "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -177,7 +177,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                                 "$anElementWhich: $separator",
                                 "$toBeDescr: 2.0",
                                 "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -193,7 +193,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                                 contains.exactly(2).values(
                                     "$anElementWhich: $separator",
                                     "$numberOfOccurrences: 0",
-                                    "$atLeast: 1"
+                                    "$atLeastDescr: 1"
                                 )
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -216,7 +216,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                             "$anElementWhich: $separator",
                             "$isDescr: null",
                             "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            "$atLeastDescr: 1"
                         )
                     }
                 }

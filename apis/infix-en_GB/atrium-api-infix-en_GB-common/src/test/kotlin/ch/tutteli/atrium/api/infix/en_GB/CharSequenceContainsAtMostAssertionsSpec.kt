@@ -16,7 +16,7 @@ class CharSequenceContainsAtMostAssertionsSpec :
 
         private fun getAtMostTriple() =
             { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains o $atMost" to Companion::containsAtMost)
+                ("$contains o $atMost $value/$values" to Companion::containsAtMost)
 
         private fun containsAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o atMost atMost value a
@@ -24,7 +24,7 @@ class CharSequenceContainsAtMostAssertionsSpec :
 
         private fun getAtMostIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" } to
-                ("$contains o $ignoringCase $atMost" to Companion::containsAtMostIgnoringCase)
+                ("$contains o $ignoringCase $atMost $value/$values" to Companion::containsAtMostIgnoringCase)
 
         private fun containsAtMostIgnoringCase(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect contains o ignoring case atMost atMost value a
