@@ -30,7 +30,7 @@ object IoResultSpec : Spek({
             val result = testPath.runCatchingIo { throw testException }
             expect(result).isA<Failure> {
                 feature(IoResult<*>::path).toBe(testPath)
-                feature(Failure::exception).isSameAs(testException)
+                feature(Failure::exception).toBeTheSameAs(testException)
             }
         }
 

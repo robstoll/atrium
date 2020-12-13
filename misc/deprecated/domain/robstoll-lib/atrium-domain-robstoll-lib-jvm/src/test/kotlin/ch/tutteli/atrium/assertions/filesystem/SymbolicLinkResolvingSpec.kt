@@ -137,7 +137,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val file = tempFolder.newFile("testFile").toRealPath()
 
                 val resultAssertion = explainForResolvedLink(file, resolvedPathConsumer)
-                expect(resultAssertion).isSameAs(testAssertion)
+                expect(resultAssertion).toBeTheSameAs(testAssertion)
             }
 
             it("adds an explanation for one symbolic link") {
@@ -149,7 +149,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 expect(resultAssertion).isA<AssertionGroup>()
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(link, target) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheSameAs(testAssertion) }
                     )
             }
 
@@ -164,7 +164,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     .feature { p(it::assertions) }.containsExactly(
                         { describesLink(start, toNowhere) },
                         { describesLink(toNowhere, nowhere) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheSameAs(testAssertion) }
                     )
             }
 
@@ -187,7 +187,7 @@ object SymbolicLinkResolvingSpec : Spek({
                         { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
                         { describesLink(grandparentLink, grandparent) },
                         { describesLink(innerLink, target) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheSameAs(testAssertion) }
                     )
             }
 
@@ -203,7 +203,7 @@ object SymbolicLinkResolvingSpec : Spek({
                         { describesLink(barLink, testDir) },
                         { describesLink(barLink, testDir) },
                         { describesLink(barLink, testDir) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheSameAs(testAssertion) }
                     )
             }
         }
@@ -220,7 +220,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     { describesLink(a, b) },
                     { describesLink(b, a) },
                     { describesLinkLoop(a, b, a) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheSameAs(testAssertion) }
                 )
         }
 
@@ -236,7 +236,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     { describesLink(link, fooLink.resolve("link")) },
                     { describesLink(fooLink, foo) },
                     { describesLinkLoop(link, link) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheSameAs(testAssertion) }
                 )
         }
 
@@ -264,7 +264,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     { describesLink(b, c) },
                     { describesLink(c, a) },
                     { describesLinkLoop(a, b, c, a) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheSameAs(testAssertion) }
                 )
         }
     }

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.kbox.glue
@@ -30,22 +30,56 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
 /**
  * Expects that the subject of the assertion is the same instance as [expected].
  *
+ * Deprecated as atrium moves to a consistent ‘to + infinitive’ naming convention. Use [toBeTheSameAs] instead.
+ * This function will be removed in version 1.0.0. See
+ * [atrium-roadmap#93](https://github.com/robstoll/atrium-roadmap/issues/93) for details and to give feedback.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isSameAs
  */
-fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
+@Deprecated(
+    "Replaced by toBeTheSameAs. Will be removed with version 1.0.0",
+    ReplaceWith("this.toBeTheSameAs<T>(expected)")
+) // TODO remove with 1.0.0
+fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = toBeTheSameAs(expected)
+
+/**
+ * Expects that the subject of `this` assertion is the same instance as [expected].
+ *
+ * @return an [Expect] for the current subject of `this` assertion.
+ * @throws AssertionError if the subject of `this` assertion is not the same instance as [expected].
+ *
+ * @since 0.16.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBeTheSameAs
+ */
+fun <T> Expect<T>.toBeTheSameAs(expected: T): Expect<T> = _logicAppend { toBeTheSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
  *
+ * Deprecated as atrium moves to a consistent ‘to + infinitive’ naming convention. Use [notToBeTheSameAs] instead.
+ * This function will be removed in version 1.0.0. See
+ * [atrium-roadmap#93](https://github.com/robstoll/atrium-roadmap/issues/93) for details and to give feedback.
+ *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNotSameAs
  */
-fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+@Deprecated(
+    "Replaced by notToBeTheSameAs. Will be removed with version 1.0.0",
+    ReplaceWith("this.notToBeTheSameAs<T>(expected)")
+) // TODO remove with 1.0.0
+fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = notToBeTheSameAs(expected)
+
+/**
+ * Expects that the subject of `this` assertion is not the same instance as [expected].
+ *
+ * @return an [Expect] for the current subject of `this` assertion.
+ * @throws AssertionError if the subject of `this` assertion is the same instance as [expected].
+ *
+ * @since 0.16.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBeTheSameAs
+ */
+fun <T> Expect<T>.notToBeTheSameAs(expected: T): Expect<T> = _logicAppend { notToBeTheSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]

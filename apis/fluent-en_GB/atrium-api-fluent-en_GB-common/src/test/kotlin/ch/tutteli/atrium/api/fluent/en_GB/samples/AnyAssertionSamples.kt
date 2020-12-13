@@ -38,24 +38,24 @@ class AnyAssertionSamples {
     }
 
     @Test
-    fun isSameAs() {
+    fun toBeTheSameAs() {
         val list = listOf(3)
-        expect(list).isSameAs(list)
+        expect(list).toBeTheSameAs(list)
 
         fails {
-            // fails because isSameAs is based on identity, use toBe for equality
-            expect(listOf(3)).isSameAs(listOf(3))
+            // fails because toBeTheSameAs is based on identity, use toBe for equality
+            expect(listOf(3)).toBeTheSameAs(listOf(3))
         }
     }
 
     @Test
-    fun isNotSameAs() {
-       // holds because isSameAs is based on identity, use notToBe for equality
-        expect(listOf(2)).isNotSameAs(listOf(2))
+    fun notToBeTheSameAs() {
+        // holds because notToBeTheSameAs is based on identity, use notToBe for equality
+        expect(listOf(2)).notToBeTheSameAs(listOf(2))
 
         fails {
             val list = listOf(3)
-            expect(list).isNotSameAs(list)
+            expect(list).notToBeTheSameAs(list)
         }
     }
 

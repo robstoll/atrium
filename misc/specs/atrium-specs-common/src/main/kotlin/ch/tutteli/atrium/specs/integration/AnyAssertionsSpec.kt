@@ -24,14 +24,14 @@ abstract class AnyAssertionsSpec(
     notToBeDataClass: Fun1<DataClass, DataClass>,
     notToBeNullableInt: Fun1<Int?, Int?>,
     notToBeNullableDataClass: Fun1<DataClass?, DataClass?>,
-    isSameInt: Fun1<Int, Int>,
-    isSameDataClass: Fun1<DataClass, DataClass>,
-    isSameNullableInt: Fun1<Int?, Int?>,
-    isSameNullableDataClass: Fun1<DataClass?, DataClass?>,
-    isNotSameInt: Fun1<Int, Int>,
-    isNotSameDataClass: Fun1<DataClass, DataClass>,
-    isNotSameNullableInt: Fun1<Int?, Int?>,
-    isNotSameNullableDataClass: Fun1<DataClass?, DataClass?>,
+    toBeTheSameInt: Fun1<Int, Int>,
+    toBeTheSameDataClass: Fun1<DataClass, DataClass>,
+    toBeTheSameNullableInt: Fun1<Int?, Int?>,
+    toBeTheSameNullableDataClass: Fun1<DataClass?, DataClass?>,
+    notToBeTheSameInt: Fun1<Int, Int>,
+    notToBeTheSameDataClass: Fun1<DataClass, DataClass>,
+    notToBeTheSameNullableInt: Fun1<Int?, Int?>,
+    notToBeTheSameNullableDataClass: Fun1<DataClass?, DataClass?>,
     isNoneOfInt: Fun2<Int, Int, Array<out Int>>,
     isNoneOfDataClass: Fun2<DataClass, DataClass, Array<out DataClass>>,
     isNoneOfNullableInt: Fun2<Int?, Int?, Array<out Int?>>,
@@ -65,8 +65,8 @@ abstract class AnyAssertionsSpec(
         describePrefix,
         toBeInt.forSubjectLess(1),
         notToBeInt.forSubjectLess(1),
-        isSameInt.forSubjectLess(1),
-        isNotSameInt.forSubjectLess(1),
+        toBeTheSameInt.forSubjectLess(1),
+        notToBeTheSameInt.forSubjectLess(1),
         isNoneOfInt.forSubjectLess(1, emptyArray()),
         isNotInInt.forSubjectLess(listOf(1)),
         andPair.forSubjectLess(),
@@ -77,8 +77,8 @@ abstract class AnyAssertionsSpec(
         "$describePrefix[nullable] ",
         toBeNullableInt.forSubjectLess(1),
         notToBeNullableInt.forSubjectLess(1),
-        isSameNullableInt.forSubjectLess(1),
-        isNotSameNullableInt.forSubjectLess(1),
+        toBeTheSameNullableInt.forSubjectLess(1),
+        notToBeTheSameNullableInt.forSubjectLess(1),
         isNoneOfNullableInt.forSubjectLess(1, emptyArray()),
         isNotInNullableInt.forSubjectLess(listOf(1)),
         toBeNull.forSubjectLess(),
@@ -383,15 +383,24 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(toBeInt, notToBeInt, isSameInt, isNotSameInt, isNoneOfInt, isNotInInt) {
-        checkInt("primitive", expect(1), toBeInt, notToBeInt, isSameInt, isNotSameInt, isNoneOfInt, isNotInInt)
+    describeFun(toBeInt, notToBeInt, toBeTheSameInt, notToBeTheSameInt, isNoneOfInt, isNotInInt) {
+        checkInt(
+            "primitive",
+            expect(1),
+            toBeInt,
+            notToBeInt,
+            toBeTheSameInt,
+            notToBeTheSameInt,
+            isNoneOfInt,
+            isNotInInt
+        )
         checkInt(
             "nullable primitive",
             expect(1 as Int?),
             toBeNullableInt,
             notToBeNullableInt,
-            isSameNullableInt,
-            isNotSameNullableInt,
+            toBeTheSameNullableInt,
+            notToBeTheSameNullableInt,
             isNoneOfNullableInt,
             isNotInNullableInt
         )
@@ -402,8 +411,8 @@ abstract class AnyAssertionsSpec(
             expect(subject),
             toBeDataClass,
             notToBeDataClass,
-            isSameDataClass,
-            isNotSameDataClass,
+            toBeTheSameDataClass,
+            notToBeTheSameDataClass,
             isNoneOfDataClass,
             isNotInDataClass,
             subject
@@ -413,8 +422,8 @@ abstract class AnyAssertionsSpec(
             expect(subject as DataClass?),
             toBeNullableDataClass,
             notToBeNullableDataClass,
-            isSameNullableDataClass,
-            isNotSameNullableDataClass,
+            toBeTheSameNullableDataClass,
+            notToBeTheSameNullableDataClass,
             isNoneOfNullableDataClass,
             isNotInNullableDataClass,
             subject
@@ -424,8 +433,8 @@ abstract class AnyAssertionsSpec(
             "null as Int?",
             toBeNullableInt,
             notToBeNullableInt,
-            isSameNullableInt,
-            isNotSameNullableInt,
+            toBeTheSameNullableInt,
+            notToBeTheSameNullableInt,
             isNoneOfNullableInt,
             isNotInNullableInt,
             2,
@@ -435,8 +444,8 @@ abstract class AnyAssertionsSpec(
             "null as DataClass?",
             toBeNullableDataClass,
             notToBeNullableDataClass,
-            isSameNullableDataClass,
-            isNotSameNullableDataClass,
+            toBeTheSameNullableDataClass,
+            notToBeTheSameNullableDataClass,
             isNoneOfNullableDataClass,
             isNotInNullableDataClass,
             subject,
@@ -697,14 +706,14 @@ abstract class AnyAssertionsSpec(
                 isASuperTypeFunctions.forEach { (name, isASuperType, _) ->
                     it("$name - does not throw if it holds") {
                         val subject = SubType()
-                        expect(subject as Any?).isASuperType { isSameAs(subject) }
+                        expect(subject as Any?).isASuperType { toBeTheSameAs(subject) }
                     }
 
                     it("$name - throws if it does not hold") {
                         val subject = SubType()
                         val otherSubType = SubType()
                         expect {
-                            expect(subject as Any?).isASuperType { isSameAs(otherSubType) }
+                            expect(subject as Any?).isASuperType { toBeTheSameAs(otherSubType) }
                         }.toThrow<AssertionError> {
                             messageContains(subject.toString(), IS_SAME.getDefault(), otherSubType.toString())
                         }
@@ -719,7 +728,7 @@ abstract class AnyAssertionsSpec(
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
 
                     expect {
-                        expect(SuperType() as Any?).isASubType { isSameAs(SubType()) }
+                        expect(SuperType() as Any?).isASubType { toBeTheSameAs(SubType()) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             SuperType::class.fullName,

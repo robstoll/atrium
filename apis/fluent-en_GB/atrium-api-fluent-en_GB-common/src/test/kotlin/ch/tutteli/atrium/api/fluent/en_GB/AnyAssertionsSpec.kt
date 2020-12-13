@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.feature0
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.withFeatureSuffix
-import ch.tutteli.atrium.specs.withNullableSuffix
+import ch.tutteli.atrium.specs.*
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
@@ -18,14 +14,14 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::notToBe),
     fun1(Expect<Int?>::notToBe).withNullableSuffix(),
     fun1(Expect<DataClass?>::notToBe).withNullableSuffix(),
-    fun1(Expect<Int>::isSameAs),
-    fun1(Expect<DataClass>::isSameAs),
-    fun1(Expect<Int?>::isSameAs).withNullableSuffix(),
-    fun1(Expect<DataClass?>::isSameAs).withNullableSuffix(),
-    fun1(Expect<Int>::isNotSameAs),
-    fun1(Expect<DataClass>::isNotSameAs),
-    fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
-    fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
+    fun1(Expect<Int>::toBeTheSameAs),
+    fun1(Expect<DataClass>::toBeTheSameAs),
+    fun1(Expect<Int?>::toBeTheSameAs).withNullableSuffix(),
+    fun1(Expect<DataClass?>::toBeTheSameAs).withNullableSuffix(),
+    fun1(Expect<Int>::notToBeTheSameAs),
+    fun1(Expect<DataClass>::notToBeTheSameAs),
+    fun1(Expect<Int?>::notToBeTheSameAs).withNullableSuffix(),
+    fun1(Expect<DataClass?>::notToBeTheSameAs).withNullableSuffix(),
     fun2(Expect<Int>::isNoneOf),
     fun2(Expect<DataClass>::isNoneOf),
     fun2(Expect<Int?>::isNoneOf).withNullableSuffix(),

@@ -31,7 +31,7 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
+infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { toBeTheSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is not the same instance as [expected].
@@ -39,7 +39,7 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { notToBeTheSameAs(expected) }
 
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]

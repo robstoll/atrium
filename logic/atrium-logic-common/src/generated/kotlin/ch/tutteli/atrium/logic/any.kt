@@ -17,8 +17,8 @@ import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
 
 fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, expected)
 fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)
-fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
-fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
+fun <T> AssertionContainer<T>.toBeTheSameAs(expected: T): Assertion = impl.toBeTheSameAs(this, expected)
+fun <T> AssertionContainer<T>.notToBeTheSameAs(expected: T): Assertion = impl.notToBeTheSameAs(this, expected)
 
 fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 

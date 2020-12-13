@@ -152,7 +152,7 @@ abstract class TranslatorIntSpec(
                 val text = "n'est pas la même instance que"
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
-                        assertWithDeCh_Fr(1).isNotSameAs(1)
+                        assertWithDeCh_Fr(1).notToBeTheSameAs(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
@@ -297,14 +297,14 @@ abstract class TranslatorIntSpec(
                 describe("translation for $descriptionAnyAssertion.$isNotSame is provided for 'zh_$country' and zh") {
                     it("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
                         expect {
-                            assert.isNotSameAs(1)
+                            assert.notToBeTheSameAs(1)
                         }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
                     it("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
                         expect {
-                            assert.isSameAs(2)
+                            assert.toBeTheSameAs(2)
                         }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }
                     }
                 }

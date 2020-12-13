@@ -17,10 +17,10 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(NOT_TO_BE, expected) { it != expected }
 
-    override fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion =
+    override fun <T> toBeTheSameAs(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(IS_SAME, expected) { it === expected }
 
-    override fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion =
+    override fun <T> notToBeTheSameAs(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(IS_NOT_SAME, expected) { it !== expected }
 
     override fun <T> toBeNull(container: AssertionContainer<T>): Assertion =

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBeTheSameAs
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Text
@@ -47,7 +47,7 @@ abstract class ObjectFormatterSpec(
         context("a ${Translatable::class.simpleName}") {
             val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
             it("returns the translated string") {
-                expect(result).isSameAs(translatedText)
+                expect(result).toBeTheSameAs(translatedText)
             }
         }
 
@@ -65,7 +65,7 @@ abstract class ObjectFormatterSpec(
         context("a ${ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString::class.simpleName}") {
             val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
             it("returns the translated string") {
-                expect(result).isSameAs(translatedText)
+                expect(result).toBeTheSameAs(translatedText)
             }
         }
     }

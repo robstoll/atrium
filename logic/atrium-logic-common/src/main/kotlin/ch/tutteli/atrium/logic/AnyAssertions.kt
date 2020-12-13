@@ -12,8 +12,8 @@ import kotlin.reflect.KClass
 interface AnyAssertions {
     fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion
-    fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
-    fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
+    fun <T> toBeTheSameAs(container: AssertionContainer<T>, expected: T): Assertion
+    fun <T> notToBeTheSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 

@@ -69,7 +69,7 @@ abstract class FeatureAssertionCheckerSpec(
             it("copies the assertion") {
                 assertions.clear()
                 expect(captured).isA<AssertionGroup> {
-                    feature { f(it::assertions) }.hasSize(1).and.isNotSameAs(assertions)
+                    feature { f(it::assertions) }.hasSize(1).and.notToBeTheSameAs(assertions)
                 }
             }
         }
