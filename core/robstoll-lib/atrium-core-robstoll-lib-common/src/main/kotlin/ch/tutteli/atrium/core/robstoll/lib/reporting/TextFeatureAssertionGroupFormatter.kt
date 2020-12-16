@@ -4,10 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.PrefixFeatureAssertionGroupHeader
-import ch.tutteli.atrium.reporting.AssertionFormatter
-import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
-import ch.tutteli.atrium.reporting.AssertionPairFormatter
+import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -51,20 +48,18 @@ class TextFeatureAssertionGroupFormatter(
     ): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.description)
-        val group =
-            NameDecoratingAssertionGroup(
-                translatable,
-                assertionGroup
-            )
+        val group = DecoratedAssertionGroup(translatable, assertionGroup, parameterObject)
         val newParameterObject = parameterObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
         assertionPairFormatter.formatGroupHeader(parameterObject, group, newParameterObject)
         return newParameterObject
     }
 
-    private class NameDecoratingAssertionGroup(
+    private class DecoratedAssertionGroup(
         newName: Translatable,
-        assertionGroup: AssertionGroup
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
     ) : AssertionGroup by assertionGroup {
         override val description: Translatable = newName
+        override val representation: Any = if(parameterObject.isNotInExplanatoryFilterGroup()) assertionGroup.representation else Text.EMPTY
     }
 }
