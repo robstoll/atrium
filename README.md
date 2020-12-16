@@ -707,9 +707,9 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 ```text
 expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
-      » ▶ CANNOT show description as it is based on subject which is not defined: CANNOT evaluate representation as it is based on subject which is not defined.
+      » ▶ CANNOT show description as it is based on subject which is not defined: 
             » equals: 1        (kotlin.Int <1234789>)
-      » ▶ first: CANNOT evaluate representation as it is based on subject which is not defined.
+      » ▶ first: 
             » equals: 1        (kotlin.Int <1234789>)
 ```
 </ex-within-assertion-functions>
@@ -1314,15 +1314,15 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ an element which: 
-          » ▶ key: "a"        <1234789>
+          » ▶ key: 
               ◾ equals: "a"        <1234789>
-          » ▶ value: 1        (kotlin.Int <1234789>)
+          » ▶ value: 
               ◾ equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ an element which: 
-          » ▶ key: "a"        <1234789>
+          » ▶ key: 
               ◾ starts with: "a"        <1234789>
-          » ▶ value: 1        (kotlin.Int <1234789>)
+          » ▶ value: 
               ◾ is greater than: 2        (kotlin.Int <1234789>)
   ✔ ▶ size: 2        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
@@ -1504,7 +1504,7 @@ expected that subject: "calling myNullableFun with ..."        <1234789>
     ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
       » contains: 
         ⚬ value: "min"        <1234789>
-          ⚬ ▶ number of matches: -1
+          ⚬ ▶ number of matches: 
               ◾ is at least: 1
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
     ◾ equals: "max"        <1234789>
@@ -1648,11 +1648,11 @@ expect {
 expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$31$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-      » ▶ message: CANNOT evaluate representation as it is based on subject which is not defined.
+      » ▶ message: 
             » is instance of type: String (kotlin.String) -- Class: java.lang.String
             » contains: 
               ⚬ value: "no no no"        <1234789>
-                ⚬ ▶ number of matches: -1
+                ⚬ ▶ number of matches: 
                     ◾ is at least: 1
       » Properties of the unexpected IllegalArgumentException
         » message: "no no no..."        <1234789>

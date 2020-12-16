@@ -3,6 +3,7 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DoNotFilterAssertionGroupType
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.polyfills.appendln
 
 /**
@@ -24,7 +25,8 @@ class AssertionFormatterParameterObject private constructor(
     val prefix: String,
     private val indentLevel: Int,
     val assertionFilter: (Assertion) -> Boolean,
-    private val numberOfDoNotFilterGroups: Int
+    private val numberOfDoNotFilterGroups: Int,
+    private val numberOfExplanatoryGroups: Int
 ) {
 
     /**
@@ -60,7 +62,8 @@ class AssertionFormatterParameterObject private constructor(
             newPrefix,
             indentLevel + prefix.length + additionalIndent,
             assertionFilter,
-            numberOfDoNotFilterGroups
+            numberOfDoNotFilterGroups,
+            numberOfExplanatoryGroups
         )
 
 
@@ -72,15 +75,36 @@ class AssertionFormatterParameterObject private constructor(
      * @return The newly created [AssertionFormatterParameterObject].
      */
     fun createForDoNotFilterAssertionGroup(): AssertionFormatterParameterObject =
-        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1)
+        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1, numberOfExplanatoryGroups)
+
+
+    /**
+     * Clones the current [AssertionFormatterParameterObject] and increases [numberOfDoNotFilterGroups] by one because
+     * it is assumed that the resulting parameter object is used to format an [AssertionGroup] of
+     * type [DoNotFilterAssertionGroupType].
+     *
+     * @return The newly created [AssertionFormatterParameterObject].
+     */
+    fun createForExplanatoryFilterAssertionGroup(): AssertionFormatterParameterObject =
+        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1, numberOfExplanatoryGroups + 1)
+
 
     /**
      * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
      * of an [AssertionGroup] of type [DoNotFilterAssertionGroupType].
      *
-     * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
+     * @return `true` if the formatting process is currently within an do not filter assertion group; `false` otherwise.
      */
     fun isNotInDoNotFilterGroup() = numberOfDoNotFilterGroups == 0
+
+
+    /**
+     * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
+     * of an [AssertionGroup] of type [ExplanatoryAssertionGroupType].
+     *
+     * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
+     */
+    fun isNotInExplanatoryFilterGroup() = numberOfExplanatoryGroups == 0
 
     /**
      * Appends a new line (system separator), spaces equal to the number of [indentLevel] and the [prefix] to [sb].
@@ -124,7 +148,14 @@ class AssertionFormatterParameterObject private constructor(
          */
         fun new(sb: StringBuilder, assertionFilter: (Assertion) -> Boolean): AssertionFormatterParameterObject {
 
-            return AssertionFormatterParameterObject(sb, "", 0, assertionFilter, numberOfDoNotFilterGroups = 0)
+            return AssertionFormatterParameterObject(
+                sb,
+                prefix = "",
+                indentLevel = 0,
+                assertionFilter = assertionFilter,
+                numberOfDoNotFilterGroups = 0,
+                numberOfExplanatoryGroups = 0
+            )
         }
     }
 }
