@@ -91,15 +91,15 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                 it("${containsAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).containsAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$anEntryWhichIs: 1.1") }
+                    }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$anElementWhichIs: 1.1") }
                 }
                 it("${containsAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).containsAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$anEntryWhichIs: 2.3")
-                            containsNot("$anEntryWhichIs: 1.0")
+                            contains("$atLeast: 1", "$anElementWhichIs: 2.3")
+                            containsNot("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -108,8 +108,8 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         expect(oneToSeven()).containsAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$anEntryWhichIs: 2.3")
-                            containsNot("$anEntryWhichIs: 1.0")
+                            contains("$atLeast: 1", "$anElementWhichIs: 2.3")
+                            containsNot("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -124,8 +124,8 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 2.3",
-                                "$anEntryWhichIs: 3.1"
+                                "$anElementWhichIs: 2.3",
+                                "$anElementWhichIs: 3.1"
                             )
                         }
                     }
@@ -152,7 +152,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 5.0",
+                                "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
@@ -179,11 +179,11 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 5.0",
+                                "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot("$anEntryWhichIs: 4.0")
+                            containsNot("$anElementWhichIs: 4.0")
                         }
                     }
                 }
@@ -206,11 +206,11 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 4.0",
+                                "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot(atLeast, "$anEntryWhichIs: 5.0")
+                            containsNot(atLeast, "$anElementWhichIs: 5.0")
                         }
                     }
                 }
@@ -232,11 +232,11 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 5.0",
+                                "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot(atMost, "$anEntryWhichIs: 4.0")
+                            containsNot(atMost, "$anElementWhichIs: 4.0")
                         }
                     }
                 }

@@ -30,7 +30,7 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
     override fun Expect<List<E>>.createAssertionsAndReturnIndex(searchCriteria: List<SC>): Int {
         var index = 0
         searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
-            createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ENTRY_WITH_INDEX)
+            createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ELEMENT_WITH_INDEX)
             index = currentIndex
         }
         ++index

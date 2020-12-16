@@ -48,7 +48,7 @@ abstract class InOrderOnlyDeprecatedAssertionCreator<E, in T : Iterable<E>, SC>(
                     createSingleEntryAssertion(
                         currentIndex,
                         searchCriterion,
-                        DescriptionIterableAssertion.ENTRY_WITH_INDEX
+                        DescriptionIterableAssertion.ELEMENT_WITH_INDEX
                     )
                     index = currentIndex
                 }

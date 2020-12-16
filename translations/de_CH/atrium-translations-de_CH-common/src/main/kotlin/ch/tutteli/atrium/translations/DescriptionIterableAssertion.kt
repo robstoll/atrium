@@ -8,13 +8,19 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {
     ALL("alle Einträge"),
-    AN_ENTRY_WHICH("ein Eintrag, welcher"),
-    AN_ENTRY_WHICH_IS("Eintrag"),
+    AN_ELEMENT_WHICH("ein Element, welches"),
+    AN_ELEMENT_WHICH_EQUALS("Element"),
+    @Deprecated("Use AN_ELEMENT_WHICH; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH"))
+    AN_ENTRY_WHICH(AN_ELEMENT_WHICH.getDefault()),
+    @Deprecated("Use AN_ELEMENT_WHICH_EQUALS; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH_EQUALS"))
+    AN_ENTRY_WHICH_IS(AN_ELEMENT_WHICH_EQUALS.getDefault()),
     AT_LEAST("ist zumindest"),
     AT_MOST("ist höchstens"),
     CONTAINS("enthält"),
     CONTAINS_NOT("enthält nicht"),
-    ENTRY_WITH_INDEX("Eintrag %s"),
+    ELEMENT_WITH_INDEX("Element %s"),
+    @Deprecated("Use ELEMENT_WITH_INDEX; will be removed with 1.0.0", ReplaceWith("ELEMENT_WITH_INDEX"))
+    ENTRY_WITH_INDEX(ELEMENT_WITH_INDEX.getDefault()),
     EXACTLY("ist genau"),
     HAS_ELEMENT("hat mindestens ein Element"),
     IN_ANY_ORDER("%s, in beliebiger Reihenfolge"),
@@ -30,7 +36,9 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt keinen nächsten Eintrag zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt nur `null` zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    WARNING_ADDITIONAL_ENTRIES("zusätzliche Einträge entdeckt"),
+    WARNING_ADDITIONAL_ELEMENTS("zusätzliche Elemente entdeckt"),
+    @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))
+    WARNING_ADDITIONAL_ENTRIES(WARNING_ADDITIONAL_ELEMENTS.getDefault()),
     WARNING_MISMATCHES("folgende Einträge erfüllten keine Aussage (Diskrepanzen)"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("Diskrepanzen und zusätzliche Einträge entdeckt"),
     NEXT_ELEMENT("ein nächstes Element"),

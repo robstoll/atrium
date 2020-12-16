@@ -53,7 +53,7 @@ internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boole
     return assertionBuilder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
+        .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
         .withAssertion(explanatoryGroup)
         .build()
 }
@@ -100,7 +100,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
             if (iterableAsList.size > expectedSize) {
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
-                        val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
+                        val description = TranslatableWithArgs(ELEMENT_WITH_INDEX, expectedSize + counter)
                         assertionBuilder.descriptive
                             .holding
                             .withDescriptionAndRepresentation(description, it)
@@ -111,7 +111,7 @@ internal fun <E> createSizeFeatureAssertionForInOrderOnly(
                         .withWarningType
                         .withAssertion(
                             assertionBuilder.list
-                                .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
+                                .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ELEMENTS)
                                 .withAssertions(additionalEntries)
                                 .build()
                         )

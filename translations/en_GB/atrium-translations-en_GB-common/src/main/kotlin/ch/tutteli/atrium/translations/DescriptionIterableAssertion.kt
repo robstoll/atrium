@@ -8,13 +8,19 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {
     ALL("all entries"),
-    AN_ENTRY_WHICH("an entry which"),
-    AN_ENTRY_WHICH_IS("an entry which is"),
+    AN_ELEMENT_WHICH("an element which"),
+    AN_ELEMENT_WHICH_EQUALS("an element which equals"),
+    @Deprecated("Use AN_ELEMENT_WHICH; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH"))
+    AN_ENTRY_WHICH(AN_ELEMENT_WHICH.getDefault()),
+    @Deprecated("Use AN_ELEMENT_WHICH_EQUALS; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH_EQUALS"))
+    AN_ENTRY_WHICH_IS(AN_ELEMENT_WHICH_EQUALS.getDefault()),
     AT_LEAST("is at least"),
     AT_MOST("is at most"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
-    ENTRY_WITH_INDEX("entry %s"),
+    ELEMENT_WITH_INDEX("element %s"),
+    @Deprecated("Use ELEMENT_WITH_INDEX; will be removed with 1.0.0", ReplaceWith("ELEMENT_WITH_INDEX"))
+    ENTRY_WITH_INDEX(ELEMENT_WITH_INDEX.getDefault()),
     EXACTLY("is exactly"),
     HAS_ELEMENT("has at least one element"),
     IN_ANY_ORDER("%s, in any order"),
@@ -30,7 +36,9 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
+    WARNING_ADDITIONAL_ELEMENTS("additional elements detected"),
+    @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))
+    WARNING_ADDITIONAL_ENTRIES(WARNING_ADDITIONAL_ELEMENTS.getDefault()),
     WARNING_MISMATCHES("following entries were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
     NEXT_ELEMENT("a next element"),

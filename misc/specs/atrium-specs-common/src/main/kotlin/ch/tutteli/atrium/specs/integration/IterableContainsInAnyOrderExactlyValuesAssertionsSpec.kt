@@ -63,7 +63,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                 it("${containsExactlyPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).containsExactlyFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$anEntryWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$anElementWhichIs: 4.0") }
                 }
 
                 it("${containsExactlyPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
@@ -71,8 +71,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         expect(oneToSeven()).containsExactlyFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$anEntryWhichIs: 2.3")
-                            containsNot("$anEntryWhichIs: 1.0")
+                            contains("$exactly: 1", "$anElementWhichIs: 2.3")
+                            containsNot("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -82,8 +82,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         expect(oneToSeven()).containsExactlyFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$anEntryWhichIs: 2.3")
-                            containsNot("$anEntryWhichIs: 1.0")
+                            contains("$exactly: 1", "$anElementWhichIs: 2.3")
+                            containsNot("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -100,8 +100,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 2.3",
-                                "$anEntryWhichIs: 3.1"
+                                "$anElementWhichIs: 2.3",
+                                "$anElementWhichIs: 3.1"
                             )
                         }
                     }
@@ -130,7 +130,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 5.0",
+                                "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
@@ -145,11 +145,11 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 4.0",
+                                "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
-                            containsNot("$anEntryWhichIs: 5.0")
+                            containsNot("$anElementWhichIs: 5.0")
                         }
                     }
                 }
@@ -168,11 +168,11 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                         message {
                             contains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 5.0",
+                                "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
-                            containsNot("$anEntryWhichIs: 4.0")
+                            containsNot("$anElementWhichIs: 4.0")
                         }
                     }
                 }

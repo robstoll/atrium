@@ -80,12 +80,12 @@ abstract class ArrayAsListAssertionsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
+    val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
     include(object : AssertionCreatorSpec<Array<Int>>(
         "$describePrefix[arr] ", arrayOf(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrWithCreator.invoke(this) { contains(1) } },
             { arrWithCreator.invoke(this) {} })
     ) {})
@@ -93,7 +93,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrByte] ", bytes(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrByteWithCreator.invoke(this) { contains(1) } },
             { arrByteWithCreator.invoke(this) {} })
     ) {})
@@ -101,7 +101,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrChar] ", chars('a'),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrCharWithCreator.invoke(this) { contains('a') } },
             { arrCharWithCreator.invoke(this) {} })
     ) {})
@@ -109,7 +109,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrShort] ", shorts(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrShortWithCreator.invoke(this) { contains(1) } },
             { arrShortWithCreator.invoke(this) {} })
     ) {})
@@ -117,7 +117,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrInt] ", ints(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrIntWithCreator.invoke(this) { contains(1) } },
             { arrIntWithCreator.invoke(this) {} })
     ) {})
@@ -125,7 +125,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrLong] ", longs(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrLongWithCreator.invoke(this) { contains(1) } },
             { arrLongWithCreator.invoke(this) {} })
     ) {})
@@ -133,7 +133,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrFloat] ", floats(1.0f),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrFloatWithCreator.invoke(this) { contains(1.0f) } },
             { arrFloatWithCreator.invoke(this) {} })
     ) {})
@@ -141,7 +141,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrDouble] ", doubles(1.0),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrDoubleWithCreator.invoke(this) { contains(1.0) } },
             { arrDoubleWithCreator.invoke(this) {} })
     ) {})
@@ -149,7 +149,7 @@ abstract class ArrayAsListAssertionsSpec(
         "$describePrefix[arrBoolean] ", booleans(true),
         assertionCreatorSpecTriple(
             asListFunName,
-            anEntryWhich,
+            anElementWhich,
             { arrBooleanWithCreator.invoke(this) { contains(true) } },
             { arrBooleanWithCreator.invoke(this) {} })
     ) {})

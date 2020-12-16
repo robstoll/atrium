@@ -21,7 +21,7 @@ import ch.tutteli.atrium.logic.impl.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.logic.impl.createHasElementAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WHICH
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -43,7 +43,10 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     private val converter: (T) -> Iterable<E?>,
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableLikeContains.Checker>
-) : ContainsAssertionCreator<T, List<E?>, (Expect<E>.() -> Unit)?, IterableLikeContains.Checker>(searchBehaviour, checkers),
+) : ContainsAssertionCreator<T, List<E?>, (Expect<E>.() -> Unit)?, IterableLikeContains.Checker>(
+    searchBehaviour,
+    checkers
+),
     IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
@@ -73,7 +76,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         }
 
         return assertionBuilder.customType(groupType)
-            .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
+            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
             .withAssertions(assertions)
             .build()
     }

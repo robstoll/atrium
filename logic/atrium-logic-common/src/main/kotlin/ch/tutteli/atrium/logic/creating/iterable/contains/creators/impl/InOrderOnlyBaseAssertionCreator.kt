@@ -61,7 +61,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     addAssertion(LazyThreadUnsafeAssertionGroup {
                         val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                             val description = TranslatableWithArgs(
-                                DescriptionIterableAssertion.ENTRY_WITH_INDEX,
+                                DescriptionIterableAssertion.ELEMENT_WITH_INDEX,
                                 expectedSize + counter
                             )
                             assertionBuilder.descriptive
@@ -74,7 +74,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                             .withWarningType
                             .withAssertion(
                                 assertionBuilder.list
-                                    .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                                    .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS)
                                     .withAssertions(additionalEntries)
                                     .build()
                             )
