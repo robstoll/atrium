@@ -22,7 +22,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.collectI
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WHICH
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -80,7 +80,7 @@ class InAnyOrderEntriesDeprecatedAssertionCreator<E : Any, in T : Iterable<E?>>(
         }
 
         return AssertImpl.builder.customType(groupType)
-            .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
+            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
             .withAssertions(assertions)
             .build()
     }

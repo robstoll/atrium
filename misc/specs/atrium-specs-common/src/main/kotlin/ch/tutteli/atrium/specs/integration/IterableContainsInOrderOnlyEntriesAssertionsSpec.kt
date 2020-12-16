@@ -69,18 +69,16 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
     //@formatter:on
 
-    fun entry(index: Int) = String.format(entryWithIndex, index)
-
-    fun Expect<String>.entrySuccess(index: Int, actual: Any, expected: String): Expect<String> {
+    fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
-            "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
+            "\\Q$successfulBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected"
         )
     }
 
-    fun Expect<String>.entryFailing(index: Int, actual: Any, expected: String): Expect<String> {
+    fun Expect<String>.elementFailing(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
-            "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
+            "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected"
         )
     }
@@ -103,8 +101,8 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
-                        containsNot(additionalEntries)
+                        elementFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
+                        containsNot(additionalElements)
                         containsSize(0, 1)
                     }
                 }
@@ -115,9 +113,9 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                        entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
-                        entryFailing(1, sizeExceeded, "$isGreaterThanDescr: 4.0")
-                        containsNot(additionalEntries)
+                        elementFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
+                        elementFailing(1, sizeExceeded, "$isGreaterThanDescr: 4.0")
+                        containsNot(additionalElements)
                         containsSize(0, 2)
                     }
                 }
@@ -170,11 +168,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$isLessThanDescr: 5.0")
-                            entryFailing(1, 2.0, "$toBeDescr: 1.0")
-                            entryFailing(2, 3.0, "$toBeDescr: 2.0")
-                            entrySuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
-                            entrySuccess(4, 4.0, "$toBeDescr: 4.0")
+                            elementSuccess(0, 1.0, "$isLessThanDescr: 5.0")
+                            elementFailing(1, 2.0, "$toBeDescr: 1.0")
+                            elementFailing(2, 3.0, "$toBeDescr: 2.0")
+                            elementSuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
+                            elementSuccess(4, 4.0, "$toBeDescr: 4.0")
                             containsSize(5, 5)
                         }
                     }
@@ -190,13 +188,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$toBeDescr: 1.0")
-                            entrySuccess(1, 2.0, "$toBeDescr: 2.0")
-                            entrySuccess(2, 3.0, "$toBeDescr: 3.0")
-                            entrySuccess(3, 4.0, "$toBeDescr: 4.0")
+                            elementSuccess(0, 1.0, "$toBeDescr: 1.0")
+                            elementSuccess(1, 2.0, "$toBeDescr: 2.0")
+                            elementSuccess(2, 3.0, "$toBeDescr: 3.0")
+                            elementSuccess(3, 4.0, "$toBeDescr: 4.0")
                             contains(
-                                "$warningBulletPoint$additionalEntries:",
-                                "$listBulletPoint${entry(4)}: 4.0"
+                                "$warningBulletPoint$additionalElements:",
+                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )
                             containsSize(5, 4)
                         }
@@ -209,13 +207,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$toBeDescr: 1.0")
-                            entryFailing(1, 2.0, "$toBeDescr: 4.0")
+                            elementSuccess(0, 1.0, "$toBeDescr: 1.0")
+                            elementFailing(1, 2.0, "$toBeDescr: 4.0")
                             contains(
-                                "$warningBulletPoint$additionalEntries:",
-                                "$listBulletPoint${entry(2)}: 3.0",
-                                "$listBulletPoint${entry(3)}: 4.0",
-                                "$listBulletPoint${entry(4)}: 4.0"
+                                "$warningBulletPoint$additionalElements:",
+                                "$listBulletPoint${elementWithIndex(2)}: 3.0",
+                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )
                             containsSize(5, 2)
                         }
@@ -227,13 +225,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$toBeDescr: 1.0")
-                            entryFailing(1, 2.0, "$toBeDescr: 3.0")
-                            entryFailing(2, 3.0, "$isGreaterThanDescr: 4.0")
+                            elementSuccess(0, 1.0, "$toBeDescr: 1.0")
+                            elementFailing(1, 2.0, "$toBeDescr: 3.0")
+                            elementFailing(2, 3.0, "$isGreaterThanDescr: 4.0")
                             contains(
-                                "$warningBulletPoint$additionalEntries:",
-                                "$listBulletPoint${entry(3)}: 4.0",
-                                "$listBulletPoint${entry(4)}: 4.0"
+                                "$warningBulletPoint$additionalElements:",
+                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )
                             containsSize(5, 3)
                         }
@@ -251,12 +249,12 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$toBeDescr: 1.0")
-                            entrySuccess(1, 2.0, "$toBeDescr: 2.0")
-                            entrySuccess(2, 3.0, "$toBeDescr: 3.0")
-                            entrySuccess(3, 4.0, "$toBeDescr: 4.0")
-                            entrySuccess(4, 4.0, "$toBeDescr: 4.0")
-                            entryFailing(5, sizeExceeded, "$toBeDescr: 5.0")
+                            elementSuccess(0, 1.0, "$toBeDescr: 1.0")
+                            elementSuccess(1, 2.0, "$toBeDescr: 2.0")
+                            elementSuccess(2, 3.0, "$toBeDescr: 3.0")
+                            elementSuccess(3, 4.0, "$toBeDescr: 4.0")
+                            elementSuccess(4, 4.0, "$toBeDescr: 4.0")
+                            elementFailing(5, sizeExceeded, "$toBeDescr: 5.0")
                             containsSize(5, 6)
                         }
                     }
@@ -304,10 +302,10 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                entrySuccess(0, "null", "$isDescr: null")
-                                entryFailing(1, 1.0, "$isDescr: null")
-                                entryFailing(2, "null", "$isLessThanDescr: 5.0")
-                                entrySuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
+                                elementSuccess(0, "null", "$isDescr: null")
+                                elementFailing(1, 1.0, "$isDescr: null")
+                                elementFailing(2, "null", "$isLessThanDescr: 5.0")
+                                elementSuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
                                 containsSize(4, 4)
                             }
                         }
@@ -325,11 +323,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                entrySuccess(0, "null", "$isDescr: null")
-                                entrySuccess(1, 1.0, "$toBeDescr: 1.0")
-                                entrySuccess(2, "null", "$isDescr: null")
-                                entrySuccess(3, 3.0, "$toBeDescr: 3.0")
-                                entryFailing(4, sizeExceeded, "$isDescr: null")
+                                elementSuccess(0, "null", "$isDescr: null")
+                                elementSuccess(1, 1.0, "$toBeDescr: 1.0")
+                                elementSuccess(2, "null", "$isDescr: null")
+                                elementSuccess(3, 3.0, "$toBeDescr: 3.0")
+                                elementFailing(4, sizeExceeded, "$isDescr: null")
                                 containsSize(4, 5)
                             }
                         }

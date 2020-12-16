@@ -64,7 +64,7 @@ internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boole
     return assertionBuilder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH)
+        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ELEMENT_WHICH)
         .withAssertion(explanatoryGroup)
         .build()
 }

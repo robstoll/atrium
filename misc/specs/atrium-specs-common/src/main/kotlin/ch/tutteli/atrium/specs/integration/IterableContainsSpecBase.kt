@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
@@ -17,7 +18,8 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
     companion object {
         val oneToFour = { sequenceOf(1.0, 2.0, 3.0, 4.0, 4.0).constrainOnce().asIterable() }
         val oneToSeven = { sequenceOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
-        val oneToSevenNullable = { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
+        val oneToSevenNullable =
+            { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
         val containsInAnyOrder = String.format(
             DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(),
@@ -36,13 +38,12 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             DescriptionIterableAssertion.CONTAINS.getDefault()
         )
         val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES.getDefault()
-        val additionalEntries = DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
+        val additionalElements = DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS.getDefault()
         val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()
         val mismatchesAdditionalEntries =
             DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ENTRIES.getDefault()
         val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
-        val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
-        val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
+        val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
 
         val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
@@ -60,6 +61,8 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         fun Root.nullableCases(describePrefix: String, body: Suite.() -> Unit) {
             describe("$describePrefix nullable cases", body = body)
         }
+
+        fun elementWithIndex(index: Int) = DescriptionIterableAssertion.ELEMENT_WITH_INDEX.getDefault().format(index)
 
         fun <F> Root.nonNullableCases(
             describePrefix: String,

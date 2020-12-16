@@ -8,7 +8,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsNotValuesAssertionsSpec(
     containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -50,7 +49,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     //@formatter:on
 
-    val anEntryWhichIsWithIndent = "$indentBulletPoint$listBulletPoint$anEntryWhichIs"
+    val anElementWhichIsWithIndent = "$indentBulletPoint$listBulletPoint$anElementWhichIs"
 
     nonNullableCases(
         describePrefix,
@@ -70,7 +69,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                     message {
                         containsRegex(
                             "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                "$anEntryWhichIsWithIndent: 4.0.*$separator" +
+                                "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                 "$featureSuccess$numberOfOccurrences: 0$separator" +
                                 "$isAfterSuccess: 0.*$separator" +
                                 "$featureFailing$hasElement: false$separator" +
@@ -103,7 +102,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$anEntryWhichIsWithIndent: 4.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
@@ -119,12 +118,12 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$anEntryWhichIsWithIndent: 1.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true$separator" +
-                                    "$anEntryWhichIsWithIndent: 4.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
@@ -140,12 +139,12 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$anEntryWhichIsWithIndent: 4.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true$separator" +
-                                    "$anEntryWhichIsWithIndent: 1.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
@@ -174,7 +173,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$anEntryWhichIsWithIndent: null$separator" +
+                                    "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
@@ -191,7 +190,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$anEntryWhichIsWithIndent: null$separator" +
+                                    "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +

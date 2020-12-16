@@ -54,13 +54,11 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
     fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
-    fun entryWithIndex(index: Int) = String.format(entryWithIndex, index)
-
     fun index(fromIndex: Int, toIndex: Int) =
         String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
 
     fun entry(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
-        expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anEntryWhichIs: $it\\E" }
+        expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anElementWhichIs: $it\\E" }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
         "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
@@ -81,7 +79,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun mismatchesAfterFail(vararg mismatched: Double) = warning(mismatches, mismatched.toTypedArray()) { "$it" }
 
     fun additional(vararg entryWithValue: Pair<Int, Double>) =
-        warning(additionalEntries, entryWithValue) { "${entryWithIndex(it.first)}: ${it.second}" }
+        warning(additionalElements, entryWithValue) { "${elementWithIndex(it.first)}: ${it.second}" }
 
 
     val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
@@ -172,7 +170,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                         contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                         indexFail(0, sizeExceeded, 1.0)
                         indexFail(1, sizeExceeded, 1.2)
-                        containsNot(additionalEntries)
+                        containsNot(additionalElements)
                         containsSize(0, 2)
                     }
                 }

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrd
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ELEMENT_WITH_INDEX
 
 /**
  * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill
@@ -32,7 +33,7 @@ abstract class InOrderOnlyAssertionCreator<E, T : IterableLike, SC>(
     override fun Expect<List<E>>.createAssertionsAndReturnIndex(searchCriteria: List<SC>): Int {
         var index = 0
         searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
-            createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ENTRY_WITH_INDEX)
+            createSingleEntryAssertion(currentIndex, searchCriterion, ELEMENT_WITH_INDEX)
             index = currentIndex
         }
         ++index

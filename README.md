@@ -926,7 +926,7 @@ expect(listOf(1, 2, 2, 4)).contains(2, 3)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
-  ⚬ an entry which is: 3        (kotlin.Int <1234789>)
+  ⚬ an element which equals: 3        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
 ```
@@ -966,11 +966,11 @@ expect(listOf(1, 2, 2, 4)).contains(
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
-  ⚬ an entry which: 
+  ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
-  ⚬ an entry which: 
+  ⚬ an element which: 
       » is greater than: 2        (kotlin.Int <1234789>)
       » is less than: 4        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 0
@@ -1005,7 +1005,7 @@ expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
 ```text
 expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
-  ⚬ an entry which: 
+  ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 0
         ◾ is at least: 1
@@ -1021,7 +1021,7 @@ expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
 ```text
 expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
-  ⚬ an entry which: 
+  ⚬ an element which: 
       » is greater than: 2        (kotlin.Int <1234789>)
     ✘ ▶ number of such entries: 2
         ◾ is: 0        (kotlin.Int <1234789>)
@@ -1068,17 +1068,17 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
-      ◾ an entry which: 
+  ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
+      ◾ an element which: 
           » is less than: 3        (kotlin.Int <1234789>)
-  ✘ ▶ entry 1: 2        (kotlin.Int <1234789>)
-      ◾ an entry which: 
+  ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
+      ◾ an element which: 
           » is less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
-        ❗❗ additional entries detected: 
-           ⚬ entry 2: 2        (kotlin.Int <1234789>)
-           ⚬ entry 3: 4        (kotlin.Int <1234789>)
+        ❗❗ additional elements detected: 
+           ⚬ element 2: 2        (kotlin.Int <1234789>)
+           ⚬ element 3: 4        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-1>
 
@@ -1118,15 +1118,15 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
+  ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ equals: 1        (kotlin.Int <1234789>)
-  ✔ ▶ entry 1: 2        (kotlin.Int <1234789>)
+  ✔ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
-  ✔ ▶ entry 2: 2        (kotlin.Int <1234789>)
+  ✔ ▶ element 2: 2        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
-  ✘ ▶ entry 3: 4        (kotlin.Int <1234789>)
+  ✘ ▶ element 3: 4        (kotlin.Int <1234789>)
       ◾ equals: 3        (kotlin.Int <1234789>)
-  ✘ ▶ entry 4: ❗❗ hasNext() returned false
+  ✘ ▶ element 4: ❗❗ hasNext() returned false
       ◾ equals: 4        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
       ◾ equals: 5        (kotlin.Int <1234789>)
@@ -1142,7 +1142,7 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
-  ⚬ an entry which: 
+  ⚬ an element which: 
       » is less than: 3        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 3
         ◾ is at most: 2
@@ -1158,10 +1158,10 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
-  ✔ an entry which is: 1        (kotlin.Int <1234789>)
-  ✔ an entry which is: 2        (kotlin.Int <1234789>)
-  ✘ an entry which is: 3        (kotlin.Int <1234789>)
-  ✔ an entry which is: 4        (kotlin.Int <1234789>)
+  ✔ an element which equals: 1        (kotlin.Int <1234789>)
+  ✔ an element which equals: 2        (kotlin.Int <1234789>)
+  ✘ an element which equals: 3        (kotlin.Int <1234789>)
+  ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ✔ ▶ size: 4
       ◾ equals: 4
   ❗❗ following entries were mismatched: 
@@ -1178,11 +1178,11 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
-  ✔ an entry which is: 4        (kotlin.Int <1234789>)
-  ✘ an entry which is: 3        (kotlin.Int <1234789>)
-  ✔ an entry which is: 2        (kotlin.Int <1234789>)
-  ✔ an entry which is: 2        (kotlin.Int <1234789>)
-  ✔ an entry which is: 1        (kotlin.Int <1234789>)
+  ✔ an element which equals: 4        (kotlin.Int <1234789>)
+  ✘ an element which equals: 3        (kotlin.Int <1234789>)
+  ✔ an element which equals: 2        (kotlin.Int <1234789>)
+  ✔ an element which equals: 2        (kotlin.Int <1234789>)
+  ✔ an element which equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ size: 4
       ◾ equals: 5
 ```
@@ -1282,7 +1282,7 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
            ⚬ index 1: "b"        <1234789>
 ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
     ◾ does not contain: 
-      ⚬ an entry which: 
+      ⚬ an element which: 
           » is greater than: 1        (kotlin.Int <1234789>)
         ✘ ▶ number of such entries: 1
             ◾ is: 0        (kotlin.Int <1234789>)
@@ -1312,14 +1312,14 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
 ```text
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
-      ◾ an entry which: 
+  ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
+      ◾ an element which: 
           » ▶ key: "a"        <1234789>
               ◾ equals: "a"        <1234789>
           » ▶ value: 1        (kotlin.Int <1234789>)
               ◾ equals: 1        (kotlin.Int <1234789>)
-  ✘ ▶ entry 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
-      ◾ an entry which: 
+  ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
+      ◾ an element which: 
           » ▶ key: "a"        <1234789>
               ◾ starts with: "a"        <1234789>
           » ▶ value: 1        (kotlin.Int <1234789>)
@@ -1593,14 +1593,14 @@ also states which entries were additionally contained in the list:
 ```text
 expected that subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
-  ✔ ▶ entry 0: 1        (kotlin.Int <1234789>)
+  ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ equals: 1        (kotlin.Int <1234789>)
-  ✘ ▶ entry 1: 2        (kotlin.Int <1234789>)
+  ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ equals: 3        (kotlin.Int <1234789>)
   ✘ ▶ size: 3        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
-        ❗❗ additional entries detected: 
-           ⚬ entry 2: 3        (kotlin.Int <1234789>)
+        ❗❗ additional elements detected: 
+           ⚬ element 2: 3        (kotlin.Int <1234789>)
 ```
 </exs-add-info-1-output>
 

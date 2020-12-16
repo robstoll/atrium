@@ -50,7 +50,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             val featureAssertions = createSizeFeatureAssertion(searchCriteria, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
                 featureAssertions.add(LazyThreadUnsafeAssertionGroup {
-                    createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
+                    createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ELEMENTS)
                 })
             }
             assertions.add(

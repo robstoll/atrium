@@ -49,9 +49,9 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                     message {
                         contains(
                             "$rootBulletPoint$containsInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryWhichIs: 1.0"
+                            "$failingBulletPoint$anElementWhichIs: 1.0"
                         )
-                        containsNot(additionalEntries)
+                        containsNot(additionalElements)
                         containsSize(0, 1)
                     }
                 }
@@ -63,10 +63,10 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                     message {
                         contains.exactly(1).values(
                             "$rootBulletPoint$containsInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryWhichIs: 1.0",
-                            "$failingBulletPoint$anEntryWhichIs: 4.0"
+                            "$failingBulletPoint$anElementWhichIs: 1.0",
+                            "$failingBulletPoint$anElementWhichIs: 4.0"
                         )
-                        containsNot(additionalEntries)
+                        containsNot(additionalElements)
                         containsSize(0, 2)
                     }
                 }
@@ -100,11 +100,11 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 2.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                                    "$warningBulletPoint$additionalEntries:",
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 4.0",
+                                    "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}4.0"
                                 )
                                 containsSize(5, 4)
@@ -119,9 +119,9 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                                    "$warningBulletPoint$additionalEntries:",
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 4.0",
+                                    "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
@@ -140,10 +140,10 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 2.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                                    "$failingBulletPoint$anEntryWhichIs: 5.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$failingBulletPoint$anElementWhichIs: 5.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -161,9 +161,9 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                                    "$failingBulletPoint$anEntryWhichIs: 5.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$failingBulletPoint$anElementWhichIs: 5.0",
                                     "$warningBulletPoint$mismatchesAdditionalEntries:",
                                     "${listBulletPoint}2.0"
                                 )
@@ -182,14 +182,14 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 2.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                                    "$failingBulletPoint$anEntryWhichIs: 5.0"
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$failingBulletPoint$anElementWhichIs: 5.0"
                                 )
-                                contains.exactly(2).value("$successfulBulletPoint$anEntryWhichIs: 4.0")
+                                contains.exactly(2).value("$successfulBulletPoint$anElementWhichIs: 4.0")
                                 containsSize(5, 6)
-                                containsNot(additionalEntries, mismatches, mismatchesAdditionalEntries)
+                                containsNot(additionalElements, mismatches, mismatchesAdditionalEntries)
                             }
                         }
                     }
@@ -228,10 +228,10 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryWhichIs: null",
-                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                                    "$warningBulletPoint$additionalEntries:",
+                                    "$successfulBulletPoint$anElementWhichIs: null",
+                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
+                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}null"
                                 )
                                 containsSize(4, 3)

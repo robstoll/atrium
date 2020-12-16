@@ -41,7 +41,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
-                        "$anEntryWhichIs: 1.0",
+                        "$anElementWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
@@ -73,7 +73,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
-                            "$anEntryWhichIs: 9.5",
+                            "$anElementWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
                             "$atLeast: 1"
                         )
@@ -90,8 +90,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhichIs: 9.5",
-                                "$anEntryWhichIs: 7.1"
+                                "$anElementWhichIs: 9.5",
+                                "$anElementWhichIs: 7.1"
                             )
                         }
                     }
@@ -101,8 +101,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         expect(oneToSeven()).containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 9.5")
-                            containsNot.regex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 1.0")
+                            containsRegex("$containsInAnyOrder: $separator.*$anElementWhichIs: 9.5")
+                            containsNot.regex("$containsInAnyOrder: $separator.*$anElementWhichIs: 1.0")
                         }
                     }
                 }

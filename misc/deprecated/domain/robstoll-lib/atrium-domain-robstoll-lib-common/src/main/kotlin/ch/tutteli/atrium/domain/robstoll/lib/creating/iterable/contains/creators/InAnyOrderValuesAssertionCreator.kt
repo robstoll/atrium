@@ -34,7 +34,7 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
 
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
-    override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
+    override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
 
     override fun getAssertionGroupType(): AssertionGroupType {
         return if (searchBehaviour is NotSearchBehaviour) {

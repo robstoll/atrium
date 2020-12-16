@@ -70,12 +70,10 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
     fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
-    fun entryWithIndex(index: Int) = String.format(entryWithIndex, index)
-
     fun index(fromIndex: Int, toIndex: Int) =
         String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
 
-    fun entry(prefix: String, bulletPoint: String, indentBulletPoint: String, expected: Array<out String>) =
+    fun element(prefix: String, bulletPoint: String, indentBulletPoint: String, expected: Array<out String>) =
         expected.joinToString(".*$separator") {
             "$prefix\\Q$bulletPoint$anEntryWhich: \\E$separator" +
                 "$prefix$indentBulletPoint$indentListBulletPoint$explanatoryBulletPoint$it"
@@ -87,10 +85,10 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
     val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun failAfterFail(vararg expected: String) =
-        entry(afterFail, failingBulletPoint, indentFailingBulletPoint, expected)
+        element(afterFail, failingBulletPoint, indentFailingBulletPoint, expected)
 
     fun successAfterFail(vararg expected: String) =
-        entry(afterFail, successfulBulletPoint, indentSuccessfulBulletPoint, expected)
+        element(afterFail, successfulBulletPoint, indentSuccessfulBulletPoint, expected)
 
     fun failSizeAfterFail(actual: Int, expected: Int) = size(afterFail, failingBulletPoint, actual, expected)
 
@@ -103,12 +101,12 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun mismatchesAfterFail(vararg mismatched: Double) = warning(mismatches, mismatched.toTypedArray()) { "$it" }
 
     fun additional(vararg entryWithValue: Pair<Int, Double>) =
-        warning(additionalEntries, entryWithValue) { "${entryWithIndex(it.first)}: ${it.second}" }
+        warning(additionalElements, entryWithValue) { "${elementWithIndex(it.first)}: ${it.second}" }
 
 
     val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun successAfterSuccess(vararg expected: String) =
-        entry(afterSuccess, successfulBulletPoint, indentSuccessfulBulletPoint, expected)
+        element(afterSuccess, successfulBulletPoint, indentSuccessfulBulletPoint, expected)
 
     fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
 
@@ -207,7 +205,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexFail(0, sizeExceeded, "$toBeDescr: 1.0")
                             indexFail(1, sizeExceeded, "$toBeDescr: 1.2")
-                            containsNot(additionalEntries)
+                            containsNot(additionalElements)
                             containsSize(0, 2)
                         }
                     }
