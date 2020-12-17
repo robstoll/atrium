@@ -1,16 +1,13 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsAssertionCreator
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -59,22 +56,18 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         searchCriterion: (Expect<E>.() -> Unit)?,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
-        val iterator = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }.iterator()
-        val hasElementAssertion = createHasElementAssertion(iterator)
-        val (explanatoryGroup, count) =
-            createExplanatoryAssertionsAndMatchingCount(iterator, searchCriterion)
+        val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
+        val (explanatoryGroup, count) = createExplanatoryAssertionsAndMatchingCount(list, searchCriterion)
 
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         val assertions = mutableListOf<Assertion>(explanatoryGroup, featureAssertion)
-
         val groupType = if (searchBehaviour is NotSearchBehaviour) {
-            assertions.add(hasElementAssertion)
+            assertions.add(createHasElementAssertion(list))
             addEmptyAssertionCreatorLambdaIfNecessary(assertions, searchCriterion, count)
             DefaultSummaryAssertionGroupType
         } else {
             DefaultListAssertionGroupType
         }
-
         return assertionBuilder.customType(groupType)
             .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
             .withAssertions(assertions)
@@ -82,35 +75,17 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     }
 
     private fun createExplanatoryAssertionsAndMatchingCount(
-        itr: Iterator<E?>,
+        list: List<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Pair<AssertionGroup, Int> {
-        val (firstNonNullOrNull, sequence) = if (itr.hasNext() && assertionCreatorOrNull != null) {
-            // we search the first non-null element in order that feature assertions
-            // which are based on the subject can be showed properly in the explanation
-            getFirstNonNullAndSequence(itr, sequenceOf())
-        } else {
-            null to itr.asSequence()
-        }
-        val group =
-            createExplanatoryAssertionGroup(assertionCreatorOrNull) { firstNonNullOrNull?.let { Some(it) } ?: None }
-        val count = sequence.count { allCreatedAssertionsHold(it, assertionCreatorOrNull) }
+        val group = createExplanatoryAssertionGroup(assertionCreatorOrNull)
+        val count = list.count { allCreatedAssertionsHold(it, assertionCreatorOrNull) }
         return group to count
     }
 
-    private tailrec fun getFirstNonNullAndSequence(itr: Iterator<E?>, sequence: Sequence<E?>): Pair<E?, Sequence<E?>> {
-        return if (itr.hasNext()) {
-            val first = itr.next()
-            if (first != null) {
-                first to sequence + sequenceOf(first) + itr.asSequence()
-            } else {
-                getFirstNonNullAndSequence(itr, sequence + sequenceOf(first))
-            }
-        } else {
-            null to sequence
-        }
-    }
-
+    //TODO 0.17.0 check if this is still state of the art to add a the hint that no assertion was created
+    // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
+    // maybe it would be enough to collect
     private fun addEmptyAssertionCreatorLambdaIfNecessary(
         assertions: MutableList<Assertion>,
         searchCriterion: (Expect<E>.() -> Unit)?,
@@ -122,11 +97,8 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
             collectingExpect.searchCriterion()
             val collectedAssertions = collectingExpect.getAssertions()
             if (collectedAssertions.isEmpty()) {
-                assertions.addAll(
-                    CollectingExpect<E>(None)
-                        .addAssertionsCreatedBy(searchCriterion)
-                        .getAssertions()
-                )
+                // no assertion created in the lambda, so lets add the failing assertion containing the hint
+                assertions.add(assertionCollector.collect(None, searchCriterion))
             }
         }
     }

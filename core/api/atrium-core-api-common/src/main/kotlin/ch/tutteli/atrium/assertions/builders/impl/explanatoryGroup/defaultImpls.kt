@@ -33,9 +33,10 @@ internal object GroupTypeOptionImpl : ExplanatoryGroup.GroupTypeOption {
 
 internal class FinalStepImpl(
     override val groupType: ExplanatoryAssertionGroupType,
-    override val explanatoryAssertions: List<Assertion>
+    override val explanatoryAssertions: List<Assertion>,
+    private val holds: Boolean
 ) : ExplanatoryGroup.FinalStep {
 
     @Suppress("DEPRECATION")
-    override fun build(): AssertionGroup = ExplanatoryAssertionGroup(groupType, explanatoryAssertions)
+    override fun build(): AssertionGroup = ExplanatoryAssertionGroup(groupType, explanatoryAssertions, holds)
 }

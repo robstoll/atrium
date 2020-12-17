@@ -9,7 +9,7 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
         Companion::groupFactory,
         getContainsNullablePair(),
         Companion::nullableGroupFactory,
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {

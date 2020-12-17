@@ -1,56 +1,47 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.kbox.ifWithinBound
 
 interface InOrderOnlyMatcher<E, SC> {
-    fun matches(actual: E, searchCriterion: SC): Boolean
+    fun elementAssertionCreator(maybeElement: Option<E>, searchCriterion: SC): Assertion
 
-    fun entryAssertionCreator(maybeSubject: Option<List<E>>, searchCriterion: SC): (() -> Boolean) -> Assertion
-
-    fun Expect<List<E>>.createSingleEntryAssertion(
+    fun Expect<List<E>>.addSingleEntryAssertion(
         currentIndex: Int,
         searchCriterion: SC,
         translatableIndex: DescriptionIterableAssertion
     ) {
-        val template = createEntryAssertionTemplate(
-            this.maybeSubject,
-            currentIndex,
-            searchCriterion,
-            translatableIndex,
-            ::matches
-        )
-        addAssertion(template(entryAssertionCreator(this.maybeSubject, searchCriterion)))
-    }
-
-    private fun <E, SC> createEntryAssertionTemplate(
-        maybeSubject: Option<List<E>>,
-        index: Int,
-        searchCriterion: SC,
-        entryWithIndex: DescriptionIterableAssertion,
-        matches: (E, SC) -> Boolean
-    ): ((() -> Boolean) -> Assertion) -> AssertionGroup {
-        return { createEntryFeatureAssertion ->
-            val list = maybeSubject.getOrElse { emptyList() }
-            val (found, entryRepresentation) = list.ifWithinBound(index, {
-                val entry = list[index]
-                matches(entry, searchCriterion) to entry
-            }, {
-                false to DescriptionIterableAssertion.SIZE_EXCEEDED
-            })
-            val description = TranslatableWithArgs(entryWithIndex, index)
-            assertionBuilder.feature
-                .withDescriptionAndRepresentation(description, entryRepresentation)
-                .withAssertion(createEntryFeatureAssertion { found })
-                .build()
+        val maybeElement = maybeSubject.flatMap { list ->
+            if (currentIndex < list.size) Some(list[currentIndex]) else None
         }
+        val elementAssertion = elementAssertionCreator(maybeElement, searchCriterion)
+        val assertion = maybeElement.map { elementAssertion }.getOrElse {
+            //TODO 0.16.0: extract common pattern
+            maybeSubject.fold({
+                // already in an explanatory assertion context, no need to wrap it again
+                elementAssertion
+            }) {
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withAssertion(elementAssertion)
+                    .failing
+                    .build()
+            }
+        }
+
+        addAssertion(
+            assertionBuilder.feature
+                .withDescriptionAndRepresentation(
+                    TranslatableWithArgs(translatableIndex, currentIndex),
+                    maybeElement.getOrElse { DescriptionIterableAssertion.SIZE_EXCEEDED }
+                )
+                .withAssertion(assertion)
+                .build()
+        )
     }
 
 }

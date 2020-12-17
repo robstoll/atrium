@@ -59,7 +59,7 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         return if (searchBehaviour is NotSearchBehaviour) {
             listOf(
                 featureAssertion,
-                createHasElementAssertion(container.maybeSubject.getOrElse { emptyList() }.iterator())
+                createHasElementAssertion(container.maybeSubject.getOrElse { emptyList() })
             )
         } else {
             listOf(featureAssertion)

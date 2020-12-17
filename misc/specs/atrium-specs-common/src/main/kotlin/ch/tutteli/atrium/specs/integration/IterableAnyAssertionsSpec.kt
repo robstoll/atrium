@@ -8,8 +8,7 @@ import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.ErrorMessages
+import ch.tutteli.atrium.creating.ErrorMessages
 
 abstract class IterableAnyAssertionsSpec(
     any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -50,7 +49,7 @@ abstract class IterableAnyAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
-                        "$anEntryWhich: $separator",
+                        "$anElementWhich: $separator",
                         "$isLessThanDescr: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
@@ -80,7 +79,7 @@ abstract class IterableAnyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
-                            "$anEntryWhich: $separator",
+                            "$anElementWhich: $separator",
                             "$isGreaterThanDescr: 1.0",
                             "$isLessThanDescr: 2.0",
                             "$numberOfOccurrences: 0",
@@ -121,7 +120,7 @@ abstract class IterableAnyAssertionsSpec(
                             message {
                                 contains.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrder: $separator",
-                                    "$anEntryWhich: $separator",
+                                    "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
                                     "$numberOfOccurrences: 0",
                                     "$atLeast: 1"
@@ -140,7 +139,7 @@ abstract class IterableAnyAssertionsSpec(
                         message {
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
-                                "$anEntryWhich: $separator",
+                                "$anElementWhich: $separator",
                                 "$isDescr: null",
                                 "$numberOfOccurrences: 0",
                                 "$atLeast: 1"

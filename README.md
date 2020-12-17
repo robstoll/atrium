@@ -1069,11 +1069,9 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
-      ◾ an element which: 
-          » is less than: 3        (kotlin.Int <1234789>)
+      ◾ is less than: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
-      ◾ an element which: 
-          » is less than: 2        (kotlin.Int <1234789>)
+      ◾ is less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
         ❗❗ additional elements detected: 
@@ -1127,7 +1125,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
   ✘ ▶ element 3: 4        (kotlin.Int <1234789>)
       ◾ equals: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 4: ❗❗ hasNext() returned false
-      ◾ equals: 4        (kotlin.Int <1234789>)
+        » equals: 4        (kotlin.Int <1234789>)
   ✘ ▶ size: 4        (kotlin.Int <1234789>)
       ◾ equals: 5        (kotlin.Int <1234789>)
 ```
@@ -1313,17 +1311,15 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
-      ◾ an element which: 
-          » ▶ key: 
-              ◾ equals: "a"        <1234789>
-          » ▶ value: 
-              ◾ equals: 1        (kotlin.Int <1234789>)
+      ◾ ▶ key: "a"        <1234789>
+          ◾ equals: "a"        <1234789>
+      ◾ ▶ value: 1        (kotlin.Int <1234789>)
+          ◾ equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
-      ◾ an element which: 
-          » ▶ key: 
-              ◾ starts with: "a"        <1234789>
-          » ▶ value: 
-              ◾ is greater than: 2        (kotlin.Int <1234789>)
+      ◾ ▶ key: "b"        <1234789>
+          ◾ starts with: "a"        <1234789>
+      ◾ ▶ value: 2        (kotlin.Int <1234789>)
+          ◾ is greater than: 2        (kotlin.Int <1234789>)
   ✔ ▶ size: 2        (kotlin.Int <1234789>)
       ◾ equals: 2        (kotlin.Int <1234789>)
 ```
@@ -1948,8 +1944,8 @@ fun Expect<Person>.hasAdultChildren(): Expect<Person> =
 </code-own-compose-4>
 
 We once again use `feature` with an [assertion group block](#define-single-assertions-or-assertion-groups) 
-for the same reaon as above.
-We might be tempted to add an additional size check -- because a Person with 0 children does not have adult children --
+for the same reason as above.
+We might be tempted to add a size check -- because a Person with 0 children does not have adult children --
 but we do not have to, as `all` already checks that there is at least one element. 
 
 <ex-own-compose-4>

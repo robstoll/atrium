@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     containsInOrderOnlyGroupedValues: Fun3<Iterable<Double>, Group<Double>, Group<Double>, Array<out Group<Double>>>,
@@ -18,6 +17,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     failingBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
+    explanatoryBulletPoint: String,
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
@@ -52,21 +52,17 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
-    fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
-    fun index(fromIndex: Int, toIndex: Int) =
-        String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
-
-    fun entry(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
+    fun element(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
         expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anElementWhichIs: $it\\E" }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
         "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
 
     val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
-    fun failAfterFail(vararg expected: Double?) = entry(afterFail, failingBulletPoint, expected)
+    fun failAfterFail(vararg expected: Double?) = element(afterFail, failingBulletPoint, expected)
 
-    fun successAfterFail(vararg expected: Double?) = entry(afterFail, successfulBulletPoint, expected)
+    fun successAfterFail(vararg expected: Double?) = element(afterFail, successfulBulletPoint, expected)
 
     fun failSizeAfterFail(actual: Int, expected: Int) = size(afterFail, failingBulletPoint, actual, expected)
 
@@ -83,7 +79,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
 
 
     val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
-    fun successAfterSuccess(vararg expected: Double?) = entry(afterSuccess, successfulBulletPoint, expected)
+    fun successAfterSuccess(vararg expected: Double?) = element(afterSuccess, successfulBulletPoint, expected)
 
     fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
 
@@ -129,6 +125,15 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         )
     }
 
+
+    fun Expect<String>.indexNonExisting(index: Int, expected: Double): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$failingBulletPoint$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
+                "$afterFail$explanatoryBulletPoint$toBeDescr: $expected"
+        )
+    }
+
+
     nonNullableCases(
         describePrefix,
         containsInOrderOnlyGroupedValues,
@@ -168,8 +173,8 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                        indexFail(0, sizeExceeded, 1.0)
-                        indexFail(1, sizeExceeded, 1.2)
+                        indexNonExisting(0, 1.0)
+                        indexNonExisting(1, 1.2)
                         containsNot(additionalElements)
                         containsSize(0, 2)
                     }

@@ -2,8 +2,10 @@ package ch.tutteli.atrium.assertions
 
 /**
  * Represents the [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] are mainly
- * used to explain something -- it is not of importance whether they hold or not and thus such [AssertionGroup]s should
- * always return `true` for [holds][AssertionGroup.holds].
+ * used to explain something -- hence in the normal case it should not be of importance whether they hold or not
+ * and thus such [AssertionGroup]s should usually return `true` for [holds][AssertionGroup.holds].
+ *
+ * But they can return `false` in which case the corresponding group holding it should no longer hold either.
  */
 interface ExplanatoryAssertionGroupType : DoNotFilterAssertionGroupType
 
