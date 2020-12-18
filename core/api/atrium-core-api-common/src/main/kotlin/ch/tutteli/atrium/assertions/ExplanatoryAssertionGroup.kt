@@ -4,7 +4,7 @@ import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Represents an [AssertionGroup] with an [ExplanatoryAssertionGroupType], which means a [Reporter] should not
- * show whether the [assertions] hold or not -- moreover [holds] always returns `true`.
+ * show whether the [assertions] hold or not.
  *
  * @constructor Represents an [AssertionGroup] with an [ExplanatoryAssertionGroupType].
  * @param type The concrete [ExplanatoryAssertionGroupType]
@@ -15,10 +15,11 @@ import ch.tutteli.atrium.reporting.Reporter
 @Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 class ExplanatoryAssertionGroup internal constructor(
     type: ExplanatoryAssertionGroupType,
-    explanatoryAssertions: List<Assertion>
+    explanatoryAssertions: List<Assertion>,
+    private val holds: Boolean
 ) : EmptyNameAndRepresentationAssertionGroup(type, explanatoryAssertions) {
 
-    override fun holds() = true
+    override fun holds() = holds
 
     /**
      * @suppress

@@ -20,7 +20,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 
-    final override fun Expect<List<E>>.createAssertionsAndReturnIndex(
+    final override fun Expect<List<E>>.addAssertionsAndReturnIndex(
         searchCriteria: List<List<SC>>
     ): Int {
         var index = 0
@@ -28,7 +28,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
             val currentIndex = index
             val untilIndex = index + group.size
             if (group.size == 1) {
-                createSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
+                addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
             } else {
                 addSublistAssertion(currentIndex, untilIndex, group, maybeSubject.getOrElse { emptyList() })
             }

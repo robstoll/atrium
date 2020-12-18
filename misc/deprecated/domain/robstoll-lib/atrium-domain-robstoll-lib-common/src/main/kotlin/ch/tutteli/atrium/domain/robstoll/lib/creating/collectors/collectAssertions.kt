@@ -26,39 +26,17 @@ fun <T> _collect(
     }
 }
 
-
 fun <T> _collectForComposition(
     maybeSubject: Option<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): List<Assertion> {
-    //TODO remove try-catch with 1.0.0 should no longer be needed once PlantHasNoSubjectException is removed
-    return try {
-        val collectedAssertions = collectAssertions(maybeSubject, assertionCreatorOrNull)
+): List<Assertion>  = collectAssertions(maybeSubject, assertionCreatorOrNull)
 
-        //TODO remove with 1.0.0
-        // Required as we support mixing Expect with Assert.
-        // And since assertions can be lazily computed we have to provoke their creation here,
-        // so that a potential PlantHasNoSubjectException is thrown. It's fine to provoke the computation
-        // because we require the assertions for the explanation anyway.
-        expandAssertionGroups(collectedAssertions)
-
-        collectedAssertions
-    } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
-        @Suppress("DEPRECATION")
-        listOf(
-            assertionBuilder.explanatoryGroup
-                .withWarningType
-                .withExplanatoryAssertion(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY)
-                .build()
-        )
-    }
-}
-
+//TODO 0.16.0: better replace by silentToBeNullIfNullGiven?
 private fun <T> collectAssertions(
     maybeSubject: Option<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): List<Assertion> {
-    //TODO almost same as in _containsKeyWithNullableValueAssertions
+    //TODO 0.16.0: almost same as in _containsKeyWithNullableValueAssertions
     return if (assertionCreatorOrNull != null) {
         CollectingExpect(maybeSubject)
             .addAssertionsCreatedBy(assertionCreatorOrNull)

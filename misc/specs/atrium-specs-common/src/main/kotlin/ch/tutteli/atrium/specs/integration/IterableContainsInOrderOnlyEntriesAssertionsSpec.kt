@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.ErrorMessages
+import ch.tutteli.atrium.creating.ErrorMessages
 
 abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     containsInOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
@@ -56,30 +56,32 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
-
-    val explanatoryPointWithIndent =
-        "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-
-    //@formatter:off
-    val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
-    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
-    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
-    //@formatter:on
 
     fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected"
+                "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
 
-    fun Expect<String>.elementFailing(index: Int, actual: Any, expected: String): Expect<String> {
+    fun Expect<String>.elementFailing(
+        index: Int,
+        actual: Any,
+        expected: String,
+        explaining: Boolean = false
+    ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected"
+                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
+        )
+    }
+
+    fun Expect<String>.elementNonExisting(index: Int, expected: String): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
+                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
         )
     }
 
@@ -101,7 +103,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        elementFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
+                        elementNonExisting(0, "$isLessThanDescr: 1.0")
                         containsNot(additionalElements)
                         containsSize(0, 1)
                     }
@@ -113,8 +115,8 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                        elementFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
-                        elementFailing(1, sizeExceeded, "$isGreaterThanDescr: 4.0")
+                        elementNonExisting(0, "$isLessThanDescr: 1.0")
+                        elementNonExisting(1, "$isGreaterThanDescr: 4.0")
                         containsNot(additionalElements)
                         containsSize(0, 2)
                     }
@@ -254,7 +256,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                             elementSuccess(2, 3.0, "$toBeDescr: 3.0")
                             elementSuccess(3, 4.0, "$toBeDescr: 4.0")
                             elementSuccess(4, 4.0, "$toBeDescr: 4.0")
-                            elementFailing(5, sizeExceeded, "$toBeDescr: 5.0")
+                            elementNonExisting(5, "$toBeDescr: 5.0")
                             containsSize(5, 6)
                         }
                     }
@@ -302,9 +304,9 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                elementSuccess(0, "null", "$isDescr: null")
-                                elementFailing(1, 1.0, "$isDescr: null")
-                                elementFailing(2, "null", "$isLessThanDescr: 5.0")
+                                elementSuccess(0, "null", "$toBeDescr: null")
+                                elementFailing(1, 1.0, "$toBeDescr: null")
+                                elementFailing(2, "null", "$isLessThanDescr: 5.0", explaining = true)
                                 elementSuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
                                 containsSize(4, 4)
                             }
@@ -323,11 +325,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
-                                elementSuccess(0, "null", "$isDescr: null")
+                                elementSuccess(0, "null", "$toBeDescr: null")
                                 elementSuccess(1, 1.0, "$toBeDescr: 1.0")
-                                elementSuccess(2, "null", "$isDescr: null")
+                                elementSuccess(2, "null", "$toBeDescr: null")
                                 elementSuccess(3, 3.0, "$toBeDescr: 3.0")
-                                elementFailing(4, sizeExceeded, "$isDescr: null")
+                                elementNonExisting(4, "$toBeDescr: null")
                                 containsSize(4, 5)
                             }
                         }

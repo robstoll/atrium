@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 
-class IterableContainsInAnyOrderOnlyElementsOfAssertionSpec : Spek({
+class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
     include(BuilderSpec)
     include(BuilderIterableLikeSpec)
 }) {

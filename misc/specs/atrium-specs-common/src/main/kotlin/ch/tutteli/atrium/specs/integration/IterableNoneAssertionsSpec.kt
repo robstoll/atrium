@@ -85,7 +85,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -115,7 +115,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -133,7 +133,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
                                     "$isAfterFailing: 0.*$separator" +

@@ -5,7 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ELEMENT_WITH_INDEX
 
 /**
@@ -30,10 +29,10 @@ abstract class InOrderOnlyAssertionCreator<E, T : IterableLike, SC>(
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 
-    override fun Expect<List<E>>.createAssertionsAndReturnIndex(searchCriteria: List<SC>): Int {
+    override fun Expect<List<E>>.addAssertionsAndReturnIndex(searchCriteria: List<SC>): Int {
         var index = 0
         searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
-            createSingleEntryAssertion(currentIndex, searchCriterion, ELEMENT_WITH_INDEX)
+            addSingleEntryAssertion(currentIndex, searchCriterion, ELEMENT_WITH_INDEX)
             index = currentIndex
         }
         ++index

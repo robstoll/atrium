@@ -8,7 +8,7 @@ import ch.tutteli.atrium.domain.builders.migration.asAssert
 import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.ErrorMessages
+import ch.tutteli.atrium.creating.ErrorMessages
 
 abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     containsInAnyOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
@@ -56,8 +56,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
     //@formatter:off
-    val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterSuccess = "$anElementWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterFailing = "$anElementWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     //@formatter:on
 
     nonNullableCases(

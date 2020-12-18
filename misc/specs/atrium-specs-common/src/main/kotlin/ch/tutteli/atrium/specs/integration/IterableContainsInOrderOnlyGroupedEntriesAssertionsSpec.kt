@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
@@ -68,14 +69,9 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
-    fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
-
-    fun index(fromIndex: Int, toIndex: Int) =
-        String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
-
     fun element(prefix: String, bulletPoint: String, indentBulletPoint: String, expected: Array<out String>) =
         expected.joinToString(".*$separator") {
-            "$prefix\\Q$bulletPoint$anEntryWhich: \\E$separator" +
+            "$prefix\\Q$bulletPoint$anElementWhich: \\E$separator" +
                 "$prefix$indentBulletPoint$indentListBulletPoint$explanatoryBulletPoint$it"
         }
 
@@ -114,8 +110,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun Expect<String>.indexSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
-                "$afterSuccess$indentListBulletPoint$explanatoryBulletPoint$expected"
+                "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
 
@@ -136,11 +131,18 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun Expect<String>.indexFail(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
-                "$afterFail$indentListBulletPoint$explanatoryBulletPoint$expected"
+                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
 
+    fun Expect<String>.indexNonExisting(index: Int,  expected: String): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$failingBulletPoint$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
+                "$afterFail$explanatoryBulletPoint$expected"
+        )
+    }
+
+    sizeExceeded
     fun Expect<String>.indexFail(
         fromIndex: Int,
         toIndex: Int,
@@ -203,8 +205,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
-                            indexFail(0, sizeExceeded, "$toBeDescr: 1.0")
-                            indexFail(1, sizeExceeded, "$toBeDescr: 1.2")
+                            indexNonExisting(0, "$toBeDescr: 1.0")
+                            indexNonExisting(1,  "$toBeDescr: 1.2")
                             containsNot(additionalElements)
                             containsSize(0, 2)
                         }

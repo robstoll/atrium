@@ -2,13 +2,15 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.allCreatedAssertionsHold
-import ch.tutteli.atrium.logic.impl.createEntryAssertion
 import ch.tutteli.atrium.logic.impl.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have
@@ -33,10 +35,19 @@ class InAnyOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
         searchCriterion: (Expect<E>.() -> Unit)?,
         list: MutableList<E?>
     ): Pair<Boolean, Assertion> {
-        val explanatoryAssertions = createExplanatoryAssertionGroup(searchCriterion, list)
+        val explanatoryAssertionGroup = createExplanatoryAssertionGroup(searchCriterion)
         val found = removeMatch(list, searchCriterion)
-        return found to createEntryAssertion(explanatoryAssertions, found)
+        return found to createEntryAssertion(explanatoryAssertionGroup, found)
     }
+
+    private fun createEntryAssertion(explanatoryAssertionGroup: AssertionGroup, found: Boolean): AssertionGroup =
+        assertionBuilder.fixedClaimGroup
+            .withListType
+            .withClaim(found)
+            .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ELEMENT_WHICH)
+            .withAssertion(explanatoryAssertionGroup)
+            .build()
+
 
     private fun removeMatch(list: MutableList<E?>, assertionCreator: (Expect<E>.() -> Unit)?): Boolean {
         val itr = list.iterator()

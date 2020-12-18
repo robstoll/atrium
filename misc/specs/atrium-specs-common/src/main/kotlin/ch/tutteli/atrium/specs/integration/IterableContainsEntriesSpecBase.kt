@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
@@ -27,7 +26,7 @@ abstract class IterableContainsEntriesSpecBase(
         var isGreaterThanFun = ""
         var toBeFun = ""
         var returnValueOfFun = ""
-        val anEntryWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH.getDefault()
+        val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH.getDefault()
         val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
         val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
     }

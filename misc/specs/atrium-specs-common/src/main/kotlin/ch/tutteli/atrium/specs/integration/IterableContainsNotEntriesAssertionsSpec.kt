@@ -89,7 +89,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                     message {
                         containsRegex(
                             "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                 "$afterExplanatory$toBeDescr: 4.0.*$separator" +
                                 "$featureSuccess$numberOfOccurrences: 0$separator" +
                                 "$isAfterSuccess: 0.*$separator" +
@@ -123,7 +123,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isLessThanDescr: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -140,13 +140,13 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true$separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -161,8 +161,8 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                         expect(oneToSeven()).containsNotFun({ toBe(4.0) }, { toBe(1.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex("$anEntryWhich: $separator.*$toBeDescr: 4.0")
-                            containsNot.regex("$anEntryWhich: $separator.*$toBeDescr: 1.1")
+                            containsRegex("$anElementWhich: $separator.*$toBeDescr: 4.0")
+                            containsNot.regex("$anElementWhich: $separator.*$toBeDescr: 1.1")
                         }
                     }
                 }
@@ -186,7 +186,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -204,7 +204,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +

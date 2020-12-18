@@ -188,7 +188,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
 
             //TODO remove if with 1.0.0
             // dependencies for samples
-            if (!(oldVersion in ['0.6.0','0.7.0','0.8.0','0.9.0','0.10.0','0.11.0','0.12.0','0.13.0'])) {
+            if (!(oldVersion in ['0.6.0', '0.7.0', '0.8.0', '0.9.0', '0.10.0', '0.11.0', '0.12.0', '0.13.0'])) {
                 //for samples
                 add(confCommon, "org.jetbrains.kotlin:kotlin-test:$kotlin_version")
                 add(confCommon, "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
@@ -384,18 +384,25 @@ createBcAndBbcTasksForApis('0.8.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.9.2',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
+        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
+        '(IterableContainsInOrderOnly.*Spec)'+
+    ').*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.10.0',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual).*)',
+    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
+        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
+        '(IterableContainsInOrderOnly.*Spec)'+
+    ').*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.11.1',
     'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
         '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)'+
-        ').*)',
+        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)|'+
+        '(IterableContainsInOrderOnly.*Spec)'+
+    ').*)',
     'fluent-en_GB'
 )
 createBcAndBbcTasksForApis('0.12.0',
@@ -406,7 +413,8 @@ createBcAndBbcTasksForApis('0.12.0',
         '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`)' +
     ').*)|(ch/tutteli/atrium/api/(fluent|infix)/en_GB/('+
         '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)'+
+        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)|'+
+        '(IterableContainsInOrderOnly.*Spec)'+
     ').*)',
     'fluent-en_GB','infix-en_GB'
 )
@@ -421,8 +429,10 @@ createBcAndBbcTasksForApis('0.12.0',
 //@formatter:on
 
 createBcAndBbcTasksForApis('0.14.0',
-    'forgive=^$',
-    'fluent-en_GB','infix-en_GB'
+    'forgive=(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(' +
+        '(IterableContainsInOrderOnly.*Spec)' +
+    ').*)',
+    'fluent-en_GB', 'infix-en_GB'
 )
 
 ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'].each { apiName ->

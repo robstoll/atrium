@@ -57,6 +57,12 @@ interface ExplanatoryGroup {
          */
         override val explanatoryAssertions: List<Assertion>
 
+        /**
+         * Make the ExplanatoryGroup no longer hold, use this if the explanatory assertion group is a single assertion
+         * within a group.
+         */
+        override val failing: FinalStep get() = create(groupType, explanatoryAssertions, holds = false)
+
         companion object {
             /**
              * Factory method to create the [FinalStep] in the building process of [AssertionGroup] with an
@@ -64,8 +70,9 @@ interface ExplanatoryGroup {
              */
             fun create(
                 groupType: ExplanatoryAssertionGroupType,
-                explanatoryAssertions: List<Assertion>
-            ): FinalStep = FinalStepImpl(groupType, explanatoryAssertions)
+                explanatoryAssertions: List<Assertion>,
+                holds : Boolean = true
+            ): FinalStep = FinalStepImpl(groupType, explanatoryAssertions, holds)
         }
     }
 }
@@ -184,11 +191,18 @@ interface ExplanatoryAssertionGroupFinalStep : AssertionBuilderFinalStep<Asserti
      */
     val explanatoryAssertions: List<Assertion>
 
+    /**
+     * Make the ExplanatoryGroup no longer hold, use this if the explanatory assertion group is a single assertion
+     * within a group.
+     */
+    @Suppress("DEPRECATION")
+    val failing: ExplanatoryAssertionGroupFinalStep
+
     @Suppress("DEPRECATION" /* TODO remove whole interface with 1.0.0 */)
     companion object {
         fun create(
             groupType: ExplanatoryAssertionGroupType,
             explanatoryAssertions: List<Assertion>
-        ): ExplanatoryAssertionGroupFinalStep = FinalStepImpl(groupType, explanatoryAssertions)
+        ): ExplanatoryAssertionGroupFinalStep = FinalStepImpl(groupType, explanatoryAssertions, holds = true)
     }
 }

@@ -1,12 +1,9 @@
 package ch.tutteli.atrium.logic.impl
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.trueProvider
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
@@ -14,12 +11,11 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-internal fun createHasElementAssertion(iterator: Iterator<*>): AssertionGroup {
-    val hasElement = iterator.hasNext()
+internal fun createHasElementAssertion(list: List<*>): Assertion {
     return assertionBuilder.feature
-        .withDescriptionAndRepresentation(DescriptionIterableAssertion.HAS_ELEMENT, Text(hasElement.toString()))
+        .withDescriptionAndRepresentation(DescriptionIterableAssertion.HAS_ELEMENT, Text(list.isNotEmpty().toString()))
         .withAssertion(
-            assertionBuilder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { hasElement }
+            assertionBuilder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { list.isNotEmpty() }
         )
         .build()
 }
@@ -34,21 +30,14 @@ internal fun <E : Any> allCreatedAssertionsHold(
 
 
 internal fun <E : Any> createExplanatoryAssertionGroup(
-    assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-    list: List<E?>
-): AssertionGroup = createExplanatoryAssertionGroup(assertionCreatorOrNull) {
-    list.asSequence().filterNotNull().map { Some(it) }.firstOrNull() ?: None
-}
-
-internal inline fun <E : Any> createExplanatoryAssertionGroup(
-    noinline assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-    firstOrNull: () -> Option<E>
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): AssertionGroup {
     return assertionBuilder.explanatoryGroup
         .withDefaultType
         .let {
             if (assertionCreatorOrNull != null) {
-                it.collectAssertions(firstOrNull(), assertionCreatorOrNull)
+                // we don't use a subject, we will not show it anyway
+                it.collectAssertions(None, assertionCreatorOrNull)
             } else {
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
@@ -57,14 +46,5 @@ internal inline fun <E : Any> createExplanatoryAssertionGroup(
                 )
             }
         }
-        .build()
-}
-
-internal fun createEntryAssertion(explanatoryGroup: AssertionGroup, found: Boolean): AssertionGroup {
-    return assertionBuilder.fixedClaimGroup
-        .withListType
-        .withClaim(found)
-        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ELEMENT_WHICH)
-        .withAssertion(explanatoryGroup)
         .build()
 }

@@ -31,14 +31,24 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val subject = turnSubjectToList(container, converter).maybeSubject.getOrElse { emptyList() }
-            val assertion = assertionCollector.collect(Some(subject)) {
-                val index = createAssertionsAndReturnIndex(searchCriteria)
-                val remainingList = subject.ifWithinBound(index,
-                    { subject.subList(index, subject.size) },
+            // TODO 0.17.0 more efficient and pragmatic than turnSubjectToList, use at other places too
+            val maybeList = container.maybeSubject.map {
+                //TODO move into when with 1.0.0, update to Kotlin 1.4 respectively
+                val iterable = converter(it)
+                when (iterable) {
+                    is List -> iterable
+                    else -> iterable.toList()
+                }
+            }
+
+            val list = maybeList.getOrElse { emptyList() }
+            val assertion = assertionCollector.collect(maybeList) {
+                val index = addAssertionsAndReturnIndex(searchCriteria)
+                val remainingList = list.ifWithinBound(index,
+                    { list.subList(index, list.size) },
                     { emptyList() }
                 )
-                addAssertion(createSizeFeatureAssertionForInOrderOnly(index, subject, remainingList.iterator()))
+                addAssertion(createSizeFeatureAssertionForInOrderOnly(index, list, remainingList.iterator()))
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             assertionBuilder.summary
@@ -85,5 +95,5 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         }
     }
 
-    protected abstract fun Expect<List<E>>.createAssertionsAndReturnIndex(searchCriteria: List<SC>): Int
+    protected abstract fun Expect<List<E>>.addAssertionsAndReturnIndex(searchCriteria: List<SC>): Int
 }

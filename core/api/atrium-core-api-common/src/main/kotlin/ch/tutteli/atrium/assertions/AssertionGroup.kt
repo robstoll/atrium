@@ -142,7 +142,7 @@ interface AssertionGroup : Assertion {
             fun create(assertion: Assertion): ExplanatoryAssertionGroup = create(assertion)
 
             fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup =
-                ExplanatoryAssertionGroup(groupType, assertions)
+                ExplanatoryAssertionGroup(groupType, assertions, holds = true)
         }
 
         @Deprecated("Use AssertImpl.builder instead; will be removed with 1.0.0")

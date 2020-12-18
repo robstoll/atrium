@@ -14,6 +14,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     failingBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
+    explanatoryBulletPoint: String,
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
@@ -35,6 +36,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
+    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
     val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
@@ -56,6 +58,14 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
         )
     }
 
+    fun Expect<String>.elementNonExisting(index: Int, expected: Double): Expect<String> {
+        return this.contains.exactly(1).regex(
+            "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
+                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toBeDescr: $expected"
+        )
+    }
+
+
     nonNullableCases(
         describePrefix,
         containsInOrderOnlyValues,
@@ -72,7 +82,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        elementFailing(0, sizeExceeded, 1.0)
+                        elementNonExisting(0, 1.0)
                         containsNot(additionalElements)
                         containsSize(0, 1)
                     }
@@ -84,8 +94,8 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains("$rootBulletPoint$containsInOrderOnly:")
-                        elementFailing(0, sizeExceeded, 1.0)
-                        elementFailing(1, sizeExceeded, 4.0)
+                        elementNonExisting(0, 1.0)
+                        elementNonExisting(1, 4.0)
                         containsNot(additionalElements)
                         containsSize(0, 2)
                     }
@@ -185,7 +195,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                             elementSuccess(2, 3.0)
                             elementSuccess(3, 4.0)
                             elementSuccess(4, 4.0)
-                            elementFailing(5, sizeExceeded, 5.0)
+                            elementNonExisting(5, 5.0)
                             containsSize(5, 6)
                         }
                     }

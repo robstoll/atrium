@@ -64,6 +64,10 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
         fun elementWithIndex(index: Int) = DescriptionIterableAssertion.ELEMENT_WITH_INDEX.getDefault().format(index)
 
+        fun index(index: Int) = DescriptionIterableAssertion.INDEX.getDefault().format(index)
+        fun index(fromIndex: Int, toIndex: Int) =
+            DescriptionIterableAssertion.INDEX_FROM_TO.getDefault().format(fromIndex, toIndex)
+
         fun <F> Root.nonNullableCases(
             describePrefix: String,
             nonNullableFun: SpecPair<F>,
