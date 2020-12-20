@@ -60,11 +60,18 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val subAssertions = maybeSubAssertions.fold({
                     listOf<Assertion>()
                 }) { assertionCreator ->
-                    listOf(
-                        assertionBuilder.explanatoryGroup.withDefaultType
-                            .collectAssertions(None, assertionCreator)
-                            .build()
-                    )
+                    // TODO 0.16.0: factor out in common pattern, should not be the concern of the average expectation
+                    // function writer
+                    container.maybeSubject.fold({
+                        // already in an explanatory assertion group, no need to wrap again
+                        assertionCollector.collectForComposition(None, assertionCreator)
+                    }, {
+                        listOf(
+                            assertionBuilder.explanatoryGroup.withDefaultType
+                                .collectAssertions(None, assertionCreator)
+                                .build()
+                        )
+                    })
                 }
                 container.addAssertion(
                     assertionBuilder.fixedClaimGroup

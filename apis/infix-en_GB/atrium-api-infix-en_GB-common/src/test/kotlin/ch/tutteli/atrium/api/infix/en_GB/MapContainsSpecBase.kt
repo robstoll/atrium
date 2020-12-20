@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.entries
-import ch.tutteli.atrium.api.infix.en_GB.entriesOf
-import ch.tutteli.atrium.api.infix.en_GB.entry
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
+import ch.tutteli.atrium.api.infix.en_GB.entriesOf
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -14,7 +12,6 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSe
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
 
 abstract class MapContainsSpecBase : WithAsciiReporter() {
     private val containsProp: KFunction2<Expect<Map<*, *>>, o, *> = Expect<Map<*, *>>::contains

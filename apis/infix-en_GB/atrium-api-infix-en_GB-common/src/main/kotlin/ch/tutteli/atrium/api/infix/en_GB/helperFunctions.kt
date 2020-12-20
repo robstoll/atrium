@@ -34,16 +34,6 @@ fun <T : Any> entries(
     vararg otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
 ): Entries<T> = Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)
 
-
-/**
- * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
- * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
- */
-fun <K, V : Any> keyValues(
-    keyValue: KeyWithValueCreator<K, V>,
-    vararg otherKeyValues: KeyWithValueCreator<K, V>
-): KeyValues<K, V> = KeyValues(keyValue, otherKeyValues)
-
 /**
  * Helper function to create a [Pairs] based on the given [pair] and [otherPairs]
  * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.

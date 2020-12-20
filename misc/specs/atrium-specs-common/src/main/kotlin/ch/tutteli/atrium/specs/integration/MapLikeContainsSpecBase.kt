@@ -25,7 +25,11 @@ abstract class MapLikeContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
         val separator = lineSeperator
 
+        val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
+        val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
+        val emptyMap: Map<out String, Int> = mapOf()
+
         fun entry(key: String?) = DescriptionMapAssertion.ENTRY_WITH_KEY.getDefault().format(if(key == null) "null" else "\"$key\"")
-        fun entry(key: String, value: Any): String = entry(key) + ": " + value
+        fun entry(key: String?, value: Any): String = entry(key) + ": " + value
     }
 }

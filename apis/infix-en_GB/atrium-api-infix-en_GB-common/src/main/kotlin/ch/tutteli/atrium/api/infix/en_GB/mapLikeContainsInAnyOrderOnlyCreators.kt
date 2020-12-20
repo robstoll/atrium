@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
@@ -18,7 +17,7 @@ import ch.tutteli.atrium.logic.utils.toVarArgPairs
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain exactly one entry where key and value have to equal the given [keyValuePair].
  *
- * Delegates to [keyValue].
+ * Delegates to `the pairs(keyValuePair)`.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -50,7 +49,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehavi
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to [keyValues].
+ * Delegates to `the keyValues(keyValue)`.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

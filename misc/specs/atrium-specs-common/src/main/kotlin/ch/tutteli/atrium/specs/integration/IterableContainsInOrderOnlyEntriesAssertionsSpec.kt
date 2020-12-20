@@ -78,12 +78,8 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         )
     }
 
-    fun Expect<String>.elementNonExisting(index: Int, expected: String): Expect<String> {
-        return this.contains.exactly(1).regex(
-            "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
-        )
-    }
+    fun Expect<String>.elementNonExisting(index: Int, expected: String): Expect<String> =
+        elementFailing(index, sizeExceeded, expected, explaining = true)
 
     nonNullableCases(
         describePrefix,

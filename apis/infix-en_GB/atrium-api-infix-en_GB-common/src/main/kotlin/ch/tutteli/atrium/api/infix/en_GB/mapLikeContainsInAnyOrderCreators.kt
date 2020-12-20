@@ -87,6 +87,17 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
     keyWithValueAssertionsInAnyOrder(V::class, keyValues.toList().map { it.toPair() })
 }
 
+/**
+ * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
+ * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ */
+// TODO 1.0.0: consider to rename to entries once updated to Kotlin 1.4 maybe the type inference is better and there
+// is no longer a clash with Iterable entries
+fun <K, V : Any> keyValues(
+    keyValue: KeyWithValueCreator<K, V>,
+    vararg otherKeyValues: KeyWithValueCreator<K, V>
+): KeyValues<K, V> = KeyValues(keyValue, otherKeyValues)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])

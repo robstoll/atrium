@@ -91,14 +91,14 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                 it("${containsAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).containsAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$anElementWhichIs: 1.1") }
+                    }.toThrow<AssertionError> { messageContains("$atLeastDescr: 1", "$anElementWhichIs: 1.1") }
                 }
                 it("${containsAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).containsAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$anElementWhichIs: 2.3")
+                            contains("$atLeastDescr: 1", "$anElementWhichIs: 2.3")
                             containsNot("$anElementWhichIs: 1.0")
                         }
                     }
@@ -108,7 +108,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         expect(oneToSeven()).containsAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$anElementWhichIs: 2.3")
+                            contains("$atLeastDescr: 1", "$anElementWhichIs: 2.3")
                             containsNot("$anElementWhichIs: 1.0")
                         }
                     }
@@ -120,7 +120,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                         message {
                             contains.exactly(2).values(
                                 "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                                "$atLeastDescr: 1"
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -155,7 +155,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
+                            endsWith("$atLeastDescr: 3")
                         }
                     }
                 }
@@ -182,7 +182,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
+                            endsWith("$atLeastDescr: 3")
                             containsNot("$anElementWhichIs: 4.0")
                         }
                     }
@@ -209,8 +209,8 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
-                            containsNot(atLeast, "$anElementWhichIs: 5.0")
+                            endsWith("$atMostDescr: 2")
+                            containsNot(atLeastDescr, "$anElementWhichIs: 5.0")
                         }
                     }
                 }
@@ -235,8 +235,8 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
-                            containsNot(atMost, "$anElementWhichIs: 4.0")
+                            endsWith("$atLeastDescr: 3")
+                            containsNot(atMostDescr, "$anElementWhichIs: 4.0")
                         }
                     }
                 }

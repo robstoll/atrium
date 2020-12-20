@@ -25,9 +25,6 @@ abstract class MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
         keyValuePairsNullable.forSubjectLess(null to 1, arrayOf("a" to null))
     ) {})
 
-    val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
-
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 

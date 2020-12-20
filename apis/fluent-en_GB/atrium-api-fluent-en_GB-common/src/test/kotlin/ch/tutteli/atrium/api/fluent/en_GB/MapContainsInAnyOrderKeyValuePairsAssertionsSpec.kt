@@ -26,7 +26,7 @@ class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "${contains}.${inAnyOrder}.$keyValuePair/$keyValuePairs"
+        val containsKeyValuePair_s = "$contains.$inAnyOrder.$keyValuePair/$keyValuePairs"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

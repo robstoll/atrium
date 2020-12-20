@@ -45,8 +45,6 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
             )
         ) {})
 
-        val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-
         include(object : AssertionCreatorSpec<Map<out String, Int>>(
             describePrefix, map,
             assertionCreatorSpecTriple(keyWithValueAssertions.name, "$lessThanDescr: 2",
@@ -60,8 +58,6 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                 { keyWithValueAssertions(this, keyValue("a") { }, arrayOf(keyValue("a") { })) }
             )
         ) {})
-
-        val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
 
         include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
             "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
@@ -82,12 +78,12 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
 
 
         describeFun(keyWithValueAssertions, keyWithValueAssertions) {
-            val containsKeyWithValueAssertionFunctions =
+            val containsKeyWithValueAssertionsFunctions =
                 uncheckedToNonNullable(keyWithValueAssertions, keyWithNullableValueAssertions)
             val emptyMap: Map<out String, Int> = mapOf()
 
             context("empty map") {
-                containsKeyWithValueAssertionFunctions.forEach { (name, containsFun) ->
+                containsKeyWithValueAssertionsFunctions.forEach { (name, containsFun) ->
                     it("$name - a to { toBe(1) } throws AssertionError, reports a") {
                         expect {
                             expect(emptyMap).containsFun(keyValue("a") { toBe(1) }, arrayOf())
@@ -96,6 +92,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                                 containsInAnyOrderOnlyDescr()
                                 containsSize(0, 1)
                                 entryNonExisting("a", "$toBeDescr: 1")
+                                containsNot(additionalEntriesDescr)
                             }
                         }
                     }
@@ -115,6 +112,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                                 entryNonExisting("a", "$lessThanDescr: 1")
                                 entryNonExisting("b", "$toBeDescr: 3")
                                 entryNonExisting("c", "$lessThanDescr: 4")
+                                containsNot(additionalEntriesDescr)
                             }
                         }
                     }
@@ -122,7 +120,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
             }
 
             context("map $map") {
-                containsKeyWithValueAssertionFunctions.forEach { (name, containsFun) ->
+                containsKeyWithValueAssertionsFunctions.forEach { (name, containsFun) ->
                     listOf(
                         "a to { toBe(1) }, b to { toBe(2) }" to listOf(
                             keyValue("a") { toBe(1) },
@@ -151,6 +149,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                                 entrySuccess("a", 1, "$lessThanDescr: 2")
                                 entryNonExisting("a", "$toBeDescr: 1")
                                 additionalEntries("b" to 2)
+
                                 containsNot(sizeDescr)
                             }
                         }
@@ -172,6 +171,8 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                                 entrySuccess("a", 1, "$lessThanDescr: 3")
                                 entryFailing("b", 2, "$lessThanDescr: 1")
                                 entryNonExisting("c", "$toBeDescr: 4")
+
+                                containsNot(additionalEntriesDescr)
                             }
                         }
                     }
@@ -202,6 +203,22 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                         )
                     }
                 }
+                it("a to { toBe(1) } throws AssertionError, reports failure and missing null and b") {
+                    expect {
+                        expect(nullableMap).containsKeyWithNullableValueAssertionsFun(
+                            keyNullableValue("a") { toBe(1) },
+                            arrayOf()
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsInAnyOrderOnlyDescr()
+                            containsSize(3, 1)
+                            entryFailingExplaining("a", null, "$toBeDescr: 1")
+                            additionalEntries(null to 1, "b" to 2)
+                        }
+                    }
+                }
+
                 it("a to { toBe(1) }, c to { isLessThan(3) }, null to null, b to { isLessThan(3) } throws AssertionError, reports all but b") {
                     expect {
                         expect(nullableMap).containsKeyWithNullableValueAssertionsFun(
@@ -220,6 +237,8 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                             entryNonExisting("c", "$lessThanDescr: 3")
                             entryFailing(null, "1", "$toBeDescr: null")
                             entrySuccess("b", "2", "$lessThanDescr: 3")
+
+                            containsNot(additionalEntriesDescr)
                         }
                     }
                 }

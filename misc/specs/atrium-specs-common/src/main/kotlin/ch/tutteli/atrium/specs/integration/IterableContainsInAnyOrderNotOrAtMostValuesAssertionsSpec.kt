@@ -63,14 +63,14 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                 it("${containsNotOrAtMostPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageContains("$atMost: 1", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageContains("$atMostDescr: 1", "$anElementWhichIs: 4.0") }
                 }
                 it("${containsNotOrAtMostPair.first("1.0, 4.0", "once")} throws AssertionError mentioning only 4.0") {
                     expect {
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 1", "$anElementWhichIs: 4.0")
+                            contains("$atMostDescr: 1", "$anElementWhichIs: 4.0")
                             containsNot("$anElementWhichIs: 1.0")
                         }
                     }
@@ -85,7 +85,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 1", "$anElementWhichIs: 4.0")
+                            contains("$atMostDescr: 1", "$anElementWhichIs: 4.0")
                             containsNot("$anElementWhichIs: 1.0")
                         }
                     }
@@ -96,7 +96,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
-                                "$atMost: 1"
+                                "$atMostDescr: 1"
                             )
                             contains.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -126,7 +126,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atMost: 1")
+                            endsWith("$atMostDescr: 1")
                         }
                     }
                 }
@@ -154,7 +154,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                                 "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
+                            endsWith("$atMostDescr: 2")
                             containsNot("$anElementWhichIs: 5.0")
                         }
                     }

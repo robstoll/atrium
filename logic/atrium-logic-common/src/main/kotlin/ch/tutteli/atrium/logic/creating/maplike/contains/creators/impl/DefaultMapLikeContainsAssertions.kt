@@ -12,6 +12,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.andOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.inOrder
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsAssertions
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
@@ -23,6 +27,7 @@ import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
+import ch.tutteli.kbox.ifWithinBound
 import kotlin.reflect.KClass
 
 class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
@@ -30,29 +35,39 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
     override fun <K, V, T : MapLike> keyValuePairsInAnyOrder(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InAnyOrderSearchBehaviour>,
         keyValuePairs: List<Pair<K, V>>
-    ): Assertion = containsKeyWithValueAssertionInAnyOrder(entryPointStepLogic, keyValuePairs.map { (key, value) ->
-        key to expectLambda<V> { _logicAppend { toBe(value) } }
-    })
+    ): Assertion = containsKeyWithValueAssertionInAnyOrder(
+        entryPointStepLogic,
+        turnKeyValuePairsToKeyWithValueAssertions(keyValuePairs)
+    )
+
+    private fun <K, V> turnKeyValuePairsToKeyWithValueAssertions(keyValuePairs: List<Pair<K, V>>) =
+        keyValuePairs.map { (key, value) ->
+            key to expectLambda<V> { _logicAppend { toBe(value) } }
+        }
+
 
     override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInAnyOrder(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InAnyOrderSearchBehaviour>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ): Assertion =
-        containsKeyWithValueAssertionInAnyOrder(entryPointStepLogic, keyValues.map { (key, assertionCreatorOrNull) ->
-            key to expectLambda<V?> { _logicAppend { silentToBeNullIfNullGivenElse(assertionCreatorOrNull) } }
-        })
+    ): Assertion = containsKeyWithValueAssertionInAnyOrder(
+        entryPointStepLogic,
+        turnKeyWithNullableValueAssertionToKeyWithValueAssertion(keyValues)
+    )
 
-    //TODO shouldn't we use this implementation instead of the current for toBeNullIfNullGivenElse?  check with 0.15.0
+    private fun <K, V : Any> turnKeyWithNullableValueAssertionToKeyWithValueAssertion(keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>) =
+        keyValues.map { (key, assertionCreatorOrNull) ->
+            key to expectLambda<V?> { _logicAppend { silentToBeNullIfNullGivenElse(assertionCreatorOrNull) } }
+        }
+
+
+    //TODO 0.15.0: shouldn't we use this implementation instead of the current for toBeNullIfNullGivenElse?
     // we don't use toBeNullIfNullGivenElse because we want to avoid to show `is instance of`
     // alternatively we could also make it configurable if the check is included in reporting or not
-    private fun <T : Any> AssertionContainer<T?>.silentToBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
+    private fun <V : Any> AssertionContainer<V?>.silentToBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<V>.() -> Unit)?): Assertion =
         if (assertionCreatorOrNull == null) {
             toBeNull()
         } else {
-//            assertionCollector.collect(maybeSubject.flatMap { if (it != null) Some(it) else None }) {
-//                addAssertionsCreatedBy(assertionCreatorOrNull)
-//            }
             val assertion = assertionCollector.collect(maybeSubject.flatMap { if (it != null) Some(it) else None }) {
                 addAssertionsCreatedBy(assertionCreatorOrNull)
             }
@@ -159,9 +174,10 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
     override fun <K, V, T : MapLike> keyValuePairsInAnyOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InAnyOrderOnlySearchBehaviour>,
         keyValuePairs: List<Pair<K, V>>
-    ): Assertion = containsKeyWithValueAssertionInAnyOrderOnly(entryPointStepLogic, keyValuePairs.map { (key, value) ->
-        key to expectLambda<V> { _logicAppend { toBe(value) } }
-    })
+    ): Assertion = containsKeyWithValueAssertionInAnyOrderOnly(
+        entryPointStepLogic,
+        turnKeyValuePairsToKeyWithValueAssertions(keyValuePairs)
+    )
 
     override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInAnyOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InAnyOrderOnlySearchBehaviour>,
@@ -169,9 +185,8 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
     ): Assertion = containsKeyWithValueAssertionInAnyOrderOnly(
         entryPointStepLogic,
-        keyValues.map { (key, assertionCreatorOrNull) ->
-            key to expectLambda<V?> { _logicAppend { silentToBeNullIfNullGivenElse(assertionCreatorOrNull) } }
-        })
+        turnKeyWithNullableValueAssertionToKeyWithValueAssertion(keyValues)
+    )
 
     private fun <K, V, T : MapLike> containsKeyWithValueAssertionInAnyOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V, T, InAnyOrderOnlySearchBehaviour>,
@@ -223,20 +238,27 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
         }
     }
 
-
     override fun <K, V, T : MapLike> keyValuePairsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>,
         keyValuePairs: List<Pair<K, V>>
-    ): Assertion {
-        TODO("Not yet implemented")
-    }
-
+    ): Assertion =
+        entryPointStepLogic.container
+            .builderContainsInIterableLike { convertToMap(entryPointStepLogic).entries }
+            ._logic.inOrder._logic.andOnly._logic.entriesInOrderOnly(keyValuePairs.map { (key, value) ->
+                expectLambda<Map.Entry<K, V>> { _logicAppend { isKeyValue(key, value) } }
+            })
 
     override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
-    ): Assertion {
-        TODO("Not yet implemented")
-    }
+    ): Assertion =
+        entryPointStepLogic.container
+            .builderContainsInIterableLike { convertToMap(entryPointStepLogic).entries }
+            ._logic.inOrder._logic.andOnly._logic.entriesInOrderOnly(keyValues.map { (key, nullableAssertionCreator) ->
+                expectLambda<Map.Entry<K, V?>> {
+                    _logic.key().collectAndLogicAppend { toBe(key) }
+                    _logic.value().collectAndLogicAppend { silentToBeNullIfNullGivenElse(nullableAssertionCreator) }
+                }
+            })
 }

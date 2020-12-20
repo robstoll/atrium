@@ -2,7 +2,6 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
@@ -39,15 +38,11 @@ abstract class MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
             keyValuePairsNullable.forSubjectLess(null to 1, arrayOf("a" to null))
         ) {})
 
-        val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-        val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
-
         fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
             describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
         describeFun(keyValuePairs, keyValuePairsNullable) {
             val containsKeyValuePairsFunctions = uncheckedToNonNullable(keyValuePairs, keyValuePairsNullable)
-            val emptyMap: Map<out String, Int> = mapOf()
 
             context("empty map") {
                 containsKeyValuePairsFunctions.forEach { (name, containsFun) ->
@@ -123,7 +118,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
         }
 
         describeFun(keyValuePairsNullable) {
-            val containsKeyValuePairNullableFun = keyValuePairsNullable.lambda
+            val containsFun = keyValuePairsNullable.lambda
             context("map: $nullableMap") {
                 listOf(
                     listOf("a" to null, null to 1, "b" to 2),
@@ -132,12 +127,12 @@ abstract class MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
                     listOf(null to 1, "a" to null, "b" to 2)
                 ).forEach {
                     it("$it does not throw") {
-                        expect(nullableMap).containsKeyValuePairNullableFun(it.first(), it.drop(1).toTypedArray())
+                        expect(nullableMap).containsFun(it.first(), it.drop(1).toTypedArray())
                     }
                 }
                 it("a to 1, c to 3, null to null, b to 2 throws AssertionError, reports all but b") {
                     expect {
-                        expect(nullableMap).containsKeyValuePairNullableFun("a" to 1, arrayOf("c" to 3, null to null, "b" to 2))
+                        expect(nullableMap).containsFun("a" to 1, arrayOf("c" to 3, null to null, "b" to 2))
                     }.toThrow<AssertionError> {
                         message {
                             containsInAnyOrderOnlyDescr()

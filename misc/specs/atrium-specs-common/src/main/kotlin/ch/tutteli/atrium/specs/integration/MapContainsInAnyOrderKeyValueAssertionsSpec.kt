@@ -4,9 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.reflect.KFunction3
 
 fun keyValue(key: String, assertionCreator: Expect<Int>.() -> Unit): Pair<String, Expect<Int>.() -> Unit> =
     key to assertionCreator
@@ -38,8 +36,6 @@ abstract class MapContainsInAnyOrderKeyValueAssertionsSpec(
         )
     ) {})
 
-    val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
-
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
         assertionCreatorSpecTriple(keyWithValueAssertions.name, "$toBeDescr: 1",
@@ -47,8 +43,6 @@ abstract class MapContainsInAnyOrderKeyValueAssertionsSpec(
             { keyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
         )
     ) {})
-
-    val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
 
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
@@ -111,7 +105,7 @@ abstract class MapContainsInAnyOrderKeyValueAssertionsSpec(
     }
 
     describeFun(keyWithNullableValueAssertions) {
-        val containsKeyWithNullableValueAssertionsFun = keyWithNullableValueAssertions.lambda
+        val containsFun = keyWithNullableValueAssertions.lambda
         val nullableFluent = expect(nullableMap)
 
         context("map $nullableMap") {
@@ -141,16 +135,13 @@ abstract class MapContainsInAnyOrderKeyValueAssertionsSpec(
                     )
             ).forEach { (description, keyValues) ->
                 it("$description does not throw") {
-                    nullableFluent.containsKeyWithNullableValueAssertionsFun(
-                        keyValues.first(),
-                        keyValues.drop(1).toTypedArray()
-                    )
+                    nullableFluent.containsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
                 }
             }
 
             it("(a, null), b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
-                    nullableFluent.containsKeyWithNullableValueAssertionsFun(
+                    nullableFluent.containsFun(
                         keyNullableValue("a", null), arrayOf(
                             keyNullableValue("b") { isLessThan(2) },
                             keyNullableValue("c") { isLessThan(1) }
