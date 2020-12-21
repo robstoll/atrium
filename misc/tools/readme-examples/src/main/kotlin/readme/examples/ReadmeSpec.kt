@@ -297,6 +297,26 @@ object ReadmeSpec2 : Spek({
         )
     }
 
+    test("ex-map-only-1") {
+        expect(mapOf("a" to 1, "b" to 2)).containsOnly("b" to 2)
+    }
+    test("ex-map-only-2") {
+        expect(mapOf("a" to 1, "b" to 2)).containsOnly(
+            KeyValue("c") { toBe(2) },
+            KeyValue("a") { isLessThan(2) },
+            KeyValue("b") { isLessThan(2) }
+        )
+    }
+
+    test("ex-map-builder-1") {
+        expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries("b" to 2, "a" to 1)
+    }
+    test("ex-map-builder-2") {
+        expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries(
+            KeyValue("a") { isLessThan(2) },
+            KeyValue("b") { isLessThan(2) })
+    }
+
     //snippet-SimplePerson-start
     data class Person(val firstName: String, val lastName: String, val age: Int)
     //snippet-SimplePerson-end
