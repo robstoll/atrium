@@ -40,6 +40,9 @@ abstract class AnyAssertionsSpec(
     isNotInDataClass: Fun1<DataClass, Iterable<DataClass>>,
     isNotInNullableInt: Fun1<Int?, Iterable<Int?>>,
     isNotInNullableDataClass: Fun1<DataClass?, Iterable<DataClass?>>,
+    because: Fun2<String, String, Expect<String>.() -> Unit>,
+    becauseInt: Fun2<Int, String, Expect<Int>.() -> Unit>,
+    informationBulletPoint: String,
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
@@ -690,7 +693,6 @@ abstract class AnyAssertionsSpec(
         }
 
         context("subject is a subtype") {
-
             val isASuperTypeFunctions = unifySignatures<Any?, SuperType>(isASuperTypeFeature, isASuperType)
 
             context("it allows to perform sub assertions") {
@@ -732,7 +734,6 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-
     prefixedDescribe("property `${andPair.name}` immediate") {
         it("returns the same container") {
             val container = expect(1)
@@ -743,6 +744,43 @@ abstract class AnyAssertionsSpec(
         it("returns the same container") {
             val container = expect(1)
             expect(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
+        }
+    }
+
+    prefixedDescribe("because") {
+        val becauseFun = because.lambda
+        val becauseFunForInt = becauseInt.lambda
+
+        it("the test on the supplied subject is not throwing an assertion error") {
+            expect("filename")
+                .becauseFun("? is not allowed in file names on Windows") {
+                    containsNot("?")
+                }
+        }
+
+        it("provoke the failing of one assertion") {
+            expect {
+                expect("filename?")
+                    .becauseFun("? is not allowed in file names on Windows") {
+                        containsNot("?")
+                        startsWith("f")
+                    }
+            }.toThrow<AssertionError> {
+                messageContains("${informationBulletPoint}${String.format(BECAUSE.getDefault(), "? is not allowed in file names on Windows")}")
+            }
+        }
+
+        it("provoke the failing of two assertions") {
+            expect {
+                expect(21)
+                    .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
+                        isGreaterThanOrEqual(12)
+                        isLessThan(18)
+                        isNoneOf(21)
+                    }
+            }.toThrow<AssertionError> {
+                messageContains("${informationBulletPoint}${String.format(BECAUSE.getDefault(), "we use the definition that teens are between 12 and 18 years old")}")
+            }
         }
     }
 
