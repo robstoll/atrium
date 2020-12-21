@@ -39,8 +39,10 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     WARNING_ADDITIONAL_ELEMENTS("zusätzliche Elemente entdeckt"),
     @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))
     WARNING_ADDITIONAL_ENTRIES(WARNING_ADDITIONAL_ELEMENTS.getDefault()),
-    WARNING_MISMATCHES("folgende Einträge erfüllten keine Aussage (Diskrepanzen)"),
-    WARNING_MISMATCHES_ADDITIONAL_ENTRIES("Diskrepanzen und zusätzliche Einträge entdeckt"),
+    WARNING_MISMATCHES("folgende Elemente erfüllten keine Aussage (Diskrepanzen)"),
+    WARNING_MISMATCHES_ADDITIONAL_ELEMENTS("Diskrepanzen und zusätzliche Elemente entdeckt"),
+    @Deprecated("Use WARNING_MISMATCHES_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_MISMATCHES_ADDITIONAL_ELEMENTS"))
+    WARNING_MISMATCHES_ADDITIONAL_ENTRIES(WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()),
     NEXT_ELEMENT("ein nächstes Element"),
     NO_ELEMENTS("❗❗ kann nicht eruiert werden, leeres Iterable"),
     DUPLICATE_ELEMENTS("doppelte Elemente")

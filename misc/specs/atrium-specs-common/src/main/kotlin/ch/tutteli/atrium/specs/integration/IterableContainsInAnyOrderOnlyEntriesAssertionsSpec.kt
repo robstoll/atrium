@@ -248,7 +248,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$isGreaterThanDescr: 3.0",
                                     "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0",
-                                    "$warningBulletPoint$mismatchesAdditionalEntries:",
+                                    "$warningBulletPoint$mismatchesAdditionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
@@ -281,7 +281,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
                                 contains.exactly(2)
                                     .value("$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0")
                                 containsSize(5, 6)
-                                containsNot(additionalElements, mismatches, mismatchesAdditionalEntries)
+                                containsNot(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
                         }
                     }
