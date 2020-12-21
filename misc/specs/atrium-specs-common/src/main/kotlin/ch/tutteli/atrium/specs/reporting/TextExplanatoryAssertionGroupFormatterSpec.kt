@@ -15,4 +15,5 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
     ExplanatoryAssertionGroupType::class,
     object : ExplanatoryAssertionGroupType {},
     { assertionBuilder.explanatoryGroup.withDefaultType.withAssertions(it).build() },
-    describePrefix)
+    describePrefix
+)

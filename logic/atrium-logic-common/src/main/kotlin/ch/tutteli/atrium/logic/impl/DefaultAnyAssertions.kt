@@ -36,13 +36,13 @@ class DefaultAnyAssertions : AnyAssertions {
         reason: String,
         assertionCreator: Expect<T>.() -> Unit
     ): Assertion {
+        val assertion = assertionCollector.collect(container.maybeSubject, assertionCreator)
         return assertionBuilder.invisibleGroup.withAssertions(
-            assertionCollector.collect(container.maybeSubject, assertionCreator),
-            ExplanatoryGroup
-                .GroupTypeOption
-                .create()
+            assertion,
+            assertionBuilder.explanatoryGroup
                 .withInformationType
-                .withExplanatoryAssertion(TranslatableWithArgs(BECAUSE, reason)).build()
+                .withExplanatoryAssertion(TranslatableWithArgs(BECAUSE, reason))
+                .build()
         ).build()
     }
 

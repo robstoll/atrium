@@ -43,6 +43,7 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
 
         fun createFacade() = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
 
+        //TODO remove with 1.0.0
         fun createFacade(testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade =
             createFacade(mapOf(), testeeFactory)
 

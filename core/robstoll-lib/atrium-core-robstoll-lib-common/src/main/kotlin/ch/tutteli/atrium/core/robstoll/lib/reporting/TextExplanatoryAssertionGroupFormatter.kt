@@ -45,11 +45,15 @@ class TextExplanatoryAssertionGroupFormatter(
         assertionGroup: AssertionGroup,
         parameterObject: AssertionFormatterParameterObject
     ): AssertionFormatterParameterObject {
-        val bulletPoint = when (assertionGroup.type) {
-            WarningAssertionGroupType -> warningBulletPoint
-            InformationAssertionGroupType -> informationBulletPoint
-            else -> explanatoryBulletPoint
+        // we don't indent in case of an InformationAssertionGroupType
+        return if (assertionGroup.type == InformationAssertionGroupType) {
+            parameterObject.createForExplanatoryFilterAssertionGroup(informationBulletPoint)
+        } else {
+            val bulletPoint = when (assertionGroup.type) {
+                WarningAssertionGroupType -> warningBulletPoint
+                else -> explanatoryBulletPoint
+            }
+            parameterObject.createForExplanatoryFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
         }
-        return parameterObject.createForExplanatoryFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
     }
 }

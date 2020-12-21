@@ -15,5 +15,6 @@ abstract class TextInformationAssertionGroupFormatterSpec(
     InformationAssertionGroupType::class,
     InformationAssertionGroupType,
     { assertionBuilder.explanatoryGroup.withInformationType.withAssertions(it).build() },
-    describePrefix
+    describePrefix,
+    withIndent = false
 )

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
+import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
@@ -19,7 +20,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     assertionGroupTypeClass: KClass<T>,
     anonymousAssertionGroupType: T,
     groupFactory: (List<Assertion>) -> AssertionGroup,
-    describePrefix: String = "[Atrium] "
+    describePrefix: String = "[Atrium] ",
+    withIndent: Boolean = true
 ) : AssertionFormatterSpecBase({
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -28,21 +30,21 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     val indentBulletPoint = " +"
     val indentIndentBulletPoint = " ".repeat(indentBulletPoint.length + 1)
 
-    val facade =
-        createFacade(assertionGroupTypeClass to "$indentBulletPoint ") { bulletPoints, controller, _, _ ->
-            testeeFactory(bulletPoints, controller)
-        }
+    val facade = createFacade(assertionGroupTypeClass to "$indentBulletPoint ") { bulletPoints, controller, _, _ ->
+        testeeFactory(bulletPoints, controller)
+    }
 
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
-            val result = testee.canFormat(
-                assertionBuilder.customType(anonymousAssertionGroupType)
-                    .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-                    .withAssertions(listOf())
-                    .build()
-            )
-            expect(result).toBe(true)
+            expect(testee).feature {
+                f(
+                    it::canFormat, assertionBuilder.customType(anonymousAssertionGroupType)
+                        .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+                        .withAssertions(listOf())
+                        .build()
+                )
+            }.toBe(true)
         }
     }
 
@@ -61,7 +63,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             val indentAssertionGroup = groupFactory(assertions)
 
             context("format directly the group (no prefix given)") {
-                it("puts the assertions one under the other and indents the second one including a prefix") {
+                it("puts the assertions one under the other including a prefix") {
                     facade.format(
                         indentAssertionGroup,
                         sb,
@@ -75,8 +77,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                 }
             }
 
+
+
             context("in an ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
-                it("puts the assertions one under the other and indents the second one including a prefix") {
+                it("puts the assertions one under the other including a prefix ${if(withIndent) "and indent" else "but without indent"}") {
                     val featureAssertions = listOf(
                         indentAssertionGroup,
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
@@ -93,11 +97,14 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         sb,
                         alwaysTrueAssertionFilter
                     )
+
+                    val indent = if(withIndent) indentFeatureBulletPoint else ""
+
                     expect(sb.toString()).toBe(
                         lineSeperator
                             + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeperator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
+                            + "$indentArrow$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                            + "$indentArrow$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                             + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20"
                     )
                 }
@@ -116,7 +123,9 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     .withAssertions(listAssertions)
                     .build()
 
-                it("puts the assertions one under the other and indents the second one including a prefix") {
+                val indent = if(withIndent) indentListBulletPoint else ""
+
+                it("puts the assertions one under the other including a prefix ${if(withIndent) "and indent" else "but without indent"}") {
                     facade.format(
                         listAssertionGroup,
                         sb,
@@ -125,14 +134,14 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     expect(sb.toString()).toBe(
                         lineSeperator
                             + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeperator"
-                            + "$indentListBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
-                            + "$indentListBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
+                            + "$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                             + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20"
                     )
                 }
 
                 context("in another ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
-                    it("puts the assertions one under the other and indents as the other assertions but adds an extra indent to the second assertion including a prefix") {
+                    it("puts the assertions one under the other and indents as the other assertions but ${if(withIndent) "adds an extra indent including a prefix" else "uses a different prefix"} ") {
                         val listAssertions2 = listOf(
                             listAssertionGroup,
                             assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
@@ -153,8 +162,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                             lineSeperator
                                 + "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator"
                                 + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeperator"
-                                + "$indentListBulletPoint$indentListBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
-                                + "$indentListBulletPoint$indentListBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
+                                + "$indentListBulletPoint$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                                + "$indentListBulletPoint$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                                 + "$indentListBulletPoint$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$lineSeperator"
                                 + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 30"
                         )
@@ -178,7 +187,9 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     .withAssertions(indentAssertions)
                     .build()
 
-                it("puts the assertions one under the other and adds an extra indent to the second one") {
+                val indent = if(withIndent) indentIndentBulletPoint else ""
+
+                it("puts the assertions one under the other ${if(withIndent) "but adds an extra indent including" else ""}") {
                     facade.format(
                         indentAssertionGroup2,
                         sb,
@@ -187,8 +198,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     expect(sb.toString()).toBe(
                         lineSeperator
                             + "$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 21$lineSeperator"
-                            + "$indentIndentBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
-                            + "$indentIndentBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
+                            + "$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeperator"
+                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator"
                             + "$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20"
                     )
                 }
