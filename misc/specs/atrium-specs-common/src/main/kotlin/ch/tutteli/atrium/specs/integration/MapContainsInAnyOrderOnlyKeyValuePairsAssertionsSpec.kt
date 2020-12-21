@@ -85,6 +85,19 @@ abstract class MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
                         }
                     }
 
+                    it("$name - a to 1 throws AssertionError, reports second a and missing b") {
+                        expect {
+                            expect(map).containsFun("a" to 1, arrayOf())
+                        }.toThrow<AssertionError> {
+                            message {
+                                containsSize(2, 1)
+                                containsInAnyOrderOnlyDescr()
+                                entrySuccess("a", 1, "$toBeDescr: 1")
+                                additionalEntries("b" to 2)
+                            }
+                        }
+                    }
+
                     it("$name - a to 1, a to 1 throws AssertionError, reports second a and missing b") {
                         expect {
                             expect(map).containsFun("a" to 1, arrayOf("a" to 1))
