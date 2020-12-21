@@ -84,5 +84,4 @@ class DefaultAnyAssertions : AnyAssertions {
             .withAssertions(assertions)
             .build()
     }
-
 }
