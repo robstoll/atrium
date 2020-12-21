@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
+import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.kbox.identity
 
 /**
@@ -36,6 +37,21 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
 ): Expect<T> = contains.inAnyOrder.entries(keyValuePair, *otherPairs)
 
 /**
+ * Expects that the subject of the assertion (a [Map]) contains only (in any order) a key as defined by
+ * [keyValuePair]'s [Pair.first] with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally
+ * the same assertions are created for the [otherPairs].
+ *
+ * Delegates to `contains.inAnyOrder.only.entries(keyValuePair, *otherPairs)`
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
+    keyValuePair: Pair<K, V>,
+    vararg otherPairs: Pair<K, V>
+): Expect<T> = contains.inAnyOrder.only.entries(keyValuePair, *otherPairs)
+
+/**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
@@ -55,6 +71,48 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
 ): Expect<T> = contains.inAnyOrder.entries(keyValue, *otherKeyValues)
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains only (in any order) a key as defined by
+ * [keyValue]'s [KeyValue.key] with a corresponding value which either holds all assertions [keyValue]'s
+ * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
+ * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`
+ * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Delegates to `contains.inAnyOrder.only.entries(keyValue, *otherKeyValues)`
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
+    keyValue: KeyValue<K, V>,
+    vararg otherKeyValues: KeyValue<K, V>
+): Expect<T> = contains.inAnyOrder.only.entries(keyValue, *otherKeyValues)
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains the key-value pairs of the given [mapLike].
+ *
+ * Delegates to ` contains.inAnyOrder.entriesOf`
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
+    mapLike: MapLike
+): Expect<T> = contains.inAnyOrder.entriesOf(mapLike)
+
+/**
+ * Expects that the subject of the assertion (a [Map]) contains only (in any order) the key-value pairs of
+ * the given [mapLike].
+ *
+ * Delegates to `contains.inAnyOrder.only.entriesOf`
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
+    mapLike: MapLike
+): Expect<T> = contains.inAnyOrder.only.entriesOf(mapLike)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key].

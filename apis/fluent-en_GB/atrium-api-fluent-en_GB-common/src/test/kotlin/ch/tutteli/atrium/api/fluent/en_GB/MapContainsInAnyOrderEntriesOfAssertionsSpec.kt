@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.specs.integration.mfun2
+import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
@@ -36,11 +37,9 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            //TODO 0.15.0 change to shortcut
-            "$contains.$inAnyOrder.$only.$entriesOf",
+            "$containsEntriesOf",
             mapOf("a" to 1),
-            //TODO 0.15.0 change to shortcut
-            { input -> contains.inAnyOrder.entriesOf(input)  }
+            { input -> containsEntriesOf(input)  }
         )
 
     companion object : MapContainsSpecBase() {
@@ -71,8 +70,7 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            //TODO 0.15.0 change to shortcut
-            expect.contains.inAnyOrder.entriesOf(sequenceOf(a, *aX))
+            expect.containsEntriesOf(sequenceOf(a, *aX))
 
         @JvmName("containsNullable")
         private fun containsEntriesOf(
@@ -80,7 +78,34 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            //TODO 0.15.0 change to shortcut
-            expect.contains.inAnyOrder.entriesOf(arrayOf(a, *aX))
+            expect.containsEntriesOf(arrayOf(a, *aX))
+    }
+
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var map: Expect<Map<Number, CharSequence>> = notImplemented()
+        var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
+        var nKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
+        var nValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
+        var nKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
+        var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
+        var starMap: Expect<Map<*, *>> = notImplemented()
+
+        map = map.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        subMap = subMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        starMap = starMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+
+        map = map.containsEntriesOf(listOf(1 to "a"))
+        subMap = subMap.containsEntriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.containsEntriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.containsEntriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.containsEntriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.containsEntriesOf(listOf(1 to "a"))
+        starMap = starMap.containsEntriesOf(listOf(1 to "a"))
     }
 }

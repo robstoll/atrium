@@ -102,8 +102,8 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  *
  * @since 0.15.0
  */
-inline infix fun <reified K, reified V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
+infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
-): Expect<T> =_logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) ->
+): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) ->
     this the pairs(first, *rest)
 }
