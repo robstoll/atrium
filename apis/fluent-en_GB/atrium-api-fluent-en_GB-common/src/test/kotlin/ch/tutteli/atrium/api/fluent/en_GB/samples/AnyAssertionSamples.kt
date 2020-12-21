@@ -22,7 +22,6 @@ class AnyAssertionSamples {
         }
     }
 
-
     @Test
     fun notToBe() {
         expect(2).notToBe(3)

@@ -42,16 +42,17 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
+//TODO 0.15.0 or 0.16.0 adopt KDoc to new wording
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
- * @param keyWithCreator Combines the two parameters which are needed for [ch.tutteli.atrium.logic.because]
+ *
+ * @param keyWithCreator Combines the reason with the assertionCreator-lambda. Use the function
+ *   `of(reason) { ... }` to create a [KeyWithCreator].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
- * @since 0.14.0
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.because
+ * @since 0.15.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyAssertionSamples.because
  */
 infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
     _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
