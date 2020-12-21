@@ -39,11 +39,9 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            //TODO 0.15.0 change to shortcut
-            "$contains.$inAnyOrder.$only.$entriesOf",
+            "$containsOnlyEntriesOf",
             mapOf("a" to 1),
-            //TODO 0.15.0 change to shortcut
-            { input -> contains.inAnyOrder.only.entriesOf(input) }
+            { input -> containsOnlyEntriesOf(input) }
         )
 
     companion object : MapContainsSpecBase() {
@@ -75,8 +73,7 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            //TODO 0.15.0: change to shortcut
-            expect.contains.inAnyOrder.only.entriesOf(listOf(a, *aX))
+            expect.containsOnlyEntriesOf(sequenceOf(a, *aX))
 
         @JvmName("containsInAnyOrderOnlyEntriesOfNullable")
         private fun containsInAnyOrderOnlyEntriesOf(
@@ -84,7 +81,35 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            //TODO 0.15.0: change to shortcut
-            expect.contains.inAnyOrder.only.entriesOf(listOf(a, *aX))
+            expect.containsOnlyEntriesOf(arrayOf(a, *aX))
+    }
+
+
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var map: Expect<Map<Number, CharSequence>> = notImplemented()
+        var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
+        var nKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
+        var nValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
+        var nKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
+        var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
+        var starMap: Expect<Map<*, *>> = notImplemented()
+
+        map = map.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        subMap = subMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+        starMap = starMap.contains.inAnyOrder.only.entriesOf(listOf(1 to "a"))
+
+        map = map.containsOnlyEntriesOf(listOf(1 to "a"))
+        subMap = subMap.containsOnlyEntriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.containsOnlyEntriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.containsOnlyEntriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.containsOnlyEntriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.containsOnlyEntriesOf(listOf(1 to "a"))
+        starMap = starMap.containsOnlyEntriesOf(listOf(1 to "a"))
     }
 }

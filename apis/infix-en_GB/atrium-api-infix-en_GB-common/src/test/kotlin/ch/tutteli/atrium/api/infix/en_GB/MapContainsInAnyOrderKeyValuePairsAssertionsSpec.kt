@@ -59,4 +59,111 @@ class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
             if (aX.isEmpty()) expect contains (a.first to a.second)
             else expect contains pairs(a, *aX)
     }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var map: Expect<Map<Number, CharSequence>> = notImplemented()
+        var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
+        var nKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
+        var nValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
+        var nKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
+        var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
+        var starMap: Expect<Map<*, *>> = notImplemented()
+
+        map = map contains o inAny order entry (1 to "a")
+        subMap = subMap contains o inAny order entry (1 to "a")
+        nKeyMap = nKeyMap contains o inAny order entry (1 to "a")
+        nValueMap = nValueMap contains o inAny order entry (1 to "a")
+        nKeyValueMap = nKeyValueMap contains o inAny order entry (1 to "a")
+        ronKeyValueMap = ronKeyValueMap contains o inAny order entry (1 to "a")
+        starMap = starMap contains o inAny order entry (1 to "a")
+
+        map = map contains o inAny order the pairs(1 to "a")
+        subMap = subMap contains o inAny order the pairs(1 to "a")
+        nKeyMap = nKeyMap contains o inAny order the pairs(1 to "a")
+        nValueMap = nValueMap contains o inAny order the pairs(1 to "a")
+        nKeyValueMap = nKeyValueMap contains o inAny order the pairs(1 to "a")
+        ronKeyValueMap = ronKeyValueMap contains o inAny order the pairs(1 to "a")
+        starMap = starMap contains o inAny order the pairs(1 to "a")
+
+        map = map contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        subMap = subMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        nKeyMap = nKeyMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        nValueMap = nValueMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        nKeyValueMap = nKeyValueMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        ronKeyValueMap = ronKeyValueMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+        starMap = starMap contains o inAny order the pairs(
+            1 as Number to "a",
+            1.2 to "b"
+        )
+
+        nKeyMap = nKeyMap contains o inAny order entry (null to "a")
+        nValueMap = nValueMap contains o inAny order entry (1.2 to null)
+        nKeyValueMap = nKeyValueMap contains o inAny order entry (null to null)
+        ronKeyValueMap = ronKeyValueMap contains o inAny order entry (null to null)
+        starMap = starMap contains o inAny order entry (null to null)
+
+        nKeyMap = nKeyMap contains o inAny order the pairs(null to "a", 1 to "b")
+        nValueMap = nValueMap contains o inAny order the pairs(1 to null)
+        nKeyValueMap = nKeyValueMap contains o inAny order the pairs((null to "a"), null to null, 1 to null)
+        ronKeyValueMap = ronKeyValueMap contains o inAny order the pairs((null to "a"), null to null, 1 to null)
+        starMap = starMap contains o inAny order the pairs((null to "a"), null to null, 1 to null)
+
+
+        /// ------------- shortcuts -----------------------------------------------------------------
+
+        map = map contains (1 to "a")
+        subMap = subMap contains (1 to "a")
+        nKeyMap = nKeyMap contains (1 to "a")
+        nValueMap = nValueMap contains (1 to "a")
+        nKeyValueMap = nKeyValueMap contains (1 to "a")
+        ronKeyValueMap = ronKeyValueMap contains (1 to "a")
+        starMap = starMap contains (1 to "a")
+
+        map = map contains (1 to "a")
+        subMap = subMap contains (1 to "a")
+        nKeyMap = nKeyMap contains (1 to "a")
+        nValueMap = nValueMap contains (1 to "a")
+        nKeyValueMap = nKeyValueMap contains (1 to "a")
+        ronKeyValueMap = ronKeyValueMap contains (1 to "a")
+        starMap = starMap contains (1 to "a")
+
+        map = map contains pairs(1 as Number to "a", 1.2 to "b")
+        subMap = subMap contains pairs(1 as Number to "a", 1.2 to "b")
+        nKeyMap = nKeyMap contains pairs(1 as Number to "a", 1.2 to "b")
+        nValueMap = nValueMap contains pairs(1 as Number to "a", 1.2 to "b")
+        nKeyValueMap = nKeyValueMap contains pairs(1 as Number to "a", 1.2 to "b")
+        ronKeyValueMap = ronKeyValueMap contains pairs(1 as Number to "a", 1.2 to "b")
+        starMap = starMap contains pairs(1 as Number to "a", 1.2 to "b")
+
+        nKeyMap = nKeyMap contains (null to "a")
+        nValueMap = nValueMap contains (1.2 to null)
+        nKeyValueMap = nKeyValueMap contains (null to null)
+        ronKeyValueMap = ronKeyValueMap contains (null to "a")
+        starMap = starMap contains (null to "a")
+
+        nKeyMap = nKeyMap contains pairs(null to "a")
+        nValueMap = nValueMap contains pairs(1.2 to null, 1 to null)
+        nKeyValueMap = nKeyValueMap contains pairs(null to "a", null to null, 1 to null)
+        ronKeyValueMap = ronKeyValueMap contains pairs(null to "a", null to null, 1 to null)
+        starMap = starMap contains pairs(null to "a", null to null, 1 to null)
+    }
 }
