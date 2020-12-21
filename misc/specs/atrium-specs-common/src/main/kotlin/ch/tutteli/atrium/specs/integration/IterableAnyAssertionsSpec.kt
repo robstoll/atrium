@@ -52,7 +52,7 @@ abstract class IterableAnyAssertionsSpec(
                         "$anElementWhich: $separator",
                         "$isLessThanDescr: 1.0",
                         "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
+                        "$atLeastDescr: 1"
                     )
 
                 }
@@ -83,7 +83,7 @@ abstract class IterableAnyAssertionsSpec(
                             "$isGreaterThanDescr: 1.0",
                             "$isLessThanDescr: 2.0",
                             "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            "$atLeastDescr: 1"
                         )
                     }
                 }
@@ -123,7 +123,7 @@ abstract class IterableAnyAssertionsSpec(
                                     "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
                                     "$numberOfOccurrences: 0",
-                                    "$atLeast: 1"
+                                    "$atLeastDescr: 1"
                                 )
                             }
                         }
@@ -142,7 +142,7 @@ abstract class IterableAnyAssertionsSpec(
                                 "$anElementWhich: $separator",
                                 "$isDescr: null",
                                 "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                                "$atLeastDescr: 1"
                             )
                         }
                     }

@@ -6,22 +6,36 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
+import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.kbox.identity
+
+/**
+ * Starts a sophisticated `contains` assertion building process based on this [Expect].
+ *
+ * @return The newly created builder.
+ */
+infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(
+    @Suppress("UNUSED_PARAMETER") o: o
+): MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour> = _logic.builderContainsInMapLike(::identity)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second]
  *
- * Delegates to 'contains Pairs(keyValuePair)'.
+ * Delegates to 'it contains o inAny order keyValuePair keyValuePair'.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>): Expect<T> =
-    it contains pairs(keyValuePair)
+    it contains o inAny order entry keyValuePair
 
 /**
  * Expects the subject of the assertion (a [Map]) contains for each entry in [keyValuePairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
+ *
+ * Delegates to `it contains o inAny order keyValuePairs keyValuePairs`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the [Pair]
  * in [keyValuePairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
@@ -34,13 +48,15 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V>): Expect<T> =
-    _logicAppend { contains(keyValuePairs.toList()) }
+    it contains o inAny order the keyValuePairs
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
+ *
+ * Delegates to `it contains o inAny order keyValue keyValue`
  *
  * @param keyValue The [KeyWithValueCreator] whose key is expected to be contained within this [Map] and
  *   where the corresponding value holds all assertions the  [KeyWithValueCreator.valueAssertionCreatorOrNull] creates
@@ -51,7 +67,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
-    it contains all(keyValue)
+    it contains o inAny order entry keyValue
 
 /**
  * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
@@ -61,23 +77,23 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
     KeyWithValueCreator(key, valueAssertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains for each [KeyWithValueCreator] in [keyValues],
+ * Expects that the subject of the assertion (a [Map]) contains for each [KeyWithValueCreator] in [allKeyValues],
  * a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
  * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *
+ * Delegates to `it contains o inAny order keyValues keyValues`
+ *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one [KeyWithValueCreator] in
- * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
+ * [allKeyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
  * , then both match, even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
-    keyValues: All<KeyWithValueCreator<K, V>>
-): Expect<T> = _logicAppend {
-    containsKeyWithValueAssertions(V::class, keyValues.toList().map { it.toPair() })
-}
+    allKeyValues: All<KeyWithValueCreator<K, V>>
+): Expect<T> = it contains o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key].

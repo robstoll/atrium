@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.*
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
+import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 
@@ -31,7 +33,6 @@ fun <T : Any> entries(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
 ): Entries<T> = Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)
-
 
 /**
  * Helper function to create a [Pairs] based on the given [pair] and [otherPairs]

@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionMapAssertion(override val value: String) : StringBasedTranslatable {
     @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_KEY_DOES_NOT_EXIST("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- given key does not exist.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    //TODO move to DescriptionMapLikeAssertion with 0.15.0
     CONTAINS_IN_ANY_ORDER("contains, in any order"),
     CONTAINS_KEY("contains key"),
     CONTAINS_NOT_KEY("does not contain key"),

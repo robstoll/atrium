@@ -708,9 +708,9 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
       » ▶ CANNOT show description as it is based on subject which is not defined: 
-            » equals: 1        (kotlin.Int <1234789>)
+          ◾ equals: 1        (kotlin.Int <1234789>)
       » ▶ first: 
-            » equals: 1        (kotlin.Int <1234789>)
+          ◾ equals: 1        (kotlin.Int <1234789>)
 ```
 </ex-within-assertion-functions>
 
@@ -1225,7 +1225,6 @@ expect(mapOf("a" to 1, "b" to 2)).contains(
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » is instance of type: Int (kotlin.Int) -- Class: java.lang.Integer
         » equals: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)
@@ -1645,11 +1644,11 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
-            » is instance of type: String (kotlin.String) -- Class: java.lang.String
-            » contains: 
-              ⚬ value: "no no no"        <1234789>
-                ⚬ ▶ number of matches: 
-                    ◾ is at least: 1
+          ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
+          ◾ contains: 
+            ⚬ value: "no no no"        <1234789>
+              ⚬ ▶ number of matches: 
+                  ◾ is at least: 1
       » Properties of the unexpected IllegalArgumentException
         » message: "no no no..."        <1234789>
         » stacktrace: 

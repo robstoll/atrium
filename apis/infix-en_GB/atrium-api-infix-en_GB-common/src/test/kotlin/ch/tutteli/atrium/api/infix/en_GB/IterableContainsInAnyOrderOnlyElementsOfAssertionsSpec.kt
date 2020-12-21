@@ -5,7 +5,7 @@ import org.spekframework.spek2.Spek
 
 class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
     include(BuilderSpec)
-    include(BuilderIterableLikeSpec)
+    include(BuilderIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         getContainsPair(),
@@ -13,7 +13,7 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» "
     )
 
-    object BuilderIterableLikeSpec : ch.tutteli.atrium.specs.integration.IterableLikeSpec<List<Int>>(
+    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         "contains o inAny order but only elementsOf",
         listOf(1, 2),
         { input -> it contains o inAny order but only elementsOf input }
@@ -36,6 +36,6 @@ class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect contains o inAny order but only elementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double?>> = expect contains o inAny order but only elementsOf sequenceOf(a, *aX)
     }
 }

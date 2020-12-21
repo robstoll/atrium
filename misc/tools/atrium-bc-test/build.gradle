@@ -430,7 +430,8 @@ createBcAndBbcTasksForApis('0.12.0',
 
 createBcAndBbcTasksForApis('0.14.0',
     'forgive=(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(' +
-        '(IterableContainsInOrderOnly.*Spec)' +
+        '(IterableContainsInOrderOnly.*Spec)|' +
+        '(MapAssertionsSpec.*)' +
     ').*)',
     'fluent-en_GB', 'infix-en_GB'
 )

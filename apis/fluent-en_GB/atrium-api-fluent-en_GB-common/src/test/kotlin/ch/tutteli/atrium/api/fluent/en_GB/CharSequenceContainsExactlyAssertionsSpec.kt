@@ -14,14 +14,14 @@ class CharSequenceContainsExactlyAssertionsSpec :
 
         private fun getExactlyTriple() =
             { what: String, times: String -> "$contains $what $exactly $times" } to
-                ("$contains.$exactly" to Companion::containsExactly)
+                ("$contains.$exactly.$value/$values" to Companion::containsExactly)
 
         private fun containsExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
             expect.contains.exactly(exactly).values(a, *aX)
 
         private fun getExactlyIgnoringCaseTriple() =
             { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" } to
-                ("$contains.$ignoringCase.$exactly" to Companion::containsExactlyIgnoringCase)
+                ("$contains.$ignoringCase.$exactly.$value/$values" to Companion::containsExactlyIgnoringCase)
 
 
         private fun containsExactlyIgnoringCase(

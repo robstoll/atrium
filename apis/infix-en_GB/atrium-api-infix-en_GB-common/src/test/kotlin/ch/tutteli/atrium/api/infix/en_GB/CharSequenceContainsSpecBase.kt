@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.elementsOf
+import ch.tutteli.atrium.api.infix.en_GB.value
+import ch.tutteli.atrium.api.infix.en_GB.the
 import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.impl.StaticName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
@@ -36,6 +40,9 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
     protected val regex = regexKFun.name
     protected val ignoringCase =
         "${CharSequenceContains.EntryPointStep<*, NoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
+    protected val value = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::value.name
+    protected val values = "the values"
+    protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
