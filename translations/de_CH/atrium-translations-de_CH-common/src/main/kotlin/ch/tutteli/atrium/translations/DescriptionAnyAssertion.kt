@@ -13,5 +13,5 @@ enum class DescriptionAnyAssertion(override val value: String) : StringBasedTran
     IS_SAME("ist dieselbe Instanz wie"),
     IS_NOT_SAME("ist nicht dieselbe Instanz wie"),
     IS_NONE_OF("ist nicht"),
-    BECAUSE("weil %s")
+    BECAUSE("weil")
 }

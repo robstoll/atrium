@@ -1,17 +1,15 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.ExplanatoryGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import kotlin.reflect.KClass
 
@@ -41,7 +39,7 @@ class DefaultAnyAssertions : AnyAssertions {
             assertion,
             assertionBuilder.explanatoryGroup
                 .withInformationType
-                .withExplanatoryAssertion(TranslatableWithArgs(BECAUSE, reason))
+                .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
                 .build()
         ).build()
     }

@@ -349,7 +349,7 @@ object ReadmeSpec2 : Spek({
         )
     }
 
-    test("ex-path-exsits") {
+    test("ex-path-exists") {
         expect(Paths.get("/usr/bin/noprogram")).exists()
     }
 
@@ -366,6 +366,43 @@ object ReadmeSpec2 : Spek({
         expect(filePointer.resolve("subfolder/file")).isRegularFile()
     }
     toDelete.add(tmpdir.resolve("atrium-path"))
+
+    test("ex-because-1") {
+        expect("filename?")
+            .because("? is not allowed in file names on Windows") {
+                containsNot("?")
+            }
+    }
+
+    test("ex-because-2") {
+        expect(listOf(1, 2).isEmpty()).because("list should not be empty") {
+            toBe(true)
+        }
+    }
+    test("ex-because-3") {
+        expect(listOf(1, 2)).isEmpty()
+    }
+
+    test("ex-because-4") {
+        expect(mapOf("a" to 1)["a"]).because("key a should not be in the map") {
+            toBe(null)
+        }
+    }
+    test("ex-because-5") {
+        expect(mapOf("a" to 1)).containsNotKey("a")
+    }
+
+    test("ex-because-6") {
+        expect(IllegalArgumentException("no no").message)
+            .because("it should result in an exception without message") {
+                toBe(null)
+            }
+    }
+
+    test("ex-because-7") {
+        expect(IllegalArgumentException("no no")).feature { f(it::message) }.toBe(null)
+    }
+
 
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()
