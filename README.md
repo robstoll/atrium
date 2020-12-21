@@ -932,7 +932,7 @@ Atrium provides assertion builders which allow to make sophisticated `contains` 
 Such a building process allows you to define very specific assertions, where the process is guided by a fluent builder pattern.
 You can either use such an 
 [Assertion Builder](#sophisticated-assertion-builders)
-to create a specific assertion or one of the 
+to create a specific assertion or use one of the 
 [Shortcut Functions](#shortcut-functions) in case you have kind of a common case.
 The following sub sections show both use cases by examples.
 
@@ -971,9 +971,9 @@ Back to the shortcut functions.
 </details>
  
 Next to expecting that certain values are contained in or rather returned by an `Iterable`, 
-Atrium allows us to use an `assertionCreator`-lambda to identify an entry
+Atrium allows us to use an `assertionCreator`-lambda to identify an element
 (an `assertionCreator`-lambda can also be thought of as matcher / predicate in this context).
-An entry is considered as identified, if it holds all specified assertions.
+An element is considered as identified, if it holds all specified assertions.
 Following an example:
 
 <ex-collection-short-2>
@@ -1001,7 +1001,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
 ```
 </ex-collection-short-2>
 
-In the above example, neither of the two lambdas matched any entries and thus both are reported as failing (sub) assertions.
+In the above example, neither of the two lambdas matched any elements and thus both are reported as failing (sub) assertions.
 
 Another `contains` shortcut function which Atrium provides for `Iterable<T>` is kind of 
 the opposite of `inAnyOrder.atLeast(1)` and is named `containsExactly`.
@@ -1009,10 +1009,10 @@ Again, Atrium provides two overloads for it, one for values,
 e.g. `containsExactly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` 
 and a second one which expects one or more `assertionCreator`-lambda, 
 e.g. `containsExactly({ isLessThan(0) }, { isGreaterThan(5) })` 
-which calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
+which calls `contains.inOrder.only.elements({ isLessThan(2) }, { isGreaterThan(5) })`.
 We will spare the examples here and show them in the following sections.
 Notice that you can pass `null` to `containsExactly` instead of an `assertionCreator`-lambda to match `null`.
-This makes of course only sense if your `Iterable` contains nullable entries.
+This makes of course only sense if your `Iterable` contains nullable elements.
 
 Atrium provides also a `containsNot` shortcut function. 
 Furthermore, it provides aliases for `contains` and `containsNot` named `any` and `none`,  which might be a better 
@@ -1066,7 +1066,7 @@ expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
 expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ all entries: 
     » is greater than: 2        (kotlin.Int <1234789>)
-    ❗❗ following entries were mismatched: 
+    ❗❗ following elements were mismatched: 
        ⚬ index 0: 1        (kotlin.Int <1234789>)
        ⚬ index 1: 2        (kotlin.Int <1234789>)
 ```
@@ -1081,7 +1081,7 @@ To use the assertion builder for sophisticated `Iterable<T>`-contains-assertions
 but type `.` as next step (so that you are using the property `contains` instead of one of the shortcut functions). 
 Currently, the builder provides two options, either `inAnyOrder` or `inOrder`. 
 In case you are using an IDE, you do not really have to think too much -- use code completion; 
-the fluent builders will guide you through your decision making 😊
+the fluent builders will guide you through your decision-making 😊
 
 Following on the last section we will start with an `inOrder` example:
 
@@ -1109,9 +1109,9 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
 
 Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
 - Whether a specified `assertionCreator`-lambda matched (signified by `✔` or `✘`) 
-  the corresponding entry or not (e.g. `✘ ▶ entry 1:` was `2` and we expected, it `is less than 2`)
+  the corresponding element or not (e.g. `✘ ▶ entry 1:` was `2` and we expected, it `is less than 2`)
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
-- and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
+- and last but not least, mismatches or additional elements as further clue (`❗❗ additional elements detected`).
 
 😍 We are pretty sure you are going to love this feature as well. 
 Please star Atrium if you like using it.
@@ -1120,10 +1120,9 @@ Please star Atrium if you like using it.
 <summary>💬 too verbose?</summary>
 
 As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
-then let use know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
-So far the verbose output was always handy for us but you might have other test cases than we have.
-Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
-If you have to, then please open a feature request as well. In the meantime, you can of course `take(100)` or the like.
+then let use know by up-voting https://github.com/robstoll/atrium/issues/292 
+So far the verbose output was always handy for us, but you might have other test cases than we have.
+Also notice, that Atrium will not deal with infinite `Iterable`s, i.e. you need to use `take(100)` or the like first.
 <hr/>
 </details>
 
@@ -1192,7 +1191,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ✔ ▶ size: 4
       ◾ equals: 4
-  ❗❗ following entries were mismatched: 
+  ❗❗ following elements were mismatched: 
      ⚬ 2        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-4>
@@ -1426,7 +1425,7 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
     ◾ all entries: 
         » starts with: "a"        <1234789>
-        ❗❗ following entries were mismatched: 
+        ❗❗ following elements were mismatched: 
            ⚬ index 1: "b"        <1234789>
 ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
     ◾ does not contain: 

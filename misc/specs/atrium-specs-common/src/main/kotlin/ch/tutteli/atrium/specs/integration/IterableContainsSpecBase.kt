@@ -40,8 +40,7 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES.getDefault()
         val additionalElements = DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS.getDefault()
         val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()
-        val mismatchesAdditionalEntries =
-            DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ENTRIES.getDefault()
+        val mismatchesAdditionalElements = DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
         val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
         val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
 

@@ -69,7 +69,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
-                    else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
+                    else -> WARNING_MISMATCHES_ADDITIONAL_ELEMENTS
                 }
                 assertionBuilder.invisibleGroup
                     .withAssertions(
