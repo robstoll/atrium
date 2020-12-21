@@ -140,6 +140,19 @@ abstract class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
                         }
                     }
 
+                    it("$name - a to { isLessThan(2) } throws AssertionError, reports second a and missing b") {
+                        expect {
+                            expect(map).containsFun(keyValue("a") { isLessThan(2) },arrayOf())
+                        }.toThrow<AssertionError> {
+                            message {
+                                containsInAnyOrderOnlyDescr()
+                                containsSize(2, 1)
+                                entrySuccess("a", 1, "$lessThanDescr: 2")
+                                additionalEntries("b" to 2)
+                            }
+                        }
+                    }
+
                     it("$name - a to { isLessThan(2) }, a to { toBe(1) } throws AssertionError, reports second a and missing b") {
                         expect {
                             expect(map).containsFun(keyValue("a") { isLessThan(2) }, arrayOf(keyValue("a") { toBe(1) }))
