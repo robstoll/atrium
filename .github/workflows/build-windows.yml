@@ -10,7 +10,7 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                java_version: [9, 10, 11, 12, 13, 14]
+                java_version: [9, 11, 14]
 
         steps:
             -   uses: actions/checkout@v2
@@ -19,8 +19,8 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
-            -   name: buildNonDeprecatedJvm
-                run: ./gradlew buildNonDeprecatedJvm
+            -   name: build
+                run: ./gradlew build
 
             -   name: Cache android jar
                 id: android-cache

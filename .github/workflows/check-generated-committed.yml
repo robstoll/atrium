@@ -14,7 +14,7 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                java_version: [9, 10, 11, 12, 13, 14]
+                java_version: [11]
         steps:
             -   uses: actions/checkout@v2
             -   name: "Set up JDK ${{ matrix.java_version }}"
