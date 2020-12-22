@@ -2,19 +2,20 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 
 class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
-        getContainsPair(),
+        functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderValues,
         Companion::groupFactory,
-        getContainsNullablePair(),
+        (functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues).withNullableSuffix(),
         Companion::nullableGroupFactory,
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderValues
+        val functionDescription =  "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
 
         private fun containsInOrderOnlyGroupedInAnyOrderValues(
             expect: Expect<Iterable<Double>>,
@@ -32,10 +33,6 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
             }
 
-
-        fun getContainsNullablePair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
-
         private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
             expect: Expect<Iterable<Double?>>,
             a1: Group<Double?>,
@@ -51,5 +48,21 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
                 1 -> Value(groups[0])
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
             }
+    }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        subList = subList.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        star = star.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+
+        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null))
+        star = star.contains.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2))
     }
 }

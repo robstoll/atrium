@@ -1,8 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInOrderOnlyValuesAssertionsSpec.Companion as C
 
 class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
@@ -11,21 +14,21 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
-        getContainsPair(),
-        getContainsNullablePair(),
+        functionDescription to C::containsInOrderOnlyValues,
+        (functionDescription to C::containsInOrderOnlyNullableValues).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
-        getContainsShortcutPair(),
-        getContainsNullableShortcutPair(),
+        fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::containsExactly),
+        fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::containsExactly).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() = "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnlyValues
+        val functionDescription = "$contains.$inOrder.$only.$value/$values"
 
         private fun containsInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
@@ -35,9 +38,6 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             if (aX.isEmpty()) expect.contains.inOrder.only.value(a)
             else expect.contains.inOrder.only.values(a, *aX)
 
-        fun getContainsNullablePair() =
-            "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnlyNullableValues
-
         private fun containsInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
@@ -45,33 +45,37 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect.contains.inOrder.only.value(a)
             else expect.contains.inOrder.only.values(a, *aX)
+    }
 
-        private val containsShortcutFun: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
-            Expect<Iterable<Double>>::containsExactly
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
-        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
-        private fun containsInOrderOnlyValuesShortcut(
-            expect: Expect<Iterable<Double>>,
-            a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.containsExactly(a)
-            else expect.containsExactly(a, *aX)
+        list = list.contains.inOrder.only.value(1)
+        nList = nList.contains.inOrder.only.value(1)
+        subList = subList.contains.inOrder.only.value(1)
+        star = star.contains.inOrder.only.value(1)
 
-        private val containsNullableShortcutFun: KFunction3<Expect<Iterable<Double?>>, Double?, Array<out Double?>, Expect<Iterable<Double?>>> =
-            Expect<Iterable<Double?>>::containsExactly
+        list = list.contains.inOrder.only.values(1, 1.2)
+        nList = nList.contains.inOrder.only.values(1, 1.2)
+        subList = subList.contains.inOrder.only.values(1, 2.2)
+        star = star.contains.inOrder.only.values(1, 1.2, "asdf")
 
-        fun getContainsNullableShortcutPair() =
-            containsNullableShortcutFun.name to Companion::containsInOrderOnlyNullableValuesShortcut
+        list = list.containsExactly(1)
+        nList = nList.containsExactly(1)
+        subList = subList.containsExactly(1)
+        star = star.containsExactly(1)
 
-        private fun containsInOrderOnlyNullableValuesShortcut(
-            expect: Expect<Iterable<Double?>>,
-            a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.containsExactly(a)
-            else expect.containsExactly(a, *aX)
+        list = list.containsExactly(1, 1.2)
+        nList = nList.containsExactly(1, 1.2)
+        subList = subList.containsExactly(1, 2.2)
+        // TODO would wish this does not work, maybe @OnlyInputTypes would help?
+        subList = subList.containsExactly("asdf")
+        star = star.containsExactly(1, 1.2, "asdf")
     }
 }
 

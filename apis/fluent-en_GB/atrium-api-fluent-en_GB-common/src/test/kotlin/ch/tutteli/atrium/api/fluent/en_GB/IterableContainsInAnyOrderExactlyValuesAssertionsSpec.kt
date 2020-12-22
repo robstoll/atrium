@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.notImplemented
 
 class IterableContainsInAnyOrderExactlyValuesAssertionsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
@@ -27,6 +28,24 @@ class IterableContainsInAnyOrderExactlyValuesAssertionsSpec :
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $exactly($times)"
-
     }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list.contains.inAnyOrder.exactly(2).value(1)
+        nList = nList.contains.inAnyOrder.exactly(2).value(1)
+        subList = subList.contains.inAnyOrder.exactly(2).value(1)
+        star = star.contains.inAnyOrder.exactly(2).value(1)
+
+        list = list.contains.inAnyOrder.exactly(2).values(1, 1.2)
+        nList = nList.contains.inAnyOrder.exactly(2).values(1, 1.2)
+        subList = subList.contains.inAnyOrder.exactly(2).values(1, 2.2)
+        star = star.contains.inAnyOrder.exactly(2).values(1, 1.2, "asdf")
+    }
+
 }

@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import org.spekframework.spek2.Spek
-import kotlin.jvm.JvmName
 import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderKeyValuePairsAssertionsSpec.Companion as C
 
 class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
@@ -14,8 +12,8 @@ class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
-        containsKeyValuePair_s to C::containsKeyValuePairs,
-        (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
+        functionDescription to C::containsKeyValuePairs,
+        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
@@ -26,7 +24,7 @@ class MapContainsInAnyOrderKeyValuePairsAssertionsSpec : Spek({
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains.$inAnyOrder.$keyValuePair/$keyValuePairs"
+        val functionDescription = "$contains.$inAnyOrder.$keyValuePair/$keyValuePairs"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

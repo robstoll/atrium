@@ -12,21 +12,21 @@ class MapContainsInOrderOnlyEntriesOfAssertionsSpec : Spek({
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsAssertionsSpec(
-        containsKeyValuePair_s to C::containsKeyValuePairs,
-        (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
+        functionDescription to C::containsKeyValuePairs,
+        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     object BuilderMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$contains.$inOrder.only.$only.$entriesOf",
+            functionDescription,
             mapOf("a" to 1),
             { input -> contains.inOrder.only.entriesOf(input) }
         )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains.$inOrder.$only.$keyValuePair/$keyValuePairs"
+        val functionDescription = "$contains.$inOrder.$only.$entriesOf"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

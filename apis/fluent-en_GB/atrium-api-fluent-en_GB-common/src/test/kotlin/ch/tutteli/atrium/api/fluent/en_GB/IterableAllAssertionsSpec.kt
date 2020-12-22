@@ -10,18 +10,18 @@ object IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableA
     fun1(Expect<Iterable<Double?>>::all).withNullableSuffix(),
     "◆ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ "
 ) {
+
+
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Double>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
-
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1.all {}
-
-        a1b = a1b.all {}
-        a1b = a1b.all(null)
-
+        list = list.all {}
+        nList = nList.all {}
+        subList = subList.all {}
         star = star.all {}
     }
 }
