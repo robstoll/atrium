@@ -3,8 +3,8 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion "Download from Bintray")
 [![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/C887ZKGCQ "See invitation link under section FAQ")
-[![Build Status Travis](https://travis-ci.com/robstoll/atrium.svg?branch=master)](https://travis-ci.com/robstoll/atrium/branches)
-[![Build Status GitHub Actions](https://github.com/robstoll/atrium/workflows/Windows/badge.svg)](https://github.com/robstoll/atrium/actions/)
+[![Build Status Ubuntu](https://github.com/robstoll/atrium/workflows/Ubuntu/badge.svg?event=push)](https://github.com/robstoll/atrium/actions?query=workflow%3AUbuntu)
+[![Build Status Windows](https://github.com/robstoll/atrium/workflows/Windows/badge.svg?event=push)](https://github.com/robstoll/atrium/actions?query=workflow%3AWindows)
 [![Coverage](https://codecov.io/gh/robstoll/atrium/branch/master/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/master) 
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
 

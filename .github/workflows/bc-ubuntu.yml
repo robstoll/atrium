@@ -1,0 +1,28 @@
+name: BC Ubuntu
+
+on: [push, pull_request]
+
+jobs:
+    build:
+        env:
+            JAVA_VERSION: '11'
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: "Set up JDK ${{ matrix.java_version }}"
+                uses: actions/setup-java@v1
+                with:
+                    java-version:  ${{env.JAVA_VERSION}}
+
+            -   name: bcTests
+                run: ./gradlew bcTests
+
+            -   name: Upload windows build code coverage
+                uses: codecov/codecov-action@v1
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    flags: bc
+                    env_vars: JAVA_VERSION
+                    # too many timeout errors, let's not fail at the moment
+                    #fail_ci_if_error: true
