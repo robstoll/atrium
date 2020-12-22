@@ -42,7 +42,7 @@ interface Descriptive {
          * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
          * ```
          */
-        //TODO move to logic and expect AssertionContainer with 0.15.0
+        //TODO move to logic and expect AssertionContainer with 0.16.0
         fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): DescriptionOption<FinalStep>
 
         companion object {

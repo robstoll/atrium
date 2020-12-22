@@ -19,7 +19,7 @@ fun <T, R> AssertionContainer<T>.manualFeature(
     provider: T.() -> R
 ): FeatureExtractorBuilder.ExecutionStep<T, R> = manualFeature(Untranslatable(description), provider)
 
-//TODO use MetaFeature from logic with 0.15.0
+//TODO use MetaFeature from logic with 0.16.0
 fun <T, R> AssertionContainer<T>.genericSubjectBasedFeature(
     provider: (T) -> MetaFeature<R>
 ): FeatureExtractorBuilder.ExecutionStep<T, R> =

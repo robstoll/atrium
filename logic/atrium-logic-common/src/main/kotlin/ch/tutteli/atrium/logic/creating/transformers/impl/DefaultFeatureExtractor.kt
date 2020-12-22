@@ -42,7 +42,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
             try {
                 featureExtraction(subject).fold({ Left(None) }, { Right(it) })
             } catch (throwable: Throwable) {
-                //TODO 0.15.0 should be taken from `container`
+                //TODO 0.16.0 should be taken from `container`
                 reporter.atriumErrorAdjuster.adjust(throwable)
                 Left(Some(throwable))
             }
