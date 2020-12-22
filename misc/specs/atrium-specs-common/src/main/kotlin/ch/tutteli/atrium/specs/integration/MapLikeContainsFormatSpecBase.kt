@@ -29,7 +29,7 @@ abstract class MapLikeContainsFormatSpecBase(
         Companion.featureArrow = featureArrow
         Companion.featureBulletPoint = featureBulletPoint
 
-        indentBulletPoint = " ".repeat(rootBulletPoint.length)
+        indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
         indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
         indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
         indentListBulletPoint = " ".repeat(listBulletPoint.length)
@@ -49,7 +49,7 @@ abstract class MapLikeContainsFormatSpecBase(
         var explanatoryBulletPoint = ""
         var featureArrow = ""
         var featureBulletPoint = ""
-        var indentBulletPoint = " "
+        var indentRootBulletPoint = " "
         var indentSuccessfulBulletPoint = ""
         var indentFailingBulletPoint = ""
         var indentListBulletPoint = ""
@@ -84,29 +84,29 @@ abstract class MapLikeContainsFormatSpecBase(
 
         fun Expect<String>.entrySuccess(key: String, actual: Any?, expected: String): Expect<String> {
             return this.contains.exactly(1).regex(
-                "$indentBulletPoint\\Q$successfulBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+                "$indentRootBulletPoint\\Q$successfulBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
+                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailing(key: String?, actual: Any?, expected: String): Expect<String> {
             return this.contains.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailingExplaining(key: String?, actual: Any?, expected: String): Expect<String> {
             return this.contains.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
+                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryNonExisting(key: String, expected: String): Expect<String> {
             return this.contains.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $keyDoesNotExist\\E.*${separator}" +
-                    "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
+                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
         }
 

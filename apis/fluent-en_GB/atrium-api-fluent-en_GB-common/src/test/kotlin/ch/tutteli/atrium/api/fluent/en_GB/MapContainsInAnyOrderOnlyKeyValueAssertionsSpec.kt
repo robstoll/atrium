@@ -14,8 +14,8 @@ class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec : Spek({
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValueAssertionsSpec(
-        containsKeyValue_s to C::containsKeyValues,
-        (containsKeyValue_s to C::containsKeyValuesNullable).withNullableSuffix(),
+        functionDescription to C::containsKeyValues,
+        (functionDescription to C::containsKeyValuesNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
@@ -29,7 +29,7 @@ class MapContainsInAnyOrderOnlyKeyValueAssertionsSpec : Spek({
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValue_s = "$contains.$inAnyOrder.$only.$keyValue/$keyValues"
+        val functionDescription = "$contains.$inAnyOrder.$only.$keyValue/$keyValues"
 
         private fun containsKeyValues(
             expect: Expect<Map<out String, Int>>,

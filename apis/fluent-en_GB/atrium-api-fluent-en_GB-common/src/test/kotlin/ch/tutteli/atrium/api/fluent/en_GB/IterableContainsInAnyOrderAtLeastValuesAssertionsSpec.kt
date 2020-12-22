@@ -52,4 +52,6 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec :
         internal fun getErrorMsgAtLeastButAtMost(timesAtLeast: Int, timesButAtMost: Int) =
             "specifying $butAtMost($timesButAtMost) does not make sense if $atLeast($timesAtLeast) was used before"
     }
+
+    // ambiguityTests see IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec
 }

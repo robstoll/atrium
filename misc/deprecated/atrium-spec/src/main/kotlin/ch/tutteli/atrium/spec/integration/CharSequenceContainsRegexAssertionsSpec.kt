@@ -77,8 +77,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     fun Assert<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val regexWithIndent = "$indentBulletPoint$listBulletPoint$stringMatchingRegex"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
 
     describeFun(containsRegex) {
         context("throws an ${PatternSyntaxException::class.simpleName}") {

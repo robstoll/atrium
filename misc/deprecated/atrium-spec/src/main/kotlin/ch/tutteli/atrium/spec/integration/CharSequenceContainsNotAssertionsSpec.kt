@@ -53,8 +53,8 @@ abstract class CharSequenceContainsNotAssertionsSpec(
     val containsNotDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
     val containsNotIgnoringCaseDescr = String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), containsNotDescr)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsNot) {
 

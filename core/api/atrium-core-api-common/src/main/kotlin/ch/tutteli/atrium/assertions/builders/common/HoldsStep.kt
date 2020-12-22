@@ -34,6 +34,6 @@ interface HoldsStep<R> {
      *
      * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
      */
-    //TODO  move to logic and expect AssertionContainer with 0.15.0
+    //TODO  move to logic and expect AssertionContainer with 0.16.0
     fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): R
 }

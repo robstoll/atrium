@@ -11,14 +11,14 @@ class MapContainsInOrderOnlyKeyValuePairsAssertionsSpec : Spek({
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsAssertionsSpec(
-        containsKeyValuePair_s to C::containsKeyValuePairs,
-        (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
+        functionDescription to C::containsKeyValuePairs,
+        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains.$inOrder.$only.$keyValuePair/$keyValuePairs"
+        val functionDescription = "$contains.$inOrder.$only.$keyValuePair/$keyValuePairs"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

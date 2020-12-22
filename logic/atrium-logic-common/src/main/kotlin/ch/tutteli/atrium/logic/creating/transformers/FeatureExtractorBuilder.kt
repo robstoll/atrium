@@ -39,7 +39,7 @@ interface FeatureExtractorBuilder {
          * Use [withDescription] in case the feature extraction is not based on a method call.
          */
         fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureStep<T> =
-            //TODO use methodCallFormatter from container 0.15.0
+            //TODO use methodCallFormatter from container 0.16.0
             withDescription(coreFactory.newMethodCallFormatter().formatCall(methodName, arguments))
 
         /**

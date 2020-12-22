@@ -5,12 +5,11 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
+import ch.tutteli.atrium.api.fluent.en_GB.IterableNoneAssertionsSpec.Companion as C
 
 class IterableNoneAssertionsSpec : Spek({
-
     include(PredicateSpec)
     include(BuilderSpec)
-
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
         fun1(Expect<Iterable<Double>>::none),
@@ -19,21 +18,20 @@ class IterableNoneAssertionsSpec : Spek({
         "[Atrium][Predicate] "
     )
 
+    // TODO 0.17.0 #722 this will differ once we don't implement the same behaviour for contains and none
+    // that's fine and we can simply remove this test here
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
-        getContainsNotPair(),
-        getContainsNotNullablePair().withNullableSuffix(),
+        functionDescription to C::containsNotFun,
+        (functionDescription to C::containsNotNullableFun).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     companion object : IterableContainsSpecBase() {
-
-        private fun getContainsNotPair() = containsNot to Companion::containsNotFun
+        val functionDescription = "$containsNot.$entry"
 
         private fun containsNotFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
             expect.containsNot.entry(a)
-
-        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
 
         private fun containsNotNullableFun(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
             expect.containsNot.entry(a)
@@ -41,20 +39,14 @@ class IterableNoneAssertionsSpec : Spek({
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Double>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
-
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1.none {}
-        a1 = a1.containsNot.entry {}
-
-        a1b = a1b.none {}
-        a1b = a1b.none(null)
-        a1b = a1b.containsNot.entry {}
-        a1b = a1b.containsNot.entry(null)
-
-        star = star.none {}
-        star = star.containsNot.entry {}
+        list = list.none{}
+        nList = nList.none{}
+        subList = subList.none{}
+        star = star.none{}
     }
 }

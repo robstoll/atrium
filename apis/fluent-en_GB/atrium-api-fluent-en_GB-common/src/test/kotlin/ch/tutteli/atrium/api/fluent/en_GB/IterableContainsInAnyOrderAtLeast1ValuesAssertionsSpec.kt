@@ -1,29 +1,32 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec.Companion as C
 
 class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
-        getContainsPair(),
-        getContainsNullablePair(),
+        functionDescription to C::containsValues,
+        (functionDescription to C::containsNullableValues).withNullableSuffix(),
         "◆ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
-        getContainsShortcutPair(),
-        getContainsNullableShortcutPair(),
+        fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::contains),
+        fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::contains),
         "◆ ",
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues" to Companion::containsValues
+        val functionDescription =  "$contains.$inAnyOrder.$atLeast(1).$value/$values"
 
         private fun containsValues(
             expect: Expect<Iterable<Double>>,
@@ -33,9 +36,6 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
             if (aX.isEmpty()) expect.contains.inAnyOrder.atLeast(1).value(a)
             else expect.contains.inAnyOrder.atLeast(1).values(a, *aX)
 
-        fun getContainsNullablePair() =
-            "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues" to Companion::containsNullableValues
-
         private fun containsNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
@@ -43,34 +43,35 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         ): Expect<Iterable<Double?>> =
             if (aX.isEmpty()) expect.contains.inAnyOrder.atLeast(1).value(a)
             else expect.contains.inAnyOrder.atLeast(1).values(a, *aX)
+    }
 
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
-        private val containsFun: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
-            Expect<Iterable<Double>>::contains
+        list = list.contains.inAnyOrder.atLeast(1).value(1)
+        nList = nList.contains.inAnyOrder.atLeast(1).value(1)
+        subList = subList.contains.inAnyOrder.atLeast(1).value(1)
+        star = star.contains.inAnyOrder.atLeast(1).value(1)
 
-        fun getContainsShortcutPair() = containsFun.name to Companion::containsValuesShortcut
+        list = list.contains.inAnyOrder.atLeast(1).values(1, 1.2)
+        nList = nList.contains.inAnyOrder.atLeast(1).values(1, 1.2)
+        subList = subList.contains.inAnyOrder.atLeast(1).values(1, 2.2)
+        star = star.contains.inAnyOrder.atLeast(1).values(1, 1.2, "asdf")
 
-        private fun containsValuesShortcut(
-            expect: Expect<Iterable<Double>>,
-            a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.contains(a)
-            else expect.contains(a, *aX)
+        list = list.contains(1)
+        nList = nList.contains(1)
+        subList = subList.contains(1)
+        star = star.contains(1)
 
-
-        private val containsNullableFun: KFunction3<Expect<Iterable<Double?>>, Double?, Array<out Double?>, Expect<Iterable<Double?>>> =
-            Expect<Iterable<Double?>>::contains
-
-        fun getContainsNullableShortcutPair() = containsNullableFun.name to Companion::containsNullableValuesShortcut
-
-        private fun containsNullableValuesShortcut(
-            expect: Expect<Iterable<Double?>>,
-            a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.contains(a)
-            else expect.contains(a, *aX)
-
+        list = list.contains(1, 1.2)
+        nList = nList.contains(1, 1.2)
+        subList = subList.contains(1, 2.2)
+        // TODO would wish this does not work, maybe @OnlyInputTypes would help?
+        subList = subList.contains("asdf")
+        star = star.contains(1, 1.2, "asdf")
     }
 }

@@ -53,7 +53,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         vararg tX: (Expect<Double>.() -> Unit)?
     ) = containsInOrderOnlyNullableEntries(this, t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
@@ -62,7 +62,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+                "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
 
@@ -74,7 +74,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
         )
     }
 

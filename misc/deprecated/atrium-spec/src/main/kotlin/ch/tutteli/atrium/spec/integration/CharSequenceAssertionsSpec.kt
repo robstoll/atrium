@@ -93,8 +93,8 @@ abstract class CharSequenceAssertionsSpec(
     val hello = TestTranslatable.HELLO.getDefault()
     val welcome = TestTranslatable.WELCOME.getDefault()
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsDefaultTranslationOf, containsNotDefaultTranslationOf) {
 

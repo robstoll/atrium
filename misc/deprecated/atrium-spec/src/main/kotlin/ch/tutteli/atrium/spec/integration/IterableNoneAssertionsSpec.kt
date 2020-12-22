@@ -46,17 +46,17 @@ abstract class IterableNoneAssertionsSpec(
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
-    val featureSuccess = "$indentBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
-    val featureFailing = "$indentBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
-    val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
-    val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
-    val afterExplanatory = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
+    val featureSuccess = "$indentRootBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
+    val featureFailing = "$indentRootBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
+    val isAfterFailing = "$indentRootBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    val isAfterSuccess = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
 
     nonNullableCases(
         describePrefix,
@@ -83,7 +83,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator"+
                                     "$isAfterFailing: 0.*$separator"+
@@ -112,7 +112,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
                                     "$afterExplanatory$isDescr: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator"+
                                     "$isAfterFailing: 0.*$separator"+
@@ -130,7 +130,7 @@ abstract class IterableNoneAssertionsSpec(
                         message {
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator"+
                                     "$isAfterFailing: 0.*$separator"+

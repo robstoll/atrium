@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Defines the contract to create custom assertion verbs, `Expect<T>` respectively.
  */
-//TODO move to atrium-logic with 0.15.0
+//TODO move to atrium-logic with 0.16.0
 interface ExpectBuilder {
     companion object {
 
@@ -106,7 +106,7 @@ interface ExpectBuilder {
      *
      * Calling multiple times the same method overrides the previously defined value.
      */
-    //TODO move to atrium-core with 0.15.0 (or to logic and move FeatureExpectOptionsChooser to logic as well?)
+    //TODO move to atrium-core with 0.16.0 (or to logic and move FeatureExpectOptionsChooser to logic as well?)
     interface OptionsChooser<T> {
 
         /**

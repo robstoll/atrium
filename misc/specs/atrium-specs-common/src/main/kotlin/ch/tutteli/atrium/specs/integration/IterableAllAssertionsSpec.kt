@@ -37,12 +37,12 @@ abstract class IterableAllAssertionsSpec(
 
     val allDescr = DescriptionIterableAssertion.ALL.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
 
-    val explanatoryPointWithIndent = "$indentBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     fun index(index: Int) = listBulletPoint + String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
@@ -59,7 +59,7 @@ abstract class IterableAllAssertionsSpec(
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator" +
-                            "$indentBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
+                            "$indentRootBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
                     )
                 }
             }

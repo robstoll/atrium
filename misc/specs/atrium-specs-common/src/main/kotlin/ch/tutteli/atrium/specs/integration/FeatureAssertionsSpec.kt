@@ -159,7 +159,7 @@ abstract class FeatureAssertionsSpec(
                         if (isAbleToEvaluateDescription) {
                             messageContains(stringInExceptionMessage)
                         } else {
-                            messageContains(ch.tutteli.atrium.translations.ErrorMessages.DEDSCRIPTION_BASED_ON_SUBJECT.getDefault())
+                            messageContains(ch.tutteli.atrium.translations.ErrorMessages.DESCRIPTION_BASED_ON_SUBJECT.getDefault())
                         }
                     }
                 }

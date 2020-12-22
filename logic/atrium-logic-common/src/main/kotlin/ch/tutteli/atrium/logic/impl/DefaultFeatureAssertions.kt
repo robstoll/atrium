@@ -19,7 +19,7 @@ class DefaultFeatureAssertions : FeatureAssertions {
         extractFeature(container, property.name, property::get)
 
     override fun <T, R> f0(container: AssertionContainer<T>, f: KFunction1<T, R>): FeatureExtractorBuilder.ExecutionStep<T, R> =
-        //TODO 0.15.0 use methodCallFormatter from container via getImpl
+        //TODO 0.16.0 use methodCallFormatter from container via getImpl
         extractFeature(container, coreFactory.newMethodCallFormatter().formatCall(f.name, arrayOf()), f::invoke)
 
     override fun <T, A1, R> f1(container: AssertionContainer<T>, f: KFunction2<T, A1, R>, a1: A1): FeatureExtractorBuilder.ExecutionStep<T, R> =

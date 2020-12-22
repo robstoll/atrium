@@ -15,6 +15,8 @@ interface AnyAssertions {
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
+    // TODO remove with 0.16.0 it is enough to have toBe
+    // TODO deprecate with 0.15.0
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 
     fun <T : Any> toBeNullIfNullGivenElse(

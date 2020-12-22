@@ -49,8 +49,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     fun Assert<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
     val containsNotDescr = CONTAINS_NOT.getDefault()
 
     describeFun(containsFunName, containsNot) {

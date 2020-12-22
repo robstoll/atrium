@@ -44,14 +44,14 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     fun Assert<Iterable<Double?>>.containsInOrderOnlyNullableValuesFun(t: Double?, vararg tX: Double?)
         = containsInOrderOnlyNullableValuesFunArr(t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint${TO_BE.getDefault()}"
-    val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
-    val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
+    val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
+    val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
     fun entry(index: Int)
         = String.format(entryWithIndex, index)

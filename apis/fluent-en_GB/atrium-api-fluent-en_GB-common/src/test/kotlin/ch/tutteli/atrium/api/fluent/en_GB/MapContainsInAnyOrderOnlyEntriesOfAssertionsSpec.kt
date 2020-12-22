@@ -16,8 +16,8 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
-        containsKeyValuePair_s to C::containsKeyValuePairs,
-        (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
+        functionDescription to C::containsKeyValuePairs,
+        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
@@ -32,20 +32,20 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
 
     object BuilderMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$contains.$inAnyOrder.$only.$entriesOf",
+            functionDescription,
             mapOf("a" to 1),
             { input -> contains.inAnyOrder.only.entriesOf(input) }
         )
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$containsOnlyEntriesOf",
+            containsOnlyEntriesOf,
             mapOf("a" to 1),
             { input -> containsOnlyEntriesOf(input) }
         )
 
     companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains.$inAnyOrder.$only.$entriesOf"
+        val functionDescription = "$contains.$inAnyOrder.$only.$entriesOf"
 
         private fun containsKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

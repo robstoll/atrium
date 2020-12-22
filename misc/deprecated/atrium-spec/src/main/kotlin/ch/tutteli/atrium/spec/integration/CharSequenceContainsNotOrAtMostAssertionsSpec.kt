@@ -51,8 +51,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsNotOrAtMost) {
 
