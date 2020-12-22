@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.toBeNull
+import ch.tutteli.atrium.logic.toBe
 
 class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() -> Unit)?> {
 
@@ -23,7 +23,7 @@ class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() 
     //TODO 0.16.0 same as in DefaultMapLikeContainsAssertions
     private fun AssertionContainer<E?>.silentToBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
         if (assertionCreatorOrNull == null) {
-            toBeNull()
+            toBe(null)
         } else {
             val assertion = assertionCollector.collect(maybeSubject.flatMap { if (it != null) Some(it) else None }) {
                 addAssertionsCreatedBy(assertionCreatorOrNull)

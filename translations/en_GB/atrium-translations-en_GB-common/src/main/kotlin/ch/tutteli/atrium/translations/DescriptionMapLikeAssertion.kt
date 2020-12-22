@@ -16,6 +16,5 @@ enum class DescriptionMapLikeAssertion(override val value: String) : StringBased
     IN_ORDER("%, in order"),
     IN_ORDER_ONLY("%s only, in order"),
     KEY_DOES_NOT_EXIST("❗❗ key does not exist"),
-    SIZE("size"),
     WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
 }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionMapAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.dsl.Root
 
@@ -57,7 +57,7 @@ abstract class MapLikeContainsFormatSpecBase(
         var indentFeatureArrow = ""
         var indentFeatureBulletPoint = ""
 
-        val sizeDescr = DescriptionMapAssertion.SIZE.getDefault()
+        val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
 
         fun Expect<String>.containsSize(actual: Int, expected: Int) =

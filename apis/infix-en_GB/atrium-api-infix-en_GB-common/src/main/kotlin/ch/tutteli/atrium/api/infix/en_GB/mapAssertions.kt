@@ -191,7 +191,7 @@ infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
-    _logicAppend { containsKey(key) }
+    _logicAppend { containsKey(::identity, key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -200,29 +200,7 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
-    _logicAppend { containsNotKey(key) }
-
-/**
- * Expects that the subject of the assertion (a [Map]) is an empty [Map].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty() }
-
-/**
- * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isNotEmpty() }
+    _logicAppend { containsNotKey(::identity, key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key],
@@ -233,7 +211,7 @@ infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty:
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
-    _logic.getExisting(key).transform()
+    _logic.getExisting(::identity, key).transform()
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
@@ -247,7 +225,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *   if the assertion made is not correct.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
-    _logic.getExisting(key.key).collectAndAppend(key.assertionCreator)
+    _logic.getExisting(::identity, key.key).collectAndAppend(key.assertionCreator)
 
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
@@ -321,3 +299,29 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries(o).addAssertionsCreatedBy(assertionCreator) }
 
+//TODO move to mapCollectionLikeAssertions with 0.16.0
+/**
+ * Expects that the subject of the assertion (a [Map]) is an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isEmpty(::toEntries) }
+
+//TODO move to mapCollectionLikeAssertions with 0.16.0
+/**
+ * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isNotEmpty(::toEntries) }
+
+//TODO remove with 0.16.0
+private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

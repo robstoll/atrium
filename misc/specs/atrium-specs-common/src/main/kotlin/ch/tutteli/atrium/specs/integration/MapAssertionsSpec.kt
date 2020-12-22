@@ -5,11 +5,9 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import ch.tutteli.atrium.translations.DescriptionMapAssertion
+import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.reflect.KFunction3
 
 abstract class MapAssertionsSpec(
     containsKey: Fun1<Map<out String, *>, String>,
@@ -78,9 +76,9 @@ abstract class MapAssertionsSpec(
     val nullableFluent = expect(nullableMap)
 
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
-    val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
-    val containsNotKeyDescr = DescriptionMapAssertion.CONTAINS_NOT_KEY.getDefault()
-    val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
+    val containsKeyDescr = DescriptionMapLikeAssertion.CONTAINS_KEY.getDefault()
+    val containsNotKeyDescr = DescriptionMapLikeAssertion.CONTAINS_NOT_KEY.getDefault()
+    val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
 
     describeFun(containsKey, containsKeyNullable, containsNotKey, containsNotKeyNullable) {
         val containsKeyFunctions = uncheckedToNonNullable(containsKey, containsKeyNullable)

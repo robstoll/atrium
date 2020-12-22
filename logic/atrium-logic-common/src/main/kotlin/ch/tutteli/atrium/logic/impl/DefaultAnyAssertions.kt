@@ -31,7 +31,7 @@ class DefaultAnyAssertions : AnyAssertions {
         type: KClass<T>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion =
-        if (assertionCreatorOrNull == null) container.toBeNull()
+        if (assertionCreatorOrNull == null) container.toBe(null)
         else notToBeNull(container, type, assertionCreatorOrNull)
 
     private fun <T : Any> notToBeNull(

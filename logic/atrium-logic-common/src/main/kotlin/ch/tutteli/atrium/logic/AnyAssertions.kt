@@ -1,3 +1,4 @@
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,8 +16,9 @@ interface AnyAssertions {
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
-    // TODO remove with 0.16.0 it is enough to have toBe
-    // TODO deprecate with 0.15.0
+    //TODO 0.16.0 remove
+    @Suppress("DEPRECATION")
+    @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 
     fun <T : Any> toBeNullIfNullGivenElse(
