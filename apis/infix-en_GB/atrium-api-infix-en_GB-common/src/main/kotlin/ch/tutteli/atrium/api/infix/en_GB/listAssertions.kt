@@ -10,6 +10,8 @@ import ch.tutteli.atrium.logic.get
  * returns an [Expect] for the element at that position.
  *
  * @return The newly created [Expect] for the element at position [index].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListAssertionSamples.getFeature
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
     _logic.get(index).transform()
@@ -22,6 +24,8 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *  Use the function `index(Int) { ... }` to create an [IndexWithCreator].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListAssertionSamples.get
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> =
     _logic.get(index.index).collectAndAppend(index.assertionCreator)
