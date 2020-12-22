@@ -35,7 +35,7 @@ class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$containsEntriesOf",
+            containsEntriesOf,
             mapOf("a" to 1),
             { input -> it containsOnlyEntriesOf  input }
         )

@@ -36,7 +36,7 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec :
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()
         var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+        //var star: Expect<Collection<*>> = notImplemented()
 
         list = list.contains.inOrder.only.grouped.within.inAnyOrder(Entry{}, Entries({}, {}))
         nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))

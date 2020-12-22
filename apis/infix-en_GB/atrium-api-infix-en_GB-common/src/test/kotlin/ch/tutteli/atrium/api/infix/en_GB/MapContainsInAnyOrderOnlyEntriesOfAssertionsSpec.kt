@@ -23,8 +23,8 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
-        mfun2<String, Int, Int>(C::containsInAnyOrderOnlyEntriesOf),
-        mfun2<String?, Int?, Int?>(C::containsInAnyOrderOnlyEntriesOf).withNullableSuffix(),
+        mfun2<String, Int, Int>(C::containsOnlyEntriesOf),
+        mfun2<String?, Int?, Int?>(C::containsOnlyEntriesOf).withNullableSuffix(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
@@ -39,7 +39,7 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$containsOnlyEntriesOf",
+            containsOnlyEntriesOf,
             mapOf("a" to 1),
             { input -> it containsOnlyEntriesOf input }
         )
@@ -67,22 +67,20 @@ class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
         ): Expect<Map<out String?, Int?>> =
             expect contains o inAny order but only entriesOf listOf(a, *aX)
 
-        private fun containsInAnyOrderOnlyEntriesOf(
+        private fun containsOnlyEntriesOf(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            //TODO 0.15.0: change to shortcut
-            expect contains o inAny order but only entriesOf sequenceOf(a, *aX)
+            expect containsOnlyEntriesOf sequenceOf(a, *aX)
 
         @JvmName("containsInAnyOrderOnlyEntriesOfNullable")
-        private fun containsInAnyOrderOnlyEntriesOf(
+        private fun containsOnlyEntriesOf(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            //TODO 0.15.0: change to shortcut
-            expect contains o inAny order but only entriesOf arrayOf(a, *aX)
+            expect containsOnlyEntriesOf arrayOf(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")

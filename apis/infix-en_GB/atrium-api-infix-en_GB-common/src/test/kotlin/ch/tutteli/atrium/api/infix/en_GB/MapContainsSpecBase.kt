@@ -15,8 +15,8 @@ abstract class MapContainsSpecBase : WithAsciiReporter() {
     private val containsProp: KFunction2<Expect<Map<*, *>>, o, *> = Expect<Map<*, *>>::contains
     protected val contains = containsProp.name
     protected val filler = o::class.simpleName
-    protected val containsEntriesOf =  Expect<Map<*, *>>::containsEntriesOf
-    protected val containsOnlyEntriesOf =  Expect<Map<*, *>>::containsOnlyEntriesOf
+    protected val containsEntriesOf =  Expect<Map<*, *>>::containsEntriesOf.name
+    protected val containsOnlyEntriesOf =  Expect<Map<*, *>>::containsOnlyEntriesOf.name
 
     //@formatter:off
     protected val inAnyOrder = "${MapLikeContains.EntryPointStep<String, Int, List<Int>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
