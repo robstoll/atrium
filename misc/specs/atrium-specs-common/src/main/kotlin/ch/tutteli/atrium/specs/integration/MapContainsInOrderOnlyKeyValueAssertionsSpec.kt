@@ -91,7 +91,7 @@ abstract class MapContainsInOrderOnlyKeyValueAssertionsSpec(
             val keyValueBulletPoint = if (explaining) explanatoryBulletPoint else featureBulletPoint
             val indentKeyValueBulletPoint = " ".repeat(keyValueBulletPoint.length)
             val indentToKeyValue =
-                "$indentBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
+                "$indentRootBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
 
             return this.contains.exactly(1).regex(
                 "\\Q$successFailureBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +

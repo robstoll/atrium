@@ -38,8 +38,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
         containsExactlyIgnoringCase(this, atLeast, a, aX)
 
     val exactly = EXACTLY.getDefault()
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsExactly.name, containsExactlyIgnoringCase.name) {
 

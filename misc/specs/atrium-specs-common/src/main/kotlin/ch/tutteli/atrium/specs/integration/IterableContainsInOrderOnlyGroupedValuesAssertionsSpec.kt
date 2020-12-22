@@ -41,7 +41,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         vararg tX: Group<Double?>
     ) = containsInOrderOnlyGroupedNullableValues(this, t1, t2, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
@@ -49,8 +49,8 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
-    val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
-    val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
+    val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
+    val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
 
     fun element(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
@@ -59,7 +59,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
         "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
 
-    val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
+    val afterFail = "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun failAfterFail(vararg expected: Double?) = element(afterFail, failingBulletPoint, expected)
 
     fun successAfterFail(vararg expected: Double?) = element(afterFail, successfulBulletPoint, expected)
@@ -78,7 +78,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
         warning(additionalElements, entryWithValue) { "${elementWithIndex(it.first)}: ${it.second}" }
 
 
-    val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
+    val afterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun successAfterSuccess(vararg expected: Double?) = element(afterSuccess, successfulBulletPoint, expected)
 
     fun successSizeAfterSuccess(size: Int) = size(afterSuccess, successfulBulletPoint, size, size)
@@ -99,7 +99,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
 
         )
@@ -120,7 +120,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     ): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
         )
     }
@@ -222,7 +222,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                                 successSizeAfterFail(3),
                                 mismatchesAfterFail(4.0)
                             )
-                            containsRegex(size(indentBulletPoint, successfulBulletPoint, 5, 5))
+                            containsRegex(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                         }
                     }
                 }
@@ -239,7 +239,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                                 successAfterSuccess(4.0, 2.0, 3.0),
                                 successSizeAfterSuccess(3)
                             )
-                            containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 4))
+                            containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 4))
                             containsRegex(additional(4 to 4.0))
                         }
                     }
@@ -253,7 +253,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexSuccess(0, 1.0)
                             indexFail(1, 2.0, 4.0)
-                            containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 2))
+                            containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 2))
                             containsRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
                         }
                     }
@@ -272,7 +272,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                                 mismatchesAfterFail(2.0)
                             )
                             indexFail(2, 3.0, 5.0)
-                            containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 3))
+                            containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 3))
                             containsRegex(additional(3 to 4.0, 4 to 4.0))
                         }
                     }
@@ -294,7 +294,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                                 successAfterFail(4.0),
                                 failSizeAfterFail(1, 2)
                             )
-                            containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 6))
+                            containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 6))
                         }
                     }
                 }
@@ -347,7 +347,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
                                     failAfterFail(1.0),
                                     successSizeAfterFail(2)
                                 )
-                                containsRegex(size(indentBulletPoint, successfulBulletPoint, 4, 4))
+                                containsRegex(size(indentRootBulletPoint, successfulBulletPoint, 4, 4))
                             }
                         }
                     }

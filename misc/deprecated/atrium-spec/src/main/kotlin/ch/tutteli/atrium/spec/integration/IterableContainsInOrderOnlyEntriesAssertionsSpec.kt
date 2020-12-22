@@ -49,7 +49,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     fun Assert<Iterable<Double?>>.containsInOrderOnlyNullableEntriesFun(t: (Assert<Double>.() -> Unit)?, vararg tX: (Assert<Double>.() -> Unit)?)
         = containsInOrderOnlyNullableEntriesArr(t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
@@ -59,8 +59,8 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     val explanatoryPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
-    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
-    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentRootBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
 
     fun entry(index: Int)
         = String.format(entryWithIndex, index)
@@ -68,13 +68,13 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     fun Assert<CharSequence>.entrySuccess(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected")
+                "$indentRootBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected")
     }
 
     fun Assert<CharSequence>.entryFailing(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")
+                "$indentRootBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")
     }
 
     nonNullableCases(describePrefix,

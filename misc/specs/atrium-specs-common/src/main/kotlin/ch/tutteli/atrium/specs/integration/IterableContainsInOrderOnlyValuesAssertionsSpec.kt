@@ -32,15 +32,15 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     fun Expect<Iterable<Double?>>.containsInOrderOnlyNullableValuesFun(t: Double?, vararg tX: Double?) =
         containsInOrderOnlyNullableValues(this, t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
-    val toBeAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
-    val toBeAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$toBeWithFeature"
+    val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
+    val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
     fun Expect<String>.elementSuccess(index: Int, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(
@@ -61,7 +61,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
     fun Expect<String>.elementNonExisting(index: Int, expected: Double): Expect<String> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toBeDescr: $expected"
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toBeDescr: $expected"
         )
     }
 

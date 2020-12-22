@@ -61,8 +61,8 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
         containsAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val regexWithIndent = "$indentBulletPoint$listBulletPoint$stringMatchingRegex"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
 
     describeFun(containsRegex) {
         context("throws an ${IllegalArgumentException::class.simpleName}") {

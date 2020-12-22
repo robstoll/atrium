@@ -37,8 +37,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
     fun Expect<CharSequence>.containsNotOrAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsNotOrAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsNotOrAtMost.name, containsNotOrAtMostIgnoringCase.name) {
 

@@ -45,7 +45,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun Assert<Iterable<Double?>>.containsInOrderOnlyGroupedEntriesFun(t1: Group<(Assert<Double>.() -> Unit)?>, t2: Group<(Assert<Double>.() -> Unit)?>, vararg tX: Group<(Assert<Double>.() -> Unit)?>)
         = containsInOrderOnlyGroupedEntriesFunArr(t1, t2, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
@@ -62,17 +62,17 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun index(fromIndex: Int, toIndex: Int)
         = String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
 
-    fun entry(prefix: String, bulletPoint: String, indentBulletPoint: String, expected: Array<out String>)
+    fun entry(prefix: String, bulletPoint: String, indentRootBulletPoint: String, expected: Array<out String>)
         = expected.joinToString(".*$separator") {
         "$prefix\\Q$bulletPoint$anEntryWhich: \\E$separator" +
-            "$prefix$indentBulletPoint$indentListBulletPoint$explanatoryBulletPoint$it"
+            "$prefix$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint$it"
     }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int)
         = "$prefix\\Q$bulletPoint\\E${featureArrow}size: $actual[^:]+: $expected"
 
 
-    val afterFail = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
+    val afterFail = "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun failAfterFail(vararg expected: String)
         = entry(afterFail, failingBulletPoint, indentFailingBulletPoint, expected)
 
@@ -96,7 +96,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         = warning(additionalEntries, entryWithValue) { "${entryWithIndex(it.first)}: ${it.second}" }
 
 
-    val afterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
+    val afterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun successAfterSuccess(vararg expected: String)
         = entry(afterSuccess, successfulBulletPoint, indentSuccessfulBulletPoint, expected)
 
@@ -107,14 +107,14 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun Assert<CharSequence>.indexSuccess(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
+                "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
                 "$afterSuccess$indentListBulletPoint$explanatoryBulletPoint$expected")
     }
 
     fun Assert<CharSequence>.indexSuccess(fromIndex: Int, toIndex: Int, actual: List<Double?>, vararg expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
 
         )
@@ -123,14 +123,14 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     fun Assert<CharSequence>.indexFail(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$anEntryWhich: $separator" +
                 "$afterFail$indentListBulletPoint$explanatoryBulletPoint$expected")
     }
 
     fun Assert<CharSequence>.indexFail(fromIndex: Int, toIndex: Int, actual: List<Double?>, vararg expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
-                "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
         )
     }
@@ -253,7 +253,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                     successSizeAfterFail(3),
                                     mismatchesAfterFail(4.0)
                                 )
-                                containsRegex(size(indentBulletPoint, successfulBulletPoint, 5, 5))
+                                containsRegex(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                             }
                         }
                     }
@@ -281,7 +281,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                     successAfterSuccess("$toBeDescr: 4.0"),
                                     successSizeAfterFail(3)
                                 )
-                                containsRegex(size(indentBulletPoint, successfulBulletPoint, 5, 5))
+                                containsRegex(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                             }
                         }
                     }
@@ -301,7 +301,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                     successAfterSuccess("$toBeDescr: 4.0", "$toBeDescr: 2.0", "$toBeDescr: 3.0"),
                                     successSizeAfterSuccess(3)
                                 )
-                                containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 4))
+                                containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 4))
                                 containsRegex(additional(4 to 4.0))
                             }
                         }
@@ -315,7 +315,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexSuccess(0, 1.0, "$toBeDescr: 1.0")
                                 indexFail(1, 2.0, "$toBeDescr: 4.0")
-                                containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 2))
+                                containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 2))
                                 containsRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
                             }
                         }
@@ -337,7 +337,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                     mismatchesAfterFail(2.0)
                                 )
                                 indexFail(2, 3.0, "$toBeDescr: 5.0")
-                                containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 3))
+                                containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 3))
                                 containsRegex(additional(3 to 4.0, 4 to 4.0))
                             }
                         }
@@ -367,7 +367,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                     successAfterFail("$toBeDescr: 4.0"),
                                     failSizeAfterFail(1, 2)
                                 )
-                                containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 6))
+                                containsRegex(size(indentRootBulletPoint, failingBulletPoint, 5, 6))
                             }
                         }
                     }

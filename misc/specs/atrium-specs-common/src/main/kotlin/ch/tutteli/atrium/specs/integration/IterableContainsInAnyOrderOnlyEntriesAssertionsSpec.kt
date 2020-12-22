@@ -50,14 +50,14 @@ abstract class IterableContainsInAnyOrderOnlyEntriesAssertionsSpec(
         vararg tX: (Expect<Double>.() -> Unit)?
     ) = containsInAnyOrderOnlyNullableEntries(this, t, tX)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
     //@formatter:off
-    val anEntryAfterSuccess = "$anElementWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anElementWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterSuccess = "$anElementWhich: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterFailing = "$anElementWhich: $separator$indentRootBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     //@formatter:on
 
     nonNullableCases(

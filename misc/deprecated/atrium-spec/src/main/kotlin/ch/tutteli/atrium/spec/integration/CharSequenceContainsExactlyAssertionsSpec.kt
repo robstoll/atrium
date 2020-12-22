@@ -52,8 +52,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
