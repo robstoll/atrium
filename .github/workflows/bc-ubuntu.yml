@@ -1,4 +1,4 @@
-name: BC Ubuntu
+name: Source Backward Compatibility
 
 on: [push, pull_request]
 

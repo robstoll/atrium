@@ -1,4 +1,4 @@
-name: BBC Ubuntu
+name: Binary Backward Compatibility
 
 on: [push, pull_request]
 
