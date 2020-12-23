@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>fullName - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core.polyfills</a>&nbsp;/&nbsp;<a href="index.html">kotlin.reflect.KClass</a>&nbsp;/&nbsp;<a href="./full-name.html">fullName</a><br/>
+<br/>
+<h1>fullName</h1>
+<a name="ch.tutteli.atrium.core.polyfills$fullName#kotlin.reflect.KClass((kotlin.Any))"></a>
+<code><span class="keyword">expect</span> <span class="keyword">val </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">fullName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The full name of this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>.</p>
+<p>The full name consists of the class name and, depending on the platform,
+additional information such as the package name.</p>
+<p>Similar to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> but returns <code>String</code> and not <code>String?</code> which means it also returns a name
+for anonymous classes (in which case <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> returns <code>null</code>).</p>
+<a name="ch.tutteli.atrium.core.polyfills$fullName(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.fullName.T)), ch.tutteli.atrium.core.polyfills.fullName.T)"></a>
+<code><span class="keyword">expect</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="full-name.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">fullName</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.polyfills$fullName(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.fullName.T)), ch.tutteli.atrium.core.polyfills.fullName.T)/obj">obj</span><span class="symbol">:</span>&nbsp;<a href="full-name.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the full name of this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>.</p>
+<p>The full name consists of the class name and, depending on the platform,
+additional information such as the package name.</p>
+<p><a href="full-name.html#ch.tutteli.atrium.core.polyfills$fullName(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.fullName.T)), ch.tutteli.atrium.core.polyfills.fullName.T)/obj">obj</a> can be used to retrieve more information</p>
+<p>Similar to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> but returns also names for anonymous classes
+(in which case <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> returns <code>null</code>).</p>
+<h3>Parameters</h3>
+<p><a name="obj"></a>
+<code>obj</code> - The object from which this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a> was created of.</p>
+<p><strong>Return</strong><br/>
+The full name of this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>.</p>
+</BODY>
+</HTML>

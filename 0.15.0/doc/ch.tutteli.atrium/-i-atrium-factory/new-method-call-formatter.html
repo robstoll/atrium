@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newMethodCallFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href="./new-method-call-formatter.html">newMethodCallFormatter</a><br/>
+<br/>
+<h1>newMethodCallFormatter</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newMethodCallFormatter()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">newMethodCallFormatter</span></s><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-method-call-formatter/index.html"><span class="identifier">MethodCallFormatter</span></a></code><br/>
+<strong>Deprecated:</strong> Use AssertImpl.coreFactory instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates a <a href="../../ch.tutteli.atrium.reporting/-method-call-formatter/index.html">MethodCallFormatter</a> which represents arguments of a method call by using their <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#toString()">Object.toString</a>
+representation with the exception of:</p>
+<ul><li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, is wrapped in quotes (<code>"</code>) and line breaks (CR or/and LF) are escaped so that the
+whole representation remains on one line.</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> is wrapped in apostrophes (<code>'</code>)</li>
+</ul>
+<p><strong>Return</strong><br/>
+The newly created method call formatter.</p>
+</BODY>
+</HTML>

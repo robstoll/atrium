@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryAssertion - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">ExplanatoryAssertion</a><br/>
+<br/>
+<h1>ExplanatoryAssertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Represents an <a href="../-assertion/index.html">Assertion</a> which can be used to explain/show an instance which is eventually formatted
+by an <a href="../../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> in reporting -- it needs to be a child of an <a href="../-assertion-group/index.html">AssertionGroup</a>
+with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+<p>As it is a child of an <a href="../-assertion-group/index.html">AssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, it is not of importance
+whether the assertions holds or not; thus it overrides <a href="holds.html">holds</a> which always returns <code>true</code>.</p>
+<p>This assertion will be turned into a <code>Reportable</code> with 1.0.0 and eventually be removed with 1.0.0
+See https://github.com/robstoll/atrium-roadmap/issues/1 for more information.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="explanation.html">explanation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">explanation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span></code>
+<p>The object used to explain something.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Always <code>true</code> since it should not matter whether an <a href="./index.html">ExplanatoryAssertion</a> holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-basic-explanatory-assertion/index.html">BasicExplanatoryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">BasicExplanatoryAssertion</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ExplanatoryAssertion</span></a></code>
+<p>A default implementation for <a href="./index.html">ExplanatoryAssertion</a> -- an assertion which only wants to give an <a href="../-basic-explanatory-assertion/explanation.html">explanation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

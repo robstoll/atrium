@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isNotNumericallyEqualTo - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.infix.en_GB</a>&nbsp;/&nbsp;<a href="./is-not-numerically-equal-to.html">isNotNumericallyEqualTo</a><br/>
+<br/>
+<h1>isNotNumericallyEqualTo</h1>
+<a name="ch.tutteli.atrium.api.cc.infix.en_GB$isNotNumericallyEqualTo(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)), ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="is-not-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotNumericallyEqualTo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_GB$isNotNumericallyEqualTo(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)), ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-not-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="is-not-numerically-equal-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> is not numerically equal to <a href="is-not-numerically-equal-to.html#ch.tutteli.atrium.api.cc.infix.en_GB$isNotNumericallyEqualTo(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)), ch.tutteli.atrium.api.cc.infix.en_GB.isNotNumericallyEqualTo.T)/expected">expected</a>.</p>
+<p>By numerically is meant that it will not compare <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a> (or in other words,
+it uses <code>compareTo(expected) != 0</code>)
+Most of the time you want to use this function instead of <a href="is-not-equal-including-scale.html">isNotEqualIncludingScale</a> because
+<a href="is-not-equal-including-scale.html">isNotEqualIncludingScale</a> compares <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>.
+Following the two functions compared:</p>
+<ul><li><code>assert(BigDecimal("10")) notToBe BigDecimal("10.0")</code> holds.</li>
+<li><code>assert(BigDecimal("10")) isNotNumericallyEqualTo BigDecimal("10.0")</code>  does not hold.</li>
+</ul>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

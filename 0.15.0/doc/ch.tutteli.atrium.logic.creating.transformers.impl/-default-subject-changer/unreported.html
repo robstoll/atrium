@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultSubjectChanger.unreported - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers.impl</a>&nbsp;/&nbsp;<a href="index.html">DefaultSubjectChanger</a>&nbsp;/&nbsp;<a href="./unreported.html">unreported</a><br/>
+<br/>
+<h1>unreported</h1>
+<a name="ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.R)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">unreported</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.R)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="unreported.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.impl.DefaultSubjectChanger.unreported.R)))/transformation">transformation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="unreported.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="unreported.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="unreported.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Overrides <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/unreported.html">SubjectChanger.unreported</a></p>
+<p>Changes to a new subject according to the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/unreported.html#ch.tutteli.atrium.logic.creating.transformers.SubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.R)))/transformation">transformation</a> without showing it
+in reporting and returns a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the new subject.</p>
+<p>Explained a bit more in depth: it creates a new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> incorporating the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/unreported.html#ch.tutteli.atrium.logic.creating.transformers.SubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.R)))/transformation">transformation</a>
+whereas the new <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> delegates assertion checking to the given <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/unreported.html#ch.tutteli.atrium.logic.creating.transformers.SubjectChanger$unreported(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T)), kotlin.Function1((ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.T, ch.tutteli.atrium.logic.creating.transformers.SubjectChanger.unreported.R)))/container">container</a> -
+the change as such will not be reflected in reporting.</p>
+<p>This method is useful if you want to make feature assertion(s) but you do not want that the feature is shown up
+in reporting. For instance, if a class can behave as another class (e.g. <code>Sequence::asIterable</code>) or you want to
+hide a conversion (e.g. <code>Int::toChar</code>) then you can use this function.</p>
+<p>Notice, in case the change to the new subject is not always safe (you assert so but it does not have to be),
+then you should use <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/reported.html">reported</a> so that the assertion is reflected in reporting.</p>
+<h3>Parameters</h3>
+<p><a name="container"></a>
+<code>container</code> - the assertion container with the current subject (before the change).</p>
+<p><a name="transformation"></a>
+<code>transformation</code> - Provides the subject.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoreFactoryCommon.newDelegatingReportingAssertionContainer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">CoreFactoryCommon</a>&nbsp;/&nbsp;<a href="./new-delegating-reporting-assertion-container.html">newDelegatingReportingAssertionContainer</a><br/>
+<br/>
+<h1>newDelegatingReportingAssertionContainer</h1>
+<a name="ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingReportingAssertionContainer(ch.tutteli.atrium.creating.AssertionHolder, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingReportingAssertionContainer.T)))"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">newDelegatingReportingAssertionContainer</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingReportingAssertionContainer(ch.tutteli.atrium.creating.AssertionHolder, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingReportingAssertionContainer.T)))/originalAssertionHolder">originalAssertionHolder</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-holder/index.html"><span class="identifier">AssertionHolder</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingReportingAssertionContainer(ch.tutteli.atrium.creating.AssertionHolder, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingReportingAssertionContainer.T)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="new-delegating-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="new-delegating-reporting-assertion-container.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Use DelegatingExpect(...) instead which does not use an AssertionChecker; will be removed with 1.0.0<br/>
+<br/>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-reporting-assertion-container/index.html">ReportingAssertionContainer</a> which delegates checking and reporting <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s to the given
+<a href="new-delegating-reporting-assertion-container.html#ch.tutteli.atrium.core.CoreFactoryCommon$newDelegatingReportingAssertionContainer(ch.tutteli.atrium.creating.AssertionHolder, ch.tutteli.atrium.core.Option((ch.tutteli.atrium.core.CoreFactoryCommon.newDelegatingReportingAssertionContainer.T)))/originalAssertionHolder">originalAssertionHolder</a>.</p>
+<p>In Detail: it uses <a href="../../ch.tutteli.atrium.reporting/-s-h-o-u-l-d_-n-o-t_-b-e_-s-h-o-w-n_-t-o_-t-h-e_-u-s-e-r_-b-u-g_-t-r-a-n-s-l-a-t-a-b-l-e.html">SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE</a> as assertion verb and creates an
+delegating <a href="../../ch.tutteli.atrium.checking/-assertion-checker/index.html">ch.tutteli.atrium.checking.AssertionChecker</a> via <a href="new-delegating-assertion-checker.html">newDelegatingAssertionChecker</a>.</p>
+<h3>Parameters</h3>
+<p><a name="maybeSubject"></a>
+<code>maybeSubject</code> - Used as <a href="#">ReportingAssertionContainer.maybeSubject</a> and
+also as representation in reporting.</p>
+<p><strong>Return</strong><br/>
+The newly created assertion container.</p>
+</BODY>
+</HTML>

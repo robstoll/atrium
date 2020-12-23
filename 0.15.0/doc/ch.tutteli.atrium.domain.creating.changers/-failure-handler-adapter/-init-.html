@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FailureHandlerAdapter.<init> - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.changers</a>&nbsp;/&nbsp;<a href="index.html">FailureHandlerAdapter</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter$&lt;init&gt;(ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R)), kotlin.Function1((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.T, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1)))"></a>
+<code><span class="identifier">FailureHandlerAdapter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter$<init>(ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R)), kotlin.Function1((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.T, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1)))/failureHandler">failureHandler</span><span class="symbol">:</span>&nbsp;<a href="../-subject-changer/-failure-handler/index.html"><span class="identifier">SubjectChanger.FailureHandler</span></a><span class="symbol">&lt;</span><a href="index.html#R1"><span class="identifier">R1</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter$<init>(ch.tutteli.atrium.domain.creating.changers.SubjectChanger.FailureHandler((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R)), kotlin.Function1((ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.T, ch.tutteli.atrium.domain.creating.changers.FailureHandlerAdapter.R1)))/map">map</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#R1"><span class="identifier">R1</span></a><span class="symbol">)</span></code>
+<p>Represents a <a href="../-subject-changer/-failure-handler/index.html">SubjectChanger.FailureHandler</a> which as an adapter for another failure handler by mapping first
+the given subject to another type <a href="index.html#R1">R1</a> which is understood as input of the other failure handler.</p>
+<p>Effectively turning a <code>FailureHandler&lt;R1, R&gt;</code> into a <code>FailureHandler&lt;T, R&gt;</code> with the help of a mapping
+function <code>(T) -&gt; R1</code></p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the subject</p>
+<p><a name="R1"></a>
+<code>R1</code> - The type of the mapped subject</p>
+<p><a name="R"></a>
+<code>R</code> - The type of the subject after the subject change (if it were possible).</p>
+</BODY>
+</HTML>

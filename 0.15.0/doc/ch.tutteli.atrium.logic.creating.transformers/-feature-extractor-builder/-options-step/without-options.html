@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder.OptionsStep.withoutOptions - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractorBuilder</a>&nbsp;/&nbsp;<a href="index.html">OptionsStep</a>&nbsp;/&nbsp;<a href="./without-options.html">withoutOptions</a><br/>
+<br/>
+<h1>withoutOptions</h1>
+<a name="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.OptionsStep$withoutOptions()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withoutOptions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-final-step/index.html"><span class="identifier">FeatureExtractorBuilder.FinalStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>States explicitly that no optional <a href="../../../ch.tutteli.atrium.creating/-feature-expect-options/index.html">FeatureExpectOptions</a> are defined, which means, the <a href="../../-feature-extractor/index.html">FeatureExtractor</a>
+will create a new <a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> based on the previously defined mandatory options
+but without any optional options or in other words, the default values are used for the optional options.</p>
+<p>Use <a href="with-options.html">withOptions</a> if you want to define optional <a href="../../../ch.tutteli.atrium.creating/-feature-expect-options/index.html">FeatureExpectOptions</a> such as, override the
+description, define an own representation etc.</p>
+</BODY>
+</HTML>

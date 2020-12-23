@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableLikeToIterableTransformer.unsafeTransform - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.typeutils</a>&nbsp;/&nbsp;<a href="index.html">IterableLikeToIterableTransformer</a>&nbsp;/&nbsp;<a href="./unsafe-transform.html">unsafeTransform</a><br/>
+<br/>
+<h1>unsafeTransform</h1>
+<a name="ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer$unsafeTransform(kotlin.Any)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">unsafeTransform</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer$unsafeTransform(kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="unsafe-transform.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../-iterable-like.html">IterableLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="unsafe-transform.html#T">T</a>.</p>
+<p>Note that an unsafe cast applies, i.e. the caller has to know that the elements of the given <a href="unsafe-transform.html#ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer$unsafeTransform(kotlin.Any)/iterableLike">iterableLike</a>
+are all of type <a href="unsafe-transform.html#T">T</a> and specify it correctly. Alternatively, the caller can call <code>map { it as T }</code>
+after the <a href="./unsafe-transform.html">unsafeTransform</a> call.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableLikeContains.Creator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains</a>&nbsp;/&nbsp;<a href="index.html">IterableLikeContains</a>&nbsp;/&nbsp;<a href="./-creator.html">Creator</a><br/>
+<br/>
+<h1>Creator</h1>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html"><span class="identifier">Contains.Creator</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the subject of the assertion.</p>
+<p><a name="SC"></a>
+<code>SC</code> - The type of the search criteria.</p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html">createAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> representing the sophisticated <code>contains</code> assertion for the
+subject of the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/container">container</a>, based on the given <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/create-assertion-group.html#ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html">InAnyOrderEntriesAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">InAnyOrderEntriesAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains.creators.impl/-contains-assertion-creator/index.html"><span class="identifier">ContainsAssertionCreator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<a href="-checker.html"><span class="identifier">IterableLikeContains.Checker</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-creator.html"><span class="identifier">IterableLikeContains.Creator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-entries-assertion-creator/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where an expected entry can appear
+in any order and is identified by holding a group of assertions, created by an assertion creator lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-only-assertion-creator/index.html">InAnyOrderOnlyAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">InAnyOrderOnlyAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-creator.html"><span class="identifier">IterableLikeContains.Creator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-only-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-only-assertion-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the base class for <code>in any order only</code> assertion creators and provides a corresponding template to fulfill
+its responsibility.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html">InAnyOrderValuesAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">InAnyOrderValuesAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">SC</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains.creators.impl/-contains-objects-assertion-creator/index.html"><span class="identifier">ContainsObjectsAssertionCreator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a><span class="symbol">,</span>&nbsp;<a href="-checker.html"><span class="identifier">IterableLikeContains.Checker</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-creator.html"><span class="identifier">IterableLikeContains.Creator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-values-assertion-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where an expected entry can appear
+in any order and is identified by expected objects (equality comparison).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-order-only-base-assertion-creator/index.html">InOrderOnlyBaseAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">InOrderOnlyBaseAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-creator.html"><span class="identifier">IterableLikeContains.Creator</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-order-only-base-assertion-creator/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-order-only-base-assertion-creator/index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

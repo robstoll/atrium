@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableLikeToIterableTransformer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.typeutils</a>&nbsp;/&nbsp;<a href="./index.html">IterableLikeToIterableTransformer</a><br/>
+<br/>
+<h1>IterableLikeToIterableTransformer</h1>
+<code><span class="keyword">interface </span><span class="identifier">IterableLikeToIterableTransformer</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="supported-types.html">supportedTypes</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">supportedTypes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="unsafe-transform.html">unsafeTransform</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">unsafeTransform</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer$unsafeTransform(kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="unsafe-transform.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../-iterable-like.html">IterableLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="unsafe-transform.html#T">T</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.typeutils.impl/-default-iterable-like-to-iterable-transformer/index.html">DefaultIterableLikeToIterableTransformer</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DefaultIterableLikeToIterableTransformer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IterableLikeToIterableTransformer</span></a></code>
+<p>Transforms <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> and all <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a> types to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

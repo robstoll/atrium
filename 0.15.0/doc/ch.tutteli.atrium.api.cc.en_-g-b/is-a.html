@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isA - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.en_GB</a>&nbsp;/&nbsp;<a href="./is-a.html">isA</a><br/>
+<br/>
+<h1>isA</h1>
+<a name="ch.tutteli.atrium.api.cc.en_GB$isA(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.isA.TSub)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">isA</span></s><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB$isA(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="is-a.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<strong>Deprecated:</strong> Switch from Assert to Expect; will be removed with 1.0.0 -- see https://github.com/robstoll/atrium/releases/tag/v0.9.0#migration for migration hints and scripts.<br/>
+<br/>
+<p>Makes the assertion that the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> <em>is a</em> <a href="is-a.html#TSub">TSub</a> (the same type or a sub-type) and if so,
+uses <a href="is-a.html#ch.tutteli.atrium.api.cc.en_GB$isA(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> which could create further assertions which are added as a group.</p>
+<p>Notice, that asserting a function type is <a href="https://youtrack.jetbrains.com/issue/KT-27846">flawed</a>.
+The actual types are ignored as function types erase to Function0,
+Function1 etc. on byte code level, which means the assertion holds as long as the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> is a
+function and has the same amount of arguments regardless if the types differ. For instance
+<code>assert({x: Int -&gt; "hello"}).isA&lt;String -&gt; Unit&gt;{}</code> holds, even though <code>(Int) -&gt; String</code> is clearly not
+a <code>(String) -&gt; Unit</code>.</p>
+<p>More generally speaking, the <a href="https://youtrack.jetbrains.com/issue/KT-27826">flaw</a> applies to all generic types.
+For instance <code>isA&lt;List&lt;String&gt;&gt;</code> would only check if the <a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> is a <code>List</code> without checking if
+the element type is actually <code>String</code>. Or in other words
+<code>assert(listOf(1, 2)).isA&lt;List&lt;String&gt;&gt;{}</code> holds, even though <code>List&lt;Int&gt;</code> is clearly not a <code>List&lt;String&gt;</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+assertion (<a href="../ch.tutteli.atrium.creating/-subject-provider/subject.html">Assert.subject</a> <em>is a</em> <a href="is-a.html#TSub">TSub</a>) holds or not. Define subsequent assertions
+via the <a href="is-a.html#ch.tutteli.atrium.api.cc.en_GB$isA(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.isA.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda.</p>
+</BODY>
+</HTML>

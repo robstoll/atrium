@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isSameAs - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./is-same-as.html">isSameAs</a><br/>
+<br/>
+<h1>isSameAs</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSameAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion is the same instance as <a href="is-same-as.html#ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">val list = listOf(3)
+expect(list).isSameAs(list)
+
+fails {
+    // fails because isSameAs is based on identity, use toBe for equality
+    expect(listOf(3)).isSameAs(listOf(3))
+}</code></pre>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

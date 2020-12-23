@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isKeyValue - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./is-key-value.html">isKeyValue</a><br/>
+<br/>
+<h1>isKeyValue</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$isKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isKeyValue.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.isKeyValue.K, ch.tutteli.atrium.api.infix.en_GB.isKeyValue.V)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="is-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isKeyValue</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$isKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isKeyValue.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.isKeyValue.K, ch.tutteli.atrium.api.infix.en_GB.isKeyValue.V)))/keyValuePair">keyValuePair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="is-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-key-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/key.html">Map.Entry.key</a> of the subject of the assertion
+is equal to the given <a href="key.html">key</a> and the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/value.html">Map.Entry.value</a> is equal to the given <a href="value.html">value</a>.</p>
+<p>Kind of a shortcut for <code>and { key { this toBe key }; value { this toBe value } }</code> where <code>and</code> denotes an assertion group
+block. Yet, the actual behaviour depends on implementation - could also be fail fast for instance or augment
+reporting etc.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

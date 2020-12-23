@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>it - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB.workaround</a>&nbsp;/&nbsp;<a href="./it.html">it</a><br/>
+<br/>
+<h1>it</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB.workaround$it(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.workaround.it.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.workaround.it.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="it.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">it</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB.workaround$it(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.workaround.it.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.workaround.it.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="it.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="it.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Can be used to create a group of sub assertions when using the fluent API.</p>
+<p>Intended to be used in combination with feature assertions where Kotlin &lt; 1.4 is not able to infer the correct type.
+For instance:</p>
+<pre><code>// use
+expect(person) feature { f(it::age) } it { o toBe 20 }
+
+// instead of (which causes problems with Kotlin &lt; 1.4)
+expect(person) feature of({ f(it::age) }) { o toBe 20 }
+</code></pre>
+<p>Note that this workaround will be removed in some minor version after a major version with Kotlin 1.4 support
+(most likely with Atrium v1.1.0 where Atrium v1.0.0 requires Kotlin 1.4)</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+</BODY>
+</HTML>

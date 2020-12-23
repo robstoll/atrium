@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultExactlyChecker.<init> - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl</a>&nbsp;/&nbsp;<a href="index.html">DefaultExactlyChecker</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$&lt;init&gt;(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))"></a>
+<code><span class="identifier">DefaultExactlyChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/nameContainsNotFun">nameContainsNotFun</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultExactlyChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/exactlyCall">exactlyCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents a check that an expected entry is contained exactly <a href="#">times</a> in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+<h3>Parameters</h3>
+<p><a name="times"></a>
+<code>times</code> - The number which the check uses to compare against the actual number of times an expected entry is
+found in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+<p><a name="nameContainsNotFun"></a>
+<code>nameContainsNotFun</code> - The function which should be used instead of <code>exactlyCall</code> when <a href="#">times</a> equals to zero.</p>
+<p><a name="exactlyCall"></a>
+<code>exactlyCall</code> - The function call which was used and should not be used if <a href="#">times</a> equals to zero.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - In case <a href="#">times</a> is smaller than 1.</p>
+</BODY>
+</HTML>

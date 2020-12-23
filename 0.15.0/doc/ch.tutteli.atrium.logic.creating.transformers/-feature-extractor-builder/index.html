@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="./index.html">FeatureExtractorBuilder</a><br/>
+<br/>
+<h1>FeatureExtractorBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractorBuilder</span></code>
+<p>Helps in using <a href="../-feature-extractor/index.html">FeatureExtractor</a> by providing a guide to set the different parameters in form of a fluent builder.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-description-step/index.html">DescriptionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to specify the description which will be used to describe the feature.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-execution-step/index.html">ExecutionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExecutionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-transformation-execution-step/index.html"><span class="identifier">TransformationExecutionStep</span></a><span class="symbol">&lt;</span><a href="-execution-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="-execution-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to decide how the transformation shall be executed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-extraction-step/index.html">FeatureExtractionStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExtractionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step to define the feature extraction as such where a one can include a check by returning <a href="../../ch.tutteli.atrium.core/-none.html">None</a> in case the
+extraction should not be carried out.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Final step in the help-me-to-call-<a href="../-feature-extractor/index.html">FeatureExtractor</a>-process, which creates an <a href="-execution-step/index.html">ExecutionStep</a> incorporating all
+chosen options and is able to call <a href="../-subject-changer/index.html">SubjectChanger</a> accordingly.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-step/index.html">OptionsStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to override previously defined properties -- such as: use a different description -- but
+also allows to define options where usually a default value is used -- e.g. per default the subject itself is
+use as representation, this can be changed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-representation-in-case-of-failure-step/index.html">RepresentationInCaseOfFailureStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationInCaseOfFailureStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to to define the representation which shall be used
+in case the extraction cannot be performed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.Companion$invoke(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.Companion.invoke.T)))/assertionContainer">assertionContainer</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-description-step/index.html"><span class="identifier">FeatureExtractorBuilder.DescriptionStep</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="./index.html">FeatureExtractorBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

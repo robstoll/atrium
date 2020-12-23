@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>because - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./because.html">because</a><br/>
+<br/>
+<h1>because</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.because.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((kotlin.String, ch.tutteli.atrium.api.infix.en_GB.because.T)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">because</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.because.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((kotlin.String, ch.tutteli.atrium.api.infix.en_GB.because.T)))/keyWithCreator">keyWithCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html"><span class="identifier">KeyWithCreator</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Allows to state a reason for one or multiple assertions for the current subject.</p>
+<pre><code class="lang-kotlin">expect(12) because of("this is true as anything can ever be") {
+    toBe(12)
+}
+
+fails {
+    expect(12) because of("won't hold, it's not equal") {
+        toBe(11)
+    }
+}
+
+expect(listOf(1)) because of("toBe is based on equality, use isSameAs for identity") {
+    toBe(listOf(1))
+}
+
+fails {
+    expect(arrayOf(1)) because of("array has not implemented equals, so is equivalent to isSameAs") {
+        toBe(arrayOf(1))
+    }
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="keyWithCreator"></a>
+<code>keyWithCreator</code> - Combines the reason with the assertionCreator-lambda. Use the function
+<code>of(reason) { ... }</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html">KeyWithCreator</a>.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.15.0</p>
+</BODY>
+</HTML>

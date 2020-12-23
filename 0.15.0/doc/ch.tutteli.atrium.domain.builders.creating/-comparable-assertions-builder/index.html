@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ComparableAssertionsBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating</a>&nbsp;/&nbsp;<a href="./index.html">ComparableAssertionsBuilder</a><br/>
+<br/>
+<h1>ComparableAssertionsBuilder</h1>
+<code><span class="keyword">object </span><s><span class="identifier">ComparableAssertionsBuilder</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating/-comparable-assertions/index.html"><span class="identifier">ComparableAssertions</span></a></code><br/>
+<strong>Deprecated:</strong> Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Delegates inter alia to the implementation of <a href="../../ch.tutteli.atrium.domain.creating/-comparable-assertions/index.html">ComparableAssertions</a>.
+In detail, it implements <a href="../../ch.tutteli.atrium.domain.creating/-comparable-assertions/index.html">ComparableAssertions</a> by delegating to <a href="../../ch.tutteli.atrium.domain.creating/comparable-assertions.html">comparableAssertions</a>
+which in turn delegates to the implementation via <a href="../../ch.tutteli.atrium.core.polyfills/load-single-service.html">loadSingleService</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="is-equal-comparing-to.html">isEqualComparingTo</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T1</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-equal-comparing-to.html#T2"><span class="identifier">T2</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">T2</span><span class="symbol">&gt;</span> <span class="identifier">isEqualComparingTo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isEqualComparingTo(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isEqualComparingTo.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isEqualComparingTo.T2)/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-equal-comparing-to.html#T1"><span class="identifier">T1</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isEqualComparingTo(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isEqualComparingTo.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isEqualComparingTo.T2)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-equal-comparing-to.html#T2"><span class="identifier">T2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-greater-or-equals.html">isGreaterOrEquals</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T1</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-greater-or-equals.html#T2"><span class="identifier">T2</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">T2</span><span class="symbol">&gt;</span> <span class="identifier">isGreaterOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isGreaterOrEquals(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterOrEquals.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterOrEquals.T2)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-greater-or-equals.html#T1"><span class="identifier">T1</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isGreaterOrEquals(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterOrEquals.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterOrEquals.T2)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-greater-or-equals.html#T2"><span class="identifier">T2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-greater-than.html">isGreaterThan</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T1</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-greater-than.html#T2"><span class="identifier">T2</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">T2</span><span class="symbol">&gt;</span> <span class="identifier">isGreaterThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isGreaterThan(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterThan.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterThan.T2)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-greater-than.html#T1"><span class="identifier">T1</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isGreaterThan(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterThan.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isGreaterThan.T2)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-greater-than.html#T2"><span class="identifier">T2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-less-or-equals.html">isLessOrEquals</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T1</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-less-or-equals.html#T2"><span class="identifier">T2</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">T2</span><span class="symbol">&gt;</span> <span class="identifier">isLessOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isLessOrEquals(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessOrEquals.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessOrEquals.T2)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-less-or-equals.html#T1"><span class="identifier">T1</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isLessOrEquals(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessOrEquals.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessOrEquals.T2)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-less-or-equals.html#T2"><span class="identifier">T2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-less-than.html">isLessThan</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T1</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-less-than.html#T2"><span class="identifier">T2</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">T2</span><span class="symbol">&gt;</span> <span class="identifier">isLessThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isLessThan(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessThan.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessThan.T2)/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="is-less-than.html#T1"><span class="identifier">T1</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder$isLessThan(ch.tutteli.atrium.creating.SubjectProvider((ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessThan.T1)), ch.tutteli.atrium.domain.builders.creating.ComparableAssertionsBuilder.isLessThan.T2)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-less-than.html#T2"><span class="identifier">T2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

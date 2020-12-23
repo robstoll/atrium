@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.logic.creating.filesystem.hints - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.logic.creating.filesystem.hints</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.logic.creating.filesystem.hints</h2>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="explain-for-resolved-link.html">explainForResolvedLink</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">explainForResolvedLink</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$explainForResolvedLink(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.assertions.Assertion)))/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$explainForResolvedLink(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.assertions.Assertion)))/resolvedPathAssertionProvider">resolvedPathAssertionProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">realPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Internal for testing purposes only</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="find-hint-for-problem-with-parent.html">findHintForProblemWithParent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">findHintForProblemWithParent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$findHintForProblemWithParent(java.nio.file.Path)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">?</span></code>
+<p>Searches for any problem with a parent directory that is not that the directory does not exist.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="hint-for-access-denied.html">hintForAccessDenied</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hintForAccessDenied</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForAccessDenied(java.nio.file.Path)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="hint-for-closest-existing-parent.html">hintForClosestExistingParent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hintForClosestExistingParent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForClosestExistingParent(java.nio.file.Path)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Assumes that we know that <a href="hint-for-closest-existing-parent.html#ch.tutteli.atrium.logic.creating.filesystem.hints$hintForClosestExistingParent(java.nio.file.Path)/path">path</a> does not exist.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="hint-for-exists-but-missing-permission.html">hintForExistsButMissingPermission</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hintForExistsButMissingPermission</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForExistsButMissingPermission(ch.tutteli.atrium.logic.creating.filesystem.hints.hintForExistsButMissingPermission.T, ch.tutteli.atrium.reporting.translating.Translatable)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="hint-for-exists-but-missing-permission.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForExistsButMissingPermission(ch.tutteli.atrium.logic.creating.filesystem.hints.hintForExistsButMissingPermission.T, ch.tutteli.atrium.reporting.translating.Translatable)/permissionName">permissionName</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="hint-for-io-exception.html">hintForIoException</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hintForIoException</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForIoException(java.nio.file.Path, java.io.IOException)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForIoException(java.nio.file.Path, java.io.IOException)/exception">exception</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html"><span class="identifier">IOException</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="hint-for-owners-and-permissions.html">hintForOwnersAndPermissions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hintForOwnersAndPermissions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$hintForOwnersAndPermissions(java.nio.file.Path)/path">path</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="with-file-attributes-failure-hint.html">withFileAttributesFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-final-step/index.html"><span class="identifier">Descriptive.FinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withFileAttributesFailureHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$withFileAttributesFailureHint(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.filesystem.IoResult((java.nio.file.attribute.BasicFileAttributes)))))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.logic.creating.filesystem/-io-result/index.html"><span class="identifier">IoResult</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/BasicFileAttributes.html"><span class="identifier">BasicFileAttributes</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive-assertion-with-failure-hint/-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="with-i-o-exception-failure-hint.html">withIOExceptionFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-final-step/index.html"><span class="identifier">Descriptive.FinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withIOExceptionFailureHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$withIOExceptionFailureHint(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.filesystem.IoResult((ch.tutteli.atrium.logic.creating.filesystem.hints.withIOExceptionFailureHint.T)))), kotlin.Function2((java.nio.file.Path, java.io.IOException, ch.tutteli.atrium.assertions.Assertion)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.logic.creating.filesystem/-io-result/index.html"><span class="identifier">IoResult</span></a><span class="symbol">&lt;</span><a href="with-i-o-exception-failure-hint.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.filesystem.hints$withIOExceptionFailureHint(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.filesystem.IoResult((ch.tutteli.atrium.logic.creating.filesystem.hints.withIOExceptionFailureHint.T)))), kotlin.Function2((java.nio.file.Path, java.io.IOException, ch.tutteli.atrium.assertions.Assertion)))/f">f</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">,</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html"><span class="identifier">IOException</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive-assertion-with-failure-hint/-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

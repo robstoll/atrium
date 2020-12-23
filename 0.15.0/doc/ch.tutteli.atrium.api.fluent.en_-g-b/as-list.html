@@ -1,0 +1,367 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>asList - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./as-list.html">asList</a><br/>
+<br/>
+<h1>asList</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;Array&lt;E&gt;&gt;</code> into <code>Expect&lt;List&lt;E&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(Array&lt;out E&gt;::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(arrayOf("A", "B"))
+    .asList()  // subject is now of type List&lt;String&gt;
+    .toBe(listOf("A", "B"))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(Array&lt;out E&gt;::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(arrayOf("A", "B"))
+    .asList { // subject within this block is of type List&lt;String&gt;
+        toBe(listOf("A", "B"))
+    } // subject here is back to type Array&lt;String&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(arrayOf("A", "B"))
+        .asList {
+            contains("C")  // fails
+            contains("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ByteArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"byteArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html"><span class="identifier">Byte</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;CharArray&gt;</code> into <code>Expect&lt;List&lt;Byte&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(ByteArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(byteArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Byte&gt;
+    .toBe(listOf&lt;Byte&gt;(1, 2, 3))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ByteArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Byte)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"byteArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ByteArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Byte)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html"><span class="identifier">Byte</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ByteArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Byte)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(ByteArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(byteArrayOf(1, 2, 3))
+    .asList { // subject within this block is of type List&lt;Byte&gt;
+        toBe(listOf&lt;Byte&gt;(1, 2, 3))
+    } // subject here is back to type Array&lt;Byte&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(byteArrayOf(1, 2, 3))
+        .asList {
+            contains(98)  // fails
+            contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.CharArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"charArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html"><span class="identifier">Char</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;CharArray&gt;</code> into <code>Expect&lt;List&lt;Char&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(CharArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(charArrayOf('A', 'B', 'C'))
+    .asList() // subject is now of type List&lt;Char&gt;
+    .toBe(listOf('A', 'B', 'C'))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.CharArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Char)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"charArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.CharArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Char)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html"><span class="identifier">Char</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.CharArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Char)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(CharArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(charArrayOf('A', 'B', 'C'))
+    .asList { // subject within this block is of type List&lt;Char&gt;
+        toBe(listOf('A', 'B', 'C'))
+    } // subject here is back to type Array&lt;Char&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(charArrayOf('A', 'B', 'C'))
+        .asList {
+            contains('X')  // fails
+            contains('Y')  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ShortArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"shortArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html"><span class="identifier">ShortArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short/index.html"><span class="identifier">Short</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;ShortArray&gt;</code> into <code>Expect&lt;List&lt;Short&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(ShortArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(shortArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Short&gt;
+    .toBe(listOf&lt;Short&gt;(1, 2, 3))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ShortArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Short)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"shortArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html"><span class="identifier">ShortArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ShortArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Short)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short/index.html"><span class="identifier">Short</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html"><span class="identifier">ShortArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.ShortArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Short)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(ShortArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(shortArrayOf(1, 2, 3))
+    .asList { // subject within this block is of type List&lt;Short&gt;
+        toBe(listOf&lt;Short&gt;(1, 2, 3))
+    } // subject here is back to type Array&lt;Short&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(shortArrayOf(1, 2, 3))
+        .asList {
+            contains(98)  // fails
+            contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.IntArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"intArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html"><span class="identifier">IntArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;IntArray&gt;</code> into <code>Expect&lt;List&lt;Int&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(IntArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(intArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Int&gt;
+    .toBe(listOf(1, 2, 3))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.IntArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Int)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"intArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html"><span class="identifier">IntArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.IntArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Int)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html"><span class="identifier">IntArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.IntArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Int)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(IntArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(intArrayOf(1, 2, 3))
+    .asList { // subject within this block is of type List&lt;Int&gt;
+        toBe(listOf(1, 2, 3))
+    } // subject here is back to type Array&lt;Int&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(intArrayOf(1, 2, 3))
+        .asList {
+            contains(98)  // fails
+            contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.LongArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"longArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html"><span class="identifier">LongArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;LongArray&gt;</code> into <code>Expect&lt;List&lt;Double&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(LongArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(longArrayOf(1L, 2L, 3L)) // subject is now of type List&lt;Long&gt;
+    .asList()
+    .toBe(listOf(1L, 2L, 3L))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.LongArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Long)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"longArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html"><span class="identifier">LongArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.LongArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Long)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html"><span class="identifier">LongArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.LongArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Long)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(LongArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(longArrayOf(1L, 2L, 3L))
+    .asList { // subject within this block is of type List&lt;Long&gt;
+        toBe(listOf(1L, 2L, 3L))
+    } // subject here is back to type Array&lt;Long&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(longArrayOf(1L, 2L, 3L))
+        .asList {
+            contains(98L)  // fails
+            contains(99L)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.FloatArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"floatArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;FloatArray&gt;</code> into <code>Expect&lt;List&lt;Float&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(FloatArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(floatArrayOf(1f, 2f, 3f))
+    .asList() // subject is now of type List&lt;Float&gt;
+    .toBe(listOf(1f, 2f, 3f))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.FloatArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Float)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"floatArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.FloatArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Float)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.FloatArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Float)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(FloatArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(floatArrayOf(1f, 2f, 3f))
+    .asList { // subject within this block is of type List&lt;Float&gt;
+        toBe(listOf(1f, 2f, 3f))
+    } // subject here is back to type Array&lt;Float&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(floatArrayOf(1f, 2f, 3f))
+        .asList {
+            contains(98f)  // fails
+            contains(99f)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.DoubleArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"doubleArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html"><span class="identifier">DoubleArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;DoubleArray&gt;</code> into <code>Expect&lt;List&lt;Double&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(DoubleArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(doubleArrayOf(1.1, 2.2, 3.3))
+    .asList() // subject is now of type List&lt;Double&gt;
+    .toBe(listOf(1.1, 2.2, 3.3))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.DoubleArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Double)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"doubleArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html"><span class="identifier">DoubleArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.DoubleArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Double)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html"><span class="identifier">DoubleArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.DoubleArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Double)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(DoubleArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(doubleArrayOf(1.1, 2.2, 3.3))
+    .asList { // subject within this block is of type List&lt;Double&gt;
+        toBe(listOf(1.1, 2.2, 3.3))
+    } // subject here is back to type Array&lt;Double&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(doubleArrayOf(1.1, 2.2, 3.3))
+        .asList {
+            contains(98.1)  // fails
+            contains(99.2)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.BooleanArray)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"boolArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html"><span class="identifier">BooleanArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;BooleanArray&gt;</code> into <code>Expect&lt;List&lt;Boolean&gt;&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(BooleanArray::asList)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(booleanArrayOf(true, false))
+    .asList() // subject is now of type List&lt;Boolean&gt;
+    .toBe(listOf(true, false))</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.BooleanArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Boolean)))), kotlin.Unit)))"></a>
+<code><span class="identifier">@JvmName</span><span class="symbol">(</span>"boolArrAsList"<span class="symbol">)</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html"><span class="identifier">BooleanArray</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.BooleanArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Boolean)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html"><span class="identifier">BooleanArray</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((kotlin.BooleanArray)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((kotlin.Boolean)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature(BooleanArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<pre><code class="lang-kotlin">expect(booleanArrayOf(true, false))
+    .asList { // subject within this block is of type List&lt;Boolean&gt;
+        toBe(listOf(true, false))
+    } // subject here is back to type Array&lt;Boolean&gt;
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(booleanArrayOf(true, true))
+        .asList {
+            // fails
+            contains(false)
+
+            // still evaluated, use `.asList().` if you want a fail fast behaviour
+            contains.inAnyOrder.atLeast(3).value(true)
+        }
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.9.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.asList.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-list.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Turns <code>Expect&lt;E, T : Iterable&lt;E&gt;&gt;</code> into <code>Expect&lt;List&lt;E&gt;</code>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature { f(it::toList) }</code> if you want to show the transformation in reporting.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p>
+<p><strong>Since</strong><br/>
+0.14.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.asList.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-list.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">asList</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.asList.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="as-list.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="as-list.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Expects that the subject of the assertion holds all assertions the given <a href="as-list.html#ch.tutteli.atrium.api.fluent.en_GB$asList(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.asList.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((kotlin.collections.List((ch.tutteli.atrium.api.fluent.en_GB.asList.E)))), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for
+the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+<p>The transformation as such is not reflected in reporting.
+Use <code>feature of({ f(it::toList) }, assertionCreator)</code> if you want to show the transformation in reporting.</p>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of the assertion.</p>
+<p><strong>Since</strong><br/>
+0.14.0</p>
+</BODY>
+</HTML>

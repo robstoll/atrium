@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExtractorBuilder.ExecutionStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="../index.html">FeatureExtractorBuilder</a>&nbsp;/&nbsp;<a href="./index.html">ExecutionStep</a><br/>
+<br/>
+<h1>ExecutionStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExecutionStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-transformation-execution-step/index.html"><span class="identifier">TransformationExecutionStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to decide how the transformation shall be executed.</p>
+<p>For instance, if it shall just perform the feature extraction and return the new <a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> of type <a href="index.html#R">R</a>
+or if it shall pass an assertionCreator-lambda which creates sub-assertions etc.</p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-transformation-execution-step/collect.html">collect</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">collect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$collect(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../-transformation-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Finishes the transformation process by collecting the assertions the given <a href="../../-transformation-execution-step/collect.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$collect(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates
+for the subject of type <a href="../../-transformation-execution-step/index.html#R">R</a> resulting from the transformation
+and returns the assertions as a single <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-transformation-execution-step/collect-and-append.html">collectAndAppend</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">collectAndAppend</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$collectAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../-transformation-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../-transformation-execution-step/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Finishes the transformation process by appending the <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>
+which is returned when calling <a href="../../-transformation-execution-step/collect.html">collect</a> with the given <a href="../../-transformation-execution-step/collect-and-append.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$collectAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-transformation-execution-step/transform.html">transform</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">transform</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-transformation-execution-step/index.html#E"><span class="identifier">E</span></a></code>
+<p>Finishes the transformation process by simply performing the transformation as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-transformation-execution-step/transform-and-append.html">transformAndAppend</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">transformAndAppend</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../-transformation-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../-transformation-execution-step/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Finishes the transformation process by carrying the transformation out and appending
+the assertions the given <a href="../../-transformation-execution-step/transform-and-append.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for the subject of type <a href="../../-transformation-execution-step/index.html#R">R</a> resulting from the transformation
+as single assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion$invoke(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)))), kotlin.Function2((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)), kotlin.Unit)), )))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion$invoke(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)))), kotlin.Function2((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)), kotlin.Unit)), )))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion$invoke(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), ch.tutteli.atrium.creating.FeatureExpect((, ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)))), kotlin.Function2((ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder.ExecutionStep.Companion.invoke.R)), kotlin.Unit)), )))/actionAndApply">actionAndApply</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="invoke.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Creates the <a href="../-final-step/index.html">FinalStep</a> in the context of the <a href="../../-subject-changer-builder/index.html">SubjectChangerBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html">ExecutionStepImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExecutionStepImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl/-base-transformation-execution-step/index.html"><span class="identifier">BaseTransformationExecutionStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#R"><span class="identifier">R</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-feature-expect/index.html"><span class="identifier">FeatureExpect</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/-execution-step-impl/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

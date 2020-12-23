@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionGroupDescriptionAndEmptyRepresentationOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">AssertionGroupDescriptionAndEmptyRepresentationOption</a><br/>
+<br/>
+<h1>AssertionGroupDescriptionAndEmptyRepresentationOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroupDescriptionAndEmptyRepresentationOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> -- <a href="../../ch.tutteli.atrium.reporting/-text/-e-m-p-t-y.html">Text.EMPTY</a> is
+used as <a href="../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="group-type.html">groupType</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">groupType</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>The previously defined <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption$withDescription(kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#R"><span class="identifier">R</span></a></code>
+<p>Wraps the given <a href="with-description.html#ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption$withDescription(kotlin.String)/description">description</a> into an <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> and uses it as <a href="../../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> and
+uses <a href="../../ch.tutteli.atrium.reporting/-text/-e-m-p-t-y.html">Text.EMPTY</a> as <a href="../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#R"><span class="identifier">R</span></a></code>
+<p>Uses the given <a href="with-description.html#ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</a> as <a href="../../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> and
+<a href="../../ch.tutteli.atrium.reporting/-text/-e-m-p-t-y.html">Text.EMPTY</a> as <a href="../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion$create(ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.T, kotlin.Function3((ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.T, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.R)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion$create(ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.T, kotlin.Function3((ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.T, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndEmptyRepresentationOption.Companion.create.R)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="create.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AssertionGroupDescriptionAndEmptyRepresentationOption</span></a><span class="symbol">&lt;</span><a href="create.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="create.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Factory method to create a <a href="./index.html">AssertionGroupDescriptionAndEmptyRepresentationOption</a> step in the building
+process of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

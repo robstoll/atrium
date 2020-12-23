@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>GroupWithoutNullableEntries - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.domain.builders.utils</a>&nbsp;/&nbsp;<a href="./-group-without-nullable-entries.html">GroupWithoutNullableEntries</a><br/>
+<br/>
+<h1>GroupWithoutNullableEntries</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">GroupWithoutNullableEntries</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group/index.html"><span class="identifier">Group</span></a><span class="symbol">&lt;</span><a href="-group-without-nullable-entries.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code><br/>
+<strong>Deprecated:</strong> Use super-type Group instead; will be removed with 1.0.0<br/>
+<br/>
+<p>Represents a group of <a href="-group-without-nullable-entries.html#T">T</a> (where <code>T: Any</code>) which can be converted to a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><code>&lt;T&gt;</code></p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-group/to-list.html">toList</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="-group/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the members of the group as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintraege/index.html">Eintraege</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Eintraege</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintraege/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintraege/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintraege/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintrag/index.html">Eintrag</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Eintrag</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintrag/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-eintrag/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entries/index.html">Entries</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Entries</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html">Entries</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Entries</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entries/index.html">Entries</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Entries</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entries/index.html">Entries</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Entries</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entries/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> of identification lambdas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entry/index.html">Entry</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Entry</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entry/index.html">Entry</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Entry</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entry/index.html">Entry</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Entry</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entry/index.html">Entry</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Entry</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-entry/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>Parameter object to express a <a href="-group/index.html">Group</a> with a single identification lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-value/index.html">Value</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Value</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> with a single value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-value/index.html">Value</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Value</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> with a single value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-value/index.html">Value</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">Value</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> with a single value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-value/index.html">Value</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">Value</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-value/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> with a single value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-values/index.html">Values</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Values</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.fluent.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> of multiple values.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html">Values</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Values</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> of multiple values.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-values/index.html">Values</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Values</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> of multiple values.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-values/index.html">Values</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Values</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.infix.en_-g-b/-values/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="-group/index.html">Group</a> of multiple values.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-wert/index.html">Wert</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">Wert</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-wert/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-wert/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="./-group-without-nullable-entries.html">GroupWithoutNullableEntries</a> with a single value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-werte/index.html">Werte</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">Werte</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-group-without-nullable-entries.html"><span class="identifier">GroupWithoutNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-werte/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-group-with-nullable-entries.html"><span class="identifier">GroupWithNullableEntries</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-werte/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-var-arg-helper/index.html"><span class="identifier">VarArgHelper</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.api.cc.de_-c-h/-werte/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="./-group-without-nullable-entries.html">GroupWithoutNullableEntries</a> of multiple values.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

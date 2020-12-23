@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Contains - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.basic.contains</a>&nbsp;/&nbsp;<a href="./index.html">Contains</a><br/>
+<br/>
+<h1>Contains</h1>
+<code><span class="keyword">interface </span><span class="identifier">Contains</span></code>
+<p>Defines the basic contract for sophisticated <code>contains</code> assertion builders.</p>
+<p>The entry point for the contract constitutes a <a href="-entry-point-step.html">Contains.EntryPointStep</a>.
+A builder typically allows a user to choose a desired <a href="-search-behaviour/index.html">SearchBehaviour</a>, one or more <a href="-checker/index.html">Checker</a>s and uses an
+<a href="-creator/index.html">Creator</a> to finish the building process.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-checker/index.html">Checker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Checker</span></code>
+<p>Represents a check for the search result such as: the object is contained exactly once in the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-checker-step.html">CheckerStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStep</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-checker/index.html"><span class="identifier">Contains.Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-entry-point-step.html"><span class="identifier">Contains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="-checker-step.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="-checker/index.html">Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-checker-step-logic/index.html">CheckerStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CheckerStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-checker/index.html"><span class="identifier">Contains.Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-entry-point-step-logic/index.html"><span class="identifier">Contains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="-checker-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-checker-step-logic/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The step of choosing/defining <a href="-checker/index.html">Checker</a>s on the logic level.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator/index.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-entry-point-step.html">EntryPointStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStep</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>The entry point of the contract.
+Use <code>_logic</code> to retrieve the <a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a> counterpart in case you want to extend the building process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepLogic</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>The entry point of the contract, containing the <a href="-entry-point-step-logic/container.html">container</a> -- i.e. the subject of the assertion
+for which the sophisticated <code>contain</code> assertion should be created -- as well as the chosen <a href="-entry-point-step-logic/search-behaviour.html">searchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-search-behaviour/index.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-creator/index.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

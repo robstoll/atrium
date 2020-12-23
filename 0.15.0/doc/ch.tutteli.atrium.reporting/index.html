@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.reporting - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.reporting</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.reporting</h2>
+<p>Everything involved in reporting <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter/index.html">AssertionFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatter</span></code>
+<p>Represents a formatter for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-controller/index.html">AssertionFormatterController</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterController</span></code>
+<p>Responsible to control the flow of reporting using <a href="-assertion-formatter-controller/register.html">register</a>ed <a href="-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-facade/index.html">AssertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterFacade</span></code>
+<p>Responsible to call an appropriate <a href="-assertion-formatter/index.html">AssertionFormatter</a> which supports <a href="-assertion-formatter-facade/format.html">format</a>ing a given <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AssertionFormatterParameterObject</span></code>
+<p>A parameter object used for interactions between <a href="-assertion-formatter-controller/index.html">AssertionFormatterController</a> and <a href="-assertion-formatter/index.html">AssertionFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-pair-formatter/index.html">AssertionPairFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionPairFormatter</span></code>
+<p>Represents a formatter of assertion pairs -- which consists of a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> and a representation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">interface </span><span class="identifier">AtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-atrium-error-adjuster-common/index.html"><span class="identifier">AtriumErrorAdjusterCommon</span></a></code>
+<p>Responsible to adjust a given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> (usually an <a href="-atrium-error/index.html">AtriumError</a>) for improved error reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-atrium-error-adjuster-common/index.html">AtriumErrorAdjusterCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtriumErrorAdjusterCommon</span></code>
+<p>Defines the general contract for <a href="-atrium-error/index.html">AtriumError</a> adjusters which all platforms have to fulfil.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-lazy-representation/index.html">LazyRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LazyRepresentation</span></code>
+<p>A representation which shall be <a href="-lazy-representation/eval.html">eval</a>uated lazily during reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-method-call-formatter/index.html">MethodCallFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">MethodCallFormatter</span></code>
+<p>Responsible to format a method call in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-formatter/index.html">ObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ObjectFormatter</span></code>
+<p>Represents a formatter for objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-raw-string/index.html">RawString</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">RawString</span></s></code>
+<p>Marker interface for types which provide a raw string functionality
+and should be treated accordingly in reporting (e.g., in <a href="-object-formatter/index.html">ObjectFormatter</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter/index.html">Reporter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Reporter</span></code>
+<p>Represents a reporter which reports about <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder/index.html">ReporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">ReporterBuilder</span></s></code>
+<p>The <em>deprecated</em> builder to create a <a href="-reporter/index.html">Reporter</a> consisting of several components.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-factory/index.html">ReporterFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterFactory</span></code>
+<p>Responsible to create a <a href="-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-string-based-raw-string/index.html">StringBasedRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">StringBasedRawString</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-raw-string/index.html"><span class="identifier">RawString</span></a></code>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text/index.html">Text</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Text</span></code>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-atrium-error/index.html">AtriumError</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">AtriumError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html"><span class="identifier">AssertionError</span></a></code>
+<p>Indicates that an assertion made by Atrium failed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-b-u-g_-r-e-p-o-r-t_-u-r-l.html">BUG_REPORT_URL</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">BUG_REPORT_URL</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Refers to the bug tracker of Atrium.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="reporter.html">reporter</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">reporter</span><span class="symbol">: </span><a href="-reporter/index.html"><span class="identifier">Reporter</span></a></code>
+<p>The access point to an implementation of <a href="-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-h-o-u-l-d_-n-o-t_-b-e_-s-h-o-w-n_-t-o_-t-h-e_-u-s-e-r_-b-u-g.html">SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Can be used in places where an argument for reporting is expected which should never be shown to the user.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-h-o-u-l-d_-n-o-t_-b-e_-s-h-o-w-n_-t-o_-t-h-e_-u-s-e-r_-b-u-g_-t-r-a-n-s-l-a-t-a-b-l-e.html">SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG_TRANSLATABLE</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html"><span class="identifier">Untranslatable</span></a></code>
+<p>Can be used in places where an argument of type <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> is expected which should never be shown to the user.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

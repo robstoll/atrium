@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PathAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic</a>&nbsp;/&nbsp;<a href="./index.html">PathAssertions</a><br/>
+<br/>
+<h1>PathAssertions</h1>
+<code><span class="keyword">interface </span><span class="identifier">PathAssertions</span></code>
+<p>Collection of assertion functions and builders which are applicable to subjects with a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> type.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ends-not-with.html">endsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">endsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$endsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.endsNotWith.T)), java.nio.file.Path)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="ends-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$endsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.endsNotWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="ends-with.html">endsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">endsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$endsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.endsWith.T)), java.nio.file.Path)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="ends-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$endsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.endsWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="exists.html">exists</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">exists</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$exists(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.exists.T)), java.nio.file.LinkOption)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="exists.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$exists(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.exists.T)), java.nio.file.LinkOption)/linkOption">linkOption</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/LinkOption.html"><span class="identifier">LinkOption</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="exists-not.html">existsNot</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">existsNot</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$existsNot(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.existsNot.T)), java.nio.file.LinkOption)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="exists-not.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$existsNot(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.existsNot.T)), java.nio.file.LinkOption)/linkOption">linkOption</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/LinkOption.html"><span class="identifier">LinkOption</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="extension.html">extension</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">extension</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$extension(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.extension.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="extension.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="extension.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="file-name.html">fileName</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">fileName</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$fileName(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.fileName.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="file-name.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="file-name.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="file-name-without-extension.html">fileNameWithoutExtension</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">fileNameWithoutExtension</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$fileNameWithoutExtension(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.fileNameWithoutExtension.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="file-name-without-extension.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="file-name-without-extension.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="has-directory-entry.html">hasDirectoryEntry</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hasDirectoryEntry</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasDirectoryEntry(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasDirectoryEntry.T)), kotlin.collections.List((kotlin.String)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="has-directory-entry.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasDirectoryEntry(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasDirectoryEntry.T)), kotlin.collections.List((kotlin.String)))/entries">entries</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="has-same-binary-content-as.html">hasSameBinaryContentAs</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hasSameBinaryContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameBinaryContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameBinaryContentAs.T)), java.nio.file.Path)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="has-same-binary-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameBinaryContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameBinaryContentAs.T)), java.nio.file.Path)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="has-same-textual-content-as.html">hasSameTextualContentAs</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">hasSameTextualContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameTextualContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="has-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameTextualContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameTextualContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/sourceCharset">sourceCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$hasSameTextualContentAs(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.hasSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetCharset">targetCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-absolute.html">isAbsolute</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isAbsolute</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isAbsolute(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isAbsolute.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-absolute.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-directory.html">isDirectory</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isDirectory</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isDirectory(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isDirectory.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-directory.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-executable.html">isExecutable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isExecutable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isExecutable(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isExecutable.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-executable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-readable.html">isReadable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isReadable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isReadable(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isReadable.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-readable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-regular-file.html">isRegularFile</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isRegularFile</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isRegularFile(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isRegularFile.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-regular-file.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-relative.html">isRelative</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isRelative</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isRelative(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isRelative.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-relative.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-writable.html">isWritable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">isWritable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$isWritable(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.isWritable.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-writable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="parent.html">parent</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">parent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$parent(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.parent.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="resolve.html">resolve</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$resolve(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.resolve.T)), kotlin.String)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$resolve(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.resolve.T)), kotlin.String)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-not-with.html">startsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">startsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$startsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.startsNotWith.T)), java.nio.file.Path)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$startsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.startsNotWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-with.html">startsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <span class="identifier">startsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$startsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.startsWith.T)), java.nio.file.Path)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="starts-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.PathAssertions$startsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.PathAssertions.startsWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.impl/-default-path-assertions/index.html">DefaultPathAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DefaultPathAssertions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PathAssertions</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

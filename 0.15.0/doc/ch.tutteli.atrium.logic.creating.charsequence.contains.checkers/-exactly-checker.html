@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExactlyChecker - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.checkers</a>&nbsp;/&nbsp;<a href="./-exactly-checker.html">ExactlyChecker</a><br/>
+<br/>
+<h1>ExactlyChecker</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExactlyChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.basic.contains.checkers/-exactly-checker/index.html"><span class="identifier">ExactlyChecker</span></a><span class="symbol">, </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">CharSequenceContains.Checker</span></a></code>
+<p>Represents a check that an expected search criterion is contained exactly <a href="#">times</a> in the search input.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.logic.creating.basic.contains.checkers/-exactly-checker/exactly-call.html">exactlyCall</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">exactlyCall</span><span class="symbol">: </span><span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function call which was used and should not be used if <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/java.math.-big-decimal/times.html">times</a> equals to zero.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.logic.creating.basic.contains.checkers/-exactly-checker/name-contains-not-fun.html">nameContainsNotFun</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">nameContainsNotFun</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The function which should be used instead of <a href="../ch.tutteli.atrium.logic.creating.basic.contains.checkers/-exactly-checker/exactly-call.html">exactlyCall</a> when <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/java.math.-big-decimal/times.html">times</a> equals to zero.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl/-default-exactly-checker/index.html">DefaultExactlyChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DefaultExactlyChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-exactly-checker.html"><span class="identifier">ExactlyChecker</span></a><span class="symbol">, </span><a href="../ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/-contains-checker/index.html"><span class="identifier">ContainsChecker</span></a></code>
+<p>Represents a check that an expected search criterion is contained exactly <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

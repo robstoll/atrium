@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MetaFeatureOptionWithCreator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.infix.en_GB.creating.feature</a>&nbsp;/&nbsp;<a href="./index.html">MetaFeatureOptionWithCreator</a><br/>
+<br/>
+<h1>MetaFeatureOptionWithCreator</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">MetaFeatureOptionWithCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Parameter object which combines a lambda with a <a href="../../ch.tutteli.atrium.domain.builders.creating/-meta-feature-option/index.html">MetaFeatureOption</a> receiver (called <a href="provider.html">provider</a>)
+and an <a href="assertion-creator.html">assertionCreator</a>.</p>
+<p>Use the function <code>of({ ... }) { ... }</code> to create this representation where the first
+argument is a lambda with a <a href="../../ch.tutteli.atrium.domain.builders.creating/-meta-feature-option/index.html">MetaFeatureOption</a> as receiver which has to create a <a href="../../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a>
+where the subject of the assertion is available via implicit parameter <code>it</code>.
+Usually you use <a href="../../ch.tutteli.atrium.domain.builders.creating/-meta-feature-option/f.html">f</a> to create a <a href="../../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a>,
+e.g. <code>feature of({ f(it::size) }) { o toBe 3 }</code></p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-creator.html">assertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionCreator</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="provider.html">provider</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">provider</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.builders.creating/-meta-feature-option/index.html"><span class="identifier">MetaFeatureOption</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating/-meta-feature/index.html"><span class="identifier">MetaFeature</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

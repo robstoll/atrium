@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TransformationExecutionStep.transformAndAppend - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.transformers</a>&nbsp;/&nbsp;<a href="index.html">TransformationExecutionStep</a>&nbsp;/&nbsp;<a href="./transform-and-append.html">transformAndAppend</a><br/>
+<br/>
+<h1>transformAndAppend</h1>
+<a name="ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">transformAndAppend</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Finishes the transformation process by carrying the transformation out and appending
+the assertions the given <a href="transform-and-append.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for the subject of type <a href="index.html#R">R</a> resulting from the transformation
+as single assertion.</p>
+<p>The assertions the given <a href="transform-and-append.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates are appended as hint in case the transformation fails.
+This is also the difference between calling <a href="transform.html">transform</a> and then <a href="../../ch.tutteli.atrium.creating/-expect/add-assertions-created-by.html">Expect.addAssertionsCreatedBy</a> in a second call
+as the sub-assertions <a href="transform-and-append.html#ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep$transformAndAppend(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep.R)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates would not be available in case the transformation cannot be
+carried out.</p>
+<p><strong>Return</strong><br/>
+The newly created <a href="../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of type <a href="index.html#R">R</a> resulting from the transformation.</p>
+</BODY>
+</HTML>

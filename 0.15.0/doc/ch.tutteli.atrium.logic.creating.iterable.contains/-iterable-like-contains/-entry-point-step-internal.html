@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableLikeContains.EntryPointStepInternal - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains</a>&nbsp;/&nbsp;<a href="index.html">IterableLikeContains</a>&nbsp;/&nbsp;<a href="./-entry-point-step-internal.html">EntryPointStepInternal</a><br/>
+<br/>
+<h1>EntryPointStepInternal</h1>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepInternal</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">IterableLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-entry-point-step.html"><span class="identifier">IterableLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-internal.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-entry-point-step-logic/index.html"><span class="identifier">IterableLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-internal.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a> from newcomers which
+usually do not have to deal with this type and to keep the API clean.</p>
+<p>Moreover, this keeps the API clean and does not pollute it with things like <code>times</code>, <code>containsBuilder</code> etc.</p>
+<p>See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-entry-point-step-logic/converter.html">converter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">converter</span><span class="symbol">: </span><span class="symbol">(</span><a href="-entry-point-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-logic/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
+<p>The converter which shall be used to turn the subject of the assertion into an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> of type <a href="-entry-point-step-logic/index.html#E">E</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-entry-point-step-logic/with-search-behaviour.html">withSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">S2</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">IterableLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">withSearchBehaviour</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStepLogic$withSearchBehaviour(ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStepLogic.withSearchBehaviour.S2)/searchBehaviour">searchBehaviour</span><span class="symbol">:</span>&nbsp;<a href="-entry-point-step-logic/with-search-behaviour.html#S2"><span class="identifier">S2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-entry-point-step.html"><span class="identifier">IterableLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-logic/index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-logic/with-search-behaviour.html#S2"><span class="identifier">S2</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html">EntryPointStepImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EntryPointStepImpl</span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">IterableLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">EntryPointStepImpl</span><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./-entry-point-step-internal.html"><span class="identifier">IterableLikeContains.EntryPointStepInternal</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/-entry-point-step-impl/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

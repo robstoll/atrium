@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ReporterOption</a><br/>
+<br/>
+<h1>ReporterOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">ReporterOption</span></code>
+<p>Provides options to finalise the building process, which means creating a <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-formatter-facade.html">assertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">assertionFormatterFacade</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="atrium-error-adjuster.html">atriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">atriumErrorAdjuster</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>The previously chosen <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-custom-reporter.html">withCustomReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withCustomReporter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterOption$withCustomReporter(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.Reporter)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-builder-final-step/index.html"><span class="identifier">ReporterBuilderFinalStep</span></a></code>
+<p>Uses the given <a href="with-custom-reporter.html#ch.tutteli.atrium.domain.builders.reporting.ReporterOption$withCustomReporter(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.Reporter)))/factory">factory</a> to build a custom <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-only-failure-reporter.html">withOnlyFailureReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withOnlyFailureReporter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter-builder-final-step/index.html"><span class="identifier">ReporterBuilderFinalStep</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html">CoreFactory.newOnlyFailureReporter</a> as <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/assertionFormatterFacade">assertionFormatterFacade</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html"><span class="identifier">AssertionFormatterFacade</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.reporting.ReporterOption.Companion$create(ch.tutteli.atrium.reporting.AssertionFormatterFacade, ch.tutteli.atrium.reporting.AtriumErrorAdjuster)/atriumErrorAdjuster">atriumErrorAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ReporterOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

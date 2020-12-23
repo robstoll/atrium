@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultCharSequenceAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.impl</a>&nbsp;/&nbsp;<a href="./index.html">DefaultCharSequenceAssertions</a><br/>
+<br/>
+<h1>DefaultCharSequenceAssertions</h1>
+<code><span class="keyword">class </span><span class="identifier">DefaultCharSequenceAssertions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic/-char-sequence-assertions/index.html"><span class="identifier">CharSequenceAssertions</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DefaultCharSequenceAssertions</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="contains-builder.html">containsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">containsBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$containsBuilder(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.containsBuilder.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="contains-builder.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step.html"><span class="identifier">CharSequenceContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="contains-builder.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Starts the building process of a sophisticated <code>contains</code> assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="contains-not-builder.html">containsNotBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">containsNotBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$containsNotBuilder(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.containsNotBuilder.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="contains-not-builder.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-not-checker-step.html"><span class="identifier">NotCheckerStep</span></a><span class="symbol">&lt;</span><a href="contains-not-builder.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-not-search-behaviour.html"><span class="identifier">NotSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Starts the building process of a sophisticated <code>contains</code> assertions and already applies a <a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-not-checker-step.html">NotCheckerStep</a> with
+a <a href="../../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-not-search-behaviour.html">NotSearchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ends-not-with.html">endsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">endsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$endsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.endsNotWith.T)), kotlin.CharSequence)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="ends-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$endsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.endsNotWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="ends-with.html">endsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">endsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$endsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.endsWith.T)), kotlin.CharSequence)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="ends-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$endsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.endsWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-empty.html">isEmpty</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">isEmpty</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$isEmpty(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.isEmpty.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-empty.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-not-blank.html">isNotBlank</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">isNotBlank</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$isNotBlank(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.isNotBlank.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-not-blank.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-not-empty.html">isNotEmpty</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">isNotEmpty</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$isNotEmpty(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.isNotEmpty.T)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="is-not-empty.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="matches.html">matches</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">matches</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$matches(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.matches.T)), kotlin.text.Regex)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="matches.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$matches(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.matches.T)), kotlin.text.Regex)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="mismatches.html">mismatches</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">mismatches</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$mismatches(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.mismatches.T)), kotlin.text.Regex)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="mismatches.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$mismatches(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.mismatches.T)), kotlin.text.Regex)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-not-with.html">startsNotWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">startsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$startsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.startsNotWith.T)), kotlin.CharSequence)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$startsNotWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.startsNotWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="starts-with.html">startsWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">startsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$startsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.startsWith.T)), kotlin.CharSequence)/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="starts-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions$startsWith(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions.startsWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
