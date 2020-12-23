@@ -7,8 +7,8 @@ import java.lang.{Iterable => JIterable}
 import scala.reflect.ClassTag
 import IsIterableHelpers._
 
-// FIXME rewrite after fusing IterableFutureAssertionsSpec with IterableAssertionsSpecr
-//class IterableFeatureAssertionsSpec
+// FIXME rewrite after fusing IterableFutureExpectationsSpec with IterableExpectationsSpec
+//class IterableFeatureExpectationsSpec
 //    extends ch.tutteli.atrium.specs.integration.IterableFeatureAssertionsSpec(
 //      feature0("min", changeToScalaIterable(_).min()),
 //      fun1("min", changeToScalaIterable(_).min(_).asExpectJIterable),
@@ -17,8 +17,8 @@ import IsIterableHelpers._
 //      "[Atrium] "
 //    )
 //
-//class ArrayFeatureAssertionsSpec
-//    extends ch.tutteli.atrium.specs.integration.IterableFeatureAssertionsSpec(
+//class ArrayFeatureExpectationsSpec
+//    extends ch.tutteli.atrium.specs.integration.IterableFeatureExpectationsSpec(
 //      feature0("min", changeToScalaArray(_).min()),
 //      fun1("min", changeToScalaArray(_).min(_).asExpectJIterable),
 //      feature0("max", changeToScalaArray(_).max()),
