@@ -47,7 +47,6 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  */
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO 0.15.0 or 0.16.0 adopt KDoc to new wording
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *

@@ -25,7 +25,7 @@ import ch.tutteli.kbox.glue
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
 
-// TODO already implement https://github.com/robstoll/atrium/issues/292 for this one in 0.15.0
+// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for this one as well
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePair] as well as the [otherPairs] where it does not matter
