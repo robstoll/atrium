@@ -11,7 +11,6 @@ import ch.tutteli.atrium.logic.causeIsA
  * creates an [Expect] for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = it feature Throwable::message notToBeNull o
@@ -22,7 +21,6 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     it feature of(Throwable::message) { it notToBeNull assertionCreator }
@@ -36,7 +34,6 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  * so that you can mix [String] and [Int] for instance.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this messageContains values(expected)
@@ -52,7 +49,6 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect<T> =
     message { contains(values) }
@@ -62,7 +58,6 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  * creates an [Expect] of the [TExpected] type for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -78,7 +73,6 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */

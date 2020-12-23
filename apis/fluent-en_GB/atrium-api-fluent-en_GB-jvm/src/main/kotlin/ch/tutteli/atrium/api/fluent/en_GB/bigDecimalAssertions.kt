@@ -49,7 +49,6 @@ fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepl
  * Expects that the subject of the assertion (a [BigDecimal]) is `null`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalAssertionSamples.toBe
  */
@@ -92,7 +91,6 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseRe
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNumericallyEqualTo(expected) }
@@ -110,7 +108,6 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNotNumericallyEqualTo(expected) }
@@ -125,7 +122,6 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isEqualIncludingScale(expected, this::isNumericallyEqualTo.name) }
@@ -140,7 +136,6 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isNotEqualIncludingScale(expected) }

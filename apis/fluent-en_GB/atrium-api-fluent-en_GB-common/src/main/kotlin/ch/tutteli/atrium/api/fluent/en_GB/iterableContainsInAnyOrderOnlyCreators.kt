@@ -25,7 +25,6 @@ import ch.tutteli.kbox.glue
  * @param expected The value which is expected to be contained within the [Iterable].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
@@ -44,7 +43,6 @@ fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expe
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
     expected: E,
@@ -67,7 +65,6 @@ fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -99,7 +96,6 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.en
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
@@ -125,7 +121,6 @@ fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.en
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
  * @since 0.9.0
@@ -155,7 +150,6 @@ inline fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehavi
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
  * or the given [expectedIterableLike] does not have elements (is empty).
  *

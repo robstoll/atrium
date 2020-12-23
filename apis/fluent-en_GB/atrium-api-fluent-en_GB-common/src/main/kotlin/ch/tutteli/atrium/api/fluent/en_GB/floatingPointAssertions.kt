@@ -20,7 +20,6 @@ import kotlin.jvm.JvmName
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FloatingPointAssertionSamples.toBeWithErrorToleranceFloat
  */
@@ -38,7 +37,6 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Exp
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FloatingPointAssertionSamples.toBeWithErrorToleranceDouble
  */

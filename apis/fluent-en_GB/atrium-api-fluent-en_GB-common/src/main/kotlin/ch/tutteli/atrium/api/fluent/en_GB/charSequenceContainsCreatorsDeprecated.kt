@@ -34,7 +34,6 @@ import kotlin.jvm.JvmName
  * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
@@ -63,7 +62,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.value(expected: Cha
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
@@ -88,7 +86,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.values(
  * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
@@ -119,7 +116,6 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.value(
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
@@ -145,7 +141,6 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.values(
  * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
@@ -171,7 +166,6 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.value(expected: C
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
@@ -199,7 +193,6 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.values(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
     pattern: String,
@@ -225,7 +218,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -254,7 +246,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.regex(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
@@ -284,7 +275,6 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
@@ -307,7 +297,6 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.regex(
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
  *
@@ -337,7 +326,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
  *
@@ -368,7 +356,6 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterable] is not a [CharSequence], [Number] or [Char] or the given
  * [expectedIterable] does not have elements (is empty).
  *
@@ -398,7 +385,6 @@ fun <T : CharSequence> Builder<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -426,7 +412,6 @@ fun <T : CharSequence> CheckerOption<T, NoOpSearchBehaviour>.elementsOf(
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -455,7 +440,6 @@ fun <T : CharSequence> CheckerOption<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *

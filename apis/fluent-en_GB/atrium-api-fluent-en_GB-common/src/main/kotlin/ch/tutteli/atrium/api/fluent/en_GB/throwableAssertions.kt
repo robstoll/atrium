@@ -10,7 +10,6 @@ import ch.tutteli.atrium.logic.causeIsA
  * creates an [Expect] for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = feature(Throwable::message).notToBeNull()
@@ -21,7 +20,6 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     feature(Throwable::message) { notToBeNull(assertionCreator) }
@@ -39,7 +37,6 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  * so that you can mix [String] and [Int] for instance.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Throwable> Expect<T>.messageContains(
     expected: CharSequenceOrNumberOrChar,
@@ -52,7 +49,6 @@ fun <T : Throwable> Expect<T>.messageContains(
  * creates an [Expect] of the [TExpected] type for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
  */
@@ -68,7 +64,6 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.10.0
  */

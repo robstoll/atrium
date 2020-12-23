@@ -10,7 +10,6 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  * and returns an [Expect] for the inner type [E].
  *
  * @return The newly created [Expect] if the given assertion is success
- * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
  *
  * @since 0.9.0
  */
@@ -22,7 +21,6 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
  * @since 0.9.0
  */
@@ -34,7 +32,6 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
  * that it encapsulates an exception of type [TExpected].
  *
  * @return An [Expect] with the new type [TExpected]
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -47,7 +44,6 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  * holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the new type [TExpected]
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */

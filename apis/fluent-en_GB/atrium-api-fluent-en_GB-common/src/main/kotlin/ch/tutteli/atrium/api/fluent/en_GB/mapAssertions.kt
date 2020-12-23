@@ -29,7 +29,6 @@ val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep
  * even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     keyValuePair: Pair<K, V>,
@@ -44,7 +43,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  * Delegates to `contains.inAnyOrder.only.entries(keyValuePair, *otherPairs)`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
     keyValuePair: Pair<K, V>,
@@ -65,7 +63,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
  * , then both match, even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
@@ -82,7 +79,6 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * Delegates to `contains.inAnyOrder.only.entries(keyValue, *otherKeyValues)`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
     keyValue: KeyValue<K, V>,
@@ -95,7 +91,6 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
  * Delegates to ` contains.inAnyOrder.entriesOf`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
     mapLike: MapLike
@@ -108,7 +103,6 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
  * Delegates to `contains.inAnyOrder.only.entriesOf`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
     mapLike: MapLike
@@ -118,7 +112,6 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  * Expects that the subject of the assertion (a [Map]) contains the given [key].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
     _logicAppend { containsKey(::identity, key) }
@@ -127,7 +120,6 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
@@ -138,7 +130,6 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
- * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
@@ -148,8 +139,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- *   does not hold.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
@@ -169,7 +158,6 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
@@ -189,7 +177,6 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
@@ -224,7 +211,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
@@ -234,7 +220,6 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }

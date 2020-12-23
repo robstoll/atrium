@@ -9,7 +9,6 @@ import ch.tutteli.atrium.logic.get
  * returns an [Expect] for the element at that position.
  *
  * @return The newly created [Expect] for the element at position [index].
- * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListAssertionSamples.getFeature
  */
@@ -21,7 +20,6 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  * the element at that position holds all assertions the given [assertionCreator] creates for it.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the given [index] is out of bound.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListAssertionSamples.get
  */

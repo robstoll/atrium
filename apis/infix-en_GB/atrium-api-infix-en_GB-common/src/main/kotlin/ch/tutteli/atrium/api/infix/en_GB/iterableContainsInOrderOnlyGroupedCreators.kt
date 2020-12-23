@@ -23,7 +23,6 @@ import kotlin.jvm.JvmName
  *   so a call could look as follows: `inAny order(values(1, 2), value(2), values(3, 2))
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, Group<E>>
@@ -63,7 +62,6 @@ fun <E> order(
  *   ```
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(

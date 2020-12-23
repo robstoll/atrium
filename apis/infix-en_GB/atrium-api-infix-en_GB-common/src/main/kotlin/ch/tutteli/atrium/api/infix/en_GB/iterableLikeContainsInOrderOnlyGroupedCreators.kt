@@ -21,7 +21,6 @@ import kotlin.jvm.JvmName
  *   so a call could look as follows: `inAny order(values(1, 2), value(2), values(3, 2))
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -48,7 +47,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
  *   ```
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */

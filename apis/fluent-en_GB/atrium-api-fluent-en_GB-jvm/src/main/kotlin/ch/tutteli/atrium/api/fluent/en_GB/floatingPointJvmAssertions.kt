@@ -22,7 +22,6 @@ import java.math.BigDecimal
  * | `subject of the assertion` - [expected] | ≤ [tolerance]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal): Expect<T> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

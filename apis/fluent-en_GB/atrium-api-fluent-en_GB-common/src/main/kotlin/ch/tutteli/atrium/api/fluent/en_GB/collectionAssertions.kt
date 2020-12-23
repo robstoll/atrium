@@ -12,7 +12,6 @@ import ch.tutteli.kbox.identity
  * Expects that the subject of the assertion (a [Collection]) is an empty [Collection].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isEmpty
  */
@@ -23,7 +22,6 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
  * Expects that the subject of the assertion (a [Collection]) is not an empty [Collection].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isNotEmpty
  */
@@ -36,7 +34,6 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
  * Shortcut for `size.toBe(expected)`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.hasSize
  */
@@ -60,7 +57,6 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.size
  */

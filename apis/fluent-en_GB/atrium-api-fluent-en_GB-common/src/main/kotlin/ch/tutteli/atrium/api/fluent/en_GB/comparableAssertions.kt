@@ -8,7 +8,6 @@ import ch.tutteli.atrium.logic.*
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isLessThan
  */
@@ -20,7 +19,6 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isLessThanOrEqual
  */
@@ -32,7 +30,6 @@ fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isGreaterThan
  */
@@ -44,7 +41,6 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isGreaterThanOrEqual
  */
@@ -56,7 +52,6 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
  * where the comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  *

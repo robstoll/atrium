@@ -18,7 +18,6 @@ import java.nio.file.Path
  * Expects that the subject of the assertion (a [Path]) starts with the [expected] [Path].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -29,7 +28,6 @@ infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) does not start with the [expected] [Path].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -40,7 +38,6 @@ infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  * Expects that the subject of the assertion (a [Path]) ends with the expected [Path].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -52,7 +49,6 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  *
  * @param expected The [Path] provided to the assertion
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -67,7 +63,6 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  * then the search will continue at that location.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -82,7 +77,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
  * then the search will continue at that location.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -108,7 +102,6 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -121,7 +114,6 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -135,7 +127,6 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -147,7 +138,6 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -159,7 +149,6 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -171,7 +160,6 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -193,7 +181,6 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @see [has]
  *
  * @since 0.14.0
@@ -216,7 +203,6 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
  * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @see [directoryEntries]
  * @see [hasDirectoryEntry]
  *
@@ -240,7 +226,6 @@ fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntr
  *  Use the function `path(String) { ... }` to create a [PathWithCreator].
  *
  * @return The newly created [Expect] for the extracted feature.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -267,7 +252,6 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
  * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -284,7 +268,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * at the location the link points at.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -305,7 +288,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  * at the location the link points at.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -325,7 +307,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
  * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -345,7 +326,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * take place.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -357,7 +337,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  * meaning that the [Path] specified in this instance starts at the file system root.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -369,7 +348,6 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: abso
  * meaning that the [Path] specified in this instance does not start at the file system root.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -396,7 +374,6 @@ val <T : Path> Expect<T>.extension: Expect<String>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -408,7 +385,6 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
  * as [targetPath] (using UTF-8 for encoding)
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */
@@ -438,7 +414,6 @@ fun withEncoding(
  *  Use the function `withEncoding(Path, Charset, Charset)` to create a [PathWithEncoding].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */
@@ -452,7 +427,6 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWit
  * as [targetPath].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */

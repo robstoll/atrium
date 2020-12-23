@@ -78,7 +78,6 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] in case the created [AssertionGroup] does not hold.
  *
  * @since 0.12.0
  */

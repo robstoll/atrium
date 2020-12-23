@@ -15,7 +15,6 @@ import java.time.chrono.ChronoZonedDateTime
  * is before the [expected] [ChronoZonedDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -28,7 +27,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  * is before or equals the [expected] [ChronoZonedDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -41,7 +39,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  * is after the [expected] [ChronoZonedDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -54,7 +51,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * is after or equal the [expected] [ChronoZonedDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -67,7 +63,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * is equal to the [expected] [ChronoZonedDateTime].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -101,7 +96,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -135,7 +129,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -169,7 +162,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -203,7 +195,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -237,7 +228,6 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * - 2020-01-02+01:30
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */

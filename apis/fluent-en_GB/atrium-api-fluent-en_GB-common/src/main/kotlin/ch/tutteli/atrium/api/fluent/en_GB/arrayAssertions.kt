@@ -283,7 +283,7 @@ fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
  * @return The newly created [Expect] for the transformed subject.
  *
  * @since 0.9.0
-
+ *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.doubleArrAsList
  */
 @JvmName("doubleArrAsList")

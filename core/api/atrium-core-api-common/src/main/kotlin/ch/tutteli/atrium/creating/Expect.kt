@@ -46,7 +46,6 @@ interface Expect<T> : SubjectProvider<T> {
      * @param assertionCreator The receiver function which should create and add assertions to this container.
      *
      * @return An [Expect] for the current subject of the assertion.
-     * @throws AssertionError Might throw an [AssertionError] depending on the concrete implementation.
      */
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
@@ -56,9 +55,6 @@ interface Expect<T> : SubjectProvider<T> {
      * @param assertion The assertion which will be added to this container.
      *
      * @return An [Expect] for the current subject of the assertion.
-     *
-     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *   evaluated (see [ReportingAssertionContainer]).
      */
     override fun addAssertion(assertion: Assertion): Expect<T>
 
@@ -72,8 +68,6 @@ interface Expect<T> : SubjectProvider<T> {
      * @param test Indicates whether the assertion holds or fails.
      *
      * @return An [Expect] for the current subject of the assertion.
-     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *   evaluated (see [ReportingAssertionContainer]).
      */
     fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
         createAndAddAssertion(Untranslatable(description), expected, test)
@@ -87,10 +81,7 @@ interface Expect<T> : SubjectProvider<T> {
      * @param test Indicates whether the assertion holds or fails.
      *
      * @return An [Expect] for the current subject of the assertion.
-     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *   evaluated (see [ReportingAssertionContainer]).
      */
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
-
 }
