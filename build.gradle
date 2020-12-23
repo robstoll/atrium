@@ -444,6 +444,10 @@ def createJsTestTask(String... subprojectNames) {
             from compileKotlin2Js.destinationDir
 
             prefixedProject('verbs-internal-js').afterEvaluate {
+                configurations.testRuntimeClasspath.allDependencies.withType(ProjectDependency).each {
+                    dependsOn(it.dependencyProject.assemble)
+                }
+
                 configurations.testRuntimeClasspath.each {
                     from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
                 }
