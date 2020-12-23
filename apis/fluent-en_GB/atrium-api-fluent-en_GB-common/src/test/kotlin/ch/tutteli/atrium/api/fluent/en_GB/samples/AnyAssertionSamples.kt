@@ -201,15 +201,13 @@ class AnyAssertionSamples {
         }
     }
 
-    interface Person {
-        val age: Int
-    }
+    data class Person(val age: Int)
 
-    private val customers = emptyList<Person>()
+    private val customers = listOf(Person(21))
 
     @Test
     fun because() {
-        expect("filename?")
+        expect("filename")
             .because("? is not allowed in file names on Windows") {
                 containsNot("?")
             }
