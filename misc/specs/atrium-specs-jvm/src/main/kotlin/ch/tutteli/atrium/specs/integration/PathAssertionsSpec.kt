@@ -11,8 +11,10 @@ import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
-import io.mockk.every
-import io.mockk.spyk
+import com.nhaarman.mockitokotlin2.anyOrNull
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.doThrow
+import com.nhaarman.mockitokotlin2.spy
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.dsl.Skip.No
@@ -21,14 +23,13 @@ import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
 import java.nio.charset.Charset
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
+import java.nio.file.*
 import java.nio.file.attribute.*
 import java.nio.file.attribute.AclEntryPermission.*
 import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
 import java.nio.file.attribute.PosixFilePermission.*
+import java.nio.file.spi.FileSystemProvider
 import java.util.regex.Pattern.quote
 
 abstract class PathAssertionsSpec(
@@ -134,14 +135,7 @@ abstract class PathAssertionsSpec(
         // using spyk on baseFile and mocking #getFileSystem does not work on Java 8 on Linux (but everywhere else).
         // because of that, we use plain old manual delegation:
         return object : Path by baseFile {
-            override fun getFileSystem() = spyk(baseFile.fileSystem) {
-                every { provider() } returns spyk(baseFile.fileSystem.provider()) {
-                    every {
-                        readAttributes(any(), any<Class<BasicFileAttributes>>(), *anyVararg())
-                    } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
-                    every { checkAccess(any(), *anyVararg()) } throws IOException(TEST_IO_EXCEPTION_MESSAGE)
-                }
-            }
+            override fun getFileSystem() = throw IOException(TEST_IO_EXCEPTION_MESSAGE)
         }
     }
 
