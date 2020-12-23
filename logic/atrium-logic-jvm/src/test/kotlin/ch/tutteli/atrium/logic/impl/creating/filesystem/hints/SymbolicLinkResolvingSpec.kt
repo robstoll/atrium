@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.impl.creating.filesystem.hints
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -18,10 +21,7 @@ import ch.tutteli.niok.createDirectory
 import ch.tutteli.niok.createFile
 import ch.tutteli.niok.createSymbolicLink
 import ch.tutteli.spek.extensions.memoizedTempFolder
-import io.mockk.confirmVerified
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import com.nhaarman.mockitokotlin2.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.lifecycle.CachingMode.TEST
@@ -38,8 +38,8 @@ object SymbolicLinkResolvingSpec : Spek({
 
     val testAssertion = assertionBuilder.createDescriptive(Untranslatable("testAssertion"), null) { true }
     val resolvedPathConsumer by memoized(TEST) {
-        mockk<(Path) -> Assertion> {
-            every { this@mockk.invoke(any()) } returns testAssertion
+        mock<(Path) -> Assertion> {
+            on { this(any()) } doReturn testAssertion
         }
     }
 
@@ -50,35 +50,35 @@ object SymbolicLinkResolvingSpec : Spek({
     describe("explainForResolvedLink", skip = ifSymlinksNotSupported) {
         describe("resolves correctly") {
             afterEachTest {
-                confirmVerified(resolvedPathConsumer)
+                verifyNoMoreInteractions(resolvedPathConsumer)
             }
 
             it("resolves an existing file to itself") {
                 val file = tempFolder.newFile("testFile").toRealPath()
 
                 explainForResolvedLink(file, resolvedPathConsumer)
-                verify { resolvedPathConsumer(file) }
+                verify(resolvedPathConsumer)(file)
             }
 
             it("resolves an existing directory to itself") {
                 val folder = tempFolder.newFile("testDir").toRealPath()
 
                 explainForResolvedLink(folder, resolvedPathConsumer)
-                verify { resolvedPathConsumer(folder) }
+                verify(resolvedPathConsumer)(folder)
             }
 
             it("resolves a non-existent path to itself") {
                 val notExisting = tempFolder.tmpDir.toRealPath().resolve("notExisting")
 
                 explainForResolvedLink(notExisting, resolvedPathConsumer)
-                verify { resolvedPathConsumer(notExisting) }
+                verify(resolvedPathConsumer)(notExisting)
             }
 
             it("resolves a relative path to its absolute target") {
                 val relativePath = Paths.get(".")
 
                 explainForResolvedLink(relativePath, resolvedPathConsumer)
-                verify { resolvedPathConsumer(relativePath.toRealPath()) }
+                verify(resolvedPathConsumer)(relativePath.toRealPath())
             }
 
             it("resolves a symbolic link to its target") {
@@ -87,7 +87,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val link = target.createSymbolicLink(testDir.resolve("link"))
 
                 explainForResolvedLink(link, resolvedPathConsumer)
-                verify { resolvedPathConsumer(target) }
+                verify(resolvedPathConsumer)(target)
             }
 
             it("a relative symbolic link to its absolute target") {
@@ -98,7 +98,7 @@ object SymbolicLinkResolvingSpec : Spek({
                     Paths.get("..").resolve(target.fileName).createSymbolicLink(folder.resolve("testLink"))
 
                 explainForResolvedLink(relativeLink, resolvedPathConsumer)
-                verify { resolvedPathConsumer(target) }
+                verify(resolvedPathConsumer)(target)
             }
 
             it("resolves a symbolic link chain as far as possible") {
@@ -108,7 +108,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val start = tempFolder.newSymbolicLink("start", toNowhere)
 
                 explainForResolvedLink(start, resolvedPathConsumer)
-                verify { resolvedPathConsumer(nowhere) }
+                verify(resolvedPathConsumer)(nowhere)
             }
 
             it("resolves multiple symbolic links to their target") {
@@ -124,7 +124,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 )
 
                 explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
-                verify { resolvedPathConsumer(target) }
+                verify(resolvedPathConsumer)(target)
             }
         }
 
