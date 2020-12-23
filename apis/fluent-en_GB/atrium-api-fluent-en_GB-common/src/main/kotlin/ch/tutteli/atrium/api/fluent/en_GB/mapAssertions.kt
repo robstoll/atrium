@@ -121,7 +121,7 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
-    _logicAppend { containsKey(key) }
+    _logicAppend { containsKey(::identity, key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
@@ -130,29 +130,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
-    _logicAppend { containsNotKey(key) }
-
-
-/**
- * Expects that the subject of the assertion (a [Map]) is an empty [Map].
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-//TODO 0.15.0 consider to use CollectionLike and remove this from MapAssertions
-fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
-    _logicAppend { isEmpty() }
-
-/**
- * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
- *
- * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-//TODO 0.15.0 consider to use CollectionLike and remove this from MapAssertions
-fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty() }
-
+    _logicAppend { containsNotKey(::identity, key) }
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key],
@@ -163,7 +141,7 @@ fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
  * @throws AssertionError Might throw an [AssertionError] if the given [key] does not exist.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
-    _logic.getExisting(key).transform()
+    _logic.getExisting(::identity, key).transform()
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
@@ -174,7 +152,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *   does not hold.
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
-    _logic.getExisting(key).collectAndAppend(assertionCreator)
+    _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
 
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
@@ -239,3 +217,27 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
+
+
+//TODO move to mapCollectionLikeAssertions with 0.16.0
+/**
+ * Expects that the subject of the assertion (a [Map]) is an empty [Map].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
+    _logicAppend { isEmpty(::toEntries) }
+
+//TODO move to mapCollectionLikeAssertions with 0.16.0
+/**
+ * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
+    _logicAppend { isNotEmpty(::toEntries) }
+
+//TODO remove with 0.16.0
+private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

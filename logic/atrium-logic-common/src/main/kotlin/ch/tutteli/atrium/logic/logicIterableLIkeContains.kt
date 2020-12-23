@@ -1,4 +1,4 @@
-//TODO check if file can be renamed without bbc in API to Like instead of LIke with 0.15.0
+//TODO 0.16.0 rename file to Like instead of LIKe
 @file:Suppress("ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic

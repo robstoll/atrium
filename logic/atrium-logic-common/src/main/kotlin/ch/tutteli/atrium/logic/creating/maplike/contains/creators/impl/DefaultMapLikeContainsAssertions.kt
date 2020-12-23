@@ -24,7 +24,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion.*
 import kotlin.reflect.KClass
 
 class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
@@ -63,7 +63,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
     // alternatively we could also make it configurable if the check is included in reporting or not
     private fun <V : Any> AssertionContainer<V?>.silentToBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<V>.() -> Unit)?): Assertion =
         if (assertionCreatorOrNull == null) {
-            toBeNull()
+            toBe(null)
         } else {
             val assertion = assertionCollector.collect(maybeSubject.flatMap { if (it != null) Some(it) else None }) {
                 addAssertionsCreatedBy(assertionCreatorOrNull)
@@ -98,9 +98,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             }
             assertionBuilder.list
                 .withDescriptionAndEmptyRepresentation(
-                    entryPointStepLogic.searchBehaviour.decorateDescription(
-                        DescriptionMapLikeAssertion.CONTAINS
-                    )
+                    entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
                 )
                 .withAssertions(assertions)
                 .build()
@@ -124,7 +122,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
         return keyValues.map { (key, assertionCreator) ->
             entryPointStepLogic.container.extractFeature
                 .withDescription(entryWithKeyTranslation(methodCallFormatter, key))
-                .withRepresentationForFailure(DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST)
+                .withRepresentationForFailure(KEY_DOES_NOT_EXIST)
                 .withFeatureExtraction { extractor(key) }
                 .withoutOptions()
                 .build()
@@ -137,7 +135,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
         methodCallFormatter: MethodCallFormatter,
         key: K
     ) = TranslatableWithArgs(
-        DescriptionMapLikeAssertion.ENTRY_WITH_KEY,
+        ENTRY_WITH_KEY,
         methodCallFormatter.formatArgument(key)
     )
 
@@ -211,7 +209,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
                         .withWarningType
                         .withAssertion(
                             assertionBuilder.list
-                                .withDescriptionAndEmptyRepresentation(DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES)
+                                .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
                                 .withAssertions(additionalEntries)
                                 .build()
                         )
@@ -223,10 +221,13 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             val assertions = featureAssertions + hints
 
             val description =
-                entryPointStepLogic.searchBehaviour.decorateDescription(DescriptionMapLikeAssertion.CONTAINS)
+                entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
             assertionBuilder.invisibleGroup.withAssertions(
                 assertionCollector.collect(Some(map)) {
-                    _logic.size().collectAndLogicAppend { toBe(keyValues.size) }
+                    _logic
+                        //using CollectionLike.size
+                        .size { it.entries }
+                        .collectAndLogicAppend { toBe(keyValues.size) }
                 },
                 assertionBuilder.summary
                     .withDescription(description)

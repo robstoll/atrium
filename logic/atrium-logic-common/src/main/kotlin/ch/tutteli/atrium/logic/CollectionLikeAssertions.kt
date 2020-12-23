@@ -6,7 +6,8 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
 
 /**
- * Collection of assertion functions and builders which are applicable to subjects with a [Collection] type.
+ * Collection of assertion functions and builders which are applicable to subjects which can be transformed to a
+ * [Collection] - intended for types which are Collection like such as [Map].
  */
 interface CollectionLikeAssertions {
 

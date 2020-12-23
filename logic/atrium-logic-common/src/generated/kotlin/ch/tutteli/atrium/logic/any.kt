@@ -5,6 +5,7 @@
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,8 +21,9 @@ fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(thi
 fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
 fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
 
-    // TODO remove with 0.16.0 it is enough to have toBe
-    // TODO deprecate with 0.15.0
+    //TODO 0.16.0 remove
+    @Suppress("DEPRECATION")
+    @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
 fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
