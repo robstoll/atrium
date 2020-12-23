@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceAssertionsSpec(
+abstract class CharSequenceExpectationsSpec(
     isEmpty: Fun0<CharSequence>,
     isNotEmpty: Fun0<CharSequence>,
     isNotBlank: Fun0<CharSequence>,

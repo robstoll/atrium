@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.jvm.JvmName
 
-class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
+class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsSpec(
     fun1<Map<out String, *>, String>(Companion::containsKey),
     fun1<Map<out String?, *>, String?>(Companion::containsKey).withNullableSuffix(),
     fun1<Map<out String, *>, String>(Companion::containsNotKey),

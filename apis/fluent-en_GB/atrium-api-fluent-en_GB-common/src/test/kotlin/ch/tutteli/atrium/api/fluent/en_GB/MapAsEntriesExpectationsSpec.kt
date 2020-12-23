@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.feature0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 
-object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesAssertionsSpec(
+object MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesExpectationsSpec(
     feature0<Map<String, Int>, Set<Map.Entry<String, Int>>>(Expect<Map<String, Int>>::asEntries),
     fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
 ) {

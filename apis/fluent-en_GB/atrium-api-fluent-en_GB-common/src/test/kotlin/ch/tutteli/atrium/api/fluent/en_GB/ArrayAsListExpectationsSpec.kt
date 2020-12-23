@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
-object ArrayAsListAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListAssertionsSpec(
+object ArrayAsListExpectationsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListExpectationsSpec(
     "asList",
     Expect<Array<Int>>::asList,
     Expect<ByteArray>::asList,

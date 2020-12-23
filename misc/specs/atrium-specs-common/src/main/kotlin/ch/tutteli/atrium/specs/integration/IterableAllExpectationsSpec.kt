@@ -7,7 +7,7 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableAllAssertionsSpec(
+abstract class IterableAllExpectationsSpec(
     all: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     allNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,

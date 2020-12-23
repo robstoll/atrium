@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class CharSequenceAssertionsSpec : ch.tutteli.atrium.specs.integration.CharSequenceAssertionsSpec(
+class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceExpectationsSpec(
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,

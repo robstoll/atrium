@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceContainsAtMostAssertionsSpec(
+abstract class CharSequenceContainsAtMostExpectationsSpec(
     containsAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
 import ch.tutteli.atrium.specs.invoke
 
-abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
+abstract class IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
     containsInAnyOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInAnyOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableContainsNotEntriesAssertionsSpec(
+abstract class IterableContainsNotEntriesExpectationsSpec(
     containsNotEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsNotNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,

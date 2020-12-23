@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapAsEntriesAssertionsSpec(
+abstract class MapAsEntriesExpectationsSpec(
     asEntriesFeature: Feature0<Map<String, Int>, Set<Map.Entry<String, Int>>>,
     asEntries: Fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>,
     describePrefix: String = "[Atrium] "

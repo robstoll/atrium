@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapContainsInOrderOnlyKeyValueAssertionsSpec(
+abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
     keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     rootBulletPoint: String,

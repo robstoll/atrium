@@ -2,10 +2,10 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.OptionalAssertionsSpec
+import ch.tutteli.atrium.specs.integration.OptionalExpectationsSpec
 import java.util.*
 
-class OptionalAssertionsSpec : OptionalAssertionsSpec(
+class OptionalExpectationsSpec : OptionalExpectationsSpec(
     isEmpty = fun0(Expect<Optional<Int>>::isEmpty),
     isPresentFeature = feature0<Optional<Int>, Int>(Expect<Optional<Int>>::isPresent),
     isPresent = fun1<Optional<Int>, Expect<Int>.() -> Unit>(Expect<Optional<Int>>::isPresent)

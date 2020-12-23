@@ -8,8 +8,8 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.math.BigDecimal
 
-class BigDecimalAssertionsSpec : Spek({
-    include(object : ch.tutteli.atrium.specs.integration.BigDecimalAssertionsSpec(
+class BigDecimalExpectationsSpec : Spek({
+    include(object : ch.tutteli.atrium.specs.integration.BigDecimalExpectationsSpec(
         @Suppress("DEPRECATION") fun1<BigDecimal, BigDecimal>(Expect<BigDecimal>::toBe),
         @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),
         fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),

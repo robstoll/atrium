@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableNoneAssertionsSpec(
+abstract class IterableNoneExpectationsSpec(
     none: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     noneNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,

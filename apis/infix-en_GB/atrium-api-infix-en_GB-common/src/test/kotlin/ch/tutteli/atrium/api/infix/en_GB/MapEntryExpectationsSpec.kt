@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
+class MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExpectationsSpec(
     fun1(Expect<Map.Entry<String, Int>>::isKeyValue).name to Companion::isKeyValue,
     (fun1(Expect<Map.Entry<String?, Int?>>::isKeyValue).name to Companion::isKeyValueNullable).withNullableSuffix(),
     property<Map.Entry<String, Int>, String>(Expect<Map.Entry<String, Int>>::key),

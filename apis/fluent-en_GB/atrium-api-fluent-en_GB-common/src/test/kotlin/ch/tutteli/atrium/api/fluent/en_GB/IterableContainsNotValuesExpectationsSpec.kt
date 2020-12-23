@@ -5,23 +5,23 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsNotValuesAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsNotValuesExpectationsSpec.Companion as C
 
-class IterableContainsNotValuesAssertionsSpec : Spek({
+class IterableContainsNotValuesExpectationsSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         functionDescription to C::containsNotFun,
         (functionDescription to C::containsNotNullableFun).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         fun2<Iterable<Double>,Double, Array<out Double>>(Expect<Iterable<Double>>::containsNot),
         fun2<Iterable<Double?>,Double?, Array<out Double?>>(Expect<Iterable<Double?>>::containsNot).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",

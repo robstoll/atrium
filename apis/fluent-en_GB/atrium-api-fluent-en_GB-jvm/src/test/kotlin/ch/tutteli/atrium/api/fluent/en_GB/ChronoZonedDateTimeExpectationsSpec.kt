@@ -9,10 +9,10 @@ import java.time.ZonedDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
-class ChronoZonedDateTimeAssertionSpec : Spek({
-    include(ChronoLocalDateTimeAssertionSpec.ChronoLocalDateTimeSpec)
+class ChronoZonedDateTimeExpectationsSpec : Spek({
+    include(ChronoLocalDateTimeExpectationsSpec.ChronoLocalDateTimeSpec)
 }) {
-    object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAssertionSpec(
+    object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBefore),
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfter),
@@ -20,7 +20,7 @@ class ChronoZonedDateTimeAssertionSpec : Spek({
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isEqual)
     )
 
-    object ChronoZonedDateTimeAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringAssertionSpec(
+    object ChronoZonedDateTimeAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringExpectationsSpec(
         fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBefore),
         fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
         fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfter),

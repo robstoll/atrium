@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import java.math.BigDecimal
 import kotlin.reflect.KFunction3
 
-class FloatingPointWithErrorToleranceAssertionsJvmSpec :
-    ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceAssertionsJvmSpec(
+class FloatingPointWithErrorToleranceExpectationsJvmSpec :
+    ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceExpectationsJvmSpec(
         toBeWithErrorToleranceBigDecimalPair()
     ) {
     companion object {

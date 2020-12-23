@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
+abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
     containsExactlyPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     rootBulletPoint: String,

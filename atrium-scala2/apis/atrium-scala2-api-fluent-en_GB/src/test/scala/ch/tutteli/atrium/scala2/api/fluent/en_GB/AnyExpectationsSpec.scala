@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.scala2.api.fluent.en_GB
 
 import TestUtils._
-import AnyAssertionsSpec._
+import AnyExpectationsSpec._
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.api.verbs.internal.AtriumVerbsKt.expect
 
-class AnyAssertionsSpec
-    extends ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
+class AnyExpectationsSpec
+    extends ch.tutteli.atrium.specs.integration.AnyExpectationsSpec(
       toBe,
       toBe,
       toBe.withNullableSuffix(),
@@ -51,7 +51,7 @@ class AnyAssertionsSpec
     )
 
 //noinspection TypeAnnotation
-object AnyAssertionsSpec {
+object AnyExpectationsSpec {
   import scala.jdk.CollectionConverters._
 
   def toBe[T]: Fun1[T, T] = fun1("toBe", _.toBe(_))

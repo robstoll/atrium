@@ -11,7 +11,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.util.*
 
-abstract class OptionalAssertionsSpec(
+abstract class OptionalExpectationsSpec(
     isEmpty: Fun0<Optional<Int>>,
     isPresentFeature: Feature0<Optional<Int>, Int>,
     isPresent: Fun1<Optional<Int>, Expect<Int>.() -> Unit>,

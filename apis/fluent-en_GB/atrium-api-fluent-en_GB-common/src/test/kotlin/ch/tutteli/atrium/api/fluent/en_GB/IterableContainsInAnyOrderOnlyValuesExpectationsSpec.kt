@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsInAnyOrderOnlyValuesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
+class IterableContainsInAnyOrderOnlyValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
         functionDescription to Companion::containsInAnyOrderOnlyValues,
         (functionDescription to Companion::containsInAnyOrderOnlyNullableValues).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ "

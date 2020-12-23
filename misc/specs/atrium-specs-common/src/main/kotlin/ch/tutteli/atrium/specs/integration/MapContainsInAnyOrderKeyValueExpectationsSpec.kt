@@ -14,7 +14,7 @@ fun keyNullableValue(
     assertionCreator: (Expect<Int>.() -> Unit)?
 ): Pair<String?, (Expect<Int>.() -> Unit)?> = key to assertionCreator
 
-abstract class MapContainsInAnyOrderKeyValueAssertionsSpec(
+abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
     keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "

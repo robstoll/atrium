@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
+abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
     containsInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,

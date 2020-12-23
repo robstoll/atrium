@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 
-abstract class IterableAnyAssertionsSpec(
+abstract class IterableAnyExpectationsSpec(
     any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     anyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,

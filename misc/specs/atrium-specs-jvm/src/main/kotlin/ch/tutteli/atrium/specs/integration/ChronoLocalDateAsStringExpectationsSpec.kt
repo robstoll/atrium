@@ -15,7 +15,7 @@ import java.time.chrono.ChronoLocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-abstract class ChronoLocalDateAsStringAssertionSpec(
+abstract class ChronoLocalDateAsStringExpectationsSpec(
     isBefore: Fun1<ChronoLocalDate, String>,
     isBeforeOrEqual: Fun1<ChronoLocalDate, String>,
     isAfter: Fun1<ChronoLocalDate, String>,

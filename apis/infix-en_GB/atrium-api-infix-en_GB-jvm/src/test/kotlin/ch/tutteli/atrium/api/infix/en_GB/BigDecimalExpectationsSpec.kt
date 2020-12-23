@@ -10,7 +10,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.math.BigDecimal
 
-class BigDecimalExpectationsSpec : Spek({
+class BigDecimalAssertionsSpec : Spek({
     include(object : BigDecimalExpectationsSpec(
         fun1(Companion::toBeBigDecimal),
         fun1(Companion::toBeNullable).withNullableSuffix(),

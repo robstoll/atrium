@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
+abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
     containsInAnyOrderEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsInAnyOrderNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     rootBulletPoint: String,

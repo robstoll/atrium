@@ -9,7 +9,7 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
-class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
+class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsSpec(
     fun1<Int, Int>(Expect<Int>::toBe),
     fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
     fun1<Int?, Int?>(Expect<Int?>::toBe).withNullableSuffix(),

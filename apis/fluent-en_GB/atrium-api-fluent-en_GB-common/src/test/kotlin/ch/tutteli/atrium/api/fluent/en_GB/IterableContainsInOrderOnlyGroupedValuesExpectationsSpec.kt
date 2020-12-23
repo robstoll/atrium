@@ -5,8 +5,8 @@ import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
+class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
         functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderValues,
         Companion::groupFactory,
         (functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues).withNullableSuffix(),

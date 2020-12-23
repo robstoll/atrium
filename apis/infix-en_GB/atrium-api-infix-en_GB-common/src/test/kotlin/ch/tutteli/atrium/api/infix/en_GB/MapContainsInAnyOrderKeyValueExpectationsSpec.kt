@@ -7,19 +7,19 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.infix.en_GB.MapContainsInAnyOrderKeyValueAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.infix.en_GB.MapContainsInAnyOrderKeyValueExpectationsSpec.Companion as C
 
-class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
+class MapContainsInAnyOrderKeyValueExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
         containsKeyValue_s to C::containsKeyValues,
         (containsKeyValue_s to C::containsKeyValuesNullable).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
         mfun2<String, Int, Expect<Int>.() -> Unit>(C::contains),
         mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(C::contains).withNullableSuffix(),
         "[Atrium][Shortcut] "

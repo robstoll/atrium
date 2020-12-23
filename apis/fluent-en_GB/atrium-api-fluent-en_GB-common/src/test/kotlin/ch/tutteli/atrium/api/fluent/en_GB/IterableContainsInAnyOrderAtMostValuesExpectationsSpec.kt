@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableContainsInAnyOrderAtMostValuesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtMostValuesAssertionSpec(
+class IterableContainsInAnyOrderAtMostValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
         getAtMostTriple(),
         getContainsNotPair(),
         getExactlyPair(),

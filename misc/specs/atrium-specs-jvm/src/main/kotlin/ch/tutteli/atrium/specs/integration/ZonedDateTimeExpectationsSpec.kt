@@ -15,7 +15,7 @@ import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
-abstract class ZonedDateTimeAssertionsSpec(
+abstract class ZonedDateTimeExpectationsSpec(
     yearFeature: Feature0<ZonedDateTime, Int>,
     year: Fun1<ZonedDateTime, Expect<Int>.() -> Unit>,
     monthFeature: Feature0<ZonedDateTime, Int>,

@@ -4,13 +4,13 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.infix.en_GB.MapContainsInOrderOnlyKeyValuePairsAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.infix.en_GB.MapContainsInOrderOnlyKeyValuePairsExpectationsSpec.Companion as C
 
-class MapContainsInOrderOnlyKeyValuePairsAssertionsSpec : Spek({
+class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec : Spek({
     include(BuilderSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
         containsKeyValuePair_s to C::containsKeyValuePairs,
         (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",

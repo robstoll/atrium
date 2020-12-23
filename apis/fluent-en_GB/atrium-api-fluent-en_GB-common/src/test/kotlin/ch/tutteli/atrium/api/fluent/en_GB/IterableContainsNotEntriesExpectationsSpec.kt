@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsNotEntriesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesAssertionsSpec(
+class IterableContainsNotEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesExpectationsSpec(
         functionDescription to Companion::containsNotFun,
         (functionDescription to Companion::containsNotNullableFun).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",

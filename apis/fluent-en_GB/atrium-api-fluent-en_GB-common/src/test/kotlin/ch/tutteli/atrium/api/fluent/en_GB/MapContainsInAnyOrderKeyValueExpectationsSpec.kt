@@ -6,20 +6,20 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderKeyValueAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderKeyValueExpectationsSpec.Companion as C
 
-class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
+class MapContainsInAnyOrderKeyValueExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
         functionDescription to C::containsKeyValues,
         (functionDescription to C::containsKeyValuesNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
         mfun2<String, Int, Expect<Int>.() -> Unit>(C::contains).adjustName { "$it ${KeyValue::class.simpleName}" },
         mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(C::contains).adjustName { "$it ${KeyValue::class.simpleName}" }
             .withNullableSuffix(),

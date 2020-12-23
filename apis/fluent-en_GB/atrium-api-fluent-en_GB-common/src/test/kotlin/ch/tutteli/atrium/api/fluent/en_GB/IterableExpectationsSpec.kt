@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-object IterableAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAssertionsSpec(
+object IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExpectationsSpec(
     fun0(Expect<Iterable<Int>>::hasNext),
     fun0(Expect<Iterable<Int>>::hasNotNext),
     feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::min),

@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 
-class CharSequenceContainsExactlyAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceContainsExactlyAssertionsSpec(
+class CharSequenceContainsExactlyExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.CharSequenceContainsExactlyExpectationsSpec(
         getExactlyTriple(),
         getExactlyIgnoringCaseTriple(),
         getContainsNotPair(),

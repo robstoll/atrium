@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class ArrayAsListAssertionsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListAssertionsSpec(
+class ArrayAsListExpectationsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListExpectationsSpec(
     "asList",
     Companion::arrayInt,
     Companion::byteArray,

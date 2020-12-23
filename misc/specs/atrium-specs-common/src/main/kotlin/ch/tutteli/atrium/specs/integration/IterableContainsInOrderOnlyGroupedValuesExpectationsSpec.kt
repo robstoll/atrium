@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 
-abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
+abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
     containsInOrderOnlyGroupedValues: Fun3<Iterable<Double>, Group<Double>, Group<Double>, Array<out Group<Double>>>,
     groupFactory: (Array<out Double>) -> Group<Double>,
     containsInOrderOnlyGroupedNullableValues: Fun3<Iterable<Double?>, Group<Double?>, Group<Double?>, Array<out Group<Double?>>>,

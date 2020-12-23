@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
+class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableExpectationsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
     fun2(Companion::messageContains),

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableContainsNotValuesAssertionsSpec(
+abstract class IterableContainsNotValuesExpectationsSpec(
     containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsNotNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,

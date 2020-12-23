@@ -4,13 +4,13 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec.Companion as C
 
-class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
+class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
           functionDescription to C::containsElementsOf,
         (functionDescription to C::containsElementsOfNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "

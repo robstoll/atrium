@@ -14,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class ThrowableAssertionsSpec(
+abstract class ThrowableExpectationsSpec(
     messageFeature: Feature0<Throwable, String>,
     message: Fun1<Throwable, Expect<String>.() -> Unit>,
     messageContains: Fun2<Throwable, Any, Array<out Any>>,

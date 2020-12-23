@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class CollectionAssertionsSpec : ch.tutteli.atrium.specs.integration.CollectionAssertionsSpec(
+class CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
     "toBe ${empty::class.simpleName}" to Companion::isEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty,
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),

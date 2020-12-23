@@ -3,11 +3,11 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 
-class IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec : Spek({
+class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» "

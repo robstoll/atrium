@@ -6,23 +6,23 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.mfun2
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderOnlyEntriesOfExpectationsSpec.Companion as C
 
-class MapContainsInAnyOrderOnlyEntriesOfAssertionsSpec : Spek({
+class MapContainsInAnyOrderOnlyEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderMapLikeToIterablePairSpec)
     include(ShortcutMapLikeToIterablePairSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
         functionDescription to C::containsKeyValuePairs,
         (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
         mfun2<String, Int, Int>(C::containsInAnyOrderOnlyEntriesOf),
         mfun2<String?, Int?, Int?>(C::containsInAnyOrderOnlyEntriesOf).withNullableSuffix(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",

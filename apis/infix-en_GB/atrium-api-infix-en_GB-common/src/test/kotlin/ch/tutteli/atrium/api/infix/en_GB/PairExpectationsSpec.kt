@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class PairAssertionsSpec : ch.tutteli.atrium.specs.integration.PairAssertionsSpec(
+class PairExpectationsSpec : ch.tutteli.atrium.specs.integration.PairExpectationsSpec(
     property<Pair<String, Int>, String>(Expect<Pair<String, Int>>::first),
     fun1<Pair<String, Int>, Expect<String>.() -> Unit>(Expect<Pair<String, Int>>::first),
     property<Pair<String, Int>, Int>(Expect<Pair<String, Int>>::second),

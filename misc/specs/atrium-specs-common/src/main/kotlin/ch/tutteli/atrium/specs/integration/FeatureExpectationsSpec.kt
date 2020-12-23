@@ -28,7 +28,7 @@ data class TestData(val nonNullValue: String, val nullableValue: Int?) {
 }
 typealias F = Expect<TestData>.() -> Unit
 
-abstract class FeatureAssertionsSpec(
+abstract class FeatureExpectationsSpec(
 
     propertyImmediate: F,
     propertyLazy: F,

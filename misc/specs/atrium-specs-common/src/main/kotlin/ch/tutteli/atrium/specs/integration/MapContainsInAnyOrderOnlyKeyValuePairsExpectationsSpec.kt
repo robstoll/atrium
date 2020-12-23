@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapContainsInAnyOrderOnlyKeyValuePairsAssertionsSpec(
+abstract class MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
     keyValuePairs: MFun2<String, Int, Int>,
     keyValuePairsNullable: MFun2<String?, Int?, Int?>,
     rootBulletPoint: String,

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
+abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
     containsInOrderOnlyGroupedEntries: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,
     rootBulletPoint: String,

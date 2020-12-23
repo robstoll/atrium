@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceContainsContainsNotAssertionsSpec(
+abstract class CharSequenceContainsContainsNotExpectationsSpec(
     contains: Fun2<CharSequence, Any, Array<out Any>>,
     containsNot: Fun2<CharSequence, Any, Array<out Any>>,
     rootBulletPoint: String,

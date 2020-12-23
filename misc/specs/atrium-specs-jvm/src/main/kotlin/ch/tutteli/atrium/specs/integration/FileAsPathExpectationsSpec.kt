@@ -9,7 +9,7 @@ import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 
-abstract class FileAsPathAssertionsSpec(
+abstract class FileAsPathExpectationsSpec(
     asPath: Expect<File>.(Expect<Path>.() -> Unit) -> Expect<File>
 ) : Spek({
 

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-object MapEntryAssertionsSpec : ch.tutteli.atrium.specs.integration.MapEntryAssertionsSpec(
+object MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExpectationsSpec(
     fun2(Expect<Map.Entry<String, Int>>::isKeyValue),
     fun2(Expect<Map.Entry<String?, Int?>>::isKeyValue).withNullableSuffix(),
     property<Map.Entry<String, Int>, String>(Expect<Map.Entry<String, Int>>::key),

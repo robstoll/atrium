@@ -17,7 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THA
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class AnyAssertionsSpec(
+abstract class AnyExpectationsSpec(
     toBeInt: Fun1<Int, Int>,
     toBeDataClass: Fun1<DataClass, DataClass>,
     toBeNullableInt: Fun1<Int?, Int?>,

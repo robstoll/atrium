@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CollectionAssertionsSpec(
+abstract class CollectionExpectationsSpec(
     isEmpty: Fun0<Collection<Int>>,
     isNotEmpty: Fun0<Collection<Int>>,
     sizeFeature: Feature0<Collection<Int>, Int>,

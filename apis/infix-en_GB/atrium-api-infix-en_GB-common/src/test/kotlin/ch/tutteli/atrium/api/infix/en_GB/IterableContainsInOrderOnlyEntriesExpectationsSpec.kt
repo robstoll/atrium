@@ -10,14 +10,14 @@ class IterableContainsInOrderOnlyEntriesExpectationsSpec : Spek({
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",

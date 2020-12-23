@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-object IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAllAssertionsSpec(
+object IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableAllExpectationsSpec(
     fun1(Expect<Iterable<Double>>::all),
     fun1(Expect<Iterable<Double?>>::all).withNullableSuffix(),
     "◆ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ "

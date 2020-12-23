@@ -9,7 +9,7 @@ import java.nio.charset.Charset
 import java.nio.file.Path
 import java.nio.file.Paths
 
-class PathAssertionsSpec : ch.tutteli.atrium.specs.integration.PathAssertionsSpec(
+class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectationsSpec(
     "toBe ${existing::class.simpleName}" to Companion::exists,
     "notToBe ${existing::class.simpleName}" to Companion::existsNot,
     fun1(Expect<Path>::startsWith),

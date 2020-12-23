@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionResultAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class ResultAssertionsSpec(
+abstract class ResultExpectationsSpec(
     isSuccessFeature: Feature0<Result<Int>, Int>,
     isSuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
     isSuccessFeatureNullable: Feature0<Result<Int?>, Int?>,

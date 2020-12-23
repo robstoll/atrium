@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class MapAsEntriesAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesAssertionsSpec(
+class MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesExpectationsSpec(
     asEntriesPair(),
     fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
 ) {

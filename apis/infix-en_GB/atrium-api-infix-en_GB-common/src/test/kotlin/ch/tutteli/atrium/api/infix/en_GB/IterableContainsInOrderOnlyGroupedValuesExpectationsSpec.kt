@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 
-class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
+class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
         getContainsPair(),
         Companion::groupFactory,
         getContainsNullablePair(),

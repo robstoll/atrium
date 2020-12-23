@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableAllAssertionsSpec : ch.tutteli.atrium.specs.integration.IterableAllAssertionsSpec(
+class IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableAllExpectationsSpec(
     fun1(Expect<Iterable<Double>>::all),
     fun1(Expect<Iterable<Double?>>::all).withNullableSuffix(),
     "* ", "(!) ", "- ", "» ", ">> ", "=> "

@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
+abstract class IterableContainsInAnyOrderAtLeastValuesExpectationsSpec(
     containsAtLeastPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     containsAtLeastButAtMostPair: Pair<(String, String, String) -> String, Fun4<Iterable<Double>, Int, Int, Double, Array<out Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,

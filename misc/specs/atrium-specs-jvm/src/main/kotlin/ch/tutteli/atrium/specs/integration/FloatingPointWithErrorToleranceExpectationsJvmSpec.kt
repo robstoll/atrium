@@ -3,12 +3,12 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceAssertionsSpec.TestData
+import ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceExpectationsSpec.TestData
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import java.math.BigDecimal
 
-abstract class FloatingPointWithErrorToleranceAssertionsJvmSpec(
+abstract class FloatingPointWithErrorToleranceExpectationsJvmSpec(
     toBeWithErrorToleranceBigDecimalPair: Fun2<BigDecimal, BigDecimal, BigDecimal>,
     describePrefix: String = "[Atrium] "
 ) : Spek({

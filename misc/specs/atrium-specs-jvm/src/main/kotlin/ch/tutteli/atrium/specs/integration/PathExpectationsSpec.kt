@@ -32,7 +32,7 @@ import java.nio.file.attribute.PosixFilePermission.*
 import java.nio.file.spi.FileSystemProvider
 import java.util.regex.Pattern.quote
 
-abstract class PathAssertionsSpec(
+abstract class PathExpectationsSpec(
     exists: Fun0<Path>,
     existsNot: Fun0<Path>,
     startsWith: Fun1<Path, Path>,

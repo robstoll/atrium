@@ -4,22 +4,22 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec.Companion as C
 
-class IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec : Spek({
+class IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderIterableLikeToIterableSpec)
     include(ShortcutIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         functionDescription to C::containsValues,
         (functionDescription to C::containsNullableValues).withNullableSuffix(),
         "◆ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         shortcutDescription to C::containsInAnyOrderShortcut,
         (shortcutDescription to C::containsInAnyOrderNullableShortcut).withNullableSuffix(),
         "◆ ",

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.property
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
-class ZonedDateTimeAssertionsSpec : ch.tutteli.atrium.specs.integration.ZonedDateTimeAssertionsSpec(
+class ZonedDateTimeExpectationsSpec : ch.tutteli.atrium.specs.integration.ZonedDateTimeExpectationsSpec(
     property<ZonedDateTime, Int>(Expect<ZonedDateTime>::year),
     fun1<ZonedDateTime, Expect<Int>.() -> Unit>(Expect<ZonedDateTime>::year),
     property<ZonedDateTime, Int>(Expect<ZonedDateTime>::month),

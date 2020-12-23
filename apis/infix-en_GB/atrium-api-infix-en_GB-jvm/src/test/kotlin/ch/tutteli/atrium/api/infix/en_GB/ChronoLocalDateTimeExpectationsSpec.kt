@@ -14,7 +14,7 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
     include(ChronoLocalDateTimeSpec)
     include(ChronoLocalDateTimeAsStringSpec)
 }) {
-    object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAssertionSpec(
+    object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeExpectationsSpec(
         fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBefore),
         fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
         fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfter),
@@ -23,7 +23,7 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
     )
 
     object ChronoLocalDateTimeAsStringSpec :
-        ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAsStringAssertionSpec(
+        ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAsStringExpectationsSpec(
             fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBefore),
             fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
             fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isAfter),

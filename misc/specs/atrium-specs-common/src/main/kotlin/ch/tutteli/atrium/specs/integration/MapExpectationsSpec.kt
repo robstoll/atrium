@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapAssertionsSpec(
+abstract class MapExpectationsSpec(
     containsKey: Fun1<Map<out String, *>, String>,
     containsKeyNullable: Fun1<Map<out String?, *>, String?>,
     containsNotKey: Fun1<Map<out String, *>, String>,

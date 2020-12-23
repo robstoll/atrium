@@ -11,7 +11,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.math.BigDecimal
 
-abstract class BigDecimalAssertionsSpec(
+abstract class BigDecimalExpectationsSpec(
     toBeDontUse: Fun1<BigDecimal, BigDecimal>,
     toBeNullableDontUse: Fun1<BigDecimal?, BigDecimal?>,
     toBeNull: Fun1<BigDecimal?, Nothing?>,

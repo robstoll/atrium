@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.io.File
 
-class FileAsPathAssertionsSpec : ch.tutteli.atrium.specs.integration.FileAsPathAssertionsSpec(
+class FileAsPathExpectationsSpec : ch.tutteli.atrium.specs.integration.FileAsPathExpectationsSpec(
     Expect<File>::asPath
 ) {
     companion object : WithAsciiReporter()

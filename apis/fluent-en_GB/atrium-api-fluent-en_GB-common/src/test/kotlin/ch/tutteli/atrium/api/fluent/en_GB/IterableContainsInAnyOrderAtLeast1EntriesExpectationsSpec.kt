@@ -5,20 +5,20 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec.Companion as C
 
-class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
+class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
         functionDescription to C::containsInAnyOrderEntries,
         (functionDescription to C::containsNullableEntries).withNullableSuffix(),
         "◆ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
         fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::contains),
         fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::contains).withNullableSuffix(),
         "◆ ",

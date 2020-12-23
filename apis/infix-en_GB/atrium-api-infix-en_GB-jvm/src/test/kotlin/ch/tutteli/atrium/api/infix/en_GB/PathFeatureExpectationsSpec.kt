@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.file.Path
 
-class PathFeatureAssertionsSpec : ch.tutteli.atrium.specs.integration.PathFeatureAssertionsSpec(
+class PathFeatureExpectationsSpec : ch.tutteli.atrium.specs.integration.PathFeatureExpectationsSpec(
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     feature1<Path, String, Path>(Expect<Path>::resolve),

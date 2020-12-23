@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
+class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
          functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderEntries,
         Companion::groupFactory,
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",

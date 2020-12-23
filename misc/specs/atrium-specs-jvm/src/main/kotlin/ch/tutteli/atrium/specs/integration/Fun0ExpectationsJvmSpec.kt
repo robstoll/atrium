@@ -12,7 +12,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
 
-abstract class Fun0AssertionsJvmSpec(
+abstract class Fun0ExpectationsJvmSpec(
     toThrowFeature: Feature0<out () -> Any?, IllegalArgumentException>,
     toThrow: Feature1<out () -> Any?, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     notToThrowFeature: Feature0<() -> Int, Int>,
@@ -42,7 +42,7 @@ abstract class Fun0AssertionsJvmSpec(
     fun messageAndStackTrace(message: String) =
         "\\s+\\Q$explanationBulletPoint\\E$messageDescr: \"$message\".*$separator" +
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
-            "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsJvmSpec::class.fullName}"
+            "\\s+\\Q$listBulletPoint\\E${Fun0ExpectationsJvmSpec::class.fullName}"
 
     describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
         val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)

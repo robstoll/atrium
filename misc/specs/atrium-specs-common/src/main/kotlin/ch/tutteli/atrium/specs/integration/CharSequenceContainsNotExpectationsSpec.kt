@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceContainsNotAssertionsSpec(
+abstract class CharSequenceContainsNotExpectationsSpec(
     containsNotPair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     containsNotIgnoringCasePair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     rootBulletPoint: String,

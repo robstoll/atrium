@@ -15,7 +15,7 @@ import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
-abstract class LocalDateTimeAssertionsSpec(
+abstract class LocalDateTimeExpectationsSpec(
     yearFeature: Feature0<LocalDateTime, Int>,
     year: Fun1<LocalDateTime, Expect<Int>.() -> Unit>,
     monthFeature: Feature0<LocalDateTime, Int>,

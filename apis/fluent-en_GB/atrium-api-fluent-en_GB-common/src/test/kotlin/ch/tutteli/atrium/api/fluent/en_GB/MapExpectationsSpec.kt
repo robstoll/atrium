@@ -3,10 +3,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.mfun2
 import kotlin.jvm.JvmName
 
-class MapAssertionsSpec : ch.tutteli.atrium.specs.integration.MapAssertionsSpec(
+class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsSpec(
     fun1(Expect<Map<out String, *>>::containsKey),
     fun1(Expect<Map<out String?, *>>::containsKey).withNullableSuffix(),
     fun1(Expect<Map<out String, *>>::containsNotKey),

@@ -6,14 +6,12 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class Fun0AssertionsSpec(
+abstract class Fun0ExpectationsSpec(
     toThrowFeature: Feature0<out () -> Any?, IllegalArgumentException>,
     toThrow: Feature1<out () -> Any?, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     notToThrowFeature: Feature0<() -> Int, Int>,
@@ -72,7 +70,7 @@ abstract class Fun0AssertionsSpec(
     fun messageAndStackTrace(message: String) =
         "\\s+\\Q$explanationBulletPoint\\E$messageDescr: \"$message\".*$separator" +
             "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
-            "\\s+\\Q$listBulletPoint\\E${Fun0AssertionsSpec::class.fullName}"
+            "\\s+\\Q$listBulletPoint\\E${Fun0ExpectationsSpec::class.fullName}"
 
     describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
         val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class ComparableAssertionsSpec(
+abstract class ComparableExpectationsSpec(
     isLessThan: Fun1<Int, Int>,
     isLessOrEquals: Fun1<Int, Int>,
     isGreaterThan: Fun1<Int, Int>,

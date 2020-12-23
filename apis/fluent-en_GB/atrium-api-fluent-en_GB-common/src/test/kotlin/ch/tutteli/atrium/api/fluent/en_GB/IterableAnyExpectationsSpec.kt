@@ -7,23 +7,22 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import kotlin.reflect.KFunction2
-import ch.tutteli.atrium.api.fluent.en_GB.IterableAnyAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableAnyExpectationsSpec.Companion as C
 
-class IterableAnyAssertionsSpec : Spek({
+class IterableAnyExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
     include(ShortcutSpec)
     include(SequenceSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         fun1(Expect<Iterable<Double>>::any),
         fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
         "◆ ",
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         functionDescription to C::containsEntry,
         (functionDescription to C::containsNullableEntry).withNullableSuffix(),
         "◆ ",
@@ -32,7 +31,7 @@ class IterableAnyAssertionsSpec : Spek({
 
     // TODO 0.17.0 #722 this will differ once we don't implement the same behaviour for contains and none
     // that's fine and we can simply remove this test here
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         shortcutDescription to C::containsEntryShortcut,
         (shortcutDescription to C::containsNullableEntryShortcut).withNullableSuffix(),
         "◆ ",
@@ -40,7 +39,7 @@ class IterableAnyAssertionsSpec : Spek({
     )
 
     // TODO move to own SequenceSpec if we really need this (maybe we can also just delete it?)
-    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyAssertionsSpec(
+    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         getContainsSequencePair(),
         getContainsNullableSequencePair().withNullableSuffix(),
         "◆ ",

@@ -17,7 +17,7 @@ import java.time.chrono.ChronoLocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-abstract class ChronoLocalDateTimeAsStringAssertionSpec(
+abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
     isBefore: Fun1<ChronoLocalDateTime<*>, String>,
     isBeforeOrEqual: Fun1<ChronoLocalDateTime<*>, String>,
     isAfter: Fun1<ChronoLocalDateTime<*>, String>,
@@ -56,7 +56,7 @@ abstract class ChronoLocalDateTimeAsStringAssertionSpec(
     ): Expect<ChronoLocalDateTime<*>> =
         expect.(isEqual.lambda)(expected.format(DateTimeFormatter.ISO_DATE_TIME))
 
-    include(object : ChronoLocalDateTimeAssertionSpec(
+    include(object : ChronoLocalDateTimeExpectationsSpec(
         fun1(::isBefore),
         fun1(::isBeforeOrEqual),
         fun1(::isAfter),

@@ -12,7 +12,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.chrono.ChronoZonedDateTime
 
-abstract class ChronoZonedDateTimeAssertionSpec(
+abstract class ChronoZonedDateTimeExpectationsSpec(
     isBefore: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     isBeforeOrEqual: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,
     isAfter: Fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>,

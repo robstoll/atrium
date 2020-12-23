@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-class ThrowableAssertionsSpec : ch.tutteli.atrium.specs.integration.ThrowableAssertionsSpec(
+class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableExpectationsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
     fun2(Expect<Throwable>::messageContains),

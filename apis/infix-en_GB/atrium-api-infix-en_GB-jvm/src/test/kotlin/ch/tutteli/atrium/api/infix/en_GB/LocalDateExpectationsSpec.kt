@@ -8,7 +8,7 @@ import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class LocalDateAssertionsSpec : ch.tutteli.atrium.specs.integration.LocalDateAssertionsSpec(
+class LocalDateExpectationsSpec : ch.tutteli.atrium.specs.integration.LocalDateExpectationsSpec(
     property<LocalDate, Int>(Expect<LocalDate>::year),
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::year),
     property<LocalDate, Int>(Expect<LocalDate>::month),

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.feature0
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.withFeatureSuffix
 
-class Fun0AssertionsJvmSpec : ch.tutteli.atrium.specs.integration.Fun0AssertionsJvmSpec(
+class Fun0ExpectationsJvmSpec : ch.tutteli.atrium.specs.integration.Fun0ExpectationsJvmSpec(
     ("toThrow" to Companion::toThrowFeature).withFeatureSuffix(),
     "toThrow" to Companion::toThrow,
     feature0<() -> Int, Int>(Expect<() -> Int>::notToThrow),

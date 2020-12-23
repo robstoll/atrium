@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 
 
-class CharSequenceContainsAtMostAssertionsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceContainsAtMostAssertionsSpec(
+class CharSequenceContainsAtMostExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.CharSequenceContainsAtMostExpectationsSpec(
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
         getContainsNotPair(),

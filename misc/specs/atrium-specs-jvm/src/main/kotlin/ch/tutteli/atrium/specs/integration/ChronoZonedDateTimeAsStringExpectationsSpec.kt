@@ -16,7 +16,7 @@ import java.time.chrono.ChronoZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-abstract class ChronoZonedDateTimeAsStringAssertionSpec(
+abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
     isBefore: Fun1<ChronoZonedDateTime<*>, String>,
     isBeforeOrEqual: Fun1<ChronoZonedDateTime<*>, String>,
     isAfter: Fun1<ChronoZonedDateTime<*>, String>,
@@ -55,7 +55,7 @@ abstract class ChronoZonedDateTimeAsStringAssertionSpec(
     ): Expect<ChronoZonedDateTime<*>> =
         expect.(isEqual.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
 
-    include(object : ChronoZonedDateTimeAssertionSpec(
+    include(object : ChronoZonedDateTimeExpectationsSpec(
         fun1(::isBefore),
         fun1(::isBeforeOrEqual),
         fun1(::isAfter),

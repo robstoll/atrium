@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import java.io.File
 
-class FileAsPathAssertionsSpec : ch.tutteli.atrium.specs.integration.FileAsPathAssertionsSpec(
+class FileAsPathExpectationsSpec : ch.tutteli.atrium.specs.integration.FileAsPathExpectationsSpec(
     Expect<File>::asPath
 ) {
     @Suppress("unused", "UNUSED_VALUE")

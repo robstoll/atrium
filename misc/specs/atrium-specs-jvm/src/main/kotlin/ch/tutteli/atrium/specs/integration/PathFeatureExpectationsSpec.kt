@@ -11,7 +11,7 @@ import org.spekframework.spek2.style.specification.Suite
 import java.nio.file.Path
 import java.nio.file.Paths
 
-abstract class PathFeatureAssertionsSpec(
+abstract class PathFeatureExpectationsSpec(
     parentFeature: Feature0<Path, Path>,
     parent: Fun1<Path, Expect<Path>.() -> Unit>,
     resolveFeature: Feature1<Path, String, Path>,

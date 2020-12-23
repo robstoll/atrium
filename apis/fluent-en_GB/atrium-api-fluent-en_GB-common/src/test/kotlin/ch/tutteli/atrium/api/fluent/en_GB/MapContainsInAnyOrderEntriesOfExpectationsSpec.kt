@@ -7,22 +7,22 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderEntriesOfAssertionsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderEntriesOfExpectationsSpec.Companion as C
 
-class MapContainsInAnyOrderEntriesOfAssertionsSpec : Spek({
+class MapContainsInAnyOrderEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderMapLikeToIterablePairSpec)
     include(ShortcutMapLikeToIterablePairSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
         functionDescription to C::containsKeyValuePairs,
         (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
         mfun2<String, Int, Int>(C::containsEntriesOf),
         mfun2<String?, Int?, Int?>(C::containsEntriesOf).withNullableSuffix(),
         "[Atrium][Shortcut] "

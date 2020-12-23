@@ -6,20 +6,20 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 
-class IterableNoneAssertionsSpec : Spek({
+class IterableNoneExpectationsSpec : Spek({
 
     include(PredicateSpec)
     include(BuilderSpec)
 
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::none),
         fun1(Expect<Iterable<Double?>>::none).withNullableSuffix(),
         "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair().withNullableSuffix(),
         "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",

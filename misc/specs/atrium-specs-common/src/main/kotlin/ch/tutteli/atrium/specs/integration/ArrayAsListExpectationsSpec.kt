@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class ArrayAsListAssertionsSpec(
+abstract class ArrayAsListExpectationsSpec(
     asListFunName: String,
     arr: Expect<Array<Int>>.() -> Expect<List<Int>>,
     arrByte: Expect<ByteArray>.() -> Expect<List<Byte>>,

@@ -53,5 +53,5 @@ class IterableContainsInAnyOrderAtLeastValuesExpectationsSpec :
             "specifying $butAtMost($timesButAtMost) does not make sense if $atLeast($timesAtLeast) was used before"
     }
 
-    // ambiguityTests see IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec
+    // ambiguityTests see IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec
 }

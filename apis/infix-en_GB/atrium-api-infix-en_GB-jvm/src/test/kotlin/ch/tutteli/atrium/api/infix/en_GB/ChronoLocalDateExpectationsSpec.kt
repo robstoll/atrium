@@ -9,11 +9,11 @@ import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.JapaneseDate
 
-class ChronoLocalDateAssertionsSpec : Spek({
+class ChronoLocalDateExpectationsSpec : Spek({
     include(ChronoLocalDateSpec)
     include(ChronoLocalDateAsStringSpec)
 }) {
-    object ChronoLocalDateSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAssertionSpec(
+    object ChronoLocalDateSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateExpectationsSpec(
         fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBefore),
         fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBeforeOrEqual),
         fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isAfter),
@@ -21,7 +21,7 @@ class ChronoLocalDateAssertionsSpec : Spek({
         fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isEqual)
     )
 
-    object ChronoLocalDateAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAsStringAssertionSpec(
+    object ChronoLocalDateAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAsStringExpectationsSpec(
         fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBefore),
         fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBeforeOrEqual),
         fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isAfter),

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableAssertionsSpec(
+abstract class IterableExpectationsSpec(
     hasNext: Fun0<Iterable<Int>>,
     hasNotNext: Fun0<Iterable<Int>>,
     minFeature: Feature0<Iterable<Int>, Int>,

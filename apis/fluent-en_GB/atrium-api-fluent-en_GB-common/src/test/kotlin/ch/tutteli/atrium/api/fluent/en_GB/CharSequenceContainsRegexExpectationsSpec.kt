@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-class CharSequenceContainsRegexAssertionsSpec : Spek({
+class CharSequenceContainsRegexExpectationsSpec : Spek({
     include(StringSpec)
     include(RegexSpec)
 
@@ -18,7 +18,7 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         }
     }
 }) {
-    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
+    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexExpectationsSpec(
         getNameContainsRegex(),
         getAtLeastTripleString(),
         getAtLeastIgnoringCaseTripleString(),
@@ -29,7 +29,7 @@ class CharSequenceContainsRegexAssertionsSpec : Spek({
         "[StringSpec] "
     )
 
-    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
+    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexExpectationsSpec(
         getNameContainsRegex(),
         getAtLeastTripleRegex(),
         getAtLeastIgnoringCaseTripleString(),

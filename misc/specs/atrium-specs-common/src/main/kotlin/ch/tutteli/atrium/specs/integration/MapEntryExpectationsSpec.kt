@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class MapEntryAssertionsSpec(
+abstract class MapEntryExpectationsSpec(
     isKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
     isKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
     keyFeature: Feature0<Map.Entry<String, Int>, String>,
@@ -31,7 +31,7 @@ abstract class MapEntryAssertionsSpec(
         isKeyValueNullable.forSubjectLess("key", 1)
     ) {})
 
-    include(object : KeyValueLikeAssertionsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
+    include(object : KeyValueLikeExpectationsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
         ::mapEntry,
         ::mapEntry,
         "key",

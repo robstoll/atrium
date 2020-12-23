@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
-class ComparableAssertionsSpec : ch.tutteli.atrium.specs.integration.ComparableAssertionsSpec(
+class ComparableExpectationsSpec : ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
     fun1(Expect<Int>::isLessThan),
     fun1(Expect<Int>::isLessThanOrEqual),
     fun1(Expect<Int>::isGreaterThan),

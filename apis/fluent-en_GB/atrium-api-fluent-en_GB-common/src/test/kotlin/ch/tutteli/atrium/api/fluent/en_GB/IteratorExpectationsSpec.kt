@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.notImplemented
 
-class IteratorAssertionSpec : ch.tutteli.atrium.specs.integration.IteratorAssertionSpec(
+class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExpectationsSpec(
     fun0(Expect<Iterator<Int>>::hasNext),
     fun0(Expect<Iterator<Int>>::hasNotNext)
 ) {

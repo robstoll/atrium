@@ -8,7 +8,7 @@ import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KFunction3
 
 
-abstract class MapContainsInAnyOrderKeyValuePairsAssertionsSpec(
+abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
     keyValuePairs: MFun2<String, Int, Int>,
     keyValuePairsNullable: MFun2<String?, Int?, Int?>,
     describePrefix: String = "[Atrium] "

@@ -4,18 +4,18 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
+class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair(),
         "* ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "* ",

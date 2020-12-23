@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
+abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
     containsInOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     rootBulletPoint: String,
