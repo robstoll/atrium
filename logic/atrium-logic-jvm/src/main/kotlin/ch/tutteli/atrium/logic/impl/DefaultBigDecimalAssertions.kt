@@ -38,7 +38,7 @@ class DefaultBigDecimalAssertions : BigDecimalAssertions {
             .withTest(container) { it == expected }
             .withFailureHint {
                 assertionBuilder.explanatoryGroup
-                    .withDefaultType
+                    .withInformationType(withIndent = true)
                     .withExplanatoryAssertion(
                         FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL,
                         nameOfIsNumericallyEqualTo

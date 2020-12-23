@@ -27,4 +27,4 @@ object WarningAssertionGroupType : ExplanatoryAssertionGroupType
  * The [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] are used to document
  * the reason for one or multiple assertions.
  */
-object InformationAssertionGroupType : ExplanatoryAssertionGroupType
+data class InformationAssertionGroupType(val withIndent: Boolean) : ExplanatoryAssertionGroupType

@@ -103,7 +103,7 @@ class DefaultAnyAssertions : AnyAssertions {
         return assertionBuilder.invisibleGroup.withAssertions(
             assertion,
             assertionBuilder.explanatoryGroup
-                .withInformationType
+                .withInformationType(withIndent = false)
                 .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
                 .build()
         ).build()

@@ -1981,7 +1981,7 @@ expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
 ```text
 expected that subject: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
-    » notice, if you used isNumericallyEqualTo then the assertion would have hold.
+    ℹ notice, if you used isNumericallyEqualTo then the assertion would have hold.
 ```
 </ex-pitfall-1>
 

@@ -60,7 +60,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
             explanation: Assertion = createExplanation(throwable)
         ): AssertionGroup =
             assertionBuilder.explanatoryGroup
-                .withInformationType
+                .withInformationType(withIndent = false)
                 .withAssertions(
                     explanation,
                     createHints(throwable, secondStackFrameOfParent = null)

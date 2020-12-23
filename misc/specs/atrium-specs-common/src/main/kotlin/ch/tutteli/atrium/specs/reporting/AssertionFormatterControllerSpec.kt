@@ -144,9 +144,17 @@ abstract class AssertionFormatterControllerSpec(
                         warning
                     ),
                     Triple(
-                        "$groupName with type ${InformationAssertionGroupType::class.simpleName}",
-                        factory(InformationAssertionGroupType, listOf(holdingAssertion)) to factory(
-                            InformationAssertionGroupType,
+                        "$groupName with type ${InformationAssertionGroupType::class.simpleName} and withIndent = true",
+                        factory(InformationAssertionGroupType(true), listOf(holdingAssertion)) to factory(
+                            InformationAssertionGroupType(true),
+                            listOf(failingAssertion)
+                        ),
+                        information
+                    ),
+                    Triple(
+                        "$groupName with type ${InformationAssertionGroupType::class.simpleName} and withIndent = false",
+                        factory(InformationAssertionGroupType(false), listOf(holdingAssertion)) to factory(
+                            InformationAssertionGroupType(false),
                             listOf(failingAssertion)
                         ),
                         information

@@ -30,7 +30,7 @@ interface ExplanatoryGroup {
         /**
          * Builder to create an [AssertionGroup] with an [InformationAssertionGroupType].
          */
-        override val withInformationType: AssertionsOption<InformationAssertionGroupType, FinalStep>
+        override fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, FinalStep>
 
         /**
          * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].
@@ -174,7 +174,7 @@ interface ExplanatoryAssertionGroupTypeOption {
     /**
      * Builder to create an [AssertionGroup] with a [InformationAssertionGroupType].
      */
-    val withInformationType: AssertionsOption<InformationAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
 
     /**
      * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].

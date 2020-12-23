@@ -9,12 +9,13 @@ import kotlin.reflect.KClass
 
 abstract class TextInformationAssertionGroupFormatterSpec(
     testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
+    withIndent: Boolean,
     describePrefix: String = "[Atrium] "
 ) : TextExplanatoryBasedAssertionGroupFormatterSpec<InformationAssertionGroupType>(
     testeeFactory,
     InformationAssertionGroupType::class,
-    InformationAssertionGroupType,
-    { assertionBuilder.explanatoryGroup.withInformationType.withAssertions(it).build() },
+    InformationAssertionGroupType(withIndent),
+    { assertionBuilder.explanatoryGroup.withInformationType(withIndent).withAssertions(it).build() },
     describePrefix,
-    withIndent = false
+    withIndent
 )
