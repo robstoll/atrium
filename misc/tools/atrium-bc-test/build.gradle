@@ -435,6 +435,10 @@ createBcAndBbcTasksForApis('0.14.0',
     ').*)',
     'fluent-en_GB', 'infix-en_GB'
 )
+createBcAndBbcTasksForApis('0.15.0',
+    'forgive=^$',
+    'fluent-en_GB', 'infix-en_GB'
+)
 
 ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'].each { apiName ->
     createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
