@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsAssertions
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsExpectations
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The building process is typically started by the creation of a [EntryPointStep],
  * goes on by specifying a desired [SearchBehaviour],
  * defines which [Checker]s should be applied and
- * is finalized by one of the [IterableLikeContainsAssertions] which usually use a [Creator].
+ * is finalized by one of the [IterableLikeContainsExpectations] which usually use a [Creator].
  */
 interface IterableLikeContains {
 

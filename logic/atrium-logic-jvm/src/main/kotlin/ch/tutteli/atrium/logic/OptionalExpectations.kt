@@ -13,7 +13,7 @@ import java.util.*
 /**
  * Collection of assertion functions and builders which are applicable to subjects with an [Optional] type.
  */
-interface OptionalAssertions {
+interface OptionalExpectations {
     fun <T : Optional<*>> isEmpty(container: AssertionContainer<T>): Assertion
     fun <E, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
 }

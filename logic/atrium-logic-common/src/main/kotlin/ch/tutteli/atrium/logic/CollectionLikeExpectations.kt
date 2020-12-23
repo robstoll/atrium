@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
  * Collection of assertion functions and builders which are applicable to subjects which can be transformed to a
  * [Collection] - intended for types which are Collection like such as [Map].
  */
-interface CollectionLikeAssertions {
+interface CollectionLikeExpectations {
 
     fun <T : CollectionLike> isEmpty(container: AssertionContainer<T>, converter: (T) -> Collection<*>): Assertion
     fun <T : CollectionLike> isNotEmpty(container: AssertionContainer<T>, converter: (T) -> Collection<*>): Assertion

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 
-class DefaultMapEntryAssertions : MapEntryAssertions {
+class DefaultMapEntryExpectations : MapEntryExpectations {
 
     override fun <K, V, T : Map.Entry<K, V>> isKeyValue(container: AssertionContainer<T>, key: K, value: V): Assertion =
         container.collect {

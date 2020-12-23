@@ -7,12 +7,12 @@ import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubjec
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.FloatingPointAssertions
+import ch.tutteli.atrium.logic.FloatingPointExpectations
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
 import kotlin.math.absoluteValue
 
-class DefaultFloatingPointAssertions : FloatingPointAssertions {
+class DefaultFloatingPointExpectations : FloatingPointExpectations {
     override fun toBeWithErrorTolerance(
         container: AssertionContainer<Float>,
         expected: Float,

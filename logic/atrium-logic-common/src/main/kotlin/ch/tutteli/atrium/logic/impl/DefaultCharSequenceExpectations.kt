@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.CharSequenceAssertions
+import ch.tutteli.atrium.logic.CharSequenceExpectations
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 
-class DefaultCharSequenceAssertions : CharSequenceAssertions {
+class DefaultCharSequenceExpectations : CharSequenceExpectations {
     override fun <T : CharSequence> containsBuilder(
         container: AssertionContainer<T>
     ): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour> =

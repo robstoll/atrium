@@ -10,7 +10,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerSt
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [CharSequence] type.
  */
-interface CharSequenceAssertions {
+interface CharSequenceExpectations {
 
     /**
      * Starts the building process of a sophisticated `contains` assertions.

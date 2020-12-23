@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsAssertions
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsExpectations
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The building process is typically started by the creation of a [EntryPointStep],
  * goes on by specifying a desired [SearchBehaviour],
  * defines which [Checker]s should be applied and
- * is finalized by one of the [CharSequenceContainsAssertions]
+ * is finalized by one of the [CharSequenceContainsExpectations]
  * which usually use a [Creator] which in turn uses a [Searcher].
  */
 interface CharSequenceContains {

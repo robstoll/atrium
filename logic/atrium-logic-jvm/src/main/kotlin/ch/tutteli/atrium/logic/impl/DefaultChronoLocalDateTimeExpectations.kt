@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
-class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
+class DefaultChronoLocalDateTimeExpectations : ChronoLocalDateTimeExpectations {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>

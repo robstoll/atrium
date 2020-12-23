@@ -19,8 +19,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class InOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
+class InOrderOnlyEntriesExpectationCreator<E : Any, T : IterableLike>(
     converter: (T) -> Iterable<E?>,
     searchBehaviour: InOrderOnlySearchBehaviour
-) : InOrderOnlyAssertionCreator<E?, T, (Expect<E>.() -> Unit)?>(converter, searchBehaviour),
+) : InOrderOnlyExpectationCreator<E?, T, (Expect<E>.() -> Unit)?>(converter, searchBehaviour),
     InOrderOnlyMatcher<E?, (Expect<E>.() -> Unit)?> by InOrderOnlyEntriesMatcher()

@@ -21,7 +21,7 @@ import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
-abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
+abstract class InOrderOnlyBaseExpectationCreator<E, T : IterableLike, SC>(
     private val converter: (T) -> Iterable<E>,
     private val searchBehaviour: IterableLikeContains.SearchBehaviour
 ) : IterableLikeContains.Creator<T, SC> {

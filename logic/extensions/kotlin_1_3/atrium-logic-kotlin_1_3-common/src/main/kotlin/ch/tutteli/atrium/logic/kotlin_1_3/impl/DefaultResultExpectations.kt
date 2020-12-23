@@ -10,13 +10,13 @@ import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.logic.kotlin_1_3.ResultAssertions
+import ch.tutteli.atrium.logic.kotlin_1_3.ResultExpectations
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.translations.DescriptionResultAssertion.*
 import kotlin.reflect.KClass
 
-class DefaultResultAssertions : ResultAssertions {
+class DefaultResultExpectations : ResultExpectations {
     override fun <E, T : Result<E>> isSuccess(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .withDescription(VALUE)

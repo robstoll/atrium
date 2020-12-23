@@ -32,7 +32,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
+abstract class InAnyOrderOnlyExpectationCreator<E, T : IterableLike, in SC>(
     private val converter: (T) -> Iterable<E>,
     private val searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : IterableLikeContains.Creator<T, SC> {

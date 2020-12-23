@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.kotlin_1_3.impl.DefaultResultAssertions
+import ch.tutteli.atrium.logic.kotlin_1_3.impl.DefaultResultExpectations
 
 fun <E, T : Result<E>> AssertionContainer<T>.isSuccess(): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.isSuccess(this)
 
@@ -20,5 +20,5 @@ fun <TExpected : Throwable> AssertionContainer<out Result<*>>.isFailureOfType(ex
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: ResultAssertions
-    get() = getImpl(ResultAssertions::class) { DefaultResultAssertions() }
+private inline val <T> AssertionContainer<T>.impl: ResultExpectations
+    get() = getImpl(ResultExpectations::class) { DefaultResultExpectations() }

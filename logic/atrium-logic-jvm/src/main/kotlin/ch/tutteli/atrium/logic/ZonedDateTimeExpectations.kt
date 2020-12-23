@@ -13,7 +13,7 @@ import java.time.ZonedDateTime
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [ZonedDateTime] type.
  */
-interface ZonedDateTimeAssertions {
+interface ZonedDateTimeExpectations {
     fun year(container: AssertionContainer<ZonedDateTime>): FeatureExtractorBuilder.ExecutionStep<ZonedDateTime, Int>
 
     fun month(container: AssertionContainer<ZonedDateTime>): FeatureExtractorBuilder.ExecutionStep<ZonedDateTime, Int>

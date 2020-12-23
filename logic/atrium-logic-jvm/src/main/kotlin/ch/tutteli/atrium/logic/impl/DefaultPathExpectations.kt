@@ -29,7 +29,7 @@ import java.nio.file.*
 import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.nio.file.attribute.BasicFileAttributes
 
-class DefaultPathAssertions : PathAssertions {
+class DefaultPathExpectations : PathExpectations {
     override fun <T : Path> startsWith(container: AssertionContainer<T>, expected: Path): Assertion =
         container.createDescriptiveAssertion(STARTS_WITH, expected) { it.startsWith(expected) }
 

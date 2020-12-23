@@ -7,10 +7,10 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.FloatingPointJvmAssertions
+import ch.tutteli.atrium.logic.FloatingPointJvmExpectations
 import java.math.BigDecimal
 
-class DefaultFloatingPointJvmAssertions : FloatingPointJvmAssertions {
+class DefaultFloatingPointJvmExpectations : FloatingPointJvmExpectations {
     override fun <T : BigDecimal> toBeWithErrorTolerance(
         container: AssertionContainer<T>,
         expected: BigDecimal,

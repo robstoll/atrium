@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [Throwable] type.
  */
-interface ThrowableAssertions {
+interface ThrowableExpectations {
 
     fun <TExpected : Throwable> causeIsA(
         container: AssertionContainer<out Throwable>,

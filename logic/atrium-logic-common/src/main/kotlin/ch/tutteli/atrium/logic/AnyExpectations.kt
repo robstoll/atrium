@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 /**
  * Collection of assertion functions and builders which are applicable to any type (sometimes `Any?` sometimes `Any`).
  */
-interface AnyAssertions {
+interface AnyExpectations {
     fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion

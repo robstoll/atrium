@@ -13,10 +13,10 @@ import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
+abstract class InOrderOnlyGroupedExpectationCreator<E, T : IterableLike, SC>(
     converter: (T) -> Iterable<E>,
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour
-) : InOrderOnlyBaseAssertionCreator<E, T, List<SC>>(converter, searchBehaviour),
+) : InOrderOnlyBaseExpectationCreator<E, T, List<SC>>(converter, searchBehaviour),
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 

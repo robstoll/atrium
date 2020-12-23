@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
+import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsExpectationCreator
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -25,11 +25,11 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
+class InAnyOrderValuesExpectationCreator<SC, T : IterableLike>(
     private val converter: (T) -> Iterable<SC>,
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableLikeContains.Checker>
-) : ContainsObjectsAssertionCreator<T, List<SC>, SC, InAnyOrderSearchBehaviour, IterableLikeContains.Checker>(
+) : ContainsObjectsExpectationCreator<T, List<SC>, SC, InAnyOrderSearchBehaviour, IterableLikeContains.Checker>(
     searchBehaviour,
     checkers
 ), IterableLikeContains.Creator<T, SC> {

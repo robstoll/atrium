@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [Result] type.
  */
-interface ResultAssertions {
+interface ResultExpectations {
     fun <E, T : Result<E>> isSuccess(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
 
     fun <TExpected : Throwable> isFailureOfType(

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.Right
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.logic.Fun0Assertions
+import ch.tutteli.atrium.logic.Fun0Expectations
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
-class DefaultFun0Assertions : Fun0Assertions {
+class DefaultFun0Expectations : Fun0Expectations {
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class)

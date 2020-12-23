@@ -10,12 +10,12 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.assertions.builders.withFailureHint
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.BigDecimalAssertions
+import ch.tutteli.atrium.logic.BigDecimalExpectations
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
-class DefaultBigDecimalAssertions : BigDecimalAssertions {
+class DefaultBigDecimalExpectations : BigDecimalExpectations {
     override fun <T : BigDecimal> isNumericallyEqualTo(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(IS_NUMERICALLY_EQUAL_TO, expected) {
             isNumericallyEqualTo(it, expected)

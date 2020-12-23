@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
  * Collection of assertion functions and builders which are applicable to subjects which can be transformed to an
  * [Iterable] - intended for types which are Iterable like such as [Array] or [Sequence].
  */
-interface IterableLikeAssertions {
+interface IterableLikeExpectations {
 
     fun <T : IterableLike, E> builderContainsInIterableLike(
         container: AssertionContainer<T>,

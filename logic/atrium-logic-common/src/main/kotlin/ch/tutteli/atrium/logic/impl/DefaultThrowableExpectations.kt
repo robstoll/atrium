@@ -11,7 +11,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE
 import kotlin.reflect.KClass
 
-class DefaultThrowableAssertions : ThrowableAssertions {
+class DefaultThrowableExpectations : ThrowableExpectations {
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class)

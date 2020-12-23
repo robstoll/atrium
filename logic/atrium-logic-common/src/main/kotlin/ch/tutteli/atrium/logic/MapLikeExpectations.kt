@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
  * Collection of assertion functions and builders which are applicable to subjects which can be transformed to a
  * [Map] - intended for types which are Map like such as [IterableLike] with an element type [Pair].
  */
-interface MapLikeAssertions {
+interface MapLikeExpectations {
 
     fun <T : MapLike, K, V> builderContainsInMapLike(
         container: AssertionContainer<T>,

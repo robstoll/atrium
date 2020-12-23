@@ -22,10 +22,10 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ELEMENT_WITH_
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class InOrderOnlyAssertionCreator<E, T : IterableLike, SC>(
+abstract class InOrderOnlyExpectationCreator<E, T : IterableLike, SC>(
     converter: (T) -> Iterable<E>,
     searchBehaviour: InOrderOnlySearchBehaviour
-) : InOrderOnlyBaseAssertionCreator<E, T, SC>(converter, searchBehaviour),
+) : InOrderOnlyBaseExpectationCreator<E, T, SC>(converter, searchBehaviour),
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 

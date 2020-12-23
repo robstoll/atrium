@@ -13,7 +13,7 @@ import java.time.chrono.ChronoLocalDateTime
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [ChronoLocalDateTime] type.
  */
-interface ChronoLocalDateTimeAssertions {
+interface ChronoLocalDateTimeExpectations {
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>

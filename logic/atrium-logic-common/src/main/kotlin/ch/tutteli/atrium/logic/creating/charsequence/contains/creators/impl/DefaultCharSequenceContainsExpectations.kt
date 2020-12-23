@@ -2,7 +2,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsAssertions
+import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsExpectations
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.IgnoringCaseIndexSearcher
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 
-class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
+class DefaultCharSequenceContainsExpectations : CharSequenceContainsExpectations {
     override fun <T : CharSequence> values(
         checkerStepLogic: CheckerStepLogic<T, NoOpSearchBehaviour>,
         expected: List<CharSequenceOrNumberOrChar>
@@ -76,7 +76,7 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
         expected: List<SC>,
         groupDescription: Translatable
     ): AssertionGroup {
-        val creator = CharSequenceContainsAssertionCreator<T, SC, S>(
+        val creator = CharSequenceContainsExpectationCreator<T, SC, S>(
             checkerStepLogic.entryPointStepLogic.searchBehaviour,
             searcher,
             checkerStepLogic.checkers,

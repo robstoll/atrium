@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.IterableLikeAssertions
+import ch.tutteli.atrium.logic.IterableLikeExpectations
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
@@ -32,7 +32,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.mapWithIndex
 
-class DefaultIterableLikeAssertions : IterableLikeAssertions {
+class DefaultIterableLikeExpectations : IterableLikeExpectations {
     override fun <T : IterableLike, E> builderContainsInIterableLike(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>

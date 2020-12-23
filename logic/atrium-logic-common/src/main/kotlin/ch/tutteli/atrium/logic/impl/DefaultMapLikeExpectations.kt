@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.MapLikeAssertions
+import ch.tutteli.atrium.logic.MapLikeExpectations
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion.*
 
-class DefaultMapLikeAssertions : MapLikeAssertions {
+class DefaultMapLikeExpectations : MapLikeExpectations {
     override fun <T : MapLike, K, V> builderContainsInMapLike(
         container: AssertionContainer<T>,
         converter: (T) -> Map<out K, V>

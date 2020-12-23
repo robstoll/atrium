@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [LocalDateTime] type.
  */
-interface LocalDateTimeAssertions {
+interface LocalDateTimeExpectations {
     fun year(container: AssertionContainer<LocalDateTime>): FeatureExtractorBuilder.ExecutionStep<LocalDateTime, Int>
 
     fun month(container: AssertionContainer<LocalDateTime>): FeatureExtractorBuilder.ExecutionStep<LocalDateTime, Int>

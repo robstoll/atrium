@@ -10,7 +10,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
  * Collection of assertion functions which are intended to be used as part of the final step of a sophisticated
  * `contains`-building process for [CharSequence].
  */
-interface CharSequenceContainsAssertions {
+interface CharSequenceContainsExpectations {
 
     fun <T : CharSequence> values(
         checkerStepLogic: CharSequenceContains.CheckerStepLogic<T, NoOpSearchBehaviour>,

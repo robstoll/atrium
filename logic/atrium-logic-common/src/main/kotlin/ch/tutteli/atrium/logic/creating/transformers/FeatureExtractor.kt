@@ -10,14 +10,14 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.logic.FeatureAssertions
+import ch.tutteli.atrium.logic.FeatureExtractors
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
- * It is similar to [FeatureAssertions] but differs in the intended usage.
- * [FeatureAssertions] are intended to make assertions about a return value of a method call or a property,
+ * It is similar to [FeatureExtractors] but differs in the intended usage.
+ * [FeatureExtractors] are intended to make assertions about a return value of a method call or a property,
  * assuming that the call as such always succeeds (no exception is thrown).
  * The [FeatureExtractor] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.

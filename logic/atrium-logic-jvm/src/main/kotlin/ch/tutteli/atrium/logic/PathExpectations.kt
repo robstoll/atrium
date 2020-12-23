@@ -15,7 +15,7 @@ import java.nio.file.Path
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [Path] type.
  */
-interface PathAssertions {
+interface PathExpectations {
     fun <T : Path> startsWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> startsNotWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> endsWith(container: AssertionContainer<T>, expected: Path): Assertion

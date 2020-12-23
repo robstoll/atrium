@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
  * Defines the minimum set of `contains` assertion functions for [Iterable],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface MapLikeContainsAssertions {
+interface MapLikeContainsExpectations {
 
     fun <K, V, T : MapLike> keyValuePairsInAnyOrder(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InAnyOrderSearchBehaviour>,

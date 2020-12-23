@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
-import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
+import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsExpectationCreator
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
@@ -30,12 +30,12 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
-class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : SearchBehaviour>(
+class CharSequenceContainsExpectationCreator<T : CharSequence, in SC : Any, S : SearchBehaviour>(
     searchBehaviour: S,
     private val searcher: Searcher<S, SC>,
     checkers: List<Checker>,
     override val groupDescription: Translatable
-) : ContainsObjectsAssertionCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
+) : ContainsObjectsExpectationCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
 
     override val descriptionContains: Translatable = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES

@@ -4,20 +4,20 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderAssertions
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsInAnyOrderExpectations
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
-class DefaultIterableLikeContainsInAnyOrderAssertions : IterableLikeContainsInAnyOrderAssertions {
+class DefaultIterableLikeContainsInAnyOrderExpectations : IterableLikeContainsInAnyOrderExpectations {
     override fun <E, T : IterableLike> values(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>,
         expected: List<E>
-    ): Assertion = createAssertionGroup(checkerStepLogic, expected, ::InAnyOrderValuesAssertionCreator)
+    ): Assertion = createAssertionGroup(checkerStepLogic, expected, ::InAnyOrderValuesExpectationCreator)
 
     override fun <E : Any, T : IterableLike> entries(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<out E?, T, InAnyOrderSearchBehaviour>,
         assertionCreators: List<(Expect<E>.() -> Unit)?>
-    ): Assertion = createAssertionGroup(checkerStepLogic, assertionCreators, ::InAnyOrderEntriesAssertionCreator)
+    ): Assertion = createAssertionGroup(checkerStepLogic, assertionCreators, ::InAnyOrderEntriesExpectationCreator)
 
     private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroup(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<E, T, S>,

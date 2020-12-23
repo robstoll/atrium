@@ -2,10 +2,10 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
-import ch.tutteli.atrium.logic.PairAssertions
+import ch.tutteli.atrium.logic.PairExpectations
 import ch.tutteli.atrium.logic.property
 
-class DefaultPairAssertions : PairAssertions {
+class DefaultPairExpectations : PairExpectations {
     override fun <K, T : Pair<K, *>> first(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, K> =
         container.property(Pair<K, *>::first)
 

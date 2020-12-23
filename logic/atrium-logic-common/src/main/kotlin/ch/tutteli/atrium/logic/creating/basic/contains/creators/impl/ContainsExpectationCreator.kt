@@ -21,7 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.Checker>(
+abstract class ContainsExpectationCreator<T : Any, TT : Any, in SC, C : Contains.Checker>(
     protected val searchBehaviour: Contains.SearchBehaviour,
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {

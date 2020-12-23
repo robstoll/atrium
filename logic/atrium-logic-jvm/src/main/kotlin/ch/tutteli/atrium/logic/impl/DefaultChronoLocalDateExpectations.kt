@@ -12,7 +12,7 @@ import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 
-class DefaultChronoLocalDateAssertions : ChronoLocalDateAssertions {
+class DefaultChronoLocalDateExpectations : ChronoLocalDateExpectations {
 
     override fun <T : ChronoLocalDate> isBefore(
         container: AssertionContainer<T>,

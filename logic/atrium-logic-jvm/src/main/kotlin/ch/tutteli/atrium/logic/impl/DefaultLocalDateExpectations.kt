@@ -6,14 +6,14 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.LocalDateAssertions
+import ch.tutteli.atrium.logic.LocalDateExpectations
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class DefaultLocalDateAssertions : LocalDateAssertions {
+class DefaultLocalDateExpectations : LocalDateExpectations {
 
     override fun year(container: AssertionContainer<LocalDate>): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int> =
         container.manualFeature(YEAR) { year }

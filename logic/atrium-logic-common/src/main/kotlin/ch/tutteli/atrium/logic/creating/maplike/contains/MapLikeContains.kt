@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.*
-import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsAssertions
+import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsExpectations
 import ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The building process is typically started by the creation of an [EntryPointStep],
  * goes on by specifying a desired [SearchBehaviour],
  * defines which [Checker]s should be applied and
- * is finalized by one of the [MapLikeContainsAssertions] which usually use a [Creator].
+ * is finalized by one of the [MapLikeContainsExpectations] which usually use a [Creator].
  */
 interface MapLikeContains {
 

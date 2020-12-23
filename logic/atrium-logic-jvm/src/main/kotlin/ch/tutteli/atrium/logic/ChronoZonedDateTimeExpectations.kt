@@ -14,7 +14,7 @@ import java.time.chrono.ChronoZonedDateTime
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [ChronoZonedDateTime] type.
  */
-interface ChronoZonedDateTimeAssertions {
+interface ChronoZonedDateTimeExpectations {
     fun <T : ChronoZonedDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: ChronoZonedDateTime<*>

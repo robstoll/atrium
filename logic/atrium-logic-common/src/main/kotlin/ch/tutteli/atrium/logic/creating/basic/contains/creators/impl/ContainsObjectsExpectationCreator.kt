@@ -27,10 +27,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
+abstract class ContainsObjectsExpectationCreator<T : Any, TT : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
     searchBehaviour: S,
     checkers: List<C>
-) : ContainsAssertionCreator<T, TT, SC, C>(searchBehaviour, checkers) {
+) : ContainsExpectationCreator<T, TT, SC, C>(searchBehaviour, checkers) {
 
     final override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<TT>,
