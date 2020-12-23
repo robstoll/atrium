@@ -34,6 +34,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
     fun1(Expect<DataClass>::isNotIn),
     fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
     fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
+    fun2(Expect<String>::because),
+    fun2(Expect<Int>::because),
 
     "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
     fun1(Expect<Int?>::toBeNullIfNullGivenElse),
@@ -49,7 +51,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
     getAndImmediatePair(),
     getAndLazyPair(),
-    "⚬ "
+    "◆ ", "⚬ ", "ℹ "
 ) {
 
     companion object {
@@ -68,7 +70,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
             expect.isA<SuperType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASuperType(expect: Expect<out Any?>, assertionCreator: Expect<SuperType>.() -> Unit): Expect<SuperType> =
+        private fun isASuperType(
+            expect: Expect<out Any?>,
+            assertionCreator: Expect<SuperType>.() -> Unit
+        ): Expect<SuperType> =
             expect.isA<SuperType> { assertionCreator() }
 
         @Suppress("RemoveExplicitTypeArguments")
@@ -76,7 +81,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
             expect.isA<SubType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASubType(expect: Expect<out Any?>, assertionCreator: Expect<SubType>.() -> Unit): Expect<SubType> =
+        private fun isASubType(
+            expect: Expect<out Any?>,
+            assertionCreator: Expect<SubType>.() -> Unit
+        ): Expect<SubType> =
             expect.isA<SubType> { assertionCreator() }
 
         private val andImmediate: KProperty1<Expect<Int>, Expect<Int>> = Expect<Int>::and

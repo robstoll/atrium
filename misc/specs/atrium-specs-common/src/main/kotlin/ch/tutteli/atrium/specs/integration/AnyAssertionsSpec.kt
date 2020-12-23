@@ -3,10 +3,12 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.MapLikeContainsSpecBase.Companion.separator
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
@@ -40,6 +42,8 @@ abstract class AnyAssertionsSpec(
     isNotInDataClass: Fun1<DataClass, Iterable<DataClass>>,
     isNotInNullableInt: Fun1<Int?, Iterable<Int?>>,
     isNotInNullableDataClass: Fun1<DataClass?, Iterable<DataClass?>>,
+    because: Fun2<String, String, Expect<String>.() -> Unit>,
+    becauseInt: Fun2<Int, String, Expect<Int>.() -> Unit>,
 
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
@@ -57,7 +61,10 @@ abstract class AnyAssertionsSpec(
 
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
+
+    rootBulletPoint: String,
     listBulletPoint: String,
+    informationBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -113,6 +120,8 @@ abstract class AnyAssertionsSpec(
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
 
     fun <T : Int?> Suite.checkInt(
         description: String,
@@ -174,7 +183,10 @@ abstract class AnyAssertionsSpec(
                         expectSubject.isNoneOfFun(1, arrayOf(2))
                     }.toThrow<AssertionError> {
                         message {
-                            contains(IS_NONE_OF.getDefault(), "${listBulletPoint}1")
+                            containsRegex(
+                                "\\Q$rootBulletPoint${IS_NONE_OF.getDefault()}\\E:.*$separator" +
+                                    "$indentBulletPoint${listBulletPoint}1"
+                            )
                             containsNot("$listBulletPoint 2")
                         }
                     }
@@ -690,7 +702,6 @@ abstract class AnyAssertionsSpec(
         }
 
         context("subject is a subtype") {
-
             val isASuperTypeFunctions = unifySignatures<Any?, SuperType>(isASuperTypeFeature, isASuperType)
 
             context("it allows to perform sub assertions") {
@@ -732,7 +743,6 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-
     prefixedDescribe("property `${andPair.name}` immediate") {
         it("returns the same container") {
             val container = expect(1)
@@ -743,6 +753,50 @@ abstract class AnyAssertionsSpec(
         it("returns the same container") {
             val container = expect(1)
             expect(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
+        }
+    }
+
+    prefixedDescribe("because") {
+        val becauseFun = because.lambda
+        val becauseFunForInt = becauseInt.lambda
+
+        fun Expect<String>.containsBecause(reason: String) =
+            contains.exactly(1).value("$separator${informationBulletPoint}${BECAUSE.getDefault().format(reason)}")
+
+        it("the test on the supplied subject is not throwing an assertion error") {
+            expect("filename")
+                .becauseFun("? is not allowed in file names on Windows") {
+                    containsNot("?")
+                }
+        }
+
+        it("provoke the failing of one assertion") {
+            expect {
+                expect("filename?")
+                    .becauseFun("? is not allowed in file names on Windows") {
+                        containsNot("?")
+                        startsWith("f")
+                    }
+            }.toThrow<AssertionError> {
+                message {
+                    containsBecause("? is not allowed in file names on Windows")
+                }
+            }
+        }
+
+        it("provoke the failing of two assertions") {
+            expect {
+                expect(21)
+                    .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
+                        isGreaterThanOrEqual(12)
+                        isLessThan(18)
+                        isNoneOf(21)
+                    }
+            }.toThrow<AssertionError> {
+                message {
+                    containsBecause( "we use the definition that teens are between 12 and 18 years old")
+                }
+            }
         }
     }
 

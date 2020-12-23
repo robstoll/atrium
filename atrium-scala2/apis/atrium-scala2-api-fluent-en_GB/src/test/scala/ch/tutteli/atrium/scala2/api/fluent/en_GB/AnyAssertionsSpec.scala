@@ -30,6 +30,8 @@ class AnyAssertionsSpec
       isNotIn,
       isNotIn.withNullableSuffix(),
       isNotIn.withNullableSuffix(),
+      new kotlin.Pair("because", _.because(_,_)),
+      new kotlin.Pair("because", _.because(_,_)),
 
       fun0("toBe", _.toBe(null)),
       fun1("toBeNullIfNullGivenElse", _.toBeNullIfNullGivenElse(_)),
@@ -43,7 +45,7 @@ class AnyAssertionsSpec
       fun1("notToBeNull", _.notToBeNull(_)),
       fun0("and (feature)", _.and),
       fun1("and", _.and(_)),
-        "⚬ ",
+        "◆ ", "⚬ ", "ℹ ",
       "[Atrium] "
     )
 

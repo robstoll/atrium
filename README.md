@@ -59,7 +59,8 @@ For instance, the [README of v0.14.0](https://github.com/robstoll/atrium/tree/v0
     - [Shortcut Functions](#shortcut-functions-1)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders-1)
     - [Others](#others)
-  - [Path Assertions](#path-assertions)    
+  - [Path Assertions](#path-assertions)
+  - [Attach a reason](#attach-a-reason)
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)  
   - [Sample Projects](#sample-projects)
@@ -389,7 +390,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1
         » stacktrace: 
           ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:76)
           ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:51)
-          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:654)
+          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:691)
           ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:51)
 ```
 </ex-toThrow1>
@@ -1486,19 +1487,19 @@ There are more assertion functions, a full list can be found in
 Atrium’s assertions for paths give detailed failure hints explaining what happened on the file system.
 For example, `exists` will explain which entry was the first one missing:
 
-<ex-path-exsits>
+<ex-path-exists>
 
 ```kotlin
 expect(Paths.get("/usr/bin/noprogram")).exists()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L352)</sub> ↓ <sub>[Output](#ex-path-exsits)</sub>
-<a name="ex-path-exsits"></a>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L352)</sub> ↓ <sub>[Output](#ex-path-exists)</sub>
+<a name="ex-path-exists"></a>
 ```text
 expected that subject: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
 ◆ to: exist
     » the closest existing parent directory is /usr/bin
 ```
-</ex-path-exsits>
+</ex-path-exists>
 
 Atrium will give details about why something cannot be accessed, for example when checking whether a file is writable:
 
@@ -1541,6 +1542,148 @@ expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio
 ```
 </ex-path-symlink-and-parent-not-folder>
 
+## Attach a reason
+In case you want to add further information to an assertion, e.g. state the reason why you expect Xy then you can use
+`because` to do so:
+
+<ex-because-1>
+
+```kotlin
+expect("filename?")
+    .because("? is not allowed in file names on Windows") {
+        containsNot("?")
+    }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L370)</sub> ↓ <sub>[Output](#ex-because-1)</sub>
+<a name="ex-because-1"></a>
+```text
+expected that subject: "filename?"        <1234789>
+◆ does not contain: 
+  ⚬ value: "?"        <1234789>
+    ⚬ ▶ number of matches: 1
+        ◾ is: 0        (kotlin.Int <1234789>)
+ℹ because: ? is not allowed in file names on Windows
+```
+</ex-because-1>
+
+<details>
+<summary>💬 Don't use it to augment boolean/null checks</summary>
+
+We think this function holds some misuse potential and therefore we would like to point out, 
+that `because` is not intended to augment boolean nor null checks. There are better instruments to fulfil the same.
+
+For instance, instead of checking on boolean properties/methods, see if there is not a predefined function 
+which already provides the same check + nice reporting with additional context. The reporting of predefined functions
+make it easier for you and others to understand the context of a failure. For instance, instead of:
+
+<ex-because-2>
+
+```kotlin
+expect(listOf(1, 2).isEmpty()).because("list should not be empty") {
+    toBe(true)
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L377)</sub> ↓ <sub>[Output](#ex-because-2)</sub>
+<a name="ex-because-2"></a>
+```text
+expected that subject: false
+◆ equals: true
+ℹ because: list should not be empty
+```
+</ex-because-2>
+
+Write
+
+<ex-because-3>
+
+```kotlin
+expect(listOf(1, 2)).isEmpty()
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L382)</sub> ↓ <sub>[Output](#ex-because-3)</sub>
+<a name="ex-because-3"></a>
+```text
+expected that subject: [1, 2]        (java.util.Arrays.ArrayList <1234789>)
+◆ is: empty
+```
+</ex-because-3>
+
+The same applies to null checks. For instance, instead of checking for null for an absent key in a map
+
+<ex-because-4>
+
+```kotlin
+expect(mapOf("a" to 1)["a"]).because("key a should not be in the map") {
+    toBe(null)
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L386)</sub> ↓ <sub>[Output](#ex-because-4)</sub>
+<a name="ex-because-4"></a>
+```text
+expected that subject: 1        (kotlin.Int <1234789>)
+◆ equals: null
+ℹ because: key a should not be in the map
+```
+</ex-because-4>
+
+Write
+
+<ex-because-5>
+
+```kotlin
+expect(mapOf("a" to 1)).containsNotKey("a")
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L391)</sub> ↓ <sub>[Output](#ex-because-5)</sub>
+<a name="ex-because-5"></a>
+```text
+expected that subject: {a=1}        (java.util.Collections.SingletonMap <1234789>)
+◆ does not contain key: "a"        <1234789>
+```
+</ex-because-5>
+
+Or in case of a nullable property:
+
+<ex-because-6>
+
+```kotlin
+expect(IllegalArgumentException("no no").message)
+    .because("it should result in an exception without message") {
+        toBe(null)
+    }
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L395)</sub> ↓ <sub>[Output](#ex-because-6)</sub>
+<a name="ex-because-6"></a>
+```text
+expected that subject: "no no"        <1234789>
+◆ equals: null
+ℹ because: it should result in an exception without message
+```
+</ex-because-6>
+
+Use a feature assertion, which includes it in reporting, already giving the context needed.
+
+<ex-because-7>
+
+```kotlin
+expect(IllegalArgumentException("no no")).feature { f(it::message) }.toBe(null)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L402)</sub> ↓ <sub>[Output](#ex-because-7)</sub>
+<a name="ex-because-7"></a>
+```text
+expected that subject: java.lang.IllegalArgumentException
+◆ ▶ message: "no no"        <1234789>
+    ◾ equals: null
+```
+</ex-because-7>
+
+Following a checklist as a rule of thumb:
+1. check if there is not already a predefined assertion function
+2. use a [feature assertion](#feature-assertions) instead.
+3. write an own assertion function (e.g. a [boolean based Assertions](#boolean-based-assertions)).
+4. [let us know](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=using because) why you still want to use `because` - maybe Atrium lacks another feature
+5. use `because`
+
+</details>
+
 ## Data Driven Testing
 
 Atrium is not intended for data driven testing in the narrowed sense in terms that it cannot produce multiple tests.
@@ -1568,7 +1711,7 @@ expect("calling myFun with...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L374)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L411)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
 <a name="ex-data-driven-1"></a>
 ```text
 expected that subject: "calling myFun with..."        <1234789>
@@ -1603,7 +1746,7 @@ expect("calling myFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L388)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L425)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
 <a name="ex-data-driven-2"></a>
 ```text
 expected that subject: "calling myFun with ..."        <1234789>
@@ -1644,7 +1787,7 @@ expect("calling myNullableFun with ...") {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L406)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L443)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
 <a name="ex-data-driven-3"></a>
 ```text
 expected that subject: "calling myNullableFun with ..."        <1234789>
@@ -1791,10 +1934,10 @@ expect {
     }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L430)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L467)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
 <a name="ex-add-info-3"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$35$1 <1234789>)
+expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$1$42$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
@@ -1806,14 +1949,14 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$
       » Properties of the unexpected IllegalArgumentException
         » message: "no no no..."        <1234789>
         » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec2$1$35$1.invoke(ReadmeSpec.kt:435)
-          ⚬ readme.examples.ReadmeSpec2$1$35$1.invoke(ReadmeSpec.kt:227)
-          ⚬ readme.examples.ReadmeSpec2$1$35.invoke(ReadmeSpec.kt:654)
-          ⚬ readme.examples.ReadmeSpec2$1$35.invoke(ReadmeSpec.kt:227)
+          ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:472)
+          ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:227)
+          ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:691)
+          ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:227)
         » cause: java.lang.UnsupportedOperationException
             » message: "not supported"        <1234789>
             » stacktrace: 
-              ⚬ readme.examples.ReadmeSpec2$1$35$1.invoke(ReadmeSpec.kt:433)
+              ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:470)
 ```
 </ex-add-info-3>
 
@@ -1834,7 +1977,7 @@ then Atrium reminds us of the possible pitfall. For instance:
 ```kotlin
 expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L440)</sub> ↓ <sub>[Output](#ex-pitfall-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L477)</sub> ↓ <sub>[Output](#ex-pitfall-1)</sub>
 <a name="ex-pitfall-1"></a>
 ```text
 expected that subject: 10        (java.math.BigDecimal <1234789>)
@@ -1852,7 +1995,7 @@ For instance:
 ```kotlin
 expect(listOf(1)).get(0) {}
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L443)</sub> ↓ <sub>[Output](#ex-pitfall-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L480)</sub> ↓ <sub>[Output](#ex-pitfall-2)</sub>
 <a name="ex-pitfall-2"></a>
 ```text
 expected that subject: [1]        (java.util.Collections.SingletonList <1234789>)
@@ -1929,7 +2072,7 @@ and its usage:
 ```kotlin
 expect(12).isMultipleOf(5)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L455)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L492)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
 ```text
 expected that subject: 12        (kotlin.Int <1234789>)
@@ -1979,7 +2122,7 @@ Its usage looks then as follows:
 ```kotlin
 expect(13).isEven()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L466)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L503)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
 ```text
 expected that subject: 13        (kotlin.Int <1234789>)
@@ -2078,7 +2221,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasNumberOfChildren(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L505)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L542)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2112,7 +2255,7 @@ but we do not have to, as `all` already checks that there is at least one elemen
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasAdultChildren()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L520)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L557)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2154,7 +2297,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     .children // using the val -> subsequent assertions are about children and fail fast
     .hasSize(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L530)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L567)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)

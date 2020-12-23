@@ -13,6 +13,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
 
     include(AtriumsTextExplanatoryAssertionFormatterSpec)
     include(AtriumsTextWarningAssertionFormatterSpec)
+    include(AtriumsTextInformationAssertionFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
@@ -25,6 +26,11 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsTextWarningAssertionFormatterSpec :
         ch.tutteli.atrium.specs.reporting.TextWarningAssertionGroupFormatterSpec(
             factory(), "[Atrium's TextWarning...Spec] "
+        )
+
+    object AtriumsTextInformationAssertionFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.TextInformationAssertionGroupFormatterSpec(
+            factory(), "[Atrium's TextInformation...Spec] "
         )
 
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec :

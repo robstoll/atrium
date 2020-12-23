@@ -40,7 +40,8 @@ class AssertionFormatterParameterObject private constructor(
      *
      * @return The newly created [AssertionFormatterParameterObject].
      */
-    fun createChildWithNewPrefix(newPrefix: String) = createChildWithNewPrefixAndAdditionalIndent(newPrefix, 0)
+    fun createChildWithNewPrefix(newPrefix: String) =
+        createChildWithNewPrefixAndAdditionalIndent(newPrefix, additionalIndent = 0)
 
 
     /**
@@ -75,7 +76,14 @@ class AssertionFormatterParameterObject private constructor(
      * @return The newly created [AssertionFormatterParameterObject].
      */
     fun createForDoNotFilterAssertionGroup(): AssertionFormatterParameterObject =
-        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1, numberOfExplanatoryGroups)
+        AssertionFormatterParameterObject(
+            sb,
+            prefix,
+            indentLevel,
+            assertionFilter,
+            numberOfDoNotFilterGroups + 1,
+            numberOfExplanatoryGroups
+        )
 
 
     /**
@@ -85,8 +93,15 @@ class AssertionFormatterParameterObject private constructor(
      *
      * @return The newly created [AssertionFormatterParameterObject].
      */
-    fun createForExplanatoryFilterAssertionGroup(): AssertionFormatterParameterObject =
-        AssertionFormatterParameterObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1, numberOfExplanatoryGroups + 1)
+    fun createForExplanatoryFilterAssertionGroup(newPrefix : String = prefix): AssertionFormatterParameterObject =
+        AssertionFormatterParameterObject(
+            sb,
+            newPrefix,
+            indentLevel,
+            assertionFilter,
+            numberOfDoNotFilterGroups + 1,
+            numberOfExplanatoryGroups + 1
+        )
 
 
     /**

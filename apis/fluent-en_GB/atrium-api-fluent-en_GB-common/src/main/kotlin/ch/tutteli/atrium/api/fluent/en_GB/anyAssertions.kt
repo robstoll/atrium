@@ -47,6 +47,22 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  */
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
+//TODO 0.15.0 or 0.16.0 adopt KDoc to new wording
+/**
+ * Allows to state a reason for one or multiple assertions for the current subject.
+ *
+ * @param reason The explanation for the assertion(s) created by [assertionCreator].
+ * @param assertionCreator The group of assertions to make.
+ *
+ * @return An [Expect] for the current subject of the assertion.
+ *
+ * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.because
+ */
+fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    _logicAppend { because(reason, assertionCreator) }
+
 /**
  * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.

@@ -2,8 +2,11 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
@@ -26,6 +29,21 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBeNull(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(TO_BE, Text.NULL) { it == null }
 
+    override fun <T> because(
+        container: AssertionContainer<T>,
+        reason: String,
+        assertionCreator: Expect<T>.() -> Unit
+    ): Assertion {
+        val assertion = assertionCollector.collect(container.maybeSubject, assertionCreator)
+        return assertionBuilder.invisibleGroup.withAssertions(
+            assertion,
+            assertionBuilder.explanatoryGroup
+                .withInformationType
+                .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
+                .build()
+        ).build()
+    }
+
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
         type: KClass<T>,
@@ -44,12 +62,12 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ):  SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
+    ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
 
     override fun <T, TSub : Any> isA(
         container: AssertionContainer<T>,
         subType: KClass<TSub>
-    ):  SubjectChangerBuilder.ExecutionStep<T, TSub> =
+    ): SubjectChangerBuilder.ExecutionStep<T, TSub> =
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()
@@ -66,5 +84,4 @@ class DefaultAnyAssertions : AnyAssertions {
             .withAssertions(assertions)
             .build()
     }
-
 }

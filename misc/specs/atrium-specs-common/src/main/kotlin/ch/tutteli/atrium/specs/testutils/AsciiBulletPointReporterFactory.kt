@@ -24,7 +24,8 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 PrefixFeatureAssertionGroupHeader::class to ">> ",
                 PrefixSuccessfulSummaryAssertion::class to "(/) ",
                 PrefixFailingSummaryAssertion::class to "(x) ",
-                WarningAssertionGroupType::class to "(!) "
+                WarningAssertionGroupType::class to "(!) ",
+                InformationAssertionGroupType::class to "(i) "
             )
             .withNoOpAtriumErrorAdjuster()
             .withOnlyFailureReporter()
