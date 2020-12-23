@@ -47,7 +47,6 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  */
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO 0.15.0 or 0.16.0 adopt KDoc to new wording
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *
@@ -72,9 +71,9 @@ fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
-inline fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
-    noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
+fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
+    assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.

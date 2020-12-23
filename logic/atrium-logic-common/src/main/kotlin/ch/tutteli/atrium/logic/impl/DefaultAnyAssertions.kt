@@ -3,6 +3,8 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -29,35 +31,42 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBeNull(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(TO_BE, Text.NULL) { it == null }
 
-    override fun <T> because(
-        container: AssertionContainer<T>,
-        reason: String,
-        assertionCreator: Expect<T>.() -> Unit
-    ): Assertion {
-        val assertion = assertionCollector.collect(container.maybeSubject, assertionCreator)
-        return assertionBuilder.invisibleGroup.withAssertions(
-            assertion,
-            assertionBuilder.explanatoryGroup
-                .withInformationType
-                .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
-                .build()
-        ).build()
-    }
-
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
         type: KClass<T>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ): Assertion =
-        if (assertionCreatorOrNull == null) container.toBe(null)
-        else notToBeNull(container, type, assertionCreatorOrNull)
+    ): Assertion = toBeNullIfNullGivenElse(container, assertionCreatorOrNull)
 
-    private fun <T : Any> notToBeNull(
+    override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
-        type: KClass<T>,
-        assertionCreator: Expect<T>.() -> Unit
-    ) = container.notToBeNullButOfType(type).collect(assertionCreator)
-
+        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ): Assertion =
+        if (assertionCreatorOrNull == null) {
+            container.toBe(null)
+        } else {
+            val assertion =
+                assertionCollector.collect(container.maybeSubject.flatMap { if (it != null) Some(it) else None }) {
+                    addAssertionsCreatedBy(assertionCreatorOrNull)
+                }
+            //TODO 0.16.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            container.maybeSubject.fold(
+                {
+                    // already in an explanatory assertion context, no need to wrap it again
+                    assertion
+                },
+                {
+                    if (it != null) {
+                        assertion
+                    } else {
+                        assertionBuilder.explanatoryGroup
+                            .withDefaultType
+                            .withAssertion(assertion)
+                            .failing
+                            .build()
+                    }
+                }
+            )
+        }
 
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
@@ -83,5 +92,20 @@ class DefaultAnyAssertions : AnyAssertions {
             .withDescriptionAndEmptyRepresentation(IS_NONE_OF)
             .withAssertions(assertions)
             .build()
+    }
+
+    override fun <T> because(
+        container: AssertionContainer<T>,
+        reason: String,
+        assertionCreator: Expect<T>.() -> Unit
+    ): Assertion {
+        val assertion = assertionCollector.collect(container.maybeSubject, assertionCreator)
+        return assertionBuilder.invisibleGroup.withAssertions(
+            assertion,
+            assertionBuilder.explanatoryGroup
+                .withInformationType
+                .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
+                .build()
+        ).build()
     }
 }

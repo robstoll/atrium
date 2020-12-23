@@ -42,7 +42,6 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO 0.15.0 or 0.16.0 adopt KDoc to new wording
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *
@@ -70,9 +69,9 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
-    noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
+infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
+    assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
 
 /**

@@ -1792,7 +1792,6 @@ expect("calling myNullableFun with ...") {
 ```text
 expected that subject: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
-    ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
       » contains: 
         ⚬ value: "min"        <1234789>
           ⚬ ▶ number of matches: 

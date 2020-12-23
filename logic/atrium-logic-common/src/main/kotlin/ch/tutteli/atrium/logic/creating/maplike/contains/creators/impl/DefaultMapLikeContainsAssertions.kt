@@ -3,11 +3,9 @@ package ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
@@ -54,37 +52,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
 
     private fun <K, V : Any> turnKeyWithNullableValueAssertionToKeyWithValueAssertion(keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>) =
         keyValues.map { (key, assertionCreatorOrNull) ->
-            key to expectLambda<V?> { _logicAppend { silentToBeNullIfNullGivenElse(assertionCreatorOrNull) } }
-        }
-
-
-    //TODO 0.15.0: shouldn't we use this implementation instead of the current for toBeNullIfNullGivenElse?
-    // we don't use toBeNullIfNullGivenElse because we want to avoid to show `is instance of`
-    // alternatively we could also make it configurable if the check is included in reporting or not
-    private fun <V : Any> AssertionContainer<V?>.silentToBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<V>.() -> Unit)?): Assertion =
-        if (assertionCreatorOrNull == null) {
-            toBe(null)
-        } else {
-            val assertion = assertionCollector.collect(maybeSubject.flatMap { if (it != null) Some(it) else None }) {
-                addAssertionsCreatedBy(assertionCreatorOrNull)
-            }
-            maybeSubject.fold(
-                {
-                    // already in an explanatory assertion context, no need to wrap it again
-                    assertion
-                },
-                {
-                    if (it != null) {
-                        assertion
-                    } else {
-                        assertionBuilder.explanatoryGroup
-                            .withDefaultType
-                            .withAssertion(assertion)
-                            .failing
-                            .build()
-                    }
-                }
-            )
+            key to expectLambda<V?> { _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) } }
         }
 
     private fun <K, V, T : MapLike> containsKeyWithValueAssertionInAnyOrder(
@@ -257,7 +225,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             ._logic.inOrder._logic.andOnly._logic.entriesInOrderOnly(keyValues.map { (key, nullableAssertionCreator) ->
                 expectLambda<Map.Entry<K, V?>> {
                     _logic.key().collectAndLogicAppend { toBe(key) }
-                    _logic.value().collectAndLogicAppend { silentToBeNullIfNullGivenElse(nullableAssertionCreator) }
+                    _logic.value().collectAndLogicAppend { toBeNullIfNullGivenElse(nullableAssertionCreator) }
                 }
             })
 }
