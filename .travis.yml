@@ -11,7 +11,7 @@ jobs:
       - env: MODE=current_11
         script:
             - set -e
-            - ./gradle/scripts/check-generateLogic-committed.sh
+            - ./gradle/scripts/check-generated-committed.sh
             - ./gradlew buildAllWithoutJs
             - misc/tools/atrium-scala2-test/gradlew -p ./misc/tools/atrium-scala2-test build
         after_success: bash <(curl -s https://codecov.io/bash) -F current

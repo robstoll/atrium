@@ -4,9 +4,13 @@ on:
     push:
         paths:
             - 'logic/**/main/**/*Assertions.kt'
+            - 'misc/tools/readme-examples/**/*'
+            - 'README.md'
     pull_request:
         paths:
             - 'logic/**/main/**/*Assertions.kt'
+            - 'misc/tools/readme-examples/**/*'
+            - 'README.md'
 
 jobs:
     build:
@@ -22,6 +26,6 @@ jobs:
                 with:
                     java-version: ${{ matrix.java_version }}
 
-            -   name: check generateLogic committed
-                run: ./gradle/scripts/check-generateLogic-committed.sh
+            -   name: check generated files committed
+                run: ./gradle/scripts/check-generated-committed.sh
                 shell: bash
