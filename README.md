@@ -385,13 +385,13 @@ expect {
 expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$4$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
-      » Properties of the unexpected IllegalArgumentException
-        » message: "name is empty"        <1234789>
-        » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:76)
-          ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:51)
-          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:691)
-          ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:51)
+    ℹ Properties of the unexpected IllegalArgumentException
+      » message: "name is empty"        <1234789>
+      » stacktrace: 
+        ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:76)
+        ⚬ readme.examples.ReadmeSpec$1$4$1.invoke(ReadmeSpec.kt:51)
+        ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:691)
+        ⚬ readme.examples.ReadmeSpec$1$4.invoke(ReadmeSpec.kt:51)
 ```
 </ex-toThrow1>
 
@@ -465,17 +465,17 @@ expect {
 ```text
 expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec$1$7$1 <1234789>)
 ◆ ▶ invoke(): ❗❗ threw java.lang.IllegalArgumentException
-      » Properties of the unexpected IllegalArgumentException
-        » message: "name is empty"        <1234789>
-        » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
-          ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:51)
-          ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:98)
-          ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:51)
-        » cause: java.lang.RuntimeException
-            » message: "a cause"        <1234789>
-            » stacktrace: 
-              ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
+    ℹ Properties of the unexpected IllegalArgumentException
+      » message: "name is empty"        <1234789>
+      » stacktrace: 
+        ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
+        ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:51)
+        ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:98)
+        ⚬ readme.examples.ReadmeSpec$1$7.invoke(ReadmeSpec.kt:51)
+      » cause: java.lang.RuntimeException
+          » message: "a cause"        <1234789>
+          » stacktrace: 
+            ⚬ readme.examples.ReadmeSpec$1$7$1.invoke(ReadmeSpec.kt:97)
 ```
 </ex-notToThrow>
 
@@ -1945,17 +1945,17 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.ReadmeSpec2$
             ⚬ value: "no no no"        <1234789>
               ⚬ ▶ number of matches: 
                   ◾ is at least: 1
-      » Properties of the unexpected IllegalArgumentException
-        » message: "no no no..."        <1234789>
-        » stacktrace: 
-          ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:472)
-          ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:227)
-          ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:691)
-          ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:227)
-        » cause: java.lang.UnsupportedOperationException
-            » message: "not supported"        <1234789>
-            » stacktrace: 
-              ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:470)
+    ℹ Properties of the unexpected IllegalArgumentException
+      » message: "no no no..."        <1234789>
+      » stacktrace: 
+        ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:472)
+        ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:227)
+        ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:691)
+        ⚬ readme.examples.ReadmeSpec2$1$42.invoke(ReadmeSpec.kt:227)
+      » cause: java.lang.UnsupportedOperationException
+          » message: "not supported"        <1234789>
+          » stacktrace: 
+            ⚬ readme.examples.ReadmeSpec2$1$42$1.invoke(ReadmeSpec.kt:470)
 ```
 </ex-add-info-3>
 
