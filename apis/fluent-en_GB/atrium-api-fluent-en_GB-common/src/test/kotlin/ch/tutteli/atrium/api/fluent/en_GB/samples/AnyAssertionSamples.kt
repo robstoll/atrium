@@ -50,7 +50,7 @@ class AnyAssertionSamples {
 
     @Test
     fun isNotSameAs() {
-       // holds because isSameAs is based on identity, use notToBe for equality
+        // holds because isSameAs is based on identity, use notToBe for equality
         expect(listOf(2)).isNotSameAs(listOf(2))
 
         fails {
@@ -78,21 +78,21 @@ class AnyAssertionSamples {
     @Test
     fun notToBeNullFeature() {
         expect<Int?>(1)
-          .notToBeNull() // subject is now of type Int
-          .isLessThan(2)
+            .notToBeNull() // subject is now of type Int
+            .isLessThan(2)
 
         fails {
             expect<Int?>(null)
-              .notToBeNull() // fails
-              .isLessThan(2) // not shown in reporting as notToBeNull already fails
+                .notToBeNull() // fails
+                .isLessThan(2) // not shown in reporting as notToBeNull already fails
         }
     }
 
     @Test
     fun notToBeNull() {
         expect<Int?>(1).notToBeNull { // subject is now of type Int, within this block but also afterwards
-          isGreaterThan(0)
-          isLessThan(10)
+            isGreaterThan(0)
+            isLessThan(10)
         }.toBe(1)
 
         fails {
@@ -201,25 +201,22 @@ class AnyAssertionSamples {
         }
     }
 
+    interface Person {
+        val age: Int
+    }
+
+    private val customers = emptyList<Person>()
+
     @Test
     fun because() {
-        expect(12).because("this is true as anything can ever be") {
-            toBe(12)
-        }
-
-        fails {
-            expect(12).because("won't hold, it's not equal") {
-                toBe(11)
+        expect("filename?")
+            .because("? is not allowed in file names on Windows") {
+                containsNot("?")
             }
-        }
 
-        expect(listOf(1)).because("toBe is based on equality, use isSameAs for identity") {
-            toBe(listOf(1))
-        }
-
-        fails {
-            expect(arrayOf(1)).because("array has not implemented equals, so is equivalent to isSameAs") {
-                toBe(arrayOf(1))
+        expect(customers).all {
+            because("the legal age of maturity in Switzerland is 18") {
+                feature { f(it::age) }.isGreaterThanOrEqual(18)
             }
         }
     }
