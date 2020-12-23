@@ -60,8 +60,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
             explanation: Assertion = createExplanation(throwable)
         ): AssertionGroup =
             assertionBuilder.explanatoryGroup
-                // TODO change to InformationType with 0.15.0
-                .withDefaultType
+                .withInformationType(withIndent = false)
                 .withAssertions(
                     explanation,
                     createHints(throwable, secondStackFrameOfParent = null)

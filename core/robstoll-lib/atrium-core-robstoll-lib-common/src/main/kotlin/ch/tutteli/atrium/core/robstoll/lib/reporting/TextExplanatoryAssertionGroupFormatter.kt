@@ -45,15 +45,22 @@ class TextExplanatoryAssertionGroupFormatter(
         assertionGroup: AssertionGroup,
         parameterObject: AssertionFormatterParameterObject
     ): AssertionFormatterParameterObject {
-        // we don't indent in case of an InformationAssertionGroupType
-        return if (assertionGroup.type == InformationAssertionGroupType) {
-            parameterObject.createForExplanatoryFilterAssertionGroup(informationBulletPoint)
-        } else {
-            val bulletPoint = when (assertionGroup.type) {
-                WarningAssertionGroupType -> warningBulletPoint
-                else -> explanatoryBulletPoint
-            }
+        fun withIndent(bulletPoint: String) =
             parameterObject.createForExplanatoryFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
+
+        fun withOrWithoutIndent(bulletPoint: String, withIndent: Boolean) =
+            if (withIndent) withIndent(bulletPoint)
+            else parameterObject.createForExplanatoryFilterAssertionGroup(bulletPoint)
+
+        //TODO 1.0.0 move val inside when
+        val assertionGroupType = assertionGroup.type
+        return when (assertionGroupType) {
+            is InformationAssertionGroupType -> withOrWithoutIndent(
+                informationBulletPoint,
+                assertionGroupType.withIndent
+            )
+            WarningAssertionGroupType -> withIndent(warningBulletPoint)
+            else -> withIndent(explanatoryBulletPoint)
         }
     }
 }

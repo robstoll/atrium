@@ -28,9 +28,14 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
             factory(), "[Atrium's TextWarning...Spec] "
         )
 
+    object AtriumsTextInformationWithIndentAssertionFormatterSpec :
+        ch.tutteli.atrium.specs.reporting.TextInformationAssertionGroupFormatterSpec(
+            factory(), withIndent = true, describePrefix = "[Atrium's TextInformation...Spec] "
+        )
+
     object AtriumsTextInformationAssertionFormatterSpec :
         ch.tutteli.atrium.specs.reporting.TextInformationAssertionGroupFormatterSpec(
-            factory(), "[Atrium's TextInformation...Spec] "
+            factory(), withIndent = false, describePrefix =  "[Atrium's TextInformation...Spec] "
         )
 
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec :
