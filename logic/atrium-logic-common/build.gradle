@@ -23,13 +23,13 @@ Map<String, Closure<Tuple4<String, String, String, String>>> map = [
     },
     '/creating/iterable/contains/creators'    : { java.nio.file.Path path ->
         def fileNameAsString = path.fileName.toString()
-        if (fileNameAsString == 'IterableLikeContainsInAnyOrderAssertions.kt') {
+        if (fileNameAsString == 'IterableLikeContainsInAnyOrderExpectations.kt') {
             return new Tuple3(
                 'import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains\nimport ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour',
                 '<E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>',
                 'entryPointStepLogic.container.getImpl'
             )
-        } else if (fileNameAsString == 'IterableLikeContainsAssertions.kt') {
+        } else if (fileNameAsString == 'IterableLikeContainsExpectations.kt') {
             return new Tuple3(
                 '',
                 '<E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>',
@@ -41,7 +41,7 @@ Map<String, Closure<Tuple4<String, String, String, String>>> map = [
     },
     '/creating/maplike/contains/creators'    : { java.nio.file.Path path ->
         def fileNameAsString = path.fileName.toString()
-        if (fileNameAsString == 'MapLikeContainsAssertions.kt') {
+        if (fileNameAsString == 'MapLikeContainsExpectations.kt') {
             return new Tuple3(
                 '',
                 '<K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>',

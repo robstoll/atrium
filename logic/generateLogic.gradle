@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 static List<Path> getInterfaces(String path) {
     Files.walk(Paths.get(path), 1).withCloseable { stream ->
         return stream
-            .filter { file -> file.fileName.toString().endsWith("Assertions.kt") }
+            .filter { file -> file.fileName.toString().endsWith("Expectations.kt") }
             .sorted(new Comparator<Path>() {
                 @Override
                 int compare(Path a, Path b) {
@@ -41,7 +41,7 @@ def createGenerateLogicTask(
 
 static String getType(Path input) {
     def fileName = input.getFileName().toString()
-    return fileName.substring(0, fileName.length() - "Assertions.kt".length())
+    return fileName.substring(0, fileName.length() - "Expectations.kt".length())
 }
 
 def createGenerateLogicTaskForPackage(
@@ -107,13 +107,13 @@ def createGenerateLogicTaskForPackage(
                 def uncapitalized = type.uncapitalize()
                 def output = new File("$generatedPath/${uncapitalized}.kt")
                 def content = interfacePath.text
-                def interfaceName = "${type}Assertions"
+                def interfaceName = "${type}Expectations"
                 def implValName = "impl"
 
                 String tmp = content.replaceAll(/($newLine\/\*\*[\S\s]+?\*\/)?${newLine}interface $interfaceName \{/,
                     """\
                     import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-                    import ${fullPackage}.impl.Default${type}Assertions
+                    import ${fullPackage}.impl.Default${type}Expectations
                     """.stripIndent().replace("\n", ln))
                 patterns.forEach { triple ->
                     tmp = tmp.replaceAll(triple.first, triple.second + implValName + triple.third)
@@ -127,8 +127,8 @@ def createGenerateLogicTaskForPackage(
 
                     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
                     @UseExperimental(ExperimentalNewExpectTypes::class)
-                    private inline val ${extensionTypeSignature}.impl: ${type}Assertions
-                        get() = $getImpl(${type}Assertions::class) { Default${type}Assertions() }
+                    private inline val ${extensionTypeSignature}.impl: ${type}Expectations
+                        get() = $getImpl(${type}Expectations::class) { Default${type}Expectations() }
                      """.stripIndent().replace("\n", ln)
                 }
             }

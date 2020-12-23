@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrde
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.andOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.inOrder
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
-import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsAssertions
+import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsExpectations
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InOrderOnlySearchBehaviour
@@ -25,7 +25,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion.*
 import kotlin.reflect.KClass
 
-class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
+class DefaultMapLikeContainsExpectations : MapLikeContainsExpectations {
 
     override fun <K, V, T : MapLike> keyValuePairsInAnyOrder(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InAnyOrderSearchBehaviour>,
