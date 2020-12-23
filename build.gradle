@@ -444,6 +444,7 @@ def createJsTestTask(String... subprojectNames) {
             from compileKotlin2Js.destinationDir
 
             prefixedProject('verbs-internal-js').afterEvaluate {
+                // TODO 0.16.0 or 0.17.0, check if still required with the new Kotlin MPP plugin
                 configurations.testRuntimeClasspath.allDependencies.withType(ProjectDependency).each {
                     dependsOn(it.dependencyProject.assemble)
                 }
