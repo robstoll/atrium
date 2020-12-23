@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableContainsInOrderOnlyElementsOfAssertionsSpec : Spek({
+class IterableContainsInOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderIterableLikeToIterableSpec)

@@ -54,7 +54,7 @@ abstract class ChronoLocalDateAsStringAssertionSpec(
     ): Expect<ChronoLocalDate> =
         expect.(isEqual.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
-    include(object : ChronoLocalDateAssertionSpec(
+    include(object : ChronoLocalDateExpectationsSpec(
         fun1(::isBefore),
         fun1(::isBeforeOrEqual),
         fun1(::isAfter),

@@ -11,7 +11,7 @@ import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.JapaneseDate
 
-abstract class ChronoLocalDateAssertionSpec(
+abstract class ChronoLocalDateExpectationsSpec(
     isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isBeforeOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
     isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,

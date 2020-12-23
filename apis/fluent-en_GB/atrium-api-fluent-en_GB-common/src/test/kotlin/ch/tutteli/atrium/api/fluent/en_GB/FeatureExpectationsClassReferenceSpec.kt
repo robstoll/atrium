@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.TestData
 import ch.tutteli.atrium.specs.notImplemented
 
-class FeatureAssertionsClassReferenceSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class FeatureExpectationsClassReferenceSpec : ch.tutteli.atrium.specs.integration.FeatureExpectationsSpec(
     propertyImmediate,
     propertyLazy,
     return0ValueImmediate,

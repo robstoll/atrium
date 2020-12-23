@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 
-class FeatureAssertionsManualSpec : ch.tutteli.atrium.specs.integration.FeatureAssertionsSpec(
+class FeatureExpectationsManualSpec : ch.tutteli.atrium.specs.integration.FeatureExpectationsSpec(
     propertyImmediate,
     propertyLazy,
     f0Immediate,
