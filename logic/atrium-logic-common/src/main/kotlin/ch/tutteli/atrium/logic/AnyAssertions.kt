@@ -1,4 +1,3 @@
-
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,16 +14,27 @@ interface AnyAssertions {
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
-    fun <T> because(container: AssertionContainer<T>, reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion
 
     //TODO 0.16.0 remove
     @Suppress("DEPRECATION")
     @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 
+
+    //TODO 0.16.0 remove
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use the overload which does not expect `type`; will be removed with 0.16.0",
+        ReplaceWith("this.toBeNullIfNullGivenElse(container, assertionCreatorOrNull)")
+    )
     fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
         type: KClass<T>,
+        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+    ): Assertion
+
+    fun <T : Any> toBeNullIfNullGivenElse(
+        container: AssertionContainer<T?>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
@@ -41,4 +51,10 @@ interface AnyAssertions {
     ): SubjectChangerBuilder.ExecutionStep<T, TSub>
 
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
+
+    fun <T> because(
+        container: AssertionContainer<T>,
+        reason: String,
+        assertionCreator: (Expect<T>.() -> Unit)
+    ): Assertion
 }

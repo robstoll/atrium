@@ -69,9 +69,9 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  * @return An [Expect] for the current subject of the assertion.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <reified T : Any> Expect<T?>.toBeNullIfNullGivenElse(
-    noinline assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(T::class, assertionCreatorOrNull) }
+infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
+    assertionCreatorOrNull: (Expect<T>.() -> Unit)?
+): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
 
 /**

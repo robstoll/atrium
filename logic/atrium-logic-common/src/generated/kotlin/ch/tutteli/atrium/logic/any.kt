@@ -5,7 +5,6 @@
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
 
-
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,16 +19,23 @@ fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, exp
 fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)
 fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
 fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
-fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
-    impl.because(this, reason, assertionCreator)
 
     //TODO 0.16.0 remove
     @Suppress("DEPRECATION")
     @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
 fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
 
+
+    //TODO 0.16.0 remove
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use the overload which does not expect `type`; will be removed with 0.16.0",
+        ReplaceWith("this.toBeNullIfNullGivenElse(container, assertionCreatorOrNull)")
+    )
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
     impl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
+
+fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion = impl.toBeNullIfNullGivenElse(this, assertionCreatorOrNull)
 
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)
 
@@ -38,6 +44,9 @@ fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): S
 fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, TSub> = impl.isA(this, subType)
 
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
+
+fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
+    impl.because(this, reason, assertionCreator)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
