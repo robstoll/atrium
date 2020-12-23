@@ -19,7 +19,7 @@ import java.nio.charset.Charset
 import java.nio.file.LinkOption
 import java.nio.file.Path
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultPathAssertions
+import ch.tutteli.atrium.logic.impl.DefaultPathExpectations
 
 fun <T : Path> AssertionContainer<T>.startsWith(expected: Path): Assertion = impl.startsWith(this, expected)
 fun <T : Path> AssertionContainer<T>.startsNotWith(expected: Path): Assertion = impl.startsNotWith(this, expected)
@@ -52,5 +52,5 @@ fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): A
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: PathAssertions
-    get() = getImpl(PathAssertions::class) { DefaultPathAssertions() }
+private inline val <T> AssertionContainer<T>.impl: PathExpectations
+    get() = getImpl(PathExpectations::class) { DefaultPathExpectations() }

@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
+import ch.tutteli.atrium.logic.impl.DefaultCharSequenceExpectations
 
 
     /**
@@ -41,5 +41,5 @@ fun <T : CharSequence> AssertionContainer<T>.mismatches(expected: Regex): Assert
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: CharSequenceAssertions
-    get() = getImpl(CharSequenceAssertions::class) { DefaultCharSequenceAssertions() }
+private inline val <T> AssertionContainer<T>.impl: CharSequenceExpectations
+    get() = getImpl(CharSequenceExpectations::class) { DefaultCharSequenceExpectations() }

@@ -17,7 +17,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultChronoLocalDateTimeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultChronoLocalDateTimeExpectations
 
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isBefore(expected: ChronoLocalDateTime<*>): Assertion = impl.isBefore(this, expected)
 
@@ -42,5 +42,5 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> AssertionContainer<T>.isEqual
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: ChronoLocalDateTimeAssertions
-    get() = getImpl(ChronoLocalDateTimeAssertions::class) { DefaultChronoLocalDateTimeAssertions() }
+private inline val <T> AssertionContainer<T>.impl: ChronoLocalDateTimeExpectations
+    get() = getImpl(ChronoLocalDateTimeExpectations::class) { DefaultChronoLocalDateTimeExpectations() }

@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultZonedDateTimeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultZonedDateTimeExpectations
 
 fun AssertionContainer<ZonedDateTime>.year(): FeatureExtractorBuilder.ExecutionStep<ZonedDateTime, Int> = impl.year(this)
 
@@ -29,5 +29,5 @@ fun AssertionContainer<ZonedDateTime>.dayOfWeek(): FeatureExtractorBuilder.Execu
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: ZonedDateTimeAssertions
-    get() = getImpl(ZonedDateTimeAssertions::class) { DefaultZonedDateTimeAssertions() }
+private inline val <T> AssertionContainer<T>.impl: ZonedDateTimeExpectations
+    get() = getImpl(ZonedDateTimeExpectations::class) { DefaultZonedDateTimeExpectations() }

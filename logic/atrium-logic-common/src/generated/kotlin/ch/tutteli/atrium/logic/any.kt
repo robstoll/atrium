@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
+import ch.tutteli.atrium.logic.impl.DefaultAnyExpectations
 
 fun <T> AssertionContainer<T>.toBe(expected: T): Assertion = impl.toBe(this, expected)
 fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(this, expected)
@@ -50,5 +50,5 @@ fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: AnyAssertions
-    get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }
+private inline val <T> AssertionContainer<T>.impl: AnyExpectations
+    get() = getImpl(AnyExpectations::class) { DefaultAnyExpectations() }

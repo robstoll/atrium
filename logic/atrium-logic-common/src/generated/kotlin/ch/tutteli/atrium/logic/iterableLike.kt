@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
+import ch.tutteli.atrium.logic.impl.DefaultIterableLikeExpectations
 
 
 fun <T : IterableLike, E> AssertionContainer<T>.builderContainsInIterableLike(converter: (T) -> Iterable<E>): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = impl.builderContainsInIterableLike(this, converter)
@@ -39,5 +39,5 @@ fun <T : IterableLike, E> AssertionContainer<T>.containsNoDuplicates(converter: 
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: IterableLikeAssertions
-    get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }
+private inline val <T> AssertionContainer<T>.impl: IterableLikeExpectations
+    get() = getImpl(IterableLikeExpectations::class) { DefaultIterableLikeExpectations() }

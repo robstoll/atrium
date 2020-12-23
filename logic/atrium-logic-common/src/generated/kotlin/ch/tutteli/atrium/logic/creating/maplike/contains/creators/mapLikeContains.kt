@@ -18,7 +18,7 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InOrde
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import kotlin.reflect.KClass
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl.DefaultMapLikeContainsAssertions
+import ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl.DefaultMapLikeContainsExpectations
 
 
 fun <K, V, T : MapLike> MapLikeContains.EntryPointStepLogic<K, V, T, InAnyOrderSearchBehaviour>.keyValuePairsInAnyOrder(keyValuePairs: List<Pair<K, V>>): Assertion = impl.keyValuePairsInAnyOrder(this, keyValuePairs)
@@ -40,5 +40,5 @@ fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, 
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>.impl: MapLikeContainsAssertions
-    get() = container.getImpl(MapLikeContainsAssertions::class) { DefaultMapLikeContainsAssertions() }
+private inline val <K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>.impl: MapLikeContainsExpectations
+    get() = container.getImpl(MapLikeContainsExpectations::class) { DefaultMapLikeContainsExpectations() }

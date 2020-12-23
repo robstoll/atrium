@@ -10,7 +10,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultComparableAssertions
+import ch.tutteli.atrium.logic.impl.DefaultComparableExpectations
 
 fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isLessThan(expected: T2): Assertion = impl.isLessThan(this, expected)
 
@@ -24,5 +24,5 @@ fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isEqualComparingTo(e
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: ComparableAssertions
-    get() = getImpl(ComparableAssertions::class) { DefaultComparableAssertions() }
+private inline val <T> AssertionContainer<T>.impl: ComparableExpectations
+    get() = getImpl(ComparableExpectations::class) { DefaultComparableExpectations() }

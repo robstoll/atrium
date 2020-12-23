@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.time.DayOfWeek
 import java.time.LocalDate
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultLocalDateAssertions
+import ch.tutteli.atrium.logic.impl.DefaultLocalDateExpectations
 
 fun AssertionContainer<LocalDate>.year(): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int> = impl.year(this)
 
@@ -29,5 +29,5 @@ fun AssertionContainer<LocalDate>.dayOfWeek(): FeatureExtractorBuilder.Execution
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: LocalDateAssertions
-    get() = getImpl(LocalDateAssertions::class) { DefaultLocalDateAssertions() }
+private inline val <T> AssertionContainer<T>.impl: LocalDateExpectations
+    get() = getImpl(LocalDateExpectations::class) { DefaultLocalDateExpectations() }

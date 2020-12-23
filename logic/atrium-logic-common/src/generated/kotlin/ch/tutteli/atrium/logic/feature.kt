@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
+import ch.tutteli.atrium.logic.impl.DefaultFeatureExpectations
 
     //@formatter:off
 fun <T, TProperty> AssertionContainer<T>.property(property: KProperty1<in T, TProperty>): FeatureExtractorBuilder.ExecutionStep<T, TProperty> = impl.property(this, property)
@@ -40,5 +40,5 @@ fun <T, R> AssertionContainer<T>.manualFeature(description: Translatable, provid
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <T> AssertionContainer<T>.impl: FeatureAssertions
-    get() = getImpl(FeatureAssertions::class) { DefaultFeatureAssertions() }
+private inline val <T> AssertionContainer<T>.impl: FeatureExpectations
+    get() = getImpl(FeatureExpectations::class) { DefaultFeatureExpectations() }

@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrd
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.DefaultIterableLikeContainsAssertions
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.DefaultIterableLikeContainsExpectations
 
 
 fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InAnyOrderOnlySearchBehaviour>.valuesInAnyOrderOnly(expected: List<E>): Assertion = impl.valuesInAnyOrderOnly(this, expected)
@@ -36,5 +36,5 @@ fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?,
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-private inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>.impl: IterableLikeContainsAssertions
-    get() = container.getImpl(IterableLikeContainsAssertions::class) { DefaultIterableLikeContainsAssertions() }
+private inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>.impl: IterableLikeContainsExpectations
+    get() = container.getImpl(IterableLikeContainsExpectations::class) { DefaultIterableLikeContainsExpectations() }
