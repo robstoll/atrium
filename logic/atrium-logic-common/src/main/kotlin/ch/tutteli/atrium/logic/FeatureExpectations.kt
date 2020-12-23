@@ -8,7 +8,7 @@ import kotlin.reflect.*
 /**
  * Collection of functions which help to create feature assertions by returning [FeatureExtractorBuilder.ExecutionStep].
  */
-interface FeatureAssertions {
+interface FeatureExpectations {
     //@formatter:off
     fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): FeatureExtractorBuilder.ExecutionStep<T, TProperty>
 

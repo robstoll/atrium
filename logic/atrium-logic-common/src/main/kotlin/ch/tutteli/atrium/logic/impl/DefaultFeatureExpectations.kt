@@ -4,7 +4,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.FeatureAssertions
+import ch.tutteli.atrium.logic.FeatureExpectations
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.*
 
-class DefaultFeatureAssertions : FeatureAssertions {
+class DefaultFeatureExpectations : FeatureExpectations {
 
     //@formatter:off
     override fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): FeatureExtractorBuilder.ExecutionStep<T, TProperty> =
