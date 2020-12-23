@@ -26,7 +26,6 @@ import ch.tutteli.atrium.logic.utils.toVarArg
  * @param expected The value which is expected to be contained within the [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -45,7 +44,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -68,7 +66,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -91,7 +88,6 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -117,7 +113,6 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  *   this [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not
  *   an [Iterable], [Sequence] or one of the [Array] types
  *   or the given [expectedIterableLike] does not have elements (is empty).

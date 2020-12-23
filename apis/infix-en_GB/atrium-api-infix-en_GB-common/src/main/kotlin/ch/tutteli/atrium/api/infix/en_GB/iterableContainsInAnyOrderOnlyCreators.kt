@@ -26,7 +26,6 @@ import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
  * @param expected The value which is expected to be contained within the [Iterable].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     this the values(expected)
@@ -43,7 +42,6 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.valu
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): Expect<T> =
     addAssertion(ExpectImpl.iterable.contains.valuesInAnyOrderOnly(this, values.toList()))
@@ -64,7 +62,6 @@ infix fun <E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -94,7 +91,6 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehavio
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 
 infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(
@@ -115,7 +111,6 @@ infix fun <E : Any, T : Iterable<E?>> Builder<E?, T, InAnyOrderOnlySearchBehavio
  * @param expectedIterable The [Iterable] whose elements are expected to be contained within this [Iterable]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the given [expectedIterable] does not have elements (is empty).
  *
  * TODO remove with 1.0.0
@@ -145,7 +140,6 @@ inline infix fun <reified E, T : Iterable<E>> Builder<E, T, InAnyOrderOnlySearch
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
  * or the given [expectedIterableLike] does not have elements (is empty).
  *

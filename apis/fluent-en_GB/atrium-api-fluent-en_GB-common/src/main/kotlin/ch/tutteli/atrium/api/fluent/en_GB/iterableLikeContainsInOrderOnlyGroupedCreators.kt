@@ -23,7 +23,6 @@ import kotlin.jvm.JvmName
  *   [IterableLike] whereas the groups have to appear in the given order.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -49,7 +48,6 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeha
  *   [IterableLike] whereas the groups have to appear in the given order.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */

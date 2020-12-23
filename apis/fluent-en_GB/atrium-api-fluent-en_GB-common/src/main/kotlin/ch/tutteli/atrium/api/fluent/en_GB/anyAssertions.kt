@@ -11,7 +11,6 @@ import ch.tutteli.kbox.glue
  * Expects that the subject of the assertion is (equal to) [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBe
  */
@@ -21,7 +20,6 @@ fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
  * Expects that the subject of the assertion is not (equal to) [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBe
  */
@@ -31,7 +29,6 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
  * Expects that the subject of the assertion is the same instance as [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isSameAs
  */
@@ -41,7 +38,6 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  * Expects that the subject of the assertion is not the same instance as [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNotSameAs
  */
@@ -67,7 +63,6 @@ fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
@@ -79,7 +74,6 @@ fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBeNullFeature
  */
@@ -91,7 +85,6 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBeNull
  */
@@ -115,7 +108,6 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isAFeature
  */
@@ -161,7 +153,6 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isA
  */
@@ -200,7 +191,6 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * Expects that the subject of the assertion is not (equal to) [expected] and [otherValues].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  *
@@ -216,7 +206,6 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
  * @since 0.13.0

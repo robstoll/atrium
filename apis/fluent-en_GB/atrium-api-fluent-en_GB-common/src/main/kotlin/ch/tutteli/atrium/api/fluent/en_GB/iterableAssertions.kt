@@ -48,7 +48,6 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBe
  *   `contains('a', 'a')`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T> =
     contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
@@ -65,7 +64,6 @@ fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
@@ -85,7 +83,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expe
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
@@ -103,7 +100,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T> =
     contains.inOrder.only.values(expected, *otherExpected)
@@ -124,7 +120,6 @@ fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpe
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inOrder.only.entry(assertionCreatorOrNull)
@@ -148,7 +143,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
@@ -167,7 +161,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -187,7 +180,6 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -204,7 +196,6 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
     containsNot.values(expected, *otherExpected)
@@ -227,7 +218,6 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -251,7 +241,6 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -267,7 +256,6 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
@@ -280,7 +268,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  *  It is a shortcut for `containsNot.entry(assertionCreatorOrNull)`
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     containsNot.entry(assertionCreatorOrNull)
@@ -291,7 +278,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  * that all elements are `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
@@ -301,7 +287,6 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  * Expects that the subject of the assertion (an [Iterable]) has at least one element.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -312,7 +297,6 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
  * Expects that the subject of the assertion (an [Iterable]) does not have next element.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -323,7 +307,6 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
  * Expects that the subject of the assertion (an [Iterable]) does not have duplicate elements.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */

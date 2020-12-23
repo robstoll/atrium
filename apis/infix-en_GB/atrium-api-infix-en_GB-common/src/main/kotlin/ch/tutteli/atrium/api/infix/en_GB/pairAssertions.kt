@@ -20,7 +20,6 @@ val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.first().collectAndAppend(assertionCreator)
@@ -40,7 +39,6 @@ val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Pair<K, V>> Expect<T>.second(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.second().collectAndAppend(assertionCreator)

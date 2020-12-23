@@ -21,7 +21,6 @@ import ch.tutteli.kbox.glue
  * Delegates to [entries].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -34,7 +33,6 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  * needs to contain only the given [keyValuePair] as well as the [otherPairs] in the specified order.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -54,7 +52,6 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  * Delegates to [entries].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -72,7 +69,6 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -96,7 +92,6 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  * This function expects [MapLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedMapLike] is not
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).

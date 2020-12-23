@@ -19,7 +19,6 @@ import java.util.*
  * depends on the underlying implementation though.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -34,7 +33,6 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
  * depends on the underlying implementation though.
  *
  * @return The newly created [Expect] for the inner type [E].
- * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
  *
  * @since 0.9.0
  */
@@ -46,7 +44,6 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
  * @since 0.9.0
  */

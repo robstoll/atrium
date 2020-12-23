@@ -21,7 +21,6 @@ import java.util.*
  * depends on the underlying implementation though.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -36,7 +35,6 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: 
  * depends on the underlying implementation though.
  *
  * @return The newly created [Expect] for the inner type [E].
- * @throws AssertionError Might throw an [AssertionError] if the given assertion is not a success.
  *
  * @since 0.12.0
  */
@@ -48,7 +46,6 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") pres
  * that it holds all assertions the given [PresentWithCreator.assertionCreator] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the given assertions are not success.
  *
  * @since 0.12.0
  */

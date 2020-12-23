@@ -13,7 +13,6 @@ import ch.tutteli.atrium.logic.toThrow
  * the element type is actually `String`.
  *
  * @return An [Expect] with the new type [TExpected].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
     _logic.toThrow(TExpected::class).transform()
@@ -49,7 +48,6 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Exp
  * the element type is actually `String`.
  *
  * @return An [Expect] with the new type [TExpected].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
@@ -61,7 +59,6 @@ inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * and changes the subject of the assertion to the return value of type [R].
  *
  * @return An [Expect] with the new type [R].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
     _logic.notToThrow().transform()
@@ -71,7 +68,6 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
  * and that the corresponding return value holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the new type [R].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <R, T : () -> R> Expect<T>.notToThrow(
     assertionCreator: Expect<R>.() -> Unit

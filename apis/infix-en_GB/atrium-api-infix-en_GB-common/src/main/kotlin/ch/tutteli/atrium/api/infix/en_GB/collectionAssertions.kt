@@ -10,7 +10,6 @@ import ch.tutteli.kbox.identity
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::identity) }
@@ -21,7 +20,6 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty(::identity) }
@@ -32,7 +30,6 @@ infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") em
  * Shortcut for `size.toBe(expected)`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toBe(expected) }
@@ -53,7 +50,6 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::identity).collectAndAppend(assertionCreator)

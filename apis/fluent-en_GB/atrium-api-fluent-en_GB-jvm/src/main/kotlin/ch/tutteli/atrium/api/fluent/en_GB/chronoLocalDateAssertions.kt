@@ -14,7 +14,6 @@ import java.time.chrono.ChronoLocalDate
  * is before the [expected] [ChronoLocalDate].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -26,7 +25,6 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<
  * is before or equal the [expected] [ChronoLocalDate].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -38,7 +36,6 @@ fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): 
  * is after the [expected] [ChronoLocalDate].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -50,7 +47,6 @@ fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T
  * is after or equal the [expected] [ChronoLocalDate].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -62,7 +58,6 @@ fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): E
  * is equal to the [expected] [ChronoLocalDate].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.9.0
  */
@@ -75,7 +70,6 @@ fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T
  * The [expected] parameter needs to be in the form of **yyyy-mm-dd** or else a [java.time.DateTimeException] will be thrown.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -88,7 +82,6 @@ fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: String): Expect<T> =
  * The [expected] parameter needs to be in the form of **yyyy-mm-dd** or else a [java.time.DateTimeException] will be thrown.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -101,7 +94,6 @@ fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: String): Expect<T>
  * The [expected] parameter needs to be in the form of **yyyy-mm-dd** or else a [java.time.DateTimeException] will be thrown.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -114,7 +106,6 @@ fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: String): Expect<T> =
  * The [expected] parameter needs to be in the form of **yyyy-mm-dd** or else a [java.time.DateTimeException] will be thrown.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */
@@ -127,7 +118,6 @@ fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: String): Expect<T> 
  * The [expected] parameter needs to be in the form of **yyyy-mm-dd** or else a [java.time.DateTimeException] will be thrown.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0
  */

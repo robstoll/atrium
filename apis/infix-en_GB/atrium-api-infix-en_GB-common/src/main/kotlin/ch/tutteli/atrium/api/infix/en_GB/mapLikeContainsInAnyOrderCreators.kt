@@ -20,7 +20,6 @@ import ch.tutteli.atrium.logic.utils.toVarArgPairs
  * Delegates to `the pairs(keyValuePair)`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -37,7 +36,6 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  * even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -55,7 +53,6 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  * Delegates to `the keyValues(keyValue)`.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -77,7 +74,6 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * , then both match, even though they match the same entry.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.15.0
  */
@@ -113,7 +109,6 @@ fun <K, V : Any> keyValues(
  * @param expectedMapLike The [MapLike] whose elements are expected to be contained within this [MapLike].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedMapLike] is not
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).

@@ -8,7 +8,6 @@ import ch.tutteli.atrium.logic.*
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     _logicAppend { isLessThan(expected) }
@@ -18,7 +17,6 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
@@ -28,7 +26,6 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     _logicAppend { isGreaterThan(expected) }
@@ -38,7 +35,6 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }
@@ -48,7 +44,6 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expec
  * where the comparison is carried out with [Comparable.compareTo].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */

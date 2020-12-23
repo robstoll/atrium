@@ -52,7 +52,6 @@ infix fun <T : CharSequence> Expect<T>.containsNot(
  * so that you can mix [String] and [Int] for instance.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar): Expect<T> =
@@ -83,7 +82,6 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a
  *   [CharSequence], [Number] or [Char].
  */
@@ -100,7 +98,6 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNum
  * so that you can mix [String] and [Int] for instance.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this containsNot o value expected
@@ -118,7 +115,6 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumbe
  * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOrNumberOrChar>): Expect<T> =
     this containsNot o the values
@@ -132,7 +128,6 @@ infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOr
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T> =
     this contains o atLeast 1 regex pattern
@@ -146,7 +141,6 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T>
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
     this contains o atLeast 1 matchFor pattern
@@ -172,7 +166,6 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): Expect<T> =
     this contains o atLeast 1 the regexPatterns
@@ -199,7 +192,6 @@ infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): E
  *   use the function `all(Regex(...), ...)` to create a [All].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T> =
     this contains o atLeast 1 matchFor patterns
@@ -208,7 +200,6 @@ infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T>
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsWith(expected) }
@@ -217,7 +208,6 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expec
  * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -228,7 +218,6 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsNotWith(expected) }
@@ -237,7 +226,6 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Ex
  * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -249,7 +237,6 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> 
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
@@ -258,7 +245,6 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<
  * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -269,7 +255,6 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsNotWith(expected) }
@@ -278,7 +263,6 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expe
  * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -292,7 +276,6 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty() }
@@ -303,7 +286,6 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty() }
@@ -314,7 +296,6 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  * @param blank Use the pseudo-keyword `blank`.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
     _logicAppend { isNotBlank() }
@@ -325,7 +306,6 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") bla
  * In contrast to [containsRegex] it does not look for a partial match but for an entire match.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -338,7 +318,6 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  * In contrast to `containsNot.regex` it does not look for a partial match but for an entire match.
  *
  * @return This assertion container to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */

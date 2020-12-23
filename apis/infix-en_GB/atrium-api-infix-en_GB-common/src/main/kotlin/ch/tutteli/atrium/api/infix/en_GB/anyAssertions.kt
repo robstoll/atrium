@@ -12,7 +12,6 @@ import ch.tutteli.atrium.reporting.Reporter
  * Expects that the subject of the assertion is (equal to) [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyAssertionSamples.toBe
  */
@@ -22,7 +21,6 @@ infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expec
  * Expects that the subject of the assertion is not (equal to) [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
@@ -30,7 +28,6 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe
  * Expects that the subject of the assertion is the same instance as [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
@@ -38,7 +35,6 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  * Expects that the subject of the assertion is not the same instance as [expected].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
@@ -67,7 +63,6 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
@@ -80,7 +75,6 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @param o The filler object [o].
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -93,7 +87,6 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
@@ -116,7 +109,6 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCrea
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
@@ -161,7 +153,6 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     _logic.isA(TSub::class).transformAndAppend(assertionCreator)
@@ -248,7 +239,6 @@ inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.13.0
  */
@@ -262,7 +252,6 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
  * @since 0.13.0

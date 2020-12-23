@@ -22,7 +22,6 @@ val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairAssertionSamples.first
  */
@@ -46,7 +45,6 @@ val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairAssertionSamples.second
  */

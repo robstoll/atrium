@@ -23,7 +23,6 @@ import kotlin.jvm.JvmName
  *   [Iterable] whereas the groups have to appear in the given order.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
@@ -52,7 +51,6 @@ fun <E, T : Iterable<E>> Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.
  *   [Iterable] whereas the groups have to appear in the given order.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")
 fun <E : Any, T : Iterable<E?>> Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(

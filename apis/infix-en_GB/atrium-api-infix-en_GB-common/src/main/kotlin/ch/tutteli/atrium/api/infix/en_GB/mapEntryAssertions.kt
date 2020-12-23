@@ -12,7 +12,6 @@ import ch.tutteli.atrium.logic.*
  * reporting etc.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
     _logicAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }
@@ -32,7 +31,6 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
@@ -52,7 +50,6 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)

@@ -27,7 +27,6 @@ val Expect<LocalDate>.year: Expect<Int>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -51,7 +50,6 @@ val Expect<LocalDate>.month: Expect<Int>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -75,7 +73,6 @@ val Expect<LocalDate>.dayOfWeek: Expect<DayOfWeek>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */
@@ -100,7 +97,6 @@ val Expect<LocalDate>.day: Expect<Int>
  * returns an [Expect] for the current subject of the assertion.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.12.0
  */

@@ -27,7 +27,6 @@ import ch.tutteli.kbox.glue
  * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -47,7 +46,6 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -72,7 +70,6 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -106,7 +103,6 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -132,7 +128,6 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike]
  *
  * @return An [Expect] for the current subject of the assertion.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not
  *   an [Iterable], [Sequence] or one of the [Array] types
  *   or the given [expectedIterableLike] does not have elements (is empty).
