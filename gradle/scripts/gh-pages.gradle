@@ -25,7 +25,12 @@ task removeGhPages {
 }
 
 task ghPages {
-//    dependsOn removeGhPages
+    docProjects.forEach { subProject ->
+        def jar = subProject.tasks.findByName("jar")
+        dependsOn jar
+        dokka.mustRunAfter jar
+    }
+    dependsOn removeGhPages
     dependsOn dokka
     dokka.mustRunAfter removeGhPages
     finalizedBy copyCSS
