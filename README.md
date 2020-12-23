@@ -1547,8 +1547,7 @@ expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio
 ## Attaching a Reason
 
 In case you want to add further information to an assertion, e.g. state the reason why you expect it to hold, you can
-use
-`because`:
+use `because`:
 
 <ex-because-1>
 
@@ -1575,12 +1574,11 @@ expected that subject: "filename?"        <1234789>
 <details>
 <summary>💬 Use <code>because</code> only to give reasons for non-obvious assertions</summary>
 
-`because` can be a useful tool for explaining why there is a certain assertion. Sometimes it is not directly obvious one
+`because` can be a useful tool for explaining why there is a certain assertion. Sometimes it is not directly obvious why one
 should expect something. In such cases, using `because` can make your code, and your error messages, easier to
-understand for other developers
-(including yourself in three months).
+understand for other developers (including yourself in three months).
 
-Having said that, you should not use because if you are missing a specific predefined assertion function. You can use
+Having said that, you should not use `because` if you are missing a specific predefined assertion function. You can use
 a [feature assertion](#feature-assertions), [write your own expectation function](#write-own-assertion-functions)
 or [propose an addition to Atrium](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=Missing%20Expectation%20Function)
 in such cases.
