@@ -374,36 +374,6 @@ object ReadmeSpec2 : Spek({
             }
     }
 
-    test("ex-because-2") {
-        expect(listOf(1, 2).isEmpty()).because("list should not be empty") {
-            toBe(true)
-        }
-    }
-    test("ex-because-3") {
-        expect(listOf(1, 2)).isEmpty()
-    }
-
-    test("ex-because-4") {
-        expect(mapOf("a" to 1)["a"]).because("key a should not be in the map") {
-            toBe(null)
-        }
-    }
-    test("ex-because-5") {
-        expect(mapOf("a" to 1)).containsNotKey("a")
-    }
-
-    test("ex-because-6") {
-        expect(IllegalArgumentException("no no").message)
-            .because("it should result in an exception without message") {
-                toBe(null)
-            }
-    }
-
-    test("ex-because-7") {
-        expect(IllegalArgumentException("no no")).feature { f(it::message) }.toBe(null)
-    }
-
-
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()
     //snippet-data-driven-1-end
