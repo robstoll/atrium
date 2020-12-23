@@ -60,7 +60,7 @@ For instance, the [README of v0.15.0](https://github.com/robstoll/atrium/tree/v0
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders-1)
     - [Others](#others)
   - [Path Assertions](#path-assertions)
-  - [Attach a reason](#attach-a-reason)
+  - [Attaching a Reason](#attaching-a-reason)
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)  
   - [Sample Projects](#sample-projects)
@@ -1533,6 +1533,7 @@ expect(filePointer.resolve("subfolder/file")).isRegularFile()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L361)</sub> ↓ <sub>[Output](#ex-path-symlink-and-parent-not-folder)</sub>
 <a name="ex-path-symlink-and-parent-not-folder"></a>
+
 ```text
 expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
 ◆ is: a file
@@ -1540,11 +1541,13 @@ expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio
     » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
       » was a file instead of a directory
 ```
+
 </ex-path-symlink-and-parent-not-folder>
 
-## Attach a reason
-In case you want to add further information to an assertion, e.g. state the reason why you expect Xy then you can use
-`because` to do so:
+## Attaching a Reason
+
+In case you want to add further information to an assertion, e.g. state the reason why you expect it to hold, you can
+use `because`:
 
 <ex-because-1>
 
@@ -1554,7 +1557,9 @@ expect("filename?")
         containsNot("?")
     }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L370)</sub> ↓ <sub>[Output](#ex-because-1)</sub>
+
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L370)</sub>
+↓ <sub>[Output](#ex-because-1)</sub>
 <a name="ex-because-1"></a>
 ```text
 expected that subject: "filename?"        <1234789>
@@ -1567,120 +1572,18 @@ expected that subject: "filename?"        <1234789>
 </ex-because-1>
 
 <details>
-<summary>💬 Don't use it to augment boolean/null checks</summary>
+<summary>💬 Use <code>because</code> only to give reasons for non-obvious assertions</summary>
 
-We think this function holds some misuse potential and therefore we would like to point out, 
-that `because` is not intended to augment boolean nor null checks. There are better instruments to fulfil the same.
+`because` can be a useful tool for explaining why there is a certain assertion. Sometimes it is not directly obvious why one
+should expect something. In such cases, using `because` can make your code, and your error messages, easier to
+understand for other developers (including yourself in three months).
 
-For instance, instead of checking on boolean properties/methods, see if there is not a predefined function 
-which already provides the same check + nice reporting with additional context. The reporting of predefined functions
-make it easier for you and others to understand the context of a failure. For instance, instead of:
+Having said that, you should not use `because` if you are missing a specific predefined assertion function. You can use
+a [feature assertion](#feature-assertions), [write your own expectation function](#write-own-assertion-functions)
+or [propose an addition to Atrium](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=Missing%20Expectation%20Function)
+in such cases.
 
-<ex-because-2>
-
-```kotlin
-expect(listOf(1, 2).isEmpty()).because("list should not be empty") {
-    toBe(true)
-}
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L377)</sub> ↓ <sub>[Output](#ex-because-2)</sub>
-<a name="ex-because-2"></a>
-```text
-expected that subject: false
-◆ equals: true
-ℹ because: list should not be empty
-```
-</ex-because-2>
-
-Write
-
-<ex-because-3>
-
-```kotlin
-expect(listOf(1, 2)).isEmpty()
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L382)</sub> ↓ <sub>[Output](#ex-because-3)</sub>
-<a name="ex-because-3"></a>
-```text
-expected that subject: [1, 2]        (java.util.Arrays.ArrayList <1234789>)
-◆ is: empty
-```
-</ex-because-3>
-
-The same applies to null checks. For instance, instead of checking for null for an absent key in a map
-
-<ex-because-4>
-
-```kotlin
-expect(mapOf("a" to 1)["a"]).because("key a should not be in the map") {
-    toBe(null)
-}
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L386)</sub> ↓ <sub>[Output](#ex-because-4)</sub>
-<a name="ex-because-4"></a>
-```text
-expected that subject: 1        (kotlin.Int <1234789>)
-◆ equals: null
-ℹ because: key a should not be in the map
-```
-</ex-because-4>
-
-Write
-
-<ex-because-5>
-
-```kotlin
-expect(mapOf("a" to 1)).containsNotKey("a")
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L391)</sub> ↓ <sub>[Output](#ex-because-5)</sub>
-<a name="ex-because-5"></a>
-```text
-expected that subject: {a=1}        (java.util.Collections.SingletonMap <1234789>)
-◆ does not contain key: "a"        <1234789>
-```
-</ex-because-5>
-
-Or in case of a nullable property:
-
-<ex-because-6>
-
-```kotlin
-expect(IllegalArgumentException("no no").message)
-    .because("it should result in an exception without message") {
-        toBe(null)
-    }
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L395)</sub> ↓ <sub>[Output](#ex-because-6)</sub>
-<a name="ex-because-6"></a>
-```text
-expected that subject: "no no"        <1234789>
-◆ equals: null
-ℹ because: it should result in an exception without message
-```
-</ex-because-6>
-
-Use a feature assertion, which includes it in reporting, already giving the context needed.
-
-<ex-because-7>
-
-```kotlin
-expect(IllegalArgumentException("no no")).feature { f(it::message) }.toBe(null)
-```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L402)</sub> ↓ <sub>[Output](#ex-because-7)</sub>
-<a name="ex-because-7"></a>
-```text
-expected that subject: java.lang.IllegalArgumentException
-◆ ▶ message: "no no"        <1234789>
-    ◾ equals: null
-```
-</ex-because-7>
-
-Following a checklist as a rule of thumb:
-1. check if there is not already a predefined assertion function
-2. use a [feature assertion](#feature-assertions) instead.
-3. write an own assertion function (e.g. a [boolean based Assertions](#boolean-based-assertions)).
-4. [let us know](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=using because) why you still want to use `because` - maybe Atrium lacks another feature
-5. use `because`
+Just like code comments, `because` can be valuable, but should not be overused.
 
 </details>
 
