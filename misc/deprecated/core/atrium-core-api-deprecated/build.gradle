@@ -1,5 +1,0 @@
-description = 'Contains the deprecated IAtriumFactory'
-
-dependencies {
-    api prefixedProject('core-api-jvm')
-}

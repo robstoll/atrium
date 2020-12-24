@@ -12,15 +12,6 @@ import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
  */
 //TODO move to atrium-logic with 0.16.0
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
-    expect: Expect<T>,
-    assertionCreator: Expect<T>.() -> Unit
-): R = collectAssertions(expect.maybeSubject, assertionCreator)
-
-/**
- * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
- */
-//TODO move to atrium-logic with 0.16.0
-fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): R = withAssertions(assertionCollector.collectForComposition(maybeSubject, assertionCreator))

@@ -14,7 +14,7 @@ dependencies {
     testImplementation prefixedProject('specs-js')
 }
 
-//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
+//TODO 0.16.0 or 0.17.0 should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
 compileTestKotlin2Js.dependsOn(
     prefixedProject('core-robstoll-js').jar,
     prefixedProject('domain-robstoll-js').jar

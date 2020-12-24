@@ -5,9 +5,6 @@
 
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import kotlin.js.JsName
@@ -256,31 +253,6 @@ class ArgumentMapperBuilder<out T>(
     ): Pair<Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>> = to { t -> subExpect<R> { assertionCreator(t) } }
 
     /**
-     * Maps each argument to an [Assert][AssertionPlant]&lt;[R]&gt; lambda with receiver
-     * using the given [assertionCreator] (passing in the argument).
-     *
-     * @returns The mapped [first] and [others].
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <reified R : Any> toAssert(
-        crossinline assertionCreator: Assert<R>.(T) -> Unit
-    ): Pair<Assert<R>.() -> Unit, Array<out Assert<R>.() -> Unit>> = to { t -> subAssert<R> { assertionCreator(t) } }
-
-    /**
-     * Maps each argument to an [AssertionPlantNullable]&lt;[R]&gt; lambda with receiver by
-     * using the given [assertionCreator] (passing in the argument).
-     *
-     * Notice, a future version might constrain [T] with a lower bound `Nothing?`.
-     *
-     * @returns The mapped [first] and [others].
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <reified R> toAssertionPlantNullable(
-        crossinline assertionCreator: AssertionPlantNullable<R>.(T) -> Unit
-    ): Pair<AssertionPlantNullable<R>.() -> Unit, Array<out AssertionPlantNullable<R>.() -> Unit>> =
-        to { t -> subAssertNullable<R> { assertionCreator(t) } }
-
-    /**
      * Maps each argument to the given type [R] by using the given [mapper]
      *
      * @returns The mapped [first] and [others].
@@ -333,16 +305,4 @@ class ArgumentToNullOrMapperBuilder<T : Any>(
         crossinline assertionCreator: Expect<R>.(T) -> Unit
     ): Pair<(Expect<R>.() -> Unit)?, Array<out (Expect<R>.() -> Unit)?>> =
         argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subExpect<R> { assertionCreator(t) } } }
-
-    /**
-     * Maps each argument to `null` if it is already `null` and if not, then to an [AssertionPlantNullable]&lt;[R]&gt;
-     * lambda with receiver by using the given [assertionCreator] (passing in the argument).
-     *
-     * @returns The mapped arguments.
-     */
-    @Deprecated("Switch from Assert to Expect and use toExpect instead; will be removed with 1.0.0")
-    inline fun <R : Any> toAssert(
-        crossinline assertionCreator: Assert<R>.(T) -> Unit
-    ): Pair<(Assert<R>.() -> Unit)?, Array<out (Assert<R>.() -> Unit)?>> =
-        argumentMapperBuilder.to { nullableT -> nullableT?.let { t -> subAssert<R> { assertionCreator(t) } } }
 }

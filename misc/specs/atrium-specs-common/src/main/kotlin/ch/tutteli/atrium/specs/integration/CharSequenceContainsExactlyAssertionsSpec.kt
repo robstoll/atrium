@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
+import org.spekframework.spek2.style.specification.describe
 
 abstract class CharSequenceContainsExactlyAssertionsSpec(
     containsExactlyPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
@@ -31,11 +32,11 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     val fluent = expect(text as CharSequence)
     val fluentHelloWorld = expect(helloWorld as CharSequence)
 
-    fun Expect<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any) =
-        containsExactly(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsExactlyFun(exactly: Int, a: Any, vararg aX: Any) =
+        containsExactly(this, exactly, a, aX)
 
-    fun Expect<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
-        containsExactlyIgnoringCase(this, atLeast, a, aX)
+    fun Expect<CharSequence>.containsExactlyIgnoringCaseFun(exactly: Int, a: Any, vararg aX: Any) =
+        containsExactlyIgnoringCase(this, exactly, a, aX)
 
     val exactly = EXACTLY.getDefault()
     val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -67,6 +68,11 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                 }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
+
+        context("text 'aaaa'") {
+            it("search for 'aa' finds 3 hits since we want non disjoint matches") {
+                expect("aaaa" as CharSequence).containsExactlyFun(3, "aa")
+            }        }
 
         context("text '$helloWorld'") {
 

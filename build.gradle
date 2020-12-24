@@ -17,7 +17,6 @@ buildscript {
         jacoco_tool_version = '0.8.6'
         junit_platform_version = '1.7.0'
         jupiter_version = '5.7.0'
-        spek_version = '1.1.5'
         spek2_version = '2.0.12'
         spekExtensions_version = '1.1.0'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensions_version" }
@@ -64,10 +63,9 @@ buildscript {
         toolProjects = toolProjectsFun
 
         // jacoco-multi-project.gradle
-        def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
-                (subprojects - deprecatedProjects - toolProjectsFun).findAll {
+                (subprojects - toolProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
                         // would have two classes with the same name if we add it as project as well,
@@ -78,33 +76,20 @@ buildscript {
                         !it.name.startsWith("${rootProject.name}-specs")
                 },
             jacocoProjects:
-                (subprojects - deprecatedProjects - toolProjectsFun).findAll {
+                (subprojects - toolProjectsFun).findAll {
                     !(it.projectDir.path.contains("/translations/") || it.projectDir.path.contains("\\translations\\")) &&
                         !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
                         !it.name.endsWith("-android") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
-                        it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
-                        //TODO remove with 1.0.0
-                        it.name != "${rootProject.name}-assertions" &&
-                        it.name != "${rootProject.name}-core-api-deprecated" &&
-                        it.name != "${rootProject.name}-core-robstoll-deprecated" &&
-                        it.name != "${rootProject.name}-domain-api-deprecated"
+                        //TODO remove with 0.17.0
+                        it.name != "${rootProject.name}-domain-robstoll-jvm" &&
+                        it.name != "${rootProject.name}-domain-builders-jvm"
                 }
         ]
-
-        //TODO dependencies no longer required once all specs are with spek2 where they are set via spek plugin
-        spekDep = { closure ->
-            delegate = closure
-            testRuntimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-            testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-            testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
-            testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
-        }
-
     }
 
     repositories {
@@ -273,7 +258,7 @@ configure(subprojects - bundleSmokeTests - toolProjects) { subproject ->
 
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
-    spek.version = '1.1.5'
+    spek.version = spek2_version
 
     dependencies {
         testImplementation mockito(), excludeKotlin
@@ -295,18 +280,6 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
                 reports {
                     html.enabled = true
                 }
-            }
-        }
-    }
-
-    test {
-        //TODO remove once all specs are migrated to spek2
-        options {
-            if (project.name != 'atrium-spec') {
-                includeEngines 'spek2'
-            }
-            if (!project.name.startsWith('atrium-specs')) {
-                includeEngines 'spek'
             }
         }
     }
@@ -350,13 +323,6 @@ configure(bundleSmokeTests) {
         dependencies {
             //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
             testImplementation bundle
-            //TODO remove once all specs are with spek2 where they are set via spek plugin
-            spekDep(delegate)
-        }
-    } else {
-        //TODO remove once all specs are with spek2 where they are set via spek plugin
-        dependencies {
-            spekDep(delegate)
         }
     }
 }
@@ -409,7 +375,10 @@ def createRegisterJsServicesTask(String projectName, String packageName, Functio
 }
 
 createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstoll') { true }
-createRegisterJsServicesTask('domain-robstoll-kotlin_1_3-js', 'ch.tutteli.atrium.domain.kotlin_1_3') { true }
+
+createRegisterJsServicesTask('verbs-internal-js', 'ch.tutteli.atrium.verbs.internal') { true }
+//TODO remove with 0.17.0
+createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
 createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
     !(it in [
         'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
@@ -423,8 +392,6 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
         'ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions'
     ])
 }
-createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
-createRegisterJsServicesTask('verbs-internal-js', 'ch.tutteli.atrium.verbs.internal') { true }
 
 List<Project> projectNamesToProject(String[] names) {
     names.collect { projectName -> prefixedProject(projectName) }
@@ -479,11 +446,7 @@ createJsTestTask(
     'core-robstoll-lib-js',
     'api-fluent-en_GB-js',
     'api-infix-en_GB-js',
-    'fluent-en_GB-js',
-    //TODO remove with 1.0.0
-    'cc-de_CH-robstoll-js',
-    'cc-en_GB-robstoll-js',
-    'cc-infix-en_GB-robstoll-js',
+    'fluent-en_GB-js'
 )
 
 def useJupiter(String... projectNames) {
@@ -503,9 +466,6 @@ useJupiter(
     'core-api-jvm',
     'api-fluent-en_GB-jvm',
     'api-infix-en_GB-jvm',
-    'cc-de_CH-robstoll-jvm',
-    'cc-en_GB-robstoll-jvm',
-    'cc-infix-en_GB-robstoll-jvm',
 )
 
 def buildNonDeprecatedJvm = task('buildNonDeprecatedJvm', group: 'build', description: 'builds all JVM modules')

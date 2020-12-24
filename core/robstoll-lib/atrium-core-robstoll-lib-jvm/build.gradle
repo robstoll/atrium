@@ -11,12 +11,9 @@ dependencies {
 
     testImplementation prefixedProject('api-fluent-en_GB-jvm')
     testImplementation prefixedProject('specs-jvm')
-
-    //TODO remove with 1.0.0
-    testImplementation prefixedProject('spec')
 }
 
-//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+//TODO 0.16.0 or 0.17.0 should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
 compileTestKotlin.dependsOn(
     prefixedProject('core-robstoll-jvm').compileKotlin,
     prefixedProject('core-robstoll-jvm').processResources,

@@ -5,45 +5,8 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.changers.ExtractedFeaturePostStep
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-
-/**
- * The access point to an implementation of [FeatureAssertions].
- *
- * It loads the implementation lazily via [loadSingleService].
- *
- * Will be renamed to featureAssertions with 1.0.0
- */
-@Deprecated("Use _logic from ch.tutteli.atrium.logic instead; will be removed with 1.0.0")
-val newFeatureAssertions by lazy { loadSingleService(NewFeatureAssertions::class) }
-
-/**
- * Defines the minimum set of assertion functions -- used to create feature assertions --
- * which an implementation of the domain of Atrium has to provide.
- *
- * Will be renamed to FeatureAssertions with 1.0.0
- */
-@Deprecated(
-    "Use NewFeatureAssertions from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.NewFeatureAssertions")
-)
-interface NewFeatureAssertions {
-
-    /**
-     * Extracts a feature from [expect] based on the given [MetaFeature] and creates a
-     * [ExtractedFeaturePostStep] based on it.
-     *
-     * @return The newly created [ExtractedFeaturePostStep].
-     */
-    fun <T, R> genericFeature(
-        expect: Expect<T>,
-        metaFeature: MetaFeature<R>
-    ): ExtractedFeaturePostStep<T, R>
-}
 
 /**
  * Represents an extracted feature of type [T] defined by the given [maybeSubject] including a [description]

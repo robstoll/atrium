@@ -3,7 +3,6 @@
 
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.domain.creating.typeutils.IterableLike
 import ch.tutteli.kbox.glue
 
 /**
@@ -31,42 +30,4 @@ interface VarArgHelper<out T> {
      * Returns the arguments as [List].
      */
     fun toList(): List<T> = expected glue otherExpected
-}
-
-/**
- * Transforms the given [IterableLike] to `Pair<T, Array<out T>>` with the intend that it can be easily used for a function
- * requiring `T, vararg T`
- *
- * @throws IllegalArgumentException in case the iterable is empty.
- */
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Use toVarArg from atrium-logic; will be removed with 1.0.0")
-inline fun <reified T> toVarArg(iterableLike: IterableLike): Pair<T, Array<out T>> =
-    iterableToPair(iterableLikeToIterable(iterableLike))
-
-@Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Use iterableLikeToIterable from atrium-logic; will be removed with 1.0.0")
-inline fun <reified T> iterableLikeToIterable(iterableLike: IterableLike): Iterable<T> =
-    when (iterableLike) {
-        is Sequence<*> -> iterableLike.map { it as T }.asIterable()
-        is Iterable<*> -> iterableLike.map { it as T }
-        is Array<*> -> iterableLike.map { it as T }
-        is CharArray -> iterableLike.map { it as T }
-        is ByteArray -> iterableLike.map { it as T }
-        is ShortArray -> iterableLike.map { it as T }
-        is IntArray -> iterableLike.map { it as T }
-        is LongArray -> iterableLike.map { it as T }
-        is FloatArray -> iterableLike.map { it as T }
-        is DoubleArray -> iterableLike.map { it as T }
-        is BooleanArray -> iterableLike.map { it as T }
-        else -> throw IllegalArgumentException("iterableLikeToIterable accepts arguments of types Iterable, Sequence, Array")
-    }
-
-@Deprecated(
-    "Use toVarArg from atrium-logic; will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.logic.utils.toVarArg(iterable)")
-)
-inline fun <reified T> iterableToPair(iterable: Iterable<T>): Pair<T, Array<out T>> {
-    require(iterable.iterator().hasNext()) { "Iterable without elements are not allowed for this function." }
-    return iterable.first() to iterable.drop(1).toTypedArray()
 }

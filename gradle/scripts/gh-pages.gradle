@@ -68,14 +68,8 @@ dokka {
     [
         "ch.tutteli.atrium.creating.impl",
         "ch.tutteli.atrium.api.verbs.internal",
-        "ch.tutteli.atrium.logic.creating.basic.contains.steps.impl",
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl",
-        //TODO remove the below with 1.0.0
-        "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
-        "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
-        "ch.tutteli.atrium.assertions.builders.impl",
+        //TODO remove the below with 0.17.0
         "ch.tutteli.atrium.domain.builders.reporting.impl",
-        "ch.tutteli.atrium.domain.builders.creating.changers.impl",
 
     ].each { pkg ->
         packageOptions {

@@ -3,9 +3,7 @@ description = 'Specifies the internally used assertion verbs'
 dependencies {
     api prefixedProject('domain-builders-jvm')
     api prefixedProject('core-api-jvm')
-    api prefixedProject('spec')
 
-    runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 
     testImplementation prefixedProject('specs-jvm')

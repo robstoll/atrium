@@ -34,7 +34,7 @@ constructor(
      * @param representation The [BasicDescriptiveAssertion.representation].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
-    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+    @Suppress("DEPRECATION" /* TODO remove with 0.16.0 */)
     @Deprecated(
         "Use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
         ReplaceWith(
@@ -50,13 +50,5 @@ constructor(
     /**
      * @suppress
      */
-    override fun toString() = "$description: $representation (holds=${safeHoldsForToString()})"
-
-    private fun safeHoldsForToString(): String =
-        //TODO remove try-catch with 1.0.0, should no longer be necessary
-        try {
-            holds().toString()
-        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
-            "PlantHasNoSubjectException"
-        }
+    override fun toString() = "$description: $representation (holds=${holds().toString()})"
 }

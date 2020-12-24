@@ -1,5 +1,6 @@
 package readme.examples
 
+//@formatter:off
 //snippet-import-start
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
@@ -9,7 +10,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.isRegularFile
 import ch.tutteli.atrium.api.fluent.en_GB.isWritable
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 //snippet-mapArguments-start
 import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
@@ -22,6 +22,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 //snippet-import-logic-start
 import ch.tutteli.atrium.logic.*
 //snippet-import-logic-end
+//@formatter:on
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic

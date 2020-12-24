@@ -4,7 +4,6 @@ dependencies {
     api prefixedProject('core-api-common')
     api prefixedProject('domain-builders-common')
 
-    runtimeOnly prefixedProject('domain-robstoll-common')
     runtimeOnly prefixedProject('core-robstoll-common')
 
     testImplementation prefixedProject('specs-common')

@@ -31,9 +31,8 @@ object SmokeSpec : Spek({
     }
 })
 
-@Suppress("DEPRECATION")
 fun Expect<Int>.isEven() =
-    createAndAddAssertion(DescriptionBasic.IS, Text("an even number")) { subject % 2 == 0 }
+    createAndAddAssertion(DescriptionBasic.IS, Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 

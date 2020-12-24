@@ -4,14 +4,8 @@ module ch.tutteli.atrium.domain.builders {
     requires static     ch.tutteli.atrium.translations.en_GB;
     requires            kotlin.stdlib;
 
-    exports ch.tutteli.atrium.domain.builders;
     exports ch.tutteli.atrium.domain.builders.creating;
-    exports ch.tutteli.atrium.domain.builders.creating.basic.contains;
-    exports ch.tutteli.atrium.domain.builders.creating.changers;
-    exports ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders;
     exports ch.tutteli.atrium.domain.builders.creating.collectors;
-    exports ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders;
-    exports ch.tutteli.atrium.domain.builders.migration;
     exports ch.tutteli.atrium.domain.builders.reporting;
     exports ch.tutteli.atrium.domain.builders.utils;
 

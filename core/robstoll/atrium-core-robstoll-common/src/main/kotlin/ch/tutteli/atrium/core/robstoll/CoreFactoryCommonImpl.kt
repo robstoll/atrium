@@ -2,12 +2,9 @@ package ch.tutteli.atrium.core.robstoll
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.core.CoreFactoryCommon
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.robstoll.lib.creating.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedLocaleOrderDecider
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
-import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -19,91 +16,6 @@ import kotlin.reflect.KClass
  * Robstoll's `abstract factory` for atrium-core.
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    final override fun <T> newReportingAssertionContainer(
-        assertionCheckerDecorator: ReportingAssertionContainer.AssertionCheckerDecorator<T>
-    ): ReportingAssertionContainer<T> = ReportingAssertionContainerImpl(assertionCheckerDecorator)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
-        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
-    )
-    final override fun <T : Any> newReportingPlant(
-        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
-    ): ReportingAssertionPlant<T> = ReportingAssertionPlantImpl(commonFields)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Switch to Expect instead of Assert, thus use newReportingAssertionContainer instead",
-        ReplaceWith("this.newReportingAssertionContainer(commonFields)")
-    )
-    final override fun <T : Any?> newReportingPlantNullable(
-        commonFields: AssertionPlantWithCommonFields.CommonFields<T>
-    ): ReportingAssertionPlantNullable<T> = ReportingAssertionPlantNullableImpl(commonFields)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Switch from Assert to Expect and use newCollectingAssertionContainer instead",
-        ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
-            "ch.tutteli.atrium.core.Some"
-        )
-    )
-    final override fun <T : Any> newCheckingPlant(
-        subjectProvider: () -> T
-    ): CheckingAssertionPlant<T> = CheckingAssertionPlantImpl(subjectProvider)
-
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    final override fun <T> newCollectingAssertionContainer(
-        maybeSubject: Option<T>
-    ): CollectingAssertionContainer<T> = CollectingAssertionContainerImpl(maybeSubject)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
-        ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
-            "ch.tutteli.atrium.core.Some"
-        )
-    )
-    final override fun <T : Any> newCollectingPlant(
-        subjectProvider: () -> T
-    ): CollectingAssertionPlant<T> = CollectingAssertionPlantImpl(subjectProvider)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Switch to Expect instead of Assert, thus use newCollectingAssertionContainer instead",
-        ReplaceWith(
-            "this.newCollectingAssertionContainer(Some(subjectProvider - /* define the subject here instead of subjectProvider - in case you have a transformation from an existing subject, then use maybeSubject.map { } */))",
-            "ch.tutteli.atrium.core.Some"
-        )
-    )
-    final override fun <T> newCollectingPlantNullable(
-        subjectProvider: () -> T
-    ): CollectingAssertionPlantNullable<T> = CollectingAssertionPlantNullableImpl(subjectProvider)
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    final override fun newThrowingAssertionChecker(
-        reporter: Reporter
-    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker(reporter)
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    final override fun newFeatureAssertionChecker(
-        originalAssertionHolder: AssertionHolder
-    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker(originalAssertionHolder)
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    override fun newDelegatingAssertionChecker(
-        originalAssertionHolder: AssertionHolder
-    ): ch.tutteli.atrium.checking.AssertionChecker = ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker(originalAssertionHolder)
-
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-    final override fun <T : Any?> newDelegatingAssertionChecker(
-        subjectPlant: BaseAssertionPlant<T, *>
-    ): ch.tutteli.atrium.checking.AssertionChecker = newDelegatingAssertionChecker(subjectPlant as AssertionHolder)
 
     final override fun newMethodCallFormatter(): MethodCallFormatter = TextMethodCallFormatter
 

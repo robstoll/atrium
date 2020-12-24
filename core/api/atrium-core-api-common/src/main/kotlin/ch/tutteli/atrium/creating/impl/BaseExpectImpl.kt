@@ -39,19 +39,6 @@ abstract class BaseExpectImpl<T>(
         registerImpl(I::class, implFactory)
     }
 
-
-    //TODO remove with 0.16.0
-    @Deprecated(
-        "Do not access subject as it might break reporting. In contexts where it is safe to access the subject, it is passed by parameter and can be accessed via `it`. See KDoc for migration hints; will be removed with 1.0.0",
-        ReplaceWith("it")
-    )
-    final override val subject: T by lazy {
-        maybeSubject.getOrElse {
-            @Suppress("DEPRECATION")
-            throw PlantHasNoSubjectException()
-        }
-    }
-
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
         val assertions = CollectingExpect(maybeSubject)
             .addAssertionsCreatedBy(assertionCreator)

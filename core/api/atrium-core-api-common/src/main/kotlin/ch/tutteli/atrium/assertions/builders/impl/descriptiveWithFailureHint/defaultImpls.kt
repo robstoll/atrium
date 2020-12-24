@@ -64,13 +64,7 @@ internal class FinalStepImpl(
 ) : DescriptiveAssertionWithFailureHint.FinalStep {
 
     override fun build(): Assertion {
-        //TODO remove try catch with 1.0.0, should no longer be necessary
-        val holds = try {
-            test()
-        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
-            // failure hint does not need to be shown if plant is absent
-            false
-        }
+        val holds = test()
         return if (holds || !showHint()) {
             assertionBuilder.createDescriptive(description, representation) { holds }
         } else {

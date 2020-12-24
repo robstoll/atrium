@@ -54,3 +54,12 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Expect<E>.() -> Unit)?, Group<(Expect<E>.() -> Unit)?>>
 ): Expect<T> = _logicAppend { entriesInOrderOnlyGrouped(order.toList()) }
+
+/**
+ * Helper function to create an [Order] based on the given [firstGroup], [secondGroup] and [otherExpectedGroups].
+ */
+fun <E> order(
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>
+): Order<E, Group<E>> = Order(firstGroup, secondGroup, otherExpectedGroups)

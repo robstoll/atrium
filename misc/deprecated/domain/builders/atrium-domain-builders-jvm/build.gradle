@@ -6,18 +6,12 @@ dependencies {
     // it is up to the consumer of atrium-domain-builders which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm')
 
-    testImplementation prefixedProject('api-fluent-en_GB-jvm')
     testImplementation prefixedProject('specs-jvm')
-
-    //TODO remove with 1.0.0, only used for FeatureAssertionBuilderName...Spec
-    testImplementation prefixedProject('api-cc-en_GB-jvm')
 }
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
 compileTestKotlin.dependsOn(
     prefixedProject('core-robstoll-jvm').compileKotlin,
     prefixedProject('core-robstoll-jvm').processResources,
-    prefixedProject('domain-robstoll-jvm').compileKotlin,
-    prefixedProject('domain-robstoll-jvm').processResources
 )
 

@@ -1,4 +1,4 @@
-//TODO remove file with 1.0.0
+//TODO remove file with 0.17.0
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
@@ -9,7 +9,8 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collect
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collectForComposition
 
-class AssertionCollectorImpl : AssertionCollector, AssertionCollectorDeprecatedImpl() {
+//TODO 0.16.0 move to logic and deprecate
+class AssertionCollectorImpl : AssertionCollector {
 
     override fun <T> collect(
         maybeSubject: Option<T>,

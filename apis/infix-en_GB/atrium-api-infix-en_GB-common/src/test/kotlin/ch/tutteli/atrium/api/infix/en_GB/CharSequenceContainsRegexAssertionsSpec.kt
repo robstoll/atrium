@@ -1,11 +1,23 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 class CharSequenceContainsRegexAssertionsSpec : Spek({
     include(StringSpec)
     include(RegexSpec)
+
+
+    describe("context 'aaaa'") {
+        it("search for 'aa' finds 3 hits since we want non disjoint matches") {
+            expect("aaaa") contains o exactly 3 regex "aa"
+        }
+        it("search for 'aa?' finds 4 hits since we want non disjoint matches") {
+            expect("aaaa")contains o exactly 4 regex "aa?"
+        }
+    }
 }) {
     object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexAssertionsSpec(
         getNameContainsRegex(),

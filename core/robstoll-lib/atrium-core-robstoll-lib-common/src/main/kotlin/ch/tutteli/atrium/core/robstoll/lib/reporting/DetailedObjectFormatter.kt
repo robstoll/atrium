@@ -4,7 +4,6 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.KClass
 
 expect class DetailedObjectFormatter(translator: Translator) : ObjectFormatter
@@ -43,7 +42,7 @@ abstract class DetailedObjectFormatterCommon(
     @Suppress( /* TODO remove with 1.0.0 */ "DEPRECATION")
     override fun format(value: Any?): String = when (value) {
         null -> Text.NULL.string
-        is LazyRepresentation -> format(safeEval(value))
+        is LazyRepresentation -> format(value.eval())
         is Char -> "'$value'"
         is Boolean -> value.toString()
         is String -> format(value)
@@ -59,14 +58,6 @@ abstract class DetailedObjectFormatterCommon(
 
         else -> limitRepresentation(value.toString()) + classNameAndIdentity(value)
     }
-
-    private fun safeEval(lazyRepresentation: LazyRepresentation) =
-        //TODO remove try-catch with 1.0.0 should no longer be necessary
-        try {
-            lazyRepresentation.eval()
-        } catch (@Suppress("DEPRECATION") e: ch.tutteli.atrium.creating.PlantHasNoSubjectException) {
-            ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED
-        }
 
     private fun format(string: String) = "\"${limitRepresentation(string)}\"" + identityHash(INDENT, string)
     private fun format(charSequence: CharSequence) = "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)

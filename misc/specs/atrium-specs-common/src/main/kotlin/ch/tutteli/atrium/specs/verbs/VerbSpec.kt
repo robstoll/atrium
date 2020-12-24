@@ -3,7 +3,6 @@ package ch.tutteli.atrium.specs.verbs
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder

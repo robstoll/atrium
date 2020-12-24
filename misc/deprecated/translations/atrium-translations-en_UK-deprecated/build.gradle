@@ -1,6 +1,0 @@
-description = "Deprecated translation project - use ${rootProject.name}-translations-en_GB-jvm instead."
-
-dependencies {
-    api prefixedProject('core-api-jvm')
-    implementation prefixedProject('translations-en_GB-jvm')
-}
