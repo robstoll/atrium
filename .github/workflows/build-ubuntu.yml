@@ -20,9 +20,10 @@ jobs:
             -   name: build
                 run: ./gradlew build
 
-            -   name: composite build atrium-scala2
-                run: ./gradlew build
-                working-directory: misc/tools/atrium-scala2-test
+# TODO 0.16.0 or 0.17.0 re-activate scala API
+#            -   name: composite build atrium-scala2
+#                run: ./gradlew build
+#                working-directory: misc/tools/atrium-scala2-test
 
             -   name: Upload windows build code coverage
                 uses: codecov/codecov-action@v1
