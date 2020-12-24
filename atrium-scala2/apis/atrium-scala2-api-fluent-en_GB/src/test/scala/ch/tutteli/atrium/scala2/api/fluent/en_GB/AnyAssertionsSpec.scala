@@ -3,6 +3,7 @@ package ch.tutteli.atrium.scala2.api.fluent.en_GB
 import TestUtils._
 import AnyAssertionsSpec._
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.api.verbs.internal.AtriumVerbsKt.expect
 
 class AnyAssertionsSpec
     extends ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
@@ -62,5 +63,10 @@ object AnyAssertionsSpec {
 
   implicit class RxKotlinPair[T](pair: kotlin.Pair[String, T]) {
       def withNullableSuffix() = new kotlin.Pair(pair.getFirst+" (nullable)", pair.getSecond)
+  }
+
+  def ambiguityTest() = {
+    expect(1).toBe(1)
+    expect(1).notToBe(1)
   }
 }

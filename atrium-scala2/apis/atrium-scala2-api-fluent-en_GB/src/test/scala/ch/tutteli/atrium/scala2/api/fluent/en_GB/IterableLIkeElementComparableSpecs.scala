@@ -5,7 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import java.lang.{Iterable => JIterable}
 
 import scala.reflect.ClassTag
-import IterableFeatureAssertionsSpec._
 import IsIterableHelpers._
 
 // FIXME rewrite after fusing IterableFutureAssertionsSpec with IterableAssertionsSpecr
@@ -26,17 +25,3 @@ import IsIterableHelpers._
 //      fun1("max", changeToScalaArray(_).max(_).asExpectJIterable),
 //      "[Atrium] "
 //    )
-
-//noinspection TypeAnnotation
-object IterableFeatureAssertionsSpec {
-
-  def changeToScalaIterable[E](expect: Expect[JIterable[E]]) = {
-    import scala.jdk.CollectionConverters._
-    ExpectImpl.changeSubject(expect).unreported(s => s.asScala)
-  }
-
-  def changeToScalaArray[E: ClassTag](expect: Expect[JIterable[E]]) = {
-    import scala.jdk.CollectionConverters._
-    ExpectImpl.changeSubject(expect).unreported(s => s.asScala.toArray)
-  }
-}

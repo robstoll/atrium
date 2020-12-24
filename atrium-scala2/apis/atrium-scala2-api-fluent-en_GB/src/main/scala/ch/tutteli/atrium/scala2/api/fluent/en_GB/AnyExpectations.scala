@@ -1,14 +1,9 @@
 package ch.tutteli.atrium.scala2.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.AnyAssertionsBuilder
-import ch.tutteli.atrium.logic.impl.DefaultAnyAssertions
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.LogicKt
-import ch.tutteli.atrium.logic.AnyKt
+import ch.tutteli.atrium.logic.{AnyKt, LogicKt}
 
-class AnyAssertions[T](expect: Expect[T]) {
+class AnyExpectations[T](override val expect: Expect[T]) extends BaseExpectations[T] {
 
   def toBe(expected: T): Expect[T] =
     addAssertion(c => AnyKt.toBe(c, expected))
@@ -22,8 +17,8 @@ class AnyAssertions[T](expect: Expect[T]) {
   def isNotSameAs(expected: T): Expect[T] =
     addAssertion(c => AnyKt.isNotSameAs(c, expected))
 
-  def toBeNullIfNullGivenElse(assertionCreatorOrNull: Expect[T] => Unit)(implicit kClass: KClassTag[T]): Expect[T] =
-    addAssertion(c => AnyKt.toBeNullIfNullGivenElse(c, kClass.kClass, assertionCreatorOrNull))
+  def toBeNullIfNullGivenElse(assertionCreatorOrNull: Expect[T] => Unit): Expect[T] =
+    addAssertion(c => AnyKt.toBeNullIfNullGivenElse(c, assertionCreatorOrNull))
 
   def notToBeNull()(implicit kClass: KClassTag[T]): Expect[T] = isA[T]()
 
@@ -50,7 +45,4 @@ class AnyAssertions[T](expect: Expect[T]) {
 
   def because(reason: String, assertionCreator: Expect[T] => Unit): Expect[T] =
     addAssertion(c => AnyKt.because(c, reason, assertionCreator))
-
-  @inline private def addAssertion(f: AssertionContainer[T] => Assertion): Expect[T] =
-    LogicKt._logicAppend(expect, f)
 }
