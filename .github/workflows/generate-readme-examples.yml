@@ -1,0 +1,24 @@
+name: Generate README examples
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Set up JDK 11"
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Generate readme
+        run: ./gradlew :readme-examples
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        branch: generate-readme
+        title: Generate README examples
+        commit-message: generate README examples
+        delete-branch: true
+
