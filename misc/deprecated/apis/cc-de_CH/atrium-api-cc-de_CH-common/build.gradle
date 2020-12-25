@@ -1,5 +1,0 @@
-description = 'An assertion function API in de_CH with a focus on code completion as common module.'
-
-dependencies {
-    api prefixedProject('domain-builders-common')
-}

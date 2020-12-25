@@ -1,4 +1,4 @@
-//TODO remove both annotations with 1.0.0
+//TODO remove both annotations with 0.16.0
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceAssertionsKt")
 
@@ -9,7 +9,6 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains

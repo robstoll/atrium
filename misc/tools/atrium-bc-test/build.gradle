@@ -21,12 +21,6 @@ dependencies {
     common "org.spekframework.spek2:spek-runtime-jvm:$spek2_version"
     common "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    //spek1
-    common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
-    common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
-    common "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
-    common "org.junit.platform:junit-platform-console:$junit_platform_version"
-
     common mockito(), excludeKotlin
     common kotlinStdlib()
 
@@ -44,7 +38,7 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
-['fluent-en_GB', 'infix-en_GB', /* TODO remove with 1.0.0 => */ 'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB', 'cc-en_UK', 'cc-infix-en_UK'].each { apiName ->
+['fluent-en_GB', 'infix-en_GB'].each { apiName ->
     task("bcBbc-$apiName", group: 'Verification') {
         description = "runs all backward compatibility and binary backward compatibility tests for $apiName"
         dependsOn build
@@ -61,20 +55,30 @@ def bcTests = task("bcTests", group: 'Verification') {
     }
 }
 
-def createBcAndBbcTasksForApis(String oldVersion, String forgive, String... apis) {
+def createBcAndBbcTasksForApis(String oldVersion, String forgive, Boolean withBc, Boolean withBbc, String... apis) {
 
-    def bc_version = task("bc-$oldVersion", group: 'Verification')
-    def bbc_version = task("bbc-$oldVersion", group: 'Verification')
+    Task bc_version = null
+    Task bbc_version = null
+    if (withBc) {
+        bc_version = task("bc-$oldVersion", group: 'Verification')
+    }
+    if (withBbc) {
+        bbc_version = task("bbc-$oldVersion", group: 'Verification')
+    }
 
     apis.each { apiName ->
-        createBcAndBbcTasks(apiName, oldVersion, forgive)
-        bc_version.dependsOn "bc-${apiName}-$oldVersion"
-        bbc_version.dependsOn "bbc-${apiName}-$oldVersion"
+        createBcAndBbcTasks(apiName, oldVersion, forgive, withBc, withBbc)
         def bcBbcApi = project."bcBbc-$apiName"
-        bcBbcApi.dependsOn "bc-${apiName}-$oldVersion"
-        bcBbcApi.dependsOn "bbc-${apiName}-$oldVersion"
-        project."bc-$apiName".dependsOn "bc-${apiName}-$oldVersion"
-        project."bbc-$apiName".dependsOn "bbc-${apiName}-$oldVersion"
+        if (withBc) {
+            bc_version.dependsOn "bc-${apiName}-$oldVersion"
+            bcBbcApi.dependsOn "bc-${apiName}-$oldVersion"
+            project."bc-$apiName".dependsOn "bc-${apiName}-$oldVersion"
+        }
+        if (withBbc) {
+            bbc_version.dependsOn "bbc-${apiName}-$oldVersion"
+            bcBbcApi.dependsOn "bbc-${apiName}-$oldVersion"
+            project."bbc-$apiName".dependsOn "bbc-${apiName}-$oldVersion"
+        }
     }
 }
 
@@ -83,13 +87,11 @@ Task createJacocoReportTask(String apiName, String name, Task runTask) {
         sourceSets sourceSets.main
         executionData runTask
 
-        def projects = apiName.contains('en_UK') || apiName.contains('en_GB') ?
+        def projects = apiName.contains('en_GB') ?
             jacocoMulti.sourceProjects :
             jacocoMulti.sourceProjects -
                 prefixedProject('translations-en_GB-jvm') -
-                prefixedProject('translations-en_UK-deprecated') +
-                prefixedProject('translations-de_CH-jvm') +
-                prefixedProject('translations-de_CH-deprecated')
+                prefixedProject('translations-de_CH-jvm')
 
         projects.each {
             sourceSets it.sourceSets.main
@@ -113,7 +115,7 @@ File getSrcDirectory(String apiName, String oldVersion) {
     return file("${project.projectDir}/src/old/$oldVersion/atrium-api-$apiName")
 }
 
-def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
+def createBcAndBbcTasks(String apiName, String oldVersion, String forgive, Boolean withBc, Boolean withBbc) {
     def nameUnderline = getNameUnderline(apiName, oldVersion)
     def name = "${apiName}-$oldVersion"
     def srcName = "src_$nameUnderline"
@@ -136,10 +138,8 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         create(testJarSources)
     }
 
-    def isFluentOrInfix = apiName.startsWith("fluent") || apiName.startsWith("infix")
-
     dependencies {
-        def groupId = oldVersion == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
+        def groupId = 'ch.tutteli.atrium'
         add(testJar, "$groupId:atrium-api-$apiName:$oldVersion:tests") {
             exclude group: '*'
         }
@@ -147,58 +147,30 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             exclude group: '*'
         }
 
-        //TODO remove with 1.0.0, keep only else branch
-        if (oldVersion == '0.6.0') {
-            add(confCommon, "$groupId:atrium-spec:$oldVersion") {
-                exclude group: '*'
-            }
-            add(confCommon, prefixedProject("api-cc-en_UK")) { //required by atrium-spec
-                exclude group: '*'
-            }
-        } else if (oldVersion == '0.7.0' || oldVersion == '0.8.0') {
-            add(confCommon, "$groupId:atrium-spec:$oldVersion") {
-                exclude group: '*'
-            }
-            add(confCommon, prefixedProject("api-cc-en_GB-jvm")) {  //required by atrium-spec
-                exclude group: '*'
-            }
-            if (!apiName.endsWith('cc-de_CH')) {
-                add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by spec in the APIs
-                    exclude group: '*'
-                }
-            }
-        } else {
-            //TODO tests are now mostly in the common module. However, we cannot unzip this to the jvm project but
-            // require a common module for it. Probably easiest to introduce a second bc-test which is an MPP project
+        //TODO tests are now mostly in the common module. However, we cannot unzip this to the jvm project but
+        // require a common module for it. Probably easiest to introduce a second bc-test which is an MPP project
 //            add(testJarSources, "$groupId:atrium-api-$apiName-common:$oldVersion:testsources") {
 //                exclude group: '*'
 //            }
-            add(confCommon, "$groupId:atrium-specs:$oldVersion") {
-                exclude group: 'ch.tutteli.atrium'
-            }
-            add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by specs in the APIs
-                exclude group: '*'
-            }
+        add(confCommon, "$groupId:atrium-specs:$oldVersion") {
+            exclude group: 'ch.tutteli.atrium'
+        }
+        //required by atrium-specs
+        add(confCommon, "$groupId:atrium-api-fluent-en_GB:$oldVersion") {
+            exclude group: 'ch.tutteli.atrium'
+        }
+        add(confCommon, prefixedProject("verbs-internal-jvm")) {  //required by specs in the APIs
+            exclude group: '*'
         }
 
-        //TODO keep only if branch, remove the rest with 1.0.0
-        if (isFluentOrInfix) {
-            //required by atrium-specs
-            add(confCommon, prefixedProject("$apiName-jvm"))
+        //required by atrium-specs
+        add(confCommon, prefixedProject("$apiName-jvm"))
 
-            //TODO remove if with 1.0.0
-            // dependencies for samples
-            if (!(oldVersion in ['0.6.0', '0.7.0', '0.8.0', '0.9.0', '0.10.0', '0.11.0', '0.12.0', '0.13.0'])) {
-                //for samples
-                add(confCommon, "org.jetbrains.kotlin:kotlin-test:$kotlin_version")
-                add(confCommon, "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
-                add(confCommon, "org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
-            }
-        } else if (!apiName.endsWith('en_UK')) {
-            add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
-        } else {
-            add(confCommon, prefixedProject("$apiName-robstoll"))
-        }
+        // dependencies for samples
+        add(confCommon, "org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+        add(confCommon, "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
+        add(confCommon, "org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
+
         add(confCommon, sourceSets.main.runtimeClasspath)
 
         owner."${srcName}Implementation" configurations[confCommon].dependencies
@@ -209,7 +181,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
             '--scan-class-path', scanClassPath,
             '--disable-banner',
             '--fail-if-no-tests',
-            '--include-engine', isFluentOrInfix ? 'spek2-deprecation' : 'spek1-deprecation',
+            '--include-engine', 'spek2-deprecation',
             // to execute samples
             '--include-engine', 'junit-jupiter',
             '--include-classname', '.*(Samples|Spec)',
@@ -218,70 +190,76 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive) {
         ]
     }
 
-    def bbcTask = task("bbc-$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $oldVersion can be run against the current version."
-
-        inputs.files configurations[testJar]
-        inputs.files configurations[confCommon]
-
-        classpath configurations[confCommon].asPath
-        classpath configurations[testJar].asPath
-
-        main = 'org.junit.platform.console.ConsoleLauncher'
-        args = getArgs(configurations[testJar].asPath)
-    }
-
-    def unzip = task("unzip-$name") {
-        inputs.files configurations[testJarSources]
-
-        outputs.dir srcDirectory
-        doLast {
-            configurations[testJarSources].each {
-                def jar = it
-                copy {
-                    from zipTree(jar)
-                    into srcDirectory
-                }
-            }
-        }
-    }
-
-    project."compileSrc_${nameUnderline}Kotlin" {
-        kotlinOptions.suppressWarnings = true
-        dependsOn unzip
-    }
-
-    def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
-
-        inputs.files sourceSets[srcName].runtimeClasspath
-
-        classpath sourceSets[srcName].runtimeClasspath
-
-        main = 'org.junit.platform.console.ConsoleLauncher'
-        args = getArgs(sourceSets[srcName].output.classesDirs.asPath)
-    }
-
     apply plugin: 'jacoco'
 
     jacoco {
         toolVersion = "$jacoco_tool_version"
-        applyTo bcTask
-        applyTo bbcTask
     }
 
-    def jacocoBbcReport = createJacocoReportTask(apiName, "bbc-$name", bbcTask)
-    def jacocoBcReport = createJacocoReportTask(apiName, "bc-$name", bcTask)
+    if (withBbc) {
+        def bbcTask = task("bbc-$name", type: JavaExec, group: 'Verification') {
+            description = "Checks if specs from $apiName $oldVersion can be run against the current version."
 
-    //if we want it to be part of the build
-    //check.dependsOn jacocoReport
-    //check.dependsOn bbcTask
-    //check.dependsOn bcTask
+            inputs.files configurations[testJar]
+            inputs.files configurations[confCommon]
 
-    bbcTests.dependsOn jacocoBbcReport
-    bbcTests.dependsOn bbcTask
-    bcTests.dependsOn jacocoBcReport
-    bcTests.dependsOn bcTask
+            classpath configurations[confCommon].asPath
+            classpath configurations[testJar].asPath
+
+            main = 'org.junit.platform.console.ConsoleLauncher'
+            args = getArgs(configurations[testJar].asPath)
+        }
+
+        def jacocoBbcReport = createJacocoReportTask(apiName, "bbc-$name", bbcTask)
+        jacoco {
+            applyTo bbcTask
+        }
+
+        bbcTests.dependsOn jacocoBbcReport
+        bbcTests.dependsOn bbcTask
+    }
+
+    if (withBc) {
+
+        def unzip = task("unzip-$name") {
+            inputs.files configurations[testJarSources]
+
+            outputs.dir srcDirectory
+            doLast {
+                configurations[testJarSources].each {
+                    def jar = it
+                    copy {
+                        from zipTree(jar)
+                        into srcDirectory
+                    }
+                }
+            }
+        }
+
+
+        project."compileSrc_${nameUnderline}Kotlin" {
+            kotlinOptions.suppressWarnings = true
+            dependsOn unzip
+        }
+
+        def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
+            description = "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
+
+            inputs.files sourceSets[srcName].runtimeClasspath
+
+            classpath sourceSets[srcName].runtimeClasspath
+
+            main = 'org.junit.platform.console.ConsoleLauncher'
+            args = getArgs(sourceSets[srcName].output.classesDirs.asPath)
+        }
+
+        def jacocoBcReport = createJacocoReportTask(apiName, "bc-$name", bcTask)
+        jacoco {
+            applyTo bcTask
+        }
+        bcTests.dependsOn jacocoBcReport
+        bcTests.dependsOn bcTask
+    }
 }
 
 def createFixSrcTask(String apiName, String oldVersion, String file, Closure modifyContent) {
@@ -300,171 +278,18 @@ def createFixSrcTask(String apiName, String oldVersion, String file, Closure mod
 }
 
 //@formatter:off
-createBcAndBbcTasksForApis('0.6.0',
-    'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
-        '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
-        '(IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) 5.0 (nichtOderHoechstens|notOrAtMost) once throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 (nichtOderHoechstens|notOrAtMost) twice throws AssertionError)' +
-        ').*)|' +
-        '(IterableContainsInAnyOrderExactlyObjectsAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) 5.0 (genau|exactly) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 (genau|exactly) twice throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 (genau|exactly) 3 times throws AssertionError)' +
-        ').*)|' +
-        '(IterableContainsInAnyOrderAtMostObjectsAssertionsSpec.*:(enthaelt|contains|to contain) 5.0 and 4.0 (hoechstens|atMost) twice throws AssertionError.*)|' +
-        '(IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) 5.0 in any order (zumindest|atLeast) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 in any order (zumindest|atLeast) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 (zumindest|atLeast) once (aberHoechstens|butAtMost) twice throws AssertionError)|' +
-            '((enthaelt|contains|to contain) 5.0 and 4.0 (zumindest|atLeast) 3 times (aberHoechstens|butAtMost) 4 times throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceContainsNotOrAtMostAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) \'o\' (nichtOderHoechstens|notOrAtMost) once throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (nichtOderHoechstens|notOrAtMost) twice throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceContainsNotAssertionsSpec.*:(' +
-            '((enthaeltNicht|containsNot|notTo contain) \'l\' throws AssertionError)|' +
-            '((enthaeltNicht|containsNot|notTo contain) \'H\', \'l\' throws AssertionError)|' +
-            '((enthaeltNicht|containsNot|notTo contain) \'l\', \'H\' once throws AssertionError)|' +
-            '((enthaeltNicht|containsNot|notTo contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'H\', \'l\' throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceContainsExactlyAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'o\' (genau|exactly) twice throws)|' +
-            '((enthaelt|contains|to contain) \'o\' (genau|exactly) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (genau|exactly) twice throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (genau|exactly) 3 times throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceContainsContainsNotAssertionsSpec.*:(enthaelt|contains|contains Values) \'hello\' and \'robert\' throws AssertionError.*)|' +
-        '(CharSequenceContainsAtMostAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'o\' (hoechstens|atMost) twice throws AssertionError )|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (hoechstens|atMost) twice throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceContainsAtLeastAssertionsSpec.*:(' +
-            '((enthaelt|contains|to contain) \'o\' (zumindest|atLeast) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) 3 times throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) once (aberHoechstens|butAtMost) twice throws AssertionError)|' +
-            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) 3 times (aberHoechstens|butAtMost) 4 times throws AssertionError)' +
-        ').*)|' +
-        '(CharSequenceAssertionsSpec.*:(' +
-            '((enthaeltStandardUebersetzungVon|containsDefaultTranslationOf|contains DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)|' +
-            '((enthaeltNichtDieStandardUebersetzungVon|containsNotDefaultTranslationOf|containsNot DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)|' +
-            '(.*can be used in ExplanatoryAssertionGroup and reported without failure.*fun `(' +
-                'enthaeltStandardUebersetzungVon|enthaeltNichtDieStandardUebersetzungVon|' +
-                'containsDefaultTranslationOf|containsNotDefaultTranslationOf|' +
-                '(contains DefaultTranslationsOf)|(containsNot DefaultTranslationsOf)' +
-            ')`)' +
-        ').*)|' +
-        '(Iterable.*Spec.*fun.*`[^`]*(' +
-            'enthaelt|enthaeltNicht|enthaeltStrikt|eintraege|' +
-            'contains|containsNot|containsStrictly|[Ee]ntries' +
-        ')`.*(error cases|failing cases|context empty collection).*)|' +
-        '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
-        '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)|' +
-        '(FloatingPointAssertionsSpec.*throws AssertionError.*)|' +
-        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)|' +
-        '(ThrowableAssertionsSpec.*throws an AssertionError.*shows message and stacktrace.*)' +
-    ')',
-    'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
-)
-createBcAndBbcTasksForApis('0.7.0',
-    'forgive=(.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|en_GB|(infix\\.(en_UK|en_GB)))\\.(' +
-        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)|' +
-        '(ThrowableAssertionsSpec.*throws an AssertionError.*shows message and stacktrace.*)|' +
-        '(CharSequenceContainsRegexAssertionsSpec.*16 times throws AssertionError.*)|' +
-        '(ComparableAssertionsSpec.*(isGreaterOrEquals|istGroesserOderGleich|isLessOrEquals|istKleinerOderGleich).*)' +
-    '))|(.*ch\\.tutteli\\.atrium\\.VerbSpec.*which immediately evaluates assertions.*)',
-    'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
-)
-createBcAndBbcTasksForApis('0.8.0',
-    'forgive=(.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_GB|(infix\\.en_GB))\\.('+
-        '(CharSequenceContainsRegexAssertionsSpec.*(16 times throws AssertionError|(roberto?.*once throws AssertionError)).*)|' +
-        '(ComparableAssertionsSpec.*(isGreaterOrEquals|istGroesserOderGleich|isLessOrEquals|istKleinerOderGleich).*)' +
-    '))|(.*ch\\.tutteli\\.atrium\\.VerbSpec.*which immediately evaluates assertions.*)',
-    'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
-)
-createBcAndBbcTasksForApis('0.9.2',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
-        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(IterableContainsInOrderOnly.*Spec)'+
-    ').*)',
-    'fluent-en_GB'
-)
-createBcAndBbcTasksForApis('0.10.0',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
-        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(IterableContainsInOrderOnly.*Spec)'+
-    ').*)',
-    'fluent-en_GB'
-)
-createBcAndBbcTasksForApis('0.11.1',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/('+
-        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)|'+
-        '(IterableContainsInOrderOnly.*Spec)'+
-    ').*)',
-    'fluent-en_GB'
-)
-createBcAndBbcTasksForApis('0.12.0',
-    'forgive=(ch/tutteli/atrium/api/fluent/en_GB/(' +
-        '(PathAssertionsSpec/.*`is(Readable|Writable|RegularFile|Directory)`)'+
-    ').*)|(ch/tutteli/atrium/api/infix/en_GB/(' +
-        '(Fun0AssertionsJvmSpec/)|' +
-        '(PathAssertionsSpec/.*`toBe (readable|writable|aRegularFile|aDirectory)`)' +
-    ').*)|(ch/tutteli/atrium/api/(fluent|infix)/en_GB/('+
-        '(ComparableAssertionsSpec.*(isLessThanOrEqual|isGreaterThanOrEqual))|'+
-        '(Fun0AssertionsSpec.*/notToThrow( \\(feature\\))? - throws an AssertionError)|'+
-        '(IterableContainsInOrderOnly.*Spec)'+
-    ').*)',
-    'fluent-en_GB','infix-en_GB'
-)
-// we are not setting up bbc/bc tests for 0.13.0. The problem is:
-// We inline toThrow, making atrium-logic part of the API in binary terms. atrium-logic is experimental though and we
-// changed toThrow -- we are no longer using ChangedSubjectPostStep -- making almost every spec fail. Forgiving each
-// does not make sensen
-//createBcAndBbcTasksForApis('0.13.0',
-////    'forgive=(.*(\\(feature\\)|(describe empty assertion creator lambda)).*)',
-//    'forgive=^$',
-//    'fluent-en_GB', 'infix-en_GB')
-//@formatter:on
-
 createBcAndBbcTasksForApis('0.14.0',
     'forgive=(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(' +
         '(IterableContainsInOrderOnly.*Spec)|' +
         '(MapAssertionsSpec.*)' +
-    ').*)',
+        ').*)',
+    /* withBc = */ true,
+    /* withBbc = */ false,
     'fluent-en_GB', 'infix-en_GB'
 )
 createBcAndBbcTasksForApis('0.15.0',
     'forgive=^$',
+    /* withBc = */ true,
+    /* withBbc = */ false,
     'fluent-en_GB', 'infix-en_GB'
 )
-
-['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'].each { apiName ->
-    createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
-        return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
-    }
-    createFixSrcTask(apiName, '0.7.0', 'IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.kt') { String content ->
-        return content.replaceAll(/ ((?:Entry|Eintrag)\(groups\[0]\)|(?:Entries|Eintraege)\(groups\[0], \*groups.drop\(1\)\.toTypedArray\(\)\))/, ' $1 as GroupWithoutNullableEntries<Assert<Double>.() -> Unit>')
-    }
-}
-createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
-    return content.replaceAll(/Assert<BigDecimal>::toBe.name/, '"toBe"').replaceAll(/Assert<BigDecimal>::notToBe.name/, '"notToBe"')
-}
-createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
-    return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
-}
-createFixSrcTask('cc-infix-en_GB', '0.7.0', 'IterableContainsInOrderOnlyValuesAssertionsSpec.kt') { String content ->
-    return content.replaceAll(/NullableValues<Double>/, 'NullableValues<Double?>')
-}
-['fluent-en_GB', 'infix-en_GB'].each { apiName ->
-    createFixSrcTask(apiName, '0.12.0', 'ChronoLocalDateTimeAssertionSpec.kt') { String content ->
-        return content.replaceAll(/ fun1/, ' fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>')
-    }
-    createFixSrcTask(apiName, '0.12.0', 'ChronoLocalDateAssertionsSpec.kt') { String content ->
-        return content.replaceAll(/ fun1/, ' fun1<ChronoLocalDate, ChronoLocalDate>')
-    }
-    createFixSrcTask(apiName, '0.12.0', 'ChronoZonedDateTimeAssertionSpec.kt') { String content ->
-        return content.replaceAll(/ fun1/, ' fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>')
-    }
-}

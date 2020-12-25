@@ -1,22 +1,18 @@
 package ch.tutteli.atrium.scala2.api.fluent
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.ExpectImpl
 import _root_.scala.annotation.unchecked.uncheckedVariance
 import kotlin.reflect.KClass
 
 package object en_GB extends ScalaKotlinConversions {
   import IsIterableHelpers._
 
-  @inline val ExpectImpl: ExpectImpl =
-    ch.tutteli.atrium.domain.builders.ExpectImpl.INSTANCE
-
-  implicit def expectToAnyAssertions[T](expect: Expect[T]): AnyAssertions[T] =
-    new AnyAssertions(expect)
+  implicit def expectToAnyAssertions[T](expect: Expect[T]): AnyExpectations[T] =
+    new AnyExpectations(expect)
 
   implicit def expectToIterableLikeElementComparableAssertions[Repr, E <: Comparable[E]](expect: Expect[Repr])(
       implicit it: IsIterableFixA[Repr, E]
-  ): IterableLikeElementComparableAssertions[Repr, E] = new IterableLikeElementComparableAssertions(expect)
+  ): IterableLikeElementComparableExpectations[Repr, E] = new IterableLikeElementComparableExpectations(expect)
 
 }
 

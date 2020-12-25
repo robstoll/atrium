@@ -1,14 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.migration.asAssert
-import ch.tutteli.atrium.domain.builders.migration.asExpect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
-import ch.tutteli.atrium.creating.ErrorMessages
 
 abstract class IterableAnyAssertionsSpec(
     any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -55,18 +51,6 @@ abstract class IterableAnyAssertionsSpec(
                         "$atLeastDescr: 1"
                     )
 
-                }
-            }
-            //TODO remove with 1.0.0
-            it("$returnValueOfFun(...) states warning that subject is not set") {
-                expect {
-                    expect(fluentEmpty()).anyFun {
-                        @Suppress("DEPRECATION")
-                        asAssert().returnValueOf(subject::dec).asExpect().toBe(1.0)
-                    }
-                }.toThrow<AssertionError> {
-                    @Suppress("DEPRECATION")
-                    messageContains(ErrorMessages.SUBJECT_ACCESSED_TOO_EARLY.getDefault())
                 }
             }
         }

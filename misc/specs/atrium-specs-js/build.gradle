@@ -14,12 +14,8 @@ dependencies {
     // `api` and not `implementation` in order that a depending module can use dependOn_...
     api prefixedProject('core-robstoll-js')
     api prefixedProject('domain-robstoll-js')
-    api prefixedProject('domain-robstoll-kotlin_1_3-js')
 
     implementation prefixedProject('api-fluent-en_GB-js')
-
-    //TODO 1.0.0 remove, only needed for returnValueOf test
-    implementation prefixedProject('api-cc-en_GB-js')
 }
 
 dependencies {

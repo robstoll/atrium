@@ -16,10 +16,6 @@ dependencies {
     // exclude this dependency in case you want to use another implementation
     runtimeOnly prefixedProject('core-robstoll-jvm')
     runtimeOnly prefixedProject('domain-robstoll-jvm')
-    runtimeOnly prefixedProject('domain-robstoll-kotlin_1_3-jvm')
-
-    //TODO 1.0.0 remove, only needed for returnValueOf test
-    implementation prefixedProject('api-cc-en_GB-jvm')
 }
 
 dependencies {
@@ -30,8 +26,6 @@ dependencies {
     api "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
     runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
 
-    //TODO #116 remove once there aren't any spek1 specs anymore
-    api "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     api mockito(), excludeKotlin
     api niok(), excludeKotlin
 }
