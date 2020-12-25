@@ -14,7 +14,7 @@ jobs:
         with:
           java-version: 11
       - name: Generate readme
-        run: ./gradlew :readme-examples
+        run: ./gradlew :readme-examples:build
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
