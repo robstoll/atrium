@@ -1489,6 +1489,16 @@ For example, `exists` will explain which entry was the first one missing:
 
 <ex-path-exists>
 
+```kotlin
+expect(Paths.get("/usr/bin/noprogram")).exists()
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L353)</sub> ↓ <sub>[Output](#ex-path-exists)</sub>
+<a name="ex-path-exists"></a>
+```text
+expected that subject: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
+◆ to: exist
+    » the closest existing parent directory is /usr/bin
+```
 </ex-path-exists>
 
 Atrium will give details about why something cannot be accessed, for example when checking whether a file is writable:
