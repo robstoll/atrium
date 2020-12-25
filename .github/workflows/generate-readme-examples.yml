@@ -17,8 +17,9 @@ jobs:
         run: ./gradlew :readme-examples
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
-        branch: generate-readme
-        title: Generate README examples
-        commit-message: generate README examples
-        delete-branch: true
+        with:
+          branch: generate-readme
+          title: Generate README examples
+          commit-message: generate README examples
+          delete-branch: true
 
