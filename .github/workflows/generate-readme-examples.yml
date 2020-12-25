@@ -18,8 +18,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: generate-readme
-          title: Generate README examples
+          branch: re-generate-README
+          title: Re-Generate README examples
           commit-message: generate README examples
+          body: Looks like someone forgot to run gr build or did not commit the changes
           delete-branch: true
 
