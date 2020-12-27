@@ -12,11 +12,11 @@ class IteratorAssertionSamples {
     fun has() {
         val list = listOf(1)
         val iterator = list.iterator()
-        expect(iterator) has next
+        expect(iterator) has next  //subject is iterator of list
 
         fails {
-            iterator.next()
-            expect(iterator) has next
+            iterator.next()  //returns the next element in iteration
+            expect(iterator) has next  //fails as list has only 1 element
         }
     }
 
@@ -26,10 +26,10 @@ class IteratorAssertionSamples {
         val iterator = list.iterator()
 
         fails {
-            expect(iterator) hasNot next
+            expect(iterator) hasNot next  //fails as list has one element
         }
 
-        iterator.next()
-        expect(iterator) hasNot next
+        iterator.next()  //returns the next element in iteration
+        expect(iterator) hasNot next   //list has no more elements
     }
 }
