@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.get
  *
  * @return The newly created [Expect] for the element at position [index].
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListAssertionSamples.getFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListExpectationsSamples.getFeature
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
     _logic.get(index).transform()
@@ -25,7 +25,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListAssertionSamples.get
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListExpectationsSamples.get
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> =
     _logic.get(index.index).collectAndAppend(index.assertionCreator)

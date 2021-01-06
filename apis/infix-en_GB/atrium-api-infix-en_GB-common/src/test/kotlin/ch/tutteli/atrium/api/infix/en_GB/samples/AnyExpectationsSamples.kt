@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class AnyAssertionSamples {
+class AnyExpectationsSamples {
 
     @Test
     fun toBe() {

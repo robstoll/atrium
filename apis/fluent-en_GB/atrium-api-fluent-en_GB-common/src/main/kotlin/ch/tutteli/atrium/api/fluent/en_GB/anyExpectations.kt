@@ -12,7 +12,7 @@ import ch.tutteli.kbox.glue
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBe
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.toBe
  */
 fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
@@ -21,7 +21,7 @@ fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBe
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.notToBe
  */
 fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
@@ -30,7 +30,7 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isSameAs
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isSameAs
  */
 fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
@@ -39,7 +39,7 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNotSameAs
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isNotSameAs
  */
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
@@ -53,7 +53,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
  *
  * @since 0.15.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.because
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.because
  */
 fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logicAppend { because(reason, assertionCreator) }
@@ -64,7 +64,7 @@ fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.toBeNullIfNullGivenElse
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.toBeNullIfNullGivenElse
  */
 fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
@@ -75,7 +75,7 @@ fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBeNullFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.notToBeNullFeature
  */
 inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
     _logic.notToBeNullButOfType(T::class).transform()
@@ -86,7 +86,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> =
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.notToBeNull
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.notToBeNull
  */
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logic.notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
@@ -109,7 +109,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isAFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isAFeature
  */
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
     _logic.isA(TSub::class).transform()
@@ -154,7 +154,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isA
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isA
  */
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     _logic.isA(TSub::class).transformAndAppend(assertionCreator)
@@ -168,7 +168,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.andFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.andFeature
  */
 inline val <T> Expect<T>.and: Expect<T> get() = this
 
@@ -182,7 +182,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.and
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)
@@ -194,7 +194,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNoneOf
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isNoneOf
  */
 fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
     _logicAppend { isNotIn(expected glue otherValues) }
@@ -210,7 +210,7 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples.isNotIn
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationsSamples.isNotIn
  */
 inline fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

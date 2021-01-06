@@ -13,7 +13,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.size
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class CollectionAssertionSamples {
+class CollectionExpectationsSamples {
 
     @Test
     fun isEmpty() {

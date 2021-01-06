@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import java.math.BigDecimal
 import kotlin.test.Test
 
-class BigDecimalAssertionSamples {
+class BigDecimalExpectationsSamples {
 
     @Test
     fun toBe() {

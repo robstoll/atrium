@@ -15,7 +15,7 @@ import kotlin.jvm.JvmName
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.asListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.asListFeature
  */
 fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
     _logic.changeSubject.unreported { it.asList() }
@@ -31,7 +31,7 @@ fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.asList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.asList
  */
 fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<E>> =
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
@@ -47,7 +47,7 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.asListEOut
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.asListEOut
  */
 @JvmName("asListEOut")
 fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
@@ -63,7 +63,7 @@ fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.byteArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.byteArrAsListFeature
  */
 @JvmName("byteArrAsList")
 fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
@@ -80,7 +80,7 @@ fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.byteArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.byteArrAsList
  */
 @JvmName("byteArrAsList")
 fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): Expect<ByteArray> =
@@ -97,7 +97,7 @@ fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): E
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.charArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.charArrAsListFeature
  */
 @JvmName("charArrAsList")
 fun Expect<CharArray>.asList(): Expect<List<Char>> =
@@ -114,7 +114,7 @@ fun Expect<CharArray>.asList(): Expect<List<Char>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.charArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.charArrAsList
  */
 @JvmName("charArrAsList")
 fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): Expect<CharArray> =
@@ -131,7 +131,7 @@ fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): E
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.shortArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.shortArrAsListFeature
  */
 @JvmName("shortArrAsList")
 fun Expect<ShortArray>.asList(): Expect<List<Short>> =
@@ -148,7 +148,7 @@ fun Expect<ShortArray>.asList(): Expect<List<Short>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.shortArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.shortArrAsList
  */
 @JvmName("shortArrAsList")
 fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit): Expect<ShortArray> =
@@ -165,7 +165,7 @@ fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit):
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.intArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.intArrAsListFeature
  */
 @JvmName("intArrAsList")
 fun Expect<IntArray>.asList(): Expect<List<Int>> =
@@ -182,7 +182,7 @@ fun Expect<IntArray>.asList(): Expect<List<Int>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.intArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.intArrAsList
  */
 @JvmName("intArrAsList")
 fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Expect<IntArray> =
@@ -199,7 +199,7 @@ fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Exp
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.longArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.longArrAsListFeature
  */
 @JvmName("longArrAsList")
 fun Expect<LongArray>.asList(): Expect<List<Long>> =
@@ -216,7 +216,7 @@ fun Expect<LongArray>.asList(): Expect<List<Long>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.longArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.longArrAsList
  */
 @JvmName("longArrAsList")
 fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): Expect<LongArray> =
@@ -233,7 +233,7 @@ fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): E
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.floatArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.floatArrAsListFeature
  */
 @JvmName("floatArrAsList")
 fun Expect<FloatArray>.asList(): Expect<List<Float>> =
@@ -250,7 +250,7 @@ fun Expect<FloatArray>.asList(): Expect<List<Float>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.floatArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.floatArrAsList
  */
 @JvmName("floatArrAsList")
 fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit): Expect<FloatArray> =
@@ -267,7 +267,7 @@ fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit):
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.doubleArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.doubleArrAsListFeature
  */
 @JvmName("doubleArrAsList")
 fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
@@ -284,7 +284,7 @@ fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.doubleArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.doubleArrAsList
  */
 @JvmName("doubleArrAsList")
 fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit): Expect<DoubleArray> =
@@ -301,7 +301,7 @@ fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.booleanArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.booleanArrAsListFeature
  */
 @JvmName("boolArrAsList")
 fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
@@ -317,7 +317,7 @@ fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
  * @return The newly created [Expect] for the transformed subject.
  *
  * @since 0.9.0
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayAssertionSamples.booleanArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationsSamples.booleanArrAsList
  */
 @JvmName("boolArrAsList")
 fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Unit): Expect<BooleanArray> =

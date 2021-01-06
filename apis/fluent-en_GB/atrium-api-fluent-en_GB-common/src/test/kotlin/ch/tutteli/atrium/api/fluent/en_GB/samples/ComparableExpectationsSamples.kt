@@ -8,7 +8,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class ComparableAssertionSamples {
+class ComparableExpectationsSamples {
 
     @Test
     fun isLessThan() {

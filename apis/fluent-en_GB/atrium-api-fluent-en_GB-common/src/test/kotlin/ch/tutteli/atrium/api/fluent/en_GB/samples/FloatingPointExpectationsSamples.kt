@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBeWithErrorTolerance
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class FloatingPointAssertionSamples {
+class FloatingPointExpectationsSamples {
 
     @Test
     fun toBeWithErrorToleranceFloat() {

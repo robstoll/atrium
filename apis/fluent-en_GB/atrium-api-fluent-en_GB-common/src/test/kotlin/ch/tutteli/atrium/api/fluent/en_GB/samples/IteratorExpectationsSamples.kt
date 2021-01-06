@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.hasNotNext
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class IteratorAssertionSamples {
+class IteratorExpectationsSamples {
 
     @Test
     fun hasNext() {

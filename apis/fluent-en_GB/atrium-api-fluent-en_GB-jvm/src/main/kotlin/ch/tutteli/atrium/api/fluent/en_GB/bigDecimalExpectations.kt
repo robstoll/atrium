@@ -50,7 +50,7 @@ fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepl
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalAssertionSamples.toBe
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationsSamples.toBe
  */
 @JvmName("toBeNull")
 fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =

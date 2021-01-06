@@ -19,7 +19,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.containsBuilder
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.containsBuilder
  */
 val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
     get() = _logic.containsBuilder()
@@ -30,7 +30,7 @@ val <T : CharSequence> Expect<T>.contains: CharSequenceContains.EntryPointStep<T
  *
  * @return The newly created builder.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.containsNotBuilder
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.containsNotBuilder
  */
 val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehaviour>
     get() = _logic.containsNotBuilder()
@@ -61,7 +61,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehavio
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.contains
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.contains
  */
 fun <T : CharSequence> Expect<T>.contains(
     expected: CharSequenceOrNumberOrChar,
@@ -80,7 +80,7 @@ fun <T : CharSequence> Expect<T>.contains(
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.containsNot
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.containsNot
  */
 fun <T : CharSequence> Expect<T>.containsNot(
     expected: CharSequenceOrNumberOrChar,
@@ -109,7 +109,7 @@ fun <T : CharSequence> Expect<T>.containsNot(
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.containsRegexString
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.containsRegexString
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatterns: String): Expect<T> =
     contains.atLeast(1).regex(pattern, *otherPatterns)
@@ -138,7 +138,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.containsRegex
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.containsRegex
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatterns: Regex): Expect<T> =
     contains.atLeast(1).regex(pattern, *otherPatterns)
@@ -148,7 +148,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.startsWith
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.startsWith
  */
 fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsWith(expected) }
@@ -158,7 +158,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.startsWithChar
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.startsWithChar
  *
  * @since 0.9.0
  */
@@ -170,7 +170,7 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.startsNotWith
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.startsNotWith
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsNotWith(expected) }
@@ -182,7 +182,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.startsNotWithChar
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.startsNotWithChar
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     startsNotWith(expected.toString())
@@ -193,7 +193,7 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.endsWith
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.endsWith
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
@@ -205,7 +205,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.endsWithChar
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.endsWithChar
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     endsWith(expected.toString())
@@ -215,7 +215,7 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.endsNotWith
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.endsNotWith
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsNotWith(expected) }
@@ -226,7 +226,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> 
  * @return An [Expect] for the current subject of the assertion.
  *
  * @since 0.9.0
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.endsNotWithChar
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.endsNotWithChar
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     endsNotWith(expected.toString())
@@ -237,7 +237,7 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.isEmpty
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.isEmpty
  */
 fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
@@ -247,7 +247,7 @@ fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.isNotEmpty
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.isNotEmpty
  */
 fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty() }
@@ -257,7 +257,7 @@ fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.isNotBlank
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.isNotBlank
  */
 fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
     _logicAppend { isNotBlank() }
@@ -271,7 +271,7 @@ fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.matches
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.matches
  */
 fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
@@ -285,7 +285,7 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  *
  * @since 0.9.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSpec.mismatches
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationsSamples.mismatches
  */
 fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     _logicAppend { mismatches(expected) }

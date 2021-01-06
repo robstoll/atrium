@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.infix.en_GB.next
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class IteratorAssertionSamples {
+class IteratorExpectationsSamples {
 
     @Test
     fun has_next() {

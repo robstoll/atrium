@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import kotlin.test.Test
 
-class ListAssertionSamples {
+class ListExpectationsSamples {
     private val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
     private val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
