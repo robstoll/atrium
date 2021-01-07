@@ -570,11 +570,7 @@ alternatively the manual steps:
 
 Prepare next dev cycle
 -----------------------
-1. update samples
-   a) use newly released version in samples (search again for the old-version and replace with new)
-   b) commit & push changes
-
-2. update master:
+    1. update master:
 
 Either use the following commands or the manual steps below
 
@@ -601,15 +597,20 @@ git push
 
 alternatively the manual steps:
 
-   a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
-   b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
+    a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
+b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
    c) use the master badges in README (uncomment them in README and comment out release badges)
    d) uncomment the warning about taking a sneak peek in README and revert `tree/v0.12.0` still point to the tag
-   e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
-   f) commit & push changes
+e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
+f) commit & push changes
 
-3. establish backward compatibility tests for the previous version
-   a) add new version at the end of atrium-bc-test/build.gradle
-   b) git commit -a -m "establish backward compatibility tests for v$ATRIUM_VERSION"
-   c) commit & push changes
+2. establish backward compatibility tests for the previous version
+a) add new version at the end of atrium-bc-test/build.gradle
+b) git commit -a -m "establish backward compatibility tests for v$ATRIUM_VERSION"
+c) commit & push changes
+
+3. update samples (optional, since dependabot will create pull requests)
+a) use newly released version in samples (search again for the old-version and replace with new)
+b) commit & push changes
+
 */
