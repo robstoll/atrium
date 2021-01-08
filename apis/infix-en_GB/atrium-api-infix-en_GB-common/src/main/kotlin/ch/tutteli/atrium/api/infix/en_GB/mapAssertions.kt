@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
@@ -135,6 +136,17 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     allKeyValues: KeyValues<K, V>
 ): Expect<T> = it contains o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
+//TODO 0.16.0 check if we really go with `to contain` since `to` caused troubles in the past
+@Deprecated(
+    "Use `to contain keyValues` instead; will be removed with 1.0.0",
+    ReplaceWith(
+        "this toContain keyValues(all.expected, *all.otherExpected)",
+        "ch.tutteli.atrium.api.infix.en_GB.keyValues"
+    )
+)
+inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
+    all: All<KeyWithValueCreator<K, V>>
+): Expect<T> = it contains keyValues(all.expected, *all.otherExpected)
 
 /**
  * Expects that the subject of the assertion (a [Map]) contains only (in any order) for each [KeyWithValueCreator]

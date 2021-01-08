@@ -1,14 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.elementsOf
-import ch.tutteli.atrium.api.infix.en_GB.value
-import ch.tutteli.atrium.api.infix.en_GB.the
-import ch.tutteli.atrium.api.infix.en_GB.creating.charsequence.contains.impl.StaticName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
@@ -27,11 +24,11 @@ abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
     private val containsNotFun: KFunction2<Expect<String>, Any, Expect<String>> = Expect<String>::containsNot
     protected val containsNotValues = "${containsNotFun.name} values"
     protected val containsRegex = fun1<String, String>(Expect<String>::containsRegex).name
-    protected val atLeast = StaticName.atLeast
-    protected val butAtMost = StaticName.butAtMost
-    protected val exactly = StaticName.exactly
-    protected val atMost = StaticName.atMost
-    protected val notOrAtMost = StaticName.notOrAtMost
+    protected val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
+    protected val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name
+    protected val exactly = CharSequenceContains.EntryPointStep<*, *>::exactly.name
+    protected val notOrAtMost = CharSequenceContains.EntryPointStep<*, *>::notOrAtMost.name
     private val regexKFun: KFunction2<
         CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
         String,

@@ -7,8 +7,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheckerStep
 import kotlin.reflect.KFunction2
 
-internal object StaticName {
-    val containsNotValuesFun: String = run {
+internal object StaticNames {
+    val containsNotValuesFun = run {
         val f: KFunction2<Expect<CharSequence>, Values<Any>, Expect<CharSequence>> =
             Expect<CharSequence>::containsNot
         //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)

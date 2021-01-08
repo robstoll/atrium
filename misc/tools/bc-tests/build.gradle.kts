@@ -366,12 +366,10 @@ with(project(":bc-tests:0.14.0-specs")) {
         ).forEach { spec ->
             rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/$spec.kt") {
                 it
-                    .replaceFirst(Regex("import ch.tutteli.atrium.api.cc.en_GB.returnValueOf"), "")
+                    .replaceFirst("import ch.tutteli.atrium.api.cc.en_GB.returnValueOf", "")
                     .replaceFirst(
-                        Regex(
-                            "import ch.tutteli.atrium.domain.builders.migration.asAssert\n" +
-                                "import ch.tutteli.atrium.domain.builders.migration.asExpect"
-                        ), ""
+                        "import ch.tutteli.atrium.domain.builders.migration.asAssert\n" +
+                            "import ch.tutteli.atrium.domain.builders.migration.asExpect", ""
                     )
                     .replaceFirst(
                         Regex("//TODO remove with 1.0.0\n.*it\\(\"\\\$returnValueOfFun\\(...\\) states warning that subject is not set\"\\)([^\\}]+\\}){4}"),
@@ -379,17 +377,25 @@ with(project(":bc-tests:0.14.0-specs")) {
                     )
             }
         }
+
+        rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt") {
+            it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
+        }
+
+        // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
+        file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
+        file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
     }
 }
 
-// not really a source compatibility break but we don't have access here to an internal function
 listOf("fluent", "infix").forEach { apiShortName ->
     with(project(":bc-tests:0.14.0-api-$apiShortName-en_GB")) {
         fixSrc = {
+            // not really a source compatibility break but we don't have access here to an internal function
             rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/CharSequenceContainsSpecBase.kt") {
                 it
                     .replaceFirst(
-                        Regex("import ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl.StaticName"),
+                        "import ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl.StaticName",
                         ""
                     )
                     .replace(Regex(" StaticName\\.([a-zA-Z]+)"), "\"$1\"")
@@ -398,8 +404,12 @@ listOf("fluent", "infix").forEach { apiShortName ->
             // TODO 0.16.0 remove once we support js again
             rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
                 it
-                    .replaceFirst(Regex("import kotlin.js.JsName"), "")
-                    .replaceFirst(Regex("@JsName\\(\"propFun\"\\)"), "")
+                    .replaceFirst("import kotlin.js.JsName", "")
+                    .replaceFirst("@JsName(\"propFun\")", "")
+            }
+
+            rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableAnyAssertionsSpec.kt") {
+                it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
             }
         }
     }

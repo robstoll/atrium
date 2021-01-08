@@ -1,17 +1,22 @@
-package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl
+package ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.impl
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
-import kotlin.reflect.KFunction3
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import kotlin.reflect.KFunction2
 
-internal object StaticName {
+internal object StaticNames {
     val containsNotValuesFun = run {
-        val f: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
+        val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerStep<Double, Iterable<Double>, NotSearchBehaviour>> =
             Expect<Iterable<Double>>::containsNot
-        f.name
+        //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)
+//        val values : KFunction2<Int, Array<out Int>, Values<Int>> = ::values
+//        "`${f.name} ${o::class.simpleName} ${fThe.name} ${values.name}`"
+        "`${containsNotKf.name} values`"
     }
 
     val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name

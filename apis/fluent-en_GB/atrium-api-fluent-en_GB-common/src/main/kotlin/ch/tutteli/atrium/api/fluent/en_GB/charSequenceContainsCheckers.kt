@@ -4,7 +4,7 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticName
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticNames
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
@@ -26,7 +26,7 @@ import kotlin.jvm.JvmName
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
     times: Int
 ): AtLeastCheckerStep<T, S> =
-    _logic.atLeastCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.atLeast}($it)" }
+    _logic.atLeastCheckerStep(times, StaticNames.containsNotValuesFun) { "${StaticNames.atLeast}($it)" }
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the value which we
@@ -47,12 +47,12 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
     times: Int
 ): ButAtMostCheckerStep<T, S> = _logic.butAtMostCheckerStep(
     times,
-    StaticName.containsNotValuesFun,
-    { l, u -> "${StaticName.atLeast}($l).${StaticName.butAtMost}($u)" },
-    { "${StaticName.atLeast}($it)" },
-    { "${StaticName.butAtMost}($it)" },
-    { "${StaticName.exactly}($it)" },
-    { "${StaticName.atMost}($it)" }
+    StaticNames.containsNotValuesFun,
+    { l, u -> "${StaticNames.atLeast}($l).${StaticNames.butAtMost}($u)" },
+    { "${StaticNames.atLeast}($it)" },
+    { "${StaticNames.butAtMost}($it)" },
+    { "${StaticNames.exactly}($it)" },
+    { "${StaticNames.atMost}($it)" }
 )
 
 /**
@@ -69,7 +69,7 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.exactly(
     times: Int
 ): ExactlyCheckerStep<T, S> =
-    _logic.exactlyCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.exactly}($it)" }
+    _logic.exactlyCheckerStep(times, StaticNames.containsNotValuesFun) { "${StaticNames.exactly}($it)" }
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -91,10 +91,10 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
     times: Int
 ): AtMostCheckerStep<T, S> = _logic.atMostCheckerStep(
     times,
-    StaticName.containsNotValuesFun,
-    { "${StaticName.atMost}($it)" },
-    { "${StaticName.atLeast}($it)" },
-    { "${StaticName.exactly}($it)" }
+    StaticNames.containsNotValuesFun,
+    { "${StaticNames.atMost}($it)" },
+    { "${StaticNames.atLeast}($it)" },
+    { "${StaticNames.exactly}($it)" }
 )
 
 /**
@@ -111,4 +111,4 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
     times: Int
 ): NotOrAtMostCheckerStep<T, S> =
-    _logic.notOrAtMostCheckerStep(times, StaticName.containsNotValuesFun) { "${StaticName.notOrAtMost}($it)" }
+    _logic.notOrAtMostCheckerStep(times, StaticNames.containsNotValuesFun) { "${StaticNames.notOrAtMost}($it)" }

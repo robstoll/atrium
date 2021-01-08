@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
@@ -17,11 +19,11 @@ abstract class CharSequenceContainsSpecBase {
     private val containsNotProp: KProperty<*> = Expect<String>::containsNot
     protected val containsNot = containsNotProp.name
     protected val containsRegex = fun2<String, String, Array<out String>>(Expect<String>::containsRegex).name
-    protected val atLeast = StaticName.atLeast
-    protected val butAtMost = StaticName.butAtMost
-    protected val exactly = StaticName.exactly
-    protected val atMost = StaticName.atMost
-    protected val notOrAtMost = StaticName.notOrAtMost
+    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
     private val regexKFun: KFunction3<
         CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
         String,
