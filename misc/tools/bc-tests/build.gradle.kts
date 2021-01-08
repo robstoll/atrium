@@ -1,6 +1,7 @@
 import ch.tutteli.niok.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -25,6 +26,7 @@ val jupiterVersion: String by rootProject.extra
 val mockkVersion: String by rootProject.extra
 val junitPlatformVersion: String by rootProject.extra
 val spek2Version: String by rootProject.extra
+val jacocoToolVersion: String by rootProject.extra
 
 description =
     "Checks that specs from older versions of Atrium can still be run with the components of the current version."
@@ -139,8 +141,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     }
 
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
-
-        the<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>().apply {
+        the<KotlinMultiplatformExtension>().apply {
             jvm()
             // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
 //            js().nodejs {}
@@ -157,8 +158,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
                         implementation(project(":atrium-fluent-en_GB-common"))
-//                        runtimeOnly(kotlin("stdlib-jdk8"))
-
                     }
                 }
                 val jvmMain by getting {
@@ -203,8 +202,12 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     }
 
     apis.forEach { (apiName, targets) ->
+
         configure(listOf(project(":bc-tests:$oldVersion-api-$apiName"))) {
-            the<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>().apply {
+
+            apply(plugin = "jacoco")
+
+            the<KotlinMultiplatformExtension>().apply {
                 // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
 //                js().nodejs {}
                 jvm {
@@ -217,6 +220,67 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             includeEngines("junit-jupiter")
                         }
                     }
+
+                    fun createJacocoReportTask(
+                        prefix: String,
+                        runTaskProvider: TaskProvider<JavaExec>
+                    ): TaskProvider<JacocoReport> {
+                        val runTask = runTaskProvider.get()
+                        val jacocoReport = tasks.register<JacocoReport>("jacoco-$prefix-$oldVersion-$apiName") {
+                            group = "report"
+
+                            dependsOn(runTaskProvider)
+                            executionData(runTask)
+
+                            val jacocoMulti: Map<String, Iterable<Project>> by rootProject.extra
+                            val sourceProjects = jacocoMulti["sourceProjects"]!!
+                            val projects = when (apiName) {
+                                "fluent-en_GB" -> sourceProjects.filter { !it.name.contains("infix-en_GB") }
+                                "infix-en_GB" -> {
+                                    sourceProjects.filter {
+                                        !it.name.contains("translations-en_GB") &&
+                                            !it.name.contains("fluent-en_GB")
+                                    } + listOf(
+                                        project(":atrium-translations-de_CH-jvm"),
+                                        project(":atrium-translations-de_CH-common")
+                                    )
+                                }
+                                else -> throw IllegalStateException("re-adjust jacoco task")
+                            }
+                            projects.forEach {
+                                //TODO 0.16.0 simplify once all project use new MPP plugin
+                                val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
+                                if (sourceSetContainer != null) {
+                                    sourceSets(sourceSetContainer["main"])
+                                } else {
+                                    it.the<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
+                                        sourceDirectories.from(kotlinSourceSet.kotlin.srcDirs)
+                                    }
+                                }
+
+                            }
+                            // DEBUG sourceDirectories
+//                            println("list $oldVersion $apiName: ${sourceDirectories.map { it.absolutePath }.joinToString("\n")}\n")
+
+                            reports {
+                                csv.isEnabled = false
+                                xml.isEnabled = true
+                                xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
+                                html.isEnabled = true
+                                html.destination = file("${buildDir}/reports/jacoco/$name/html/")
+                            }
+                        }
+
+                        the<JacocoPluginExtension>().apply {
+                            toolVersion = jacocoToolVersion
+                            this.applyTo<JavaExec>(runTask)
+                        }
+                        runTaskProvider.configure {
+                            finalizedBy(jacocoReport)
+                        }
+                        return jacocoReport
+                    }
+
 
                     val bcTest = tasks.register<JavaExec>("bc-$oldVersion-$apiName") {
                         group = "verification"
@@ -233,8 +297,10 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         classpath = compilations["test"].runtimeDependencyFiles
                         main = "org.junit.platform.console.ConsoleLauncher"
-                        args = getConsoleLauncherArgs(compilations["test"].output.classesDirs.asPath, forgivePattern)
+                        args =
+                            getConsoleLauncherArgs(compilations["test"].output.classesDirs.asPath, forgivePattern)
                     }
+                    createJacocoReportTask("bc", bcTest)
                     bcTests.configure {
                         dependsOn(bcTest)
                     }
@@ -293,6 +359,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             main = "org.junit.platform.console.ConsoleLauncher"
                             args = getConsoleLauncherArgs(configurations[bbcConfName].asPath, forgivePattern)
                         }
+                        createJacocoReportTask("bbc", bcTest)
                         bbcTests.configure {
                             dependsOn(bbcTest)
                         }
@@ -303,7 +370,15 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     val commonTest by getting {
                         dependencies {
                             implementation(project(":atrium-api-$apiName-common"))
-                            implementation(project(":bc-tests:$oldVersion-specs"))
+                            implementation(project(":bc-tests:$oldVersion-specs")) {
+                                if (apiName == "infix-en_GB") {
+                                    exclude(module = "${rootProject.name}-translations-en_GB-common")
+                                    exclude(module = "${rootProject.name}-translations-en_GB-jvm")
+                                }
+                            }
+                            if (apiName == "infix-en_GB") {
+                                implementation(project(":atrium-translations-de_CH-common"))
+                            }
 
                             // for samples
                             implementation(kotlin("test-common"))
@@ -314,6 +389,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         dependencies {
                             implementation(project(":atrium-api-$apiName-jvm"))
+                            if (apiName == "infix-en_GB") {
+                                implementation(project(":atrium-translations-de_CH-jvm"))
+                            }
 
                             // to run forgiving spek tests
                             runtimeOnly(project(":bc-tests:test-engine"))
@@ -503,3 +581,4 @@ with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
         }
     }
 }
+

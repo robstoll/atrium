@@ -14,7 +14,7 @@ buildscript {
         kotlin_version = '1.3.72'
 
         // test
-        jacoco_tool_version = '0.8.6'
+        jacocoToolVersion = '0.8.6'
         junitPlatformVersion = '1.7.0'
         jupiterVersion = '5.7.0'
         spek2Version = '2.0.12'
@@ -67,23 +67,22 @@ buildscript {
             sourceProjects:
                 (subprojects - toolProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
-                        !it.name.endsWith("-android") &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_GB-jvm"
+                        it.name != "${rootProject.name}-translations-de_CH-common" &&
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
-                        it.name != "${rootProject.name}-spec" &&
-                        !it.name.startsWith("${rootProject.name}-specs")
+                        !it.name.startsWith("${rootProject.name}-specs") &&
+                        !it.name.contains("smoke-test")
+
                 },
             jacocoProjects:
                 (subprojects - toolProjectsFun).findAll {
                     !(it.projectDir.path.contains("/translations/") || it.projectDir.path.contains("\\translations\\")) &&
                         !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
-                        !it.name.endsWith("-android") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
-                        it.name != "${rootProject.name}-spec" &&
                         !it.name.startsWith("${rootProject.name}-specs") &&
                         //TODO remove with 0.17.0
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
@@ -124,7 +123,7 @@ configurations {
 
 dependencies {
     // helps dependabot to recognise versions which it should update
-    dependabot "org.jacoco:org.jacoco.core:$jacoco_tool_version"
+    dependabot "org.jacoco:org.jacoco.core:$jacocoToolVersion"
     dependabot "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
     dependabot "org.junit.platform:junit-platform-console:$junitPlatformVersion"
     dependabot "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion"
@@ -273,7 +272,7 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
         junitjacoco {
 
             jacoco {
-                toolVersion = jacoco_tool_version
+                toolVersion = jacocoToolVersion
             }
 
             jacocoReport {

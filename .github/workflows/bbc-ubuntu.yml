@@ -18,7 +18,7 @@ jobs:
       - name: bbcTests
         env:
           BC: 1
-        run: ./gradlew bbcTests
+        run: ./gradlew bbcTests --stacktrace
 
       - name: Upload windows build code coverage
         uses: codecov/codecov-action@v1
