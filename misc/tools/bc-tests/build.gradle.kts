@@ -31,7 +31,7 @@ description =
 
 @Suppress("UNCHECKED_CAST")
 val bcConfigs =
-    (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, String>>
+    (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, Pair<Boolean, String>>>
 
 repositories {
     mavenCentral()
@@ -40,6 +40,12 @@ repositories {
 
 val bcTests = tasks.register("bcTests") {
     group = "verification"
+    description = "source backward compatibility tests"
+}
+
+val bbcTests = tasks.register("bbcTests") {
+    group = "verification"
+    description = "binary backward compatibility tests"
 }
 
 subprojects {
@@ -67,8 +73,8 @@ var Project.fixSrc: () -> Unit
         project.extra.set(fixSrcPropertyName, g)
     }
 
-bcConfigs.forEach { (oldVersion, apis, forgivePattern) ->
-
+bcConfigs.forEach { (oldVersion, apis, pair) ->
+    val (includingBbc, forgivePattern) = pair
     fun atrium(module: String): String {
         val artifactNameWithoutPrefix =
             if (module.endsWith("-jvm")) module.substringBeforeLast("-jvm") else module
@@ -220,14 +226,14 @@ bcConfigs.forEach { (oldVersion, apis, forgivePattern) ->
                         inputs.files(compilations["test"].output)
                         inputs.property("forgivePattern", forgivePattern)
 
-                        // declaring it has no outputs, only inputs matter
+                        // declaring it has no outputs, only inputs matter but allow to force run via -PbcForce=1
                         outputs.upToDateWhen {
                             !project.properties.containsKey("bcForce")
                         }
 
                         classpath = compilations["test"].runtimeDependencyFiles
                         main = "org.junit.platform.console.ConsoleLauncher"
-                        args = getBcArgs(compilations["test"].output.classesDirs.asPath, forgivePattern)
+                        args = getConsoleLauncherArgs(compilations["test"].output.classesDirs.asPath, forgivePattern)
                     }
                     bcTests.configure {
                         dependsOn(bcTest)
@@ -236,6 +242,61 @@ bcConfigs.forEach { (oldVersion, apis, forgivePattern) ->
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
+
+                    if (includingBbc) {
+                        val bbcConfName = "bbcConf_${oldVersion}_${apiName}"
+                        val bbcConfNameRuntimeOnly = "bbcConf_${oldVersion}_${apiName}RuntimeOnly"
+
+                        configurations {
+                            create(bbcConfName)
+                            create(bbcConfNameRuntimeOnly)
+                        }
+
+                        dependencies {
+                            add(bbcConfName, atrium("api-$apiName") + ":tests") {
+                                exclude(group = "*")
+                            }
+                            add(bbcConfName, atrium("specs")) {
+                                exclude(group = "ch.tutteli.atrium")
+                            }
+                            add(bbcConfName, project(":bc-tests:test-engine", configuration = "jvmRuntime"))
+                            add(
+                                bbcConfName,
+                                "org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion"
+                            )
+
+                            // required by specs
+                            //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
+                            add(bbcConfName, project(":atrium-fluent-en_GB-jvm"))
+                            add(bbcConfName, project(":atrium-verbs-internal-jvm"))
+
+                            // required by the api tests
+                            add(bbcConfName, project(":atrium-api-$apiName-jvm"))
+                        }
+
+                        // ---------- binary backward compatibility tests ------------
+
+                        val bbcTest = tasks.register<JavaExec>("bbcTest") {
+                            description =
+                                "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation"
+
+                            inputs.files(configurations[bbcConfName])
+                            inputs.property("forgivePattern", forgivePattern)
+
+                            // declaring it has no outputs, only inputs matter but allow to force run via -PbcForce=1
+                            outputs.upToDateWhen {
+                                !project.properties.containsKey("bcForce")
+                            }
+
+                            classpath(configurations[bbcConfName].asPath)
+
+                            main = "org.junit.platform.console.ConsoleLauncher"
+                            args = getConsoleLauncherArgs(configurations[bbcConfName].asPath, forgivePattern)
+                        }
+                        bbcTests.configure {
+                            dependsOn(bbcTest)
+                        }
+                    }
                 }
 
                 sourceSets {
@@ -279,7 +340,6 @@ bcConfigs.forEach { (oldVersion, apis, forgivePattern) ->
 //                    }
                 }
             }
-
             fun memoizeTestFile(testTask: Test) =
                 project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
 
@@ -334,14 +394,15 @@ bcConfigs.forEach { (oldVersion, apis, forgivePattern) ->
 
             createUnzipTasks("api-$apiName", "testsources", "Test", targets)
         }
+
     }
 }
 
-fun getBcArgs(scanClassPath: String, forgivePattern: String) = listOf(
+fun getConsoleLauncherArgs(scanClassPath: String, forgivePattern: String) = listOf(
     "--scan-class-path", scanClassPath,
     "--disable-banner",
     "--fail-if-no-tests",
-    "--include-engine", "spek2-deprecation",
+    "--include-engine", "spek2-forgiving",
     "--include-classname", ".*Spec",
     "--config", "forgive=$forgivePattern",
     "--details", "summary"

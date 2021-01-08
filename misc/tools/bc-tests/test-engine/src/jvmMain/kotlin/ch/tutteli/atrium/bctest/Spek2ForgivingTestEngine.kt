@@ -14,7 +14,7 @@ class Spek2ForgivingTestEngine : TestEngine {
     private val spek = SpekTestEngine()
     private lateinit var forgiveRegex: Regex
 
-    override fun getId(): String = "spek2-deprecation"
+    override fun getId(): String = "spek2-forgiving"
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
         val descriptor = spek.discover(discoveryRequest, uniqueId)

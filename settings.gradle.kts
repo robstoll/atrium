@@ -8,12 +8,20 @@ buildscript {
 
     val bcConfigs = listOf(
         Triple(
-            "0.14.0", allApisAllTargets, "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(" +
+            "0.14.0",
+            allApisAllTargets,
+            /* includingBbc= */ false to
+                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(" +
                 "(IterableContainsInOrderOnly.*Spec)|" +
                 "(MapAssertionsSpec.*)" +
                 ").*)"
         ),
-        Triple("0.15.0", allApisAllTargets, "^$")
+        Triple(
+            "0.15.0",
+            allApisAllTargets,
+            /* includingBbc= */  false to
+                "^$"
+        )
     )
     (gradle as ExtensionAware).extra.apply {
         apply {
@@ -31,7 +39,7 @@ if (System.getenv("BC") != null) {
 
     @Suppress("UNCHECKED_CAST")
     val bcConfigs =
-        (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, String>>
+        (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, Pair<Boolean, String>>>
     bcConfigs.forEach { (oldVersion, apis, _) ->
         includeBc(oldVersion, "specs")
         apis.forEach { (apiName, _) ->
