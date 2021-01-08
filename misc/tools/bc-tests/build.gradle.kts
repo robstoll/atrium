@@ -1,3 +1,7 @@
+// Note that this project is not part of the project per default.
+// you need to specify the environment variable BC in order that this project (as well as the subprojects)
+// are included -> alternatively, you can remove the `if` in settings.gradle.kts (search for System.getenv("BC"))
+
 import ch.tutteli.niok.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -303,6 +307,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     createJacocoReportTask("bc", bcTest)
                     bcTests.configure {
                         dependsOn(bcTest)
+                        // we want to run the samples as well
+                        dependsOn(tasks.named("build"))
                     }
                     //TODO 0.16.0 not yet sure if it makes more sense to include it into :check as well
 //                    tasks.named("check").configure {
