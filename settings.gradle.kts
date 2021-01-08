@@ -12,8 +12,8 @@ buildscript {
                 "(IterableContainsInOrderOnly.*Spec)|" +
                 "(MapAssertionsSpec.*)" +
                 ").*)"
-        )
-//        Triple("0.15.0", allApis, "^$")
+        ),
+        Triple("0.15.0", allApisAllTargets, "^$")
     )
     (gradle as ExtensionAware).extra.apply {
         apply {

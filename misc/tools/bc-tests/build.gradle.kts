@@ -356,78 +356,89 @@ fun Project.rewriteFile(filePath: String, f: (String) -> String) {
 // Known source backward compatibility breaks:
 // remove sources if you change something here in order that the changes take effect
 
-with(project(":bc-tests:0.14.0-specs")) {
-    fixSrc = {
-        listOf(
-            "IterableAnyAssertionsSpec",
-            "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
-            "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
-            "IterableContainsInOrderOnlyEntriesAssertionsSpec"
-        ).forEach { spec ->
-            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/$spec.kt") {
-                it
-                    .replaceFirst("import ch.tutteli.atrium.api.cc.en_GB.returnValueOf", "")
-                    .replaceFirst(
-                        "import ch.tutteli.atrium.domain.builders.migration.asAssert\n" +
-                            "import ch.tutteli.atrium.domain.builders.migration.asExpect", ""
-                    )
-                    .replaceFirst(
-                        Regex("//TODO remove with 1.0.0\n.*it\\(\"\\\$returnValueOfFun\\(...\\) states warning that subject is not set\"\\)([^\\}]+\\}){4}"),
-                        ""
-                    )
-            }
-        }
-
-        rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt") {
-            it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
-        }
-
-        // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
-        file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
-        file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
-    }
-}
-
-listOf("fluent", "infix").forEach { apiShortName ->
-    with(project(":bc-tests:0.14.0-api-$apiShortName-en_GB")) {
+listOf("0.14.0", "0.15.0").forEach { version ->
+    with(project(":bc-tests:$version-specs")) {
         fixSrc = {
-            // not really a source compatibility break but we don't have access here to an internal function
-            rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/CharSequenceContainsSpecBase.kt") {
-                it
-                    .replaceFirst(
-                        "import ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl.StaticName",
-                        ""
-                    )
-                    .replace(Regex(" StaticName\\.([a-zA-Z]+)"), "\"$1\"")
+            listOf(
+                "IterableAnyAssertionsSpec",
+                "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
+                "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
+                "IterableContainsInOrderOnlyEntriesAssertionsSpec"
+            ).forEach { spec ->
+                rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/$spec.kt") {
+                    it
+                        .replaceFirst("import ch.tutteli.atrium.api.cc.en_GB.returnValueOf", "")
+                        .replaceFirst(
+                            "import ch.tutteli.atrium.domain.builders.migration.asAssert\n" +
+                                "import ch.tutteli.atrium.domain.builders.migration.asExpect", ""
+                        )
+                        .replaceFirst(
+                            Regex("//TODO remove with 1.0.0\n.*it\\(\"\\\$returnValueOfFun\\(...\\) states warning that subject is not set\"\\)([^\\}]+\\}){4}"),
+                            ""
+                        )
+                }
             }
 
-            // TODO 0.16.0 remove once we support js again
-            rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
-                it
-                    .replaceFirst("import kotlin.js.JsName", "")
-                    .replaceFirst("@JsName(\"propFun\")", "")
-            }
-
-            rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableAnyAssertionsSpec.kt") {
+            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt") {
                 it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
             }
+
+            // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
+            file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
+            file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
+        }
+    }
+
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+            fixSrc = {
+                // not really a source compatibility break but we don't have access here to an internal function
+                rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/CharSequenceContainsSpecBase.kt") {
+                    it
+                        .replaceFirst(
+                            "import ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl.StaticName",
+                            ""
+                        )
+                        .replace(Regex(" StaticName\\.([a-zA-Z]+)"), "\"$1\"")
+                }
+
+                // TODO 0.16.0 remove once we support js again
+                rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
+                    it
+                        .replaceFirst("import kotlin.js.JsName", "")
+                        .replaceFirst("@JsName(\"propFun\")", "")
+                }
+
+                rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableAnyAssertionsSpec.kt") {
+                    it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
+                }
+            }
+        }
+    }
+
+    // testsources jar currently includes resources files in the root (as it would be in a jar)
+    with(project(":bc-tests:$version-api-infix-en_GB")) {
+        fixSrc = {
+            val source = Paths.get("${project.projectDir}/src/jvmTest/kotlin/META-INF")
+            if (source.exists) {
+                val targetDir = Paths.get("${project.projectDir}/src/jvmTest/resources")
+                targetDir.reCreateDirectory()
+
+                Files.move(
+                    source,
+                    targetDir.resolve("META-INF")
+                )
+            }
         }
     }
 }
 
-// testsources jar currently includes resources files in the root (as it would be in a jar)
-with(project(":bc-tests:0.14.0-api-infix-en_GB")) {
+with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
     fixSrc = {
-        val source = Paths.get("${project.projectDir}/src/jvmTest/kotlin/META-INF")
-        if (source.exists) {
-            val targetDir = Paths.get("${project.projectDir}/src/jvmTest/resources")
-            // TODO use reCreateDirectory from niok once 1.4.0 is out
-            targetDir.reCreateDirectory()
-
-            Files.move(
-                source,
-                targetDir.resolve("META-INF")
-            )
+        rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsInAnyOrderKeyValueAssertionsSpec.kt") {
+            it
+                .replace("import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator", "")
+                .replace("KeyWithValueCreator", "keyValue")
         }
     }
 }
