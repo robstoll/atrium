@@ -16,7 +16,9 @@ jobs:
           java-version: ${{env.JAVA_VERSION}}
 
       - name: bcTests
-        run: ./gradlew bcTests
+        env:
+          BC: 1
+        run: ./gradlew bcTests --stacktrace
 
       - name: Upload windows build code coverage
         uses: codecov/codecov-action@v1

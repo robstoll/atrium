@@ -8,7 +8,7 @@ dependencies {
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-common')
     api prefixedProject('verbs-internal-common')
-    api "io.mockk:mockk-common:$mockk_version"
+    api "io.mockk:mockk-common:$mockkVersion"
 
     implementation prefixedProject('api-fluent-en_GB-common')
 
@@ -19,7 +19,7 @@ dependencies {
 }
 
 dependencies {
-    api "org.spekframework.spek2:spek-dsl-metadata:$spek2_version"
+    api "org.spekframework.spek2:spek-dsl-metadata:$spek2Version"
 }
 
 compileKotlinCommon.kotlinOptions.languageVersion = '1.3'

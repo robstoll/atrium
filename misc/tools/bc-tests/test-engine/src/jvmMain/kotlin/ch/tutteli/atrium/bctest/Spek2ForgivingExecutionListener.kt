@@ -1,11 +1,11 @@
-package ch.tutteil.atrium.bctest
+package ch.tutteli.atrium.bctest
 
 import org.spekframework.spek2.junit.JUnitEngineExecutionListenerAdapter
 import org.spekframework.spek2.runtime.execution.ExecutionListener
 import org.spekframework.spek2.runtime.execution.ExecutionResult
 import org.spekframework.spek2.runtime.scope.TestScopeImpl
 
-class DeprecationSpek2ExecutionListener(
+class Spek2ForgivingExecutionListener(
     private val listener: JUnitEngineExecutionListenerAdapter,
     private val forgiveRegex: Regex
 ) : ExecutionListener by listener {

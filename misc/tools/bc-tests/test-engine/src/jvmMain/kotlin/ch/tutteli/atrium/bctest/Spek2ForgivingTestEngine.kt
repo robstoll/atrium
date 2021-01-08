@@ -1,4 +1,4 @@
-package ch.tutteil.atrium.bctest
+package ch.tutteli.atrium.bctest
 
 import org.junit.platform.engine.*
 import org.spekframework.spek2.junit.JUnitEngineExecutionListenerAdapter
@@ -10,11 +10,11 @@ import org.spekframework.spek2.runtime.execution.ExecutionRequest
 import java.util.*
 import org.junit.platform.engine.ExecutionRequest as JUnitExecutionRequest
 
-class DeprecationSpek2TestEngine : TestEngine {
+class Spek2ForgivingTestEngine : TestEngine {
     private val spek = SpekTestEngine()
     private lateinit var forgiveRegex: Regex
 
-    override fun getId(): String = "spek2-deprecation"
+    override fun getId(): String = "spek2-forgiving"
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
         val descriptor = spek.discover(discoveryRequest, uniqueId)
@@ -46,7 +46,7 @@ class DeprecationSpek2TestEngine : TestEngine {
             .filterIsInstance<SpekTestDescriptor>()
             .map(SpekTestDescriptor::scope)
 
-        val executionListener = DeprecationSpek2ExecutionListener(
+        val executionListener = Spek2ForgivingExecutionListener(
             JUnitEngineExecutionListenerAdapter(request.engineExecutionListener, SpekTestDescriptorFactory()),
             forgiveRegex
         )

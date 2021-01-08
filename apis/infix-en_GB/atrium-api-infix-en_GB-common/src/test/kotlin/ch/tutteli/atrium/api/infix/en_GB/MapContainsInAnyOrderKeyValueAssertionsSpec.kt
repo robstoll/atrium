@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
@@ -33,7 +32,7 @@ class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
             a: Pair<String, Expect<Int>.() -> Unit>,
             aX: Array<out Pair<String, Expect<Int>.() -> Unit>>
         ): Expect<Map<out String, Int>> =
-            mapArguments(a, aX).to { KeyWithValueCreator(it.first, it.second) }.let { (first, others) ->
+            mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
                 if (others.isEmpty()) expect contains o inAny order entry first
                 else expect contains o inAny order the keyValues(first, *others)
             }
@@ -43,7 +42,7 @@ class MapContainsInAnyOrderKeyValueAssertionsSpec : Spek({
             a: Pair<String?, (Expect<Int>.() -> Unit)?>,
             aX: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
         ): Expect<Map<out String?, Int?>> =
-            mapArguments(a, aX).to { KeyWithValueCreator(it.first, it.second) }.let { (first, others) ->
+            mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
                 if (others.isEmpty()) expect contains o inAny order entry first
                 else expect contains o inAny order the keyValues(first, *others)
             }
