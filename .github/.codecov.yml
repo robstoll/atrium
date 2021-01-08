@@ -15,6 +15,6 @@ coverage:
 
 codecov:
   notify:
-    after_n_builds: 8
+    after_n_builds: 4
 comment:
-  after_n_builds: 8
+  after_n_builds: 4
