@@ -16,6 +16,8 @@ jobs:
           java-version: ${{env.JAVA_VERSION}}
 
       - name: bcTests
+        env:
+          BC: 1
         run: ./gradlew bcTests
 
       - name: Upload windows build code coverage

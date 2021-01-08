@@ -9,7 +9,7 @@ dependencies {
     api prefixedProject('translations-en_GB-jvm')
     api prefixedProject('verbs-internal-jvm')
     api spekExtensions()
-    api "io.mockk:mockk:$mockk_version"
+    api "io.mockk:mockk:$mockkVersion"
 
     implementation prefixedProject('api-fluent-en_GB-jvm')
 
@@ -23,8 +23,8 @@ dependencies {
     runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    api "org.spekframework.spek2:spek-dsl-jvm:$spek2_version", excludeKotlin
-    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2_version", excludeKotlin
+    api "org.spekframework.spek2:spek-dsl-jvm:$spek2Version", excludeKotlin
+    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2Version", excludeKotlin
 
     api mockito(), excludeKotlin
     api niok(), excludeKotlin

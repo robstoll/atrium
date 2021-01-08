@@ -169,7 +169,7 @@ def createBcAndBbcTasks(String apiName, String oldVersion, String forgive, Boole
         // dependencies for samples
         add(confCommon, "org.jetbrains.kotlin:kotlin-test:$kotlin_version")
         add(confCommon, "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version")
-        add(confCommon, "org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
+        add(confCommon, "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
 
         add(confCommon, sourceSets.main.runtimeClasspath)
 

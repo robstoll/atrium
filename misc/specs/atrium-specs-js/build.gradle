@@ -8,7 +8,7 @@ dependencies {
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-js')
     api prefixedProject('verbs-internal-js')
-    api "io.mockk:mockk-dsl-js:$mockk_version"
+    api "io.mockk:mockk-dsl-js:$mockkVersion"
 
     // exclude these dependencies in case you want to use another implementation
     // `api` and not `implementation` in order that a depending module can use dependOn_...
@@ -19,7 +19,7 @@ dependencies {
 }
 
 dependencies {
-    api "org.spekframework.spek2:spek-dsl-js:$spek2_version"
+    api "org.spekframework.spek2:spek-dsl-js:$spek2Version"
 }
 
 compileKotlin2Js.kotlinOptions.languageVersion = '1.3'
