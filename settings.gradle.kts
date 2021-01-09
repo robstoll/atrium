@@ -80,7 +80,7 @@ fun Settings_gradle.includeBundleAndApisWithExtensionsAndSmokeTest(vararg apiNam
         includeKotlinJvmJs("bundles/$apiName", "atrium-$apiName")
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             include("bundles/$apiName/", "atrium-$apiName-smoke-test")
-            includeKotlinJvmJs("bundles/$apiName/extensions/kotlin_1_3", "atrium-$apiName-smoke-test-kotlin_1_3")
+            include("bundles/$apiName/extensions", "atrium-$apiName-smoke-test-kotlin_1_3")
         }
         includeKotlinJvmJsWithExtensions("apis/$apiName", "atrium-api-$apiName")
     }
@@ -98,6 +98,10 @@ fun Settings_gradle.includeKotlinJvmJsWithExtensions(subPath: String, module: St
 }
 
 fun Settings_gradle.include(subPath: String, projectName: String) {
+    val dir = file("${rootProject.projectDir}/$subPath/$projectName")
+    if(!dir.exists()){
+        throw GradleException("cannot include project $projectName as its projectDir $dir does not exist")
+    }
     include(projectName)
-    project(":$projectName").projectDir = file("${rootProject.projectDir}/$subPath/$projectName")
+    project(":$projectName").projectDir = dir
 }
