@@ -58,6 +58,7 @@ includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
 includeKotlinJvmJs("misc/specs", "atrium-specs")
 includeKotlinJvmJs("misc/verbs", "atrium-verbs")
 includeKotlinJvmJs("misc/verbs-internal", "atrium-verbs-internal")
+include("misc/tools", "readme-examples")
 
 includeKotlinJvmJs("translations/de_CH", "atrium-translations-de_CH")
 includeKotlinJvmJs("translations/en_GB", "atrium-translations-en_GB")
