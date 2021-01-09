@@ -7,7 +7,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 
 class DefaultFailureHandlerImpl<T, R> : SubjectChanger.FailureHandler<T, R> {
@@ -24,7 +24,7 @@ class DefaultFailureHandlerImpl<T, R> : SubjectChanger.FailureHandler<T, R> {
                 descriptiveAssertion,
                 assertionBuilder.explanatoryGroup
                     .withDefaultType
-                    .collectAssertions(None, assertionCreator)
+                    .collectAssertions(container, None, assertionCreator)
                     .build()
             )
             .build()

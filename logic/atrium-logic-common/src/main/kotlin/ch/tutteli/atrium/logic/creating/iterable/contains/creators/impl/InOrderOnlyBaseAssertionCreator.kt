@@ -7,14 +7,10 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.size
-import ch.tutteli.atrium.logic.toBe
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.identity
@@ -42,13 +38,13 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
             }
 
             val list = maybeList.getOrElse { emptyList() }
-            val assertion = assertionCollector.collect(maybeList) {
+            val assertion = container.collectForDifferentSubject(maybeList) {
                 val index = addAssertionsAndReturnIndex(searchCriteria)
                 val remainingList = list.ifWithinBound(index,
                     { list.subList(index, list.size) },
                     { emptyList() }
                 )
-                addAssertion(createSizeFeatureAssertionForInOrderOnly(index, list, remainingList.iterator()))
+                addAssertion(createSizeFeatureAssertionForInOrderOnly(container, index, list, remainingList.iterator()))
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             assertionBuilder.summary
@@ -60,11 +56,12 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
 
 
     private fun <E> createSizeFeatureAssertionForInOrderOnly(
+        container: AssertionContainer<*>,
         expectedSize: Int,
         iterableAsList: List<E?>,
         itr: Iterator<E?>
     ): Assertion {
-        return assertionCollector.collect(Some(iterableAsList)) {
+        return container.collectForDifferentSubject(Some(iterableAsList)) {
             _logic.size(::identity).collectAndAppend {
                 _logicAppend { toBe(expectedSize) }
                 if (iterableAsList.size > expectedSize) {

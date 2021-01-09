@@ -7,7 +7,6 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
@@ -191,7 +190,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             val description =
                 entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
             assertionBuilder.invisibleGroup.withAssertions(
-                assertionCollector.collect(Some(map)) {
+                entryPointStepLogic.container.collectForDifferentSubject(Some(map)) {
                     _logic
                         //using CollectionLike.size
                         .size { it.entries }

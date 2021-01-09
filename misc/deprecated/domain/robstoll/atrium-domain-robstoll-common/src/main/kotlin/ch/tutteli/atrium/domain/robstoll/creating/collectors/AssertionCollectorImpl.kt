@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collect
 import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors._collectForComposition
 
-//TODO 0.16.0 move to logic and deprecate
+@Deprecated("Use assertionCollector from atrium-logic; will be removed with 0.17.0")
 class AssertionCollectorImpl : AssertionCollector {
 
     override fun <T> collect(

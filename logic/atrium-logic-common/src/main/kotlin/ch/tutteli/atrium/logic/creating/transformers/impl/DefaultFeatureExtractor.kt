@@ -9,8 +9,8 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
+import ch.tutteli.atrium.logic.creating.collectors.assertionCollector
+import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor
 import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.reporting.reporter
@@ -64,11 +64,11 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory assertion group, no need to wrap again
-                        assertionCollector.collectForComposition(None, assertionCreator)
+                        container.assertionCollector.collectForComposition(None, assertionCreator)
                     }, {
                         listOf(
                             assertionBuilder.explanatoryGroup.withDefaultType
-                                .collectAssertions(None, assertionCreator)
+                                .collectAssertions(container, None, assertionCreator)
                                 .build()
                         )
                     })
@@ -87,7 +87,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 createFeatureExpect(Some(subject), maybeSubAssertions.fold({
                     listOf<Assertion>()
                 }) { assertionCreator ->
-                    assertionCollector.collectForComposition(Some(subject), assertionCreator)
+                    container.assertionCollector.collectForComposition(Some(subject), assertionCreator)
                 })
             }
         )

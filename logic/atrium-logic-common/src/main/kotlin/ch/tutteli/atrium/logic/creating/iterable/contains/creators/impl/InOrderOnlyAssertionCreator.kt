@@ -2,6 +2,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -32,7 +33,7 @@ abstract class InOrderOnlyAssertionCreator<E, T : IterableLike, SC>(
     override fun Expect<List<E>>.addAssertionsAndReturnIndex(searchCriteria: List<SC>): Int {
         var index = 0
         searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
-            addSingleEntryAssertion(currentIndex, searchCriterion, ELEMENT_WITH_INDEX)
+            _logic.addSingleEntryAssertion(currentIndex, searchCriterion, ELEMENT_WITH_INDEX)
             index = currentIndex
         }
         ++index

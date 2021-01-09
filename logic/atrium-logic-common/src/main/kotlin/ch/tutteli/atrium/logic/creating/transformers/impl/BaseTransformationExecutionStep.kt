@@ -3,7 +3,6 @@ package ch.tutteli.atrium.logic.creating.transformers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.collect
 import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep

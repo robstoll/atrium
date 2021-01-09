@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
@@ -32,11 +33,12 @@ class InAnyOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
 ) : InAnyOrderOnlyAssertionCreator<E?, T, (Expect<E>.() -> Unit)?>(converter, searchBehaviour) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        container: AssertionContainer<*>,
         searchCriterion: (Expect<E>.() -> Unit)?,
         list: MutableList<E?>
     ): Pair<Boolean, Assertion> {
-        val explanatoryAssertionGroup = createExplanatoryAssertionGroup(searchCriterion)
-        val found = removeMatch(list, searchCriterion)
+        val explanatoryAssertionGroup = createExplanatoryAssertionGroup(container, searchCriterion)
+        val found = removeMatch(container, list, searchCriterion)
         return found to createEntryAssertion(explanatoryAssertionGroup, found)
     }
 
@@ -49,10 +51,14 @@ class InAnyOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
             .build()
 
 
-    private fun removeMatch(list: MutableList<E?>, assertionCreator: (Expect<E>.() -> Unit)?): Boolean {
+    private fun removeMatch(
+        container: AssertionContainer<*>,
+        list: MutableList<E?>,
+        assertionCreator: (Expect<E>.() -> Unit)?
+    ): Boolean {
         val itr = list.iterator()
         while (itr.hasNext()) {
-            if (allCreatedAssertionsHold(itr.next(), assertionCreator)) {
+            if (allCreatedAssertionsHold(container, itr.next(), assertionCreator)) {
                 itr.remove()
                 return true
             }
