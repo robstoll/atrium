@@ -8,7 +8,6 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
@@ -44,10 +43,10 @@ class DefaultAnyAssertions : AnyAssertions {
         if (assertionCreatorOrNull == null) {
             container.toBe(null)
         } else {
-            val assertion =
-                assertionCollector.collect(container.maybeSubject.flatMap { if (it != null) Some(it) else None }) {
-                    addAssertionsCreatedBy(assertionCreatorOrNull)
-                }
+            val collectSubject = container.maybeSubject.flatMap { if (it != null) Some(it) else None }
+            val assertion = container.collectForDifferentSubject(collectSubject) {
+                addAssertionsCreatedBy(assertionCreatorOrNull)
+            }
             //TODO 0.16.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(
                 {
@@ -99,7 +98,7 @@ class DefaultAnyAssertions : AnyAssertions {
         reason: String,
         assertionCreator: Expect<T>.() -> Unit
     ): Assertion {
-        val assertion = assertionCollector.collect(container.maybeSubject, assertionCreator)
+        val assertion = container.collect(assertionCreator)
         return assertionBuilder.invisibleGroup.withAssertions(
             assertion,
             assertionBuilder.explanatoryGroup

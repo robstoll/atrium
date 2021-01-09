@@ -98,10 +98,10 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val list = transformToList(container, converter)
 
         val assertions = ArrayList<Assertion>(2)
-        assertions.add(createExplanatoryAssertionGroup(assertionCreatorOrNull))
+        assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
 
         val mismatches = createIndexAssertions(list) { (_, element) ->
-            !allCreatedAssertionsHold(element, assertionCreatorOrNull)
+            !allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
         }
         assertions.add(
             assertionBuilder.explanatoryGroup

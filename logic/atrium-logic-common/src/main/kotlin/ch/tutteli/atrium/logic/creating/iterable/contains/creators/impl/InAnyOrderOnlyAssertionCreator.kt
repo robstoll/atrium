@@ -46,7 +46,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
 
-            val mismatches = createAssertionsForAllSearchCriteria(searchCriteria, list, assertions)
+            val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, list, assertions)
             val featureAssertions = createSizeFeatureAssertion(searchCriteria, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
                 featureAssertions.add(LazyThreadUnsafeAssertionGroup {
@@ -84,13 +84,14 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     }
 
     private fun createAssertionsForAllSearchCriteria(
+        container: AssertionContainer<*>,
         allSearchCriteria: List<SC>,
         list: MutableList<E?>,
         assertions: MutableList<Assertion>
     ): Int {
         var mismatches = 0
         allSearchCriteria.forEach {
-            val (found, assertion) = createAssertionForSearchCriterionAndRemoveMatchFromList(it, list)
+            val (found, assertion) = createAssertionForSearchCriterionAndRemoveMatchFromList(container, it, list)
             if (!found) ++mismatches
             assertions.add(assertion)
         }
@@ -98,6 +99,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     }
 
     protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        container: AssertionContainer<*>,
         searchCriterion: SC,
         list: MutableList<E?>
     ): Pair<Boolean, Assertion>
@@ -105,9 +107,9 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion> =
         mutableListOf(
             assertionBuilder.descriptive
-            .withTest { actualSize == allSearchCriteria.size }
-            .withDescriptionAndRepresentation(TO_BE, Text(allSearchCriteria.size.toString()))
-            .build()
+                .withTest { actualSize == allSearchCriteria.size }
+                .withDescriptionAndRepresentation(TO_BE, Text(allSearchCriteria.size.toString()))
+                .build()
         )
 
     private fun createExplanatoryGroupForMismatchesEtc(

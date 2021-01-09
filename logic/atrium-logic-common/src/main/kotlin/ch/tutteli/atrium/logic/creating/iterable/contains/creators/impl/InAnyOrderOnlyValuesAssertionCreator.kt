@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -26,6 +27,7 @@ class InAnyOrderOnlyValuesAssertionCreator<E, T : IterableLike>(
 ) : InAnyOrderOnlyAssertionCreator<E, T, E>(converter, searchBehaviour) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
+        container: AssertionContainer<*>,
         searchCriterion: E,
         list: MutableList<E?>
     ): Pair<Boolean, Assertion> {

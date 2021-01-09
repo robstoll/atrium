@@ -11,7 +11,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.collectors.collectAssertions
+import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -29,7 +29,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
             assertions.add(
                 assertionBuilder.explanatoryGroup
                     .withDefaultType
-                    .collectAssertions(None, assertionCreator)
+                    .collectAssertions(container, None, assertionCreator)
                     .build()
             )
         }

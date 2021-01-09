@@ -30,7 +30,7 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>
  * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
  * further notice.
  *
- * @param T The type of the [subject] of the assertion.
+ * @param T The type of the subject of the assertion.
  */
 @ExpectMarker
 interface Expect<T> : SubjectProvider<T> {

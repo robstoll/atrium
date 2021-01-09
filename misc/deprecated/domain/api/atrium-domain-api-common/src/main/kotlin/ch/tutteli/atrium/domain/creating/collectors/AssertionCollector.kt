@@ -1,29 +1,31 @@
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
-import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.creating.Expect
 
 /**
  * The access point to an implementation of [AssertionCollector].
  *
  * It loads the implementation lazily via [loadSingleService].
  */
-//TODO 0.16.0 move to atrium-logic
+@Deprecated(
+    "Use assertionCollector from atrium-logic; will be removed with 0.17.0",
+    ReplaceWith("container.assertionCollector", "ch.tutteli.atrium.logic.creating.collectors.assertionCollector")
+)
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
-//TODO 0.16.0 move to atrium-logic
+@Deprecated("Use AssertionCollector from atrium-logic; will be removed with 0.17.0")
 interface AssertionCollector {
 
     /**
@@ -31,6 +33,7 @@ interface AssertionCollector {
      *
      * See the other overload for more information.
      */
+    @Deprecated("Use assertionCollector.collect from atrium-logic; will be removed with 0.17.0")
     fun <T> collect(
         expect: Expect<T>,
         assertionCreator: Expect<T>.() -> Unit
@@ -53,6 +56,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
      */
+    @Deprecated("Use collect from atrium-logic; will be removed with 0.17.0")
     fun <T> collect(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): Assertion
 
 
@@ -68,5 +72,6 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
      */
+    @Deprecated("Use collectForComposition from atrium-logic; will be removed with 0.17.0")
     fun <T> collectForComposition(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): List<Assertion>
 }

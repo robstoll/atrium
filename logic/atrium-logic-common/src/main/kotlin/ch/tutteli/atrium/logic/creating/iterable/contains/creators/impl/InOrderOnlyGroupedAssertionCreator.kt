@@ -5,6 +5,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
@@ -28,22 +29,22 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
             val currentIndex = index
             val untilIndex = index + group.size
             if (group.size == 1) {
-                addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
+                _logic.addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
             } else {
-                addSublistAssertion(currentIndex, untilIndex, group, maybeSubject.getOrElse { emptyList() })
+                _logic.addSublistAssertion(currentIndex, untilIndex, group, maybeSubject.getOrElse { emptyList() })
             }
             index = untilIndex
         }
         return index
     }
 
-    private fun Expect<List<E>>.addSublistAssertion(
+    private fun AssertionContainer<List<E>>.addSublistAssertion(
         currentIndex: Int,
         untilIndex: Int,
         groupOfSearchCriteria: List<SC>,
         subject: List<E>
     ) {
-        _logic.extractFeature
+        extractFeature
             .withDescription(
                 TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
             )

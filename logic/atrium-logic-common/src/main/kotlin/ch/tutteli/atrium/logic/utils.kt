@@ -5,14 +5,14 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectInternal
-import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
+import ch.tutteli.atrium.logic.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
@@ -51,41 +51,68 @@ val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
 val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
     get() = FeatureExtractorBuilder(this)
 
+
 /**
  * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
- * other action which results in an assertion container being created and
- * you do not require this resulting container.
+ * other action which results in an [Expect] being created for a different subject and
+ * you do not require this resulting [Expect].
  *
  * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
- * assertion container.
+ * [Expect].
  *
- * This basically delegates to [AssertionCollector.collect] using the subject of the assertion as `maybeSubject`.
+ * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
  *
- * @param assertionCreator A lambda which defines the assertions for the feature.
+ * It uses the [AssertionContainer.maybeSubject] as subject of the given [assertionCreator] and
+ * delegates to [collectForDifferentSubject].
  *
- * @return The collected assertions as an [AssertionGroup] with an [InvisibleAssertionGroupType].
+ * @param assertionCreator A lambda which defines the expectations for the [AssertionContainer.maybeSubject].
  *
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
- *   assertion.
+ * @return The collected assertions.
  */
 inline fun <T> AssertionContainer<T>.collect(noinline assertionCreator: Expect<T>.() -> Unit): Assertion =
+    collectForDifferentSubject(maybeSubject, assertionCreator)
+
+/**
+ * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
+ * other action which results in an [Expect] being created for a different subject and
+ * you do not require this resulting [Expect].
+ *
+ * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
+ * [Expect].
+ *
+ * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
+ *
+ * This basically delegates to [assertionCollector] using the subject of the assertion as `maybeSubject`.
+ *
+ * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
+ *   [None] in case a previous subject transformation was not successful -
+ *   this will be used as subject for the given [assertionCreator].
+ * @param assertionCreator A lambda which defines the expectations for the given [maybeSubject].
+ *
+ * @return The collected assertions.
+ */
+inline fun <T> AssertionContainer<*>.collectForDifferentSubject(
+    maybeSubject: Option<T>,
+    noinline assertionCreator: Expect<T>.() -> Unit
+): Assertion =
     assertionCollector.collect(maybeSubject, assertionCreator)
 
 /**
- * Use this function if you want to collect [Assertion]s and use it as part of an [AssertionGroup].
+ * Use this function if you want to collect [Assertion]s and use it as part of another [Assertion] (e.g. as part
+ * of an [AssertionGroup]).
  *
- * This basically delegates to [AssertionCollector.collectForComposition] using the subject of the assertion
- * as `maybeSubject`.
+ * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
  *
- * @param assertionCreator A lambda which defines the assertions for the feature.
+ * This basically delegates to [assertionCollector] using [AssertionContainer.maybeSubject] as subject of the assertion.
+ *
+ * @param assertionCreator A lambda which defines the expectations for the [AssertionContainer.maybeSubject].
  *
  * @return The collected assertions as a `List<[Assertion]>`.
  *
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
  *   assertion.
  */
-inline fun <T> collectForComposition(
-    maybeSubject: Option<T>,
+inline fun <T> AssertionContainer<T>.collectForComposition(
     noinline assertionCreator: Expect<T>.() -> Unit
 ): List<Assertion> = assertionCollector.collectForComposition(maybeSubject, assertionCreator)
 
@@ -114,7 +141,7 @@ fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
  * which is returned when calling [TransformationExecutionStep.collectAndAppend] with [_logicAppend]
  * and the given [assertionCreator].
  *
- * See [collect] for more information.
+ * See [collectForDifferentSubject] for more information.
  *
  * @return An [Expect] for the current subject of the assertion.
  */

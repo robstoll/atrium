@@ -3,14 +3,14 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.*
-import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 interface InOrderOnlyMatcher<E, SC> {
-    fun elementAssertionCreator(maybeElement: Option<E>, searchCriterion: SC): Assertion
+    fun AssertionContainer<List<E>>.elementAssertionCreator(maybeElement: Option<E>, searchCriterion: SC): Assertion
 
-    fun Expect<List<E>>.addSingleEntryAssertion(
+    fun AssertionContainer<List<E>>.addSingleEntryAssertion(
         currentIndex: Int,
         searchCriterion: SC,
         translatableIndex: DescriptionIterableAssertion
