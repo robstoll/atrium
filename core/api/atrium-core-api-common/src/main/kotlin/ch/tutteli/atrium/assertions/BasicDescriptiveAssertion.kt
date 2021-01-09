@@ -10,40 +10,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param representation The [BasicDescriptiveAssertion.representation].
  * @param test Lazily determines whether [BasicDescriptiveAssertion.holds].
  */
-@Deprecated("Use DescriptiveAssertion, do not rely on this specific type, will be made internal with 1.0.0")
-class BasicDescriptiveAssertion
-@Deprecated(
-    "Use `assertionBuilder.descriptive` instead, will be made `internal` with 1.0.0",
-    ReplaceWith(
-        "assertionBuilder.descriptive.withAssertions(description, representation, test)",
-        "ch.tutteli.atrium.assertions.builders.assertionBuilder"
-    )
-)
-constructor(
+
+internal class BasicDescriptiveAssertion(
     override val description: Translatable,
     override val representation: Any,
     private val test: () -> Boolean
 ) : DescriptiveAssertion {
-
-    /**
-     * Constructor overload with an eager [BasicDescriptiveAssertion.holds].
-     *
-     * If the calculation for [holds] is expensive, then you might want to use the other overload with a lazy test.
-     *
-     * @param description The [BasicDescriptiveAssertion.description].
-     * @param representation The [BasicDescriptiveAssertion.representation].
-     * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
-     */
-    @Suppress("DEPRECATION" /* TODO remove with 0.16.0 */)
-    @Deprecated(
-        "Use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
-        ReplaceWith(
-            "AssertImpl.builder.descriptive.withAssertions(description, representation, holds)",
-            "ch.tutteli.atrium.domain.builders.AssertImpl"
-        )
-    )
-    constructor(description: Translatable, representation: Any, holds: Boolean)
-        : this(description, representation, { holds })
 
     override fun holds() = test()
 

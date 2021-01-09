@@ -6,6 +6,8 @@ package ch.tutteli.atrium.core
  *
  * @return The result of evaluating this function (calling it).
  */
+//TODO remove with 0.17.0
+@Deprecated("Will be removed with 0.17.0 without replacement")
 fun <T> (() -> T).evalOnce(): () -> T {
     val v by lazy { this() }
     return { v }
