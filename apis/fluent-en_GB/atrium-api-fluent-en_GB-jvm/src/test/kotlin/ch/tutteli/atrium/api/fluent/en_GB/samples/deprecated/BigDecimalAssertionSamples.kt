@@ -1,4 +1,7 @@
-package ch.tutteli.atrium.api.fluent.en_GB.samples
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
+package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect

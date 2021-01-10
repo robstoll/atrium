@@ -1,4 +1,7 @@
-package ch.tutteli.atrium.api.fluent.en_GB.samples
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
+package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
@@ -9,6 +12,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.samples.fails
 import ch.tutteli.atrium.api.fluent.en_GB.size
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test

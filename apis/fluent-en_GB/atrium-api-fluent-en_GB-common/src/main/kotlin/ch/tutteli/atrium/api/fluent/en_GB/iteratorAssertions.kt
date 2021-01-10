@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorAssertionSamples.hasNext
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.IteratorAssertionSamples.hasNext
  */
 fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext() }
@@ -24,7 +24,7 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorAssertionSamples.hasNoNext
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.IteratorAssertionSamples.hasNoNext
  */
 fun <E, T : Iterator<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext() }

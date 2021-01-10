@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.*
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isLessThan
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThan
  */
 fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     _logicAppend { isLessThan(expected) }
@@ -20,7 +20,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isLessThanOrEqual
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThanOrEqual
  */
 fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
@@ -31,7 +31,7 @@ fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isGreaterThan
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThan
  */
 fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     _logicAppend { isGreaterThan(expected) }
@@ -42,7 +42,7 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isGreaterThanOrEqual
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThanOrEqual
  */
 fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }
@@ -55,7 +55,7 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ComparableAssertionSamples.isEqualComparingTo
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isEqualComparingTo
  */
 fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T): Expect<T> =
     _logicAppend { isEqualComparingTo(expected) }
