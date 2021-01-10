@@ -68,6 +68,7 @@ class IterableAnyAssertionsSpec : Spek({
         ) = expect.contains(a)
 
 
+        //TODO move to an own spec
         private fun getContainsSequencePair() =
             "asSequence().${Sequence<*>::asIterable.name}().$contains" to Companion::containsInAnyOrderEntrySequence
 
@@ -80,7 +81,7 @@ class IterableAnyAssertionsSpec : Spek({
         private fun containsNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable().contains(a)
+        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable { contains(a) }.asIterable()
     }
 
 
