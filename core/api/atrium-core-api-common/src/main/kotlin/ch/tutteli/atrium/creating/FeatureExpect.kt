@@ -8,10 +8,7 @@ import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents an [Expect] which results due to a change of the [Expect.maybeSubject] to a feature of the subject.
- *
- * A change can for instance be a feature extraction such as `expect(listOf(1)).get(0)`
- * but also just a feature assertion such as `expect(listOf(1)).feature { f(it::size) }`
+ * Represents an [Expect] which results due to a feature extraction from he subject of the expectation.
  */
 interface FeatureExpect<T, R> : Expect<R> {
 

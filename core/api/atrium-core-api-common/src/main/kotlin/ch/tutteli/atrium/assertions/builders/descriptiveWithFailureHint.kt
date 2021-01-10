@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint.*
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -35,7 +34,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  */
 //TODO move to logic and expect AssertionContainer with 0.16.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
-    subjectProvider: SubjectProvider<T>,
+    @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
     failureHintFactory: (T) -> Assertion
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
     return withFailureHintBasedOnSubject(subjectProvider) {
@@ -58,7 +57,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
  * on the subject of the assertion.
  */
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnSubject(
-    subjectProvider: SubjectProvider<T>,
+    @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
     failureHintSubStep: DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption<T>.() -> Pair<() -> Assertion, (T) -> Assertion>
 ): DescriptiveAssertionWithFailureHint.ShowOption = withFailureHint {
     SubjectBasedOption(
@@ -116,14 +115,16 @@ interface DescriptiveAssertionWithFailureHint {
         /**
          * Defines that the failure hint shall be shown in any case as long as the subject is defined
          */
-        fun <T> showOnlyIfSubjectDefined(subjectProvider: SubjectProvider<T>): Descriptive.DescriptionOption<FinalStep> =
+        fun <T> showOnlyIfSubjectDefined(
+            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>
+        ): Descriptive.DescriptionOption<FinalStep> =
             showOnlyIf { subjectProvider.maybeSubject.isDefined() }
 
         /**
          * Defines that the failure hint shall be shown if the subject is defined and the given [predicate] holds for it
          */
         fun <T> showBasedOnDefinedSubjectOnlyIf(
-            subjectProvider: SubjectProvider<T>,
+            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
             predicate: (T) -> Boolean
         ): Descriptive.DescriptionOption<FinalStep> =
             showBasedOnSubjectOnlyIf(subjectProvider) { ifDefined { predicate(it) } ifAbsent { false } }
@@ -136,7 +137,7 @@ interface DescriptiveAssertionWithFailureHint {
          * of the assertion.
          */
         fun <T> showBasedOnSubjectOnlyIf(
-            subjectProvider: SubjectProvider<T>,
+            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
             showSubStep: ShowSubjectDefinedOption<T>.() -> Pair<() -> Boolean, (T) -> Boolean>
         ): Descriptive.DescriptionOption<FinalStep> = showOnlyIf {
             SubjectBasedOption(subjectProvider, showSubStep, ShowSubjectDefinedOption.Companion::create)

@@ -112,10 +112,6 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
             TextExplanatoryAssertionGroupFormatter(bulletPoints, it)
         }
         assertionFormatterFacade.register {
-            @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
-            TextIndentAssertionGroupFormatter(bulletPoints, it)
-        }
-        assertionFormatterFacade.register {
             TextSummaryAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {

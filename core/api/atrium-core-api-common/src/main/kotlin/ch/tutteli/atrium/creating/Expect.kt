@@ -3,6 +3,9 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -22,18 +25,33 @@ annotation class ExpectMarker
  *
  * See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.
  */
-interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>
+interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>{
+    //TODO remove with 0.17.0 no longer necessary once it only exist in AssertionContainer
+    /**
+     * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject change could not be
+     * carried out.
+     */
+    override val maybeSubject: Option<T>
+}
+
 
 /**
  * Represents the extension point for [Assertion] functions and sophisticated builders for subjects of type [T].
  *
- * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
- * further notice.
+ * Note, do not use [SubjectProvider] as this interface is only temporary and will be removed with 0.17.0.
  *
  * @param T The type of the subject of the assertion.
  */
+@Suppress("DEPRECATION")
 @ExpectMarker
-interface Expect<T> : SubjectProvider<T> {
+interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
+
+    @Deprecated(
+        "use _logic.maybeSubject will be removed with 0.17.0",
+        ReplaceWith("this._logic.maybeSubject", "ch.tutteli.atrium.logic._logic")
+    )
+    override val maybeSubject: Option<T>
+        get() = TODO("Not yet implemented")
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this container and
@@ -47,6 +65,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
+    //TODO 0.16.0 move to AssertionContainer and deprecate
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
@@ -56,6 +75,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
+    //TODO 0.16.0 move to AssertionContainer and deprecate
     override fun addAssertion(assertion: Assertion): Expect<T>
 
 
@@ -69,6 +89,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
+    //TODO 0.16.0 move to AssertionContainer and deprecate
     fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
         createAndAddAssertion(Untranslatable(description), expected, test)
 
@@ -82,6 +103,7 @@ interface Expect<T> : SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
+    //TODO 0.16.0 move to AssertionContainer and deprecate
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
 }

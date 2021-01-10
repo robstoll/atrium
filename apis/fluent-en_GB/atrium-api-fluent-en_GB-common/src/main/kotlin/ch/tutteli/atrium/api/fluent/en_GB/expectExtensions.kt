@@ -17,7 +17,8 @@ annotation class ExperimentalWithOptions
  * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
- * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ * In case the subject of the assertion is not defined (i.e. `_logic.maybeSubject` is [None]),
+ * then the previous representation is used.
  *
  * @return An [Expect] for the current subject of the assertion.
  */
@@ -35,7 +36,8 @@ fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> 
  * If your text does not include the current subject, then we recommend to use the other overload which expects
  * a `String` and does the wrapping for you.
  *
- * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ * In case the subject of the assertion is not defined (i.e. `_logic.maybeSubject` is [None]),
+ * then the previous representation is used.
  *
  * @return An [Expect] for the current subject of the assertion.
  */
@@ -68,7 +70,8 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
  * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
  * instead of the representation that has been defined so far (which defaults to the subject itself).
  *
- * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ * In case the subject of the assertion is not defined (i.e. `_logic.maybeSubject` is [None]),
+ * then the previous representation is used.
  *
  * @return An [Expect] for the current subject of the assertion.
  */
@@ -88,7 +91,8 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * If your text does not include the current subject, then we recommend to use the other overload which expects
  * a `String` and does the wrapping for you.
  *
- * In case [Expect.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+ * In case the subject of the assertion is not defined (i.e. `_logic.maybeSubject` is [None]),
+ * then the previous representation is used.
  *
  * @return An [Expect] for the current subject of the assertion.
  */

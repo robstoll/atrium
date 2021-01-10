@@ -2,12 +2,10 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
-import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -164,14 +162,19 @@ interface AssertionBuilder {
      * @param description The description of the assertion, e.g. `to Be`.
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
-     *
-     * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
-     *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
-     *   possible that [Expect.maybeSubject] is [None].
      */
-    //TODO remove @throws with 1.0.0
+    //TODO remove with 0.17.0
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Use _logic.createDescriptive instead; will be removed with 0.17.0",
+        ReplaceWith(
+            "container.createDescriptiveAssertion",
+            "ch.tutteli.atrium.logic._logic",
+            "ch.tutteli.atrium.logic.createDescriptiveAssertion"
+        )
+    )
     fun <T> createDescriptive(
-        subjectProvider: SubjectProvider<T>,
+        subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
         description: String,
         representation: Any?,
         test: (T) -> Boolean
@@ -197,14 +200,18 @@ interface AssertionBuilder {
      * @param description The description of the assertion, e.g. `to Be`.
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
-     *
-     * @throws ch.tutteli.atrium.creating.PlantHasNoSubjectException in case [test] is called in a context where it
-     *   is not safe to call it. For instance, if [test] is called within an explanatory assertion where it is
-     *   possible that [Expect.maybeSubject] is [None].
      */
-    //TODO remove @throws with 1.0.0
+    //TODO remove with 0.17.0
+    @Deprecated(
+        "Use extension AssertionContainer.createDescriptiveAssertion instead - e.g. _logic.createDescriptiveAssertion; will be removed with 0.17.0",
+        ReplaceWith(
+            "container.createDescriptiveAssertion",
+            "ch.tutteli.atrium.logic._logic",
+            "ch.tutteli.atrium.logic.createDescriptiveAssertion"
+        )
+    )
     fun <T> createDescriptive(
-        subjectProvider: SubjectProvider<T>,
+        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
         description: Translatable,
         representation: Any?,
         test: (T) -> Boolean

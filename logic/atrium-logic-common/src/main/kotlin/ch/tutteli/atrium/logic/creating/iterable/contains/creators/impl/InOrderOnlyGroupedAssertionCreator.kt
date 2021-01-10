@@ -1,6 +1,3 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.core.Option
@@ -31,7 +28,11 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
             if (group.size == 1) {
                 _logic.addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
             } else {
-                _logic.addSublistAssertion(currentIndex, untilIndex, group, maybeSubject.getOrElse { emptyList() })
+                _logic.addSublistAssertion(
+                    currentIndex,
+                    untilIndex,
+                    group,
+                    _logic.maybeSubject.getOrElse { emptyList() })
             }
             index = untilIndex
         }

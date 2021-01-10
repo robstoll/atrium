@@ -19,8 +19,6 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 RootAssertionGroupType::class to "* ",
                 ListAssertionGroupType::class to "- ",
                 FeatureAssertionGroupType::class to "=> ",
-                @Suppress("DEPRECATION" /* TODO remove together with entry with 1.0.0 */)
-                IndentAssertionGroupType::class to "| ",
                 PrefixFeatureAssertionGroupHeader::class to ">> ",
                 PrefixSuccessfulSummaryAssertion::class to "(/) ",
                 PrefixFailingSummaryAssertion::class to "(x) ",

@@ -2,7 +2,9 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import kotlin.reflect.KClass
 
 /**
@@ -11,13 +13,15 @@ import kotlin.reflect.KClass
  * In contrast to assertion function defined for [Expect] which usually return [Expect], functions defined for
  * [AssertionContainer] return [Assertion] so that they can be appended to whatever we want.
  *
- * Note, do not use [SubjectProvider] as this interface is only temporary and will most likely be removed without
- * further notice.
+ * Note, do not use [SubjectProvider] as this interface will be removed with 0.17.0.
  *
  * @param T The type of the subject of the assertion.
  */
-//TODO 0.16.0 remove SubjectProvider
-interface AssertionContainer<T> : SubjectProvider<T> {
+interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
+    /**
+     * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
+     * could not be carried out.
+     */
     override val maybeSubject: Option<T>
 
     /**

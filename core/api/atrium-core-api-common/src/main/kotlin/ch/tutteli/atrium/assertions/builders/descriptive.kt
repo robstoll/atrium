@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.DescriptionOptionImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.FinalStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.HoldsOptionImpl
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -43,7 +42,10 @@ interface Descriptive {
          * ```
          */
         //TODO move to logic and expect AssertionContainer with 0.16.0
-        fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): DescriptionOption<FinalStep>
+        fun <T> withTest(
+            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+            test: (T) -> Boolean
+        ): DescriptionOption<FinalStep>
 
         companion object {
             /**

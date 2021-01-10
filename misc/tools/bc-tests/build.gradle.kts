@@ -2,6 +2,7 @@
 // you need to specify the environment variable BC in order that this project (as well as the subprojects)
 // are included -> alternatively, you can remove the `if` in settings.gradle.kts (search for System.getenv("BC"))
 
+//<editor-fold desc="setup">
 import ch.tutteli.niok.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -496,6 +497,7 @@ fun Project.rewriteFile(filePath: String, f: (String) -> String) {
     val file = file(filePath)
     file.writeText(f(file.readText()))
 }
+//</editor-fold>
 
 // -----------------------------------------------------------------------------------
 // Known source backward compatibility breaks:
@@ -528,9 +530,17 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
             }
 
+            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/testutils/AsciiBulletPointReporterFactory.kt") {
+                it.replaceFirst(
+                    "                @Suppress(\"DEPRECATION\" /* TODO remove together with entry with 1.0.0 */)\n" +
+                        "                IndentAssertionGroupType::class to \"| \",", ""
+                )
+            }
+
             // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
+            file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/reporting/TextIndentAssertionGroupFormatterSpec.kt").delete()
         }
     }
 
