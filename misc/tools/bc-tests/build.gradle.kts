@@ -537,6 +537,14 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 )
             }
 
+            // fix specs, was a wrong implementation and the specs tested the wrong thing
+            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/IterableAssertionsSpec.kt") {
+                it.replaceFirst(
+                    "contains(\"\$hasDescriptionBasic: \$duplicateElements\")",
+                    "contains(\"\$hasNotDescriptionBasic: \$duplicateElements\")"
+                )
+            }
+
             // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
