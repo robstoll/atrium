@@ -181,7 +181,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         }
         createHasElementPlusFixedClaimGroup(
             list,
-            DescriptionBasic.HAS, DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
+            DescriptionBasic.HAS_NOT, DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
             duplicates.isEmpty(),
             duplicates
         )

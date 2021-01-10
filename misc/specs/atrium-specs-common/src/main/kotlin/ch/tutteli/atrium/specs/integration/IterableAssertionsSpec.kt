@@ -39,9 +39,9 @@ abstract class IterableAssertionsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
-    val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
-    val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
+    val hasDescr = DescriptionBasic.HAS.getDefault()
+    val hasNotDescr = DescriptionBasic.HAS_NOT.getDefault()
+    val nextElementDescr = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
     describeFun(hasNext) {
@@ -54,7 +54,7 @@ abstract class IterableAssertionsSpec(
         it("throws an AssertionError if an iterable does not have next") {
             expect {
                 expect(listOf<Int>() as Iterable<Int>).hasNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageContains("$hasDescr: $nextElementDescr") }
         }
     }
 
@@ -68,7 +68,7 @@ abstract class IterableAssertionsSpec(
         it("throws an AssertionError if an iterable has next element") {
             expect {
                 expect(listOf(1, 2) as Iterable<Int>).hasNotNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageContains("$hasNotDescr: $nextElementDescr") }
         }
     }
 
@@ -144,7 +144,7 @@ abstract class IterableAssertionsSpec(
                 expect(input).containsNoDuplicatesFun()
             }.toThrow<AssertionError> {
                 message {
-                    contains("$hasDescriptionBasic: $duplicateElements")
+                    contains("$hasNotDescr: $duplicateElements")
                     contains(index(0, 1), index(1, 2), index(2, 1), index(3, 2), index(5, 4), index(6, 4), index(7, 4))
                 }
             }
