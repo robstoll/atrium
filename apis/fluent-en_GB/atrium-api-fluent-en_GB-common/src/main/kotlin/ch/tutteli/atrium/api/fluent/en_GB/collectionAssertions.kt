@@ -13,7 +13,7 @@ import ch.tutteli.kbox.identity
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isEmpty
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.isEmpty
  */
 fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::identity) }
@@ -23,7 +23,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.isNotEmpty
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.isNotEmpty
  */
 fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::identity) }
@@ -35,7 +35,7 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.hasSize
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.hasSize
  */
 fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toBe(expected) }
@@ -46,7 +46,7 @@ fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.sizeFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.sizeFeature
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::identity).transform()
@@ -58,7 +58,7 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionAssertionSamples.size
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.size
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::identity).collectAndAppend(assertionCreator)

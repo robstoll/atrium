@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.Reporter
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyAssertionSamples.toBe
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBe
  */
 infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
@@ -47,7 +47,7 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  * @return An [Expect] for the current subject of the assertion.
  *
  * @since 0.15.0
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyAssertionSamples.because
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.because
  */
 infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
     _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }

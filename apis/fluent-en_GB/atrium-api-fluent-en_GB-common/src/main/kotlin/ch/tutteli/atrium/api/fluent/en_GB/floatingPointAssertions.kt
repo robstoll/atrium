@@ -21,7 +21,7 @@ import kotlin.jvm.JvmName
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FloatingPointAssertionSamples.toBeWithErrorToleranceFloat
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceFloat
  */
 fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Expect<Float> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
@@ -38,7 +38,7 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Exp
  *
  * @return An [Expect] for the current subject of the assertion.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FloatingPointAssertionSamples.toBeWithErrorToleranceDouble
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceDouble
  */
 fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double): Expect<Double> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

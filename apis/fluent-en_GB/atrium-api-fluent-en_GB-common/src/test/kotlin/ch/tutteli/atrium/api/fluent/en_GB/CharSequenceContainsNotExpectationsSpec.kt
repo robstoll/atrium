@@ -1,0 +1,27 @@
+package ch.tutteli.atrium.api.fluent.en_GB
+
+import ch.tutteli.atrium.creating.Expect
+
+class CharSequenceContainsNotExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsNotExpectationsSpec(
+    getContainsNotTriple(),
+    getContainsNotIgnoringCaseTriple(),
+    "◆ ", "⚬ "
+) {
+
+    companion object : CharSequenceContainsSpecBase() {
+
+        private fun getContainsNotTriple() =
+            { what: String -> "$containsNot $what" } to
+                ("$containsNot.$value/$values" to Companion::containsNotFun)
+
+        private fun containsNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.containsNot.values(a, *aX)
+
+        private fun getContainsNotIgnoringCaseTriple() =
+            { what: String -> "$containsNot $ignoringCase $what" } to
+                ("$containsNot.$ignoringCase.$value/$values" to Companion::containsNotIgnoringCase)
+
+        private fun containsNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.containsNot.ignoringCase.values(a, *aX)
+    }
+}
