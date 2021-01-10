@@ -5,15 +5,16 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 
-//TODO remove with 0.16.0
+//TODO remove with 0.17.0
 /**
  * Provides the subject of an [Assertion].
  *
- * Notice, this interface has its mere purpose to facilitate the transition from [Assert] to [Expect].
- * It might well be that we are going to remove it with 1.0.0 without previous notice.
- * Hence, to be on the safe side, you should use [Expect] instead.
+ * Notice, this interface had its mere purpose to facilitate the transition from `Assert` to [Expect] -- `Assert` was
+ * removed in 0.16.0 and thus this interface will be removed with 0.17.0.
  */
-interface SubjectProvider<out T> : AssertionHolder {
+@Suppress("DEPRECATION")
+@Deprecated("Will be removed with 0.17.0 without replacement, switch to Expect or AssertionContainer")
+interface SubjectProvider<out T> {
 
 
     /**
@@ -21,4 +22,15 @@ interface SubjectProvider<out T> : AssertionHolder {
      * carried out.
      */
     val maybeSubject: Option<T>
+
+    /**
+     * Adds the given [assertion] to this holder.
+     *
+     * @param assertion The assertion which will be added to this holder.
+     *
+     * @return This holder to support a fluent API.
+     * @throws AssertionError Might throw an [AssertionError] in case the [Assertion] does not hold.
+     */
+    //TODO deprecate and move to AssertionContainer ->
+    fun addAssertion(assertion: Assertion): SubjectProvider<T>
 }

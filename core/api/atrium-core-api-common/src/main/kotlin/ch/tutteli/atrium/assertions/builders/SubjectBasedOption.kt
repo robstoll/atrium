@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.creating.SubjectProvider
-
 /**
  * Contract for sub option steps which are based on a defined or absent subject of the assertion.
  */
@@ -40,8 +38,9 @@ interface SubjectBasedOption {
     }
 
     companion object {
+        @Suppress("DEPRECATION")
         operator fun <T, R, PO : DefinedOption<T, R, *>> invoke(
-            subjectProvider: SubjectProvider<T>,
+            subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
             subStep: PO.() -> Pair<() -> R, (T) -> R>,
             presentOptionFactory: () -> PO
         ): R {

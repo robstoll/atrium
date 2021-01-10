@@ -2,7 +2,6 @@ package ch.tutteli.atrium.assertions.builders.common
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.RepresentationOnlyAssertion
-import ch.tutteli.atrium.creating.SubjectProvider
 
 /**
  * Step which allows to specify [RepresentationOnlyAssertion.holds].
@@ -35,5 +34,8 @@ interface HoldsStep<R> {
      * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
      */
     //TODO  move to logic and expect AssertionContainer with 0.16.0
-    fun <T> withTest(subjectProvider: SubjectProvider<T>, test: (T) -> Boolean): R
+    fun <T> withTest(
+        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+        test: (T) -> Boolean
+    ): R
 }

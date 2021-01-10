@@ -3,7 +3,6 @@ package ch.tutteli.atrium.assertions.builders.impl.descriptive
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.falseProvider
-import ch.tutteli.atrium.creating.SubjectProvider
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -22,7 +21,7 @@ internal object HoldsOptionImpl : Descriptive.HoldsOption {
         Descriptive.DescriptionOption.create(test, Descriptive.FinalStep.Companion::create)
 
     override fun <T> withTest(
-        subjectProvider: SubjectProvider<T>,
+        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
         test: (T) -> Boolean
     ): Descriptive.DescriptionOption<Descriptive.FinalStep> = withTest {
         subjectProvider.maybeSubject.fold(falseProvider, test)

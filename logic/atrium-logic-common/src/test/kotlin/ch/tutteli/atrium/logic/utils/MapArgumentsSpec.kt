@@ -49,7 +49,7 @@ object MapArgumentsSpec : Spek({
                     val (first, others) = it(null, "b", "c")
                     expect(first).toBe(null)
                     expect(others[0]).notToBeNull {
-                        maybeSubject.map { assertionCreator ->
+                        _logic.maybeSubject.map { assertionCreator ->
                             _logic.changeSubject.unreported { "banana" }.assertionCreator()
                         }
                     }
