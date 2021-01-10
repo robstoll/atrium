@@ -641,7 +641,7 @@ then we suggest that you [write a specific assertion function](#write-own-assert
 
 
 Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.isPresent` or `Result.isSuccess` 
-where all fo them include some additional checking (index bound, existence of the key within the map etc.)
+where all of them include some additional checking (index bound, existence of the key within the map etc.)
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
 in case you miss a shortcut. 
 
