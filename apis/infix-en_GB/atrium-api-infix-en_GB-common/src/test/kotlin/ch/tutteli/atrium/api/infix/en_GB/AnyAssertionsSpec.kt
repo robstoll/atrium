@@ -51,7 +51,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
 
     getAndImmediatePair(),
     getAndLazyPair(),
-    "* ", "- ","(i) "
+    "* ", "- ", "(i) "
 ) {
 
     companion object : WithAsciiReporter() {
@@ -70,7 +70,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
             expect.isA<SuperType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASuperType(expect: Expect<out Any?>, assertionCreator: Expect<SuperType>.() -> Unit): Expect<SuperType> =
+        private fun isASuperType(
+            expect: Expect<out Any?>,
+            assertionCreator: Expect<SuperType>.() -> Unit
+        ): Expect<SuperType> =
             expect.isA<SuperType> { assertionCreator() }
 
         @Suppress("RemoveExplicitTypeArguments")
@@ -78,15 +81,22 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
             expect.isA<SubType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASubType(expect: Expect<out Any?>, assertionCreator: Expect<SubType>.() -> Unit): Expect<SubType> =
+        private fun isASubType(
+            expect: Expect<out Any?>,
+            assertionCreator: Expect<SubType>.() -> Unit
+        ): Expect<SubType> =
             expect.isA<SubType> { assertionCreator() }
 
         private fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> =
-            "non existing in infix" to { e: Expect<Int> -> e }
+            "and o" to { e: Expect<Int> ->
+                e and o
+            }
 
         private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
         private fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =
-            andLazyName.name to Expect<Int>::and
+            andLazyName.name to { e: Expect<Int>, assertionCreator: Expect<Int>.() -> Unit ->
+                e and { assertionCreator() }
+            }
 
         private fun notToBeNullFeature(expect: Expect<Int?>) =
             expect notToBeNull o
@@ -97,17 +107,29 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         private fun isNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun isNoneOfIntNullable(expect: Expect<Int?>, expected: Int?, otherValues: Array<out Int?>): Expect<Int?> =
+        private fun isNoneOfIntNullable(
+            expect: Expect<Int?>,
+            expected: Int?,
+            otherValues: Array<out Int?>
+        ): Expect<Int?> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun isNoneOfDataClass(expect: Expect<DataClass>, expected: DataClass, otherValues: Array<out DataClass>): Expect<DataClass> =
+        private fun isNoneOfDataClass(
+            expect: Expect<DataClass>,
+            expected: DataClass,
+            otherValues: Array<out DataClass>
+        ): Expect<DataClass> =
             expect isNoneOf values(expected, *otherValues)
 
-        private fun isNoneOfDataClassNullable(expect: Expect<DataClass?>, expected: DataClass?, otherValues: Array<out DataClass?>): Expect<DataClass?> =
+        private fun isNoneOfDataClassNullable(
+            expect: Expect<DataClass?>,
+            expected: DataClass?,
+            otherValues: Array<out DataClass?>
+        ): Expect<DataClass?> =
             expect isNoneOf values(expected, *otherValues)
 
         private fun because(expect: Expect<String>, reason: String, assertionCreator: Expect<String>.() -> Unit) =
-           expect because of(reason) { assertionCreator() }
+            expect because of(reason) { assertionCreator() }
 
         private fun becauseOfInt(expect: Expect<Int>, reason: String, assertionCreator: Expect<Int>.() -> Unit) =
             expect because of(reason) { assertionCreator() }
@@ -130,7 +152,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.specs.integration.AnyAssertionsSpec(
         a1.isA<Int> {}
         a1 isNoneOf values(1, 2)
         a1 isNotIn listOf(1, 1.2)
-        a1 because of ("hello") { toBe(1) }
+        a1 because of("hello") { toBe(1) }
 
         a1b toBe 1
         a1b toBe 1.2
