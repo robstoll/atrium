@@ -69,11 +69,12 @@ buildscript {
     }
 }
 
+val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
+val bcTestsOldPath = "$bcTestsPath/old"
+
 // comment `if` out, if you want to modify stuff via IDE (e.g. see compile errors in Intellij
 if (System.getenv("BC") != null) {
     include("bc-tests:test-engine")
-    val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
-    val bcTestsOldPath = "$bcTestsPath/old"
     project(":bc-tests").projectDir = file(bcTestsPath)
     project(":bc-tests:test-engine").projectDir = file("$bcTestsPath/test-engine")
 

@@ -213,7 +213,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
         fun org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget.createBcLikeTaskWithCoverage(
             project: Project,
             kind: String,
-            description: String
+            description: String,
+            scanClassPath: String
         ): TaskProvider<JavaExec> = project.tasks.register<JavaExec>(kind) {
             group = "verification"
             this.description = description
@@ -227,16 +228,26 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
             }
 
             classpath = compilations["test"].runtimeDependencyFiles
+
             main = "org.junit.platform.console.ConsoleLauncher"
             args = listOf(
-                "--scan-class-path", compilations["test"].output.classesDirs.asPath,
+                "--scan-class-path", scanClassPath,
                 "--disable-banner",
                 "--fail-if-no-tests",
                 "--include-engine", "spek2-forgiving",
-                "--include-classname", ".*Spec",
-                "--config", "forgive=$forgivePattern",
-                "--details", "summary"
-            )
+                "--include-classname", ".*(Spec|Samples)"
+            ) +
+                if (kind == "bbc") {
+                    listOf(
+                        "--include-engine", "junit-jupiter"
+                    )
+                } else {
+                    listOf()
+                } +
+                listOf(
+                    "--config", "forgive=$forgivePattern",
+                    "--details", "summary"
+                )
         }
 
         if (includingBbc) {
@@ -244,13 +255,26 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                 apply(plugin = "jacoco")
 
                 the<KotlinMultiplatformExtension>().apply {
+                    val confName = "confBbc"
+
                     jvm {
                         configureTestSetupAndJdkVersion()
+
+                        configurations {
+                            create(confName)
+                        }
+                        dependencies {
+                            // test jar with compiled tests
+                            add(confName, atrium("api-$apiName") + ":tests") {
+                                exclude(group = "*")
+                            }
+                        }
 
                         val bbcTest = createBcLikeTaskWithCoverage(
                             project,
                             "bbc",
-                            "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation"
+                            "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation",
+                            configurations[confName].asPath
                         )
                         createJacocoReportTask(apiName, bbcTest)
                         bbcTests.configure {
@@ -271,11 +295,10 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                                 if (apiName == "infix-en_GB") {
                                     implementation(project(":atrium-translations-de_CH-jvm"))
                                 }
-
-                                // test jar with compiled tests
-                                implementation(atrium("api-$apiName") + ":tests") {
-                                    exclude(group = "*")
+                                configurations[confName].dependencies.forEach {
+                                    implementation(it)
                                 }
+
                                 // compiled specs
                                 implementation(atrium("specs")) {
                                     exclude(group = "ch.tutteli.atrium")
@@ -295,7 +318,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         }
                     }
                 }
-                configureTestTasks()
             }
         }
 
@@ -313,7 +335,10 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     val bcTest = createBcLikeTaskWithCoverage(
                         project,
                         "bc",
-                        "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
+                        "Checks if specs from $apiName $oldVersion can be compiled and run against the current version.",
+                        //spek ignores this setting and searches on the classpath,
+                        // we don't execute junit-jupiter here (is done via build) so we can pass whatever we want
+                        ""
                     )
                     createJacocoReportTask(apiName, bcTest)
                     bcTests.configure {
