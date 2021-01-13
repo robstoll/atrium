@@ -4,9 +4,11 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
+import kotlin.reflect.KClass
 
 /**
  * Expects that the subject of the assertion is (equal to) [expected].
@@ -80,7 +82,7 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
-    _logic.notToBeNullButOfType(T::class).transform()
+    notToBeNullButOfType(T::class).transform()
 
 /**
  * Expects that the subject of the assertion is not null and
@@ -90,7 +92,11 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
+    notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
+
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
+    _logic.notToBeNullButOfType(kClass)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
@@ -112,7 +118,11 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCrea
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    _logic.isA(TSub::class).transform()
+    isA(TSub::class).transform()
+
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
+    _logic.isA(kClass)
 
 /**
  * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
@@ -155,7 +165,7 @@ inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
  * @return An [Expect] with the new type [TSub].
  */
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    _logic.isA(TSub::class).transformAndAppend(assertionCreator)
+    isA(TSub::class).transformAndAppend(assertionCreator)
 
 /**
  * Can be used to separate single assertions.
@@ -256,5 +266,5 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  *
  * @since 0.13.0
  */
-inline infix fun <reified T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
+infix fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

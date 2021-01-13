@@ -5,6 +5,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.causeIsA
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import kotlin.reflect.KClass
 
 /**
  * Expects that the property [Throwable.message] of the subject of the assertion is not null,
@@ -62,7 +64,13 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  * @since 0.12.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
-    _logic.causeIsA(TExpected::class).transform()
+    causeIsA(TExpected::class).transform()
+
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
+    kClass: KClass<TExpected>
+): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = _logic.causeIsA(kClass)
+
 
 /**
  *
@@ -78,4 +86,4 @@ inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.causeIsA(TExpected::class).transformAndAppend(assertionCreator)
+): Expect<TExpected> = causeIsA(TExpected::class).transformAndAppend(assertionCreator)

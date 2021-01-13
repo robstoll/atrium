@@ -12,6 +12,7 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyWithValueAs
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.utils.toVarArgPairs
+import kotlin.reflect.KClass
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
@@ -79,8 +80,14 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.the(
     keyValues: KeyValues<K, V>
+): Expect<T> = entries(V::class, keyValues.toList())
+
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entries(
+    kClass: KClass<V>,
+    keyValues: List<KeyWithValueCreator<K, V>>
 ): Expect<T> = _logicAppend {
-    keyWithValueAssertionsInAnyOrder(V::class, keyValues.toList().map { it.toPair() })
+    keyWithValueAssertionsInAnyOrder(kClass, keyValues.map { it.toPair() })
 }
 
 /**

@@ -53,6 +53,7 @@ inline fun <reified T> IterableLikeContains.CheckerStepLogic<*, *, *>.toVarArg(
  *
  * @since 0.14.0
  */
+// part of the API level because we inline, something to be aware about
 inline fun <reified T> IterableLikeContains.EntryPointStepLogic<*, *, *>.toVarArg(
     iterableLike: IterableLike
 ): Pair<T, Array<out T>> = container.iterableLikeToVarArg(iterableLike)
