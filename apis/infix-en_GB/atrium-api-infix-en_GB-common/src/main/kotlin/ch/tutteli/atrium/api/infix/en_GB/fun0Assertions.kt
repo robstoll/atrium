@@ -2,8 +2,10 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.notToThrow
 import ch.tutteli.atrium.logic.toThrow
+import kotlin.reflect.KClass
 
 /**
  * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type).
@@ -15,7 +17,12 @@ import ch.tutteli.atrium.logic.toThrow
  * @return An [Expect] with the new type [TExpected].
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
-    _logic.toThrow(TExpected::class).transform()
+    toThrow(TExpected::class).transform()
+
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
+    kClass: KClass<TExpected>
+): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
 
 /**
  * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type) and
@@ -51,7 +58,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Exp
  */
 inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.toThrow(TExpected::class).transformAndAppend(assertionCreator)
+): Expect<TExpected> = toThrow(TExpected::class).transformAndAppend(assertionCreator)
 
 
 /**
