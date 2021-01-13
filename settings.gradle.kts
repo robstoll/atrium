@@ -1,6 +1,10 @@
 rootProject.name = "atrium"
 
 buildscript {
+
+    fun or(vararg patterns: String) =
+        "(" + patterns.joinToString(prefix = "(", separator = ")|(", postfix = ")") + ")"
+
     val allTargets = listOf("common", "jvm", "js")
     val commonJvm = listOf("common", "jvm")
     //TODO 0.16.0 change to allTargets and remove commonJvm once we have transitioned everything to the new MPP plugin
@@ -10,17 +14,51 @@ buildscript {
         Triple(
             "0.14.0",
             allApisAllTargets,
-            /* includingBbc= */ false to
-                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/(" +
-                "(IterableContainsInOrderOnly.*Spec)|" +
-                "(MapAssertionsSpec.*)" +
-                ").*)"
+            /* includingBbc= */ true to
+                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                or(
+                    //improved reporting
+                    "IterableContainsInOrderOnly.*Spec",
+                    // changed reporting as most of it is no longer based on IterableLike.contains
+                    "MapAssertionsSpec.*",
+                    //spec was wrong
+                    "IterableAssertionsSpec/.*`" + or(
+                        "containsNoDuplicates",
+                        "contains noDuplicates"
+                    ) + "`/list with duplicates",
+                    //returnValueOf was part of Assert, no longer in there
+                    or(
+                        "IterableAnyAssertionsSpec",
+                        "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
+                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
+                        "IterableContainsInOrderOnlyEntriesAssertionsSpec"
+                    ) + ".*/returnValueOf"
+                ) + ".*)"
         ),
         Triple(
             "0.15.0",
             allApisAllTargets,
-            /* includingBbc= */  false to
-                "^$"
+            /* includingBbc= */ true to
+                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                or(
+                    //spec was wrong
+                    "IterableAssertionsSpec/.*`" + or(
+                        "containsNoDuplicates",
+                        "contains noDuplicates"
+                    ) + "`/list with duplicates",
+                    //returnValueOf was part of Assert, no longer in there
+                    or(
+                        "IterableAnyAssertionsSpec",
+                        "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
+                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
+                        "IterableContainsInOrderOnlyEntriesAssertionsSpec"
+                    ) + ".*/returnValueOf",
+                    // looks like we were unlucky in infix and kotlin actually has chosen the deprecated overload
+                    // in bytecode instead of the new one in those particular specs (not in others). No idea why...
+                    // we have removed the deprecated `contains o` function in 0.16.0
+                    "IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.*",
+                    "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec.*"
+                ) + ".*)"
         )
     )
     (gradle as ExtensionAware).extra.apply {
@@ -31,19 +69,28 @@ buildscript {
     }
 }
 
+val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
+val bcTestsOldPath = "$bcTestsPath/old"
+
 // comment `if` out, if you want to modify stuff via IDE (e.g. see compile errors in Intellij
 if (System.getenv("BC") != null) {
     include("bc-tests:test-engine")
-    project(":bc-tests").projectDir = file("${rootProject.projectDir}/misc/tools/bc-tests")
-    project(":bc-tests:test-engine").projectDir = file("${rootProject.projectDir}/misc/tools/bc-tests/test-engine")
+    project(":bc-tests").projectDir = file(bcTestsPath)
+    project(":bc-tests:test-engine").projectDir = file("$bcTestsPath/test-engine")
 
     @Suppress("UNCHECKED_CAST")
     val bcConfigs =
         (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, Pair<Boolean, String>>>
-    bcConfigs.forEach { (oldVersion, apis, _) ->
+    bcConfigs.forEach { (oldVersion, apis, pair) ->
+        val (withBbc, _) = pair
         includeBc(oldVersion, "specs")
         apis.forEach { (apiName, _) ->
             includeBc(oldVersion, "api-$apiName")
+            if (withBbc) {
+                includeBc(oldVersion, "api-$apiName-bbc")
+                val projectName = "$oldVersion-api-$apiName-bbc"
+                file("$bcTestsOldPath/$projectName/").mkdirs()
+            }
         }
     }
 }
@@ -72,7 +119,7 @@ includeKotlinJvmJs("misc/deprecated/domain/builders", "atrium-domain-builders")
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"
     include("bc-tests:$projectName")
-    project(":bc-tests:$projectName").projectDir = file("misc/tools/bc-tests/old/$projectName")
+    project(":bc-tests:$projectName").projectDir = file("$bcTestsOldPath/$projectName")
 }
 
 fun Settings_gradle.includeBundleAndApisWithExtensionsAndSmokeTest(vararg apiNames: String) {
@@ -99,7 +146,7 @@ fun Settings_gradle.includeKotlinJvmJsWithExtensions(subPath: String, module: St
 
 fun Settings_gradle.include(subPath: String, projectName: String) {
     val dir = file("${rootProject.projectDir}/$subPath/$projectName")
-    if(!dir.exists()){
+    if (!dir.exists()) {
         throw GradleException("cannot include project $projectName as its projectDir $dir does not exist")
     }
     include(projectName)

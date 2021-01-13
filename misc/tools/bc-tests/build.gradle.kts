@@ -2,13 +2,14 @@
 // you need to specify the environment variable BC in order that this project (as well as the subprojects)
 // are included -> alternatively, you can remove the `if` in settings.gradle.kts (search for System.getenv("BC"))
 
-//<editor-fold desc="setup">
 import ch.tutteli.niok.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import java.nio.file.Files
 import java.nio.file.Paths
+
+//<editor-fold desc="project setup">
 
 plugins {
     kotlin("multiplatform") apply false
@@ -80,6 +81,7 @@ var Project.fixSrc: () -> Unit
         project.extra.set(fixSrcPropertyName, g)
     }
 
+val testEngineProjectName = ":bc-tests:test-engine"
 bcConfigs.forEach { (oldVersion, apis, pair) ->
     val (includingBbc, forgivePattern) = pair
     fun atrium(module: String): String {
@@ -148,7 +150,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
         the<KotlinMultiplatformExtension>().apply {
             jvm()
-            // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
+            // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
 //            js().nodejs {}
             sourceSets {
                 val commonMain by getting {
@@ -179,7 +181,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         implementation(project(":atrium-fluent-en_GB-jvm"))
                     }
                 }
-                // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
+                // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
 //                val jsMain by getting {
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
@@ -208,104 +210,137 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
     apis.forEach { (apiName, targets) ->
 
+        fun org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget.createBcLikeTaskWithCoverage(
+            project: Project,
+            kind: String,
+            description: String,
+            scanClassPath: String
+        ): TaskProvider<JavaExec> = project.tasks.register<JavaExec>(kind) {
+            group = "verification"
+            this.description = description
+
+            inputs.files(compilations["test"].output)
+            inputs.property("forgivePattern", forgivePattern)
+
+            // declaring it has no outputs, only inputs matter but allow to force run via -PbcForce=1
+            outputs.upToDateWhen {
+                !project.properties.containsKey("bcForce")
+            }
+
+            classpath = compilations["test"].runtimeDependencyFiles
+
+            main = "org.junit.platform.console.ConsoleLauncher"
+            args = listOf(
+                "--scan-class-path", scanClassPath,
+                "--disable-banner",
+                "--fail-if-no-tests",
+                "--include-engine", "spek2-forgiving",
+                "--include-classname", ".*(Spec|Samples)"
+            ) +
+                if (kind == "bbc") {
+                    listOf(
+                        "--include-engine", "junit-jupiter"
+                    )
+                } else {
+                    listOf()
+                } +
+                listOf(
+                    "--config", "forgive=$forgivePattern",
+                    "--details", "summary"
+                )
+        }
+
+        if (includingBbc) {
+            configure(listOf(project(":bc-tests:$oldVersion-api-$apiName-bbc"))) {
+                apply(plugin = "jacoco")
+
+                the<KotlinMultiplatformExtension>().apply {
+                    val confName = "confBbc"
+
+                    jvm {
+                        configureTestSetupAndJdkVersion()
+
+                        configurations {
+                            create(confName)
+                        }
+                        dependencies {
+                            // test jar with compiled tests
+                            add(confName, atrium("api-$apiName") + ":tests") {
+                                exclude(group = "*")
+                            }
+                        }
+
+                        val bbcTest = createBcLikeTaskWithCoverage(
+                            project,
+                            "bbc",
+                            "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation",
+                            configurations[confName].asPath
+                        )
+                        createJacocoReportTask(apiName, bbcTest)
+                        bbcTests.configure {
+                            dependsOn(bbcTest)
+                        }
+                    }
+
+                    sourceSets {
+                        all {
+                            // we don't have src nor resources for bbc
+                            kotlin.setSrcDirs(listOf<File>())
+                            resources.setSrcDirs(listOf<File>())
+                        }
+                        val jvmTest by getting {
+
+                            dependencies {
+                                implementation(project(":atrium-api-$apiName-jvm"))
+                                if (apiName == "infix-en_GB") {
+                                    implementation(project(":atrium-translations-de_CH-jvm"))
+                                }
+                                configurations[confName].dependencies.forEach {
+                                    implementation(it)
+                                }
+
+                                // compiled specs
+                                implementation(atrium("specs")) {
+                                    exclude(group = "ch.tutteli.atrium")
+                                }
+
+                                // required by specs
+                                implementation(project(":atrium-fluent-en_GB-jvm"))
+                                implementation(project(":atrium-verbs-internal-jvm"))
+
+                                // to run forgiving spek tests
+                                runtimeOnly(project(testEngineProjectName))
+
+                                // to run samples
+                                implementation(kotlin("test-junit5"))
+                                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         configure(listOf(project(":bc-tests:$oldVersion-api-$apiName"))) {
 
             apply(plugin = "jacoco")
 
             the<KotlinMultiplatformExtension>().apply {
-                // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
+
+                // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
 //                js().nodejs {}
+
                 jvm {
-                    compilations.all {
-                        kotlinOptions.jvmTarget = "1.6"
-                    }
-                    val testProvider = testRuns["test"].executionTask
-                    testProvider.configure {
-                        useJUnitPlatform {
-                            includeEngines("junit-jupiter")
-                        }
-                    }
-
-                    fun createJacocoReportTask(
-                        prefix: String,
-                        runTaskProvider: TaskProvider<JavaExec>
-                    ): TaskProvider<JacocoReport> {
-                        val runTask = runTaskProvider.get()
-                        val jacocoReport = tasks.register<JacocoReport>("jacoco-$prefix-$oldVersion-$apiName") {
-                            group = "report"
-
-                            dependsOn(runTaskProvider)
-                            executionData(runTask)
-
-                            val jacocoMulti: Map<String, Iterable<Project>> by rootProject.extra
-                            val sourceProjects = jacocoMulti["sourceProjects"]!!
-                            val projects = when (apiName) {
-                                "fluent-en_GB" -> sourceProjects.filter { !it.name.contains("infix-en_GB") }
-                                "infix-en_GB" -> {
-                                    sourceProjects.filter {
-                                        !it.name.contains("translations-en_GB") &&
-                                            !it.name.contains("fluent-en_GB")
-                                    } + listOf(
-                                        project(":atrium-translations-de_CH-jvm"),
-                                        project(":atrium-translations-de_CH-common")
-                                    )
-                                }
-                                else -> throw IllegalStateException("re-adjust jacoco task")
-                            }
-                            projects.forEach {
-                                //TODO 0.16.0 simplify once all project use new MPP plugin
-                                val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
-                                if (sourceSetContainer != null) {
-                                    sourceSets(sourceSetContainer["main"])
-                                } else {
-                                    it.the<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
-                                        sourceDirectories.from(kotlinSourceSet.kotlin.srcDirs)
-                                    }
-                                }
-
-                            }
-                            // DEBUG sourceDirectories
-//                            println("list $oldVersion $apiName: ${sourceDirectories.map { it.absolutePath }.joinToString("\n")}\n")
-
-                            reports {
-                                csv.isEnabled = false
-                                xml.isEnabled = true
-                                xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
-                                html.isEnabled = true
-                                html.destination = file("${buildDir}/reports/jacoco/$name/html/")
-                            }
-                        }
-
-                        the<JacocoPluginExtension>().apply {
-                            toolVersion = jacocoToolVersion
-                            this.applyTo<JavaExec>(runTask)
-                        }
-                        runTaskProvider.configure {
-                            finalizedBy(jacocoReport)
-                        }
-                        return jacocoReport
-                    }
-
-
-                    val bcTest = tasks.register<JavaExec>("bc-$oldVersion-$apiName") {
-                        group = "verification"
-                        description =
-                            "Checks if specs from $apiName $oldVersion can be compiled and run against the current version."
-
-                        inputs.files(compilations["test"].output)
-                        inputs.property("forgivePattern", forgivePattern)
-
-                        // declaring it has no outputs, only inputs matter but allow to force run via -PbcForce=1
-                        outputs.upToDateWhen {
-                            !project.properties.containsKey("bcForce")
-                        }
-
-                        classpath = compilations["test"].runtimeDependencyFiles
-                        main = "org.junit.platform.console.ConsoleLauncher"
-                        args =
-                            getConsoleLauncherArgs(compilations["test"].output.classesDirs.asPath, forgivePattern)
-                    }
-                    createJacocoReportTask("bc", bcTest)
+                    configureTestSetupAndJdkVersion()
+                    val bcTest = createBcLikeTaskWithCoverage(
+                        project,
+                        "bc",
+                        "Checks if specs from $apiName $oldVersion can be compiled and run against the current version.",
+                        //spek ignores this setting and searches on the classpath,
+                        // we don't execute junit-jupiter here (is done via build) so we can pass whatever we want
+                        ""
+                    )
+                    createJacocoReportTask(apiName, bcTest)
                     bcTests.configure {
                         dependsOn(bcTest)
                         // we want to run the samples as well
@@ -315,62 +350,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
-
-                    if (includingBbc) {
-                        val bbcConfName = "bbcConf_${oldVersion}_${apiName}"
-                        val bbcConfNameRuntimeOnly = "bbcConf_${oldVersion}_${apiName}RuntimeOnly"
-
-                        configurations {
-                            create(bbcConfName)
-                            create(bbcConfNameRuntimeOnly)
-                        }
-
-                        dependencies {
-                            add(bbcConfName, atrium("api-$apiName") + ":tests") {
-                                exclude(group = "*")
-                            }
-                            add(bbcConfName, atrium("specs")) {
-                                exclude(group = "ch.tutteli.atrium")
-                            }
-                            add(bbcConfName, project(":bc-tests:test-engine", configuration = "jvmRuntime"))
-                            add(
-                                bbcConfName,
-                                "org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion"
-                            )
-
-                            // required by specs
-                            //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                            add(bbcConfName, project(":atrium-fluent-en_GB-jvm"))
-                            add(bbcConfName, project(":atrium-verbs-internal-jvm"))
-
-                            // required by the api tests
-                            add(bbcConfName, project(":atrium-api-$apiName-jvm"))
-                        }
-
-                        // ---------- binary backward compatibility tests ------------
-
-                        val bbcTest = tasks.register<JavaExec>("bbcTest") {
-                            description =
-                                "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation"
-
-                            inputs.files(configurations[bbcConfName])
-                            inputs.property("forgivePattern", forgivePattern)
-
-                            // declaring it has no outputs, only inputs matter but allow to force run via -PbcForce=1
-                            outputs.upToDateWhen {
-                                !project.properties.containsKey("bcForce")
-                            }
-
-                            classpath(configurations[bbcConfName].asPath)
-
-                            main = "org.junit.platform.console.ConsoleLauncher"
-                            args = getConsoleLauncherArgs(configurations[bbcConfName].asPath, forgivePattern)
-                        }
-                        createJacocoReportTask("bbc", bcTest)
-                        bbcTests.configure {
-                            dependsOn(bbcTest)
-                        }
-                    }
                 }
 
                 sourceSets {
@@ -401,7 +380,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             }
 
                             // to run forgiving spek tests
-                            runtimeOnly(project(":bc-tests:test-engine"))
+                            runtimeOnly(project(testEngineProjectName))
 
                             // for Samples
                             implementation(kotlin("test-junit5"))
@@ -409,7 +388,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         }
                     }
-                    // TODO 0.16.0 reactivate once we have transition everything to the new MPP plugin
+                    // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
 //                    val jsTest by getting {
 //                        dependencies {
 //                            implementation(project(":atrium-api-$apiName-js"))
@@ -425,57 +404,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                    }
                 }
             }
-            fun memoizeTestFile(testTask: Test) =
-                project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
-
-            tasks.withType<Test> {
-                testLogging {
-                    events(
-                        TestLogEvent.FAILED,
-                        TestLogEvent.SKIPPED,
-                        TestLogEvent.STANDARD_OUT,
-                        TestLogEvent.STANDARD_ERROR
-                    )
-                    exceptionFormat = TestExceptionFormat.FULL
-                    showExceptions = true
-                    showCauses = true
-                    showStackTraces = true
-                }
-                val testTask = this
-                addTestListener(object : TestListener {
-                    override fun beforeSuite(suite: TestDescriptor) {}
-                    override fun beforeTest(testDescriptor: TestDescriptor) {}
-                    override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
-                    override fun afterSuite(suite: TestDescriptor, result: TestResult) {
-                        if (suite.parent == null) {
-                            if (result.testCount == 0L) {
-                                throw GradleException("No tests executed, most likely the discovery failed.")
-                            }
-                            println("Result: ${result.resultType} (${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)")
-                            memoizeTestFile(testTask).writeText(result.resultType.toString())
-                        }
-                    }
-                })
-            }
-
-            tasks.withType<Test>().forEach { testTask ->
-                val failIfTestFailedLastTime =
-                    tasks.register("fail-if-${testTask.name}-failed-last-time") {
-                        doLast {
-                            if (!testTask.didWork) {
-                                val memoizeTestFile = memoizeTestFile(testTask)
-                                if (memoizeTestFile.exists() && memoizeTestFile.readText() == TestResult.ResultType.FAILURE.toString()) {
-                                    val allTests = tasks.getByName("allTests") as TestReport
-                                    throw GradleException(
-                                        "test failed in last run, execute clean${testTask.name} to force its execution\n" +
-                                            "See the following report for more information:\nfile://${allTests.destinationDir}/index.html"
-                                    )
-                                }
-                            }
-                        }
-                    }
-                testTask.finalizedBy(failIfTestFailedLastTime)
-            }
+            configureTestTasks()
 
             createUnzipTasks("api-$apiName", "testsources", "Test", targets)
         }
@@ -483,15 +412,132 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     }
 }
 
-fun getConsoleLauncherArgs(scanClassPath: String, forgivePattern: String) = listOf(
-    "--scan-class-path", scanClassPath,
-    "--disable-banner",
-    "--fail-if-no-tests",
-    "--include-engine", "spek2-forgiving",
-    "--include-classname", ".*Spec",
-    "--config", "forgive=$forgivePattern",
-    "--details", "summary"
-)
+fun org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget.configureTestSetupAndJdkVersion() {
+    compilations.all {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    val testProvider = testRuns["test"].executionTask
+    testProvider.configure {
+        useJUnitPlatform {
+            includeEngines("junit-jupiter")
+        }
+    }
+}
+
+fun Project.createJacocoReportTask(
+    apiName: String,
+    runTaskProvider: TaskProvider<JavaExec>
+): TaskProvider<JacocoReport> {
+    val runTask = runTaskProvider.get()
+    val jacocoReport = tasks.register<JacocoReport>("jacoco-${runTask.name}") {
+        group = "report"
+
+        dependsOn(runTaskProvider)
+        executionData(runTask)
+
+        val jacocoMulti: Map<String, Iterable<Project>> by rootProject.extra
+        val sourceProjects = jacocoMulti["sourceProjects"]!!
+        val projects = when (apiName) {
+            "fluent-en_GB" -> sourceProjects.filter { !it.name.contains("infix-en_GB") }
+            "infix-en_GB" -> {
+                sourceProjects.filter {
+                    !it.name.contains("translations-en_GB") &&
+                        !it.name.contains("fluent-en_GB")
+                } + listOf(
+                    project(":atrium-translations-de_CH-jvm"),
+                    project(":atrium-translations-de_CH-common")
+                )
+            }
+            else -> throw IllegalStateException("re-adjust jacoco task")
+        }
+        projects.forEach {
+            //TODO 0.16.0 simplify once all project use new MPP plugin
+            val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
+            if (sourceSetContainer != null) {
+                sourceSets(sourceSetContainer["main"])
+            } else {
+                it.the<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
+                    sourceDirectories.from(kotlinSourceSet.kotlin.srcDirs)
+                }
+            }
+
+        }
+        // DEBUG sourceDirectories
+//                            println("list $oldVersion $apiName: ${sourceDirectories.map { it.absolutePath }.joinToString("\n")}\n")
+
+        reports {
+            csv.isEnabled = false
+            xml.isEnabled = true
+            xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
+            html.isEnabled = true
+            html.destination = file("${buildDir}/reports/jacoco/$name/html/")
+        }
+    }
+
+    the<JacocoPluginExtension>().apply {
+        toolVersion = jacocoToolVersion
+        this.applyTo<JavaExec>(runTask)
+    }
+    runTaskProvider.configure {
+        finalizedBy(jacocoReport)
+    }
+    return jacocoReport
+}
+
+
+fun Project.configureTestTasks() {
+    fun memoizeTestFile(testTask: Test) =
+        project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
+
+    tasks.withType<Test> {
+        testLogging {
+            events(
+                TestLogEvent.FAILED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_OUT,
+                TestLogEvent.STANDARD_ERROR
+            )
+            exceptionFormat = TestExceptionFormat.FULL
+            showExceptions = true
+            showCauses = true
+            showStackTraces = true
+        }
+        val testTask = this
+        addTestListener(object : TestListener {
+            override fun beforeSuite(suite: TestDescriptor) {}
+            override fun beforeTest(testDescriptor: TestDescriptor) {}
+            override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
+            override fun afterSuite(suite: TestDescriptor, result: TestResult) {
+                if (suite.parent == null) {
+                    if (result.testCount == 0L) {
+                        throw GradleException("No tests executed, most likely the discovery failed.")
+                    }
+                    println("Result: ${result.resultType} (${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)")
+                    memoizeTestFile(testTask).writeText(result.resultType.toString())
+                }
+            }
+        })
+    }
+
+    tasks.withType<Test>().forEach { testTask ->
+        val failIfTestFailedLastTime =
+            tasks.register("fail-if-${testTask.name}-failed-last-time") {
+                doLast {
+                    if (!testTask.didWork) {
+                        val memoizeTestFile = memoizeTestFile(testTask)
+                        if (memoizeTestFile.exists() && memoizeTestFile.readText() == TestResult.ResultType.FAILURE.toString()) {
+                            val allTests = tasks.getByName("allTests") as TestReport
+                            throw GradleException(
+                                "test failed in last run, execute clean${testTask.name} to force its execution\n" +
+                                    "See the following report for more information:\nfile://${allTests.destinationDir}/index.html"
+                            )
+                        }
+                    }
+                }
+            }
+        testTask.finalizedBy(failIfTestFailedLastTime)
+    }
+}
 
 fun Project.rewriteFile(filePath: String, f: (String) -> String) {
     val file = file(filePath)
@@ -590,6 +636,25 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 Files.move(
                     source,
                     targetDir.resolve("META-INF")
+                )
+            }
+        }
+    }
+    // we removed ch/tutteli/atrium/assertions/IndentAssertionGroupType in 0.16.0 but it is required for the setup in
+    // 0.14.0 and 0.15.0 in the AsciiBulletPointReporterFactory
+    with(project(":bc-tests:$version-api-infix-en_GB-bbc")) {
+        the<KotlinMultiplatformExtension>().apply {
+            sourceSets {
+                val main = file("src/main/kotlin/")
+                val jvmTest by getting {
+                    kotlin.srcDir(main)
+                }
+                main.mkdirs()
+                main.resolve("IndentAssertionGroupType.kt").writeText(
+                    """
+                    package ch.tutteli.atrium.assertions
+                    class IndentAssertionGroupType
+                """.trimIndent()
                 )
             }
         }
