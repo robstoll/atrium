@@ -94,7 +94,7 @@ but can also be retrieved directly from [bintray](https://bintray.com/robstoll/t
 *gradle*: 
 ```
 buildscript {
-    ext { atrium_version='0.12.0' }
+    ext { atrium_version='0.15.0' }
 }
 repositories {
     mavenCentral()
@@ -129,7 +129,7 @@ Also take a look at [Third-party Extensions](#third-party-extensions) which migh
 
 ```
 buildscript {
-    ext { atrium_version='0.12.0' }
+    ext { atrium_version='0.15.0' }
 }
 repositories {
     mavenCentral()
@@ -164,7 +164,7 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ```
 buildscript {
-    ext { atrium_version='0.12.0' }
+    ext { atrium_version='0.15.0' }
 }
 repositories {
     mavenCentral()
@@ -209,7 +209,7 @@ dependencies {
 
 ```
 buildscript {
-    ext { atrium_version='0.12.0' }
+    ext { atrium_version='0.15.0' }
 }
 repositories {
     mavenCentral()
