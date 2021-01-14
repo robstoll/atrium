@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
+import ch.tutteli.atrium.logic.utils.VarArgHelper
 import ch.tutteli.kbox.glue
 
 /**

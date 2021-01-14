@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.map
 
-import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
+import ch.tutteli.atrium.logic.utils.VarArgHelper
 
 /**
  * Parameter object to express `KeyWithValueCreator<K, V>, vararg KeyWithValueCreator<K, V>`.

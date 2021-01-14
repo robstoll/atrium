@@ -159,7 +159,7 @@ inline fun <reified R> mapArguments(
 /**
  * Builder to map variable length arguments formulated as ([first]: [T], `vararg` [others] : [T]) to something else.
  */
-class ArgumentMapperBuilder<out T>(
+class ArgumentMapperBuilder<out T> internal constructor(
     val first: T,
     val others: Array<out T>
 ) {

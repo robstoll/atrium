@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
-import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
+import ch.tutteli.atrium.logic.utils.VarArgHelper
 
 /**
  * Parameter object to express `String, vararg String` where they are treated as regex patterns.
