@@ -5,7 +5,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating
 import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
+import ch.tutteli.atrium.logic.utils.VarArgHelper
 
 /**
  * Represents a [Group] of multiple values.

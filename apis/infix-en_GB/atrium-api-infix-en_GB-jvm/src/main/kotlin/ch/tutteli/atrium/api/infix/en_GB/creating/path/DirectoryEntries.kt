@@ -4,7 +4,7 @@
 )
 package ch.tutteli.atrium.api.infix.en_GB.creating.path
 
-import ch.tutteli.atrium.domain.builders.utils.VarArgHelper
+import ch.tutteli.atrium.logic.utils.VarArgHelper
 
 /**
  *  Parameter object which collects directory entries (as [String]s).
