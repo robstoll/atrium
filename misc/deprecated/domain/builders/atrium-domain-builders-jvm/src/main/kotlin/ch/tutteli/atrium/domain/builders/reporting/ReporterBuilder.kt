@@ -30,7 +30,7 @@ actual interface ReporterBuilder : ReporterBuilderCommon {
      * @param primaryLocale The [Locale] used to format arguments of [TranslatableWithArgs].
      */
     @Deprecated(
-        "Use the overload which uses Atrium's [Locale] or `withoutTranslationsUseDefaultLocale`; will be removed with 1.0.0",
+        "Use the overload which uses Atrium's [Locale] or `withoutTranslationsUseDefaultLocale`; will be removed latest with 1.0.0",
         ReplaceWith(
             "this.withoutTranslations(primaryLocale.toAtriumLocale())",
             "ch.tutteli.atrium.core.migration.toAtriumLocale"

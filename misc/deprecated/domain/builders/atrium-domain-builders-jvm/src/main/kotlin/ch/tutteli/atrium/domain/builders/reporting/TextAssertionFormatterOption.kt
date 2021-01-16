@@ -28,7 +28,7 @@ actual interface TextAssertionFormatterOption : TextAssertionFormatterOptionComm
      * bullet points.
      */
     @Deprecated(
-        "Use the overload which expects KClass instead; will be removed with 1.0.0",
+        "Use the overload which expects KClass instead; will be removed latest with 1.0.0",
         ReplaceWith("this.withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray()).withDefaultAtriumErrorAdjusters()")
     )
     fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterOption =

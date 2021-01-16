@@ -11,26 +11,26 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
 
     DESCRIPTION_BASED_ON_SUBJECT("CANNOT show description as it is based on subject which is not defined"),
     @Deprecated(
-        "Use DESCRIPTION_BASED_ON_SUBJECT; will be removed with 1.0.0",
+        "Use DESCRIPTION_BASED_ON_SUBJECT; will be removed latest with 1.0.0",
         ReplaceWith("DESCRIPTION_BASED_ON_SUBJECT")
     )
     DEDSCRIPTION_BASED_ON_SUBJECT("CANNOT show description as it is based on subject which is not defined"),
     REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED("CANNOT evaluate representation as it is based on subject which is not defined."),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED")
     )
     AT_LEAST_ONE_ASSERTION_DEFINED("at least one assertion defined"),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.FORGOT_DO_DEFINE_ASSERTION")
     )
     FORGOT_DO_DEFINE_ASSERTION("You forgot to define assertions in the assertionCreator-lambda"),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED")
     )
     HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),

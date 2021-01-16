@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.*
  * -- the first step provides options to create a [Translator] or a [TranslationSupplier].
  */
 @Deprecated(
-    "Use ReporterBuilder.create() instead; will be removed with 1.0.0",
+    "Use ReporterBuilder.create() instead; will be removed latest with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.create()")
 )
 val reporterBuilder: ReporterBuilder = ReporterBuilderImpl

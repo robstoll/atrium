@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @param translatable The [Translatable] who's translation should be treated as raw [String].
  *
  */
-@Deprecated("This wrapper is no longer required, we treat Translatable special in DetailedObjectFormatter; will be removed with 1.0.0")
+@Deprecated("This wrapper is no longer required, we treat Translatable special in DetailedObjectFormatter; will be removed latest with 1.0.0")
 data class TranslatableBasedRawString internal constructor(val translatable: Translatable) : RawString {
 
     /**

@@ -27,7 +27,7 @@ actual interface TranslatorOption : TranslatorOptionCommon {
      *   Locale in case no translation was found the previous primary Locale.
      */
     @Deprecated(
-        "Use the overload which uses Atrium's [Locale]; will be removed with 1.0.0",
+        "Use the overload which uses Atrium's [Locale]; will be removed latest with 1.0.0",
         ReplaceWith(
             "this.withDefaultTranslator(primaryLocale.toAtriumLocale(), *fallbackLocales.map { it.toAtriumLocale() }.toTypedArray())",
             "ch.tutteli.atrium.core.migration.toAtriumLocale"

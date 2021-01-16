@@ -10,16 +10,16 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     ALL("all entries"),
     AN_ELEMENT_WHICH("an element which"),
     AN_ELEMENT_WHICH_EQUALS("an element which equals"),
-    @Deprecated("Use AN_ELEMENT_WHICH; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH"))
+    @Deprecated("Use AN_ELEMENT_WHICH; will be removed latest with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH"))
     AN_ENTRY_WHICH(AN_ELEMENT_WHICH.getDefault()),
-    @Deprecated("Use AN_ELEMENT_WHICH_EQUALS; will be removed with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH_EQUALS"))
+    @Deprecated("Use AN_ELEMENT_WHICH_EQUALS; will be removed latest with 1.0.0", ReplaceWith("AN_ELEMENT_WHICH_EQUALS"))
     AN_ENTRY_WHICH_IS(AN_ELEMENT_WHICH_EQUALS.getDefault()),
     AT_LEAST("is at least"),
     AT_MOST("is at most"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
     ELEMENT_WITH_INDEX("element %s"),
-    @Deprecated("Use ELEMENT_WITH_INDEX; will be removed with 1.0.0", ReplaceWith("ELEMENT_WITH_INDEX"))
+    @Deprecated("Use ELEMENT_WITH_INDEX; will be removed latest with 1.0.0", ReplaceWith("ELEMENT_WITH_INDEX"))
     ENTRY_WITH_INDEX(ELEMENT_WITH_INDEX.getDefault()),
     EXACTLY("is exactly"),
     HAS_ELEMENT("has at least one element"),
@@ -37,11 +37,11 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     @Deprecated("Will be removed with 1.0.0")
     CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ELEMENTS("additional elements detected"),
-    @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))
+    @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed latest with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))
     WARNING_ADDITIONAL_ENTRIES(WARNING_ADDITIONAL_ELEMENTS.getDefault()),
     WARNING_MISMATCHES("following elements were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ELEMENTS("mismatches and additional elements detected"),
-    @Deprecated("Use WARNING_MISMATCHES_ADDITIONAL_ELEMENTS; will be removed with 1.0.0", ReplaceWith("WARNING_MISMATCHES_ADDITIONAL_ELEMENTS"))
+    @Deprecated("Use WARNING_MISMATCHES_ADDITIONAL_ELEMENTS; will be removed latest with 1.0.0", ReplaceWith("WARNING_MISMATCHES_ADDITIONAL_ELEMENTS"))
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES(WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()),
     NEXT_ELEMENT("a next element"),
     NO_ELEMENTS("❗❗ cannot be determined, empty Iterable"),
