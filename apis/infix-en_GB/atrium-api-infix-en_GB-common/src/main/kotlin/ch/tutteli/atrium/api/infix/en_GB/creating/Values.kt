@@ -2,9 +2,7 @@
 
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
-import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
 
 /**
@@ -18,6 +16,6 @@ import ch.tutteli.atrium.logic.utils.VarArgHelper
 class Values<out T> internal constructor(
     override val expected: T,
     override val otherExpected: Array<out T>
-) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T> {
+) : Group<T>, VarArgHelper<T> {
     override fun toList(): List<T> = super.toList()
 }

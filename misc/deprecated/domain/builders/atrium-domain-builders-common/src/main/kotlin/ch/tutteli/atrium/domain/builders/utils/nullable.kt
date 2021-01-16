@@ -17,7 +17,7 @@ import kotlin.reflect.*
  * `getPersons() as List<String>?` you can write `nullable(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T> nullable(t: T): T? = t
@@ -30,7 +30,7 @@ inline fun <T> nullable(t: T): T? = t
  * type) of your function into a nullable type.
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
@@ -46,7 +46,7 @@ inline fun <T> nullable(t: KFunction0<T>): KFunction0<T?> = t
  * `getPersons() as Iterable<String?>` you can write `nullableContainer(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(iterable)")
 )
 inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
@@ -62,7 +62,7 @@ inline fun <T> nullableContainer(iterable: Iterable<T>): Iterable<T?> = iterable
  * `getPersons() as Array<String?>` you can write `nullableContainer(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(arr)")
 )
 inline fun <T> nullableContainer(arr: Array<out T>): Array<out T?> = arr
@@ -80,7 +80,7 @@ inline fun <T> nullableContainer(arr: Array<out T>): Array<out T?> = arr
  * `getPersons() as Map<String?, Person>` you can write `nullableKeyMap(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(map)")
 )
 inline fun <K, V : Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
@@ -97,7 +97,7 @@ inline fun <K, V : Any> nullableKeyMap(map: Map<out K, V>): Map<out K?, V> = map
  * `getPersons() as Map<String, Person?>` you can write `nullableValueMap(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(map)")
 )
 inline fun <K : Any, V> nullableValueMap(map: Map<K, V>): Map<K, V?> = map
@@ -114,7 +114,7 @@ inline fun <K : Any, V> nullableValueMap(map: Map<K, V>): Map<K, V?> = map
  * `getPersons() as Map<String?, Person?>` you can write `nullableKeyValueMap(getPersons())`
  */
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(map)")
 )
 inline fun <K, V> nullableKeyValueMap(map: Map<out K, V>): Map<out K?, V?> = map
@@ -128,7 +128,7 @@ inline fun <K, V> nullableKeyValueMap(map: Map<out K, V>): Map<out K?, V?> = map
  */
 @JvmName("nullable1")
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T1, R> nullable(t: KFunction1<T1, R>): KFunction1<T1, R?> = t
@@ -142,7 +142,7 @@ inline fun <T1, R> nullable(t: KFunction1<T1, R>): KFunction1<T1, R?> = t
  */
 @JvmName("nullable2")
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T1, T2, R> nullable(t: KFunction2<T1, T2, R>): KFunction2<T1, T2, R?> = t
@@ -156,7 +156,7 @@ inline fun <T1, T2, R> nullable(t: KFunction2<T1, T2, R>): KFunction2<T1, T2, R?
  */
 @JvmName("nullable3")
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T1, T2, T3, R> nullable(t: KFunction3<T1, T2, T3, R>): KFunction3<T1, T2, T3, R?> = t
@@ -170,7 +170,7 @@ inline fun <T1, T2, T3, R> nullable(t: KFunction3<T1, T2, T3, R>): KFunction3<T1
  */
 @JvmName("nullable4")
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T1, T2, T3, T4, R> nullable(t: KFunction4<T1, T2, T3, T4, R>): KFunction4<T1, T2, T3, T4, R?> = t
@@ -184,7 +184,7 @@ inline fun <T1, T2, T3, T4, R> nullable(t: KFunction4<T1, T2, T3, T4, R>): KFunc
  */
 @JvmName("nullable5")
 @Deprecated(
-    "Use nullable from atrium-logic; will be removed with 1.0.0",
+    "Use nullable from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.nullable(t)")
 )
 inline fun <T1, T2, T3, T4, T5, R> nullable(t: KFunction5<T1, T2, T3, T4, T5, R>): KFunction5<T1, T2, T3, T4, T5, R?> =

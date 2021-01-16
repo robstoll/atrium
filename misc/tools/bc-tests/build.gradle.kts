@@ -591,6 +591,19 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 )
             }
 
+            listOf(
+                "IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec",
+                "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec"
+            ).forEach { spec ->
+                rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/$spec.kt") {
+                    it.replaceFirst(
+                        "import ch.tutteli.atrium.domain.builders.utils.Group",
+                        "import ch.tutteli.atrium.logic.utils.Group"
+                    )
+                }
+            }
+
+
             // deleted AssertionPlant and co. in 0.16.0, hence specs don't make sense any more (it's a bc on core level not API)
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
@@ -620,6 +633,20 @@ listOf("0.14.0", "0.15.0").forEach { version ->
 
                 rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableAnyAssertionsSpec.kt") {
                     it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
+                }
+
+
+                listOf(
+                    "IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec",
+                    "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec",
+                    "IterableContainsSpecBase"
+                ).forEach { spec ->
+                    rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/$spec.kt") {
+                        it.replaceFirst(
+                            "import ch.tutteli.atrium.domain.builders.utils.Group",
+                            "import ch.tutteli.atrium.logic.utils.Group"
+                        )
+                    }
                 }
             }
         }

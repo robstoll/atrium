@@ -4,9 +4,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
 import ch.tutteli.kbox.glue
 
@@ -28,8 +26,7 @@ import ch.tutteli.kbox.glue
 class Entries<T> internal constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?,
     val otherAssertionCreatorsOrNulls: Array<out (Expect<T>.() -> Unit)?>
-) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>,
-    GroupWithNullableEntries<(Expect<T>.() -> Unit)?>,
+) : Group<(Expect<T>.() -> Unit)?>,
     VarArgHelper<(Expect<T>.() -> Unit)?> {
     override val expected get() = assertionCreatorOrNull
     override val otherExpected get() = otherAssertionCreatorsOrNulls

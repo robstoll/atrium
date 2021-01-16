@@ -1,11 +1,10 @@
 @file:Suppress("DEPRECATION" /* TODO remove suppress with 1.0.0 */)
+
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.logic.utils.Group
 
 /**
  * Parameter object to express a [Group] with a single identification lambda.
@@ -21,8 +20,7 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
  */
 data class Entry<T : Any> internal constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>,
-    GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {
+) : Group<(Expect<T>.() -> Unit)?> {
 
     override fun toList(): List<(Expect<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }

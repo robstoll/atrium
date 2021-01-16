@@ -1,8 +1,11 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.groupsToList
+import ch.tutteli.atrium.logic.utils.Group
+import ch.tutteli.atrium.logic.utils.groupsToList
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep

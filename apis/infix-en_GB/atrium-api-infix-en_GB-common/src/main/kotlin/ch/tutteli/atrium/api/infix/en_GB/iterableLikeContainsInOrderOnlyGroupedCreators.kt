@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
