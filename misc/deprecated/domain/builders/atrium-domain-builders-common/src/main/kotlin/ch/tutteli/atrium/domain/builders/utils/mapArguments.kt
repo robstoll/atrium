@@ -1,6 +1,6 @@
 @file:Suppress(
-/* TODO remove annotation with 1.0.0 */ "DEPRECATION",
-/* TODO remove annotation with 1.0.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
+/* TODO remove annotation with 0.17.0 */ "DEPRECATION",
+/* TODO remove annotation with 0.17.0 */ "TYPEALIAS_EXPANSION_DEPRECATION"
 )
 
 package ch.tutteli.atrium.domain.builders.utils
@@ -21,7 +21,7 @@ import kotlin.js.JsName
  * ```
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("mapArguments(first, others)", "ch.tutteli.atrium.logic.utils.mapArguments")
 )
 fun <T> mapArguments(first: T, others: Array<out T>): ArgumentMapperBuilder<T> = ArgumentMapperBuilder(first, others)
@@ -33,7 +33,7 @@ fun <T> mapArguments(first: T, others: Array<out T>): ArgumentMapperBuilder<T> =
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (T) -> R): Pair<R, Array<out R>> =
@@ -44,7 +44,7 @@ inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Byte, others: ByteArray): ArgumentMapperBuilder<Byte> =
@@ -57,7 +57,7 @@ fun mapArguments(first: Byte, others: ByteArray): ArgumentMapperBuilder<Byte> =
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byte) -> R): Pair<R, Array<out R>> =
@@ -68,7 +68,7 @@ inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byt
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Char, others: CharArray): ArgumentMapperBuilder<Char> =
@@ -81,7 +81,7 @@ fun mapArguments(first: Char, others: CharArray): ArgumentMapperBuilder<Char> =
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Char) -> R): Pair<R, Array<out R>> =
@@ -92,7 +92,7 @@ inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Cha
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Short, others: ShortArray): ArgumentMapperBuilder<Short> =
@@ -105,7 +105,7 @@ fun mapArguments(first: Short, others: ShortArray): ArgumentMapperBuilder<Short>
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (Short) -> R): Pair<R, Array<out R>> =
@@ -116,7 +116,7 @@ inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (S
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Int, others: IntArray): ArgumentMapperBuilder<Int> = mapArguments(first, others.toTypedArray())
@@ -128,7 +128,7 @@ fun mapArguments(first: Int, others: IntArray): ArgumentMapperBuilder<Int> = map
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) -> R): Pair<R, Array<out R>> =
@@ -139,7 +139,7 @@ inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) 
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Long, others: LongArray): ArgumentMapperBuilder<Long> =
@@ -152,7 +152,7 @@ fun mapArguments(first: Long, others: LongArray): ArgumentMapperBuilder<Long> =
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Long) -> R): Pair<R, Array<out R>> =
@@ -163,7 +163,7 @@ inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Lon
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Float, others: FloatArray): ArgumentMapperBuilder<Float> =
@@ -176,7 +176,7 @@ fun mapArguments(first: Float, others: FloatArray): ArgumentMapperBuilder<Float>
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (Float) -> R): Pair<R, Array<out R>> =
@@ -187,7 +187,7 @@ inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (F
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Double, others: DoubleArray): ArgumentMapperBuilder<Double> =
@@ -200,7 +200,7 @@ fun mapArguments(first: Double, others: DoubleArray): ArgumentMapperBuilder<Doub
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: (Double) -> R): Pair<R, Array<out R>> =
@@ -211,7 +211,7 @@ inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: 
  * specify the mapping as such using a subsequent step in the building process.
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others)")
 )
 fun mapArguments(first: Boolean, others: BooleanArray): ArgumentMapperBuilder<Boolean> =
@@ -224,7 +224,7 @@ fun mapArguments(first: Boolean, others: BooleanArray): ArgumentMapperBuilder<Bo
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
 @Deprecated(
-    "Use mapArguments from atrium-logic; will be removed with 1.0.0",
+    "Use mapArguments from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("ch.tutteli.atrium.logic.utils.mapArguments(first, others, mapper)")
 )
 inline fun <reified R> mapArguments(
@@ -236,7 +236,7 @@ inline fun <reified R> mapArguments(
 /**
  * Builder to map variable length arguments formulated as ([first]: [T], `vararg` [others] : [T]) to something else.
  */
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
+@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 0.17.0")
 class ArgumentMapperBuilder<out T>(
     val first: T,
     val others: Array<out T>
@@ -271,7 +271,7 @@ class ArgumentMapperBuilder<out T>(
  * @returns The mapped [ArgumentMapperBuilder.first] and [ArgumentMapperBuilder.others].
  */
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
+@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 0.17.0")
 fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilder<T> =
     ArgumentToNullOrMapperBuilder(this)
 
@@ -291,7 +291,7 @@ fun <T : Any> ArgumentMapperBuilder<T>.toNullOr(): Nothing =
  * type if the argument is not null in order that the non-nullable type can be used/passed to function which expect
  * a non-nullable type.
  */
-@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 1.0.0")
+@Deprecated("Use ArgumentMapperBuilder, mapArguments respectively, from atrium-logic; will be removed with 0.17.0")
 class ArgumentToNullOrMapperBuilder<T : Any>(
     val argumentMapperBuilder: ArgumentMapperBuilder<T?>
 ) {

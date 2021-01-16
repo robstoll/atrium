@@ -2,12 +2,10 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(

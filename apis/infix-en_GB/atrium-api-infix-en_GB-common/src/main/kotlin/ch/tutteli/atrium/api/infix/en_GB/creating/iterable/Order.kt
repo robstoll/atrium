@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.iterable
 
-import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.logic.utils.Group
+import ch.tutteli.atrium.logic.utils.groupsToList
 
 /**
  * Parameter object to express `Group<T>, Group<T>, vararg Group<T>`.
@@ -14,7 +15,7 @@ class Order<out T, out G : Group<T>> internal constructor(
     val secondGroup: G,
     val otherExpectedGroups: Array<out G>
 ) {
-    fun toList(): List<List<T>> = ch.tutteli.atrium.domain.builders.utils.groupsToList(
+    fun toList(): List<List<T>> = groupsToList(
         firstGroup,
         secondGroup,
         otherExpectedGroups

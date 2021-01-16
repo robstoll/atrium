@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep

@@ -4,12 +4,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.utils.Group
-import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
-import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
 import ch.tutteli.kbox.glue
-
 
 /**
  * Parameter object to express a [Group] with a single identification lambda.
@@ -23,7 +20,7 @@ import ch.tutteli.kbox.glue
  */
 class Entry<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>, GroupWithNullableEntries<(Expect<T>.() -> Unit)?> {
+) : Group<(Expect<T>.() -> Unit)?> {
     override fun toList(): List<(Expect<T>.() -> Unit)?> = listOf(assertionCreatorOrNull)
 }
 
@@ -41,7 +38,7 @@ class Entry<T : Any>(
 class Entries<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?,
     vararg val otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
-) : GroupWithoutNullableEntries<(Expect<T>.() -> Unit)?>, GroupWithNullableEntries<(Expect<T>.() -> Unit)?>,
+) : Group<(Expect<T>.() -> Unit)?>,
     VarArgHelper<(Expect<T>.() -> Unit)?> {
     override val expected: (Expect<T>.() -> Unit)? get() = assertionCreatorOrNull
     override val otherExpected: Array<out (Expect<T>.() -> Unit)?> get() = otherAssertionCreatorsOrNulls
@@ -63,7 +60,7 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
 /**
  * Represents a [Group] with a single value.
  */
-data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWithoutNullableEntries<T> {
+data class Value<out T>(val expected: T) : Group<T> {
     override fun toList(): List<T> = listOf(expected)
 }
 
@@ -73,6 +70,6 @@ data class Value<out T>(val expected: T) : GroupWithNullableEntries<T>, GroupWit
 class Values<out T>(
     override val expected: T,
     override vararg val otherExpected: T
-) : GroupWithoutNullableEntries<T>, GroupWithNullableEntries<T>, VarArgHelper<T> {
+) : Group<T>, VarArgHelper<T> {
     override fun toList(): List<T> = listOf(expected, *otherExpected)
 }
