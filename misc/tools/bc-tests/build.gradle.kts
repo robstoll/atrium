@@ -39,7 +39,14 @@ description =
 
 @Suppress("UNCHECKED_CAST")
 val bcConfigs =
-    (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, Pair<Boolean, String>>>
+    (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<
+        // version
+        String,
+        // api with targets
+        List<Pair<String, List<String>>>,
+        // forgivePatternBc, withBbc to forgivePatternBbc
+        Pair<String, Pair<Boolean, String>>
+        >>
 
 repositories {
     mavenCentral()
@@ -83,7 +90,8 @@ var Project.fixSrc: () -> Unit
 
 val testEngineProjectName = ":bc-tests:test-engine"
 bcConfigs.forEach { (oldVersion, apis, pair) ->
-    val (includingBbc, forgivePattern) = pair
+    val (forgivePatternBc, bbcPair) = pair
+    val (withBbc, forgivePatternBbc) = bbcPair
     fun atrium(module: String): String {
         val artifactNameWithoutPrefix =
             if (module.endsWith("-jvm")) module.substringBeforeLast("-jvm") else module
@@ -214,6 +222,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
             project: Project,
             kind: String,
             description: String,
+            forgivePattern: String,
             scanClassPath: String
         ): TaskProvider<JavaExec> = project.tasks.register<JavaExec>(kind) {
             group = "verification"
@@ -235,22 +244,21 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                 "--disable-banner",
                 "--fail-if-no-tests",
                 "--include-engine", "spek2-forgiving",
-                "--include-classname", ".*(Spec|Samples)"
+                "--include-classname", ".*(Spec|Samples)",
+                "--config", "forgive=$forgivePattern",
+                "--details", "summary"
             ) +
                 if (kind == "bbc") {
                     listOf(
-                        "--include-engine", "junit-jupiter"
+                        "--include-engine", "junit-jupiter",
+                        "--config", "junit.jupiter.extensions.autodetection.enabled=true"
                     )
                 } else {
                     listOf()
-                } +
-                listOf(
-                    "--config", "forgive=$forgivePattern",
-                    "--details", "summary"
-                )
+                }
         }
 
-        if (includingBbc) {
+        if (withBbc) {
             configure(listOf(project(":bc-tests:$oldVersion-api-$apiName-bbc"))) {
                 apply(plugin = "jacoco")
 
@@ -274,6 +282,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             project,
                             "bbc",
                             "Checks if specs from $apiName $oldVersion can be run against the current version without recompilation",
+                            forgivePatternBbc,
                             configurations[confName].asPath
                         )
                         createJacocoReportTask(apiName, bbcTest)
@@ -336,6 +345,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         project,
                         "bc",
                         "Checks if specs from $apiName $oldVersion can be compiled and run against the current version.",
+                        forgivePatternBc,
                         //spek ignores this setting and searches on the classpath,
                         // we don't execute junit-jupiter here (is done via build) so we can pass whatever we want
                         ""
