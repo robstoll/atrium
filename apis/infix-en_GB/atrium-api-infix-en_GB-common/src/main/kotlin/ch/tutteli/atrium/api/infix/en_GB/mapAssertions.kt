@@ -294,7 +294,6 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries(o).addAssertionsCreatedBy(assertionCreator) }
 
-//TODO move to mapCollectionLikeAssertions with 0.16.0
 /**
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
@@ -305,7 +304,6 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
 
-//TODO move to mapCollectionLikeAssertions with 0.16.0
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
@@ -316,5 +314,4 @@ infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: em
 infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
 
-//TODO remove with 0.16.0
 private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries
