@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
@@ -205,8 +204,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
 
-
-//TODO move to mapCollectionLikeAssertions with 0.16.0
 /**
  * Expects that the subject of the assertion (a [Map]) is an empty [Map].
  *
@@ -215,7 +212,6 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
 fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
 
-//TODO move to mapCollectionLikeAssertions with 0.16.0
 /**
  * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
  *
@@ -224,5 +220,4 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
 fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
 
-//TODO remove with 0.16.0
 private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

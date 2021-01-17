@@ -33,7 +33,8 @@ interface HoldsStep<R> {
      *
      * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
      */
-    //TODO  move to logic and expect AssertionContainer with 0.16.0
+    //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
+    // then move to logic and expect AssertionContainer with 0.16.0
     fun <T> withTest(
         @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
         test: (T) -> Boolean
