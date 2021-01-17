@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.bctest
+package ch.tutteli.atrium.bctest.spek
 
 import org.junit.platform.engine.*
 import org.spekframework.spek2.junit.JUnitEngineExecutionListenerAdapter

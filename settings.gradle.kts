@@ -14,51 +14,90 @@ buildscript {
         Triple(
             "0.14.0",
             allApisAllTargets,
-            /* includingBbc= */ true to
-                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+            // forgive for bc and bbc
+            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
                 or(
-                    //improved reporting
+                    // improved reporting
                     "IterableContainsInOrderOnly.*Spec",
-                    // changed reporting as most of it is no longer based on IterableLike.contains
-                    "MapAssertionsSpec.*",
-                    //spec was wrong
+                    // implementation and spec was wrong
                     "IterableAssertionsSpec/.*`" + or(
                         "containsNoDuplicates",
                         "contains noDuplicates"
                     ) + "`/list with duplicates",
-                    //returnValueOf was part of Assert, no longer in there
-                    or(
-                        "IterableAnyAssertionsSpec",
-                        "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
-                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
-                        "IterableContainsInOrderOnlyEntriesAssertionsSpec"
-                    ) + ".*/returnValueOf"
-                ) + ".*)"
+                    // changed reporting as most of it is no longer based on IterableLike.contains
+                    "MapAssertionsSpec.*"
+                ) + ".*)").let { commonPatterns ->
+                Pair(
+                    // bc
+                    commonPatterns,
+                    // bbc
+                    true to
+                        or(
+                            commonPatterns,
+                            "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                                or(
+                                    // removed overload which expects kClass
+                                    "AnyAssertionsSpec.*toBeNullIfNullGivenElse.*",
+                                    "AnyAssertionSamples.toBeNullIfNullGivenElse",
+                                    // returnValueOf was part of Assert, no longer in there
+                                    or(
+                                        "IterableAnyAssertionsSpec",
+                                        "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
+                                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
+                                        "IterableContainsInOrderOnlyEntriesAssertionsSpec"
+                                    ) + ".*/returnValueOf"
+                                ) + ".*)",
+                            // removed overload which expects kClass
+                            "ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples#toBeNullIfNullGivenElse"
+                        )
+                )
+            }
         ),
         Triple(
             "0.15.0",
             allApisAllTargets,
-            /* includingBbc= */ true to
-                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+            // forgive for bc and bbc
+            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
                 or(
-                    //spec was wrong
+                    // implementation and spec was wrong
                     "IterableAssertionsSpec/.*`" + or(
                         "containsNoDuplicates",
                         "contains noDuplicates"
-                    ) + "`/list with duplicates",
-                    //returnValueOf was part of Assert, no longer in there
+                    ) + "`/list with duplicates"
+                ) + ".*)").let { commonPatterns ->
+                Pair(
+                    //bc
                     or(
-                        "IterableAnyAssertionsSpec",
-                        "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
-                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
-                        "IterableContainsInOrderOnlyEntriesAssertionsSpec"
-                    ) + ".*/returnValueOf",
-                    // looks like we were unlucky in infix and kotlin actually has chosen the deprecated overload
-                    // in bytecode instead of the new one in those particular specs (not in others). No idea why...
-                    // we have removed the deprecated `contains o` function in 0.16.0
-                    "IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.*",
-                    "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec.*"
-                ) + ".*)"
+                        commonPatterns,
+                        "(ch/tutteli/atrium/api/infix/en_GB/" +
+                            or(
+                                // looks like we were unlucky in infix and kotlin actually has chosen the deprecated overload
+                                // in bytecode instead of the new one in those particular specs (not in others). No idea why...
+                                // we have removed the deprecated `contains o` function in 0.16.0
+                                "IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec.*",
+                                "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec.*"
+                            ) + ".*)"
+                    ),
+                    true to or(
+                        commonPatterns,
+                        "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                            or(
+                                // removed overload which expects kClass
+                                "AnyAssertionsSpec.*toBeNullIfNullGivenElse.*",
+                                "AnyAssertionSamples.toBeNullIfNullGivenElse",
+                                // API uses now Group from logic
+                                "IterableContainsInOrderOnlyGrouped.*Spec",
+                                // returnValueOf was part of Assert, no longer in there
+                                or(
+                                    "IterableAnyAssertionsSpec",
+                                    "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
+                                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
+                                    "IterableContainsInOrderOnlyEntriesAssertionsSpec"
+                                ) + ".*/returnValueOf"
+                            ) + ".*)"
+                    )
+                )
+            }
         )
     )
     (gradle as ExtensionAware).extra.apply {
@@ -72,7 +111,7 @@ buildscript {
 val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
 val bcTestsOldPath = "$bcTestsPath/old"
 
-// comment `if` out, if you want to modify stuff via IDE (e.g. see compile errors in Intellij
+// comment `if` out, if you want to modify stuff via IDE (e.g. see compile errors in Intellij, debug etc.)
 if (System.getenv("BC") != null) {
     include("bc-tests:test-engine")
     project(":bc-tests").projectDir = file(bcTestsPath)
@@ -80,9 +119,17 @@ if (System.getenv("BC") != null) {
 
     @Suppress("UNCHECKED_CAST")
     val bcConfigs =
-        (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<String, List<Pair<String, List<String>>>, Pair<Boolean, String>>>
+        (gradle as ExtensionAware).extra.get("bcConfigs") as List<Triple<
+            // version
+            String,
+            // api with targets
+            List<Pair<String, List<String>>>,
+            // forgivePatternBc, withBbc to forgivePatternBbc
+            Pair<String, Pair<Boolean, String>>
+            >>
     bcConfigs.forEach { (oldVersion, apis, pair) ->
-        val (withBbc, _) = pair
+        val (_, bbcPair) = pair
+        val (withBbc, _) = bbcPair
         includeBc(oldVersion, "specs")
         apis.forEach { (apiName, _) ->
             includeBc(oldVersion, "api-$apiName")
