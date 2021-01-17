@@ -1,4 +1,3 @@
-//TODO 0.16.0 rename file to Like instead of LIKe
 @file:Suppress("ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic

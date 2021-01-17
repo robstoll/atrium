@@ -15,13 +15,13 @@ interface AnyAssertions {
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
-    //TODO 0.16.0 remove
+    //TODO 0.16.0 remove in case we keep AnyAssertions (i.e. don't introduce something like AnyRecordFactory)
     @Suppress("DEPRECATION")
     @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
     fun <T : Any?> toBeNull(container: AssertionContainer<T>): Assertion
 
 
-    //TODO 0.16.0 remove
+    //TODO 0.16.0 remove in case we keep AnyAssertions (i.e. don't introduce something like AnyRecordFactory)
     @Suppress("DEPRECATION")
     @Deprecated(
         "Use the overload which does not expect `type`; will be removed with 0.16.0",

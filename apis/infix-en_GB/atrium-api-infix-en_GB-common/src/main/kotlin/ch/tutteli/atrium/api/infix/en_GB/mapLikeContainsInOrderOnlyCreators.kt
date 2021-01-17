@@ -30,7 +30,7 @@ import kotlin.reflect.KClass
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     this the pairs(keyValuePair)
 
-// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for this one as well
+// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePairs] in the specified order.
@@ -61,7 +61,7 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
     keyValue: KeyWithValueCreator<K, V>
 ): Expect<T> = this the keyValues(keyValue)
 
-// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for this one as well
+// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValues] in the specified order -- an entry
@@ -86,7 +86,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
     keyWithValueAssertionsInOrderOnly(kClass, keyValues.map { it.toPair() })
 }
 
-// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for this one as well
+// TODO 0.16.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only and all entries of the given [expectedMapLike] in the specified order.

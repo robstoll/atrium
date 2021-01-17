@@ -32,7 +32,8 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * Or use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
  * on the subject of the assertion.
  */
-//TODO move to logic and expect AssertionContainer with 0.16.0
+//TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
+// then move to logic and expect AssertionContainer with 0.16.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
     @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
     failureHintFactory: (T) -> Assertion

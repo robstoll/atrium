@@ -65,7 +65,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
-    //TODO 0.16.0 move to AssertionContainer and deprecate
+    //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
@@ -75,7 +75,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
-    //TODO 0.16.0 move to AssertionContainer and deprecate
+    //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     override fun addAssertion(assertion: Assertion): Expect<T>
 
 
@@ -89,7 +89,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
-    //TODO 0.16.0 move to AssertionContainer and deprecate
+    //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
         createAndAddAssertion(Untranslatable(description), expected, test)
 
@@ -103,7 +103,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return An [Expect] for the current subject of the assertion.
      */
-    //TODO 0.16.0 move to AssertionContainer and deprecate
+    //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
 }
