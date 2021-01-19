@@ -13,8 +13,8 @@ import ch.tutteli.atrium.logic.toExpect
  * and now allows to decide how it should be done, especially regarding potential sub-assertions which should be applied
  * to the new resulting subject.
  *
- * @param T The type of the current [Expect], the current subject of the assertion respectively.
- * @param R The type of the new [Expect], the new subject of the assertion respectively.
+ * @param T The parameter type of the current [Expect], of its subject respectively.
+ * @param R The parameter type of the new [Expect], of its subject respectively.
  *
  * @property container [Expect] which was involved in the building process
  *   and holds assertion for the initial subject.
@@ -34,7 +34,7 @@ abstract class BaseTransformationExecutionStep<T, R, E : Expect<R>>(
      *
      * See [collect] for more information.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of this expectation.
      */
     final override fun collectAndAppend(assertionCreator: Expect<R>.() -> Unit): Expect<T> =
         container.toExpect().addAssertion(collect(assertionCreator))

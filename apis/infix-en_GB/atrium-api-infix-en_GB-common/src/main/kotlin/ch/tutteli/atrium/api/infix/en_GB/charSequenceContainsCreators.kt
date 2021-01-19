@@ -38,7 +38,7 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(
@@ -67,7 +67,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(
  * @param values The values which should not be found within the input of the search
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(
@@ -89,7 +89,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valueIgnoringCase")
@@ -119,7 +119,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  * @param values The values which are expected to be contained within the input of the search
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
@@ -141,7 +141,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
@@ -173,7 +173,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.valu
  * @param values The values which are expected to be contained within the input of the search
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
@@ -188,7 +188,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(pattern: String): Expect<T> =
     this the regexPatterns(pattern)
@@ -201,7 +201,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(pattern: 
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -227,7 +227,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
  * @param patterns The patterns which are expected to have a match against the input of the search
  *   -- use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     _logicAppend { regex(patterns.toList()) }
@@ -250,7 +250,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: R
  * @param patterns The patterns which are expected to have a match against the input of the search --
  *   use the function `all(Regex(...), ...)` to create a [All].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -265,7 +265,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(patter
  *
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
@@ -289,7 +289,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(p
  * @param patterns The patterns which are expected to have a match against the input of the search
  *   -- use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
@@ -303,7 +303,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(pat
  *
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
     this atLeast 1 regex pattern
@@ -328,7 +328,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.rege
  * @param patterns The patterns which are expected to have a match against the input of the search --
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     this atLeast 1 the patterns
@@ -347,7 +347,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -373,7 +373,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -400,7 +400,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.element
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *

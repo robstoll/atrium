@@ -11,32 +11,32 @@ import ch.tutteli.atrium.reporting.Reporter
 import kotlin.reflect.KClass
 
 /**
- * Expects that the subject of the assertion is (equal to) [expected].
+ * Expects that the subject of `this` expectation is (equal to) [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBe
  */
 infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
- * Expects that the subject of the assertion is not (equal to) [expected].
+ * Expects that the subject of `this` expectation is not (equal to) [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
- * Expects that the subject of the assertion is the same instance as [expected].
+ * Expects that the subject of `this` expectation is the same instance as [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
- * Expects that the subject of the assertion is not the same instance as [expected].
+ * Expects that the subject of `this` expectation is not the same instance as [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
@@ -46,7 +46,7 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  * @param keyWithCreator Combines the reason with the assertionCreator-lambda. Use the function
  *   `of(reason) { ... }` to create a [KeyWithCreator].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.because
@@ -61,10 +61,10 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
     KeyWithCreator(reason, assertionCreator)
 
 /**
- * Expects that the subject of the assertion is either `null` in case [assertionCreatorOrNull]
+ * Expects that the subject of `this` expectation is either `null` in case [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
@@ -72,7 +72,7 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
 
 
 /**
- * Expects that the subject of the assertion is not null and changes the subject to the non-nullable version.
+ * Expects that the subject of `this` expectation is not null and changes the subject to the non-nullable version.
  *
  * @param o The filler object [o].
  *
@@ -85,7 +85,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
     notToBeNullButOfType(T::class).transform()
 
 /**
- * Expects that the subject of the assertion is not null and
+ * Expects that the subject of `this` expectation is not null and
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
@@ -99,7 +99,7 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
     _logic.notToBeNullButOfType(kClass)
 
 /**
- * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type)
+ * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type)
  * and changes the subject to this type.
  *
  * Notice, that asserting a function type is [flawed](https://youtrack.jetbrains.com/issue/KT-27846).
@@ -125,7 +125,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
     _logic.isA(kClass)
 
 /**
- * Expects that the subject of the assertion *is a* [TSub] (the same type or a sub-type) and
+ * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type) and
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
@@ -176,7 +176,7 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  *
  * @param o The filler object [o].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -191,7 +191,7 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     addAssertionsCreatedBy(assertionCreator)
@@ -243,12 +243,12 @@ inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
 inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
 
 /**
- * Expects that the subject of the assertion is not (equal to) in [values].
+ * Expects that the subject of `this` expectation is not (equal to) in [values].
  *
- * @param values The values which are not expected to be contained within the subject of the assertion
+ * @param values The values which are not expected to be contained within the subject of `this` expectation
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -256,12 +256,12 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
     _logicAppend { isNotIn(values.toList()) }
 
 /**
- * Expects that the subject of the assertion is not (equal to) any value of [expected].
+ * Expects that the subject of `this` expectation is not (equal to) any value of [expected].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
  * @since 0.13.0

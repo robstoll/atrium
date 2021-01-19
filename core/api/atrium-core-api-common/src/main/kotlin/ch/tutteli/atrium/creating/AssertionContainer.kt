@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
  *
  * Note, do not use [SubjectProvider] as this interface will be removed with 0.17.0.
  *
- * @param T The type of the subject of the assertion.
+ * @param T The type of the subject of `this` expectation.
  */
 interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
     /**
@@ -39,7 +39,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
 //     *
 //     * @param assertion The assertion which will be appended to this container.
 //     *
-//     * @return An [Expect] for the current subject of the assertion.
+//     * @return an [Expect] for the subject of `this` expectation.
 //     *
 //     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
 //     */

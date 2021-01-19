@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.get
 
 /**
- * Expects that the given [index] is within the bounds of the subject of the assertion (a [List]) and
+ * Expects that the given [index] is within the bounds of the subject of `this` expectation (a [List]) and
  * returns an [Expect] for the element at that position.
  *
  * @return The newly created [Expect] for the element at position [index].
@@ -17,7 +17,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
     _logic.get(index).transform()
 
 /**
- * Expects that the given [index][IndexWithCreator.index] is within the bounds of the subject of the assertion
+ * Expects that the given [index][IndexWithCreator.index] is within the bounds of the subject of `this` expectation
  * (a [List]) and that the element at that position holds all assertions the given
  * [IndexWithCreator.assertionCreator] creates for it.
  *

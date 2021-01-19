@@ -15,7 +15,7 @@ interface TransformationExecutionStep<T, R, E : Expect<R>> {
      *
      * See [collect] for more information.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of this expectation.
      */
     fun collectAndAppend(assertionCreator: Expect<R>.() -> Unit): Expect<T>
 

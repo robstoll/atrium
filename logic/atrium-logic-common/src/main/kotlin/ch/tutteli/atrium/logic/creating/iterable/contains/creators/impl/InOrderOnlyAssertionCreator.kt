@@ -12,7 +12,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ELEMENT_WITH_
  * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to

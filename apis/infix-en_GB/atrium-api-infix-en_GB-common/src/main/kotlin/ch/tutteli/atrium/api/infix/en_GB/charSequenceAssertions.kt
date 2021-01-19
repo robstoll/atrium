@@ -36,7 +36,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(
 ): NotCheckerStep<T, NotSearchBehaviour> = _logic.containsNotBuilder()
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains the [expected]'s [toString] representation.
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains the [expected]'s [toString] representation.
  *
  * It is a shortcut for `contains o atLeast 1 value expected`.
  *
@@ -51,7 +51,7 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
     this contains o atLeast 1 value expected
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains the [toString] representation of the
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains the [toString] representation of the
  * given [values] using a non disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 the values(expected, *otherExpected)`.
@@ -82,7 +82,7 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNum
     this contains o atLeast 1 the values
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not contain [expected]'s [toString] representation.
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not contain [expected]'s [toString] representation.
  *
  * It is a shortcut for `contains not value expected`.
  *
@@ -96,7 +96,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumbe
     this containsNot o value expected
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not contain the [toString] representation
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not contain the [toString] representation
  * of the given [values].
  *
  * It is a shortcut for `contains not the values(expected, *otherExpected)`.
@@ -113,7 +113,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOr
     this containsNot o the values
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern].
  *
  * It is a shortcut for `contains o atLeast 1 regex pattern`.
@@ -126,7 +126,7 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T>
     this contains o atLeast 1 regex pattern
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern].
  *
  * It is a shortcut for `contains o atLeast 1 matchFor pattern`.
@@ -139,7 +139,7 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
     this contains o atLeast 1 matchFor pattern
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [regexPatterns], using a non disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 the regexPatterns(pattern, *otherPatterns)`.
@@ -165,7 +165,7 @@ infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): E
 
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [patterns], using a non disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 regex All(pattern, *otherPatterns)`.
@@ -190,7 +190,7 @@ infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T>
     this contains o atLeast 1 matchFor patterns
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
  */
@@ -198,7 +198,7 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expec
     _logicAppend { startsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
  *
@@ -208,7 +208,7 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     it startsWith expected.toString()
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
  * @return This assertion container to support a fluent API.
  */
@@ -216,7 +216,7 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Ex
     _logicAppend { startsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
  * @return This assertion container to support a fluent API.
  *
@@ -227,7 +227,7 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> 
 
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
  * @return This assertion container to support a fluent API.
  */
@@ -235,7 +235,7 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<
     _logicAppend { endsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
  * @return This assertion container to support a fluent API.
  *
@@ -245,7 +245,7 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     it endsWith expected.toString()
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
  * @return This assertion container to support a fluent API.
  */
@@ -253,7 +253,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expe
     _logicAppend { endsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
  * @return This assertion container to support a fluent API.
  *
@@ -264,7 +264,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
 
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
  * @param empty Use the pseudo-keyword `empty`.
  *
@@ -274,7 +274,7 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
     _logicAppend { isEmpty() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @param empty Use the pseudo-keyword `empty`.
  *
@@ -284,7 +284,7 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
     _logicAppend { isNotEmpty() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
  * @param blank Use the pseudo-keyword `blank`.
  *
@@ -294,7 +294,7 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") bla
     _logicAppend { isNotBlank() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [expected] [Regex].
  *
  * In contrast to [containsRegex] it does not look for a partial match but for an entire match.
  *
@@ -306,7 +306,7 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [expected] [Regex].
  *
  * In contrast to `containsNot.regex` it does not look for a partial match but for an entire match.
  *

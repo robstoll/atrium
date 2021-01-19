@@ -27,7 +27,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WH
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
  * in any order and is identified by holding a group of assertions, created by an assertion creator lambda.
  *
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].

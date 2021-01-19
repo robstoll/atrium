@@ -13,12 +13,12 @@ import ch.tutteli.atrium.logic.isPresent
 import java.util.*
 
 /**
- * Expects that the subject of the assertion (an [Optional]) is empty (not present).
+ * Expects that the subject of `this` expectation (an [Optional]) is empty (not present).
  *
  * Shortcut for more or less something like `feature(Optional<T>::isEmpty) { toBe(true) }`
  * depends on the underlying implementation though.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -26,7 +26,7 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
 
 /**
- * Expects that the subject of the assertion (an [Optional]) is present
+ * Expects that the subject of `this` expectation (an [Optional]) is present
  * and returns an [Expect] for the inner type [E].
  *
  * Shortcut for more or less something like `feature(Optional<T>::get)` but with error handling; yet it
@@ -40,10 +40,10 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
     _logic.isPresent().transform()
 
 /**
- * Expects that the subject of the assertion (an [Optional]) is present and
+ * Expects that the subject of `this` expectation (an [Optional]) is present and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */

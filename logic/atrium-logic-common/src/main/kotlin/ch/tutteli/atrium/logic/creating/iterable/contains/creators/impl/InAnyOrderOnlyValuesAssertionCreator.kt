@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WH
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have
  * to appear in the [Iterable] but in any order -- an entry is identified by an expected object (equality comparison).
  *
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by an expected

@@ -11,10 +11,10 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is before the [expected] [ChronoZonedDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -23,10 +23,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 ): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -35,10 +35,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is after the [expected] [ChronoZonedDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -47,10 +47,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 ): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is after or equal the [expected] [ChronoZonedDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -59,10 +59,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is equal to the [expected] [ChronoZonedDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -71,7 +71,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
 ): Expect<T> = _logicAppend { isEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is before the [expected] [ChronoZonedDateTime] given as [String].
  *
  * The format is composed of {DateTime}{ZoneDesignator}.
@@ -95,7 +95,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  * - 2020-01-02Z
  * - 2020-01-02+01:30
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -104,7 +104,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 ): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
  *
  * The format is composed of {DateTime}{ZoneDesignator}.
@@ -128,7 +128,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  * - 2020-01-02Z
  * - 2020-01-02+01:30
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -137,7 +137,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is after the [expected] [ChronoZonedDateTime] given as [String].
  *
  * The format is composed of {DateTime}{ZoneDesignator}.
@@ -161,7 +161,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
  * - 2020-01-02Z
  * - 2020-01-02+01:30
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -170,7 +170,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 ): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is after or equal the [expected] [ChronoZonedDateTime] given as [String].
  *
  * The format is composed of {DateTime}{ZoneDesignator}.
@@ -194,7 +194,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * - 2020-01-02Z
  * - 2020-01-02+01:30
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -203,7 +203,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoZonedDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is equal to the [expected] [ChronoZonedDateTime] given as [String].
  *
  * The format is composed of {DateTime}{ZoneDesignator}.
@@ -227,7 +227,7 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
  * - 2020-01-02Z
  * - 2020-01-02+01:30
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */

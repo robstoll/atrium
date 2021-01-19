@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.MetaFeature
  *
  * Use the function `of({ ... }) { ... }` to create this representation where the first
  * argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
- * where the subject of the assertion is available via implicit parameter `it`.
+ * where the subject of the expectation is available via implicit parameter `it`.
  * Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  * e.g. `feature of({ f(it::size) }) { o toBe 3 }`
  *

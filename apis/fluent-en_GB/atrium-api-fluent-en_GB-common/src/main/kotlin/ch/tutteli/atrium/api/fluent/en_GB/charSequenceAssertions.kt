@@ -36,7 +36,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehavio
     get() = _logic.containsNotBuilder()
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains [expected]'s [toString] representation
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
@@ -57,7 +57,7 @@ val <T : CharSequence> Expect<T>.containsNot: NotCheckerStep<T, NotSearchBehavio
  * instead of:
  *   `contains("a", "a")`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  *
@@ -69,7 +69,7 @@ fun <T : CharSequence> Expect<T>.contains(
 ): Expect<T> = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not contain [expected]'s [toString] representation
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
@@ -78,7 +78,7 @@ fun <T : CharSequence> Expect<T>.contains(
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.containsNot
  */
@@ -88,7 +88,7 @@ fun <T : CharSequence> Expect<T>.containsNot(
 ): Expect<T> = containsNot.values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
@@ -107,7 +107,7 @@ fun <T : CharSequence> Expect<T>.containsNot(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.containsRegexString
  */
@@ -115,7 +115,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
     contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) contains a sequence which matches the given
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
@@ -134,7 +134,7 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  *
@@ -144,9 +144,9 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatte
     contains.atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.startsWith
  */
@@ -154,9 +154,9 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) starts with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.startsWithChar
  *
@@ -166,9 +166,9 @@ fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     startsWith(expected.toString())
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.startsNotWith
  */
@@ -176,9 +176,9 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T
     _logicAppend { startsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not start with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  *
@@ -189,9 +189,9 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
 
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.endsWith
  */
@@ -199,9 +199,9 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) ends with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  *
@@ -211,9 +211,9 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     endsWith(expected.toString())
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.endsNotWith
  */
@@ -221,9 +221,9 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> 
     _logicAppend { endsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) does not end with [expected].
+ * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.endsNotWithChar
@@ -233,9 +233,9 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
 
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.isEmpty
  */
@@ -243,9 +243,9 @@ fun <T : CharSequence> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.isNotEmpty
  */
@@ -253,9 +253,9 @@ fun <T : CharSequence> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
+ * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceExpectationsSpec.isNotBlank
  */
@@ -263,11 +263,11 @@ fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
     _logicAppend { isNotBlank() }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) matches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [expected] [Regex].
  *
  * In contrast to [containsRegex] it does not look for a partial match but for an entire match.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  *
@@ -277,11 +277,11 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
 
 /**
- * Expects that the subject of the assertion (a [CharSequence]) mismatches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [expected] [Regex].
  *
  * In contrast to `containsNot.regex` it does not look for a partial match but for an entire match.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  *

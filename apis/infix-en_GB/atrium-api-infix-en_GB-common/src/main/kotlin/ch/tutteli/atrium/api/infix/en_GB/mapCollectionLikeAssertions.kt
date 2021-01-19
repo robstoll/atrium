@@ -5,7 +5,7 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.size
 
 /**
- * Creates an [Expect] for the property [Collection.size] of the subject of the assertion,
+ * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -16,11 +16,11 @@ val <T : Map<*, *>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::toEntries).transform()
 
 /**
- * Expects that the property [Collection.size] of the subject of the assertion
+ * Expects that the property [Collection.size] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */

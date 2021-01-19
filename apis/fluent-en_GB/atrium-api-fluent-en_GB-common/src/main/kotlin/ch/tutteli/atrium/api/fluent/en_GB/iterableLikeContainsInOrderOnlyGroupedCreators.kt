@@ -25,7 +25,7 @@ import kotlin.jvm.JvmName
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [IterableLike] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -50,7 +50,7 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeha
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [IterableLike] whereas the groups have to appear in the given order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */

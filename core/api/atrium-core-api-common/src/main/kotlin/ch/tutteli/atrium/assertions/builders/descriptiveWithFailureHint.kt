@@ -22,7 +22,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
 
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint
- * which is based on the subject of the assertion and
+ * which is based on the subject of the expectation and
  * which is only shown the subject is defined.
  *
  * You can use [withFailureHintBasedOnSubject] in case you want to:
@@ -30,7 +30,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * - do not show the hint in certain cases even if the subject is defined
  *
  * Or use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
- * on the subject of the assertion.
+ * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
 // then move to logic and expect AssertionContainer with 0.16.0
@@ -51,11 +51,11 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
 
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint
- * (which is based on the subject of the assertion)
+ * (which is based on the subject of the expectation)
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  *
  * You can use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
- * on the subject of the assertion.
+ * on the subject of the expectation.
  */
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnSubject(
     @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
@@ -76,7 +76,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
 interface DescriptiveAssertionWithFailureHint {
 
     /**
-     * Sub Option step to define a failure hint based on a defined subject of the assertion.
+     * Sub Option step to define a failure hint based on a defined subject of the expectation.
      */
     interface FailureHintSubjectDefinedOption<T> :
         SubjectBasedOption.DefinedOption<T, Assertion, FailureHintSubjectAbsentOption<T>> {
@@ -87,7 +87,7 @@ interface DescriptiveAssertionWithFailureHint {
     }
 
     /**
-     * Sub Option step to define a failure hint in case the subject of the assertion is not defined.
+     * Sub Option step to define a failure hint in case the subject of the expectation is not defined.
      */
     interface FailureHintSubjectAbsentOption<T> : SubjectBasedOption.AbsentOption<T, Assertion> {
 
@@ -132,7 +132,7 @@ interface DescriptiveAssertionWithFailureHint {
 
         /**
          * Defines that the failure hint shall only be shown based on a predicate influenced by the
-         * subject of the assertion.
+         * subject of the expectation.
          *
          * You can use the other overload without [subjectProvider] in case the predicate is not based on the subject
          * of the assertion.
@@ -153,7 +153,7 @@ interface DescriptiveAssertionWithFailureHint {
     }
 
     /**
-     * Sub Option step to define a failure hint based on a defined subject of the assertion.
+     * Sub Option step to define a failure hint based on a defined subject of the expectation.
      */
     interface ShowSubjectDefinedOption<T> : SubjectBasedOption.DefinedOption<T, Boolean, ShowSubjectAbsentOption<T>> {
 
@@ -163,7 +163,7 @@ interface DescriptiveAssertionWithFailureHint {
     }
 
     /**
-     * Sub Option step to define a failure hint in case the subject of the assertion is not defined.
+     * Sub Option step to define a failure hint in case the subject of the expectation is not defined.
      */
     interface ShowSubjectAbsentOption<T> : SubjectBasedOption.AbsentOption<T, Boolean> {
 

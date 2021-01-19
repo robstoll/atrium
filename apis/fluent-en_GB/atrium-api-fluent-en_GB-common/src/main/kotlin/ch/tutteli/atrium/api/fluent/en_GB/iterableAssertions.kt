@@ -33,7 +33,7 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBe
     get() = _logic.builderContainsNotInIterableLike(::identity)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains the
+ * Expects that the subject of `this` expectation (an [Iterable]) contains the
  * [expected] value and the [otherExpected] values (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
@@ -47,13 +47,13 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBe
  * instead of:
  *   `contains('a', 'a')`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T> =
     contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
+ * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -63,13 +63,13 @@ fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains an entry holding the
+ * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding the
  * assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreatorsOrNulls].
@@ -82,7 +82,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expe
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
@@ -90,7 +90,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
 ): Expect<T> = contains.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains only
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only
  * the [expected] value and the [otherExpected] values (if given) in the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.values(expected, *otherExpected)`
@@ -99,13 +99,13 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
  * which will cause a binary backward compatibility break (see
  * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T> =
     contains.inOrder.only.values(expected, *otherExpected)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
@@ -119,13 +119,13 @@ fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpe
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inOrder.only.entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains only an entry holding
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
@@ -142,7 +142,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
@@ -150,7 +150,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
 ): Expect<T> = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains only elements of [expectedIterableLike]
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only elements of [expectedIterableLike]
  * in same order
  *
  * It is a shortcut for 'contains.inOrder.only.elementsOf(anotherList)'
@@ -160,7 +160,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -170,7 +170,7 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> = contains.inOrder.only.elementsOf(expectedIterableLike)
 
-/** Expects that the subject of the assertion (an [Iterable]) contains all elements of [expectedIterableLike].
+/** Expects that the subject of `this` expectation (an [Iterable]) contains all elements of [expectedIterableLike].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).elementsOf(expectedIterable)`
  *
@@ -179,7 +179,7 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
  *
@@ -190,19 +190,19 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
 ): Expect<T> = contains.inAnyOrder.atLeast(1).elementsOf(expectedIterableLike)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) has at least one element and
+ * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
  * that it does not contain the [expected] value and neither one of the [otherExpected] values (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
     containsNot.values(expected, *otherExpected)
 
 
 /**
- * Creates an [Expect] for the result of calling `min()` on the subject of the assertion,
+ * Creates an [Expect] for the result of calling `min()` on the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -213,11 +213,11 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
     _logic.min(::identity).transform()
 
 /**
- * Expects that the result of calling `min()` on the subject of the assertion
+ * Expects that the result of calling `min()` on the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -225,7 +225,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<
     _logic.min(::identity).collectAndAppend(assertionCreator)
 
 /**
- * Creates an [Expect] for the result of calling `max()` on the subject of the assertion,
+ * Creates an [Expect] for the result of calling `max()` on the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -236,11 +236,11 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
     _logic.max(::identity).transform()
 
 /**
- * Expects that the result of calling `max()` on  the subject of the assertion
+ * Expects that the result of calling `max()` on  the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -249,44 +249,44 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
 
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) contains an entry holding
+ * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding
  * the assertions created by [assertionCreatorOrNull] or an entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) has at least one element and
+ * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
  * that it either does not contain a single entry which holds all assertions created by [assertionCreatorOrNull] or
  * that it does not contain a single entry which is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  *  It is a shortcut for `containsNot.entry(assertionCreatorOrNull)`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     containsNot.entry(assertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) has at least one element and
+ * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
  * that either every element holds all assertions created by the [assertionCreatorOrNull] or
  * that all elements are `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
 
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) has at least one element.
+ * Expects that the subject of `this` expectation (an [Iterable]) has at least one element.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -294,9 +294,9 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext(::identity) }
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) does not have next element.
+ * Expects that the subject of `this` expectation (an [Iterable]) does not have next element.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -304,9 +304,9 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext(::identity) }
 
 /**
- * Expects that the subject of the assertion (an [Iterable]) does not have duplicate elements.
+ * Expects that the subject of `this` expectation (an [Iterable]) does not have duplicate elements.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -326,13 +326,13 @@ fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
 fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature of({ f(it::toList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */

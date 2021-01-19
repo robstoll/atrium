@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.*
 import kotlin.reflect.*
 
 /**
- * Extracts the [property] out of the current subject of the assertion,
+ * Extracts the [property] out of the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
@@ -25,7 +25,7 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
     _logic.property(property).transform()
 
 /**
- * Extracts the value which is returned when calling the method [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling the method [f] on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
@@ -33,7 +33,7 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
  * an assertion group block for it.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -41,7 +41,7 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     _logic.f0(f).transform()
 
 /**
- * Extracts a feature out of the current subject of the assertion using the given [Feature.extractor],
+ * Extracts a feature out of the current subject of `this` expectation using the given [Feature.extractor],
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
@@ -62,7 +62,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
     _logic.manualFeature(of.description, of.extractor).transform()
 
 /**
- * Extracts a feature out of the current subject of the assertion using the given [FeatureWithCreator.extractor],
+ * Extracts a feature out of the current subject of `this` expectation using the given [FeatureWithCreator.extractor],
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [FeatureWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
@@ -77,7 +77,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  *   form of a [KProperty1] or a `KFunctionX`, the last an `assertionCreator`-lambda and the remaining arguments
  *   in-between the required arguments in case of a `KFunctionX` where `X` > 1.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -87,12 +87,12 @@ infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
 
 
 /**
- * Extracts a feature out of the current subject of the assertion,
+ * Extracts a feature out of the current subject of `this` expectation,
  * based on the given [provider],
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @param provider Creates a [MetaFeature] where the subject of the assertion is available via
+ * @param provider Creates a [MetaFeature] where the subject of `this` expectation is available via
  *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  *   e.g. `feature { f(it::size) }`
  *
@@ -104,7 +104,7 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
     _logic.genericSubjectBasedFeature { MetaFeatureOption(this).provider(it) }.transform()
 
 /**
- * Extracts a feature out of the current subject of the assertion,
+ * Extracts a feature out of the current subject of `this` expectation,
  * based on the given [MetaFeatureOptionWithCreator]
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [MetaFeatureOptionWithCreator.assertionCreator] for the feature and
@@ -126,11 +126,11 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  *
  * @param of Use the function `of({ ... }) { ... }` to create the [MetaFeatureOptionWithCreator] where the first
  *   argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
- *   where the subject of the assertion is available via implicit parameter `it`.
+ *   where the subject of `this` expectation is available via implicit parameter `it`.
  *   Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  *   e.g. `feature of({ f(it::size) }) { o toBe 3 }`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =

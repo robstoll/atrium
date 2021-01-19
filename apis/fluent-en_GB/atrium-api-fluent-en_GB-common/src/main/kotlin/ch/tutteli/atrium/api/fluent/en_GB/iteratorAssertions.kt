@@ -6,9 +6,9 @@ import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.hasNotNext
 
 /**
- * Expects that the subject of the assertion (an [Iterator]) has at least one element.
+ * Expects that the subject of `this` expectation (an [Iterator]) has at least one element.
  *
- * @return an [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  *
@@ -18,9 +18,9 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext() }
 
 /**
- * Expects that the subject of the assertion (an [Iterator]) does not have a next element.
+ * Expects that the subject of `this` expectation (an [Iterator]) does not have a next element.
  *
- * @return an [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  *

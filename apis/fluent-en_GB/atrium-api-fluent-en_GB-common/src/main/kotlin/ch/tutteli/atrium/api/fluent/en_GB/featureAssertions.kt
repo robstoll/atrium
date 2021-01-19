@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.*
 import kotlin.reflect.*
 
 /**
- * Extracts the [property] out of the current subject of the assertion,
+ * Extracts the [property] out of the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
@@ -21,12 +21,12 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R>
     _logic.property(property).transform()
 
 /**
- * Extracts the [property] out of the current subject of the assertion,
+ * Extracts the [property] out of the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -37,12 +37,12 @@ fun <T, R> Expect<T>.feature(
 
 
 /**
- * Extracts the value which is returned when calling [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling [f] on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -50,12 +50,12 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
     _logic.f0(f).transform()
 
 /**
- * Extracts the value which is returned when calling [f] on the current subject of the assertion,
+ * Extracts the value which is returned when calling [f] on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -67,12 +67,12 @@ fun <T, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -83,12 +83,12 @@ fun <T, A1, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -101,12 +101,12 @@ fun <T, A1, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with arguments [a1], [a2]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -117,12 +117,12 @@ fun <T, A1, A2, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -135,12 +135,12 @@ fun <T, A1, A2, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with arguments [a1], [a2], [a3]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -151,12 +151,12 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -169,12 +169,12 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with arguments [a1], [a2], [a3], [a4]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
- *   on the current subject of the assertion.
+ *   on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -185,12 +185,12 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -203,11 +203,11 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with arguments [a1], [a2], [a3], [a4], [a5]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @return The newly [Expect] for the return value of calling [f] on the current subject of the assertion.
+ * @return The newly [Expect] for the return value of calling [f] on the current subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -218,12 +218,12 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4], [a5]
- * on the current subject of the assertion,
+ * on the current subject of `this` expectation,
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -235,12 +235,12 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
 
 
 /**
- * Extracts a feature out of the current subject of the assertion
+ * Extracts a feature out of the current subject of `this` expectation
  * based on the given [provider] and using the given [description],
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @param provider Extracts the feature where the subject of the assertion is available via
+ * @param provider Extracts the feature where the subject of `this` expectation is available via
  *   implicit parameter `it`.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -251,16 +251,16 @@ fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureE
     _logic.manualFeature(description, provider).transform()
 
 /**
- * Extracts a feature out of the current subject of the assertion
+ * Extracts a feature out of the current subject of `this` expectation
  * based on the given [provider] and using the given [description],
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @param provider Extracts the feature where the subject of the assertion is available via
+ * @param provider Extracts the feature where the subject of `this` expectation is available via
  *   implicit parameter `it`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -272,12 +272,12 @@ fun <T, R> Expect<T>.feature(
 
 
 /**
- * Extracts a feature out of the current subject of the assertion,
+ * Extracts a feature out of the current subject of `this` expectation,
  * based on the given [provider],
  * creates a new [Expect] for it and
  * returns it so that subsequent calls are based on the feature.
  *
- * @param provider Creates a [MetaFeature] where the subject of the assertion is available via
+ * @param provider Creates a [MetaFeature] where the subject of `this` expectation is available via
  *   implicit parameter `it`. Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
  *   e.g. `feature { f(it::size) }`
  *
@@ -289,16 +289,16 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
     extractFeature(provider).transform()
 
 /**
- * Extracts a feature out of the current subject of the assertion,
+ * Extracts a feature out of the current subject of `this` expectation,
  * based on the given [provider],
  * creates a new [Expect] for it,
  * applies an assertion group based on the given [assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
- * @param provider You need to create a [MetaFeature] where the subject of the assertion is available via
+ * @param provider You need to create a [MetaFeature] where the subject of `this` expectation is available via
  *   implicit parameter `it`. Usually you use [MetaFeatureOption.f] to create a [MetaFeature], e.g. `f(it::size)`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */

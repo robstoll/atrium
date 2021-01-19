@@ -82,7 +82,7 @@ inline fun <T> AssertionContainer<T>.collect(noinline assertionCreator: Expect<T
  *
  * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
  *
- * This basically delegates to [assertionCollector] using the subject of the assertion as `maybeSubject`.
+ * This basically delegates to [assertionCollector] using the subject of `this` expectation as `maybeSubject`.
  *
  * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
  *   [None] in case a previous subject transformation was not successful -
@@ -103,7 +103,7 @@ inline fun <T> AssertionContainer<*>.collectForDifferentSubject(
  *
  * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
  *
- * This basically delegates to [assertionCollector] using [AssertionContainer.maybeSubject] as subject of the assertion.
+ * This basically delegates to [assertionCollector] using [AssertionContainer.maybeSubject] as subject of `this` expectation.
  *
  * @param assertionCreator A lambda which defines the expectations for the [AssertionContainer.maybeSubject].
  *
@@ -143,7 +143,7 @@ fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
  *
  * See [collectForDifferentSubject] for more information.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of this expectation.
  */
 fun <T, R> TransformationExecutionStep<T, R, *>.collectAndLogicAppend(assertionCreator: AssertionContainer<R>.() -> Assertion): Expect<T> =
     collectAndAppend { _logicAppend(assertionCreator) }
