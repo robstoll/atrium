@@ -20,7 +20,7 @@ import ch.tutteli.kbox.glue
  *
  * @param expected The value which is expected to be contained within this [IterableLike].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -45,7 +45,7 @@ fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expe
  * @param expected The object which is expected to be contained within this [IterableLike].
  * @param otherExpected Additional objects which are expected to be contained within this [IterableLike].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -65,7 +65,7 @@ fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -86,7 +86,7 @@ fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -109,7 +109,7 @@ fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not
  *   an [Iterable], [Sequence] or one of the [Array] types
  *   or the given [expectedIterableLike] does not have elements (is empty).

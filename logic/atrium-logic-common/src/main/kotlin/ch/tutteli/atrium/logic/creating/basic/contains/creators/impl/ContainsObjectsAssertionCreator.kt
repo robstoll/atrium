@@ -14,8 +14,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It provides a template to fulfill the job of creating the sophisticated `contains` [Assertion].
  *
- * @param T The type of the subject of the assertion.
- * @param TT The type of the subject of the assertion after making it multiple times consumable.
+ * @param T The type of the subject of this expectation.
+ * @param TT The type of the subject of this expectation after making it multiple times consumable.
  * @param SC The type of the search criteria.
  * @param S The type of the current [Contains.SearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
@@ -66,11 +66,11 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      * Searches for something matching the given [searchCriterion] in the subject of the given
      * [multiConsumableContainer] and returns the number of occurrences.
      *
-     * @param multiConsumableContainer The provider of the subject of the assertion in which we shall look for something
+     * @param multiConsumableContainer The provider of the subject of this expectation in which we shall look for something
      *   matching the given [searchCriterion].
      * @param searchCriterion The search criterion used to determine whether something matches or not.
      *
-     * @return The number of times the [searchCriterion] matched in the subject of the assertion.
+     * @return The number of times the [searchCriterion] matched in the subject of this expectation.
      */
     protected abstract fun search(multiConsumableContainer: AssertionContainer<TT>, searchCriterion: SC): Int
 

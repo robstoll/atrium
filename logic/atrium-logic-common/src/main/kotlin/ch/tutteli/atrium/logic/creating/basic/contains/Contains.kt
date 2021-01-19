@@ -22,7 +22,7 @@ interface Contains {
     interface EntryPointStep<T : Any, out S : SearchBehaviour>
 
     /**
-     * The entry point of the contract, containing the [container] -- i.e. the subject of the assertion
+     * The entry point of the contract, containing the [container] -- i.e. the subject of this expectation
      * for which the sophisticated `contain` assertion should be created -- as well as the chosen [searchBehaviour].
      *
      * The [searchBehaviour] might me modified in which case it is recommended that a new [EntryPointStep] is created (retain
@@ -97,7 +97,7 @@ interface Contains {
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
-     * @param T The type of the subject of the assertion.
+     * @param T The type of the subject of this expectation.
      * @param SC The type of the search criteria.
      */
     interface Creator<T, in SC> {

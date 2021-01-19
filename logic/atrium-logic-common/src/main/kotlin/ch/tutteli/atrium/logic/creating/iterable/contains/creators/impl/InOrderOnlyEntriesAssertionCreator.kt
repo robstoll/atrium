@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * have to appear in the specified order and where an entry is identified by holding a group of assertions,
  * created by an assertion creator lambda.
  *
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the
  *   expected entries have to appear in the specified order and where an entry is identified by holding a

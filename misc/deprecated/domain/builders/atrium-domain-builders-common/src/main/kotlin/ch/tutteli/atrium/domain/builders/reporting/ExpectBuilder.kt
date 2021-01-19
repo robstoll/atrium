@@ -37,7 +37,7 @@ interface ExpectBuilder {
      */
     interface AssertionVerbStep<T> {
         /**
-         * The previously specified subject of the assertion.
+         * The previously specified subject of `this` expectation.
          */
         val maybeSubject: Option<T>
 
@@ -60,7 +60,7 @@ interface ExpectBuilder {
      */
     interface OptionsStep<T> {
         /**
-         * The previously specified subject of the assertion.
+         * The previously specified subject of `this` expectation.
          */
         val maybeSubject: Option<T>
 
@@ -165,7 +165,7 @@ interface ExpectBuilder {
      */
     interface FinalStep<T> {
         /**
-         * The previously specified subject of the assertion.
+         * The previously specified subject of `this` expectation.
          */
         val maybeSubject: Option<T>
 

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
  * in any order and is identified by expected objects (equality comparison).
  *
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  * @param SC The type of the elements of the iterable, used as search criteria.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries

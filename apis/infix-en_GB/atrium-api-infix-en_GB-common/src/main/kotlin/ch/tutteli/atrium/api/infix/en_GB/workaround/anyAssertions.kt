@@ -19,7 +19,7 @@ import ch.tutteli.atrium.creating.Expect
  * Note that this workaround will be removed in some minor version after a major version with Kotlin 1.4 support
  * (most likely with Atrium v1.1.0 where Atrium v1.0.0 requires Kotlin 1.4)
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 @Suppress("NOTHING_TO_INLINE" /* inline so that one does not actually call `it` on binary level */)
 inline infix fun <T> Expect<T>.it(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> = and(assertionCreator)

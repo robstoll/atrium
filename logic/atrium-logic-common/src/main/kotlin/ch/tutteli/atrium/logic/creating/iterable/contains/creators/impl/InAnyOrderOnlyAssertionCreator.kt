@@ -21,7 +21,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * its responsibility.
  *
  * @param E The type of the elements of the [Iterable] the [converter] is going to create.
- * @param T The type of the subject of the assertion for which the `contains` assertion is be build.
+ * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to

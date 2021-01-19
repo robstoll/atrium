@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isFailureOfType
 import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
 
 /**
- * Expects that the subject of the assertion (a [Result]) is a Success
+ * Expects that the subject of `this` expectation (a [Result]) is a Success
  * and returns an [Expect] for the inner type [E].
  *
  * @return The newly created [Expect] if the given assertion is success
@@ -17,10 +17,10 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
     _logic.isSuccess().transform()
 
 /**
- * Expects that the subject of the assertion (a [Result]) is a Success and
+ * Expects that the subject of `this` expectation (a [Result]) is a Success and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */
@@ -28,7 +28,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
     _logic.isSuccess().collectAndAppend(assertionCreator)
 
 /**
- * Expects that the subject of the assertion (a [Result]) is a Failure and
+ * Expects that the subject of `this` expectation (a [Result]) is a Failure and
  * that it encapsulates an exception of type [TExpected].
  *
  * @return An [Expect] with the new type [TExpected]
@@ -39,7 +39,7 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
     _logic.isFailureOfType(TExpected::class).transform()
 
 /**
- * Expects that the subject of the assertion (a [Result]) is a Failure,
+ * Expects that the subject of `this` expectation (a [Result]) is a Failure,
  * it encapsulates an exception of type [TExpected] and that the exception
  * holds all assertions the given [assertionCreator] creates.
  *

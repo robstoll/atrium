@@ -63,7 +63,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
 
 /**
  * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
- * and changes the subject of the assertion to the return value of type [R].
+ * and changes the subject of `this` expectation to the return value of type [R].
  *
  * @return An [Expect] with the new type [R].
  */

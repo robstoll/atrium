@@ -15,9 +15,9 @@ import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**
- * Expects that the subject of the assertion (a [Path]) starts with the [expected] [Path].
+ * Expects that the subject of `this` expectation (a [Path]) starts with the [expected] [Path].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -25,9 +25,9 @@ infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
     _logicAppend { startsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [Path]) does not start with the [expected] [Path].
+ * Expects that the subject of `this` expectation (a [Path]) does not start with the [expected] [Path].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -35,9 +35,9 @@ infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
     _logicAppend { startsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [Path]) ends with the expected [Path].
+ * Expects that the subject of `this` expectation (a [Path]) ends with the expected [Path].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -45,10 +45,10 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     _logicAppend { endsWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [Path]) does not end with the expected [Path];
+ * Expects that the subject of `this` expectation (a [Path]) does not end with the expected [Path];
  *
  * @param expected The [Path] provided to the assertion
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -56,13 +56,13 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     _logicAppend { endsNotWith(expected) }
 
 /**
- * Expects that the subject of the assertion (a [Path]) exists;
+ * Expects that the subject of `this` expectation (a [Path]) exists;
  * meaning that there is a file system entry at the location the [Path] points to.
  *
  * This assertion _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -70,13 +70,13 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
     _logicAppend { exists() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) does not exist;
+ * Expects that the subject of `this` expectation (a [Path]) does not exist;
  * meaning that there is no file system entry at the location the [Path] points to.
  *
  * This assertion _resolves_ symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
  * then the search will continue at that location.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -85,7 +85,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
 
 /**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -97,11 +97,11 @@ val <T : Path> Expect<T>.fileName: Expect<String>
 
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -110,7 +110,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
 
 /**
  * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -123,10 +123,10 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok))
- * of the subject of the assertion holds all assertions the given [assertionCreator] creates for it
- * and returns an [Expect] for the current subject of the assertion.
+ * of the subject of `this` expectation holds all assertions the given [assertionCreator] creates for it
+ * and returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -146,9 +146,9 @@ val <T : Path> Expect<T>.parent: Expect<Path>
 
 /**
  * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
- * given [assertionCreator] creates for it and returns an [Expect] for the current subject of the assertion.
+ * given [assertionCreator] creates for it and returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -167,7 +167,7 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     _logic.resolve(other).transform()
 
 /**
- * Expects that the subject of the assertion (a [Path]) is a directory having the provided [entry].
+ * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided [entry].
  * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
  * Furthermore, the argument string resolved against the subject yields an existing file system entry.
  *
@@ -180,7 +180,7 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @see [has]
  *
  * @since 0.14.0
@@ -189,7 +189,7 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
     _logicAppend { hasDirectoryEntry(listOf(entry)) }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is a directory having the provided entries.
+ * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
  * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
  * Furthermore, every argument string resolved against the subject yields an existing file system entry.
  *
@@ -202,7 +202,7 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
  * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @see [directoryEntries]
  * @see [hasDirectoryEntry]
  *
@@ -221,7 +221,7 @@ fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntr
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
  * given [PathWithCreator.assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
  *  Use the function `path(String) { ... }` to create a [PathWithCreator].
  *
@@ -239,7 +239,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
     PathWithCreator(path, assertionCreator)
 
 /**
- * Expects that the subject of the assertion (a [Path]) is readable;
+ * Expects that the subject of `this` expectation (a [Path]) is readable;
  * meaning that there is a file system entry at the location the [Path] points to and
  * that the current thread has the permission to read from it.
  *
@@ -251,7 +251,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -259,7 +259,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
     _logicAppend { isReadable() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is writable;
+ * Expects that the subject of `this` expectation (a [Path]) is writable;
  * meaning that there is a file system entry at the location the [Path] points to and
  * that the current thread has the permission to write to it.
  *
@@ -267,7 +267,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -275,7 +275,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
     _logicAppend { isWritable() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is executable;
+ * Expects that the subject of `this` expectation (a [Path]) is executable;
  * meaning that there is a file system entry at the location the [Path] points to and
  * that the current thread has the permission to execute it.
  *
@@ -287,7 +287,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  * Therefore, if a symbolic link exists at the location the subject points to, search will continue
  * at the location the link points at.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -295,7 +295,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
     _logicAppend { isExecutable() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is a file;
+ * Expects that the subject of `this` expectation (a [Path]) is a file;
  * meaning that there is a file system entry at the location the [Path] points to and that is a regular file.
  *
  * This assertion _resolves_ symbolic links.
@@ -306,7 +306,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -314,7 +314,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
     _logicAppend { isRegularFile() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is a directory;
+ * Expects that the subject of `this` expectation (a [Path]) is a directory;
  * meaning that there is a file system entry at the location the [Path] points to and that is a directory.
  *
  * This assertion _resolves_ symbolic links.
@@ -325,7 +325,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
  * take place.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -333,10 +333,10 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
     _logicAppend { isDirectory() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is an absolute path;
+ * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
  * meaning that the [Path] specified in this instance starts at the file system root.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -344,10 +344,10 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: abso
     _logicAppend { isAbsolute() }
 
 /**
- * Expects that the subject of the assertion (a [Path]) is a relative path;
+ * Expects that the subject of `this` expectation (a [Path]) is a relative path;
  * meaning that the [Path] specified in this instance does not start at the file system root.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */
@@ -357,7 +357,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") relative: rela
 
 /**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion,
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -369,11 +369,11 @@ val <T : Path> Expect<T>.extension: Expect<String>
 
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of the assertion
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -381,10 +381,10 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
     _logic.extension().collectAndAppend(assertionCreator)
 
 /**
- * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * Expects that the subject of `this` expectation (a [Path]) has the same textual content
  * as [targetPath] (using UTF-8 for encoding)
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -408,12 +408,12 @@ fun withEncoding(
     )
 
 /**
- * Expects that the subject of the assertion (a [Path]) has the same textual content
+ * Expects that the subject of `this` expectation (a [Path]) has the same textual content
  * as [PathWithEncoding.path] in the given [pathWithEncoding] with the specified encodings.
  *
  *  Use the function `withEncoding(Path, Charset, Charset)` to create a [PathWithEncoding].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -423,10 +423,10 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWit
     }
 
 /**
- * Expects that the subject of the assertion (a [Path]) has the same binary content
+ * Expects that the subject of `this` expectation (a [Path]) has the same binary content
  * as [targetPath].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */

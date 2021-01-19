@@ -17,13 +17,13 @@ infix fun <E, T : Sequence<E>> Expect<T>.asIterable(
 ): Expect<Iterable<E>> = _logic.changeSubject.unreported { it.asIterable() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [Iterable].
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature of({ f(it::asIterable) }, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
     apply { asIterable(o).addAssertionsCreatedBy(assertionCreator) }
@@ -43,13 +43,13 @@ infix fun <E, T : Sequence<E>> Expect<T>.asList(
 ): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature of({ f(it::toList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
  */

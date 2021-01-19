@@ -22,29 +22,29 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(
 ): MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour> = _logic.builderContainsInMapLike(::identity)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
+ * Expects that the subject of `this` expectation (a [Map]) contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second]
  *
  * Delegates to 'it contains o inAny order entry keyValuePair'.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>): Expect<T> =
     it contains o inAny order entry keyValuePair
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains only one entry with a key as defined by
+ * Expects that the subject of `this` expectation (a [Map]) contains only one entry with a key as defined by
  * [keyValuePair]'s [Pair.first] and a corresponding value as defined by [keyValuePair]'s [Pair.second]
  *
  * Delegates to 'it contains o inAny order but only entry keyValuePair'.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePair: Pair<K, V>): Expect<T> =
     it contains o inAny order but only entry keyValuePair
 
 /**
- * Expects the subject of the assertion (a [Map]) contains for each entry in [keyValuePairs],
+ * Expects the subject of `this` expectation (a [Map]) contains for each entry in [keyValuePairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
  * Delegates to `it contains o inAny order keyValuePairs keyValuePairs`
@@ -56,13 +56,13 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePair: Pair<K,
  * @param keyValuePairs The key-value [Pairs] expected to be contained within this [Map]
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V>): Expect<T> =
     it contains o inAny order the keyValuePairs
 
 /**
- * Expects the subject of the assertion (a [Map]) contains only (in any order) for each entry in [keyValuePairs],
+ * Expects the subject of `this` expectation (a [Map]) contains only (in any order) for each entry in [keyValuePairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
  * Delegates to `it contains o inAny order but only the keyValuePairs`
@@ -70,13 +70,13 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V
  * @param keyValuePairs The key-value [Pairs] expected to be contained within this [Map]
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePairs: Pairs<K, V>): Expect<T> =
     it contains o inAny order but only the keyValuePairs
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
+ * Expects that the subject of `this` expectation (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
@@ -88,13 +88,13 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePairs: Pairs<
  *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it contains o inAny order entry keyValue
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains only one entry with a key as defined by
+ * Expects that the subject of `this` expectation (a [Map]) contains only one entry with a key as defined by
  * [keyValue]'s [KeyWithValueCreator.key] with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
@@ -106,7 +106,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(key
  *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it contains o inAny order but only entry keyValue
@@ -119,7 +119,7 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
     KeyWithValueCreator(key, valueAssertionCreatorOrNull)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains for each [KeyWithValueCreator] in [allKeyValues],
+ * Expects that the subject of `this` expectation (a [Map]) contains for each [KeyWithValueCreator] in [allKeyValues],
  * a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
  * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs
  * to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
@@ -130,7 +130,7 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
  * one [KeyWithValueCreator] in [allKeyValues] is defined as `Key('a') { isGreaterThan(0) }` and
  * another one is defined as `Key('a') { isLessThan(2) }`, then both match, even though they match the same entry.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     allKeyValues: KeyValues<K, V>
@@ -149,37 +149,37 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 ): Expect<T> = it contains keyValues(all.expected, *all.otherExpected)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains only (in any order) for each [KeyWithValueCreator]
+ * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) for each [KeyWithValueCreator]
  * in [allKeyValues], a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
  * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs
  * to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *
  * Delegates to `it contains o inAny order but only the keyValues`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
     allKeyValues: KeyValues<K, V>
 ): Expect<T> = it contains o inAny order but only the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains the key-value pairs of the given [mapLike].
+ * Expects that the subject of `this` expectation (a [Map]) contains the key-value pairs of the given [mapLike].
  *
  * Delegates to `it contains o inAny order entriesOf`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
     mapLike: MapLike
 ): Expect<T> = it contains o inAny order entriesOf mapLike
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains only (in any order) the key-value pairs of
+ * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) the key-value pairs of
  * the given [mapLike].
  *
  * Delegates to `it contains o inAny order but only entriesOf`
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
     mapLike: MapLike
@@ -187,23 +187,23 @@ infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
 
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains the given [key].
+ * Expects that the subject of `this` expectation (a [Map]) contains the given [key].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
     _logicAppend { containsKey(::identity, key) }
 
 /**
- * Expects that the subject of the assertion (a [Map]) does not contain the given [key].
+ * Expects that the subject of `this` expectation (a [Map]) does not contain the given [key].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains the given [key],
+ * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
  * creates an [Expect] for the corresponding value and returns the newly created assertion container,
  * so that further fluent calls are assertions about it.
  *
@@ -213,13 +213,13 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
 
 /**
- * Expects that the subject of the assertion (a [Map]) contains the given [key] and that
+ * Expects that the subject of `this` expectation (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [KeyWithCreator.assertionCreator] creates for it.
  *
  * @param key Use the function `key(...) { ... }` to create a [KeyWithCreator] where the first parameter corresponds
  *  to the key and the second is the `assertionCreator`-lambda
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
     _logic.getExisting(::identity, key.key).collectAndAppend(key.assertionCreator)
@@ -232,7 +232,7 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K
 
 
 /**
- * Creates an [Expect] for the property [Map.keys] of the subject of the assertion,
+ * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -241,17 +241,17 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
 
 /**
- * Expects that the property [Map.keys] of the subject of the assertion
+ * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
 
 /**
- * Creates an [Expect] for the property [Map.values] of the subject of the assertion,
+ * Creates an [Expect] for the property [Map.values] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -260,11 +260,11 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
 
 /**
- * Expects that the property [Map.keys] of the subject of the assertion
+ * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
@@ -288,28 +288,28 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  * The transformation as such is not reflected in reporting.
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries(o).addAssertionsCreatedBy(assertionCreator) }
 
 /**
- * Expects that the subject of the assertion (a [Map]) is an empty [Map].
+ * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
  *
  * @param empty Use the pseudo-keyword `empty`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
 
 /**
- * Expects that the subject of the assertion (a [Map]) is not an empty [Map].
+ * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
  *
  * @param empty Use the pseudo-keyword `empty`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }

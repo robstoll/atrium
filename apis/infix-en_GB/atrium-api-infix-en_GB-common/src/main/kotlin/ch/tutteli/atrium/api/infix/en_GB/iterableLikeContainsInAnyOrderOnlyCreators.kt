@@ -26,7 +26,7 @@ import ch.tutteli.atrium.logic.utils.toVarArg
  *
  * @param expected The value which is expected to be contained within the [IterableLike].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     this the values(expected)
@@ -42,7 +42,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * @param values The values which are expected to be contained within the [IterableLike]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): Expect<T> =
     _logicAppend { valuesInAnyOrderOnly(values.toList()) }
@@ -62,7 +62,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -89,7 +89,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  * @param entries The entries which are expected to be contained within the [IterableLike]
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.the(
@@ -112,7 +112,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike]
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an
  *   [Iterable], [Sequence] or one of the [Array] types
  *   or the given [expectedIterableLike] does not have elements (is empty).

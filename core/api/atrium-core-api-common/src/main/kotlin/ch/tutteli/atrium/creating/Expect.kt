@@ -40,7 +40,7 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>{
  *
  * Note, do not use [SubjectProvider] as this interface is only temporary and will be removed with 0.17.0.
  *
- * @param T The type of the subject of the assertion.
+ * @param T The type of the subject of `this` expectation.
  */
 @Suppress("DEPRECATION")
 @ExpectMarker
@@ -63,7 +63,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @param assertionCreator The receiver function which should create and add assertions to this container.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
@@ -73,7 +73,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @param assertion The assertion which will be added to this container.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     override fun addAssertion(assertion: Assertion): Expect<T>
@@ -87,7 +87,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
@@ -101,7 +101,7 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return An [Expect] for the current subject of the assertion.
+     * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO 0.16.0 move to AssertionContainer / RecordContainer and deprecate
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =

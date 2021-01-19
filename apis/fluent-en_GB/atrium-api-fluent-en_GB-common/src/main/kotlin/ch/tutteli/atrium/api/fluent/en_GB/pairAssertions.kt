@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic.first
 import ch.tutteli.atrium.logic.second
 
 /**
- * Creates an [Expect] for the property [Pair.first] of the subject of the assertion,
+ * Creates an [Expect] for the property [Pair.first] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -17,11 +17,11 @@ val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
     get() : Expect<K> = _logic.first().transform()
 
 /**
- * Expects that the property [Pair.first] of the subject of the assertion
+ * Expects that the property [Pair.first] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.first
  */
@@ -29,7 +29,7 @@ fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Uni
     _logic.first().collectAndAppend(assertionCreator)
 
 /**
- * Creates an [Expect] for the property [Pair.second] of the subject of the assertion,
+ * Creates an [Expect] for the property [Pair.second] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
@@ -40,11 +40,11 @@ val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
     get() : Expect<V> = _logic.second().transform()
 
 /**
- * Expects that the property [Pair.second] of the subject of the assertion
+ * Expects that the property [Pair.second] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.second
  */

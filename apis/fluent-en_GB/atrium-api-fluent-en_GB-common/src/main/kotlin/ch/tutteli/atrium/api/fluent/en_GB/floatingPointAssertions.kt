@@ -10,16 +10,16 @@ import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
- * Expects that the subject of the assertion (a [Float]) is equal to [expected] with an error [tolerance]
+ * Expects that the subject of `this` expectation (a [Float]) is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * In detail, It compares the absolute difference between the subject and [expected];
  * as long as it is less than or equal the [tolerance] the assertion holds; otherwise it fails.
  * A more mathematical way of expressing the assertion is the following inequality:
  *
- * | `subject of the assertion` - [expected] | ≤ [tolerance]
+ * | `subject of `this` expectation` - [expected] | ≤ [tolerance]
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceFloat
  */
@@ -27,16 +27,16 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Exp
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
 
 /**
- * Expects that the subject of the assertion  (a [Double]) is equal to [expected] with an error [tolerance]
+ * Expects that the subject of `this` expectation  (a [Double]) is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * In detail, It compares the absolute difference between the subject and [expected];
  * as long as it is less than or equal the [tolerance] the assertion holds; otherwise it fails.
  * A more mathematical way of expressing the assertion is the following inequality:
  *
- * | `subject of the assertion` - [expected] | ≤ [tolerance]
+ * | `subject of `this` expectation` - [expected] | ≤ [tolerance]
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceDouble
  */

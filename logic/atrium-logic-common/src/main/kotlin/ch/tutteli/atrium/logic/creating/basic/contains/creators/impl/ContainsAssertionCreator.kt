@@ -11,8 +11,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  *
- * @param T The type of the subject of the assertion.
- * @param TT The type of the subject of the assertion after making it multiple times consumable.
+ * @param T The type of the subject of this expectation.
+ * @param TT The type of the subject of this expectation after making it multiple times consumable.
  * @param SC The type of the search criteria.
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
@@ -54,12 +54,12 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
     protected abstract fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<TT>
 
     /**
-     * Searches for something fulfilling the given [searchCriterion] in the subject of the assertion associated with
+     * Searches for something fulfilling the given [searchCriterion] in the subject of this expectation associated with
      * the given [multiConsumableContainer] and should pass on the number of occurrences to the given
      * [featureFactory] which creates feature assertions based on the [checkers], which in turn can be used to create
      * a resulting [AssertionGroup] representing the assertion for a search criteria as a whole.
      *
-     * @param multiConsumableContainer Provides the subject of the assertion for which the assertion is created.
+     * @param multiConsumableContainer Provides the subject of this expectation for which the assertion is created.
      * @param searchCriterion A search criterion.
      * @param featureFactory The feature factory which should be called, passing the number of occurrences (matching
      *   the given [searchCriterion]) including a translation for `number of occurrences`.

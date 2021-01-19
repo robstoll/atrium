@@ -12,16 +12,16 @@ import ch.tutteli.atrium.logic.*
 import java.math.BigDecimal
 
 /**
- * Expects that the subject of the assertion is equal to [expected] with an error [tolerance]
+ * Expects that the subject of `this` expectation is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *
  * In detail, It compares the absolute difference between the subject and [expected];
  * as long as it is less than or equal the [tolerance] the assertion holds; otherwise it fails.
  * A more mathematical way of expressing the assertion is the following inequality:
  *
- * | `subject of the assertion` - [expected] | ≤ [tolerance]
+ * | `subject of `this` expectation` - [expected] | ≤ [tolerance]
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal): Expect<T> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

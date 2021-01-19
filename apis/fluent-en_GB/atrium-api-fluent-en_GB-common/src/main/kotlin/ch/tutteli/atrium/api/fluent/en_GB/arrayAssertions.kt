@@ -21,7 +21,7 @@ fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -37,7 +37,7 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
     apply { asList().addAssertionsCreatedBy(assertionCreator) }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -70,7 +70,7 @@ fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -104,7 +104,7 @@ fun Expect<CharArray>.asList(): Expect<List<Char>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -138,7 +138,7 @@ fun Expect<ShortArray>.asList(): Expect<List<Short>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -172,7 +172,7 @@ fun Expect<IntArray>.asList(): Expect<List<Int>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -206,7 +206,7 @@ fun Expect<LongArray>.asList(): Expect<List<Long>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -240,7 +240,7 @@ fun Expect<FloatArray>.asList(): Expect<List<Float>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -274,7 +274,7 @@ fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -308,7 +308,7 @@ fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.

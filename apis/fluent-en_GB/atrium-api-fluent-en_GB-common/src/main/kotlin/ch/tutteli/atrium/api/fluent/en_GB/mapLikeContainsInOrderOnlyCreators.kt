@@ -21,7 +21,7 @@ import kotlin.reflect.KClass
  *
  * Delegates to [entries].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
@@ -33,7 +33,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePair] as well as the [otherPairs] in the specified order.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
@@ -52,7 +52,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  *
  * Delegates to [entries].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
@@ -69,7 +69,7 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
@@ -98,7 +98,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  * [MapLikeToIterablePairTransformer] and [IterableLikeToIterableTransformer]).
  * This function expects [MapLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedMapLike] is not
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).

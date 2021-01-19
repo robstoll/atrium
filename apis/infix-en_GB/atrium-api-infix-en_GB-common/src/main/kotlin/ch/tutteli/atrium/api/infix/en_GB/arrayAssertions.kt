@@ -19,7 +19,7 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -33,7 +33,7 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
     apply { asList(o).addAssertionsCreatedBy(assertionCreator) }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -62,7 +62,7 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -92,7 +92,7 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -122,7 +122,7 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -152,7 +152,7 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -182,7 +182,7 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -212,7 +212,7 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -242,7 +242,7 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.
@@ -272,7 +272,7 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
     _logic.changeSubject.unreported { it.asList() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
  *
  * The transformation as such is not reflected in reporting.

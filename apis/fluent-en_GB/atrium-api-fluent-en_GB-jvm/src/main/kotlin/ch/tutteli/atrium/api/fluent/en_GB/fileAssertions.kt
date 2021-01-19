@@ -25,13 +25,13 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
     _logic.changeSubject.unreported { it.toPath() }
 
 /**
- * Expects that the subject of the assertion holds all assertions the given [assertionCreator] creates for
+ * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [Path].
  *
  * The transformation as such is not reflected in reporting.
  * Use `feature(File::toPath, assertionCreator)` if you want to show the transformation in reporting.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.9.0
  */

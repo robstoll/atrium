@@ -11,7 +11,7 @@ import kotlin.reflect.KProperty1
  * where `X` > 1.
  *
  * @property description The description of the feature.
- * @property extractor The extractor which extracts the feature out of the subject of the assertion.
+ * @property extractor The extractor which extracts the feature out of the subject of the expectation.
  *
  * @since 0.12.0
  */

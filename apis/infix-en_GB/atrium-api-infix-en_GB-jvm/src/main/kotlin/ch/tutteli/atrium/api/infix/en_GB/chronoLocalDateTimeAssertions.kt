@@ -12,10 +12,10 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [ChronoLocalDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -24,10 +24,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 ): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before or equal the [expected] [ChronoLocalDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -36,10 +36,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is after the [expected] [ChronoLocalDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -48,10 +48,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 ): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is after or equal the [expected] [ChronoLocalDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -60,10 +60,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is equal to the [expected] [ChronoLocalDateTime].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
@@ -72,7 +72,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
 ): Expect<T> = _logicAppend { isEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
  * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
  * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a
@@ -82,7 +82,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  * yyyy-mm-ddThh:mm
  * yyyy-mm-dd
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -91,7 +91,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
 ): Expect<T> = _logicAppend { isBefore(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
  * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
  * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a
@@ -101,7 +101,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  * yyyy-mm-ddThh:mm
  * yyyy-mm-dd
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -110,7 +110,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
  * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
  * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
@@ -120,7 +120,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  * yyyy-mm-ddThh:mm
  * yyyy-mm-dd
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -129,7 +129,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
 ): Expect<T> = _logicAppend { isAfter(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
  * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
  * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
@@ -139,7 +139,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  * yyyy-mm-ddThh:mm
  * yyyy-mm-dd
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */
@@ -148,7 +148,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
- * Expects that the subject of the assertion (a [ChronoLocalDateTime])
+ * Expects that the subject of `this` expectation (a [ChronoLocalDateTime])
  * is before the [expected] [LocalDateTime] given as [String] in (modified) ISO 8601 format.
  * The string will be converted to a LocalDateTime according to ISO 8601 but with a slight deviation.
  * The alternative notation (e.g. 20200401120001 instead of 2020-04-01T12:00:01) is not supported and we accept a date
@@ -158,7 +158,7 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * yyyy-mm-ddThh:mm
  * yyyy-mm-dd
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
  */

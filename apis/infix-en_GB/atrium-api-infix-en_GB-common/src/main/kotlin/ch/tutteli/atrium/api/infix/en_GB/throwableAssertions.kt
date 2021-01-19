@@ -9,39 +9,39 @@ import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 
 /**
- * Expects that the property [Throwable.message] of the subject of the assertion is not null,
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null,
  * creates an [Expect] for it and returns it.
  *
- * @return The newly created [Expect] for the property [Throwable.message] of the subject of the assertion.
+ * @return The newly created [Expect] for the property [Throwable.message] of the subject of `this` expectation.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = it feature Throwable::message notToBeNull o
 
 /**
- * Expects that the property [Throwable.message] of the subject of the assertion is not null and
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and
  * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of the assertion.
+ * returns an [Expect] for the current subject of `this` expectation.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     it feature of(Throwable::message) { it notToBeNull assertionCreator }
 
 /**
- * Expects that the property [Throwable.message] of the subject of the assertion is not null and contains
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
  * [expected]'s [toString] representation using a non disjoint search.
  **
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this messageContains values(expected)
 
 /**
- * Expects that the property [Throwable.message] of the subject of the assertion is not null and contains
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
  * [values]'s [toString] representation using a non disjoint search.
  **
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
@@ -50,7 +50,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
  * @param values The values which are expected to be contained within [Throwable.message]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return An [Expect] for the current subject of the assertion.
+ * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect<T> =
     message { contains(values) }
@@ -59,7 +59,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),
  * creates an [Expect] of the [TExpected] type for it and returns it.
  *
- * @return The newly created [Expect] for the property [Throwable.cause] of the subject of the assertion
+ * @return The newly created [Expect] for the property [Throwable.cause] of the subject of `this` expectation
  *
  * @since 0.12.0
  */
