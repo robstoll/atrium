@@ -51,7 +51,6 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
         ReplaceWith("this._logic.maybeSubject", "ch.tutteli.atrium.logic._logic")
     )
     override val maybeSubject: Option<T>
-        get() = TODO("Not yet implemented")
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this container and

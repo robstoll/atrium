@@ -1,8 +1,8 @@
 description = 'Specifies the internally used assertion verbs'
 
 dependencies {
-    api prefixedProject('domain-builders-jvm')
     api prefixedProject('core-api-jvm')
+    api prefixedProject('logic-jvm')
 
     runtimeOnly prefixedProject('core-robstoll-jvm')
 

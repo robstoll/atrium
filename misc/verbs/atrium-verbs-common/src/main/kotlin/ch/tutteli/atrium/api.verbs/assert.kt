@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.manualFeature
 
 /**
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.logic.manualFeature
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> assert(subject: T): RootExpect<T> =
-    ExpectBuilder.forSubject(subject)
+    RootExpectBuilder.forSubject(subject)
         .withVerb(ASSERT)
         .withoutOptions()
         .build()

@@ -32,9 +32,9 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     INDEX_FROM_TO("index %s..%s"),
     NUMBER_OF_OCCURRENCES("number of such entries"),
     SIZE_EXCEEDED("❗❗ hasNext() returned false"),
-    @Deprecated("Will be removed with 1.0.0")
+    @Deprecated("Will be removed latest with 1.0.0 (maybe earlier)")
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    @Deprecated("Will be removed with 1.0.0")
+    @Deprecated("Will be removed latest with 1.0.0 (maybe earlier)")
     CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ELEMENTS("additional elements detected"),
     @Deprecated("Use WARNING_ADDITIONAL_ELEMENTS; will be removed latest with 1.0.0", ReplaceWith("WARNING_ADDITIONAL_ELEMENTS"))

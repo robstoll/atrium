@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 /**
  * Represents the extension point of the logic level for subjects of type [T].
  *
- * In contrast to assertion function defined for [Expect] which usually return [Expect], functions defined for
+ * In contrast to expectation functions defined for [Expect] which usually return [Expect], functions defined for
  * [AssertionContainer] return [Assertion] so that they can be appended to whatever we want.
  *
  * Note, do not use [SubjectProvider] as this interface will be removed with 0.17.0.

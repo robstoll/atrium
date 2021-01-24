@@ -17,8 +17,8 @@ interface RootExpect<T> : Expect<T> {
         operator fun <T> invoke(
             maybeSubject: Option<T>,
             assertionVerb: Translatable,
-            expectOptions: RootExpectOptions<T>?
-        ): RootExpect<T> = RootExpectImpl(maybeSubject, assertionVerb, expectOptions)
+            options: RootExpectOptions<T>?
+        ): RootExpect<T> = RootExpectImpl(maybeSubject, assertionVerb, options)
 
         @ExperimentalNewExpectTypes
         /**
@@ -26,9 +26,9 @@ interface RootExpect<T> : Expect<T> {
          */
         operator fun <T> invoke(
             rootExpect: RootExpect<T>,
-            expectOptions: RootExpectOptions<T>
+            options: RootExpectOptions<T>
         ): RootExpect<T> = when (rootExpect) {
-            is RootExpectImpl -> RootExpectImpl(rootExpect, expectOptions)
+            is RootExpectImpl -> RootExpectImpl(rootExpect, options)
             else -> throw UnsupportedOperationException("Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20RootExpect%20creation")
         }
     }

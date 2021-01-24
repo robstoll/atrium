@@ -33,7 +33,7 @@ data class FeatureExpectOptions<R>(
         )
 }
 
-
+//TODO 0.16.0 deprecate and move to logic
 /**
  * Define additional (non-mandatory) options to create a [FeatureExpect] based on a given
  * [FeatureExpectOptionsChooser]-lambda.
@@ -44,6 +44,7 @@ data class FeatureExpectOptions<R>(
 fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
     FeatureExpectOptionsChooser(configuration)
 
+//TODO 0.16.0 deprecate and move to logic
 /**
  * Helper lambda to specify [FeatureExpectOptions] via convenience methods.
  *

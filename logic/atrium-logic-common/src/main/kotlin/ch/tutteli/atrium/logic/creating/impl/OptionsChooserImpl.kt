@@ -1,15 +1,13 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
+package ch.tutteli.atrium.logic.creating.impl
 
-package ch.tutteli.atrium.domain.builders.reporting.impl.verb
-
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.creating.RootExpectOptions
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class OptionsChooserImpl<T> : ExpectBuilder.OptionsChooser<T> {
-
+@ExperimentalNewExpectTypes
+class OptionsChooserImpl<T> : RootExpectBuilder.OptionsChooser<T> {
     private var description: Translatable? = null
     private var representationInsteadOfSubject: ((T) -> Any)? = null
     private var reporter: Reporter? = null
@@ -26,5 +24,5 @@ class OptionsChooserImpl<T> : ExpectBuilder.OptionsChooser<T> {
         this.reporter = reporter
     }
 
-    fun build(): ExpectOptions<T> = ExpectOptions(description, representationInsteadOfSubject, reporter)
+    fun build(): RootExpectOptions<T> = RootExpectOptions(description, representationInsteadOfSubject, reporter)
 }
