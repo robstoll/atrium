@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.logic.creating.FeatureExpectOptions
+import ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Text
@@ -99,7 +101,7 @@ infix fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: 
 
 /**
  * Uses the given [configuration]-lambda to create an [FeatureExpectOptions] which in turn is used
- * to override (parts) of the existing configuration.
+ * to re-define (parts) of the existing configuration.
  *
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
@@ -107,7 +109,7 @@ infix fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
 infix fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): Expect<R> =
-    withOptions(FeatureExpectOptionsChooser(configuration))
+    withOptions(FeatureExpectOptions(configuration))
 
 /**
  * Uses the given [options] to override (parts) of the existing configuration.

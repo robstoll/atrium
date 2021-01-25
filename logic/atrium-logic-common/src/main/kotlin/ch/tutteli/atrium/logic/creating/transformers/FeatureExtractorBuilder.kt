@@ -2,6 +2,8 @@ package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.logic.creating.FeatureExpectOptions
+import ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser
 import ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.*
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.Text

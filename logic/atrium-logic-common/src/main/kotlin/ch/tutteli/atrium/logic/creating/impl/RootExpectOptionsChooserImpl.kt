@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @ExperimentalNewExpectTypes
-class OptionsChooserImpl<T> : RootExpectBuilder.OptionsChooser<T> {
+class RootExpectOptionsChooserImpl<T> : RootExpectBuilder.OptionsChooser<T> {
     private var description: Translatable? = null
     private var representationInsteadOfSubject: ((T) -> Any)? = null
     private var reporter: Reporter? = null

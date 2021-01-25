@@ -105,8 +105,8 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) ->
     withOptions { withRepresentation(representationProvider) }
 
 /**
- * Uses the given [configuration]-lambda to create an [FeatureExpectOptions] which in turn is used
- * to override (parts) of the existing configuration.
+ * Uses the given [configuration]-lambda to create a [FeatureExpectOptions] which in turn is used
+ * to re-define (parts) of the existing configuration.
  *
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
