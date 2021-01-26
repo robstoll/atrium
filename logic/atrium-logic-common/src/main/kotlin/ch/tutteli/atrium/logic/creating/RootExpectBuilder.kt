@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.creating.RootExpectOptions
 import ch.tutteli.atrium.logic.creating.impl.*
+import ch.tutteli.atrium.logic.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -90,7 +91,7 @@ interface RootExpectBuilder {
         fun withoutOptions(): FinalStep<T>
 
         companion object {
-            fun <T> create(
+            operator fun <T> invoke(
                 subject: T,
                 expectationVerb: Translatable
             ): OptionsStep<T> = OptionsStepImpl(subject, expectationVerb)
@@ -139,13 +140,13 @@ interface RootExpectBuilder {
         fun withRepresentation(representationProvider: (T) -> Any)
 
         /**
-         * Uses the given [reporter] instead of the default reporter.
+         * Uses the given [reporter] instead of the default [Reporter].
          */
         fun withReporter(reporter: Reporter)
 
         companion object {
             @ExperimentalNewExpectTypes
-            fun <T> createAndBuild(configuration: OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
+            operator fun <T> invoke(configuration: OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
                 RootExpectOptionsChooserImpl<T>().apply(configuration).build()
         }
     }
@@ -181,7 +182,7 @@ interface RootExpectBuilder {
 
         companion object {
             @ExperimentalNewExpectTypes
-            fun <T> create(
+            operator fun <T> invoke(
                 subject: T,
                 expectationVerb: Translatable,
                 options: RootExpectOptions<T>?

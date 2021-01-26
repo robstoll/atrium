@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 class ExpectationVerbStepImpl<T>(override val subject: T) : RootExpectBuilder.ExpectationVerbStep<T> {
     override fun withVerb(verb: Translatable): RootExpectBuilder.OptionsStep<T> =
-        RootExpectBuilder.OptionsStep.create(subject, verb)
+        RootExpectBuilder.OptionsStep(subject, verb)
 }
 
 class OptionsStepImpl<T>(
@@ -26,7 +26,7 @@ class OptionsStepImpl<T>(
 
     @ExperimentalNewExpectTypes
     private fun toFinalStep(rootExpectOptions: RootExpectOptions<T>?) =
-        RootExpectBuilder.FinalStep.create(subject, expectationVerb, rootExpectOptions)
+        RootExpectBuilder.FinalStep(subject, expectationVerb, rootExpectOptions)
 }
 
 @ExperimentalNewExpectTypes

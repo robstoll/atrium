@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 @ExperimentalNewExpectTypes
 //using a function because overloading a constructor of a data class does not work well in Kotlin (type inference bugs)
 fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
-    FeatureExpectOptionsChooser.createAndBuild(configuration)
+    FeatureExpectOptionsChooser(configuration)
 
 /**
  * Helper lambda to specify [FeatureExpectOptions] via convenience methods.
@@ -68,7 +68,7 @@ interface FeatureExpectOptionsChooser<R> {
 
     companion object {
         @ExperimentalNewExpectTypes
-        fun <R> createAndBuild(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
+        operator fun <R> invoke(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
             FeatureExpectOptionsChooserImpl<R>().apply(configuration).build()
     }
 }

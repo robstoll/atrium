@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @ExperimentalNewExpectTypes
 @Suppress("FunctionName")
 fun <T> RootExpectOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
-    RootExpectBuilder.OptionsChooser.createAndBuild(configuration)
+    RootExpectBuilder.OptionsChooser(configuration)
 
 /**
  * Helper function to create a [RootExpectOptions] by specifying components via named parameters.
