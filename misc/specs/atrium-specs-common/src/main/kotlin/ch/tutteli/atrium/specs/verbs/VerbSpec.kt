@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.specs.verbs
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.specs.toBeDescr
@@ -171,11 +172,14 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
     }
 }
 
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verb here
 private fun <R> assert(act: () -> R): Expect<() -> R> =
-    ExpectBuilder.forSubject(act)
+    RootExpectBuilder.forSubject(act)
         .withVerb(AssertionVerb.EXPECT_THROWN)
-        .withOptions(ExpectOptions(reporter = AtriumReporterSupplier.REPORTER))
+        .withOptions(RootExpectOptions(reporter = AtriumReporterSupplier.REPORTER))
         .build()
 
 private object AtriumReporterSupplier {

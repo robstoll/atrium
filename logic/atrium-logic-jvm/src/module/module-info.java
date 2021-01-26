@@ -4,6 +4,7 @@ module ch.tutteli.atrium.logic {
     requires kotlin.stdlib;
 
     exports ch.tutteli.atrium.logic;
+    exports ch.tutteli.atrium.logic.creating;
     exports ch.tutteli.atrium.logic.creating.basic.contains;
 
     exports ch.tutteli.atrium.logic.creating.charsequence.contains;

@@ -2,8 +2,9 @@ package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -104,17 +105,23 @@ abstract class TranslatorIntSpec(
         prefixedDescribeTemplate(describePrefix, description, body)
 
     val reporterDeChFallbackFr = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
+
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class)
     fun <T : Any> assertWithDeCh_Fr(subject: T) =
-        ExpectBuilder.forSubject(subject)
+        RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
-            .withOptions(ExpectOptions(reporter = reporterDeChFallbackFr))
+            .withOptions(RootExpectOptions(reporter = reporterDeChFallbackFr))
             .build()
 
     val reporterDeChFallbackFrIt = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr", "CH"), Locale("it", "CH")))
+
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class)
     fun <T : Any> assertWithDeCh_Fr_It(subject: T) =
-        ExpectBuilder.forSubject(subject)
+        RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
-            .withOptions(ExpectOptions(reporter = reporterDeChFallbackFrIt))
+            .withOptions(RootExpectOptions(reporter = reporterDeChFallbackFrIt))
             .build()
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
@@ -272,9 +279,12 @@ abstract class TranslatorIntSpec(
             val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
 
-            val assert = ExpectBuilder.forSubject(1)
+
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalNewExpectTypes::class)
+            val assert = RootExpectBuilder.forSubject(1)
                 .withVerb(AssertionVerb.ASSERT)
-                .withOptions(ExpectOptions(reporter = reporter))
+                .withOptions(RootExpectOptions(reporter = reporter))
                 .build()
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {

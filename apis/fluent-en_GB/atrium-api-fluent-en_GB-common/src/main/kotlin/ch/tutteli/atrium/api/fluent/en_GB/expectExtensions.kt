@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Text
 
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -20,7 +20,7 @@ annotation class ExperimentalWithOptions
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> =
@@ -39,32 +39,34 @@ fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> 
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Expect<T> =
     withOptions { withRepresentation(representationProvider) }
 
 /**
- * Uses the given [configuration]-lambda to create an [ExpectOptions] which in turn is used
- * to override (parts) of the existing configuration.
+ * Uses the given [configuration]-lambda to create an [RootExpectOptions] which in turn is used
+ * to re-define (parts) of the existing configuration.
  *
- * @return an [Expect] for the subject of `this` expectation.
- */
-@ExperimentalWithOptions
-fun <T> RootExpect<T>.withOptions(configuration: ExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
-    withOptions(ExpectBuilder.OptionsChooser.createAndBuild(configuration))
-
-/**
- * Uses the given [options] to override (parts) of the existing configuration.
- *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
-fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
-    RootExpect(this, options.toRootExpectOptions())
+fun <T> RootExpect<T>.withOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
+    withOptions(RootExpectOptions(configuration))
+
+/**
+ * Uses the given [options] to override (parts) of the existing configuration.
+ *
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
+ */
+@ExperimentalWithOptions
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalNewExpectTypes::class)
+fun <T> RootExpect<T>.withOptions(options: RootExpectOptions<T>): Expect<T> =
+    RootExpect(this, options)
 
 /**
  * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
@@ -73,7 +75,7 @@ fun <T> RootExpect<T>.withOptions(options: ExpectOptions<T>): Expect<T> =
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -94,7 +96,7 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -103,10 +105,10 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) ->
     withOptions { withRepresentation(representationProvider) }
 
 /**
- * Uses the given [configuration]-lambda to create an [FeatureExpectOptions] which in turn is used
- * to override (parts) of the existing configuration.
+ * Uses the given [configuration]-lambda to create a [FeatureExpectOptions] which in turn is used
+ * to re-define (parts) of the existing configuration.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -117,7 +119,7 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsCh
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)

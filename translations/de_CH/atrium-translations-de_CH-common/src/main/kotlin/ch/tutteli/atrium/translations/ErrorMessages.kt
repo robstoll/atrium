@@ -37,6 +37,6 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
     HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),
     //    HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Manchmal kann man eine Alternative zu `{ }` verwenden. Zum Beispiel, anstelle von `wirft<..> { }` sollten Sie `wirft<..>()` verwenden."),
 
-    @Deprecated("Will be removed with 1.0.0")
+    @Deprecated("Will be removed latest with 1.0.0 (maybe earlier)")
     SUBJECT_ACCESSED_TOO_EARLY("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten; das Subjekt (subject) wurde zu früh verwendet. Bitte erfassen Sie einen Bug-Report unter $BUG_REPORT_URL inklusive Stacktrace wenn möglich -- vielen Dank."),
 }

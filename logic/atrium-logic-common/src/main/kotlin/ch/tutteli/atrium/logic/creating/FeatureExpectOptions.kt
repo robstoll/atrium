@@ -1,59 +1,31 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.logic.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Additional (non-mandatory) options to create a [FeatureExpect].
- *
- * @property description Defines a custom description if not null.
- * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
- */
-@ExperimentalNewExpectTypes
-data class FeatureExpectOptions<R>(
-    val description: Translatable? = null,
-    val representationInsteadOfFeature: ((R) -> Any)? = null
-) {
-    /**
-     * Merges the given [options] with this object creating a new [FeatureExpectOptions]
-     * where defined properties in [options] will have precedence over properties defined in this instance.
-     *
-     * For instance, this object has defined [representationInsteadOfFeature] (meaning it is not `null`) and
-     * the given [options] as well, then the resulting [FeatureExpectOptions] will have the
-     * [representationInsteadOfFeature] of [options].
-     */
-    fun merge(options: FeatureExpectOptions<R>): FeatureExpectOptions<R> =
-        FeatureExpectOptions(
-            options.description ?: description,
-            options.representationInsteadOfFeature ?: representationInsteadOfFeature
-        )
-}
-
-/**
  * Define additional (non-mandatory) options to create a [FeatureExpect] based on a given
  * [FeatureExpectOptionsChooser]-lambda.
  */
-@Suppress("FunctionName", "DEPRECATION")
+@Suppress("FunctionName")
 @ExperimentalNewExpectTypes
-@Deprecated(
-    "Use the helper function FeatureExpectOptions from atrium-logic; will be removed with 0.17.0",
-    ReplaceWith("ch.tutteli.atrium.logic.creating.FeatureExpectOptions(configuration)")
-)
 //using a function because overloading a constructor of a data class does not work well in Kotlin (type inference bugs)
 fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
-    FeatureExpectOptionsChooser(configuration)
+    FeatureExpectOptionsChooser.createAndBuild(configuration)
 
-//TODO 0.16.0 deprecate and move to logic
 /**
  * Helper lambda to specify [FeatureExpectOptions] via convenience methods.
  *
  * Calling multiple times the same method overrides the previously defined value.
  */
 @ExperimentalNewExpectTypes
-@Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
 interface FeatureExpectOptionsChooser<R> {
 
     /**
@@ -95,10 +67,8 @@ interface FeatureExpectOptionsChooser<R> {
     fun withRepresentation(representationProvider: (R) -> Any)
 
     companion object {
-        @Suppress("DEPRECATION")
         @ExperimentalNewExpectTypes
-        @Deprecated("Use the helper function FeatureExpectOptions from atrium-logic; will be removed with 0.17.0", ReplaceWith("ch.tutteli.atrium.logic.creating.FeatureExpectOptions(configuration)"))
-        operator fun <R> invoke(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
-            ch.tutteli.atrium.creating.impl.FeatureExpectOptionsChooserImpl<R>().apply(configuration).build()
+        fun <R> createAndBuild(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
+            FeatureExpectOptionsChooserImpl<R>().apply(configuration).build()
     }
 }

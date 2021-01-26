@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @ExperimentalNewExpectTypes
 internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
-    private val assertionVerb: Translatable,
+    private val expectationVerb: Translatable,
     private val representation: Any?,
     private val reporter: Reporter
 ) : BaseExpectImpl<T>(maybeSubject), RootExpect<T> {
@@ -26,7 +26,7 @@ internal class RootExpectImpl<T>(
         options: RootExpectOptions<T>?
     ) : this(
         maybeSubject,
-        options?.assertionVerb ?: assertionVerb,
+        options?.expectationVerb ?: assertionVerb,
         determineRepresentation(
             options?.representationInsteadOfSubject,
             maybeSubject
@@ -36,7 +36,7 @@ internal class RootExpectImpl<T>(
 
     constructor(previous: RootExpectImpl<T>, options: RootExpectOptions<T>) : this(
         previous.maybeSubject,
-        previous.assertionVerb,
+        previous.expectationVerb,
         options
     )
 
@@ -50,7 +50,7 @@ internal class RootExpectImpl<T>(
         assertions.add(assertion)
         if (!assertion.holds()) {
             val assertionGroup = assertionBuilder.root
-                .withDescriptionAndRepresentation(assertionVerb, representation)
+                .withDescriptionAndRepresentation(expectationVerb, representation)
                 .withAssertion(assertion)
                 .build()
 

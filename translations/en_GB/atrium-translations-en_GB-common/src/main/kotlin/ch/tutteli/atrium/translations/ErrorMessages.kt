@@ -35,6 +35,6 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
     )
     HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),
 
-    @Deprecated("Will be removed with 1.0.0")
+    @Deprecated("Will be removed latest with 1.0.0 (maybe earlier)")
     SUBJECT_ACCESSED_TOO_EARLY("Could not evaluate sub-assertions; the subject was accessed too early. Please report a bug at $BUG_REPORT_URL including stacktrace if possible -- thank you"),
 }

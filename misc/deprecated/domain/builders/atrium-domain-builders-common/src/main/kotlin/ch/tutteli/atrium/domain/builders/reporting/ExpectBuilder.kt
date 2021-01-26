@@ -1,3 +1,6 @@
+//TODO remove latest with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
@@ -19,7 +22,10 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Defines the contract to create custom assertion verbs, `Expect<T>` respectively.
  */
-//TODO move to atrium-logic with 0.16.0
+@Deprecated(
+    "Use RootExpectBuilder from atrium-logic; will be removed latest with 1.0.0 (maybe earlier)",
+    ReplaceWith("RootExpectBuilder", "ch.tutteli.atrium.logic.creating.RootExpectBuilder")
+)
 interface ExpectBuilder {
     companion object {
 
@@ -27,6 +33,13 @@ interface ExpectBuilder {
          * Entry point to use the [ExpectBuilder] which helps in creating
          * an assertion verb for the given [subject] or in other words an [Expect] for the given [subject].
          */
+        @Deprecated(
+            "Use RootExpectBuilder from atrium-logic; will be removed latest with 1.0.0 (maybe earlier)",
+            ReplaceWith(
+                "RootExpectBuilder.forSubject<T>(subject)",
+                "ch.tutteli.atrium.logic.creating.RootExpectBuilder"
+            )
+        )
         fun <T> forSubject(subject: T): AssertionVerbStep<T> = AssertionVerbStepImpl(Some(subject))
     }
 
@@ -35,6 +48,7 @@ interface ExpectBuilder {
      *
      * @param T the type of the subject.
      */
+    @Deprecated("Use RootExpectBuilder.ExpectationVerbStep from atrium-logic;  will be removed latest with 1.0.0 (maybe earlier)")
     interface AssertionVerbStep<T> {
         /**
          * The previously specified subject of `this` expectation.
@@ -58,6 +72,7 @@ interface ExpectBuilder {
      *
      * @param T the type of the subject.
      */
+    @Deprecated("Use RootExpectBuilder.OptionsStep from atrium-logic;  will be removed latest with 1.0.0 (maybe earlier)")
     interface OptionsStep<T> {
         /**
          * The previously specified subject of `this` expectation.
@@ -94,6 +109,10 @@ interface ExpectBuilder {
         fun withoutOptions(): FinalStep<T>
 
         companion object {
+            @Deprecated(
+                "Use OptionsStep from atrium-logic; will be removed with 0.17.0",
+                ReplaceWith("ch.tutteli.atrium.logic.creating.ExpectBuilder.OptionsStep.create(maybeSubject, assertionVerb)")
+            )
             fun <T> create(
                 maybeSubject: Option<T>,
                 assertionVerb: Translatable
@@ -106,7 +125,10 @@ interface ExpectBuilder {
      *
      * Calling multiple times the same method overrides the previously defined value.
      */
-    //TODO move to atrium-core with 0.16.0 (or to logic and move FeatureExpectOptionsChooser to logic as well?)
+    @Deprecated(
+        "Use RootExpectBuilder.OptionsChooser from atrium-logic; will be removed latest with 1.0.0 (maybe earlier)",
+        ReplaceWith(" RootExpectBuilder.OptionsChooser", "ch.tutteli.atrium.logic.creating.RootExpectBuilder")
+    )
     interface OptionsChooser<T> {
 
         /**
@@ -153,6 +175,10 @@ interface ExpectBuilder {
         fun withReporter(reporter: Reporter)
 
         companion object {
+            @Deprecated(
+                "Use the helper function OptionsChooser from atrium-logic",
+                ReplaceWith("RootExpectOptions(configuration)", "ch.tutteli.atrium.logic.creating.RootExpectOptions")
+            )
             fun <T> createAndBuild(configuration: OptionsChooser<T>.() -> Unit): ExpectOptions<T> =
                 OptionsChooserImpl<T>().apply(configuration).build()
         }
@@ -163,6 +189,7 @@ interface ExpectBuilder {
      *
      * @param T the type of the subject.
      */
+    @Deprecated("Use RootExpectBuilder.FinalStep from atrium-logic;  will be removed latest with 1.0.0 (maybe earlier)")
     interface FinalStep<T> {
         /**
          * The previously specified subject of `this` expectation.
@@ -185,6 +212,10 @@ interface ExpectBuilder {
         fun build(): RootExpect<T>
 
         companion object {
+            @Deprecated(
+                "Use OptionsStep from atrium-logic; will be removed with 0.17.0",
+                ReplaceWith("ch.tutteli.atrium.logic.creating.ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, options)")
+            )
             fun <T> create(
                 maybeSubject: Option<T>,
                 assertionVerb: Translatable,
@@ -201,6 +232,13 @@ interface ExpectBuilder {
  * @property representationInsteadOfSubject Defines a custom representation based on a present subject if not null.
  * @property reporter Defines a custom reporter if not null.
  */
+@Deprecated(
+    "Use RootExpectOptions instead; will be removed latest with 1.0.0 (maybe earlier)",
+    ReplaceWith(
+        "RootExpectOptions(assertionVerb, representationInsteadOfSubject, reporter)",
+        "ch.tutteli.atrium.logic.creating.RootExpectOptions"
+    )
+)
 data class ExpectOptions<T>(
     val assertionVerb: Translatable? = null,
     val representationInsteadOfSubject: ((T) -> Any)? = null,
@@ -227,5 +265,9 @@ data class ExpectOptions<T>(
 }
 
 @Suppress("FunctionName")
+@Deprecated(
+    "Use RootExpectOptions instead; will be removed latest with 1.0.0 (maybe earlier)",
+    ReplaceWith("RootExpectOptions(configuration)", "ch.tutteli.atrium.logic.creating.RootExpectOptions")
+)
 fun <T> ExpectOptions(configuration: ExpectBuilder.OptionsChooser<T>.() -> Unit): ExpectOptions<T> =
     ExpectBuilder.OptionsChooser.createAndBuild(configuration)

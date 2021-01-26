@@ -3,10 +3,11 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
-import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
-import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
+import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import kotlin.test.Test
@@ -79,9 +80,11 @@ class AdjustStackTest {
         subject, coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
     )
 
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class)
     private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =
-        ExpectBuilder.forSubject(subject)
+        RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.EXPECT)
-            .withOptions(ExpectOptions(reporter = DelegatingReporter(reporter, adjuster)))
+            .withOptions(RootExpectOptions(reporter = DelegatingReporter(reporter, adjuster)))
             .build()
 }
