@@ -18,6 +18,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerSt
  * @param o The filler object [o].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsBuilder
  */
 infix fun <T : CharSequence> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -30,6 +32,8 @@ infix fun <T : CharSequence> Expect<T>.contains(
  * @param o The filler object [o].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsNotBuilder
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -46,6 +50,8 @@ infix fun <T : CharSequence> Expect<T>.containsNot(
  *
  * @return This assertion container to support a fluent API.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.contains
  */
 infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this contains o atLeast 1 value expected
@@ -77,6 +83,8 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
  * @return This assertion container to support a fluent API.
  * @throws IllegalArgumentException in case one of the [values] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.contains
  */
 infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNumberOrChar>): Expect<T> =
     this contains o atLeast 1 the values
@@ -91,6 +99,8 @@ infix fun <T : CharSequence> Expect<T>.contains(values: Values<CharSequenceOrNum
  * so that you can mix [String] and [Int] for instance.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsNot
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this containsNot o value expected
@@ -108,6 +118,8 @@ infix fun <T : CharSequence> Expect<T>.containsNot(expected: CharSequenceOrNumbe
  * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsNot
  */
 infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOrNumberOrChar>): Expect<T> =
     this containsNot o the values
@@ -121,9 +133,78 @@ infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOr
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexString
  */
 infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T> =
     this contains o atLeast 1 regex pattern
+
+/**
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
+ * regular expression [regexPatterns], using a non disjoint search.
+ *
+ * It is a shortcut for `contains o atLeast 1 the RegexPatterns(pattern, *otherPatterns)`.
+ *
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
+ * [RegexPatterns] is defined as `regexPatterns("a(b)?", "a(b)?")` as well, then both match,
+ * even though they match the same sequence in the input of the search.
+ *
+ * Meaning you might want to use:
+ *   `contains o exactly 2 regex "a(b)?"`
+ * instead of:
+ *   `contains o atLeast 1 regex "a(b)?", "a(b)?"`
+ *
+ * @param regexPatterns The patterns which are expected to have a match against the input of the search --
+ *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
+ *
+ * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexString
+ */
+infix fun <T : CharSequence> Expect<T>.containsRegex(regexPatterns: RegexPatterns): Expect<T> =
+    this contains o atLeast 1 the regexPatterns
+
+/**
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
+ * regular expression [pattern].
+ *
+ * It is a shortcut for `contains o atLeast 1 matchFor pattern`.
+ *
+ * @param pattern The pattern which is expected to have a match against the input of the search.
+ *
+ * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegex
+ */
+infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex): Expect<T> =
+    this contains o atLeast 1 matchFor pattern
+
+/**
+ * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
+ * regular expression [regexPatterns], using a non disjoint search.
+ *
+ * It is a shortcut for `contains o atLeast 1 matchFor All(pattern, *otherPatterns)`.
+ *
+ * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
+ * [All] is defined as `all(Regex("a(b)?"), Regex("a(b)?"))` as well, then both match,
+ * even though they match the same sequence in the input of the search.
+ *
+ * Meaning you might want to use:
+ *   `contains o exactly 2 matchFor Regex("a(b)?")`
+ * instead of:
+ *   `contains o atLeast 1 matchFor all(Regex("a(b)?"), Regex("a(b)?"))`
+ *
+ * @param regexPatterns The patterns which are expected to have a match against the input of the search --
+ *   use the function `all(t, ...)` to create a [All].
+ *
+ * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegex
+ */
+infix fun <T : CharSequence> Expect<T>.containsRegex(regexPatterns: All<Regex>): Expect<T> =
+    this contains o atLeast 1 matchFor regexPatterns
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
@@ -193,6 +274,8 @@ infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T>
  * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsWith
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsWith(expected) }
@@ -203,6 +286,8 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expec
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsWithChar
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     it startsWith expected.toString()
@@ -211,6 +296,8 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
  * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsNotWith
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsNotWith(expected) }
@@ -221,6 +308,8 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Ex
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsNotWithChar
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     it startsNotWith expected.toString()
@@ -230,6 +319,8 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> 
  * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsWith
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
@@ -240,6 +331,8 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsWithChar
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     it endsWith expected.toString()
@@ -248,6 +341,8 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
  * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsNotWith
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsNotWith(expected) }
@@ -258,6 +353,8 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expe
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsNotWithChar
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     it endsNotWith expected.toString()
@@ -269,6 +366,8 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isEmpty
  */
 infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty() }
@@ -279,6 +378,8 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isNotEmpty
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty() }
@@ -289,6 +390,8 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  * @param blank Use the pseudo-keyword `blank`.
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isNotBlank
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
     _logicAppend { isNotBlank() }
@@ -301,6 +404,8 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") bla
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.matches
  */
 infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
@@ -313,6 +418,8 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  * @return This assertion container to support a fluent API.
  *
  * @since 0.12.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.mismatches
  */
 infix fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     _logicAppend { mismatches(expected) }
