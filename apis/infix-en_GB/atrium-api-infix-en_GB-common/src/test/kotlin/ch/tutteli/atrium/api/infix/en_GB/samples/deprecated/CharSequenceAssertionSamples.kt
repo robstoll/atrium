@@ -78,7 +78,7 @@ class CharSequenceAssertionSamples {
         // all regex patterns match
         expect("ABC") contains regexPatterns("A(B)?", "(B)?C")
 
-        // holds because `containsRegex` does not search for unique matches
+        // holds because `contains regexPatterns(...)` does not search for unique matches
         // use `contains exactly 2 regex "A(B)?"` to check if subject contains the regex two times
         expect("ABC") contains regexPatterns("A(B)?", "A(B)?")
 
