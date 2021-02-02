@@ -32,76 +32,83 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun contains() {
-        expect("ABC") contains o exactly 1 value "B"
+        expect("ABC") contains "B"
 
         expect("ABC123") contains values("AB", 'C', 12)
 
         // holds because `contains` does not search for unique matches
         // use `contains o exactly 2 value "A"` to check if subject contains two "A"s
-        expect("ABC") contains o exactly 1 the values("A", "A")
+        expect("ABC") contains values("A", "A")
 
         fails {
-            expect("ABC") contains o exactly 1 value  "X"
+            expect("ABC") contains "X"
         }
 
         fails { // because subject does not contain all values
-            expect("ABC") contains o exactly 1 the values("A", 99)
+            expect("ABC") contains values("A", 99)
         }
     }
 
     @Test
     fun containsNot() {
-        expect("ABC") containsNot o value "X"
+        expect("ABC") containsNot "X"
 
-        expect("ABC") containsNot o the values("X", 'Y', 1)
+        expect("ABC") containsNot values("X", 'Y', 1)
 
         fails {
-            expect("ABC") containsNot o value "B"
+            expect("ABC") containsNot "B"
         }
 
         fails {
-            expect("ABC") containsNot o the values("B", "X")
+            expect("ABC") containsNot values("B", "X")
         }
     }
 
     @Test
-    fun containsRegexString() {
+    fun containsRegexStringSingle() {
         expect("ABC") containsRegex "A(B)?"
 
         fails {
             expect("ABC") containsRegex "X"
         }
+    }
 
+    @Test
+    fun containsRegexStringMultiple() {
         // all regex patterns match
-        expect("ABC") containsRegex regexPatterns("A(B)?", "(B)?C")
+        expect("ABC") contains regexPatterns("A(B)?", "(B)?C")
 
         // holds because `containsRegex` does not search for unique matches
         // use `contains exactly 2 regex "A(B)?"` to check if subject contains the regex two times
-        expect("ABC") containsRegex regexPatterns("A(B)?", "A(B)?")
+        expect("ABC") contains regexPatterns("A(B)?", "A(B)?")
 
         fails { // because second regex doesn't match
-            expect("ABC") containsRegex regexPatterns("A", "X")
+            expect("ABC") contains regexPatterns("A", "X")
         }
     }
 
     @Test
-    fun containsRegex() {
-        expect("ABC") containsRegex "(B)?C".toRegex()
+    fun containsRegexSingle() {
+        expect("ABC") contains "(B)?C".toRegex()
 
         fails {
-            expect("ABC") containsRegex "X".toRegex()
+            expect("ABC") contains "X".toRegex()
         }
 
+    }
+
+    @Test
+    fun containsRegexMultiple() {
         // all regex patterns match
-        expect("ABC") containsRegex all("A".toRegex(), "B".toRegex())
+        expect("ABC") contains all("A".toRegex(), "B".toRegex())
 
         // holds because `containsRegex` does not search for unique matches
         // use `contains exactly 2 regex regex` to check if subject contains the regex two times
         val regex = "A(B)?".toRegex()
-        expect("ABC") containsRegex all(regex, regex)
+        expect("ABC") contains all(regex, regex)
 
         fails { // because second regex doesn't match
-            expect("ABC") containsRegex all("A".toRegex(), "X".toRegex())
+            expect("ABC") contains all("A".toRegex(), "X".toRegex())
         }
     }
 

@@ -141,32 +141,6 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T>
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [regexPatterns], using a non disjoint search.
- *
- * It is a shortcut for `contains o atLeast 1 the RegexPatterns(pattern, *otherPatterns)`.
- *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
- * [RegexPatterns] is defined as `regexPatterns("a(b)?", "a(b)?")` as well, then both match,
- * even though they match the same sequence in the input of the search.
- *
- * Meaning you might want to use:
- *   `contains o exactly 2 regex "a(b)?"`
- * instead of:
- *   `contains o atLeast 1 regex "a(b)?", "a(b)?"`
- *
- * @param regexPatterns The patterns which are expected to have a match against the input of the search --
- *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
- *
- * @return This assertion container to support a fluent API.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexString
- */
-infix fun <T : CharSequence> Expect<T>.containsRegex(regexPatterns: RegexPatterns): Expect<T> =
-    this contains o atLeast 1 the regexPatterns
-
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
  * regular expression [pattern].
  *
  * It is a shortcut for `contains o atLeast 1 matchFor pattern`.
@@ -175,46 +149,7 @@ infix fun <T : CharSequence> Expect<T>.containsRegex(regexPatterns: RegexPattern
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegex
- */
-infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex): Expect<T> =
-    this contains o atLeast 1 matchFor pattern
-
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [regexPatterns], using a non disjoint search.
- *
- * It is a shortcut for `contains o atLeast 1 matchFor All(pattern, *otherPatterns)`.
- *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
- * [All] is defined as `all(Regex("a(b)?"), Regex("a(b)?"))` as well, then both match,
- * even though they match the same sequence in the input of the search.
- *
- * Meaning you might want to use:
- *   `contains o exactly 2 matchFor Regex("a(b)?")`
- * instead of:
- *   `contains o atLeast 1 matchFor all(Regex("a(b)?"), Regex("a(b)?"))`
- *
- * @param regexPatterns The patterns which are expected to have a match against the input of the search --
- *   use the function `all(t, ...)` to create a [All].
- *
- * @return This assertion container to support a fluent API.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegex
- */
-infix fun <T : CharSequence> Expect<T>.containsRegex(regexPatterns: All<Regex>): Expect<T> =
-    this contains o atLeast 1 matchFor regexPatterns
-
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [pattern].
- *
- * It is a shortcut for `contains o atLeast 1 matchFor pattern`.
- *
- * @param pattern The pattern which is expected to have a match against the input of the search.
- *
- * @return This assertion container to support a fluent API.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexSingle
  */
 infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
     this contains o atLeast 1 matchFor pattern
@@ -240,6 +175,8 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexStringMultiple
  */
 infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): Expect<T> =
     this contains o atLeast 1 the regexPatterns
@@ -266,6 +203,8 @@ infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): E
  *   use the function `all(Regex(...), ...)` to create a [All].
  *
  * @return This assertion container to support a fluent API.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexMultiple
  */
 infix fun <T : CharSequence> Expect<T>.contains(patterns: All<Regex>): Expect<T> =
     this contains o atLeast 1 matchFor patterns
