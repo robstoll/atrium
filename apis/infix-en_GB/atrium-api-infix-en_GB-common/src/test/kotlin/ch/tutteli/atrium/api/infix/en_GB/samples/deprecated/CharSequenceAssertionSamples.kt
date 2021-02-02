@@ -202,7 +202,7 @@ class CharSequenceAssertionSamples {
             expect("") notToBe empty
         }
 
-        // use notToBe blank to check for whitespaces
+        // use `notToBe blank` to check for whitespaces
         expect(" ") notToBe empty
     }
 
