@@ -134,7 +134,7 @@ infix fun <T : CharSequence> Expect<T>.containsNot(values: Values<CharSequenceOr
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexString
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegexStringSingle
  */
 infix fun <T : CharSequence> Expect<T>.containsRegex(pattern: String): Expect<T> =
     this contains o atLeast 1 regex pattern
