@@ -102,7 +102,7 @@ class CharSequenceAssertionSamples {
         // all regex patterns match
         expect("ABC") contains all("A".toRegex(), "B".toRegex())
 
-        // holds because `containsRegex` does not search for unique matches
+        // holds because `contains all(...)` does not search for unique matches
         // use `contains exactly 2 regex regex` to check if subject contains the regex two times
         val regex = "A(B)?".toRegex()
         expect("ABC") contains all(regex, regex)
