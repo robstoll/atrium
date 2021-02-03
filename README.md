@@ -526,7 +526,8 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 <sub>We are sorry that the syntax is not yet the nicest one. 
 We admit that one has to get used to it first and that is a pity. 
 Yet, it is due to many [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) standing in the way -- 
-we hope we can provide a better API once Kotlin 1.4 is out (the new type inference respectively).</sub>
+we hoped it would be better once Kotlin 1.4 is out (the new type inference respectively) but unfortunately not. 
+We are looking for [alternatives](https://github.com/robstoll/atrium/issues/790) to improve the situation. Stay tuned.</sub>
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
 Creating a `MetaFeature` is done via the function `f` by passing in a 
