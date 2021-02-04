@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '1.4.21-2'
+    id 'org.jetbrains.kotlin.multiplatform' version '1.4.30'
 }
 
 group 'org.atriumlib.samples'
