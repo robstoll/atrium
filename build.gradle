@@ -11,7 +11,7 @@ buildscript {
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         niokVersion = '1.4.1'
         niok = { "ch.tutteli.niok:niok:$niokVersion" }
-        kotlin_version = '1.3.72'
+        kotlin_version = '1.4.30'
 
         // test
         jacocoToolVersion = '0.8.6'
