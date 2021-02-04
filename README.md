@@ -98,9 +98,6 @@ buildscript {
 }
 repositories {
     mavenCentral()
-    // either use mavenCentral() or one of the two lines below
-    // jcenter()
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
@@ -133,9 +130,6 @@ buildscript {
 }
 repositories {
     mavenCentral()
-    // either use mavenCentral() or one of the two lines below
-    // jcenter()
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
@@ -168,9 +162,6 @@ buildscript {
 }
 repositories {
     mavenCentral()
-    // either use mavenCentral() or one of the two lines below
-    // jcenter()
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version")
@@ -213,9 +204,6 @@ buildscript {
 }
 repositories {
     mavenCentral()
-    // either use mavenCentral() or one of the two lines below
-    // jcenter()
-    // maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"

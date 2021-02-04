@@ -93,7 +93,6 @@ buildscript {
 
     repositories {
         mavenCentral()
-        jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
@@ -114,7 +113,6 @@ kotlinutils.kotlinVersion = kotlin_version
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 configurations {
@@ -140,19 +138,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-        jcenter()
-        maven {
-            url 'https://dl.bintray.com/spekframework/spek'
-            content {
-                includeGroupByRegex 'org\\.spekframework(\\..*)?'
-            }
-        }
-        maven {
-            url "https://dl.bintray.com/robstoll/tutteli-jars"
-            content {
-                includeGroupByRegex 'ch\\.tutteli(\\..*)?'
-            }
-        }
     }
 }
 

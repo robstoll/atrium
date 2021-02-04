@@ -23,7 +23,6 @@ subprojects {
             mavenLocal()
         }
         mavenCentral()
-        jcenter()
     }
 
     apply plugin: 'scala'

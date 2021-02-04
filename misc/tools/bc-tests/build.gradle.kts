@@ -18,7 +18,6 @@ plugins {
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
@@ -50,7 +49,6 @@ val bcConfigs =
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 val bcTests = tasks.register("bcTests") {
@@ -70,7 +68,6 @@ subprojects {
                 excludeVersionByRegex("ch.tutteli.atrium", "atrium-api.*-js", "0.14.0")
             }
         }
-        jcenter()
     }
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
 }
