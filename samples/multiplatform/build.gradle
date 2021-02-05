@@ -8,7 +8,7 @@ buildscript {
         // for infix-api -> change to 'atrium-infix-en_GB'
         atrium_api = 'atrium-fluent-en_GB'
         atrium_version = '0.15.0'
-        junit_version = '5.7.0'
+        junit_version = '5.7.1'
     }
 }
 
