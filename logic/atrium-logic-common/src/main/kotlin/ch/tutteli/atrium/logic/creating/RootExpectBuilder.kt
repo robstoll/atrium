@@ -1,15 +1,13 @@
 package ch.tutteli.atrium.logic.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.creating.RootExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.creating.impl.*
-import ch.tutteli.atrium.logic.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import kotlin.reflect.KClass
 
 /**
  * Defines the contract to create custom expectation verbs, `RootExpect<T>` respectively.
@@ -62,7 +60,6 @@ interface RootExpectBuilder {
          * The previously defined expectation verb.
          */
         val expectationVerb: Translatable
-
 
         /**
          * Allows to define the [RootExpectOptions] via an [OptionsChooser]-lambda which provides convenience functions.
@@ -140,12 +137,21 @@ interface RootExpectBuilder {
         fun withRepresentation(representationProvider: (T) -> Any)
 
         /**
-         * Uses the given [reporter] instead of the default [Reporter].
+         * Expects a factory which creates the component of type [I] which is used instead of the currently specified
+         * factory.
          */
-        fun withReporter(reporter: Reporter)
+        @ExperimentalComponentFactoryContainer
+        fun <I : Any> withComponent(kClass: KClass<I>, factory: (ComponentFactoryContainer) -> I)
+
+        //TODO 0.16.0 maybe we should change the name to prependChainedComponents
+        // because we also use the once we defined so far?
+        @ExperimentalComponentFactoryContainer
+        fun <I : Any> withChainedComponents(kClass: KClass<I>, factories: Sequence<(ComponentFactoryContainer) -> I>)
 
         companion object {
             @ExperimentalNewExpectTypes
+            @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalComponentFactoryContainer::class)
             operator fun <T> invoke(configuration: OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
                 RootExpectOptionsChooserImpl<T>().apply(configuration).build()
         }

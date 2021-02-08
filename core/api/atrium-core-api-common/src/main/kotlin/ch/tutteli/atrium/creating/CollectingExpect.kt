@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.impl.CollectingExpectImpl
+import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 
 /**
  * Represents a container for [Assertion] which is intended to serve as receiver object for lambdas which create
@@ -23,9 +24,21 @@ interface CollectingExpect<T> : Expect<T> {
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
     companion object {
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalNewExpectTypes::class)
+        @Suppress(
+            "DEPRECATION",
+            "DeprecatedCallableAddReplaceWith" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */
+        )
+        @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        @Deprecated("Use the overload which expects a ComponentFactoryContainer; will be removed with 0.17.0")
         operator fun <T> invoke(maybeSubject: Option<T>): CollectingExpect<T> =
-            CollectingExpectImpl(maybeSubject)
+            CollectingExpectImpl(maybeSubject, DefaultComponentFactoryContainer)
+
+        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+        @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        operator fun <T> invoke(
+            maybeSubject: Option<T>,
+            componentFactoryContainer: ComponentFactoryContainer
+        ): CollectingExpect<T> =
+            CollectingExpectImpl(maybeSubject, componentFactoryContainer)
     }
 }

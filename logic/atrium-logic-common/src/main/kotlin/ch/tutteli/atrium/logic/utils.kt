@@ -51,7 +51,6 @@ val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
 val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
     get() = FeatureExtractorBuilder(this)
 
-
 /**
  * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
  * other action which results in an [Expect] being created for a different subject and

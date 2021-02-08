@@ -4,9 +4,7 @@ import ch.tutteli.atrium.core.Either
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Left
 import ch.tutteli.atrium.core.Right
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.Fun0Assertions
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
@@ -20,8 +18,6 @@ import kotlin.reflect.KClass
 
 class DefaultFun0Assertions : Fun0Assertions {
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
     override fun <TExpected : Throwable> toThrow(
         container: AssertionContainer<out () -> Any?>,
         expectedType: KClass<TExpected>
@@ -29,9 +25,11 @@ class DefaultFun0Assertions : Fun0Assertions {
         // we use manualFeature and not extractFeature since we never want to fail the feature extraction
         // because we want to show the planned downCast in the error message
         return container.manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
-            catchAndAdjustThrowable(this)
+            catchAndAdjustThrowable(container, this)
                 .fold({ it }, { /* use null as subject in case no exception occurred */ null })
         }.transform().let { previousExpect ->
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = { it ?: NO_EXCEPTION_OCCURRED })
@@ -42,11 +40,17 @@ class DefaultFun0Assertions : Fun0Assertions {
         }
     }
 
-    private inline fun <R> catchAndAdjustThrowable(act: () -> R): Either<Throwable, R> =
+    private inline fun <R> catchAndAdjustThrowable(
+        container: AssertionContainer<*>,
+        act: () -> R
+    ): Either<Throwable, R> =
         try {
             Right(act())
         } catch (throwable: Throwable) {
-            //TODO should be taken from current expect once it is configured this way
+//            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+//            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+//            container.components.build<AtriumErrorAdjuster>().adjust(throwable)
+            //TODO 0.16.0 use the above instead of this line as soon as CollectingExpect is also using the ComponentFactoryContainer
             reporter.atriumErrorAdjuster.adjust(throwable)
             Left(throwable)
         }

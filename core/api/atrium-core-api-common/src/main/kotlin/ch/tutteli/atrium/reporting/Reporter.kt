@@ -11,6 +11,7 @@ interface Reporter {
     /**
      * The [AtriumErrorAdjuster] which shall be used to modify stack traces in reporting.
      */
+    @Deprecated("Do no longer use this but build the AtriumErrorAdjuster based on the configured ComponentFactoryContainer of the Expect/ProofContainer, so that you use the latest configured AtriumErrorAdjuster; will be removed with 0.17.0")
     val atriumErrorAdjuster: AtriumErrorAdjuster
 
     /**

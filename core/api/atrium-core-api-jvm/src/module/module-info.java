@@ -11,5 +11,11 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.core.polyfills;
     exports ch.tutteli.atrium.creating;
     exports ch.tutteli.atrium.reporting;
+    exports ch.tutteli.atrium.reporting.erroradjusters;
     exports ch.tutteli.atrium.reporting.translating;
+
+    // TODO 0.17.0 or 0.18.0 remove once DefaultComponentFactoryContainer is internal
+    exports ch.tutteli.atrium.creating.impl to
+        ch.tutteli.atrium.logic,
+        ch.tutteli.atrium.domain.robstoll.lib;
 }

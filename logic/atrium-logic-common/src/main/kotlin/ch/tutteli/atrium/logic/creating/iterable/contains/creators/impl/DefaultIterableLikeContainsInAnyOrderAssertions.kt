@@ -24,7 +24,11 @@ class DefaultIterableLikeContainsInAnyOrderAssertions : IterableLikeContainsInAn
         expected: List<SC>,
         factory: ((T) -> Iterable<E>, S, List<IterableLikeContains.Checker>) -> IterableLikeContains.Creator<T, SC>
     ): AssertionGroup {
-        val creator = factory(checkerStepLogic.entryPointStepLogic.converter, checkerStepLogic.entryPointStepLogic.searchBehaviour, checkerStepLogic.checkers)
+        val creator = factory(
+            checkerStepLogic.entryPointStepLogic.converter,
+            checkerStepLogic.entryPointStepLogic.searchBehaviour,
+            checkerStepLogic.checkers
+        )
         return creator.createAssertionGroup(checkerStepLogic.entryPointStepLogic.container, expected)
     }
 }

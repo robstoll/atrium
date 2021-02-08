@@ -4,19 +4,23 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.ErrorMessages
 
 fun <T> _collect(
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): Assertion {
-    val collectedAssertions = CollectingExpect(maybeSubject)
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    //TODO 0.16.0 don't use DefaultComponentFactoryContainer but the one from the container
+    val collectedAssertions = CollectingExpect(maybeSubject, DefaultComponentFactoryContainer)
         .addAssertionsCreatedBy(assertionCreator)
         .getAssertions()
     return if (collectedAssertions.size > 1) {
@@ -29,7 +33,7 @@ fun <T> _collect(
 fun <T> _collectForComposition(
     maybeSubject: Option<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): List<Assertion>  = collectAssertions(maybeSubject, assertionCreatorOrNull)
+): List<Assertion> = collectAssertions(maybeSubject, assertionCreatorOrNull)
 
 //TODO 0.16.0: better replace by silentToBeNullIfNullGiven?
 private fun <T> collectAssertions(
@@ -38,7 +42,10 @@ private fun <T> collectAssertions(
 ): List<Assertion> {
     //TODO 0.16.0: almost same as in _containsKeyWithNullableValueAssertions
     return if (assertionCreatorOrNull != null) {
-        CollectingExpect(maybeSubject)
+        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+        @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        //TODO 0.16.0 don't use DefaultComponentFactoryContainer but the one from the container
+        CollectingExpect(maybeSubject, DefaultComponentFactoryContainer)
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()
     } else {

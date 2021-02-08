@@ -14,6 +14,7 @@ interface FeatureExpect<T, R> : Expect<R> {
 
     companion object {
 
+        @ExperimentalComponentFactoryContainer
         @ExperimentalNewExpectTypes
         operator fun <T, R> invoke(
             previousExpect: Expect<T>,
@@ -28,6 +29,7 @@ interface FeatureExpect<T, R> : Expect<R> {
          * Use this overload if you want to modify the options of a [FeatureExpect].
          */
         @ExperimentalNewExpectTypes
+        @ExperimentalComponentFactoryContainer
         operator fun <T, R> invoke(
             featureExpect: FeatureExpect<T, R>,
             featureExpectOptions: FeatureExpectOptions<R>

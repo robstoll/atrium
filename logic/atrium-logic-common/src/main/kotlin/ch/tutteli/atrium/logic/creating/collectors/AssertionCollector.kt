@@ -7,6 +7,8 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.Expect
 
+//TODO 0.16.0 I am not sure this is actually needed, couldn't they just be helper methods?
+// moreover, we need to create it via ComponentFactoryContainer as the CollectingExpect which is used internally needs to use the components
 interface AssertionCollector {
 
     /**

@@ -12,6 +12,7 @@ import ch.tutteli.atrium.reporting.Text
 import kotlin.reflect.KClass
 
 @ExperimentalNewExpectTypes
+@ExperimentalComponentFactoryContainer
 abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
 ) : ExpectInternal<T> {
@@ -40,7 +41,7 @@ abstract class BaseExpectImpl<T>(
     }
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
-        val assertions = CollectingExpect(maybeSubject)
+        val assertions = CollectingExpect(maybeSubject, components)
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
         return addAssertions(assertions)

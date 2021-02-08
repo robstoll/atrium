@@ -316,6 +316,10 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
+    @Deprecated(
+        "Use NoOpAtriumErrorAdjuster instead; will be removed with 0.17.0",
+        ReplaceWith("ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster")
+    )
     fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
 
     /**
@@ -323,6 +327,9 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
+    @Deprecated(
+        "Retrieve a RemoveRunnerAtriumErrorAdjuster from a ComponentContainer via getComponent; will be removed with 0.17.0"
+    )
     fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
 
     /**
@@ -330,6 +337,9 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
+    @Deprecated(
+        "Retrieve a RemoveAtriumFromAtriumErrorAdjuster from a ComponentContainer via getComponent; will be removed with 0.17.0"
+    )
     fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
 
     /**
@@ -342,6 +352,13 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
+    @Deprecated(
+        "Use MultiAtriumErrorAdjuster instead; will be removed with 0.17.0",
+        ReplaceWith(
+            "MultiAtriumErrorAdjuster(firstAdjuster, secondAdjuster, otherAdjusters)",
+            "ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster"
+        )
+    )
     fun newMultiAtriumErrorAdjuster(
         firstAdjuster: AtriumErrorAdjuster,
         secondAdjuster: AtriumErrorAdjuster,

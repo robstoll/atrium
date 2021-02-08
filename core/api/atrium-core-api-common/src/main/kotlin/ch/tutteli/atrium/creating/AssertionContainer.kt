@@ -17,6 +17,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
+//TODO 0.16.0 introduce ProofContainer
 interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
@@ -27,8 +28,15 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
     /**
      * Do not use yet, this is experimental
      */
+    //TODO 0.16.0 replace by components
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
+
+    /**
+     * Do not use yet, this is experimental
+     */
+    @ExperimentalComponentFactoryContainer
+    val components: ComponentFactoryContainer
 
 //    /**
 //     * Appends the given [assertion] to this container and returns an [Expect] which includes it.

@@ -12,6 +12,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -37,7 +38,7 @@ abstract class OnlyFailureReporterSpec(
             coreFactory.newDetailedObjectFormatter(translator), translator
         )
     }
-    val testee = testeeFactory(facade, coreFactory.newNoOpAtriumErrorAdjuster())
+    val testee = testeeFactory(facade, NoOpAtriumErrorAdjuster)
 
     describeFun(testee::format.name) {
         val sb = StringBuilder()
@@ -83,9 +84,7 @@ abstract class OnlyFailureReporterSpec(
             val assertionFormatterFacade = mockk<AssertionFormatterFacade>()
             every { assertionFormatterFacade.format(any(), any(), any()) } just Runs
 
-            val testeeWithMockedFacade = testeeFactory(
-                assertionFormatterFacade, coreFactory.newNoOpAtriumErrorAdjuster()
-            )
+            val testeeWithMockedFacade = testeeFactory(assertionFormatterFacade, NoOpAtriumErrorAdjuster)
 
             it("delegates to ${assertionFormatterFacade::class.simpleName}") {
                 testeeWithMockedFacade.format(basicAssertion, sb)

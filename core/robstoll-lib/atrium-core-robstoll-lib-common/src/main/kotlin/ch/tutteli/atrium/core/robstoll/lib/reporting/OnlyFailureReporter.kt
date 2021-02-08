@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("OverridingDeprecatedMember")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,6 +18,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @param assertionFormatterFacade The formatter used to format [Assertion]s.
  * @param atriumErrorAdjuster The adjuster which should be used to adjust the resulting [AtriumError].
  */
+//TODO deprecate with 0.16.0
 class OnlyFailureReporter(
     private val assertionFormatterFacade: AssertionFormatterFacade,
     override val atriumErrorAdjuster: AtriumErrorAdjuster

@@ -7,9 +7,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.creating.RootExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.OptionsChooserImpl
@@ -260,8 +258,18 @@ data class ExpectOptions<T>(
         )
 
     @ExperimentalNewExpectTypes
+    @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalComponentFactoryContainer::class)
     fun toRootExpectOptions(): RootExpectOptions<T> =
-        RootExpectOptions(assertionVerb, representationInsteadOfSubject, reporter)
+        RootExpectOptions(
+            assertionVerb,
+            representationInsteadOfSubject,
+            reporter?.let { r ->
+                ComponentFactoryContainer.createIfNotEmpty(
+                    mapOf(Reporter::class to { _ -> r }),
+                    emptyMap()
+                )
+            })
 }
 
 @Suppress("FunctionName")

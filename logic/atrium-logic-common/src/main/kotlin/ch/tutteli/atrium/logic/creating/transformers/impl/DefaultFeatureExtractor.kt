@@ -5,10 +5,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.creating.collectors.assertionCollector
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor
@@ -20,7 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
 
 class DefaultFeatureExtractor : FeatureExtractor {
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <T, R> extract(
         container: AssertionContainer<T>,
         description: Translatable,
@@ -42,7 +39,8 @@ class DefaultFeatureExtractor : FeatureExtractor {
             try {
                 featureExtraction(subject).fold({ Left(None) }, { Right(it) })
             } catch (throwable: Throwable) {
-                //TODO 0.16.0 should be taken from `container`
+//                container.components.build<AtriumErrorAdjuster>().adjust(throwable)
+                //TODO 0.16.0 use the above instead of this line as soon as CollectingExpect is also using the ComponentFactoryContainer
                 reporter.atriumErrorAdjuster.adjust(throwable)
                 Left(Some(throwable))
             }
