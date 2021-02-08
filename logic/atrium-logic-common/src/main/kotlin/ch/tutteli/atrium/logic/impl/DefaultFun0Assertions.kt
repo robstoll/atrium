@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
-import ch.tutteli.atrium.reporting.reporter
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
 import kotlin.reflect.KClass
 
@@ -47,11 +47,9 @@ class DefaultFun0Assertions : Fun0Assertions {
         try {
             Right(act())
         } catch (throwable: Throwable) {
-//            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-//            @UseExperimental(ExperimentalComponentFactoryContainer::class)
-//            container.components.build<AtriumErrorAdjuster>().adjust(throwable)
-            //TODO 0.16.0 use the above instead of this line as soon as CollectingExpect is also using the ComponentFactoryContainer
-            reporter.atriumErrorAdjuster.adjust(throwable)
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+            container.components.build<AtriumErrorAdjuster>().adjust(throwable)
             Left(throwable)
         }
 

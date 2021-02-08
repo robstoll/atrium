@@ -25,7 +25,7 @@ val assertionCollector: AssertionCollector by lazy { loadSingleService(Assertion
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
-@Deprecated("Use AssertionCollector from atrium-logic; will be removed with 0.17.0")
+@Deprecated("Use utility function collectBasedOnSubject/collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0")
 interface AssertionCollector {
 
     /**
@@ -33,7 +33,10 @@ interface AssertionCollector {
      *
      * See the other overload for more information.
      */
-    @Deprecated("Use assertionCollector.collect from atrium-logic; will be removed with 0.17.0")
+    @Deprecated(
+        "Use collect from atrium-logic; will be removed with 0.17.0",
+        ReplaceWith("_logic.collect(assertionCreator)")
+    )
     fun <T> collect(
         expect: Expect<T>,
         assertionCreator: Expect<T>.() -> Unit
@@ -56,7 +59,7 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
      */
-    @Deprecated("Use collect from atrium-logic; will be removed with 0.17.0")
+    @Deprecated("Use collectBasedOnSubject from atrium-logic; will be removed with 0.17.0")
     fun <T> collect(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): Assertion
 
 
@@ -72,6 +75,6 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single
      *   assertion.
      */
-    @Deprecated("Use collectForComposition from atrium-logic; will be removed with 0.17.0")
+    @Deprecated("Use collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0")
     fun <T> collectForComposition(maybeSubject: Option<T>, assertionCreator: Expect<T>.() -> Unit): List<Assertion>
 }

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.collectForDifferentSubject
+import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.toBeNullIfNullGivenElse
 
 class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() -> Unit)?> {
@@ -13,7 +13,7 @@ class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() 
     override fun AssertionContainer<List<E?>>.elementAssertionCreator(
         maybeElement: Option<E?>,
         searchCriterion: (Expect<E>.() -> Unit)?
-    ): Assertion = collectForDifferentSubject(maybeElement) {
+    ): Assertion = collectBasedOnSubject(maybeElement) {
         _logicAppend { toBeNullIfNullGivenElse(searchCriterion) }
     }
 }

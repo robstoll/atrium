@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.builders.AssertionsOption
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
@@ -16,4 +17,4 @@ fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAsse
     container: AssertionContainer<*>,
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
-): R = withAssertions(container.assertionCollector.collectForComposition(maybeSubject, assertionCreator))
+): R = withAssertions(container.collectForCompositionBasedOnSubject(maybeSubject, assertionCreator))

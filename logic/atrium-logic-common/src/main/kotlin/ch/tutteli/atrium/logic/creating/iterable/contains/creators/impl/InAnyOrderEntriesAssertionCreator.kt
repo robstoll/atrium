@@ -11,8 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
-import ch.tutteli.atrium.logic.collectForDifferentSubject
+import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsAssertionCreator
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -105,14 +104,13 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         count: Int
     ) {
         if (searchCriterion != null && count == 0) {
-            // TODO if it is still state of the art, then use components from defined AssertionContainer
-            val collectingExpect = CollectingExpect<E>(None, DefaultComponentFactoryContainer)
+            val collectingExpect = CollectingExpect<E>(None, container.components)
             // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
             collectingExpect.searchCriterion()
             val collectedAssertions = collectingExpect.getAssertions()
             if (collectedAssertions.isEmpty()) {
                 // no assertion created in the lambda, so lets add the failing assertion containing the hint
-                assertions.add(container.collectForDifferentSubject(None, searchCriterion))
+                assertions.add(container.collectBasedOnSubject(None, searchCriterion))
             }
         }
     }

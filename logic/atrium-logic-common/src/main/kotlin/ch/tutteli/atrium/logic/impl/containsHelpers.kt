@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.collectForDifferentSubject
+import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -29,7 +29,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
     assertionCreator: (Expect<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
-    else -> assertionCreator != null && container.collectForDifferentSubject(Some(subject), assertionCreator).holds()
+    else -> assertionCreator != null && container.collectBasedOnSubject(Some(subject), assertionCreator).holds()
 }
 
 internal fun <E : Any> createExplanatoryAssertionGroup(

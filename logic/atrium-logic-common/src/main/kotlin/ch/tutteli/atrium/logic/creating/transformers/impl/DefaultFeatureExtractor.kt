@@ -6,11 +6,11 @@ import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.logic.creating.collectors.assertionCollector
+import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor
 import ch.tutteli.atrium.logic.toExpect
-import ch.tutteli.atrium.reporting.reporter
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
@@ -39,9 +39,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
             try {
                 featureExtraction(subject).fold({ Left(None) }, { Right(it) })
             } catch (throwable: Throwable) {
-//                container.components.build<AtriumErrorAdjuster>().adjust(throwable)
-                //TODO 0.16.0 use the above instead of this line as soon as CollectingExpect is also using the ComponentFactoryContainer
-                reporter.atriumErrorAdjuster.adjust(throwable)
+                container.components.build<AtriumErrorAdjuster>().adjust(throwable)
                 Left(Some(throwable))
             }
         })
@@ -62,7 +60,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory assertion group, no need to wrap again
-                        container.assertionCollector.collectForComposition(None, assertionCreator)
+                        container.collectForCompositionBasedOnSubject(None, assertionCreator)
                     }, {
                         listOf(
                             assertionBuilder.explanatoryGroup.withDefaultType
@@ -85,7 +83,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 createFeatureExpect(Some(subject), maybeSubAssertions.fold({
                     listOf<Assertion>()
                 }) { assertionCreator ->
-                    container.assertionCollector.collectForComposition(Some(subject), assertionCreator)
+                    container.collectForCompositionBasedOnSubject(Some(subject), assertionCreator)
                 })
             }
         )
