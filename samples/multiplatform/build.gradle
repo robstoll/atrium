@@ -20,7 +20,7 @@ group 'org.atriumlib.samples'
 version '0.0.1'
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 kotlin {
