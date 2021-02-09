@@ -25,7 +25,8 @@ buildscript {
                         "contains noDuplicates"
                     ) + "`/list with duplicates",
                     // changed reporting as most of it is no longer based on IterableLike.contains
-                    "MapAssertionsSpec.*"
+                    "MapAssertionsSpec.*",
+                    "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
                 ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc
@@ -63,7 +64,8 @@ buildscript {
                     "IterableAssertionsSpec/.*`" + or(
                         "containsNoDuplicates",
                         "contains noDuplicates"
-                    ) + "`/list with duplicates"
+                    ) + "`/list with duplicates",
+                    "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
                 ) + ".*)").let { commonPatterns ->
                 Pair(
                     //bc

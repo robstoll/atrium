@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import kotlin.js.JsName
 
 /**
