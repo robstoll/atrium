@@ -6,6 +6,7 @@ import ch.tutteli.atrium.logic.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser
 import ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.*
 import ch.tutteli.atrium.reporting.LazyRepresentation
+import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -35,14 +36,17 @@ interface FeatureExtractorBuilder {
         val container: AssertionContainer<T>
 
         /**
-         * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a description
+         * Uses the configured [MethodCallFormatter] to create a description
          * of a method call with the given [methodName] and the given [arguments].
          *
          * Use [withDescription] in case the feature extraction is not based on a method call.
          */
         fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureStep<T> =
-            //TODO use methodCallFormatter from container 0.16.0
-            withDescription(coreFactory.newMethodCallFormatter().formatCall(methodName, arguments))
+            withDescription(
+                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+                @UseExperimental(ExperimentalComponentFactoryContainer::class)
+                container.components.build<MethodCallFormatter>().formatCall(methodName, arguments)
+            )
 
         /**
          * Uses the given [description], wraps it into an [Untranslatable] and uses it as description of the feature.

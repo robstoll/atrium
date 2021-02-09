@@ -17,5 +17,6 @@ module ch.tutteli.atrium.core.api {
     // TODO 0.17.0 or 0.18.0 remove once DefaultComponentFactoryContainer is internal
     exports ch.tutteli.atrium.creating.impl to
         ch.tutteli.atrium.logic,
-        ch.tutteli.atrium.domain.robstoll.lib;
+        ch.tutteli.atrium.domain.robstoll.lib,
+        ch.tutteli.atrium.api.infix.en_GB;
 }

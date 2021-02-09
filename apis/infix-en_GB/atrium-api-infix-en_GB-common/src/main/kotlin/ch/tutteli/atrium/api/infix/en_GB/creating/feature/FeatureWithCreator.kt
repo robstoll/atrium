@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.feature
 
+import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import kotlin.reflect.KProperty1
 
 /**
@@ -18,8 +21,16 @@ import kotlin.reflect.KProperty1
  *
  * @since 0.12.0
  */
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
 data class FeatureWithCreator<T, R> internal constructor(
-    val description: String,
+    val descriptionProvider: (ComponentFactoryContainer) -> String,
     val extractor: (T) -> R,
     val assertionCreator: Expect<R>.() -> Unit
-)
+) {
+    internal constructor(description: String, extractor: (T) -> R, assertionCreator: Expect<R>.() -> Unit) :
+        this({ description }, extractor, assertionCreator)
+
+    @Deprecated("Use descriptionProvider instead; will be removed with 0.17.0")
+    val description: String = descriptionProvider(DefaultComponentFactoryContainer)
+}
