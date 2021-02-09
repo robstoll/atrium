@@ -5,33 +5,34 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.creating.RootExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.AtriumError
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @ExperimentalNewExpectTypes
+@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
 internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
     private val expectationVerb: Translatable,
     private val representation: Any?,
-    private val reporter: Reporter
+    override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), RootExpect<T> {
 
     constructor(
         maybeSubject: Option<T>,
-        assertionVerb: Translatable,
+        expectationVerb: Translatable,
         options: RootExpectOptions<T>?
     ) : this(
         maybeSubject,
-        options?.expectationVerb ?: assertionVerb,
+        options?.expectationVerb ?: expectationVerb,
         determineRepresentation(
             options?.representationInsteadOfSubject,
             maybeSubject
         ),
-        options?.reporter ?: ch.tutteli.atrium.reporting.reporter
+        DefaultComponentFactoryContainer.merge(options?.componentFactoryContainer)
     )
 
     constructor(previous: RootExpectImpl<T>, options: RootExpectOptions<T>) : this(
@@ -55,8 +56,10 @@ internal class RootExpectImpl<T>(
                 .build()
 
             val sb = StringBuilder()
-            reporter.format(assertionGroup, sb)
-            throw AtriumError.create(sb.toString(), reporter.atriumErrorAdjuster)
+            components.build<Reporter>().format(assertionGroup, sb)
+
+            @Suppress("RemoveExplicitTypeArguments")
+            throw AtriumError.create(sb.toString(), components.build<AtriumErrorAdjuster>())
         }
         return this
     }

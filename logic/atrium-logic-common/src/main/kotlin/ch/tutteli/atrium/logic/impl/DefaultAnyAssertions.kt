@@ -44,7 +44,7 @@ class DefaultAnyAssertions : AnyAssertions {
             container.toBe(null)
         } else {
             val collectSubject = container.maybeSubject.flatMap { if (it != null) Some(it) else None }
-            val assertion = container.collectForDifferentSubject(collectSubject) {
+            val assertion = container.collectBasedOnSubject(collectSubject) {
                 addAssertionsCreatedBy(assertionCreatorOrNull)
             }
             //TODO 0.16.0 this is a pattern which occurs over and over again, maybe incorporate into collect?

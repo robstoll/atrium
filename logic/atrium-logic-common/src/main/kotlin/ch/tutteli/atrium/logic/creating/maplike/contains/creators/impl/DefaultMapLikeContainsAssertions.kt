@@ -190,7 +190,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             val description =
                 entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
             assertionBuilder.invisibleGroup.withAssertions(
-                entryPointStepLogic.container.collectForDifferentSubject(Some(map)) {
+                entryPointStepLogic.container.collectBasedOnSubject(Some(map)) {
                     _logic
                         //using CollectionLike.size
                         .size { it.entries }

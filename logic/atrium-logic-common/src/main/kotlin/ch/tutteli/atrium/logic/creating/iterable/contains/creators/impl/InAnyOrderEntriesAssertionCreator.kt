@@ -10,7 +10,8 @@ import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.collectForDifferentSubject
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsAssertionCreator
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -94,6 +95,8 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     //TODO 0.17.0 check if this is still state of the art to add a hint that no assertion was created
     // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
     // maybe it would be enough to collect
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalComponentFactoryContainer::class)
     private fun addEmptyAssertionCreatorLambdaIfNecessary(
         container: AssertionContainer<*>,
         assertions: MutableList<Assertion>,
@@ -101,13 +104,13 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         count: Int
     ) {
         if (searchCriterion != null && count == 0) {
-            val collectingExpect = CollectingExpect<E>(None)
+            val collectingExpect = CollectingExpect<E>(None, container.components)
             // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
             collectingExpect.searchCriterion()
             val collectedAssertions = collectingExpect.getAssertions()
             if (collectedAssertions.isEmpty()) {
                 // no assertion created in the lambda, so lets add the failing assertion containing the hint
-                assertions.add(container.collectForDifferentSubject(None, searchCriterion))
+                assertions.add(container.collectBasedOnSubject(None, searchCriterion))
             }
         }
     }

@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -6,9 +9,11 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 import kotlin.test.Test
 
@@ -81,10 +86,13 @@ class AdjustStackTest {
     )
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     private fun <T : Any> createExpect(subject: T, adjuster: AtriumErrorAdjuster) =
         RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.EXPECT)
-            .withOptions(RootExpectOptions(reporter = DelegatingReporter(reporter, adjuster)))
+            .withOptions {
+                withComponent(AtriumErrorAdjuster::class) { _ -> adjuster }
+                withComponent(Reporter::class) { _ -> DelegatingReporter(reporter, adjuster) }
+            }
             .build()
 }

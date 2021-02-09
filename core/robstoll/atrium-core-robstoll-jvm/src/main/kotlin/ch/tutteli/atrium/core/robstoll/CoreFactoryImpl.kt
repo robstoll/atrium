@@ -1,4 +1,6 @@
+//TODO remove file with 0.17.0
 @file:Suppress(
+    "DEPRECATION",
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
 )

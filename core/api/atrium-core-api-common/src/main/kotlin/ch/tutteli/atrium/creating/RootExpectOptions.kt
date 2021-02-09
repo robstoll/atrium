@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -12,19 +11,21 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @property expectationVerb Defines a custom assertion verb if not null.
  * @property representationInsteadOfSubject Defines a custom representation based on a present subject if not null.
- * @property reporter Defines a custom reporter if not null.
+ * @property componentFactoryContainer Defines a custom components.
  */
 @ExperimentalNewExpectTypes
+@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
 data class RootExpectOptions<T>(
     val expectationVerb: Translatable?,
     val representationInsteadOfSubject: ((T) -> Any)?,
-    val reporter: Reporter?
+    val componentFactoryContainer: ComponentFactoryContainer?
 ) {
     @Deprecated("Use expectationVerb; will be removed latest with 1.0.0 (maybe earlier)")
     val assertionVerb = expectationVerb
 
     /**
-     * Merges the given [options] with this object creating a new [RootExpectOptions]
+     * Merges the given [options] with `this` [RootExpectOptions] object creating a new [RootExpectOptions]
      * where defined properties in [options] will have precedence over properties defined in this instance.
      *
      * For instance, this object has defined [representationInsteadOfSubject] (meaning it is not `null`) and
@@ -35,6 +36,6 @@ data class RootExpectOptions<T>(
         RootExpectOptions(
             options.expectationVerb ?: expectationVerb,
             options.representationInsteadOfSubject ?: representationInsteadOfSubject,
-            options.reporter ?: reporter
+            options.componentFactoryContainer?.let { c -> componentFactoryContainer?.merge(c) ?: c }
         )
 }

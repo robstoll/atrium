@@ -7,15 +7,17 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
 
 @ExperimentalNewExpectTypes
-internal class CollectingExpectImpl<T>(maybeSubject: Option<T>) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
+@ExperimentalComponentFactoryContainer
+internal class CollectingExpectImpl<T>(
+    maybeSubject: Option<T>,
+    override val components: ComponentFactoryContainer
+) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
     private val assertions = mutableListOf<Assertion>()
 
     override fun getAssertions(): List<Assertion> = assertions.toList()
 
-    override fun addAssertion(assertion: Assertion): Expect<T> {
-        assertions.add(assertion)
-        return this
-    }
+    override fun addAssertion(assertion: Assertion): Expect<T> =
+        apply { assertions.add(assertion) }
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
         // in case we run into performance problems, the code below is certainly not ideal

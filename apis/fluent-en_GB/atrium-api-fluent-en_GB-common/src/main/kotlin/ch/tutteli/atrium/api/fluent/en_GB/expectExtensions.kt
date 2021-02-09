@@ -123,6 +123,6 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsCh
  */
 @ExperimentalWithOptions
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureExpectOptions<R>): Expect<R> =
     FeatureExpect(this, options)

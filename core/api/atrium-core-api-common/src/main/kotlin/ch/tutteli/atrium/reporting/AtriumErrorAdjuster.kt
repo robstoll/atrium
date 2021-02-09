@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-
+//TODO move to package erroradjusters with 1.0.0
 /**
  * Responsible to adjust a given [Throwable] (usually an [AtriumError]) for improved error reporting.
  *
@@ -10,6 +10,7 @@ package ch.tutteli.atrium.reporting
 expect interface AtriumErrorAdjuster : AtriumErrorAdjusterCommon
 
 
+//TODO move to package erroradjusters with 1.0.0
 /**
  * Defines the general contract for [AtriumError] adjusters which all platforms have to fulfil.
  */

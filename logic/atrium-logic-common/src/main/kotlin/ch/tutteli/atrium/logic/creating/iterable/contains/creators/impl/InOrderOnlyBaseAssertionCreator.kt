@@ -38,7 +38,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
             }
 
             val list = maybeList.getOrElse { emptyList() }
-            val assertion = container.collectForDifferentSubject(maybeList) {
+            val assertion = container.collectBasedOnSubject(maybeList) {
                 val index = addAssertionsAndReturnIndex(searchCriteria)
                 val remainingList = list.ifWithinBound(index,
                     { list.subList(index, list.size) },
@@ -61,7 +61,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         iterableAsList: List<E?>,
         itr: Iterator<E?>
     ): Assertion {
-        return container.collectForDifferentSubject(Some(iterableAsList)) {
+        return container.collectBasedOnSubject(Some(iterableAsList)) {
             _logic.size(::identity).collectAndAppend {
                 _logicAppend { toBe(expectedSize) }
                 if (iterableAsList.size > expectedSize) {

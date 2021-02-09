@@ -4,12 +4,11 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 @ExperimentalNewExpectTypes
+@ExperimentalComponentFactoryContainer
 internal class FeatureExpectImpl<T, R>(
     private val previousExpect: Expect<T>,
     maybeSubject: Option<R>,
@@ -52,6 +51,11 @@ internal class FeatureExpectImpl<T, R>(
     init {
         addAssertions(assertions)
     }
+
+    override val components: ComponentFactoryContainer
+        // TODO 0.16.0 the function to turn an Expect into a ProofContainer should be located in core
+        get() = (previousExpect as AssertionContainer<*>).components
+
 
     override fun addAssertion(assertion: Assertion): Expect<R> {
         assertions.add(assertion)
