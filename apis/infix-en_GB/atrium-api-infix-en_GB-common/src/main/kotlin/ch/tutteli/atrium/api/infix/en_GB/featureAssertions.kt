@@ -3,13 +3,11 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.Feature
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.MetaFeatureOptionWithCreator
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
 
 /**
@@ -59,7 +57,14 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
-    _logic.manualFeature(of.description, of.extractor).transform()
+    _logic.manualFeature(
+        of.descriptionProvider(
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+            _logic.components
+        ),
+        of.extractor
+    ).transform()
 
 /**
  * Extracts a feature out of the current subject of `this` expectation using the given [FeatureWithCreator.extractor],
@@ -83,7 +88,14 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  */
 //TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
 infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
-    _logic.manualFeature(of.description, of.extractor).collectAndAppend(of.assertionCreator)
+    _logic.manualFeature(
+        of.descriptionProvider(
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+            _logic.components
+        ),
+        of.extractor
+    ).collectAndAppend(of.assertionCreator)
 
 
 /**
@@ -257,8 +269,10 @@ fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A
     FeatureWithCreator(formatMethodCall(f, a1, a2, a3, a4, a5), { f.invoke(it, a1, a2, a3, a4, a5) }, assertionCreator)
 //@formatter:on
 
-private fun formatMethodCall(k: KCallable<*>, vararg args: Any?) =
-    coreFactory.newMethodCallFormatter().formatCall(k.name, args)
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
+private fun formatMethodCall(k: KCallable<*>, vararg args: Any?): (ComponentFactoryContainer) -> String =
+    { c -> c.build<MethodCallFormatter>().formatCall(k.name, args) }
 
 /**
  * Helper function to create a [MetaFeatureOptionWithCreator] based on a lambda with

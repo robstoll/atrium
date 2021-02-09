@@ -7,6 +7,8 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
@@ -101,18 +103,15 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
     private fun <K> entryWithKeyTranslation(
         methodCallFormatter: MethodCallFormatter,
         key: K
-    ) = TranslatableWithArgs(
-        ENTRY_WITH_KEY,
-        methodCallFormatter.formatArgument(key)
-    )
+    ) = TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
 
+    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+    @UseExperimental(ExperimentalComponentFactoryContainer::class)
     private fun getMethodCallFormatter(
         @Suppress(/* don't suppress once we use MethodCallFormatter from container */ "UNUSED_PARAMETER")
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<*, *, *, *>
-    ): MethodCallFormatter {
-        //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via Expect
-        return coreFactory.newMethodCallFormatter()
-    }
+    ) = entryPointStepLogic.container.components.build<MethodCallFormatter>()
+
 
     private fun <K, T : Map<out K, V>, V> extractKey(it: T, key: K): Option<V> {
         return Option.someIf(it.containsKey(key)) {

@@ -4,12 +4,14 @@ import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerAtriumErrorImpl
+import ch.tutteli.atrium.reporting.impl.TextMethodCallFormatter
 import ch.tutteli.atrium.reporting.reporter
 import kotlin.reflect.KClass
 
@@ -80,7 +82,8 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
                 c.build<RemoveRunnerAtriumError>(),
                 emptyList()
             )
-        }
+        },
+        MethodCallFormatter::class to { _ -> TextMethodCallFormatter }
     ),
     //TODO 0.16.0 define default chainable types like TextFormatter
     emptyMap()

@@ -61,6 +61,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created method call formatter.
      */
+    @Deprecated("Create a new MethodCallFormatter via the ComponentFactoryContainer, e.g. via _logic.components.build<MethodCallFormatter>(); will be removed with 0.17.0")
     fun newMethodCallFormatter(): MethodCallFormatter
 
 

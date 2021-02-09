@@ -13,7 +13,7 @@ interface MethodCallFormatter {
      *
      * @return An lambda containing the logic to build the representation.
      */
-    @Deprecated("Use the overload which returns a string right away, wrap it into a lamba on your own if you need this functionality")
+    @Deprecated("Use the overload which returns a string right away, wrap it into a lambda on your own if you need this functionality; will be removed with 0.17.0")
     fun format(methodName: String, arguments: Array<out Any?>): () -> String
 
     /**
