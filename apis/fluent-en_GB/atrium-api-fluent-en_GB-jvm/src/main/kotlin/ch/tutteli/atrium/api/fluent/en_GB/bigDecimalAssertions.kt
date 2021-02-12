@@ -6,7 +6,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.logic.*
 import java.math.BigDecimal
 
@@ -27,10 +27,11 @@ import java.math.BigDecimal
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
 @Suppress("UNUSED_PARAMETER", "unused")
-fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseReplacementException(
-    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-        "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
-)
+fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+            "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
+    )
 
 @Suppress("UNUSED_PARAMETER", "unused")
 @JvmName("toBeNullable")
@@ -40,10 +41,11 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseRepla
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
-fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing = throw PleaseUseReplacementException(
-    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-        "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
-)
+fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+            "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`."
+    )
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is `null`.
@@ -73,10 +75,11 @@ fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
     ReplaceWith("isNotNumericallyEqualTo(expected) or isNotEqualIncludingScale(expected)")
 )
 @Suppress("UNUSED_PARAMETER", "unused")
-fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing = throw PleaseUseReplacementException(
-    "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-        "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`."
-)
+fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+            "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`."
+    )
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is numerically equal to [expected].
