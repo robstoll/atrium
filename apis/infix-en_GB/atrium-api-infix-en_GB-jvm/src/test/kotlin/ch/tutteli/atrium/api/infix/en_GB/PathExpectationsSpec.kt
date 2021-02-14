@@ -19,6 +19,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     "toBe ${executable::class.simpleName}" to Companion::isExecutable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
+    "toBe ${aSymbolicLink::class.simpleName}" to Companion::toBeASymbolicLink,
     "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
     fun1(Expect<Path>::hasDirectoryEntry),
@@ -46,6 +47,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun isExecutable(expect: Expect<Path>) = expect toBe executable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
+        private fun toBeASymbolicLink(expect: Expect<Path>) = expect toBe aSymbolicLink
         private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
         private fun hasDirectoryEntryMultiple(expect: Expect<Path>, entry: String, vararg otherEntries: String) =

@@ -39,6 +39,7 @@ abstract class PathExpectationsSpec(
     isExecutable: Fun0<Path>,
     isRegularFile: Fun0<Path>,
     isDirectory: Fun0<Path>,
+    isSymbolicLink: Fun0<Path>,
     isAbsolute: Fun0<Path>,
     isRelative: Fun0<Path>,
     hasDirectoryEntrySingle: Fun1<Path, String>,
@@ -72,6 +73,7 @@ abstract class PathExpectationsSpec(
         isExecutable.forSubjectLess(),
         isRegularFile.forSubjectLess(),
         isDirectory.forSubjectLess(),
+        isSymbolicLink.forSubjectLess(),
         isAbsolute.forSubjectLess(),
         isRelative.forSubjectLess(),
         hasDirectoryEntrySingle.forSubjectLess("a"),
@@ -112,19 +114,27 @@ abstract class PathExpectationsSpec(
     val fileNameDescr = FILE_NAME.getDefault()
     val fileNameWithoutExtensionDescr = FILE_NAME_WITHOUT_EXTENSION.getDefault()
 
-    fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
-        SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
+    fun Suite.it(
+        description: String,
+        skip: Skip = No,
+        forceNoLink: Skip = No,
+        timeout: Long = delegate.defaultTimeout
+    ): SymlinkTestBuilder {
+        val skipWithLink = if (forceNoLink == No) ifSymlinksNotSupported else forceNoLink
+        return SymlinkTestBuilder({ tempFolder }, skipWithLink) { prefix, innerSkip, body ->
             val skipToUse = if (skip == No) innerSkip else skip
             it(prefix + description, skipToUse, timeout, body)
         }
+    }
 
-    fun Suite.itPrintsParentAccessDeniedDetails(block: (Path) -> Unit) {
+    fun Suite.itPrintsParentAccessDeniedDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
         // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
         // that children cannot be accessed. On Windows, for example, one can still access children whithout any
         // permissions on the parent.
         it(
             "POSIX: prints parent permission error details",
-            skip = ifPosixNotSupported
+            skip = ifPosixNotSupported,
+            forceNoLink = forceNoLinks
         ) withAndWithoutSymlink { maybeLink ->
             val start = tempFolder.newDirectory("startDir")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
@@ -166,8 +176,8 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsFileAccessProblemDetails(block: (Path) -> Unit) {
-        it("prints the closest existing parent if it is a directory") withAndWithoutSymlink { maybeLink ->
+    fun Suite.itPrintsFileAccessProblemDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
+        it("prints the closest existing parent if it is a directory", forceNoLink = forceNoLinks) withAndWithoutSymlink { maybeLink ->
             val start = tempFolder.newDirectory("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
@@ -180,7 +190,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("explains if a parent is a file") withAndWithoutSymlink { maybeLink ->
+        it("explains if a parent is a file", forceNoLink = forceNoLinks) withAndWithoutSymlink { maybeLink ->
             val start = tempFolder.newFile("startFile")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val parentErrorMessage = String.format(FAILURE_DUE_TO_PARENT.getDefault(), start)
@@ -198,7 +208,10 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("prints an explanation for link loops", skip = ifSymlinksNotSupported) {
+        it(
+            "prints an explanation for link loops",
+            skip = if (forceNoLinks == No) ifSymlinksNotSupported else forceNoLinks
+        ) {
             val testDir = tempFolder.newDirectory("loop").toRealPath()
             val a = testDir.resolve("a")
             val b = a.createSymbolicLink(testDir.resolve("b"))
@@ -211,7 +224,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        itPrintsParentAccessDeniedDetails(block)
+        itPrintsParentAccessDeniedDetails(forceNoLinks, block)
         itPrintsFileAccessExceptionDetails(block)
     }
 
@@ -807,6 +820,59 @@ abstract class PathExpectationsSpec(
                 )
                 containsExplanationFor(maybeLink)
             }
+        }
+    }
+
+    describeFun(isSymbolicLink) {
+        val isSymbolicLinkFun = isSymbolicLink.lambda
+        val expectedMessage = "$isDescr: ${A_SYMBOLIC_LINK.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") {
+                val path = tempFolder.resolve("nonExistent")
+                expect {
+                    expect(path).toBeASymbolicLink()
+                }.toThrow<AssertionError>().message {
+                    contains(
+                        expectedMessage,
+                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
+                    )
+                }
+            }
+
+            itPrintsFileAccessProblemDetails(Yes("link resolution will not be triggered")) { testFile ->
+                expect(testFile).isSymbolicLinkFun()
+            }
+        }
+
+        it("throws an AssertionError for a file") {
+            val file = tempFolder.newFile("test")
+            expect {
+                expect(file).isSymbolicLinkFun()
+            }.toThrow<AssertionError>().message {
+                contains(
+                    expectedMessage,
+                    "${WAS.getDefault()}: ${A_FILE.getDefault()}"
+                )
+            }
+        }
+
+        it("throws an AssertionError for a directory") {
+            val folder = tempFolder.newDirectory("test")
+            expect {
+                expect(folder).isSymbolicLinkFun()
+            }.toThrow<AssertionError>().message {
+                contains(
+                    expectedMessage,
+                    "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
+                )
+            }
+        }
+
+        it("does not throw for a symbolic link") {
+            val target = tempFolder.resolve("target")
+            val link = tempFolder.newSymbolicLink("link", target)
+            expect(link).isSymbolicLinkFun()
         }
     }
 

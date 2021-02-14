@@ -17,6 +17,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun0(Expect<Path>::isExecutable),
     fun0(Expect<Path>::isRegularFile),
     fun0(Expect<Path>::isDirectory),
+    fun0(Expect<Path>::toBeASymbolicLink),
     fun0(Expect<Path>::isAbsolute),
     fun0(Expect<Path>::isRelative),
     Expect<Path>::hasDirectoryEntry.name to Companion::hasDirectoryEntrySingle,
@@ -57,6 +58,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.isWritable()
         a1.isRegularFile()
         a1.isDirectory()
+        a1.toBeASymbolicLink()
         a1.hasSameBinaryContentAs(Paths.get("a"))
         a1.hasSameTextualContentAs(Paths.get("a"))
 
