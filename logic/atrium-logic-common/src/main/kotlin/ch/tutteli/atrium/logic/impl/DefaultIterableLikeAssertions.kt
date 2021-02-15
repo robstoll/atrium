@@ -176,13 +176,9 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     ): Assertion = LazyThreadUnsafeAssertionGroup {
         val list = transformToList(container, converter)
 
-        val duplicates = createIndexAssertions(list) { (index, element) ->
-            list.forEachIndexed { elementIndex, elementValue ->
-                if(elementValue == element && elementIndex != index) {
-                    return@createIndexAssertions true
-                }
-            }
-            return@createIndexAssertions false
+        val lookupHashSet = HashSet<E>()
+        val duplicates = createIndexAssertions(list) { (_, element) ->
+            !lookupHashSet.add(element)
         }
         createHasElementPlusFixedClaimGroup(
             list,
