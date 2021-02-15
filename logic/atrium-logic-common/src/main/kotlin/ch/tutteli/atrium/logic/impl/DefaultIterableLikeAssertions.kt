@@ -178,7 +178,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
         val duplicates = createIndexAssertions(list) { (index, element) ->
             list.forEachIndexed { elementIndex, elementValue ->
-                if(elementIndex != index && elementValue == element) {
+                if(elementValue == element && elementIndex != index) {
                     return@createIndexAssertions true
                 }
             }
