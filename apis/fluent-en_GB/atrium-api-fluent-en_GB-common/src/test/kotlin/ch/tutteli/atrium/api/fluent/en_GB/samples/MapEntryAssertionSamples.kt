@@ -16,6 +16,15 @@ class MapEntryAssertionSamples {
     }
 
     @Test
+    fun keyFeature() {
+        expect(mapOf(1 to "a").entries.first()).key.toBe(1)
+
+        fails {
+            expect(mapOf(1 to "a").entries.first()).key.toBe(2)
+        }
+    }
+
+    @Test
     fun key() {
         expect(mapOf(1 to "a").entries.first())
             .key {
@@ -27,6 +36,15 @@ class MapEntryAssertionSamples {
                 .key {
                     isEqualComparingTo(2)
                 }
+        }
+    }
+
+    @Test
+    fun valueFeature() {
+        expect(mapOf(1 to "a").entries.first()).value.toBe("a")
+
+        fails {
+            expect(mapOf(1 to "a").entries.first()).value.toBe("b")
         }
     }
 
