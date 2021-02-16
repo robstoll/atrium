@@ -12,6 +12,8 @@ import ch.tutteli.atrium.logic.*
  * reporting etc.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.isKeyValue
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: V): Expect<T> =
     _logicAppend { isKeyValue(key, value) }
@@ -31,6 +33,8 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.key
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
@@ -50,6 +54,8 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.value
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)
