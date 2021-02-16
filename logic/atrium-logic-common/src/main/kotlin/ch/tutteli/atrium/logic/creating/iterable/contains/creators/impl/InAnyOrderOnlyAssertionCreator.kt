@@ -4,15 +4,14 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 
@@ -43,22 +42,19 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val list = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
-            val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
+            val sizeAssertion = container.collectBasedOnSubject(Some(list)) {
+                _logic
+                    .size { it }
+                    .collectAndLogicAppend { toBe(searchCriteria.size) }
+            }
 
             val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, list, assertions)
-            val featureAssertions = createSizeFeatureAssertion(searchCriteria, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
-                featureAssertions.add(LazyThreadUnsafeAssertionGroup {
+                assertions.add(LazyThreadUnsafeAssertionGroup {
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ELEMENTS)
                 })
             }
-            assertions.add(
-                assertionBuilder.feature
-                    .withDescriptionAndRepresentation(DescriptionCollectionAssertion.SIZE, Text(actualSize.toString()))
-                    .withAssertions(featureAssertions)
-                    .build()
-            )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
             val summary = assertionBuilder.summary
@@ -73,12 +69,18 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
                 }
                 assertionBuilder.invisibleGroup
                     .withAssertions(
+                        sizeAssertion,
                         summary,
                         createExplanatoryGroupForMismatchesEtc(list, warningDescription)
                     )
                     .build()
             } else {
-                summary
+                assertionBuilder.invisibleGroup
+                    .withAssertions(
+                        sizeAssertion,
+                        summary
+                    )
+                    .build()
             }
         }
     }
@@ -104,14 +106,6 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         list: MutableList<E?>
     ): Pair<Boolean, Assertion>
 
-    private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion> =
-        mutableListOf(
-            assertionBuilder.descriptive
-                .withTest { actualSize == allSearchCriteria.size }
-                .withDescriptionAndRepresentation(TO_BE, Text(allSearchCriteria.size.toString()))
-                .build()
-        )
-
     private fun createExplanatoryGroupForMismatchesEtc(
         list: MutableList<E?>,
         warning: DescriptionIterableAssertion
@@ -124,6 +118,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         return assertionBuilder.explanatoryGroup
             .withWarningType
             .withAssertion(additionalEntries)
+            .failing
             .build()
     }
 }
