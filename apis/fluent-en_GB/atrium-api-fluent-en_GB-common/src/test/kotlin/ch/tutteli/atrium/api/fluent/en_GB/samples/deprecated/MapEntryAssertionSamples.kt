@@ -18,48 +18,56 @@ class MapEntryAssertionSamples {
 
     @Test
     fun keyFeature() {
-        expect(mapOf(1 to "a").entries.first()).key.toBe(1)
+        expect(mapOf(1 to "a").entries.first())
+            .key    // subject here is of type Int (actually 1)
+            .toBe(1)
 
         fails {
-            expect(mapOf(1 to "a").entries.first()).key.toBe(2)
+            expect(mapOf(1 to "a").entries.first())
+                .key    // subject here is of type Int (actually 1)
+                .toBe(2)    // fails because 1 is not equal to 2
         }
     }
 
     @Test
     fun key() {
         expect(mapOf(1 to "a").entries.first())
-            .key {
+            .key {  // subject inside this block is of type Int (actually 1)
                 toBe(1)
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
-                .key {
-                    toBe(2)
+                .key {  // subject inside this block is of type Int (actually 1)
+                    toBe(2) // fails because 1 is not equal to 2
                 }
         }
     }
 
     @Test
     fun valueFeature() {
-        expect(mapOf(1 to "a").entries.first()).value.toBe("a")
+        expect(mapOf(1 to "a").entries.first())
+            .value  // subject here is of type String (actually "a")
+            .toBe("a")
 
         fails {
-            expect(mapOf(1 to "a").entries.first()).value.toBe("b")
+            expect(mapOf(1 to "a").entries.first())
+                .value  // subject here is of type String (actually "a")
+                .toBe("b")  // fails because "a" is not equal to "b"
         }
     }
 
     @Test
     fun value() {
         expect(mapOf(1 to "a").entries.first())
-            .value {
+            .value {    // subject inside this block is of type String (actually "a")
                 toBe("a")
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
-                .value {
-                    toBe("b")
+                .value {    // subject inside this block is of type String (actually "a")
+                    toBe("b")   // fails because "a" is not equal to "b"
                 }
         }
     }
