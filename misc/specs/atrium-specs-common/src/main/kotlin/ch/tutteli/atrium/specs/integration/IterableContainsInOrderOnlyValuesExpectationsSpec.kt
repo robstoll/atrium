@@ -124,7 +124,7 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                             elementFailing(2, 3.0, 2.0)
                             elementFailing(3, 4.0, 3.0)
                             elementSuccess(4, 4.0)
-                            containsSize(5, 5)
+                            containsNot(sizeDescr)
                         }
                     }
                 }

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -13,7 +14,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
@@ -38,57 +38,65 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
             }
 
             val list = maybeList.getOrElse { emptyList() }
+            var index = 0
             val assertion = container.collectBasedOnSubject(maybeList) {
-                val index = addAssertionsAndReturnIndex(searchCriteria)
+                index = addAssertionsAndReturnIndex(searchCriteria)
                 val remainingList = list.ifWithinBound(index,
                     { list.subList(index, list.size) },
                     { emptyList() }
                 )
-                addAssertion(createSizeFeatureAssertionForInOrderOnly(container, index, list, remainingList.iterator()))
+                if (list.size > index) {
+                    addAssertion(createAdditionalElementsAssertion(container, index, list, remainingList.iterator()))
+                }
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            assertionBuilder.summary
-                .withDescription(description)
-                .withAssertion(assertion)
+            assertionBuilder.invisibleGroup
+                .withAssertions(
+                    container.collectBasedOnSubject(Some(list)) {
+                        _logic
+                            .size { it }
+                            .collectAndLogicAppend { toBe(index) }
+                    },
+                    assertionBuilder.summary
+                        .withDescription(description)
+                        .withAssertion(assertion)
+                        .build()
+                )
                 .build()
         }
     }
 
 
-    private fun <E> createSizeFeatureAssertionForInOrderOnly(
+    private fun <E> createAdditionalElementsAssertion(
         container: AssertionContainer<*>,
         expectedSize: Int,
         iterableAsList: List<E?>,
         itr: Iterator<E?>
     ): Assertion {
         return container.collectBasedOnSubject(Some(iterableAsList)) {
-            _logic.size(::identity).collectAndAppend {
-                _logicAppend { toBe(expectedSize) }
-                if (iterableAsList.size > expectedSize) {
-                    addAssertion(LazyThreadUnsafeAssertionGroup {
-                        val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
-                            val description = TranslatableWithArgs(
-                                DescriptionIterableAssertion.ELEMENT_WITH_INDEX,
-                                expectedSize + counter
-                            )
-                            assertionBuilder.descriptive
-                                .holding
-                                .withDescriptionAndRepresentation(description, it)
-                                .build()
-                        }
-
-                        assertionBuilder.explanatoryGroup
-                            .withWarningType
-                            .withAssertion(
-                                assertionBuilder.list
-                                    .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS)
-                                    .withAssertions(additionalEntries)
-                                    .build()
-                            )
-                            .build()
-                    })
+            addAssertion(LazyThreadUnsafeAssertionGroup {
+                val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
+                    val description = TranslatableWithArgs(
+                        DescriptionIterableAssertion.ELEMENT_WITH_INDEX,
+                        expectedSize + counter
+                    )
+                    assertionBuilder.descriptive
+                        .holding
+                        .withDescriptionAndRepresentation(description, it)
+                        .build()
                 }
-            }
+
+                assertionBuilder.explanatoryGroup
+                    .withWarningType
+                    .withAssertion(
+                        assertionBuilder.list
+                            .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS)
+                            .withAssertions(additionalEntries)
+                            .build()
+                    )
+                    .failing
+                    .build()
+            })
         }
     }
 

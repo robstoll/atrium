@@ -1084,16 +1084,16 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
 <a name="ex-collection-builder-1"></a>
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ size: 4        (kotlin.Int <1234789>)
+    ◾ equals: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ is less than: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ is less than: 2        (kotlin.Int <1234789>)
-  ✘ ▶ size: 4        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
-        ❗❗ additional elements detected: 
-           ⚬ element 2: 2        (kotlin.Int <1234789>)
-           ⚬ element 3: 4        (kotlin.Int <1234789>)
+    ❗❗ additional elements detected: 
+       ⚬ element 2: 2        (kotlin.Int <1234789>)
+       ⚬ element 3: 4        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-1>
 
@@ -1132,6 +1132,8 @@ expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 <a name="ex-collection-builder-2"></a>
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ size: 4        (kotlin.Int <1234789>)
+    ◾ equals: 5        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ equals: 1        (kotlin.Int <1234789>)
@@ -1143,8 +1145,6 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
       ◾ equals: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 4: ❗❗ hasNext() returned false
         » equals: 4        (kotlin.Int <1234789>)
-  ✘ ▶ size: 4        (kotlin.Int <1234789>)
-      ◾ equals: 5        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-2>
 <hr/>
@@ -1179,8 +1179,6 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
-  ✔ ▶ size: 4
-      ◾ equals: 4
   ❗❗ following elements were mismatched: 
      ⚬ 2        (kotlin.Int <1234789>)
 ```
@@ -1195,14 +1193,14 @@ expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 <a name="ex-collection-builder-5"></a>
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ size: 4        (kotlin.Int <1234789>)
+    ◾ equals: 5        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
   ✔ an element which equals: 1        (kotlin.Int <1234789>)
-  ✘ ▶ size: 4
-      ◾ equals: 5
 ```
 </ex-collection-builder-5>
 
@@ -1335,8 +1333,6 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
           ◾ equals: "a"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
           ◾ equals: 1        (kotlin.Int <1234789>)
-  ✔ ▶ size: 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-builder-1>
 
@@ -1364,8 +1360,6 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
           ◾ equals: "b"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
           ◾ is less than: 2        (kotlin.Int <1234789>)
-  ✔ ▶ size: 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-builder-2>
 
@@ -1461,8 +1455,6 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
           ◾ starts with: "a"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
           ◾ is greater than: 2        (kotlin.Int <1234789>)
-  ✔ ▶ size: 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-5>
 
@@ -1770,15 +1762,15 @@ also states which entries were additionally contained in the list:
 
 ```text
 expected that subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
+◆ ▶ size: 3        (kotlin.Int <1234789>)
+    ◾ equals: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ equals: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ equals: 3        (kotlin.Int <1234789>)
-  ✘ ▶ size: 3        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
-        ❗❗ additional elements detected: 
-           ⚬ element 2: 3        (kotlin.Int <1234789>)
+    ❗❗ additional elements detected: 
+       ⚬ element 2: 3        (kotlin.Int <1234789>)
 ```
 </exs-add-info-1-output>
 

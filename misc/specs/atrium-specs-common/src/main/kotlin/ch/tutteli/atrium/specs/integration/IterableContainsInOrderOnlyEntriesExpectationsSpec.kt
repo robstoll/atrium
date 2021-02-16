@@ -2,7 +2,6 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
@@ -156,7 +155,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                             elementFailing(2, 3.0, "$toBeDescr: 2.0")
                             elementSuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
                             elementSuccess(4, 4.0, "$toBeDescr: 4.0")
-                            containsSize(5, 5)
+                            containsNot(sizeDescr)
                         }
                     }
                 }
@@ -289,7 +288,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                                 elementFailing(1, 1.0, "$toBeDescr: null")
                                 elementFailing(2, "null", "$isLessThanDescr: 5.0", explaining = true)
                                 elementSuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
-                                containsSize(4, 4)
+                                containsNot(sizeDescr)
                             }
                         }
                     }

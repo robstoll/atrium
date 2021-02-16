@@ -147,7 +147,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
-                                containsSize(5, 5)
+                                containsNot(sizeDescr)
                             }
                         }
                     }
