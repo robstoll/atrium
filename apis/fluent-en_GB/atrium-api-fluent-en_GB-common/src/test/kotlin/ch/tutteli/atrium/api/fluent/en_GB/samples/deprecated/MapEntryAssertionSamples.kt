@@ -29,13 +29,13 @@ class MapEntryAssertionSamples {
     fun key() {
         expect(mapOf(1 to "a").entries.first())
             .key {
-                isEqualComparingTo(1)
+                toBe(1)
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
                 .key {
-                    isEqualComparingTo(2)
+                    toBe(2)
                 }
         }
     }
@@ -53,13 +53,13 @@ class MapEntryAssertionSamples {
     fun value() {
         expect(mapOf(1 to "a").entries.first())
             .value {
-                isEqualComparingTo("a")
+                toBe("a")
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
                 .value {
-                    isEqualComparingTo("b")
+                    toBe("b")
                 }
         }
     }
