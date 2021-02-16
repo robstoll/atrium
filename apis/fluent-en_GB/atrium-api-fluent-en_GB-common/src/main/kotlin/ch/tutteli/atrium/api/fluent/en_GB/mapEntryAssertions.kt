@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.*
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.isKeyValue
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.isKeyValue
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: V): Expect<T> =
     _logicAppend { isKeyValue(key, value) }
@@ -24,7 +24,7 @@ fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: V): Expect<T
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.keyFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.keyFeature
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
     get() = _logic.key().transform()
@@ -36,7 +36,7 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.key
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.key
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
@@ -47,7 +47,7 @@ fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> 
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.valueFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.valueFeature
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
     get() = _logic.value().transform()
@@ -59,7 +59,7 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryAssertionSamples.value
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.value
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)
