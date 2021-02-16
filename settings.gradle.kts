@@ -19,8 +19,8 @@ buildscript {
                 or(
                     // improved reporting
                     "IterableContainsInOrderOnly.*Spec",
-                    "IterableContainsInAnyOrder.*error cases.*",
-                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases.*",
+                    "IterableContainsInAnyOrder.*error cases",
+                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
                     // implementation and spec was wrong
                     "IterableAssertionsSpec/.*`" + or(
                         "containsNoDuplicates",
@@ -62,9 +62,9 @@ buildscript {
             // forgive for bc and bbc
             ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
                 or(
-                    "IterableContainsInOrderOnly.*Spec",
-                    "IterableContainsInAnyOrder.*error cases.*",
-                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases.*",
+                    "IterableContainsInOrderOnly.*error cases",
+                    "IterableContainsInAnyOrder.*error cases",
+                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
                     // implementation and spec was wrong
                     "IterableAssertionsSpec/.*`" + or(
                         "containsNoDuplicates",
