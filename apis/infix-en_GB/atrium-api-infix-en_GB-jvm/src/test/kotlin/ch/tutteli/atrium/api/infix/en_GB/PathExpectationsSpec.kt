@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.fun3
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.charset.Charset
 import java.nio.file.Path
@@ -27,7 +25,17 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     "has ${::directoryEntries.name}" to Companion::hasDirectoryEntryMultiple,
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Companion::hasSameTextualContentAs),
-    fun1(Companion::hasSameTextualContentAsDefaultArgs)
+    fun1(Companion::hasSameTextualContentAsDefaultArgs),
+    property<Path, Path>(Expect<Path>::parent),
+    fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
+    feature1<Path, String, Path>(Expect<Path>::resolve),
+    fun2(PathExpectationsSpec.Companion::resolve),
+    property<Path, String>(Expect<Path>::fileName),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
+    property<Path, String>(Expect<Path>::fileNameWithoutExtension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension),
+    property<Path, String>(Expect<Path>::extension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
     companion object : WithAsciiReporter() {
 
@@ -54,6 +62,12 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
             expect: Expect<Path>,
             targetPath: Path
         ): Expect<Path> = expect hasSameTextualContentAs targetPath
+
+        private fun resolve(
+            expect: Expect<Path>,
+            other: String,
+            assertionCreator: Expect<Path>.() -> Unit
+        ): Expect<Path> = expect resolve path(other) { assertionCreator() }
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -77,6 +91,21 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 resolve "a"
         a1 hasDirectoryEntry "a"
         a1 has directoryEntries("a", "b", "c")
+
+        a1.fileName
+        a1 fileName {}
+
+        a1.fileNameWithoutExtension
+        a1 fileNameWithoutExtension {}
+
+        a1.extension
+        a1 extension {}
+
+        a1.parent
+        a1 parent {}
+
+        a1 resolve "test"
+        a1 resolve path("test") {}
     }
 }
 

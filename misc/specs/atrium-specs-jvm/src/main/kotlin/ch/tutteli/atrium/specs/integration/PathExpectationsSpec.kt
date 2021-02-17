@@ -11,10 +11,6 @@ import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
-import com.nhaarman.mockitokotlin2.anyOrNull
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.doThrow
-import com.nhaarman.mockitokotlin2.spy
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Skip
 import org.spekframework.spek2.dsl.Skip.No
@@ -29,7 +25,6 @@ import java.nio.file.attribute.AclEntryPermission.*
 import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
 import java.nio.file.attribute.PosixFilePermission.*
-import java.nio.file.spi.FileSystemProvider
 import java.util.regex.Pattern.quote
 
 abstract class PathExpectationsSpec(
@@ -51,6 +46,16 @@ abstract class PathExpectationsSpec(
     hasSameBinaryContentAs: Fun1<Path, Path>,
     hasSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
     hasSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
+    parentFeature: Feature0<Path, Path>,
+    parent: Fun1<Path, Expect<Path>.() -> Unit>,
+    resolveFeature: Feature1<Path, String, Path>,
+    resolve: Fun2<Path, String, Expect<Path>.() -> Unit>,
+    fileNameFeature: Feature0<Path, String>,
+    fileName: Fun1<Path, Expect<String>.() -> Unit>,
+    fileNameWithoutExtensionFeature: Feature0<Path, String>,
+    fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
+    extensionFeature: Feature0<Path, String>,
+    extension: Fun1<Path, Expect<String>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -73,7 +78,15 @@ abstract class PathExpectationsSpec(
         hasDirectoryEntryMulti.forSubjectLess("a", arrayOf("b", "c")),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         hasSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
-        hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a"))
+        hasSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a")),
+        parentFeature.forSubjectLess().adjustName { "$it feature" },
+        parent.forSubjectLess { },
+        resolveFeature.forSubjectLess("test").adjustName { "$it feature" },
+        resolve.forSubjectLess("test") { toBe(Paths.get("a/my.txt")) },
+        fileNameFeature.forSubjectLess().adjustName { "$it feature" },
+        fileName.forSubjectLess { },
+        fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
+        fileNameWithoutExtension.forSubjectLess { }
     ) {})
 
     val tempFolder by memoizedTempFolder()
@@ -95,6 +108,9 @@ abstract class PathExpectationsSpec(
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+
+    val fileNameDescr = FILE_NAME.getDefault()
+    val fileNameWithoutExtensionDescr = FILE_NAME_WITHOUT_EXTENSION.getDefault()
 
     fun Suite.it(description: String, skip: Skip = No, timeout: Long = delegate.defaultTimeout) =
         SymlinkTestBuilder({ tempFolder }, skipWithLink = ifSymlinksNotSupported) { prefix, innerSkip, body ->
@@ -1190,6 +1206,161 @@ abstract class PathExpectationsSpec(
                     expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
                     contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                }
+            }
+        }
+    }
+
+    describeFun(parentFeature, parent) {
+        val parentFunctions = unifySignatures(parentFeature, parent)
+
+        context("folder with parent") {
+            parentFunctions.forEach { (name, parentFun, _) ->
+                it("$name - toBe(folder.parent) holds") {
+                    val childFolder = tempFolder.newDirectory("child")
+                    val parentFolder = childFolder.parent
+                    expect(childFolder).parentFun { toBe(parentFolder) }
+                }
+                it("$name - toBe(folder) fails") {
+                    expect {
+                        val childFolder = tempFolder.newDirectory("child")
+                        expect(childFolder).parentFun { toBe(childFolder) }
+                    }.toThrow<AssertionError> {
+                        message { containsRegex("$toBeDescr: .*(/|\\\\)child") }
+                    }
+                }
+            }
+        }
+
+        context("folder without parent") {
+            parentFunctions.forEach { (name, parentFun, hasExtraHint) ->
+                it("$name - toBe(folder.parent) fails" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        val rootFolder = tempFolder.tmpDir.root
+                        expect(rootFolder).parentFun { toBe(Paths.get("non-existing")) }
+                    }.toThrow<AssertionError> {
+                        messageContains(DOES_NOT_HAVE_PARENT.getDefault())
+                        if (hasExtraHint) messageContains("non-existing")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(resolveFeature, resolve) {
+        val resolveFunctions = unifySignatures(resolveFeature, resolve)
+
+        context("resolve child") {
+            resolveFunctions.forEach { (name, resolveFun, _) ->
+                it("$name - toBe(child) holds") {
+                    val resolvedFolder = tempFolder.newDirectory("child")
+                    val rootFolder = resolvedFolder.parent
+                    expect(rootFolder).resolveFun("child") { toBe(resolvedFolder) }
+                }
+            }
+        }
+
+        context("resolve non-existing") {
+            resolveFunctions.forEach { (name, resolveFun, hasExtraHint) ->
+                it("$name - toBe(folder) fails" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        val resolvedFolder = tempFolder.newDirectory("child")
+                        val rootFolder = resolvedFolder.parent
+                        expect(rootFolder).resolveFun("non-existing") { toBe(resolvedFolder) }
+                    }.toThrow<AssertionError> {
+                        messageContains("non-existing")
+                        if (hasExtraHint) messageContains("child")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(fileNameFeature, fileName) {
+        val fileNameFunctions = unifySignatures(fileNameFeature, fileName)
+
+        context("path a/my.txt") {
+            fileNameFunctions.forEach { (name, fileNameFun, _) ->
+                it("$name - toBe(my.txt) holds") {
+                    expect(Paths.get("a/my.txt")).fileNameFun { toBe("my.txt") }
+                }
+                it("$name - toBe(my.txt) fails") {
+                    expect {
+                        expect(Paths.get("a/my")).fileNameFun { toBe("my.txt") }
+                    }.toThrow<AssertionError> {
+                        messageContains("$fileNameDescr: \"my\"")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(fileNameWithoutExtensionFeature, fileNameWithoutExtension) {
+        val fileNameWithoutExtensionFunctions =
+            unifySignatures(fileNameWithoutExtensionFeature, fileNameWithoutExtension)
+
+        context("File with extension") {
+            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
+                it("$name - toBe(my) holds") {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my") }
+                }
+                it("$name - toBe(my.txt) fails") {
+                    expect {
+                        expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                    }.toThrow<AssertionError> {
+                        messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                    }
+                }
+            }
+        }
+
+        val directory = "a/my/"
+        context("directory $directory") {
+            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
+                it("$name - toBe(my) holds") {
+                    expect(Paths.get(directory)).fileNameWithoutExtensionFun { toBe("my") }
+                }
+                it("$name - toBe(my.txt) fails") {
+                    expect {
+                        expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toBe("my.txt") }
+                    }.toThrow<AssertionError> {
+                        messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                    }
+                }
+            }
+        }
+
+        context("path with double extension") {
+            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
+                it("$name - toBe(my.tar) holds") {
+                    expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my.tar") }
+                }
+                it("$name - toBe(my) fails") {
+                    expect {
+                        expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toBe("my") }
+                    }.toThrow<AssertionError> {
+                        messageContains("$fileNameWithoutExtensionDescr: \"my.tar\"")
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(extensionFeature, extension) {
+        val extensionFunctions = unifySignatures(extensionFeature, extension)
+
+        context("Path without extension") {
+            extensionFunctions.forEach { (name, extensionFun, _) ->
+                it("$name - returns empty extension") {
+                    expect(Paths.get("/foo/no-extension-here")).extensionFun { toBe("") }
+                }
+            }
+        }
+
+        context("Path with extension") {
+            extensionFunctions.forEach { (name, extensionFun, _) ->
+                it("$name - returns the extension") {
+                    expect(Paths.get("/foo/something.txt")).extensionFun { toBe("txt") }
                 }
             }
         }

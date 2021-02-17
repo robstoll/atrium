@@ -23,7 +23,17 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun2<Path, String, Array<out String>>(Expect<Path>::hasDirectoryEntry),
     fun1(Expect<Path>::hasSameBinaryContentAs),
     fun3(Expect<Path>::hasSameTextualContentAs),
-    Expect<Path>::hasSameTextualContentAs.name to Companion::hasSameTextualContentAsDefaultArgs
+    Expect<Path>::hasSameTextualContentAs.name to Companion::hasSameTextualContentAsDefaultArgs,
+    property<Path, Path>(Expect<Path>::parent),
+    fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
+    feature1<Path, String, Path>(Expect<Path>::resolve),
+    fun2<Path, String,  Expect<Path>.() -> Unit>(Expect<Path>::resolve),
+    property<Path, String>(Expect<Path>::fileName),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileName),
+    property<Path, String>(Expect<Path>::fileNameWithoutExtension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::fileNameWithoutExtension),
+    property<Path, String>(Expect<Path>::extension),
+    fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
 
     companion object {
@@ -35,7 +45,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        val a1: Expect<DummyPath> = notImplemented()
+        var a1: Expect<DummyPath> = notImplemented()
 
         a1.exists()
         a1.existsNot()
@@ -49,6 +59,21 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.isDirectory()
         a1.hasSameBinaryContentAs(Paths.get("a"))
         a1.hasSameTextualContentAs(Paths.get("a"))
+
+        a1.parent
+        a1 = a1.parent { }
+
+        a1.fileName
+        a1 = a1.fileName { }
+
+        a1.fileNameWithoutExtension
+        a1 = a1.fileNameWithoutExtension { }
+
+        a1.extension
+        a1 = a1.extension { }
+
+        a1.resolve("test")
+        a1.resolve("test", {})
     }
 }
 
