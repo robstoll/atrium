@@ -9,6 +9,7 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
  * For instance, an [AssertionGroup] with a [FeatureAssertionGroupType] has typically a
  * [AssertionGroup.representation] with a [LazyRepresentation].
  */
+//TODO 1.0.0 still required?
 class LazyRepresentation(private val provider: () -> Any?) {
 
     /**

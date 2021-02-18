@@ -52,6 +52,7 @@ fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() ->
  *
  * Calling multiple times the same method overrides the previously defined value.
  */
+@Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
 @ExperimentalNewExpectTypes
 @Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
 interface FeatureExpectOptionsChooser<R> {
@@ -62,6 +63,7 @@ interface FeatureExpectOptionsChooser<R> {
      * instead of the previously defined description.
      *
      */
+    @Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
     fun withDescription(description: String) {
         withDescription(Untranslatable(description))
     }
@@ -69,6 +71,7 @@ interface FeatureExpectOptionsChooser<R> {
     /**
      * Uses the given [description] as custom description instead of the previously defined description.
      */
+    @Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
     fun withDescription(description: Translatable)
 
     /**
@@ -77,6 +80,7 @@ interface FeatureExpectOptionsChooser<R> {
      *
      * In case [AssertionContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
+    @Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
     fun withRepresentation(textRepresentation: String): Unit =
         withRepresentation { Text(textRepresentation) }
 
@@ -92,6 +96,7 @@ interface FeatureExpectOptionsChooser<R> {
      *
      * In case [AssertionContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
+    @Deprecated("Use FeatureExpectOptionsChooser from atrium-logic; will be removed with 0.17.0")
     fun withRepresentation(representationProvider: (R) -> Any)
 
     companion object {
