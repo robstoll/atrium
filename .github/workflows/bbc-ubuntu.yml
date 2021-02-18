@@ -22,7 +22,7 @@ jobs:
 
       - name: Upload windows build code coverage
         uses: codecov/codecov-action@v1
-        if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'master') }}
+        if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: bbc
