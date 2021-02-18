@@ -39,7 +39,7 @@ fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T
     "`assertThat` should not be nested, use `feature` instead.",
     ReplaceWith(
         "feature(\"name of the feature\") { newSubject /* see also other overloads which do not require `name of the feature` and provide the subject as parameter, e.g. feature { f(it::yourFeature) } */}",
-        "ch.tutteli.atrium.api.fluent.de_CH.feature",
+        "ch.tutteli.atrium.api.infix.en_GB.feature",
         "ch.tutteli.atrium.api.fluent.en_GB.feature"
     )
 )
