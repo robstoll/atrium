@@ -106,7 +106,7 @@ class SmokeTest {
     }
 }
 
-
+//TODO 0.17.0 also add test case for using the string overload once we have createAndAppend
 fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
