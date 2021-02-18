@@ -54,8 +54,8 @@ data class TranslatableWithArgs constructor(val translatable: Translatable, val 
                 "\nTranslatable: $translatable"
         }
         require(isArgumentsCountMatchedWithTranslatable()) {
-            "arguments count do not match number of placeholders in [${translatable.getDefault()}]." +
-                "\nexpected count = ${arguments.size}, actual count = ${getPlaceHoldersCount()}" +
+            "The number of given arguments does not match the number of placeholders in [${translatable.getDefault()}]." +
+                "\nnumber of arguments = ${arguments.size}, placeholders = ${getPlaceHoldersCount()}" +
                 "\nspecify exact number of placeholders before wrapping translatable into an ${TranslatableWithArgs::class.simpleName}."
         }
     }
@@ -69,14 +69,14 @@ data class TranslatableWithArgs constructor(val translatable: Translatable, val 
 
     companion object {
 
-        private fun createList(arg: Any): List<Any> = ArrayList<Any>(1).apply {
-            add(arg)
-        }
+        private fun createList(arg: Any): List<Any> =
+            ArrayList<Any>(1).apply { add(arg) }
 
-        private fun createList(arg1: Any, arg2: Any): List<Any> = ArrayList<Any>(2).apply {
-            add(arg1)
-            add(arg2)
-        }
+        private fun createList(arg1: Any, arg2: Any): List<Any> =
+            ArrayList<Any>(2).apply {
+                add(arg1)
+                add(arg2)
+            }
 
         private fun createList(arg1: Any, arg2: Any, otherArgs: Array<out Any>): List<Any> =
             ArrayList<Any>(2 + otherArgs.size).apply {

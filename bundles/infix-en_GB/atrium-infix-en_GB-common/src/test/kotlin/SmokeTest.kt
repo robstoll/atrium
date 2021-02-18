@@ -54,6 +54,7 @@ class SmokeTest {
 @Suppress("ClassName")
 object even
 
+//TODO 0.17.0 also add test case for using the string overload once we have createAndAppend
 infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
     createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
 
