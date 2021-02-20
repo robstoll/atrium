@@ -112,6 +112,9 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_DIRECTORY) { it.isDirectory }
 
+    override fun <T : Path> toBeASymbolicLink(container: AssertionContainer<T>): Assertion =
+        fileTypeAssertion(container, A_SYMBOLIC_LINK, NOFOLLOW_LINKS) { it.isSymbolicLink }
+
     override fun <T : Path> isAbsolute(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(DescriptionBasic.IS, ABSOLUTE_PATH) { it.isAbsolute }
 
@@ -147,8 +150,9 @@ class DefaultPathAssertions : PathAssertions {
     private inline fun <T : Path> fileTypeAssertion(
         container: AssertionContainer<T>,
         typeName: Translatable,
+        linkOption: LinkOption? = null,
         crossinline typeTest: (BasicFileAttributes) -> Boolean
-    ) = changeSubjectToFileAttributes(container) { fileAttributesExpect ->
+    ) = changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
         assertionBuilder.descriptive
             .withTest(fileAttributesExpect) { it is Success && typeTest(it.value) }
             .withFileAttributesFailureHint(fileAttributesExpect)
