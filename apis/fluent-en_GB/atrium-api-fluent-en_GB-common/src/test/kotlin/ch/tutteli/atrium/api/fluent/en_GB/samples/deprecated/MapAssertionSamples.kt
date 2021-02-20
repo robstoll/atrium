@@ -8,12 +8,12 @@ import kotlin.test.Test
 class MapAssertionSamples {
 
     @Test
-    fun containsFeature() {
+    fun containsBuilder() {
         expect(mapOf(1 to "a")).contains.inAnyOrder.entries(1 to "a")
 
         fails {
             expect(mapOf(1 to "a")).contains.inAnyOrder
-                .entries(1 to "b")   // fails because the map not contains Pair<1,"b">
+                .entries(1 to "b")   // fails because the map does not contain Pair<1,"b">
         }
     }
 
@@ -23,7 +23,7 @@ class MapAssertionSamples {
 
         fails {
             expect(mapOf(1 to "a"))
-                .contains(1 to "b")// fails because the map not contains Pair<1,"b">
+                .contains(1 to "b") // fails because the map does not contain Pair<1,"b">
         }
     }
 
@@ -50,7 +50,7 @@ class MapAssertionSamples {
             expect(mapOf(1 to "a"))
                 .contains(
                     KeyValue(1, {   // subject inside this block is of type String (actually "a")
-                        toBe("b") // fails because "a" is not equal to "b"
+                        toBe("b")   // fails because "a" is not equal to "b"
                     })
                 )
         }
@@ -80,7 +80,7 @@ class MapAssertionSamples {
         expect(mapOf(1 to "a")).containsEntriesOf(listOf(1 to "a"))
 
         fails {
-            expect(mapOf(1 to "a")).containsEntriesOf(listOf(1 to "b")) // fails because the map not contains <1,"b">
+            expect(mapOf(1 to "a")).containsEntriesOf(listOf(1 to "b")) // fails because the map does not contain <1,"b">
         }
     }
 
@@ -90,7 +90,7 @@ class MapAssertionSamples {
 
         fails {
             expect(mapOf(1 to "a", 1 to "b"))
-                .containsOnlyEntriesOf(listOf(1 to "a")) // fails because the map not only contains <1,"a">
+                .containsOnlyEntriesOf(listOf(1 to "a")) // fails because the map does not contain only <1,"a">
         }
     }
 
@@ -113,7 +113,7 @@ class MapAssertionSamples {
     }
 
     @Test
-    fun getExisting() {
+    fun getExistingFeature() {
         expect(mapOf(1 to "a"))
             .getExisting(1) // subject is of type String (actually "a")
             .toBe("a")
@@ -121,12 +121,18 @@ class MapAssertionSamples {
         fails {
             expect(mapOf(1 to "a"))
                 .getExisting(1)  // subject is of type String (actually "a")
-                .toBe("b")  // fails because "a" is not equal to "b"
+                .toBe("b")   // fails because "a" is not equal to "b"
+        }
+
+        fails {
+            expect(mapOf(1 to "a"))
+                .getExisting(2) // subject is of type String, but assertion fails because key 2 does not exist
+                .toBe("a")
         }
     }
 
     @Test
-    fun getExistingKeyAssertion() {
+    fun getExisting() {
         expect(mapOf(1 to "a"))
             .getExisting(1, {   // subject inside this block is of type String (actually "a")
                 toBe("a")
@@ -136,6 +142,13 @@ class MapAssertionSamples {
             expect(mapOf(1 to "a"))
                 .getExisting(1, {   // subject inside this block is of type String (actually "a")
                     toBe("b")   // fails because "a" is not equal to "b"
+                })
+        }
+
+        fails {
+            expect(mapOf(1 to "a"))
+                .getExisting(2, {   // subject is of type String, but assertion fails because key 2 does not exist
+                    toBe("a")
                 })
         }
     }
