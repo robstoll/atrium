@@ -11,6 +11,8 @@ import ch.tutteli.kbox.identity
  * Starts a sophisticated `contains` assertion building process based on this [Expect].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsBuilder
  */
 val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour>
     get() = _logic.builderContainsInMapLike(::identity)
@@ -28,6 +30,8 @@ val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep
  * even though they match the same entry.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsPair
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     keyValuePair: Pair<K, V>,
@@ -42,6 +46,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  * Delegates to `contains.inAnyOrder.only.entries(keyValuePair, *otherPairs)`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnly
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
     keyValuePair: Pair<K, V>,
@@ -62,6 +68,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
  * , then both match, even though they match the same entry.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsKeyValue
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
@@ -78,6 +86,8 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  * Delegates to `contains.inAnyOrder.only.entries(keyValue, *otherKeyValues)`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnlyKeyValue
  */
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
     keyValue: KeyValue<K, V>,
@@ -90,6 +100,8 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
  * Delegates to ` contains.inAnyOrder.entriesOf`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsEntriesOf
  */
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
     mapLike: MapLike
@@ -102,6 +114,8 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
  * Delegates to `contains.inAnyOrder.only.entriesOf`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnlyEntriesOf
  */
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
     mapLike: MapLike
@@ -111,6 +125,8 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsKey
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
     _logicAppend { containsKey(::identity, key) }
@@ -119,6 +135,8 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  * Expects that the subject of `this` expectation (a [Map]) does not contain the given [key].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsNotKey
  */
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
@@ -129,6 +147,8 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.getExistingFeature
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
@@ -138,6 +158,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.getExisting
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
@@ -147,6 +169,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.keysFeature
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
@@ -157,6 +181,8 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.keys
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
@@ -166,6 +192,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.()
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.valuesFeature
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
@@ -176,6 +204,8 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.values
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
@@ -187,6 +217,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collecti
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.asEntriesFeature
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
     _logic.changeSubject.unreported { it.entries }
@@ -199,6 +231,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.asEntries
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
@@ -208,6 +242,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.isEmpty
  */
 fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
@@ -216,6 +252,8 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
  * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.isNotEmpty
  */
 fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
