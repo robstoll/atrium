@@ -50,8 +50,7 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     "notToBeNull" to Companion::notToBeNull,
 
     getAndImmediatePair(),
-    getAndLazyPair(),
-    "◆ ", "⚬ ", "ℹ "
+    getAndLazyPair()
 ) {
 
     companion object {

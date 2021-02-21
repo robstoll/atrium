@@ -11,14 +11,6 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
     containsInOrderOnlyGroupedEntries: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 
@@ -58,14 +50,6 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
         t2: Group<(Expect<Double>.() -> Unit)?>,
         vararg tX: Group<(Expect<Double>.() -> Unit)?>
     ) = containsInOrderOnlyGroupedEntries(this, t1, t2, tX)
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
-    val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
     fun element(prefix: String, bulletPoint: String, indentRootBulletPoint: String, expected: Array<out String>) =
         expected.joinToString(".*$separator") {

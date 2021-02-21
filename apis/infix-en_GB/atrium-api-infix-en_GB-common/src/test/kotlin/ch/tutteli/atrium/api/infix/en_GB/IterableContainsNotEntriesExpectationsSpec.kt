@@ -7,9 +7,9 @@ class IterableContainsNotEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair().withNullableSuffix(),
-        "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     ) {
+
     companion object : IterableContainsSpecBase() {
 
         private fun getContainsNotPair() = containsNot to Companion::containsNotFun

@@ -6,8 +6,7 @@ class CharSequenceContainsNotOrAtMostExpectationsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsNotOrAtMostExpectationsSpec(
         getNotOrAtMostTriple(),
         getNotOrAtMostIgnoringCaseTriple(),
-        getContainsNotPair(),
-        "◆ ", "⚬ "
+        getContainsNotPair()
     ) {
 
     companion object : CharSequenceContainsSpecBase() {

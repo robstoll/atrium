@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import org.spekframework.spek2.Spek
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -14,23 +13,23 @@ class ChronoZonedDateTimeExpectationsSpec : Spek({
     include(ChronoZonedDateTimeExpectationsSpec)
     include(ChronoZonedDateTimeAsStringExpectationsSpec)
 }) {
-    object ChronoZonedDateTimeExpectationsSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBefore),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfter),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isEqual)
-    )
+    object ChronoZonedDateTimeExpectationsSpec :
+        ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
+            fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBefore),
+            fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+            fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfter),
+            fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+            fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::isEqual)
+        )
 
-    object ChronoZonedDateTimeAsStringExpectationsSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringExpectationsSpec(
-        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBefore),
-        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
-        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfter),
-        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
-        fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isEqual)
-    )
-
-    companion object : WithAsciiReporter()
+    object ChronoZonedDateTimeAsStringExpectationsSpec :
+        ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringExpectationsSpec(
+            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBefore),
+            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isBeforeOrEqual),
+            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfter),
+            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isAfterOrEqual),
+            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::isEqual)
+        )
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

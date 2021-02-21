@@ -9,8 +9,7 @@ class Fun0ExpectationsJvmSpec : ch.tutteli.atrium.specs.integration.Fun0Expectat
     ("toThrow" to Companion::toThrowFeature).withFeatureSuffix(),
     "toThrow" to Companion::toThrow,
     feature0<() -> Int, Int>(Expect<() -> Int>::notToThrow),
-    feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow),
-    "⚬ ", "» "
+    feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow)
 ) {
 
     companion object {

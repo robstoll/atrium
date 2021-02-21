@@ -11,8 +11,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         getAtLeastBustAtMostIgnoringCaseValuesTriple(),
         getContainsNotPair(),
         getExactlyPair(),
-        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost,
-        "* ", "- "
+        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastExpectationsSpec(
@@ -22,8 +21,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         getAtLeastButAtMostIgnoringCaseElementsOfTriple(),
         getContainsNotPair(),
         getExactlyPair(),
-        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost,
-        "* ", "- "
+        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<String>(

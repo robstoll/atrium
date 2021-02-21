@@ -16,14 +16,12 @@ class IterableContainsInOrderOnlyValuesExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
         functionDescription to C::containsInOrderOnlyValues,
         (functionDescription to C::containsInOrderOnlyNullableValues).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
         fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::containsExactly),
         fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::containsExactly).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 

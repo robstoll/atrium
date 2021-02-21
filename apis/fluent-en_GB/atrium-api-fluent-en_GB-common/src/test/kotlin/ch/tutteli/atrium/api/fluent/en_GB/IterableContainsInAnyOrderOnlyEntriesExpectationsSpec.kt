@@ -6,9 +6,8 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 
 class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
-         functionDescription to Companion::containsInAnyOrderOnlyEntries,
-        (functionDescription to Companion::containsInAnyOrderOnlyNullableEntries).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "
+        functionDescription to Companion::containsInAnyOrderOnlyEntries,
+        (functionDescription to Companion::containsInAnyOrderOnlyNullableEntries).withNullableSuffix()
     ) {
     companion object : IterableContainsSpecBase() {
         val functionDescription = "$contains.$inAnyOrder.$only.$entry/$entries"

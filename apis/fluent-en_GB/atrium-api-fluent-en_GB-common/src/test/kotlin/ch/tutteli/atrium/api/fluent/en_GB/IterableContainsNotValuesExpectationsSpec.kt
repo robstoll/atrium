@@ -17,14 +17,12 @@ class IterableContainsNotValuesExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         functionDescription to C::containsNotFun,
         (functionDescription to C::containsNotNullableFun).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         fun2<Iterable<Double>,Double, Array<out Double>>(Expect<Iterable<Double>>::containsNot),
         fun2<Iterable<Double?>,Double?, Array<out Double?>>(Expect<Iterable<Double?>>::containsNot).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 

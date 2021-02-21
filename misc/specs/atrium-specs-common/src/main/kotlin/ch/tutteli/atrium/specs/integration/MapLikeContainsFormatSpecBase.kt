@@ -3,60 +3,15 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.dsl.Root
 
-abstract class MapLikeContainsFormatSpecBase(
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
-    spec: Root.() -> Unit
-) : MapLikeContainsSpecBase(spec) {
-    init {
-        Companion.rootBulletPoint = rootBulletPoint
-        Companion.successfulBulletPoint = successfulBulletPoint
-        Companion.failingBulletPoint = failingBulletPoint
-        Companion.warningBulletPoint = warningBulletPoint
-        Companion.listBulletPoint = listBulletPoint
-        Companion.explanatoryBulletPoint = explanatoryBulletPoint
-        Companion.featureArrow = featureArrow
-        Companion.featureBulletPoint = featureBulletPoint
-
-        indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-        indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-        indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-        indentListBulletPoint = " ".repeat(listBulletPoint.length)
-        indentExplanatoryBulletPoint = " ".repeat(explanatoryBulletPoint.length)
-        indentFeatureArrow = " ".repeat(featureArrow.length)
-        indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
-    }
+abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeContainsSpecBase(spec) {
 
     companion object {
-        // does not work if we would run the tests in parallel,
-        // in case we want, then copy this to the corresponding specs
-        var rootBulletPoint = ""
-        var successfulBulletPoint = ""
-        var failingBulletPoint = ""
-        var warningBulletPoint = ""
-        var listBulletPoint = ""
-        var explanatoryBulletPoint = ""
-        var featureArrow = ""
-        var featureBulletPoint = ""
-        var indentRootBulletPoint = " "
-        var indentSuccessfulBulletPoint = ""
-        var indentFailingBulletPoint = ""
-        var indentListBulletPoint = ""
-        var indentExplanatoryBulletPoint = ""
-        var indentFeatureArrow = ""
-        var indentFeatureBulletPoint = ""
-
         val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
 

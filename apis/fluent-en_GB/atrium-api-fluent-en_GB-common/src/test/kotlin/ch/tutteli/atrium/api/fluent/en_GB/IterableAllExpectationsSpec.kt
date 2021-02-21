@@ -7,8 +7,7 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 
 object IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableAllExpectationsSpec(
     fun1(Expect<Iterable<Double>>::all),
-    fun1(Expect<Iterable<Double?>>::all).withNullableSuffix(),
-    "◆ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ "
+    fun1(Expect<Iterable<Double?>>::all).withNullableSuffix()
 ) {
 
 

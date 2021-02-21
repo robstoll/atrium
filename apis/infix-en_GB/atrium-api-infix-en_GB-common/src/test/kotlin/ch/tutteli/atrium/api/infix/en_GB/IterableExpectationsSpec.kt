@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
 class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExpectationsSpec(
@@ -14,7 +13,7 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
     getContainsNoDuplicatesPair()
 ) {
-    companion object : WithAsciiReporter() {
+    companion object {
         private val has: KFunction2<Expect<Iterable<Int>>, next, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::has
         private fun getHasNextPair() = "${has.name} ${next::class.simpleName}" to Companion::hasNext
         private fun hasNext(expect: Expect<Iterable<Int>>) = expect has next
@@ -33,8 +32,10 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         private val containsDuplicates: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
             Expect<Iterable<Int>>::contains
+
         private fun getContainsNoDuplicatesPair() =
             "${containsDuplicates.name} ${noDuplicates::class.simpleName}" to Companion::containsNoDuplicates
+
         private fun containsNoDuplicates(expect: Expect<Iterable<Int>>) = expect contains noDuplicates
 
     }

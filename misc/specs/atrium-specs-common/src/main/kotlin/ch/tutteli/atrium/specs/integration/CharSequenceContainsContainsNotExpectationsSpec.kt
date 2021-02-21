@@ -10,9 +10,6 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class CharSequenceContainsContainsNotExpectationsSpec(
     contains: Fun2<CharSequence, Any, Array<out Any>>,
     containsNot: Fun2<CharSequence, Any, Array<out Any>>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
-    featureArrow: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -31,7 +28,6 @@ abstract class CharSequenceContainsContainsNotExpectationsSpec(
 
     fun Expect<CharSequence>.containsNotFun(t: String, vararg tX: String) = containsNot.invoke(this, t, tX)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
     val containsNotDescr = CONTAINS_NOT.getDefault()
 

@@ -25,9 +25,11 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
+
     RootExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
         .withOptions {
+            //TODO 0.16.0 also withComponentFactoryContainer so that one can pass a singleton
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
         }
         .build()
@@ -54,6 +56,7 @@ enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     EXPECT("expected that subject"),
     ;
 
+    //TODO 0.17.0 remove
     init {
         // we specify the factory here because we only need to specify it once and
         // we do not want to specify it if it is not used. The verbs have to be loaded on their first usage
@@ -62,7 +65,7 @@ enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     }
 }
 
-//TODO 0.16.0 remove
+//TODO 0.17.0 remove
 class NoAdjustingReporterFactory : ReporterFactory {
     override val id: String = ID
 

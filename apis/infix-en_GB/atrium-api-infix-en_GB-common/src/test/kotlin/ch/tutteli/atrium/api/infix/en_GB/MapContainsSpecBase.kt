@@ -8,10 +8,9 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
-abstract class MapContainsSpecBase : WithAsciiReporter() {
+abstract class MapContainsSpecBase {
     private val containsProp: KFunction2<Expect<Map<*, *>>, o, *> = Expect<Map<*, *>>::contains
     protected val contains = containsProp.name
     protected val filler = o::class.simpleName

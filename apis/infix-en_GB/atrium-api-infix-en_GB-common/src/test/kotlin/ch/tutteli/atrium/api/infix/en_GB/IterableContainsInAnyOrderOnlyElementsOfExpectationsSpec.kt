@@ -9,15 +9,15 @@ class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
         getContainsPair(),
-        getContainsNullablePair(),
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» "
+        getContainsNullablePair()
     )
 
-    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        "contains o inAny order but only elementsOf",
-        listOf(1, 2),
-        { input -> it contains o inAny order but only elementsOf input }
-    )
+    object BuilderIterableLikeToIterableSpec :
+        ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
+            "contains o inAny order but only elementsOf",
+            listOf(1, 2),
+            { input -> it contains o inAny order but only elementsOf input }
+        )
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =

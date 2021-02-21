@@ -3,19 +3,11 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.Fun2
-import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.invoke
+import ch.tutteli.atrium.specs.*
 
 abstract class IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
     containsInAnyOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInAnyOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 

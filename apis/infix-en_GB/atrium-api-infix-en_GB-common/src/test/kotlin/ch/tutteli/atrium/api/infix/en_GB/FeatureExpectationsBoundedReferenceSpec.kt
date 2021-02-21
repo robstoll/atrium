@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.infix.en_GB.workaround.it
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.TestData
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 internal typealias F = Expect<TestData>.() -> Unit
 
@@ -55,7 +54,7 @@ class FeatureExpectationsBoundedReferenceSpec : ch.tutteli.atrium.specs.integrat
 ) {
 
     //TODO remove type parameters for `of` with Kotiln 1.4 including parentheses (make the calls infix again
-    companion object : WithAsciiReporter() {
+    companion object {
         //@formatter:off
         val propertyImmediate: F = { it feature { f(it::nonNullValue) } contains "hello" }
         val propertyLazy: F = { it feature of<TestData, String>({ f(it::nonNullValue) }) { it contains "hello" } }

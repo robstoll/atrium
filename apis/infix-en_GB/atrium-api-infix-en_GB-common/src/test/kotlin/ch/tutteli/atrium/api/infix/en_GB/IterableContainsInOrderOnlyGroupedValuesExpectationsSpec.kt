@@ -9,7 +9,6 @@ class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
         Companion::groupFactory,
         getContainsNullablePair(),
         Companion::nullableGroupFactory,
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {

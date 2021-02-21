@@ -18,28 +18,24 @@ class IterableAnyExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         fun1(Expect<Iterable<Double>>::any),
         fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
-        "* ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair().withNullableSuffix(),
-        "* ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNullableShortcutPair().withNullableSuffix(),
-        "* ",
         "[Atrium][Shortcut] "
     )
 
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         getContainsSequencePair(),
         getContainsNullableSequencePair().withNullableSuffix(),
-        "* ",
         "[Atrium][Sequence] "
     )
 

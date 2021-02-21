@@ -15,14 +15,12 @@ class IterableNoneExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::none),
         fun1(Expect<Iterable<Double?>>::none).withNullableSuffix(),
-        "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair().withNullableSuffix(),
-        "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 

@@ -11,8 +11,6 @@ abstract class CharSequenceContainsNotOrAtMostExpectationsSpec(
     containsNotOrAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotOrAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -37,7 +35,6 @@ abstract class CharSequenceContainsNotOrAtMostExpectationsSpec(
     fun Expect<CharSequence>.containsNotOrAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsNotOrAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsNotOrAtMost.name, containsNotOrAtMostIgnoringCase.name) {

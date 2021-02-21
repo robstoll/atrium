@@ -10,14 +10,12 @@ class CharSequenceContainsContainsNotExpectationsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
         getContainsPair(),
         getContainsNotPair(),
-        "* ", "- ", ">> ",
         "[Atrium][Builder]"
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNotShortcutPair(),
-        "* ", "- ", ">> ",
         "[Atrium][Shortcut]"
     ) {})
 }) {

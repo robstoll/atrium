@@ -11,8 +11,6 @@ abstract class CharSequenceContainsAtMostExpectationsSpec(
     containsAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -37,7 +35,6 @@ abstract class CharSequenceContainsAtMostExpectationsSpec(
     fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
         containsAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsAtMost.name, containsAtMostIgnoringCase.name) {

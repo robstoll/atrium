@@ -62,9 +62,6 @@ abstract class AnyExpectationsSpec(
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
 
-    rootBulletPoint: String,
-    listBulletPoint: String,
-    informationBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

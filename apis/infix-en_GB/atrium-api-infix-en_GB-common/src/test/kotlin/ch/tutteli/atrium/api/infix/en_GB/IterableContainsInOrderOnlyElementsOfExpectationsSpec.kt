@@ -13,28 +13,28 @@ class IterableContainsInOrderOnlyElementsOfExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair(),
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
 
-    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        "contains o inGiven order and only elementsOf",
-        listOf(1, 2),
-        { input -> it contains o inGiven order and only elementsOf input }
-    )
+    object BuilderIterableLikeToIterableSpec :
+        ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
+            "contains o inGiven order and only elementsOf",
+            listOf(1, 2),
+            { input -> it contains o inGiven order and only elementsOf input }
+        )
 
-    object ShortcutIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        "containsExactlyElementsOf",
-        listOf(1, 2),
-        { input -> it containsExactlyElementsOf input }
-    )
+    object ShortcutIterableLikeToIterableSpec :
+        ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
+            "containsExactlyElementsOf",
+            listOf(1, 2),
+            { input -> it containsExactlyElementsOf input }
+        )
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =

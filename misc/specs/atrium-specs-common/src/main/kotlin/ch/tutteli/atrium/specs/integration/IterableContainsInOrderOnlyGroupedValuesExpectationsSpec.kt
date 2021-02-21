@@ -12,14 +12,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
     groupFactory: (Array<out Double>) -> Group<Double>,
     containsInOrderOnlyGroupedNullableValues: Fun3<Iterable<Double?>, Group<Double?>, Group<Double?>, Array<out Group<Double?>>>,
     nullableGroupFactory: (Array<out Double?>) -> Group<Double?>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -40,13 +32,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
         t2: Group<Double?>,
         vararg tX: Group<Double?>
     ) = containsInOrderOnlyGroupedNullableValues(this, t1, t2, tX)
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
-    val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"

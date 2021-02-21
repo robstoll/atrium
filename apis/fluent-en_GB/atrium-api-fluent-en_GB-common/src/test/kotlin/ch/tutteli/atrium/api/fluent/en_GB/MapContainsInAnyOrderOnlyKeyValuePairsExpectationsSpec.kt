@@ -14,14 +14,12 @@ class MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
         functionDescription to C::containsKeyValuePairs,
         (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
         mfun2<String, Int, Int>(Expect<Map<out String, Int>>::containsOnly),
         mfun2<String?, Int?, Int?>(Expect<Map<out String?, Int?>>::containsOnly).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 

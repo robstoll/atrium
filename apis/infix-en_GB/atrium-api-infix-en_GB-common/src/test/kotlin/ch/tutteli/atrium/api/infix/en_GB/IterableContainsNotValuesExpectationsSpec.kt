@@ -14,14 +14,12 @@ class IterableContainsNotValuesExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair(),
-        "* ", "(/) ", "(x) ", "- ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
         getContainsNotShortcutPair(),
         getContainsNotNullablePair(),
-        "* ", "(/) ", "(x) ", "- ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
 

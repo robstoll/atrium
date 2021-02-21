@@ -72,7 +72,7 @@ For instance, the [README of v0.15.0](https://github.com/robstoll/atrium/tree/v0
     - [Enhanced Reporting](#enhanced-reporting)
     - [Own Sophisticated Assertion Builders](#own-sophisticated-assertion-builders)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
-  - [ReporterBuilder](#reporterbuilder)
+  - [Use own Components](#use-own-components)
 - [Internationalization](#internationalization-1)
 - [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
@@ -2296,7 +2296,7 @@ In order to create an own assertion verb it is sufficient to:
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
-    ```
+    ```gradle
     dependencies {
         testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
             exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
@@ -2326,17 +2326,20 @@ What are the drawbacks:
 - you have to maintain your assertion verbs. That should not be a big deal 
   -- you might have to replace deprecated options by their replacement when you upgrade to a newer Atrium version but that's about it.
 
+## Use own Components
 
-## ReporterBuilder
+Replacing existing components with your own (or third-party) components can be done when specifying an own expection verb
+via `withOptions`. See for instance [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt#L31)
+which is used internally of Atrium in tests and uses a different `AtriumErrorAdjuster`.
 
-The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
-For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-infix-en_GB](https://github.com/robstoll/atrium/tree/master/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/infix/en_GB/testutils/AsciiBulletPointReporterFactory.kt)
-where you can find an example.
+Another example, say you prefer multi-line reporting over single-line reporting,
+then you can use `withOptions` as follows:
+```kotlin
+withOptions {
+    withComponent(TextAssertionPairFormatter::class) { c -> TextNextLineAssertionPairFormatter(c.build(), c.build()) }
+}
+```
 
-Or if you prefer multi-line reporting over single-line reporting,
-then you can configure `ReporterBuilder` as follows.
-Instead of using `.withTextSameLineAssertionPairFormatter()` you choose `withTextNextLineAssertionPairFormatter()`.
 The output looks then as follows:
 ```kotlin
 expect(x).toBe(9)
@@ -2357,14 +2360,9 @@ expect: 10        (kotlin.Int <934275857>)
 You prefer another reporting style but Atrium does not yet support it? 
 Please let us know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
-
-There are more options to choose from. 
-It does not matter if you use your [own assertion verb](#use-own-assertion-verbs) or a predefined one.
-You can provide your custom configured `Reporter` by providing a `ReporterFactory`.
-This is done via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html) -mechanism on JVM 
-and by calling `registerService` on JS where the call has to be before your tests run.  
-An example for JVM is given in [AsciiBulletPointReporterFactory](https://github.com/robstoll/atrium/blob/master/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs/testutils/AsciiBulletPointReporterFactory.kt).
-An example of how you can make sure your code is called earlier than the tests run is given in [testSetup.kt of atrium-core-robstoll-lib](https://github.com/robstoll/atrium/tree/master/core/robstoll-lib/atrium-core-robstoll-lib-js/src/test/kotlin/testSetup.kt).
+There are more options to choose from. Take a look at the 
+[DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L121)
+to see the default configuration.
 
 # Internationalization
 

@@ -10,10 +10,9 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerSt
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
-abstract class CharSequenceContainsSpecBase : WithAsciiReporter() {
+abstract class CharSequenceContainsSpecBase {
     private val containsProp: KFunction2<Expect<String>, o, CharSequenceContains.EntryPointStep<String, NoOpSearchBehaviour>> =
         Expect<String>::contains
     protected val contains = containsProp.name

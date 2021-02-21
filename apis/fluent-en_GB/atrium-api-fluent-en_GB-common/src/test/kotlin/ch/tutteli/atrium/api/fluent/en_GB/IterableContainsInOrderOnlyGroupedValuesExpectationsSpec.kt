@@ -11,7 +11,6 @@ class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
         Companion::groupFactory,
         (functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues).withNullableSuffix(),
         Companion::nullableGroupFactory,
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {

@@ -5,9 +5,9 @@ import ch.tutteli.atrium.creating.Expect
 class IterableContainsInAnyOrderOnlyValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
         getContainsPair(),
-        getContainsNullablePair(),
-        "* ", "(/) ", "(x) ", "(!) ", "- "
+        getContainsNullablePair()
     ) {
+
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
             "$contains $filler $inAnyOrder $butOnly $inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnlyValues

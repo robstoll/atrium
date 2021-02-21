@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceExpectationsSpec(
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
@@ -20,7 +19,7 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
     fun1<CharSequence, Regex>(Expect<CharSequence>::matches),
     fun1<CharSequence, Regex>(Expect<CharSequence>::mismatches)
 ) {
-    companion object : WithAsciiReporter(){
+    companion object {
         private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe empty
         private fun notToBeEmpty(expect: Expect<CharSequence>) = expect notToBe empty
         private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe blank

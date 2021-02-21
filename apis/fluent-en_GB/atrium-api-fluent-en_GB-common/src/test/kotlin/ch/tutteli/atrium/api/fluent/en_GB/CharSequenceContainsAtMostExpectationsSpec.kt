@@ -8,8 +8,7 @@ class CharSequenceContainsAtMostExpectationsSpec :
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
         getContainsNotPair(),
-        getExactlyPair(),
-        "◆ ", "⚬ "
+        getExactlyPair()
     ) {
 
     companion object : CharSequenceContainsSpecBase() {

@@ -9,14 +9,6 @@ import ch.tutteli.atrium.specs.*
 abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
     containsInOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsInOrderOnlyNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 
@@ -48,12 +40,6 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
         t: (Expect<Double>.() -> Unit)?,
         vararg tX: (Expect<Double>.() -> Unit)?
     ) = containsInOrderOnlyNullableEntries(this, t, tX)
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.contains.exactly(1).regex(

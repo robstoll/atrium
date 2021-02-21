@@ -14,14 +14,12 @@ class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         functionDescription to C::containsValues,
         (functionDescription to C::containsNullableValues).withNullableSuffix(),
-        "◆ ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::contains),
         fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::contains),
-        "◆ ",
         "[Atrium][Shortcut] "
     )
 

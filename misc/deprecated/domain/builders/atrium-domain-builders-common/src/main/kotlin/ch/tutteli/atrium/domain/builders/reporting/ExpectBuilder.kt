@@ -3,10 +3,7 @@
 
 package ch.tutteli.atrium.domain.builders.reporting
 
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.AssertionVerbStepImpl
 import ch.tutteli.atrium.domain.builders.reporting.impl.verb.FinalStepImpl
@@ -266,7 +263,7 @@ data class ExpectOptions<T>(
             representationInsteadOfSubject,
             reporter?.let { r ->
                 ComponentFactoryContainer.createIfNotEmpty(
-                    mapOf(Reporter::class to { _ -> r }),
+                    mapOf(Reporter::class to ComponentFactory({ r }, producesSingleton = true)),
                     emptyMap()
                 )
             })

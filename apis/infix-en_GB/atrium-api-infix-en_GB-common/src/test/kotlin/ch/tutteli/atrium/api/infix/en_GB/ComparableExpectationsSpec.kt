@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class ComparableExpectationsSpec : ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
     fun1(Expect<Int>::isLessThan),
@@ -14,8 +13,6 @@ class ComparableExpectationsSpec : ch.tutteli.atrium.specs.integration.Comparabl
     fun1(Expect<Int>::isEqualComparingTo),
     fun1(Expect<DiffEqualsCompareTo>::isEqualComparingTo)
 ) {
-
-    companion object : WithAsciiReporter()
 
     @Suppress("unused")
     fun ambiguityTest() {

@@ -9,14 +9,6 @@ import ch.tutteli.atrium.specs.*
 abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
     containsInOrderOnlyValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInOrderOnlyNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -31,12 +23,6 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
 
     fun Expect<Iterable<Double?>>.containsInOrderOnlyNullableValuesFun(t: Double?, vararg tX: Double?) =
         containsInOrderOnlyNullableValues(this, t, tX)
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"

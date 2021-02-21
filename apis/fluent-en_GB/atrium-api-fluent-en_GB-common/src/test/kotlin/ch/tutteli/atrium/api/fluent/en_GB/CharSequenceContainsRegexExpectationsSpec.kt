@@ -25,7 +25,6 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
         getShortcutTripleString(),
         getAtMostTripleString(),
         getAtMostIgnoringCaseTripleString(),
-        "◆ ", "⚬ ",
         "[StringSpec] "
     )
 
@@ -36,7 +35,6 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
         getShortcutTripleRegex(),
         getAtMostTripleRegex(),
         getAtMostIgnoringCaseTripleString(),
-        "◆ ", "⚬ ",
         "[RegexSpec] "
     )
 

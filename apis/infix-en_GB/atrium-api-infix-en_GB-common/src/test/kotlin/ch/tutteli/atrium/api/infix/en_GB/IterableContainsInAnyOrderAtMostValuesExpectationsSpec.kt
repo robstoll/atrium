@@ -6,8 +6,7 @@ class IterableContainsInAnyOrderAtMostValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
         getAtMostTriple(),
         getContainsNotPair(),
-        getExactlyPair(),
-        "* "
+        getExactlyPair()
     ) {
 
     companion object : IterableContainsSpecBase() {

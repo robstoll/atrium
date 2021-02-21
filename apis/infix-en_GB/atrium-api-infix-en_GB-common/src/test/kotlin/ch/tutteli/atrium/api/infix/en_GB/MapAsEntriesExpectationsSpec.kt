@@ -5,14 +5,13 @@ import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesExpectationsSpec(
     asEntriesPair(),
     fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
 ) {
 
-    companion object : WithAsciiReporter() {
+    companion object {
         fun asEntriesPair() =
             feature1<Map<String, Int>, o, Set<Map.Entry<String, Int>>>(Expect<Map<String, Int>>::asEntries).name to ::asEntriesFeature
 
