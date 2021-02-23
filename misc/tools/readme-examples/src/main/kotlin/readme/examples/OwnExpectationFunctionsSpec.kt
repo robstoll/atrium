@@ -1,8 +1,13 @@
 package readme.examples
 
+//@formatter:off
+//snippet-mapArguments-start
+import ch.tutteli.atrium.logic.utils.mapArguments
+//snippet-mapArguments-end
+//@formatter:on
+
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.reporting.Text
 import org.spekframework.spek2.Spek
 import readme.examples.utils.expect

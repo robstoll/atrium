@@ -17,7 +17,7 @@ expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectForm
  */
 abstract class TextObjectFormatterCommon(
     private val translator: Translator
-) : ObjectFormatter {
+) : TextObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].

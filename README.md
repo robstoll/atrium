@@ -259,7 +259,7 @@ import ch.tutteli.atrium.api.verbs.expect
 val x = 10
 expect(x).toBe(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FirstExampleSpec.kt#L30)</sub> ↓ <sub>[Output](#ex-first)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FirstExampleSpec.kt#L31)</sub> ↓ <sub>[Output](#ex-first)</sub>
 <a name="ex-first"></a>
 ```text
 expected that subject: 10        (kotlin.Int <1234789>)
@@ -1180,7 +1180,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ❗❗ following elements were mismatched: 
-     ⚬ 2        (kotlin.Int <1943296756>)
+     ⚬ 2        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-4>
 <hr/>
@@ -1951,7 +1951,7 @@ and its usage:
 ```kotlin
 expect(12).isMultipleOf(5)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L34)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L39)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
 ```text
 expected that subject: 12        (kotlin.Int <1234789>)
@@ -2001,7 +2001,7 @@ Its usage looks then as follows:
 ```kotlin
 expect(13).isEven()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L45)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L50)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
 ```text
 expected that subject: 13        (kotlin.Int <1234789>)
@@ -2100,7 +2100,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasNumberOfChildren(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L62)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L67)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2134,7 +2134,7 @@ but we do not have to, as `all` already checks that there is at least one elemen
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasAdultChildren()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L77)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L82)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2176,7 +2176,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     .children // using the val -> subsequent assertions are about children and fail fast
     .hasSize(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L87)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L92)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
@@ -2203,7 +2203,7 @@ because Kotlin cannot infer the types automatically.
 <code-own-compose-6>
 
 ```kotlin
-//snippet-mapArguments-insert
+import ch.tutteli.atrium.logic.utils.mapArguments
 
 fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(
     person: Person, vararg otherPersons: Person
@@ -2334,29 +2334,48 @@ which is used internally of Atrium in tests and uses a different `AtriumErrorAdj
 
 Another example, say you prefer multi-line reporting over single-line reporting,
 then you can use `withOptions` as follows:
-```kotlin
-withOptions {
-    withComponent(TextAssertionPairFormatter::class) { c ->
-        TextAssertionPairFormatter.newNextLine(c.build(), c.build())
-    }
-}
-```
 
-The output looks then as follows:
+<code-own-expectation-verb>
+
 ```kotlin
-expect(x).toBe(9)
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.build
+
+@OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+fun <T> expect(subject: T): RootExpect<T> =
+    RootExpectBuilder.forSubject(subject)
+        .withVerb("expected the subject")
+        .withOptions {
+            withComponent(TextAssertionPairFormatter::class) { c ->
+                TextAssertionPairFormatter.newNextLine(c.build(), c.build())
+            }
+        }
+        .build()
 ```
-Would then look as follows:
+</code-own-expectation-verb>
+
+Following an example using the expectation verb
+
+<ex-own-expectation-verb>
+
+```kotlin
+expect(10).toBe(9)
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationVerbSpec.kt#L51)</sub> ↓ <sub>[Output](#ex-own-expectation-verb)</sub>
+<a name="ex-own-expectation-verb"></a>
 ```text
-expect: 
-  10        (kotlin.Int <934275857>)
-◆ to be: 
-  9        (kotlin.Int <1364913072>)
+expected the subject:
+  10        (kotlin.Int <1234789>)
+◆ equals:
+  9        (kotlin.Int <1234789>)
 ```
-instead of:
+</ex-own-expectation-verb>
+
+Compare the above output with what we would get per default:
 ```
-expect: 10        (kotlin.Int <934275857>)
-◆ to be: 9        (kotlin.Int <1364913072>)
+expected the subject: 10        (kotlin.Int <1234789>)
+◆ to be: 9        (kotlin.Int <1234789>)
 ```
 
 You prefer another reporting style but Atrium does not yet support it? 
