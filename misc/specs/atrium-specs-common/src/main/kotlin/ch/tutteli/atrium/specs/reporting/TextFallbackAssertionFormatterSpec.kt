@@ -10,6 +10,8 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -30,8 +32,10 @@ abstract class TextFallbackAssertionFormatterSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val testee = testeeFactory(
-        bulletPoints, coreFactory.newAssertionFormatterController(),
-        ToStringObjectFormatter, UsingDefaultTranslator()
+        bulletPoints,
+        DefaultAssertionFormatterController(),
+        ToStringObjectFormatter,
+        UsingDefaultTranslator()
     )
 
     val unsupportedAssertion = object : Assertion {
@@ -85,7 +89,7 @@ abstract class TextFallbackAssertionFormatterSpec(
 
     describeFun(testee::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
-            val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
+            val facade = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
             facade.register {
                 testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator())
             }

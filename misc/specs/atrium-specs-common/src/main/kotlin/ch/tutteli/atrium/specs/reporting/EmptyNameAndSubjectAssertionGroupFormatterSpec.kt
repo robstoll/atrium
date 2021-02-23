@@ -10,6 +10,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.specs.describeFunTemplate
 import org.spekframework.spek2.Spek
@@ -27,7 +28,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val testee = testeeFactory(coreFactory.newAssertionFormatterController())
+    val testee = testeeFactory(DefaultAssertionFormatterController())
 
     var sb = StringBuilder()
     afterEachTest {

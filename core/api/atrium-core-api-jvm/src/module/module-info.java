@@ -12,6 +12,7 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.creating;
     exports ch.tutteli.atrium.reporting;
     exports ch.tutteli.atrium.reporting.erroradjusters;
+    exports ch.tutteli.atrium.reporting.text;
     exports ch.tutteli.atrium.reporting.translating;
 
     // TODO 0.17.0 or 0.18.0 remove once DefaultComponentFactoryContainer is internal

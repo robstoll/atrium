@@ -1,3 +1,5 @@
+//TODO remove with 0.17.0
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,6 +15,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *
  * @see AssertionFormatterController
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 class AssertionFormatterControllerImpl : AssertionFormatterController {
     private val assertionFormatters = mutableListOf<AssertionFormatter>()
 

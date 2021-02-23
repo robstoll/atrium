@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.domain.builders.reporting.impl.ReporterBuilderImpl
@@ -19,6 +22,7 @@ val reporterBuilder: ReporterBuilder = ReporterBuilderImpl
  * Provides options to create a [Translator] or [TranslationSupplier] -- the platform specific
  * interface might provide further options.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 expect interface ReporterBuilder : ReporterBuilderCommon {
     companion object {
         fun create(): ReporterBuilder
@@ -29,6 +33,7 @@ expect interface ReporterBuilder : ReporterBuilderCommon {
  * Provides options to create a [Translator] or [TranslationSupplier] -- those options
  * have to be provided on all platforms.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 interface ReporterBuilderCommon {
 
     /**

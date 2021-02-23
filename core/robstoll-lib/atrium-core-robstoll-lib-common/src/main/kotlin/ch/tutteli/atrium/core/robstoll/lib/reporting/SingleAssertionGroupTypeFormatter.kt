@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -21,6 +24,7 @@ import kotlin.reflect.KClass
  *   [AssertionGroup]s of one specific [AssertionGroupType].
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
     private val clazz: KClass<T>
 ) : AssertionFormatter {

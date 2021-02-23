@@ -1,6 +1,7 @@
+//TODO remove file with 0.17.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE", "DEPRECATION"
 )
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
@@ -35,6 +36,7 @@ import java.util.*
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
+@Deprecated("Will be removed with 0.17.0")
 internal class ResourceBundleBasedTranslator(
     primaryLocale: Locale,
     fallbackLocales: List<Locale>

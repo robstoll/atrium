@@ -35,16 +35,13 @@ fun <T> _collectForComposition(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): List<Assertion> = collectAssertions(maybeSubject, assertionCreatorOrNull)
 
-//TODO 0.16.0: better replace by silentToBeNullIfNullGiven?
 private fun <T> collectAssertions(
     maybeSubject: Option<T>,
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): List<Assertion> {
-    //TODO 0.16.0: almost same as in _containsKeyWithNullableValueAssertions
     return if (assertionCreatorOrNull != null) {
         @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
         @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-        //TODO 0.16.0 don't use DefaultComponentFactoryContainer but the one from the container
         CollectingExpect(maybeSubject, DefaultComponentFactoryContainer)
             .addAssertionsCreatedBy(assertionCreatorOrNull)
             .getAssertions()

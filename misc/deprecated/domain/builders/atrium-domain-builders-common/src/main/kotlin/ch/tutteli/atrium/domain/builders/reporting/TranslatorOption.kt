@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
@@ -6,11 +9,13 @@ import ch.tutteli.atrium.reporting.translating.*
 /**
  * Provides options to create a [Translator] -- the platform specific interface might provide further options.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 expect interface TranslatorOption : TranslatorOptionCommon
 
 /**
  * Provides options to create a [Translator] -- those options have to be provided on all platforms.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 interface TranslatorOptionCommon {
 
     /**

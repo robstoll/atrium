@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -23,6 +26,7 @@ import kotlin.reflect.KClass
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(
     bulletPoint: String,
     assertionFormatterController: AssertionFormatterController,

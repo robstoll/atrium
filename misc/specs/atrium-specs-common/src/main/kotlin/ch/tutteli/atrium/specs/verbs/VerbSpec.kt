@@ -5,12 +5,9 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.logic.creating.RootExpectOptions
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.specs.toBeDescr
@@ -181,23 +178,5 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
 private fun <R> assert(act: () -> R): Expect<() -> R> =
     RootExpectBuilder.forSubject(act)
         .withVerb(AssertionVerb.EXPECT_THROWN)
-        .withOptions {
-            //TODO we only use the default components here, I guess once we get rid of reporter we can get rid of this as well
-            withComponent(Reporter::class) { _ -> AtriumReporterSupplier.REPORTER }
-        }
+        .withoutOptions()
         .build()
-
-private object AtriumReporterSupplier {
-    val REPORTER by lazy {
-        ReporterBuilder.create()
-            .withoutTranslationsUseDefaultLocale()
-            .withDetailedObjectFormatter()
-            .withDefaultAssertionFormatterController()
-            .withDefaultAssertionFormatterFacade()
-            .withTextSameLineAssertionPairFormatter()
-            .withTextCapabilities()
-            .withDefaultAtriumErrorAdjusters()
-            .withOnlyFailureReporter()
-            .build()
-    }
-}

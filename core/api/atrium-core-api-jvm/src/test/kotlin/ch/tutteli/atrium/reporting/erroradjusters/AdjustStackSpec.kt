@@ -46,7 +46,7 @@ class AdjustStackSpec : Spek({
 
     mapOf<String, Triple<(ComponentFactoryContainer) -> AtriumErrorAdjuster, List<String>, List<String>>>(
         "remove test runner adjuster" to Triple(
-            { c -> c.build<RemoveRunnerAtriumError>() },
+            { c -> c.build<RemoveRunnerFromAtriumError>() },
             listOf("org.spekframework.spek2", "kotlin.coroutines", "kotlinx.coroutines"),
             listOf("ch.tutteli.atrium")
         ),
@@ -135,7 +135,7 @@ class AdjustStackSpec : Spek({
         "combine remove runner adjuster and remove atrium adjuster" to
             { c ->
                 MultiAtriumErrorAdjuster(
-                    c.build<RemoveRunnerAtriumError>(),
+                    c.build<RemoveRunnerFromAtriumError>(),
                     c.build<RemoveAtriumFromAtriumError>(),
                     listOf()
                 )
@@ -144,7 +144,7 @@ class AdjustStackSpec : Spek({
             { c ->
                 MultiAtriumErrorAdjuster(
                     c.build<RemoveAtriumFromAtriumError>(),
-                    c.build<RemoveRunnerAtriumError>(),
+                    c.build<RemoveRunnerFromAtriumError>(),
                     listOf()
                 )
             },
@@ -153,17 +153,17 @@ class AdjustStackSpec : Spek({
                 MultiAtriumErrorAdjuster(
                     NoOpAtriumErrorAdjuster,
                     c.build<RemoveAtriumFromAtriumError>(),
-                    listOf(c.build<RemoveRunnerAtriumError>())
+                    listOf(c.build<RemoveRunnerFromAtriumError>())
                 )
             },
         "combine remove atrium adjuster, remove runner adjuster and noop adjuster several times" to
             { c ->
                 MultiAtriumErrorAdjuster(
                     c.build<RemoveAtriumFromAtriumError>(),
-                    c.build<RemoveRunnerAtriumError>(),
+                    c.build<RemoveRunnerFromAtriumError>(),
                     listOf(
                         NoOpAtriumErrorAdjuster,
-                        c.build<RemoveRunnerAtriumError>(),
+                        c.build<RemoveRunnerFromAtriumError>(),
                         NoOpAtriumErrorAdjuster
                     )
                 )
@@ -208,7 +208,5 @@ private fun <T : Any> createExpect(subject: T, factory: (ComponentFactoryContain
         .withVerb(AssertionVerb.EXPECT)
         .withOptions {
             withComponent(AtriumErrorAdjuster::class, factory)
-            //TODO 0.16.0 should not be necessary once CollectingExpect also uses ComponentFactoryContainer
-            withComponent(Reporter::class) { c -> DelegatingReporter(reporter, factory(c))}
         }
         .build()

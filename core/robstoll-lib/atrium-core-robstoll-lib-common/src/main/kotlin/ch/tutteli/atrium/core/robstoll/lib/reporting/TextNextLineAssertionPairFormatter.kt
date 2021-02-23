@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -22,6 +25,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
  * @param objectFormatter Used to format objects such as [DescriptiveAssertion.representation].
  * @param translator Used to translate [Translatable]s such as [DescriptiveAssertion.description].
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 class TextNextLineAssertionPairFormatter(
     private val objectFormatter: ObjectFormatter,
     private val translator: Translator

@@ -7,12 +7,12 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 
 /**
- * Appends the [Assertion] the given [factory] creates based on this [Expect].
+ * Appends the [Assertion] the given [assertionCreator] creates based on this [Expect].
  *
  * Use [_logic] for more sophisticated scenarios, like feature extraction.
  */
-inline fun <T> Expect<T>._logicAppend(factory: AssertionContainer<T>.() -> Assertion): Expect<T> =
-    addAssertion(_logic.factory())
+inline fun <T> Expect<T>._logicAppend(assertionCreator: AssertionContainer<T>.() -> Assertion): Expect<T> =
+    addAssertion(_logic.assertionCreator())
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

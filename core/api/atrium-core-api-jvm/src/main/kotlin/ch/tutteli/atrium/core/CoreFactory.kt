@@ -26,6 +26,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      *
      * @return The newly created translation supplier.
      */
+    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     @Deprecated(

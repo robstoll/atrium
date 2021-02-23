@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.*
@@ -35,6 +38,7 @@ import kotlin.reflect.KClass
  * @param assertionPairFormatter The formatter which is used to format assertion pairs
  *   (e.g. [DescriptiveAssertion.description] and [DescriptiveAssertion.representation])
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     private val assertionFormatterController: AssertionFormatterController,

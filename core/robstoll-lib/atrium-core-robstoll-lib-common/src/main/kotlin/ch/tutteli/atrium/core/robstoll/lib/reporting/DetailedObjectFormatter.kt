@@ -1,3 +1,5 @@
+//TODO remove with 0.17.0
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
@@ -6,6 +8,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 expect class DetailedObjectFormatter(translator: Translator) : ObjectFormatter
 
 /**
@@ -14,6 +17,7 @@ expect class DetailedObjectFormatter(translator: Translator) : ObjectFormatter
  * It cannot format Java's `Class`, this has to be done in the JVM module. Moreover it requires a platform specific
  * implementation of [identityHash] and [format] a [KClass].
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 abstract class DetailedObjectFormatterCommon(
     private val translator: Translator
 ) : ObjectFormatter {

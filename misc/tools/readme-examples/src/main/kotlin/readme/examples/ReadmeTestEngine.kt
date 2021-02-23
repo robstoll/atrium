@@ -1,6 +1,5 @@
 package readme.examples
 
-import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.niok.absolutePathAsString
 import ch.tutteli.niok.exists
 import ch.tutteli.niok.readText
@@ -13,7 +12,16 @@ import org.spekframework.spek2.junit.SpekTestEngine
 import org.spekframework.spek2.runtime.SpekRuntime
 import org.spekframework.spek2.runtime.execution.ExecutionRequest
 import java.nio.file.Paths
-import java.util.Locale
+import java.util.*
+import kotlin.collections.HashSet
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.filterIsInstance
+import kotlin.collections.forEach
+import kotlin.collections.isNotEmpty
+import kotlin.collections.map
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
 import org.junit.platform.engine.ExecutionRequest as JUnitExecutionRequest
 
 class ReadmeTestEngine : TestEngine {
@@ -38,11 +46,9 @@ class ReadmeTestEngine : TestEngine {
         try {
             Locale.setDefault(Locale.UK)
 
-            ReporterFactory.specifyFactory(ReadmeReporterFactory.ID)
+            val classes = runSpekWithCustomListener(request)
 
-            runSpekWithCustomListener(request)
-
-            processExamples(request)
+            processExamples(classes, request)
         } catch (t: Throwable) {
             t.printStackTrace()
             Locale.setDefault(default)
@@ -51,9 +57,14 @@ class ReadmeTestEngine : TestEngine {
         }
     }
 
-    private fun processExamples(request: JUnitExecutionRequest) {
-        val specContent = fileContent("src/main/kotlin/readme/examples/ReadmeSpec.kt", request)
-        extractSnippets(specContent, request)
+    private fun processExamples(classes: List<String>, request: JUnitExecutionRequest) {
+
+        val specContents = classes.map { qualifiedClass ->
+            qualifiedClass to fileContent("src/main/kotlin/$qualifiedClass.kt", request)
+        }
+        specContents.forEach { (_, specContent) ->
+            extractSnippets(specContent, request)
+        }
 
         var readmeContent = fileContent(readmeStringPath, request)
 
@@ -71,12 +82,12 @@ class ReadmeTestEngine : TestEngine {
         }
 
         examples.forEach { (exampleId, output) ->
-            readmeContent = updateExampleLikeInReadme(readmeContent, specContent, exampleId, output, request)
+            readmeContent = updateExampleLikeInReadme(readmeContent, specContents, exampleId, output, request)
         }
         code.forEach { codeId ->
-            readmeContent = updateCodeInReadme(readmeContent, specContent, codeId, request)
+            readmeContent = updateCodeInReadme(readmeContent, specContents, codeId, request)
         }
-        snippets.forEach { snippetId, snippetContent ->
+        snippets.forEach { (snippetId, snippetContent) ->
             readmeContent = updateSnippetInReadme(readmeContent, snippetId, snippetContent, request)
         }
         Paths.get(readmeStringPath).writeText(readmeContent)
@@ -90,7 +101,7 @@ class ReadmeTestEngine : TestEngine {
         }
     }
 
-    private fun runSpekWithCustomListener(request: JUnitExecutionRequest) {
+    private fun runSpekWithCustomListener(request: JUnitExecutionRequest) : List<String> {
         val roots = request.rootTestDescriptor.children
             .filterIsInstance<SpekTestDescriptor>()
             .map(SpekTestDescriptor::scope)
@@ -102,6 +113,7 @@ class ReadmeTestEngine : TestEngine {
         )
         val executionRequest = ExecutionRequest(roots, executionListener)
         SpekRuntime().execute(executionRequest)
+        return roots.map { it.path.toString() }
     }
 
     private fun fileContent(path: String, request: JUnitExecutionRequest): String {
@@ -125,15 +137,15 @@ class ReadmeTestEngine : TestEngine {
 
     private fun updateExampleLikeInReadme(
         readmeContent: String,
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         exampleId: String,
         output: String,
         request: JUnitExecutionRequest
     ): String = when {
-        exampleId.startsWith("ex-") -> updateExampleInReadme(readmeContent, specContent, exampleId, output, request)
-        exampleId.startsWith("exs-") -> updateSplitExampleInReadme(
-            readmeContent, specContent, exampleId, output, request
-        )
+        exampleId.startsWith("ex-") ->
+            updateExampleInReadme(readmeContent, specContents, exampleId, output, request)
+        exampleId.startsWith("exs-") ->
+            updateSplitExampleInReadme(readmeContent, specContents, exampleId, output, request)
         else -> {
             request.fail("unknown example kind $exampleId")
             readmeContent
@@ -142,15 +154,15 @@ class ReadmeTestEngine : TestEngine {
 
     private fun updateExampleInReadme(
         readmeContent: String,
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         exampleId: String,
         output: String,
         request: JUnitExecutionRequest
-    ): String = updateTagInReadme(readmeContent, specContent, exampleId, request, "example") { lineNumber, sourceCode ->
+    ): String = updateTagInReadme(readmeContent, specContents, exampleId, request, "example") { qualifiedClass, lineNumber, sourceCode ->
         """```kotlin
         |$sourceCode
         |```
-        |↑ <sub>[Example](https://github.com/robstoll/atrium/${System.getenv("README_SOURCETREE")}/misc/tools/readme-examples/src/main/kotlin/readme/examples/ReadmeSpec.kt#L$lineNumber)</sub> ↓ <sub>[Output](#$exampleId)</sub>
+        |↑ <sub>[Example](https://github.com/robstoll/atrium/${System.getenv("README_SOURCETREE")}/misc/tools/readme-examples/src/main/kotlin/$qualifiedClass.kt#L$lineNumber)</sub> ↓ <sub>[Output](#$exampleId)</sub>
         |<a name="$exampleId"></a>
         |```text
         |$output
@@ -161,14 +173,14 @@ class ReadmeTestEngine : TestEngine {
 
     private fun updateSplitExampleInReadme(
         readmeContent: String,
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         exampleId: String,
         output: String,
         request: JUnitExecutionRequest
     ): String {
         val updatedReadme = updateTagInReadme(
-            readmeContent, specContent, exampleId, request, "ex-code"
-        ) { _, sourceCode ->
+            readmeContent, specContents, exampleId, request, "ex-code"
+        ) { _, _, sourceCode ->
             """```kotlin
             |$sourceCode
             |```""".trimMargin()
@@ -183,14 +195,14 @@ class ReadmeTestEngine : TestEngine {
 
     private fun updateTagInReadme(
         readmeContent: String,
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         tag: String,
         request: org.junit.platform.engine.ExecutionRequest,
         kind: String,
-        content: (Int, String) -> String
+        content: (String, Int, String) -> String
     ): String = updateTagInReadme(readmeContent, tag, request, kind) {
-        val (lineNumber, sourceCode) = extractSourceCode(specContent, tag, request)
-        content(lineNumber, sourceCode)
+        val (qualifiedClass, lineNumber, sourceCode) = extractSourceCode(specContents, tag, request)
+        content(qualifiedClass, lineNumber, sourceCode)
     }
 
     private fun updateTagInReadme(
@@ -216,33 +228,34 @@ class ReadmeTestEngine : TestEngine {
     }
 
     private fun extractSourceCode(
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         testId: String,
         request: JUnitExecutionRequest
-    ): Pair<Int, String> {
+    ): Triple<String, Int, String> {
         var lineNumber: Int? = null
         val sb = StringBuilder()
 
-        specContent.lineSequence().forEachIndexed { index, line ->
-            if (lineNumber != null) {
-                if (line.startsWith("    }")) return lineNumber!! to sb.toString().trimIndent()
-                sb.append(line).append("\n")
+        specContents.forEach { (qualifiedClass, specContent) ->
+            specContent.lineSequence().forEachIndexed { index, line ->
+                if (lineNumber != null) {
+                    if (line.startsWith("    }")) return Triple(qualifiedClass, lineNumber!!, sb.toString().trimIndent())
+                    sb.append(line).append("\n")
 
-            } else if (line.trim().startsWith("test(\"$testId\")")) {
-                lineNumber = index + 1
+                } else if (line.trim().startsWith("test(\"$testId\")")) {
+                    lineNumber = index + 1
+                }
             }
-
         }
         request.fail("cannot find source code for $testId")
-        return -1 to ""
+        return Triple("", -1, "")
     }
 
     private fun updateCodeInReadme(
         readmeContent: String,
-        specContent: String,
+        specContents: List<Pair<String, String>>,
         snippetId: String,
         request: org.junit.platform.engine.ExecutionRequest
-    ): String = updateTagInReadme(readmeContent, specContent, snippetId, request, "code") { _, sourceCode ->
+    ): String = updateTagInReadme(readmeContent, specContents, snippetId, request, "code") { _, _, sourceCode ->
 
         """```kotlin
         |$sourceCode

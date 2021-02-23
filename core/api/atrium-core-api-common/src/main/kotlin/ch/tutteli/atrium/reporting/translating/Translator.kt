@@ -10,7 +10,7 @@ package ch.tutteli.atrium.reporting.translating
  * However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
  * for one of the candidate [Locale]s, then instead of falling back to `java.util.Locale.getDefault`
  * (as `ResourceBundle` would do per default), one shall be able to specify fallback [Locale]s oneself --
- * whether this includes `java.util.Locale.getDefault`or not  on a JVM platform is up to the user of Atrium.
+ * whether this includes `java.util.Locale.getDefault`or not on the JVM platform is up to the user of Atrium.
  * Moreover, the fallback even applies if a properties file for one of the candidate [Locale]s is specified but does
  * not contain the property which we are looking for (`ResourceBundle` would throw a [MissingResourceException](https://docs.oracle.com/javase/8/docs/api/java/util/MissingResourceException.html) in
  * such a case).

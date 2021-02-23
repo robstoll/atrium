@@ -1,3 +1,6 @@
+//TODO remove with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.infix.en_GB.*

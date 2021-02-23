@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.reporting.MethodCallFormatter
@@ -11,6 +14,7 @@ import ch.tutteli.atrium.reporting.Text
  * - [CharSequence], is wrapped in quotes (`"`) and \r as well as \n are escaped.
  * - [Char] is wrapped in apostrophes (`'`)
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 object TextMethodCallFormatter : MethodCallFormatter {
     override fun formatCall(methodName: String, arguments: Array<out Any?>): String =
         arguments.joinToString(", ", prefix = "$methodName(", postfix = ")") { formatArgument(it) }

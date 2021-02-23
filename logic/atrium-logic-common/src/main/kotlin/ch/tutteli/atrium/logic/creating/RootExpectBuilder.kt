@@ -143,10 +143,16 @@ interface RootExpectBuilder {
         @ExperimentalComponentFactoryContainer
         fun <I : Any> withComponent(kClass: KClass<I>, factory: (ComponentFactoryContainer) -> I)
 
-        //TODO 0.16.0 maybe we should change the name to prependChainedComponents
-        // because we also use the once we defined so far?
+        /**
+         * Expects a factory which creates the component of type [I] which is used instead of the currently specified
+         * factory.
+         */
         @ExperimentalComponentFactoryContainer
-        fun <I : Any> withChainedComponents(kClass: KClass<I>, factories: Sequence<(ComponentFactoryContainer) -> I>)
+        fun <I : Any> withSingletonComponent(kClass: KClass<I>, factory: (ComponentFactoryContainer) -> I)
+
+
+        @ExperimentalComponentFactoryContainer
+        fun <I : Any> prependChainedComponents(kClass: KClass<I>, factories: Sequence<ComponentFactory>)
 
         companion object {
             @ExperimentalNewExpectTypes

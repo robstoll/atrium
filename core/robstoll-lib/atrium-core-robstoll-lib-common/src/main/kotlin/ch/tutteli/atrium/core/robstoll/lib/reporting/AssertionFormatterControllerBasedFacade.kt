@@ -1,3 +1,5 @@
+//TODO remove with 0.17.0
+
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -14,6 +16,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *   so by delegating this responsibility to the given [assertionFormatterController].
  * @param assertionFormatterController The controller used to control the flow of formatting.
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 class AssertionFormatterControllerBasedFacade(private val assertionFormatterController: AssertionFormatterController) :
     AssertionFormatterFacade {
 

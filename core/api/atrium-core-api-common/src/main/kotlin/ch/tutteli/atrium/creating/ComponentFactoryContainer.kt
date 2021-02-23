@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import kotlin.reflect.KClass
@@ -19,40 +18,29 @@ interface ComponentFactoryContainer {
      * Returns the component of type [I] using a corresponding factory or `null` in case no factory was found
      * which is able to build a component of the given type.
      *
-     * Delegates to [getFactoryOrNull] per default and applies a cast to the result (if not null)
-     * to the specified [kClass].
-     *
-     * @throws ClassCastException in case
+     * @throws ClassCastException in case the factory returns an illegal type.
      */
-    fun <I : Any> buildOrNull(kClass: KClass<I>): I? =
-        getFactoryOrNull(kClass)?.let { factory -> safeBuild(factory, kClass) }
+    fun <I : Any> buildOrNull(kClass: KClass<I>): I?
 
     /**
-     * Returns a chain of components of type [I] using a corresponding factory or `null` in case no factory was found
-     * which is able to build a chain of components of the given type.
+     * Returns a chain of components of type [I] using a corresponding chain of factories or `null`
+     * in case no chain was found which is able to build a chain of components of the given type.
      *
-     * Delegates to [getFactoryForChainedOrNull] per default and applies a cast to the result (if not null)
-     * to the specified [kClass].
+     * @throws ClassCastException in case one of factories returns an illegal type.
      */
-    fun <I : Any> buildChainedOrNull(kClass: KClass<I>): Sequence<I>? =
-        getFactoryForChainedOrNull(kClass)?.map { factory -> safeBuild(factory, kClass) }
-
-    private fun <I : Any> safeBuild(factory: (ComponentFactoryContainer) -> Any, kClass: KClass<I>): I {
-        val component = factory(this)
-        return kClass.cast(component)
-    }
+    fun <I : Any> buildChainedOrNull(kClass: KClass<I>): Sequence<I>?
 
     /**
      * Returns a factory which is able to build a component for the given [kClass]
      * or `null` in case no factory was found which is able to build a component of the given type.
      */
-    fun getFactoryOrNull(kClass: KClass<*>): ((ComponentFactoryContainer) -> Any)?
+    fun getFactoryOrNull(kClass: KClass<*>): ComponentFactory?
 
     /**
-     * Returns a factory which is able to build a chain of components of the specified [kClass]
-     * or `null` in case no factory was found which is able to build a chain of components of the given type.
+     * Returns a chain of factories which shall build a chain of components of the specified [kClass]
+     * or `null` in case no chain was found which is able to build a chain of components of the given type.
      */
-    fun getFactoryForChainedOrNull(kClass: KClass<*>): (Sequence<(ComponentFactoryContainer) -> Any>)?
+    fun getFactoryForChainedOrNull(kClass: KClass<*>): Sequence<ComponentFactory>?
 
 
     /**
@@ -67,10 +55,9 @@ interface ComponentFactoryContainer {
     fun merge(componentFactoryContainer: ComponentFactoryContainer?): ComponentFactoryContainer
 
     companion object {
-        // should create an immutable ComponentContainer in one go
         fun createIfNotEmpty(
-            components: Map<out KClass<*>, (ComponentFactoryContainer) -> Any>,
-            chainedComponents: Map<out KClass<*>, Sequence<(ComponentFactoryContainer) -> Any>>
+            components: Map<KClass<*>, ComponentFactory>,
+            chainedComponents: Map<KClass<*>, Sequence<ComponentFactory>>
         ): ComponentFactoryContainer? =
             if (components.isEmpty() && chainedComponents.isEmpty()) null
             else ComponentFactoryContainerImpl(
@@ -82,11 +69,19 @@ interface ComponentFactoryContainer {
 }
 
 /**
+ * Provides a [build] lambda which produces the component and specifies via [producesSingleton] whether this
+ * component should be treated as singleton or not.
+ */
+@ExperimentalComponentFactoryContainer
+data class ComponentFactory(val build: (ComponentFactoryContainer) -> Any, val producesSingleton: Boolean)
+
+/**
  * Returns the component of type [I] using a corresponding factory or throws an [IllegalStateException]
  * in case no factory was found which is able to build a component of the given type.
  *
  * @throws IllegalStateException in case [ComponentFactoryContainer.buildOrNull] returns `null`
  *   because not suitable factory was found.
+ * @throws ClassCastException in case the factory returns an illegal type.
  */
 @ExperimentalComponentFactoryContainer
 inline fun <reified I : Any> ComponentFactoryContainer.build(): I = buildOrNull(I::class)
@@ -99,6 +94,7 @@ inline fun <reified I : Any> ComponentFactoryContainer.build(): I = buildOrNull(
 
  * @throws IllegalStateException in case [ComponentFactoryContainer.buildChainedOrNull] returns `null`
  *   because no suitable factory was found.
+ * @throws ClassCastException in case one of factories returns an illegal type.
  */
 @ExperimentalComponentFactoryContainer
 inline fun <reified I : Any> ComponentFactoryContainer.buildChained(): Sequence<I> = buildChainedOrNull(I::class)

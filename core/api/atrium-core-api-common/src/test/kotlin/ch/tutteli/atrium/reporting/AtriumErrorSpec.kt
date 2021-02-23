@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.feature
+import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import org.spekframework.spek2.Spek
