@@ -14,8 +14,6 @@ abstract class CharSequenceContainsRegexExpectationsSpec(
     containsShortcutPair: Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>>,
     containsAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     containsAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -59,7 +57,6 @@ abstract class CharSequenceContainsRegexExpectationsSpec(
     fun Expect<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
         containsAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
 
     describeFun(containsRegex) {

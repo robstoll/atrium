@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
     "toBe ${empty::class.simpleName}" to Companion::isEmpty,
@@ -10,7 +9,7 @@ class CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.Collectio
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
     fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
 ) {
-    companion object : WithAsciiReporter() {
+    companion object {
         private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe empty
         private fun isNotEmpty(expect: Expect<Collection<Int>>) = expect notToBe empty
 

@@ -6,8 +6,7 @@ class CharSequenceContainsExactlyExpectationsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceContainsExactlyExpectationsSpec(
         getExactlyTriple(),
         getExactlyIgnoringCaseTriple(),
-        getContainsNotPair(),
-        "* ", "- "
+        getContainsNotPair()
     ) {
 
     companion object : CharSequenceContainsSpecBase() {

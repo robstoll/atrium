@@ -1,7 +1,9 @@
+//TODO remove file with 0.17.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE", "DEPRECATION"
 )
+
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
@@ -20,6 +22,7 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
  * An entry in such a file would look like the following:
  * `ch.tutteli.atrium.DescriptionAnyAssertion-TO_BE = a translation for TO_BE`
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 class PropertiesPerLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<Locale>() {
 
     override fun get(translatable: Translatable, locale: Locale): String? {

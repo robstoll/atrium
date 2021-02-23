@@ -11,9 +11,8 @@ class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
-          functionDescription to C::containsElementsOf,
-        (functionDescription to C::containsElementsOfNullable).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "
+        functionDescription to C::containsElementsOf,
+        (functionDescription to C::containsElementsOfNullable).withNullableSuffix()
     )
 
     object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(

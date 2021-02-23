@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.jvm.JvmName
 
 class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsSpec(
@@ -21,7 +20,7 @@ class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsS
     property<Map<out String, Int>, Collection<Int>>(Expect<Map<out String, Int>>::values),
     fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<out String, Int>>::values)
 ) {
-    companion object : WithAsciiReporter() {
+    companion object {
         private fun containsKey(expect: Expect<Map<out String, *>>, key: String) =
             expect containsKey key
 
@@ -147,5 +146,5 @@ class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsS
         nullableKeyValueMap = nullableKeyValueMap getExisting key(1) { }
         readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap getExisting key(1f) { }
         starMap = starMap getExisting key(1) { }
-     }
+    }
 }

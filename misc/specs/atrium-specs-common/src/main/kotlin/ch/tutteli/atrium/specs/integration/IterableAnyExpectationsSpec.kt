@@ -9,7 +9,6 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 abstract class IterableAnyExpectationsSpec(
     any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     anyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
-    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 

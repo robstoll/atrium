@@ -13,7 +13,6 @@ class MapContainsInOrderOnlyKeyValueExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValueExpectationsSpec(
         containsKeyValue_s to C::containsKeyValues,
         (containsKeyValue_s to C::containsKeyValuesNullable).withNullableSuffix(),
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 

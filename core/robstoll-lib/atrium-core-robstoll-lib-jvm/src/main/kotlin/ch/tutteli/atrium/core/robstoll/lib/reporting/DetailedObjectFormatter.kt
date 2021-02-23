@@ -1,6 +1,7 @@
+//TODO remove file with 0.17.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE", "DEPRECATION"
 )
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting
@@ -10,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 abstract class AbstractDetailedObjectFormatter(
     private val translator: Translator
 ) : DetailedObjectFormatterCommon(translator) {
@@ -72,6 +74,7 @@ abstract class AbstractDetailedObjectFormatter(
  *   (in most cases).
  * @param translator The [Translator] used to translate [Translatable]s.
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 actual class DetailedObjectFormatter actual constructor(
     private val translator: Translator
 ) : AbstractDetailedObjectFormatter(translator), ObjectFormatter

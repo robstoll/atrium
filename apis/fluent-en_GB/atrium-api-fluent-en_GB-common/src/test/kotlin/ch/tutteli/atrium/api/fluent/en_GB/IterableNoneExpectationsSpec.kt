@@ -14,7 +14,6 @@ class IterableNoneExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::none),
         fun1(Expect<Iterable<Double?>>::none).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Predicate] "
     )
 
@@ -23,7 +22,6 @@ class IterableNoneExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         functionDescription to C::containsNotFun,
         (functionDescription to C::containsNotNullableFun).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 

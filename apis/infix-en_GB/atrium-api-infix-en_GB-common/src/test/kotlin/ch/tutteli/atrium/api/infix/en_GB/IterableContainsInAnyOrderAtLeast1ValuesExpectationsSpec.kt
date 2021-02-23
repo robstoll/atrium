@@ -11,14 +11,12 @@ class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair(),
-        "* ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
-        "* ",
         "[Atrium][Shortcut] "
     )
 

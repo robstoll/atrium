@@ -17,8 +17,6 @@ abstract class Fun0ExpectationsJvmSpec(
     toThrow: Feature1<out () -> Any?, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     notToThrowFeature: Feature0<() -> Int, Int>,
     notToThrow: Feature1<() -> Int, Expect<Int>.() -> Unit, Int>,
-    listBulletPoint: String,
-    explanationBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -40,8 +38,8 @@ abstract class Fun0ExpectationsJvmSpec(
     val errMessage = "oho... error occurred"
 
     fun messageAndStackTrace(message: String) =
-        "\\s+\\Q$explanationBulletPoint\\E$messageDescr: \"$message\".*$separator" +
-            "\\s+\\Q$explanationBulletPoint\\E$stackTraceDescr: $separator" +
+        "\\s+\\Q$explanatoryBulletPoint\\E$messageDescr: \"$message\".*$separator" +
+            "\\s+\\Q$explanatoryBulletPoint\\E$stackTraceDescr: $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0ExpectationsJvmSpec::class.fullName}"
 
     describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
@@ -57,9 +55,9 @@ abstract class Fun0ExpectationsJvmSpec(
                 message {
                     containsRegex(
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
+                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
                             messageAndStackTrace("not good"),
-                        "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
+                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
                             messageAndStackTrace(errMessage)
                     )
                 }
@@ -100,9 +98,9 @@ abstract class Fun0ExpectationsJvmSpec(
                     message {
                         containsRegex(
                             UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                            "\\s+\\Q$explanationBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
+                            "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
                                 messageAndStackTrace("io"),
-                            "\\s+\\Q$explanationBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
+                            "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
                                 messageAndStackTrace(errMessage)
                         )
 

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableExpectationsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
@@ -12,7 +11,7 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
     "cause" to Companion::cause
 ) {
 
-    companion object : WithAsciiReporter() {
+    companion object {
 
         private fun messageContains(
             expect: Expect<Throwable>,

@@ -17,7 +17,7 @@ import ch.tutteli.atrium.creating.Expect
  * It loads the implementation lazily via [loadSingleService].
  */
 @Deprecated(
-    "Use assertionCollector from atrium-logic; will be removed with 0.17.0",
+    "Use one of the utility functions: collectBasedOnSubject/collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0",
     ReplaceWith("container.assertionCollector", "ch.tutteli.atrium.logic.creating.collectors.assertionCollector")
 )
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
@@ -25,7 +25,7 @@ val assertionCollector: AssertionCollector by lazy { loadSingleService(Assertion
 /**
  * Responsible to collect assertions made in an `assertionCreator`-lambda.
  */
-@Deprecated("Use utility function collectBasedOnSubject/collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0")
+@Deprecated("Use one of the utility functions: collectBasedOnSubject/collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0")
 interface AssertionCollector {
 
     /**

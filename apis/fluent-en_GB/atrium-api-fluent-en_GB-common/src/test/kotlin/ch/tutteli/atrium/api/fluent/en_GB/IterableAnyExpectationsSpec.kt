@@ -18,14 +18,12 @@ class IterableAnyExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         fun1(Expect<Iterable<Double>>::any),
         fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
-        "◆ ",
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         functionDescription to C::containsEntry,
         (functionDescription to C::containsNullableEntry).withNullableSuffix(),
-        "◆ ",
         "[Atrium][Builder] "
     )
 
@@ -34,7 +32,6 @@ class IterableAnyExpectationsSpec : Spek({
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         shortcutDescription to C::containsEntryShortcut,
         (shortcutDescription to C::containsNullableEntryShortcut).withNullableSuffix(),
-        "◆ ",
         "[Atrium][Shortcut] "
     )
 
@@ -42,7 +39,6 @@ class IterableAnyExpectationsSpec : Spek({
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
         getContainsSequencePair(),
         getContainsNullableSequencePair().withNullableSuffix(),
-        "◆ ",
         "[Atrium][Sequence] "
     )
 

@@ -17,6 +17,7 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 import kotlin.test.Test
 
+@Deprecated("will be removed with 0.17.0")
 class AdjustStackTest {
 
     @Test

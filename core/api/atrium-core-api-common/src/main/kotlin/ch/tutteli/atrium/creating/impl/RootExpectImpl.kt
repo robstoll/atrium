@@ -38,7 +38,14 @@ internal class RootExpectImpl<T>(
     constructor(previous: RootExpectImpl<T>, options: RootExpectOptions<T>) : this(
         previous.maybeSubject,
         previous.expectationVerb,
-        options
+        options.copy(
+            representationInsteadOfSubject = options.representationInsteadOfSubject
+                ?: previous.representation?.let { r ->
+                    val provider: (T) -> Any = { _ -> r }
+                    provider
+                },
+            componentFactoryContainer = previous.components.merge(options.componentFactoryContainer)
+        )
     )
 
     /**

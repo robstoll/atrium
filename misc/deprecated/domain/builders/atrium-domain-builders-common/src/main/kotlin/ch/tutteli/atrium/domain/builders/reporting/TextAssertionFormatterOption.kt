@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -12,6 +15,7 @@ import kotlin.reflect.KClass
  * Provides options to register [AssertionFormatter]s to the chosen [AssertionFormatterFacade] -- the platform
  * specific interface might provide further options.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 expect interface TextAssertionFormatterOption : TextAssertionFormatterOptionCommon {
     companion object {
         fun create(
@@ -26,6 +30,7 @@ expect interface TextAssertionFormatterOption : TextAssertionFormatterOptionComm
  * Provides options to register [AssertionFormatter]s to the chosen [AssertionFormatterFacade] -- those options
  * have to be provided on all platforms.
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 interface TextAssertionFormatterOptionCommon {
 
     /**

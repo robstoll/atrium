@@ -8,6 +8,10 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -40,7 +44,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
 
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(
-            bulletPoints, coreFactory.newAssertionFormatterController(),
+            bulletPoints, DefaultAssertionFormatterController(),
             ToStringObjectFormatter, UsingDefaultTranslator()
         )
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {
@@ -70,6 +74,8 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                     FeatureAssertionGroupType::class to "$bulletPoint "
                 )
                 val facade = createFacade()
+                val sameLineTextAssertionPairFormatter =
+                    TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
                 facade.register {
                     testeeFactory(
                         bulletPoints, it,
@@ -77,15 +83,14 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                     )
                 }
                 facade.register {
-                    coreFactory.newTextFeatureAssertionGroupFormatter(
-                        bulletPoints, it,
-                        ToStringObjectFormatter, UsingDefaultTranslator()
-                    )
+                    TextFeatureAssertionGroupFormatter(bulletPoints, it, sameLineTextAssertionPairFormatter)
                 }
                 facade.register {
-                    coreFactory.newTextFallbackAssertionFormatter(
-                        bulletPoints, it,
-                        ToStringObjectFormatter, UsingDefaultTranslator()
+                    TextFallbackAssertionFormatter(
+                        bulletPoints,
+                        it,
+                        sameLineTextAssertionPairFormatter,
+                        ToStringObjectFormatter
                     )
                 }
 

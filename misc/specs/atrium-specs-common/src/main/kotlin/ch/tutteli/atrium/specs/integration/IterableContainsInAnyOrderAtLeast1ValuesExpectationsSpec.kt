@@ -9,7 +9,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
     containsInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
-    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 

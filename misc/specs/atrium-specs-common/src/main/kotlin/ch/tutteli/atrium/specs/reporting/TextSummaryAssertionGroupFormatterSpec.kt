@@ -8,6 +8,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -40,7 +41,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     val onlyFailingAssertionFilter: (Assertion) -> Boolean = { !it.holds() }
 
     describeFun(AssertionFormatter::canFormat.name) {
-        val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
+        val testee = testeeFactory(bulletPoints, DefaultAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${SummaryAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(
                 assertionBuilder.customType(object : SummaryAssertionGroupType {})

@@ -3,6 +3,12 @@ package ch.tutteli.atrium.specs.reporting
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import org.spekframework.spek2.Spek
@@ -41,11 +47,7 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
                 FeatureAssertionGroupType::class to "$featureBulletPoint "
             )
 
-        fun createFacade() = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
-
-        //TODO remove with 1.0.0
-        fun createFacade(testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade =
-            createFacade(mapOf(), testeeFactory)
+        fun createFacade() = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
 
         fun createFacade(
             bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>,
@@ -60,6 +62,8 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
             testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter
         ): AssertionFormatterFacade {
             val facade = createFacade()
+            val sameLineTextAssertionPairFormatter =
+                TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
             facade.register {
                 testeeFactory(
                     extendedBulletPoints, it,
@@ -67,21 +71,17 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
                 )
             }
             facade.register {
-                coreFactory.newTextListAssertionGroupFormatter(
-                    bulletPoints, it,
-                    ToStringObjectFormatter, UsingDefaultTranslator()
-                )
+                TextListAssertionGroupFormatter(bulletPoints, it, sameLineTextAssertionPairFormatter)
             }
             facade.register {
-                coreFactory.newTextFeatureAssertionGroupFormatter(
-                    bulletPoints, it,
-                    ToStringObjectFormatter, UsingDefaultTranslator()
-                )
+                TextFeatureAssertionGroupFormatter(bulletPoints, it, sameLineTextAssertionPairFormatter)
             }
             facade.register {
-                coreFactory.newTextFallbackAssertionFormatter(
-                    bulletPoints, it,
-                    ToStringObjectFormatter, UsingDefaultTranslator()
+                TextFallbackAssertionFormatter(
+                    bulletPoints,
+                    it,
+                    sameLineTextAssertionPairFormatter,
+                    ToStringObjectFormatter
                 )
             }
             return facade

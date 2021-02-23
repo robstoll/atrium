@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.core.polyfills.format
+
 /**
  * This translator does not translate but uses [Translatable.getDefault] instead
  * and uses [getDefaultLocale] as [primaryLocale] if not defined differently via constructor parameter.

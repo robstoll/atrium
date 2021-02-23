@@ -19,6 +19,7 @@ import ch.tutteli.kbox.forElementAndForEachIn
  *
  * Further information can be found at [LocaleOrderDecider].
  */
+@Deprecated("Use ResourceBundleInspiredLocaleOrderDecider from atrium-core; will be removed with 0.17.0")
 class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
 
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale> {

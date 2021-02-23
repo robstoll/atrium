@@ -6,7 +6,6 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.OptionalExpectationsSpec
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.util.*
 
 class OptionalExpectationsSpec : OptionalExpectationsSpec(
@@ -14,7 +13,8 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
     feature0(Companion::toBePresentFeature),
     fun1(Companion::toBePresent)
 ) {
-    companion object : WithAsciiReporter() {
+
+    companion object {
         private fun toBeEmpty(expect: Expect<Optional<Int>>) = expect toBe empty
         private fun toBePresent(expect: Expect<Optional<Int>>, assertionCreator: Expect<Int>.() -> Unit) =
             expect toBe present(assertionCreator)

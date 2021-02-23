@@ -10,12 +10,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 abstract class IterableAllExpectationsSpec(
     all: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     allNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
-    rootBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 
@@ -37,10 +31,6 @@ abstract class IterableAllExpectationsSpec(
 
     val allDescr = DescriptionIterableAssertion.ALL.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
-
 
     val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 

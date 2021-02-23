@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.time.DayOfWeek
 import java.time.ZonedDateTime
 
@@ -18,7 +17,6 @@ class ZonedDateTimeExpectationsSpec : ch.tutteli.atrium.specs.integration.ZonedD
     property<ZonedDateTime, DayOfWeek>(Expect<ZonedDateTime>::dayOfWeek),
     fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>(Expect<ZonedDateTime>::dayOfWeek)
 ) {
-    companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

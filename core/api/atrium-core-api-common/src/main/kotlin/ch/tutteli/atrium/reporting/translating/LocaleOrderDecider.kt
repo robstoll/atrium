@@ -1,17 +1,17 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.atrium.core.CoreFactory
 
 /**
  * Responsible to decide in which order [Locale]s should be processed.
  *
- * It has to be compatible with Java's `ResourceBundle.Control.getCandidateLocales` except for:
+ * It should follow Java's Locale conventions (e.g. locales are written with `_` and not with `-`). To put it
+ * differently it should be more or less compatible with Java's `ResourceBundle.Control.getCandidateLocales` except for:
  * - special case Norwegian; language `no` does not need to be considered, is not supported by
- *   [Translator] (see [CoreFactory.newTranslator] for more information).
+ *   [Translator].
  * - special case Chinese; language `zh` with script `Hant` or `Hans` without providing a country does not need to
  *   be treated specially because [Translator] does not support it. However, it still has to set script to `Hant`
  *   or `Hans` in case script is not defined by the user but country was.
- * - `java.util.Locale.ROOT` is considered to be an illegal [Locale].
+ * - `java.util.Locale.ROOT` does not exist for in Atrium's [Locale].
  */
 interface LocaleOrderDecider {
 

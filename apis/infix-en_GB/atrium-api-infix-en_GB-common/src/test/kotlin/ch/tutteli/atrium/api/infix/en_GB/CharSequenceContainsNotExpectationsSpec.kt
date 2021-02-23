@@ -4,8 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceContainsNotExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsNotExpectationsSpec(
     getContainsNotTriple(),
-    getContainsNotIgnoringCaseTriple(),
-    "* ", "- "
+    getContainsNotIgnoringCaseTriple()
 ) {
 
     companion object : CharSequenceContainsSpecBase() {

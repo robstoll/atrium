@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.core.polyfills.getAtriumProperty
@@ -34,6 +37,7 @@ val reporter: Reporter by lazy {
  * It identify itself via its [id]. This id can be used by a user to specify that this [ReporterFactory] shall be used.
  * In order to do that, the user has to define the system property `ch.tutteli.atrium.reporting.reporterFactory`
  */
+//TODO 0.16.0 deprecate
 interface ReporterFactory {
     /**
      * Identification of the supplier

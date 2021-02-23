@@ -1,7 +1,9 @@
+//TODO remove file with 0.17.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE", "DEPRECATION"
 )
+
 
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
@@ -20,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * @param T Translations are grouped by a certain aspect (for instance, by [Locale]). [T] defines the type of it.
  */
+@Deprecated("Use the implementation of atrium-core; will be removed with 0.17.0")
 abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
     /**
      * The cached translations.

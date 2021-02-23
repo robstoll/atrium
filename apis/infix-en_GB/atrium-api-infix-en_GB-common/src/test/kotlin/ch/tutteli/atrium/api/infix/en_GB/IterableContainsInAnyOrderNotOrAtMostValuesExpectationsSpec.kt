@@ -5,8 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
         getNotOrAtMostTriple(),
-        getContainsNotPair(),
-        "* "
+        getContainsNotPair()
     ) {
 
     companion object : IterableContainsSpecBase() {

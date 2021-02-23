@@ -5,8 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 class IterableContainsInAnyOrderExactlyValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
         getExactlyTriple(),
-        getContainsNotPair(),
-        "* "
+        getContainsNotPair()
     ) {
 
     companion object : IterableContainsSpecBase() {

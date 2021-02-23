@@ -12,12 +12,6 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 abstract class IterableContainsNotValuesExpectationsSpec(
     containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     containsNotNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    listBulletPoint: String,
-    featureArrow: String,
-    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 
@@ -35,19 +29,6 @@ abstract class IterableContainsNotValuesExpectationsSpec(
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
-    val indentFeatureArrow = " ".repeat(featureArrow.length)
-
-    //@formatter:off
-    val featureSuccess = "$indentRootBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
-    val featureFailing = "$indentRootBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
-    val isAfterFailing = "$indentRootBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
-    val isAfterSuccess = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
-    //@formatter:on
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
 

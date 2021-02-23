@@ -9,12 +9,6 @@ import ch.tutteli.atrium.specs.*
 abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
     containsInAnyOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     containsInAnyOrderOnlyNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
-    rootBulletPoint: String,
-    successfulBulletPoint: String,
-    failingBulletPoint: String,
-    warningBulletPoint: String,
-    listBulletPoint: String,
-    explanatoryBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase({
 
@@ -46,10 +40,6 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
         vararg tX: (Expect<Double>.() -> Unit)?
     ) = containsInAnyOrderOnlyNullableEntries(this, t, tX)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
-    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
     //@formatter:off
     val anEntryAfterSuccess = "$anElementWhich: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"

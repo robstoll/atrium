@@ -78,6 +78,7 @@ abstract class ArgumentsSupportingTranslator(
     private fun translateWithArgs(translatableWithArgs: TranslatableWithArgs): String {
         val result = translateWithoutArgs(translatableWithArgs.translatable)
         val arr = Array(translatableWithArgs.arguments.size) { index ->
+            //TODO 1.0.0 move arg into when with Kotlin 1.4 or later
             val arg = translatableWithArgs.arguments[index]
             when (arg) {
                 is Translatable -> translate(arg)

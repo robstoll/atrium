@@ -23,6 +23,7 @@ import ch.tutteli.atrium.reporting.translating.*
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
+@Deprecated("Use the one from atrium-core will be removed with 0.17.0", ReplaceWith("ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator"))
 class TranslationSupplierBasedTranslator(
     private val translationSupplier: TranslationSupplier,
     private val localeOrderDecider: LocaleOrderDecider,

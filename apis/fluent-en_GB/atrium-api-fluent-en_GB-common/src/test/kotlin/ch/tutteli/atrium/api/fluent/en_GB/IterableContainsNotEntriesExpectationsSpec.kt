@@ -8,7 +8,6 @@ class IterableContainsNotEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesExpectationsSpec(
         functionDescription to Companion::containsNotFun,
         (functionDescription to Companion::containsNotNullableFun).withNullableSuffix(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {

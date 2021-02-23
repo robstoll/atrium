@@ -12,8 +12,6 @@ abstract class CharSequenceContainsExactlyExpectationsSpec(
     containsExactlyPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsExactlyIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     containsNotPair: Pair<String, (Int) -> String>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -39,7 +37,6 @@ abstract class CharSequenceContainsExactlyExpectationsSpec(
         containsExactlyIgnoringCase(this, exactly, a, aX)
 
     val exactly = EXACTLY.getDefault()
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsExactly.name, containsExactlyIgnoringCase.name) {

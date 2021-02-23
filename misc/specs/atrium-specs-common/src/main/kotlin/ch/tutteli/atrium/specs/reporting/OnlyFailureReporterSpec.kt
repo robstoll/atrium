@@ -13,6 +13,12 @@ import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
+import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextObjectFormatterCommon
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -30,12 +36,15 @@ abstract class OnlyFailureReporterSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val translator = UsingDefaultTranslator()
-    val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
+    val objectFormatter = DefaultTextObjectFormatter(translator)
+
+    val facade = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
     facade.register {
-        coreFactory.newTextFallbackAssertionFormatter(
+        TextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class to "[]"),
             it,
-            coreFactory.newDetailedObjectFormatter(translator), translator
+            TextAssertionPairFormatter.newSameLine(objectFormatter, translator),
+            objectFormatter
         )
     }
     val testee = testeeFactory(facade, NoOpAtriumErrorAdjuster)

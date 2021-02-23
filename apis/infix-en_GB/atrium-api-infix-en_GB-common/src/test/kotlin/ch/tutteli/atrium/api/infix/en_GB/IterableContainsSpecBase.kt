@@ -10,10 +10,9 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import kotlin.reflect.KFunction2
 
-abstract class IterableContainsSpecBase : WithAsciiReporter() {
+abstract class IterableContainsSpecBase {
     private val Values = "values"
     private val Entries = "entries"
 

@@ -1,3 +1,6 @@
+//TODO remove file with 0.17.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.domain.builders.reporting.impl
 
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
@@ -20,6 +23,7 @@ import ch.tutteli.atrium.reporting.ReporterFactory
  *    .build()
  *
  */
+@Deprecated("Will be removed with 0.17.0 without replacement")
 class DefaultReporterFactory : ReporterFactory {
     override val id = "default"
 

@@ -12,8 +12,6 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class CharSequenceContainsNotExpectationsSpec(
     containsNotPair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     containsNotIgnoringCasePair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
-    rootBulletPoint: String,
-    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -40,7 +38,6 @@ abstract class CharSequenceContainsNotExpectationsSpec(
     val containsNotIgnoringCaseDescr =
         String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), containsNotDescr)
 
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(containsNot.name, containsNotIgnoringCase.name) {

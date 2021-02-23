@@ -7,7 +7,6 @@ class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
         getContainsPair(),
         Companion::groupFactory,
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     ) {
     companion object : IterableContainsSpecBase() {

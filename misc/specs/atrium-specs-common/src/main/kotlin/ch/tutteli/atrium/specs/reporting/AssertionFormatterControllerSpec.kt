@@ -11,6 +11,11 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
+import ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
@@ -48,23 +53,23 @@ abstract class AssertionFormatterControllerSpec(
     val indentArrow = " ".repeat(arrow.length + 1)
     val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
 
-    testee.register(coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
+    testee.register(TextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
+    val sameLineTextAssertionPairFormatter =
+        TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
     testee.register(
-        coreFactory.newTextListAssertionGroupFormatter(
-            bulletPoints, testee,
-            ToStringObjectFormatter, UsingDefaultTranslator()
+        TextListAssertionGroupFormatter(
+            bulletPoints,
+            testee,
+            sameLineTextAssertionPairFormatter
         )
     )
+    testee.register(TextSummaryAssertionGroupFormatter(bulletPoints, testee, sameLineTextAssertionPairFormatter))
     testee.register(
-        coreFactory.newTextSummaryAssertionGroupFormatter(
-            bulletPoints, testee,
-            ToStringObjectFormatter, UsingDefaultTranslator()
-        )
-    )
-    testee.register(
-        coreFactory.newTextFallbackAssertionFormatter(
-            bulletPoints, testee,
-            ToStringObjectFormatter, UsingDefaultTranslator()
+        TextFallbackAssertionFormatter(
+            bulletPoints,
+            testee,
+            sameLineTextAssertionPairFormatter,
+            ToStringObjectFormatter
         )
     )
 

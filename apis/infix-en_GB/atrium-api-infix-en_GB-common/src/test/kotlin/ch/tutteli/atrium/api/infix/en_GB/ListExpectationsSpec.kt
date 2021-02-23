@@ -5,7 +5,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -60,7 +59,7 @@ class ListExpectationsSpec : Spek({
         }
     })
 
-    companion object : WithAsciiReporter() {
+    companion object {
 
         private fun get(expect: Expect<List<Int>>, index: Int, assertionCreator: Expect<Int>.() -> Unit) =
             expect get index(index) { assertionCreator() }

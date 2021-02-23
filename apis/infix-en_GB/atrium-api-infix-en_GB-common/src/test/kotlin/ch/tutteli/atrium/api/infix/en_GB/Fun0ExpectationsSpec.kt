@@ -4,17 +4,15 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature0
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withFeatureSuffix
 
 class Fun0ExpectationsSpec : ch.tutteli.atrium.specs.integration.Fun0ExpectationsSpec(
     ("toThrow" to Companion::toThrowFeature).withFeatureSuffix(),
     "toThrow" to Companion::toThrow,
     feature0<() -> Int, Int>(Expect<() -> Int>::notToThrow),
-    feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow),
-    "- ", "» "
+    feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow)
 ) {
-    companion object : WithAsciiReporter() {
+    companion object {
         private fun toThrowFeature(expect: Expect<out () -> Any?>) =
             expect.toThrow<IllegalArgumentException>()
 

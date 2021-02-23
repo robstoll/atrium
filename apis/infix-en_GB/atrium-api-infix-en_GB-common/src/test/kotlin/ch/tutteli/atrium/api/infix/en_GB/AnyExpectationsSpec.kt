@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
@@ -50,11 +49,10 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     "notToBeNull" to Companion::notToBeNull,
 
     getAndImmediatePair(),
-    getAndLazyPair(),
-    "* ", "- ", "(i) "
+    getAndLazyPair()
 ) {
 
-    companion object : WithAsciiReporter() {
+    companion object  {
         private fun toBeNull(expect: Expect<Int?>) = expect toBe null
 
         @Suppress("RemoveExplicitTypeArguments")

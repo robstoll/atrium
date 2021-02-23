@@ -4,7 +4,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class PairExpectationsSpec : ch.tutteli.atrium.specs.integration.PairExpectationsSpec(
     property<Pair<String, Int>, String>(Expect<Pair<String, Int>>::first),
@@ -16,7 +15,6 @@ class PairExpectationsSpec : ch.tutteli.atrium.specs.integration.PairExpectation
     property<Pair<String?, Int?>, Int?>(Expect<Pair<String?, Int?>>::second),
     fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Pair<String?, Int?>>::second)
 ) {
-    companion object : WithAsciiReporter()
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 
 class MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExpectationsSpec(
     fun1(Expect<Map.Entry<String, Int>>::isKeyValue).name to Companion::isKeyValue,
@@ -16,7 +15,7 @@ class MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExp
     property<Map.Entry<String?, Int?>, Int?>(Expect<Map.Entry<String?, Int?>>::value),
     fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::value)
 ) {
-    companion object : WithAsciiReporter() {
+    companion object {
 
         private fun isKeyValue(expect: Expect<Map.Entry<String, Int>>, key: String, value: Int) =
             expect isKeyValue (key to value)

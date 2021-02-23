@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.testutils.WithAsciiReporter
 import java.nio.charset.Charset
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -38,7 +37,8 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     property<Path, String>(Expect<Path>::extension),
     fun1<Path, Expect<String>.() -> Unit>(Expect<Path>::extension)
 ) {
-    companion object : WithAsciiReporter() {
+
+    companion object {
 
         private fun exists(expect: Expect<Path>) = expect toBe existing
         private fun existsNot(expect: Expect<Path>) = expect notToBe existing

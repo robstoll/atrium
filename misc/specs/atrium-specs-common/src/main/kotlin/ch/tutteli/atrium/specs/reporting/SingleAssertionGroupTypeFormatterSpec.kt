@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -36,8 +37,10 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         describeFunTemplate(describePrefix, funName, body = body)
 
     val testee = testeeFactory(
-        mapOf(), coreFactory.newAssertionFormatterController(),
-        ToStringObjectFormatter, UsingDefaultTranslator()
+        mapOf(),
+        DefaultAssertionFormatterController(),
+        ToStringObjectFormatter,
+        UsingDefaultTranslator()
     )
 
     val unsupportedAssertion = object : Assertion {

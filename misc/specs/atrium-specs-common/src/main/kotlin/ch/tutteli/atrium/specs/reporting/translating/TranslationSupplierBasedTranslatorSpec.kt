@@ -2,8 +2,8 @@ package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider
 import ch.tutteli.atrium.specs.describeFunTemplate
 import io.mockk.*
 import org.spekframework.spek2.Spek
@@ -18,7 +18,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale) =
-        testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals.toList())
+        testeeFactory(translationSupplier, ResourceBundleInspiredLocaleOrderDecider, locale, fallbackLocals.toList())
 
     fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String?): TranslationSupplier {
         return mockk {
