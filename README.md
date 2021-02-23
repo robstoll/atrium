@@ -1180,7 +1180,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ❗❗ following elements were mismatched: 
-     ⚬ 2        (kotlin.Int <1943296756>)
+     ⚬ 2        (kotlin.Int <447803957>)
 ```
 </ex-collection-builder-4>
 <hr/>
