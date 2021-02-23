@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.*
 //snippet-import-logic-end
 //@formatter:on
+
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable

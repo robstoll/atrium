@@ -5,6 +5,7 @@ package readme.examples
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 //snippet-import-end
+//@formatter:on
 
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
