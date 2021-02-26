@@ -10,7 +10,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.js' version '1.4.30'
+    id 'org.jetbrains.kotlin.js' version '1.4.31'
 }
 
 group 'org.atriumlib.samples'
