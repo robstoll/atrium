@@ -1,6 +1,3 @@
-//TODO remove file with 0.17.0
-@file:Suppress("OverridingDeprecatedMember")
-
 package ch.tutteli.atrium.reporting.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,7 +17,7 @@ import ch.tutteli.atrium.reporting.Reporter
  */
 class OnlyFailureReporter(
     private val assertionFormatterFacade: AssertionFormatterFacade,
-    override val atriumErrorAdjuster: AtriumErrorAdjuster
+    @Suppress("OverridingDeprecatedMember") override val atriumErrorAdjuster: AtriumErrorAdjuster
 ) : Reporter {
 
     /**

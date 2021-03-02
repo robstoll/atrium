@@ -112,18 +112,12 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
     this to factories.map { ComponentFactory(it, producesSingleton = false) }
 
 
-// TODO 0.17.0 I guess it would make sense to cache instance here and only re-create them if this component was merged
-// with another because most Atrium users won't change the components and it would most likely just be a waste of
-// resources to re-create all over and over again. On the other hand they would be very short-lived an most likely
-// just be swept away when GC kicks in (not survive the young generation)
 @ExperimentalComponentFactoryContainer
 //TODO 0.17.0 or 0.18.0 make internal
 object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
 
     mapOf(
-        Reporter::class createSingletonVia  { c ->
-            OnlyFailureReporter(c.build(), c.build())
-        },
+        Reporter::class createSingletonVia { c -> OnlyFailureReporter(c.build(), c.build()) },
 
         AssertionFormatterController::class createVia { _ -> DefaultAssertionFormatterController() },
         ObjectFormatter::class createVia { c -> c.build<TextObjectFormatter>() },
@@ -161,8 +155,8 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
     ),
 
-    mapOf(TextAssertionFormatterFactory::class createChainVia (
-        sequenceOf(
+    mapOf(
+        TextAssertionFormatterFactory::class createChainVia sequenceOf(
             { c ->
                 val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
                 val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
@@ -204,5 +198,5 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
                 }
             }
         )
-        ))
+    )
 )
