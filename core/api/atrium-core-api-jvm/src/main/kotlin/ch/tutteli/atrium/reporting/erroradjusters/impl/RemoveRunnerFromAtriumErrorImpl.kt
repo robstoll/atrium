@@ -14,6 +14,7 @@ actual class RemoveRunnerFromAtriumErrorImpl : FilterAtriumErrorAdjuster(), Remo
             !it.className.startsWith("org.junit") &&
                 !it.className.startsWith("org.jetbrains.spek") &&
                 !it.className.startsWith("org.spekframework.spek2") &&
+                !it.className.startsWith("io.kotest") &&
                 !it.className.startsWith("io.kotlintest")
         }
 }
