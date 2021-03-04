@@ -61,6 +61,7 @@ interface AssertionPairFormatterOption {
  * @param objectFormatter The previously chosen [ObjectFormatter]
  * @param translator The previously chosen [Translator]
  */
+@Deprecated("Will be removed with 0.17.0")
 data class AssertionFormatterChosenOptions(
     val assertionFormatterFacade: AssertionFormatterFacade,
     val objectFormatter: ObjectFormatter,

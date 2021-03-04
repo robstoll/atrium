@@ -46,6 +46,4 @@ class RootExpectOptionsChooserImpl<T> : RootExpectBuilder.OptionsChooser<T> {
             representationInsteadOfSubject,
             ComponentFactoryContainer.createIfNotEmpty(components, chainedComponents)
         )
-
-
 }

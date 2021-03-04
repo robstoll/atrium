@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 
+@Deprecated("Will be removed with 0.17.0")
 internal class AssertionFormatterFacadeOptionImpl(
     override val assertionFormatterController: AssertionFormatterController,
     override val objectFormatter: ObjectFormatter,

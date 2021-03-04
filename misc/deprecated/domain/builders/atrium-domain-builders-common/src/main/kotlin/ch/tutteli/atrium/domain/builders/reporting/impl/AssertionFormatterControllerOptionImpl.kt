@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 
+@Deprecated("Will be removed with 0.17.0")
 internal class AssertionFormatterControllerOptionImpl(
     override val objectFormatter: ObjectFormatter,
     override val translator: Translator

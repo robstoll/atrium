@@ -9,6 +9,7 @@ import ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 
+@Deprecated("Will be removed with 0.17.0")
 internal class ObjectFormatterOptionImpl(
     override val translator: Translator
 ) : ObjectFormatterOption {

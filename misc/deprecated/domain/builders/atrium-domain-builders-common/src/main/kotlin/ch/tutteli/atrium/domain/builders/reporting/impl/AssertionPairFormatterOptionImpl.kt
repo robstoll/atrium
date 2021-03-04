@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 
+@Deprecated("Will be removed with 0.17.0")
 internal class AssertionPairFormatterOptionImpl(
     override val options: AssertionFormatterChosenOptions
 ) : AssertionPairFormatterOption {

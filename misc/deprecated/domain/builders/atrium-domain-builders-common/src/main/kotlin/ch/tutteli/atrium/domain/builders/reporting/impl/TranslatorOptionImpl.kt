@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 
+@Deprecated("Will be removed with 0.17.0")
 internal class TranslatorOptionImpl(
     override val translationSupplier: TranslationSupplier,
     override val localeOrderDecider: LocaleOrderDecider

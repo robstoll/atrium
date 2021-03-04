@@ -67,12 +67,16 @@ interface AtriumErrorAdjusterOption : AtriumErrorAdjusterCommonOption<ReporterOp
  * DSL Marker for [MultipleAdjustersOption]
  */
 @DslMarker
+
+@Deprecated("Will be removed with 0.17.0")
 annotation class MultipleAdjustersOptionMarker
 
 /**
  * Provides options to combine multiple [AtriumErrorAdjuster]s.
  */
 @MultipleAdjustersOptionMarker
+
+@Deprecated("Will be removed with 0.17.0")
 interface MultipleAdjustersOption : AtriumErrorAdjusterCommonOption<Unit> {
 
     /**

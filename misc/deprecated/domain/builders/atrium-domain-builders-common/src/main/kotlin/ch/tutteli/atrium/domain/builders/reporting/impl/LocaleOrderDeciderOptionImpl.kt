@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.reporting.LocaleOrderDeciderOption
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 
+@Deprecated("Will be removed with 0.17.0")
 internal class LocaleOrderDeciderOptionImpl(
     override val translationSupplier: TranslationSupplier
 ) : LocaleOrderDeciderOption {

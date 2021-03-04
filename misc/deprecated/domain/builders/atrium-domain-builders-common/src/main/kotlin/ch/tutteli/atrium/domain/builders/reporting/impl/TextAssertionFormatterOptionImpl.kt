@@ -14,6 +14,7 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
 import ch.tutteli.kbox.forElementAndForEachIn
 import kotlin.reflect.KClass
 
+@Deprecated("Will be removed with 0.17.0")
 internal class TextAssertionFormatterOptionImpl(
     override val options: AssertionFormatterChosenOptions,
     override val assertionPairFormatter: AssertionPairFormatter

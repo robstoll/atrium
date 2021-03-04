@@ -10,11 +10,13 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder
 import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+@Deprecated("Will be removed with 0.17.0")
 class AssertionVerbStepImpl<T>(override val maybeSubject: Option<T>) : ExpectBuilder.AssertionVerbStep<T> {
     override fun withVerb(verb: Translatable): ExpectBuilder.OptionsStep<T> =
         ExpectBuilder.OptionsStep.create(maybeSubject, verb)
 }
 
+@Deprecated("Will be removed with 0.17.0")
 class OptionsStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable
@@ -27,6 +29,7 @@ class OptionsStepImpl<T>(
         ExpectBuilder.FinalStep.create(maybeSubject, assertionVerb, expectOptions)
 }
 
+@Deprecated("Will be removed with 0.17.0")
 class FinalStepImpl<T>(
     override val maybeSubject: Option<T>,
     override val assertionVerb: Translatable,

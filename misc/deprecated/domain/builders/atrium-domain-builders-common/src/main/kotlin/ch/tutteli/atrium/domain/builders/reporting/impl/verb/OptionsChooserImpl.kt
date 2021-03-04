@@ -8,6 +8,7 @@ import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+@Deprecated("Will be removed with 0.17.0")
 class OptionsChooserImpl<T> : ExpectBuilder.OptionsChooser<T> {
 
     private var description: Translatable? = null

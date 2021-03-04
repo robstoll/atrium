@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 
+@Deprecated("Will be removed with 0.17.0")
 internal class ReporterOptionImpl(
     override val assertionFormatterFacade: AssertionFormatterFacade,
     override val atriumErrorAdjuster: AtriumErrorAdjuster
