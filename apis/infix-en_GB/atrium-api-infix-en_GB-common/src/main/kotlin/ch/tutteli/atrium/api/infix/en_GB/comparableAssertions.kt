@@ -8,6 +8,8 @@ import ch.tutteli.atrium.logic.*
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThan
  */
 infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     _logicAppend { isLessThan(expected) }
@@ -17,6 +19,8 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThanOrEqual
  */
 infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
@@ -26,6 +30,8 @@ infix fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThan
  */
 infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     _logicAppend { isGreaterThan(expected) }
@@ -35,6 +41,8 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  * The comparison is carried out with [Comparable.compareTo].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThanOrEqual
  */
 infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }
@@ -46,6 +54,8 @@ infix fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expec
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ComparableAssertionSamples.isEqualComparingTo
  */
 infix fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T): Expect<T> =
     _logicAppend { isEqualComparingTo(expected) }
