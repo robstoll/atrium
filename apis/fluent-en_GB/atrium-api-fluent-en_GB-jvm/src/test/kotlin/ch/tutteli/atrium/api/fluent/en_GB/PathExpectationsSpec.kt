@@ -20,6 +20,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun0(Expect<Path>::toBeASymbolicLink),
     fun0(Expect<Path>::isAbsolute),
     fun0(Expect<Path>::isRelative),
+    fun0(Expect<Path>::isEmptyDirectory),
     Expect<Path>::hasDirectoryEntry.name to Companion::hasDirectoryEntrySingle,
     fun2<Path, String, Array<out String>>(Expect<Path>::hasDirectoryEntry),
     fun1(Expect<Path>::hasSameBinaryContentAs),

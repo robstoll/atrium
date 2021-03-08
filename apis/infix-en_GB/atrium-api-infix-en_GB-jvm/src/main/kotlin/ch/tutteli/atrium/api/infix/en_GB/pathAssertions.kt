@@ -10,7 +10,6 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.kbox.glue
 import java.nio.charset.Charset
 import java.nio.file.Path
 
@@ -447,3 +446,14 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWit
  */
 infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
+
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.16.0
+ */
+infix fun <T : Path> Expect<T>.isEmptyDirectory(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
+    _logicAppend { isEmptyDirectory() }

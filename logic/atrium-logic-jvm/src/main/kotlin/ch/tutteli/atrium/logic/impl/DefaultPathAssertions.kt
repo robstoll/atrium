@@ -8,14 +8,13 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.creating.filesystem.Failure
-import ch.tutteli.atrium.logic.creating.filesystem.IoResult
-import ch.tutteli.atrium.logic.creating.filesystem.Success
+import ch.tutteli.atrium.logic.creating.filesystem.*
 import ch.tutteli.atrium.logic.creating.filesystem.hints.*
 import ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
@@ -194,4 +193,31 @@ class DefaultPathAssertions : PathAssertions {
                     container.resolve(entry).collect { _logicAppend { exists(NOFOLLOW_LINKS) } }
                 }
         ).build()
+
+    override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion =
+        if (container.isDirectory().holds()) {
+            container.changeSubject.unreported {
+                it.runCatchingIo { Files.list(it).findAny() }
+            }
+                .let { expectResult ->
+                    assertionBuilder.descriptive.withTest(expectResult)
+                    { it is Success && it.value.isEmpty }
+                        .withFailureHintBasedOnDefinedSubject(expectResult) {
+                            when (it) {
+                                is Success ->
+                                    assertionBuilder.descriptive.failing
+                                        .withDescriptionAndRepresentation(
+                                            DIRECTORY_HAS_FILE,
+                                            it.value.orElseThrow().toString()
+                                        )
+                                        .build()
+                                is Failure -> hintForIoException(it.path, it.exception)
+                            }
+                        }
+                        .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
+                        .build()
+                }
+        } else {
+            container.isDirectory()
+        }
 }

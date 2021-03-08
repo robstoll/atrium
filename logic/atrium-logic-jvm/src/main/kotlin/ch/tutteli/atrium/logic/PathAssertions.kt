@@ -52,4 +52,5 @@ interface PathAssertions {
     ): FeatureExtractorBuilder.ExecutionStep<T, Path>
 
     fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion
+    fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion
 }

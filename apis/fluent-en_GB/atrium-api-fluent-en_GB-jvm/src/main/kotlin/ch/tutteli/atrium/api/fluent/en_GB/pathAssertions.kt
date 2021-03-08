@@ -379,3 +379,14 @@ fun <T : Path> Expect<T>.hasSameTextualContentAs(
  */
 fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
+
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.16.0
+ */
+fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
+    _logicAppend { isEmptyDirectory() }
