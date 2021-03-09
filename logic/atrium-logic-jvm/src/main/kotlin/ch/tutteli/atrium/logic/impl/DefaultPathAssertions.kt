@@ -208,7 +208,7 @@ class DefaultPathAssertions : PathAssertions {
                                     assertionBuilder.descriptive.failing
                                         .withDescriptionAndRepresentation(
                                             DIRECTORY_HAS_FILE,
-                                            it.value.orElseThrow().toString()
+                                            it.value.orElseThrow()
                                         )
                                         .build()
                                 is Failure -> hintForIoException(it.path, it.exception)
