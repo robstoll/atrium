@@ -18,13 +18,13 @@ abstract class AbstractTextObjectFormatter(
      * Returns a formatted version of the given [value].
      *
      * The following rules apply for the representation of an object:
-     * - `null` is represented as [Text.NULL].[Text.string]
+     * - `null` is represented as [Text2.NULL].[Text2.string]
      * - [LazyRepresentation] is [evaluated][LazyRepresentation.eval] and then again [format]ted
      * - [Char] is put in apostrophes
      * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [Class.getName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
-     * - [Text] is represented as [Text.string]
+     * - [Text2] is represented as [Text2.string]
      * - [Translatable] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[KClass.simpleName] ([KClass.qualifiedName])" unless the [KClass.qualifiedName]

@@ -8,9 +8,8 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -23,7 +22,6 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import kotlin.random.Random
 import kotlin.reflect.KClass
 
 class TextFallbackAssertionFormatterSpec : Spek({
@@ -33,7 +31,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
 
     val squarePoint = "▪"
 
-    val facade = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
+    val facade = AssertionFormatterControllerBasedFacade(DefaultTextAssertionFormatterController())
     facade.register {
         TextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class to "$squarePoint "),

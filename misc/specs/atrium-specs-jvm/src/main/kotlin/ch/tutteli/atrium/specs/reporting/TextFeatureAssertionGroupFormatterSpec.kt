@@ -7,11 +7,10 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
@@ -46,7 +45,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(
             bulletPoints,
-            DefaultAssertionFormatterController(),
+            DefaultTextAssertionFormatterController(),
             ToStringObjectFormatter,
             UsingDefaultTranslator()
         )

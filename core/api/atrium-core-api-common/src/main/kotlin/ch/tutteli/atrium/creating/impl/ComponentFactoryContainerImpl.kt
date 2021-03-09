@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.OnlyFailureReporter
 import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
@@ -119,7 +119,7 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
     mapOf(
         Reporter::class createSingletonVia { c -> OnlyFailureReporter(c.build(), c.build()) },
 
-        AssertionFormatterController::class createVia { _ -> DefaultAssertionFormatterController() },
+        AssertionFormatterController::class createVia { _ -> DefaultTextAssertionFormatterController() },
         ObjectFormatter::class createVia { c -> c.build<TextObjectFormatter>() },
         AssertionPairFormatter::class createVia { c -> c.build<TextAssertionPairFormatter>() },
         MethodCallFormatter::class createVia { c -> c.build<TextMethodCallFormatter>() },

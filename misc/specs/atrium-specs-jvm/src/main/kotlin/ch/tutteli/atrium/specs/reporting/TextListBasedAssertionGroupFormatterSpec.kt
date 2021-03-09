@@ -4,11 +4,10 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
@@ -44,7 +43,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
 
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(
-            bulletPoints, DefaultAssertionFormatterController(),
+            bulletPoints, DefaultTextAssertionFormatterController(),
             ToStringObjectFormatter, UsingDefaultTranslator()
         )
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {

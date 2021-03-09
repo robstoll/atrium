@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
@@ -47,7 +46,7 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
                 FeatureAssertionGroupType::class to "$featureBulletPoint "
             )
 
-        fun createFacade() = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
+        fun createFacade() = AssertionFormatterControllerBasedFacade(DefaultTextAssertionFormatterController())
 
         fun createFacade(
             bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>,

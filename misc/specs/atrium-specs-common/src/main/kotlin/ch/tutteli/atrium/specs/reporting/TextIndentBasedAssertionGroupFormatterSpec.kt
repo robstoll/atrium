@@ -5,10 +5,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
+import ch.tutteli.atrium.reporting.impl.DefaultTextAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -36,7 +35,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     }
 
     describeFun(AssertionFormatter::canFormat.name) {
-        val testee = testeeFactory(bulletPoints, DefaultAssertionFormatterController())
+        val testee = testeeFactory(bulletPoints, DefaultTextAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
             expect(testee).feature {
                 f(

@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *
  * @see AssertionFormatterController
  */
-class DefaultAssertionFormatterController : AssertionFormatterController {
+class DefaultTextAssertionFormatterController : AssertionFormatterController {
     private val assertionFormatters = mutableListOf<AssertionFormatter>()
 
     override fun format(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
