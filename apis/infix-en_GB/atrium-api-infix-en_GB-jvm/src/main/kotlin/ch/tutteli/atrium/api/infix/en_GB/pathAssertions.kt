@@ -455,5 +455,5 @@ infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<
  *
  * @since 0.16.0
  */
-infix fun <T : Path> Expect<T>.isEmptyDirectory(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
     _logicAppend { isEmptyDirectory() }
