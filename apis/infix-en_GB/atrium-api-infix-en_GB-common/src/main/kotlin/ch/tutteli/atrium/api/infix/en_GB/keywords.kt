@@ -26,7 +26,7 @@ object aDirectory : Keyword
  * A helper construct to allow expressing assertions about a path being an empty directory.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
-object aEmptyDirectory : Keyword
+object anEmptyDirectory : Keyword
 
 /**
  * A helper construct to allow expressing assertions about a path being a symbolic link.
