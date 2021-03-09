@@ -194,9 +194,10 @@ class DefaultPathAssertions : PathAssertions {
                 }
         ).build()
 
-    override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion =
-        if (container.isDirectory().holds()) {
-            container.changeSubject.unreported {
+    override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion {
+        val isDirectory = container.isDirectory()
+        if (isDirectory.holds()) {
+            return container.changeSubject.unreported {
                 it.runCatchingIo { Files.list(it).findAny() }
             }
                 .let { expectResult ->
@@ -217,7 +218,6 @@ class DefaultPathAssertions : PathAssertions {
                         .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
                         .build()
                 }
-        } else {
-            container.isDirectory()
-        }
+        } else return isDirectory
+    }
 }
