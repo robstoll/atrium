@@ -207,7 +207,7 @@ class DefaultPathAssertions : PathAssertions {
                                 is Success ->
                                     assertionBuilder.descriptive.failing
                                         .withDescriptionAndRepresentation(
-                                            DIRECTORY_CONTAINS,
+                                            DIRECTORY_HAS,
                                             it.value.orElseThrow()
                                         )
                                         .build()

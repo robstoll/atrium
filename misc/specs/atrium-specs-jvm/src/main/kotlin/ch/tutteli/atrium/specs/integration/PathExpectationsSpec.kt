@@ -950,6 +950,54 @@ abstract class PathExpectationsSpec(
         }
     }
 
+    describeFun(isEmptyDirectory) {
+        val isEmptyDirectoryFun = isEmptyDirectory.lambda
+        val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+        val expectedEmptyMessage = "$isDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).isEmptyDirectoryFun()
+                }.toThrow<AssertionError>().message {
+                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    containsExplanationFor(maybeLink)
+                }
+            }
+
+            itPrintsFileAccessProblemDetails { testFile ->
+                expect(testFile).isEmptyDirectoryFun()
+            }
+        }
+
+        it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+            val file = maybeLink.create(tempFolder.newFile("test"))
+            expect {
+                expect(file).isEmptyDirectoryFun()
+            }.toThrow<AssertionError>().message {
+                contains(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                containsExplanationFor(maybeLink)
+            }
+        }
+
+        it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("notEmpty"))
+            maybeLink.create(tempFolder.newFile("notEmpty/a"))
+            expect {
+                expect(folder).isEmptyDirectoryFun()
+            }.toThrow<AssertionError>().message {
+                contains(expectedEmptyMessage, "${HAS.getDefault()}:")
+                contains("notEmpty/a")
+            }
+        }
+
+        it("does not throw for an empty directory") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("test"))
+            expect(folder).isEmptyDirectoryFun()
+        }
+    }
+
     val hasDirectoryEntryVariations = listOf(
         DirectoryEntryVariation("directory", "directories") { entry -> newDirectory(entry) },
         DirectoryEntryVariation("file", "files") { entry -> newFile(entry) },
