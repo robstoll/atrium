@@ -342,6 +342,9 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isASymbolicLink
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isNotASymbolicLink
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink: aSymbolicLink): Expect<T> =
     _logicAppend { toBeASymbolicLink() }
@@ -454,6 +457,9 @@ infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isEmptyDirectory
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isNotEmptyDirectory
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
     _logicAppend { isEmptyDirectory() }
