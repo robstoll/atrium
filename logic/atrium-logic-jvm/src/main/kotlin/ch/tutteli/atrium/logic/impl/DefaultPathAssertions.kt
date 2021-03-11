@@ -194,30 +194,31 @@ class DefaultPathAssertions : PathAssertions {
                 }
         ).build()
 
-    override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion {
-        val isDirectory = container.isDirectory()
-        if (isDirectory.holds()) {
-            return container.changeSubject.unreported {
-                it.runCatchingIo { Files.list(it).findAny() }
-            }
-                .let { expectResult ->
-                    assertionBuilder.descriptive.withTest(expectResult)
-                    { it is Success && it.value.isEmpty }
-                        .withFailureHintBasedOnDefinedSubject(expectResult) {
-                            when (it) {
-                                is Success ->
-                                    assertionBuilder.descriptive.failing
-                                        .withDescriptionAndRepresentation(
-                                            DIRECTORY_HAS_FILE,
-                                            it.value.orElseThrow()
-                                        )
-                                        .build()
-                                is Failure -> hintForIoException(it.path, it.exception)
-                            }
-                        }
-                        .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
-                        .build()
+    override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion =
+        assertionBuilder.invisibleGroup.withAssertions(
+            listOfNotNull(container.isDirectory(),
+                container.changeSubject.unreported {
+                    it.runCatchingIo { Files.list(it).findAny() }
                 }
-        } else return isDirectory
-    }
+                    .let { expectResult ->
+                        assertionBuilder.descriptive.withTest(expectResult)
+                        { it is Success && it.value.isEmpty }
+                            .withFailureHintBasedOnDefinedSubject(expectResult) {
+                                when (it) {
+                                    is Success ->
+                                        assertionBuilder.descriptive.failing
+                                            .withDescriptionAndRepresentation(
+                                                DIRECTORY_HAS_FILE,
+                                                it.value.orElseThrow()
+                                            )
+                                            .build()
+                                    is Failure -> hintForIoException(it.path, it.exception)
+                                }
+                            }
+                            .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
+                            .build()
+                    }
+            )
+        )
+            .build()
 }
