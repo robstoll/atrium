@@ -199,8 +199,7 @@ class DefaultPathAssertions : PathAssertions {
         if (isDirectory.holds()) {
             return container.changeSubject.unreported {
                 it.runCatchingIo { Files.list(it).findAny() }
-            }
-                .let { expectResult ->
+            }.let { expectResult ->
                     assertionBuilder.descriptive.withTest(expectResult)
                     { it is Success && it.value.isEmpty }
                         .withFailureHintBasedOnDefinedSubject(expectResult) {
