@@ -280,6 +280,9 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isASymbolicLink
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isNotASymbolicLink
  */
 fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
     _logicAppend { toBeASymbolicLink() }
@@ -387,6 +390,9 @@ fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isEmptyDirectory
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isNotEmptyDirectory
  */
 fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
     _logicAppend { isEmptyDirectory() }
