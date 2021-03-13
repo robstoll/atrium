@@ -28,16 +28,16 @@ fun main(args: Array<String>) {
                 Text2("robert", Style.FAILURE),
                 listOf(
                     SimpleProof(Untranslatable("to equal"), 1) { false },
-                    Paragraph(
-                        Icon.BANGBANG,
-                        Text2("failure at parent path"),
-                        withIndent = true
-                    ),
+//                    Paragraph(
+//                        Icon.BANGBANG,
+//                        Text2("failure at parent path"),
+//                        withIndent = true
+//                    ),
                     Feature(
                         Untranslatable("age"),
                         10,
                         listOf(
-                            SimpleProof(Untranslatable("to equal"), 1) { false }
+                            SimpleProof(Untranslatable("to equal"), 2) { false }
                         )
                     )
                 )

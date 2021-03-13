@@ -65,20 +65,39 @@ class DefaultTextReporter(
 //    }
     }
 
-    private fun format(outputNode: OutputNode, parentMaxLengths: List<Int>, sb: StringBuilder) {
+    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder) {
         val maxLengths = calculateMaxLengths(outputNode)
         fun appendColumns(node: OutputNode) {
-            val size = node.columns.size
+            val columns = node.columns
+            val size = columns.size
             if (size > 0) {
-                (0 until outputNode.indentLevel).forEach { i ->
-                    val s = node.columns[i]
-                    sb.append(s.padEnd(parentMaxLengths[i]))
+                val indentLevel = node.indentLevel
+                val span = node.span
+
+                (0 until indentLevel).forEach { i ->
+                    val s = columns[i]
+                    sb.append(s.padEnd(indentLevels[i]))
                 }
-                (outputNode.indentLevel until size - 1).forEach { i ->
-                    val s = node.columns[i]
+                val startIndex = if (span > 0) {
+                    var additionalPadding = 0
+                    var index = indentLevel
+                    repeat(span) {
+                        val s = columns[index]
+                        sb.append(s.result())
+                        additionalPadding += maxLengths[index] - s.unstyled.length
+                        ++index
+                    }
+                    val s = columns[index]
+                    sb.append(s.padEnd(additionalPadding + maxLengths[index] + indentLevels.drop(indentLevel).sum()))
+                    ++index
+                } else {
+                    indentLevel
+                }
+                (startIndex until size - 1).forEach { i ->
+                    val s = columns[i]
                     sb.append(s.padEnd(maxLengths[i]))
                 }
-                sb.append(node.columns[size - 1].result())
+                sb.append(columns[size - 1].result())
                 sb.appendln()
             }
         }
@@ -86,7 +105,7 @@ class DefaultTextReporter(
 
         outputNode.children.forEach { child ->
             if (child.definesOwnLevel) {
-                format(child, maxLengths, sb)
+                format(child, indentLevels + maxLengths.drop(indentLevels.size).first(), sb)
             } else {
                 appendColumns(child)
             }
