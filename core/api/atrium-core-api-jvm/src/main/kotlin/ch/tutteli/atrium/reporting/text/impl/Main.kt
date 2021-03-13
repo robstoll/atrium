@@ -27,12 +27,19 @@ fun main(args: Array<String>) {
                 Untranslatable("name"),
                 Text2("robert", Style.FAILURE),
                 listOf(
-                    Text2("starts with"),
-                    SimpleProof(Untranslatable("to equal"), 1) { false }
-//                    Paragraph(
-//                        Icon.BANGBANG,
-//                        Text2("failure at parent path")
-//                    )
+                    SimpleProof(Untranslatable("to equal"), 1) { false },
+                    Paragraph(
+                        Icon.BANGBANG,
+                        Text2("failure at parent path"),
+                        withIndent = true
+                    ),
+                    Feature(
+                        Untranslatable("age"),
+                        10,
+                        listOf(
+                            SimpleProof(Untranslatable("to equal"), 1) { false }
+                        )
+                    )
                 )
             )
         )

@@ -51,7 +51,7 @@ class DefaultTextReporter(
         if (rootNodes.size != 1) throw IllegalStateException("${Root::class.simpleName} transformation should always result in one ${OutputNode::class.simpleName}")
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
-        format(rootNode, sb)
+        format(rootNode, emptyList(), sb)
         return sb
 //
 //
@@ -65,37 +65,28 @@ class DefaultTextReporter(
 //    }
     }
 
-    private fun format(node: OutputNode, sb: StringBuilder) {
-        val maxLengths = calculateMaxLengths(node)
-        fun appendColumns(outputNode: OutputNode) {
-            val size = outputNode.columns.size
+    private fun format(outputNode: OutputNode, parentMaxLengths: List<Int>, sb: StringBuilder) {
+        val maxLengths = calculateMaxLengths(outputNode)
+        fun appendColumns(node: OutputNode) {
+            val size = node.columns.size
             if (size > 0) {
-                val startIndex = if (outputNode.span > 0) {
-                    var additionalPadding = 0
-                    (0 until outputNode.span).forEach { i ->
-                        val s = outputNode.columns[i]
-                        sb.append(s.result())
-                        additionalPadding += maxLengths[i] - s.unstyled.length
-                    }
-                    val s = outputNode.columns[outputNode.span]
-                    sb.append(s.padEnd(additionalPadding + maxLengths[1]))
-                    outputNode.span + 1
-                } else {
-                    0
+                (0 until outputNode.indentLevel).forEach { i ->
+                    val s = node.columns[i]
+                    sb.append(s.padEnd(parentMaxLengths[i]))
                 }
-                (startIndex until size - 1).forEach { i ->
-                    val s = outputNode.columns[i]
+                (outputNode.indentLevel until size - 1).forEach { i ->
+                    val s = node.columns[i]
                     sb.append(s.padEnd(maxLengths[i]))
                 }
-                sb.append(outputNode.columns[size - 1].result())
+                sb.append(node.columns[size - 1].result())
                 sb.appendln()
             }
         }
-        appendColumns(node)
+        appendColumns(outputNode)
 
-        node.children.forEach { child ->
+        outputNode.children.forEach { child ->
             if (child.definesOwnLevel) {
-                format(child, sb)
+                format(child, maxLengths, sb)
             } else {
                 appendColumns(child)
             }
@@ -183,17 +174,18 @@ class DefaultPreRenderController(
         node: OutputNode,
         controlObject: PreRenderControlObject
     ): OutputNode {
-        val list = ArrayList<StyledString>(1 + node.columns.size)
-//        (0 until controlObject.indentLevel).forEach { i ->
-//            list.add(i, StyledString.EMPTY_STRING)
-//        }
-//        var index = controlObject.indentLevel
-        list.add(index++, iconStyler.style(controlObject.prefix))
+        val list = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
+        (0 until controlObject.indentLevel).forEach { i ->
+            list.add(i, StyledString.EMPTY_STRING)
+        }
         val iterator = node.columns.iterator()
+        var index = controlObject.indentLevel
+        list.add(index++, iconStyler.style(controlObject.prefix))
+        list.add(index++, iterator.next())
         while (iterator.hasNext()) {
             list.add(index++, iterator.next())
         }
-        return node.copy(columns = list)
+        return node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
     }
 }
 
@@ -208,6 +200,7 @@ data class OutputNode(
     val columns: List<StyledString>,
     val children: List<OutputNode>,
     val definesOwnLevel: Boolean,
+    val indentLevel: Int = 0,
     val span: Int = 0,
     val useIndentInsteadPrefix: Boolean = false
 ) {
@@ -243,7 +236,7 @@ abstract class TypedPreRenderer<R : Reportable>(private val kClass: KClass<R>) :
 object FailingProofsAndOthers : ReportableFilter {
     override fun includeInReporting(reportable: Reportable): Boolean =
         when (reportable) {
-            is Proof -> !reportable.holds()
+            is Proof -> true // TODO !reportable.holds()
             else -> true
         }
 }
@@ -360,7 +353,9 @@ private fun determineChildControlObject(
 ): PreRenderControlObject {
     val indentLevel = if (shallIndentChildren) controlObject.indentLevel + 1 else controlObject.indentLevel
     return when (child) {
-        is Feature -> controlObject.copy(prefix = FEATURE, indentLevel = indentLevel)
+        // check syntax for fallthrough or |
+        is Feature -> controlObject.copy(prefix = EMPTY_STRING, indentLevel = indentLevel)
+        is Paragraph -> controlObject.copy(prefix = EMPTY_STRING, indentLevel = indentLevel)
         is Proof -> if (child.holds()) {
             controlObject.copy(prefix = SUCCESS, indentLevel = indentLevel)
         } else {
@@ -407,9 +402,8 @@ class DefaultFeaturePreRenderer(
         return listOf(
             OutputNode(
                 listOf(
-//                    iconStyler.style(FEATURE),
+                    iconStyler.style(FEATURE),
                     translator.translate(reportable.description).noStyle(),
-                    StyledString.EMPTY_STRING,
                     " : ".noStyle(),
                     objectFormatter.format(reportable.representation)
                 ),
@@ -434,20 +428,21 @@ class DefaultParagraphPreRenderer : TypedPreRenderer<Paragraph>(Paragraph::class
             .flatMap {
                 it.columns
             }
-//        val paragraphColumns = if (reportable.withIndent) {
-//            val list = ArrayList<StyledString>(1 + tmpColumns.size)
-//            list.add("  ".noStyle())
-//            list.addAll(tmpColumns)
-//            list
-//        } else {
-//            tmpColumns
-//        }
-        //TODO definesOwnLevel should still honor the indent, that does not work yet correctly
-        // also we don't want that the prefix is applied in case of definesOwnLevel
+        val paragraphColumns = if (reportable.withIndent) {
+            val list = ArrayList<StyledString>(1 + tmpColumns.size)
+            list.add(StyledString.EMPTY_STRING)
+            list.addAll(tmpColumns)
+            list
+        } else {
+            tmpColumns
+        }
         return listOf(
-            controlObject.controller.indent(
-                OutputNode(tmpColumns, emptyList(), definesOwnLevel = true),
-                controlObject.copy(prefix = EMPTY_STRING)
+            OutputNode(
+                paragraphColumns,
+                emptyList(),
+                definesOwnLevel = true,
+                // does not work either because
+                indentLevel = if (reportable.withIndent) 1 else 0
             )
         )
     }
