@@ -34,4 +34,6 @@ data class Some<T>(val value: T) : Option<T>()
 /**
  * Represents an absent value in terms of [Option].
  */
-object None : Option<Nothing>()
+object None : Option<Nothing>(){
+    override fun toString(): String = "None"
+}
