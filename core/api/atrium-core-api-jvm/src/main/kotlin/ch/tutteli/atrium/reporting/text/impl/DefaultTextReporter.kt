@@ -53,16 +53,6 @@ class DefaultTextReporter(
         val sb = StringBuilder()
         format(rootNode, emptyList(), sb)
         return sb
-//
-//
-//    private fun noNeedToFormat(assertion: Assertion, parameterObject: AssertionFormatterParameterObject): Boolean {
-//        //assertionFilter only applies if:
-//        // - we are not in an assertion group which should not be filtered (e.g. explanatory or summary group) and
-//        // - if the given assertion is not an explanatory assertion group either.
-//        return parameterObject.isNotInDoNotFilterGroup()
-//            && !isExplanatoryAssertionGroup(assertion)
-//            && !parameterObject.assertionFilter(assertion)
-//    }
     }
 
     private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder) {
@@ -159,8 +149,6 @@ interface TextPreRenderController {
     fun transform(reportable: Reportable): List<OutputNode>
     fun transformChildren(children: List<Reportable>, controlObject: PreRenderControlObject): List<OutputNode>
     fun transformChild(child: Reportable, controlObject: PreRenderControlObject): List<OutputNode>
-
-    fun indent(node: OutputNode, controlObject: PreRenderControlObject): OutputNode
 }
 
 class DefaultPreRenderController(
@@ -183,13 +171,13 @@ class DefaultPreRenderController(
                 .firstOrNull { it.canTransform(child) }
                 ?: throw UnsupportedOperationException("no suitable ${PreRenderer::class.simpleName} found for the given reportable: $child")
             preRenderer.transform(child, controlObject).map { node ->
-                indent(node, controlObject)
+                indentAndPrefix(node, controlObject)
             }
         } else {
             emptyList()
         }
 
-    override fun indent(
+    private fun indentAndPrefix(
         node: OutputNode,
         controlObject: PreRenderControlObject
     ): OutputNode {
@@ -199,7 +187,7 @@ class DefaultPreRenderController(
         }
         val iterator = node.columns.iterator()
         var index = controlObject.indentLevel
-        list.add(index++, iconStyler.style(controlObject.prefix))
+        list.add(index++, if(node.useEmptyPrefix) StyledString.EMPTY_STRING else iconStyler.style(controlObject.prefix))
         list.add(index++, iterator.next())
         while (iterator.hasNext()) {
             list.add(index++, iterator.next())
@@ -221,7 +209,7 @@ data class OutputNode(
     val definesOwnLevel: Boolean,
     val indentLevel: Int = 0,
     val span: Int = 0,
-    val useIndentInsteadPrefix: Boolean = false
+    val useEmptyPrefix: Boolean = false
 ) {
     init {
         require(columns.isNotEmpty() || children.isNotEmpty()) { "at least one of columns/children needs to have elements" }
@@ -272,17 +260,38 @@ enum class Style(val styleId: String) {
 }
 
 enum class Icon : Single {
-    INFORMATION_SOURCE,
     BULB,
-    DEBUG_INFO,
     BANGBANG,
-    SUCCESS,
+    DEBUG_INFO,
+    EMPTY_STRING,
     FAILURE,
     FEATURE,
-    EMPTY_STRING,
-    BULLET_POINT
+    FEATURE_BULLET_POINT,
+    INFORMATION_SOURCE,
+    ROOT_BULLET_POINT,
+    SUCCESS
+}
+interface IconStyler {
+    fun style(icon: Icon): StyledString
 }
 
+class DefaultIconStyler(styler: Styler) : IconStyler {
+    private val icons = mapOf(
+        BULB to styler.style("💡 ", Style.BULB),
+        BANGBANG to styler.style("❗❗ ", Style.FAILURE),
+        DEBUG_INFO to "🔎 ".noStyle(),
+        EMPTY_STRING to StyledString.EMPTY_STRING,
+        FAILURE to styler.style("✘ ", Style.FAILURE),
+        FEATURE to "▶ ".noStyle(),
+        FEATURE_BULLET_POINT to "- ".noStyle(),
+        INFORMATION_SOURCE to styler.style("ℹ️", Style.INFORMATION_SOURCE),
+        ROOT_BULLET_POINT to "◆".noStyle(),
+        SUCCESS to styler.style("✔ ", Style.SUCCESS)
+    )
+
+    override fun style(icon: Icon): StyledString =
+        icons[icon] ?: throw IllegalArgumentException("unsupported icon: $icon")
+}
 
 class Ansi8Colours : ThemeProvider {
     override val styles = mapOf(
@@ -372,9 +381,6 @@ private fun determineChildControlObject(
 ): PreRenderControlObject {
     val indentLevel = if (shallIndentChildren) controlObject.indentLevel + 1 else controlObject.indentLevel
     return when (child) {
-        // check syntax for fallthrough or |
-        is Feature -> controlObject.copy(prefix = EMPTY_STRING, indentLevel = indentLevel)
-        is Paragraph -> controlObject.copy(prefix = EMPTY_STRING, indentLevel = indentLevel)
         is Proof -> if (child.holds()) {
             controlObject.copy(prefix = SUCCESS, indentLevel = indentLevel)
         } else {
@@ -400,7 +406,7 @@ class DefaultRootPreRenderer(
                 ),
                 reportable.children.flatMap { child ->
                     val newControlObject = determineChildControlObject(
-                        controlObject, child, EMPTY_STRING, shallIndentChildren = false
+                        controlObject, child, ROOT_BULLET_POINT, shallIndentChildren = false
                     )
                     controlObject.controller.transformChild(child, newControlObject)
                 },
@@ -428,11 +434,12 @@ class DefaultFeaturePreRenderer(
                 ),
                 reportable.children.flatMap { child ->
                     val newControlObject = determineChildControlObject(
-                        controlObject, child, BULLET_POINT, shallIndentChildren = true
+                        controlObject, child, FEATURE_BULLET_POINT, shallIndentChildren = true
                     )
                     controlObject.controller.transformChild(child, newControlObject)
                 },
                 definesOwnLevel = true,
+                useEmptyPrefix = true,
                 span = 2
             )
         )
@@ -460,7 +467,7 @@ class DefaultParagraphPreRenderer : TypedPreRenderer<Paragraph>(Paragraph::class
                 paragraphColumns,
                 emptyList(),
                 definesOwnLevel = true,
-                // does not work either because
+                useEmptyPrefix = true,
                 indentLevel = if (reportable.withIndent) 1 else 0
             )
         )
@@ -472,26 +479,7 @@ class DefaultTextPreRenderer(private val styler: Styler) : TypedPreRenderer<Text
         singleOutputNode(styler.style(reportable.txt, reportable.maybeStyle))
 }
 
-interface IconStyler {
-    fun style(icon: Icon): StyledString
-}
 
-class DefaultIconStyler(styler: Styler) : IconStyler {
-    private val icons = mapOf(
-        INFORMATION_SOURCE to styler.style("ℹ️", Style.INFORMATION_SOURCE),
-        BULB to styler.style("💡 ", Style.BULB),
-        DEBUG_INFO to "🔎 ".noStyle(),
-        BANGBANG to styler.style("❗❗ ", Style.FAILURE),
-        SUCCESS to styler.style("✔ ", Style.SUCCESS),
-        FAILURE to styler.style("✘ ", Style.FAILURE),
-        FEATURE to "▶ ".noStyle(),
-        EMPTY_STRING to StyledString.EMPTY_STRING,
-        BULLET_POINT to "- ".noStyle()
-    )
-
-    override fun style(icon: Icon): StyledString =
-        icons[icon] ?: throw IllegalArgumentException("unsupported icon: $icon")
-}
 
 class DefaultIconPreRenderer(private val iconStyler: IconStyler) : TypedPreRenderer<Icon>(Icon::class) {
 

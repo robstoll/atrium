@@ -9,35 +9,36 @@ fun main(args: Array<String>) {
             SimpleProof(
                 Untranslatable("starts with"), "hello"
             ) { false },
-//            SimpleProof(Untranslatable("ends with"), "test") { true },
-//            Paragraph(
-//                Icon.INFORMATION_SOURCE,
-//                Text2("because, xyz"),
-//                withIndent = false
-//            ),
-//            Paragraph(
-//                Icon.BULB,
-//                Text2("notice, MyClass has not overridden equals\nbetter use toBeSameInstanceAs or implement equals/hashCode\n")
-//            ),
-//            Paragraph(
-//                Icon.DEBUG_INFO,
-//                Text2("the closest existing parent directory is /usr/bi")
-//            ),
+            SimpleProof(Untranslatable("ends with"), "test") { true },
+            Paragraph(
+                Icon.DEBUG_INFO,
+                Text2("the closest existing parent directory is /usr/bin")
+            ),
+            Paragraph(
+                Icon.INFORMATION_SOURCE,
+                Text2("because, xyz"),
+                withIndent = false
+            ),
+
             Feature(
                 Untranslatable("name"),
                 Text2("robert", Style.FAILURE),
                 listOf(
                     SimpleProof(Untranslatable("to equal"), 1) { false },
-//                    Paragraph(
-//                        Icon.BANGBANG,
-//                        Text2("failure at parent path"),
-//                        withIndent = true
-//                    ),
+                    Paragraph(
+                        Icon.BANGBANG,
+                        Text2("failure at parent path"),
+                        withIndent = true
+                    ),
                     Feature(
                         Untranslatable("age"),
                         10,
                         listOf(
-                            SimpleProof(Untranslatable("to equal"), 2) { false }
+                            SimpleProof(Untranslatable("to equal"), 2) { false },
+                            Paragraph(
+                                Icon.BULB,
+                                Text2("notice, MyClass has not overridden equals\nbetter use toBeSameInstanceAs or implement equals/hashCode\n")
+                            )
                         )
                     )
                 )
