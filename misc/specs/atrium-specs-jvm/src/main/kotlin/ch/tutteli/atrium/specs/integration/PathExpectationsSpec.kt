@@ -983,11 +983,12 @@ abstract class PathExpectationsSpec(
 
         it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("notEmpty"))
-            maybeLink.create(tempFolder.newFile("notEmpty/a"))
+            tempFolder.newFile("notEmpty/a")
             expect {
                 expect(folder).isEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
                 contains(expectedEmptyMessage)
+                containsExplanationFor(maybeLink)
                 contains("notEmpty/a")
             }
         }

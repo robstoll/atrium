@@ -198,22 +198,24 @@ class DefaultPathAssertions : PathAssertions {
         val isDirectory = container.isDirectory()
         if (isDirectory.holds()) {
             return container.changeSubject.unreported {
-                it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.firstOrNull() } }
+                Pair(it, it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.firstOrNull() } })
             }.let { expectResult ->
                     assertionBuilder.descriptive.withTest(expectResult)
-                    { it is Success && it.value == null }
+                    { it.second is Success && (it.second as Success<Path?>).value == null }
                         .withFailureHintBasedOnDefinedSubject(expectResult) {
-                            when (it) {
-                                is Success ->
-                                    assertionBuilder.descriptive.failing
-                                        .withDescriptionAndRepresentation(
-                                            DIRECTORY_CONTAINS,
-                                            it.value!!
-                                        )
-                                        .build()
-                                is Failure -> hintForIoException(it.path, it.exception)
+                            explainForResolvedLink(it.first) { realPath ->
+                                when (it.second) {
+                                    is Success ->
+                                        assertionBuilder.descriptive.failing
+                                            .withDescriptionAndRepresentation(
+                                                DIRECTORY_CONTAINS,
+                                                (it.second as Success<Path?>).value!!
+                                            )
+                                            .build()
+                                    is Failure -> hintForIoException(realPath, (it.second as Failure).exception)
+                                    }
+                                }
                             }
-                        }
                         .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
                         .build()
                 }
