@@ -51,7 +51,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun toBeASymbolicLink(expect: Expect<Path>) = expect toBe aSymbolicLink
         private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
-        private fun isEmptyDirectory(expect: Expect<Path>) = expect toBe relative
+        private fun isEmptyDirectory(expect: Expect<Path>) = expect toBe anEmptyDirectory
         private fun hasDirectoryEntryMultiple(expect: Expect<Path>, entry: String, vararg otherEntries: String) =
             expect has directoryEntries(entry, *otherEntries)
 
