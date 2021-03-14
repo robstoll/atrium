@@ -987,7 +987,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).isEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
-                contains(expectedEmptyMessage, "${HAS.getDefault()}:")
+                contains(expectedEmptyMessage)
                 contains("notEmpty/a")
             }
         }
