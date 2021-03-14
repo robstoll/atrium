@@ -43,11 +43,11 @@ interface TextReporter
  * A [Reporter] which reports only failing assertions.
  */
 class DefaultTextReporter(
-    private val textPreRenderController: TextPreRenderController
+    private val preRenderController: PreRenderController
 ) : NewReporter {
 
     override fun createReport(root: Root): StringBuilder {
-        val rootNodes = textPreRenderController.transform(root)
+        val rootNodes = preRenderController.transform(root)
         if (rootNodes.size != 1) throw IllegalStateException("${Root::class.simpleName} transformation should always result in one ${OutputNode::class.simpleName}")
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
@@ -133,20 +133,20 @@ interface TextObjFormatter {
 class DefaultTextObjFormatter(private val styler: Styler) : TextObjFormatter {
     override fun format(value: Any?): StyledString =
         when (value) {
-            is Text2 -> styler.style(value.txt, value.maybeStyle)
-            is String -> "\"$value\"".noStyle()
-            else -> value.toString().noStyle()
+            is Text2 -> styler.style(value.txt, value.maybeStyle, noWrap = false)
+            is String -> "\"$value\"".noStyle(noWrap = false)
+            else -> value.toString().noStyle(noWrap = false)
         }
 }
 
 data class PreRenderControlObject(
     val prefix: Icon,
     val indentLevel: Int,
-    val controller: TextPreRenderController
+    val controller: PreRenderController
 )
 
-interface TextPreRenderController {
-    fun transform(reportable: Reportable): List<OutputNode>
+interface PreRenderController {
+    fun transform(reportable: Reportable, indentNewLine: Boolean = true): List<OutputNode>
     fun transformChildren(children: List<Reportable>, controlObject: PreRenderControlObject): List<OutputNode>
     fun transformChild(child: Reportable, controlObject: PreRenderControlObject): List<OutputNode>
 }
@@ -155,9 +155,9 @@ class DefaultPreRenderController(
     private val reportableFilters: ReportableFilter,
     private val preRenderers: Sequence<PreRenderer>,
     private val iconStyler: IconStyler
-) : TextPreRenderController {
+) : PreRenderController {
 
-    override fun transform(reportable: Reportable): List<OutputNode> =
+    override fun transform(reportable: Reportable, indentNewLine: Boolean): List<OutputNode> =
         transformChildren(listOf(reportable), PreRenderControlObject(EMPTY_STRING, 0, this))
 
     override fun transformChildren(
@@ -181,18 +181,63 @@ class DefaultPreRenderController(
         node: OutputNode,
         controlObject: PreRenderControlObject
     ): OutputNode {
-        val list = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
+        var list = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
         (0 until controlObject.indentLevel).forEach { i ->
             list.add(i, StyledString.EMPTY_STRING)
         }
         val iterator = node.columns.iterator()
         var index = controlObject.indentLevel
-        list.add(index++, if(node.useEmptyPrefix) StyledString.EMPTY_STRING else iconStyler.style(controlObject.prefix))
-        list.add(index++, iterator.next())
-        while (iterator.hasNext()) {
-            list.add(index++, iterator.next())
+
+        fun addToList(styledString: StyledString) = list.add(index++, styledString)
+
+        addToList(if (node.useEmptyPrefix) StyledString.EMPTY_STRING else iconStyler.style(controlObject.prefix))
+
+        var maybeNodes: Option<ArrayList<OutputNode>> = None
+
+        fun bla(s: StyledString) {
+            if (s.noWrap) {
+                addToList(s)
+            } else {
+                val lines = s.result().split('\n')
+                if (lines.size == 1) {
+                    addToList(s)
+                } else {
+                    val nodes = ArrayList<OutputNode>(lines.size);
+                    lines.forEach { line ->
+                        addToList(line.noStyle())
+                        nodes.add(
+                            node.copy(
+                                columns = list,
+                                indentLevel = node.indentLevel + controlObject.indentLevel,
+                                children = emptyList(),
+                                definesOwnLevel = node.definesOwnLevel && nodes.isEmpty() && !maybeNodes.isDefined()
+                            )
+                        )
+                        // prepare for the next line, indent until we reach the same column
+                        --index
+                        val tmpList = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
+                        repeat(list.size - 1) {
+                            tmpList.add(StyledString.EMPTY_STRING)
+                        }
+                        list = tmpList
+                    }
+                    maybeNodes = maybeNodes.fold({ Some(nodes) }, { existingNodes ->
+                        //side effect, addToExisting
+                        existingNodes.addAll(nodes)
+                        Some(existingNodes)
+                    })
+                }
+            }
         }
-        return node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
+        bla(iterator.next())
+        while (iterator.hasNext()) {
+            bla(iterator.next())
+        }
+        return maybeNodes.fold({
+            node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
+        }, { nodes ->
+            nodes.first().copy(children = nodes.drop(1) + node.children)
+        })
     }
 }
 
@@ -200,7 +245,6 @@ class DefaultPreRenderController(
 interface PreRenderer {
     fun canTransform(reportable: Reportable): Boolean
     fun transform(reportable: Reportable, controlObject: PreRenderControlObject): List<OutputNode>
-
 }
 
 data class OutputNode(
@@ -271,6 +315,7 @@ enum class Icon : Single {
     ROOT_BULLET_POINT,
     SUCCESS
 }
+
 interface IconStyler {
     fun style(icon: Icon): StyledString
 }
@@ -304,16 +349,32 @@ class Ansi8Colours : ThemeProvider {
 
 interface Styler {
     fun supportsAnsi(): Boolean
-    fun style(s: String, maybeStyle: Option<Style>): StyledString =
-        maybeStyle.fold({ s.noStyle() }) { style(s, it) }
+    fun style(s: String, maybeStyle: Option<Style>, noWrap: Boolean = true): StyledString =
+        maybeStyle.fold({ s.noStyle(noWrap) }) { style(s, it, noWrap) }
 
-    fun style(s: String, style: Style): StyledString
-    fun style(s: String, styleId: String): StyledString
+    fun style(s: String, style: Style, noWrap: Boolean = true): StyledString
+    fun style(s: String, styleId: String, noWrap: Boolean = true): StyledString
 }
 
-data class StyledString(val unstyled: String, val maybeStyled: Option<String>, val span: Int = 0) {
+data class StyledString(
+    val unstyled: String,
+    val maybeStyled: Option<String>,
+    val span: Int = 0,
+    val noWrap: Boolean = true
+) {
 
-    fun result() = maybeStyled.getOrElse { unstyled }
+    override fun toString(): String = "SS(u=$unstyled)"
+
+    fun result(): String {
+        val s = maybeStyled.getOrElse { unstyled }
+        return replaceWrap(s)
+    }
+
+    private fun replaceWrap(s: String) = if (noWrap) {
+        s.replace('\n', ' ')
+    } else {
+        s
+    }
 
     operator fun plus(s: StyledString) = StyledString(
         unstyled + s.unstyled,
@@ -325,12 +386,12 @@ data class StyledString(val unstyled: String, val maybeStyled: Option<String>, v
     )
 
     fun padEnd(length: Int): String =
-        maybeStyled.fold({ unstyled.padEnd(length) }) { styled ->
+        maybeStyled.fold({ replaceWrap(unstyled).padEnd(length) }) { styled ->
             val unstyledLength = unstyled.length
             val styleDiff = styled.length - unstyledLength
 
             val sb = StringBuilder(length + styleDiff)
-            sb.append(styled)
+            sb.append(replaceWrap(styled))
             repeat((length - unstyledLength)) { sb.append(' ') }
             sb.toString()
         }
@@ -341,7 +402,7 @@ data class StyledString(val unstyled: String, val maybeStyled: Option<String>, v
 }
 
 
-fun String.noStyle(): StyledString = StyledString(this, None)
+fun String.noStyle(noWrap: Boolean = true): StyledString = StyledString(this, None, noWrap = noWrap)
 
 class DefaultStyler(
     private val themeProvider: ThemeProvider
@@ -353,19 +414,19 @@ class DefaultStyler(
 
     override fun supportsAnsi(): Boolean = couldSupportAnsi
 
-    override fun style(s: String, style: Style): StyledString =
-        style(s, style.styleId)
+    override fun style(s: String, style: Style, noWrap: Boolean): StyledString =
+        style(s, style.styleId, noWrap)
 
-    override fun style(s: String, styleId: String): StyledString =
+    override fun style(s: String, styleId: String, noWrap: Boolean): StyledString =
         if (couldSupportAnsi) {
             val colorCode = themeProvider.styles[styleId]
             if (colorCode != null) {
-                StyledString(s, Some(colorCode + s + RESET))
+                StyledString(s, Some(colorCode + s + RESET), noWrap = noWrap)
             } else {
-                s.noStyle()
+                s.noStyle(noWrap)
             }
         } else {
-            s.noStyle()
+            s.noStyle(noWrap)
         }
 
     companion object {
@@ -476,9 +537,14 @@ class DefaultParagraphPreRenderer : TypedPreRenderer<Paragraph>(Paragraph::class
 
 class DefaultTextPreRenderer(private val styler: Styler) : TypedPreRenderer<Text2>(Text2::class) {
     override fun transformIt(reportable: Text2, controlObject: PreRenderControlObject): List<OutputNode> =
-        singleOutputNode(styler.style(reportable.txt, reportable.maybeStyle))
+        listOf(
+            OutputNode(
+                listOf(styler.style(reportable.txt, reportable.maybeStyle, noWrap = false)),
+                emptyList(),
+                definesOwnLevel = true
+            )
+        )
 }
-
 
 
 class DefaultIconPreRenderer(private val iconStyler: IconStyler) : TypedPreRenderer<Icon>(Icon::class) {
@@ -493,11 +559,9 @@ class DefaultSimpleProofPreRenderer(
 ) : TypedPreRenderer<SimpleProof>(SimpleProof::class) {
     override fun transformIt(reportable: SimpleProof, controlObject: PreRenderControlObject): List<OutputNode> =
         singleOutputNode(
-            listOf(
-                translator.translate(reportable.description).noStyle(),
-                " : ".noStyle(),
-                objectFormatter.format(reportable.representation)
-            )
+            translator.translate(reportable.description).noStyle(),
+            " : ".noStyle(),
+            objectFormatter.format(reportable.representation)
         )
 }
 
