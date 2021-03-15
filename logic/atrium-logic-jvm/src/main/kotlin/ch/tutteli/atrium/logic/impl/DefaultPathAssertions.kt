@@ -198,21 +198,20 @@ class DefaultPathAssertions : PathAssertions {
         val isDirectory = container.isDirectory()
         if (isDirectory.holds()) {
             return container.changeSubject.unreported {
-                Pair(it, it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.firstOrNull() } })
+                it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.firstOrNull() } }
             }.let { expectResult ->
-                    assertionBuilder.descriptive.withTest(expectResult)
-                    { it.second is Success && (it.second as Success<Path?>).value == null }
+                    assertionBuilder.descriptive.withTest(expectResult) { it is Success && it.value == null }
                         .withFailureHintBasedOnDefinedSubject(expectResult) {
-                            explainForResolvedLink(it.first) { realPath ->
-                                when (it.second) {
+                            explainForResolvedLink(it.path) { realPath ->
+                                when (it) {
                                     is Success ->
                                         assertionBuilder.descriptive.failing
                                             .withDescriptionAndRepresentation(
                                                 DIRECTORY_CONTAINS,
-                                                (it.second as Success<Path?>).value!!
+                                                it.value!!
                                             )
                                             .build()
-                                    is Failure -> hintForIoException(realPath, (it.second as Failure).exception)
+                                    is Failure -> hintForIoException(realPath, it.exception)
                                     }
                                 }
                             }
