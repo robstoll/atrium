@@ -136,11 +136,11 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     allKeyValues: KeyValues<K, V>
 ): Expect<T> = it contains o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
-//TODO 0.16.0 check if we really go with `to contain` since `to` caused troubles in the past
 @Deprecated(
-    "Use `to contain keyValues` instead; will be removed latest with 1.0.0",
+    "Use `contains keyValues` instead; will be removed latest with 1.0.0",
     ReplaceWith(
-        "this toContain keyValues(all.expected, *all.otherExpected)",
+        "this contains keyValues(all.expected, *all.otherExpected)",
+        "ch.tutteli.atrium.api.infix.en_GB.contains",
         "ch.tutteli.atrium.api.infix.en_GB.keyValues"
     )
 )
