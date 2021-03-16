@@ -21,6 +21,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     "toBe ${aSymbolicLink::class.simpleName}" to Companion::toBeASymbolicLink,
     "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
+    "toBe ${relative::class.simpleName}" to Companion::isEmptyDirectory,
     fun1(Expect<Path>::hasDirectoryEntry),
     "has ${::directoryEntries.name}" to Companion::hasDirectoryEntryMultiple,
     fun1(Expect<Path>::hasSameBinaryContentAs),
@@ -50,6 +51,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun toBeASymbolicLink(expect: Expect<Path>) = expect toBe aSymbolicLink
         private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
+        private fun isEmptyDirectory(expect: Expect<Path>) = expect toBe anEmptyDirectory
         private fun hasDirectoryEntryMultiple(expect: Expect<Path>, entry: String, vararg otherEntries: String) =
             expect has directoryEntries(entry, *otherEntries)
 

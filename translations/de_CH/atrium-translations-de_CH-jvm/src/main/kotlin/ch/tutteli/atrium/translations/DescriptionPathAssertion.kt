@@ -29,6 +29,8 @@ enum class DescriptionPathAssertion(override val value: String) : StringBasedTra
     EXECUTABLE("ausführbar"),
     A_FILE("eine Datei"),
     A_DIRECTORY("ein Verzeichnis"),
+    AN_EMPTY_DIRECTORY("ein leeres Verzeichnis"),
+    DIRECTORY_CONTAINS("Verzeichnis enthält"),
     A_SYMBOLIC_LINK("eine symbolische Verknüpfung"),
     A_UNKNOWN_FILE_TYPE("ein unbekannter Dateityp"),
     FAILURE_DUE_TO_NO_SUCH_FILE("es exisitiert kein Dateisystemeintrag an diesem Ort"),

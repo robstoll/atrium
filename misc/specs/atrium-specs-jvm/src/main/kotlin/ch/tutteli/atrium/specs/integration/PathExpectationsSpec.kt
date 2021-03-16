@@ -42,6 +42,7 @@ abstract class PathExpectationsSpec(
     isSymbolicLink: Fun0<Path>,
     isAbsolute: Fun0<Path>,
     isRelative: Fun0<Path>,
+    isEmptyDirectory: Fun0<Path>,
     hasDirectoryEntrySingle: Fun1<Path, String>,
     hasDirectoryEntryMulti: Fun2<Path, String, Array<out String>>,
     hasSameBinaryContentAs: Fun1<Path, Path>,
@@ -76,6 +77,7 @@ abstract class PathExpectationsSpec(
         isSymbolicLink.forSubjectLess(),
         isAbsolute.forSubjectLess(),
         isRelative.forSubjectLess(),
+        isEmptyDirectory.forSubjectLess(),
         hasDirectoryEntrySingle.forSubjectLess("a"),
         hasDirectoryEntryMulti.forSubjectLess("a", arrayOf("b", "c")),
         hasSameBinaryContentAs.forSubjectLess(Paths.get("a")),
@@ -945,6 +947,70 @@ abstract class PathExpectationsSpec(
         it("does not throw for relative path") {
             val path = Paths.get("test/bla.txt")
             expect(path).isRelativeFun()
+        }
+    }
+
+    describeFun(isEmptyDirectory) {
+        val isEmptyDirectoryFun = isEmptyDirectory.lambda
+        val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+        val expectedEmptyMessage = "$isDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).isEmptyDirectoryFun()
+                }.toThrow<AssertionError>().message {
+                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    containsExplanationFor(maybeLink)
+                }
+            }
+
+            itPrintsFileAccessProblemDetails { testFile ->
+                expect(testFile).isEmptyDirectoryFun()
+            }
+        }
+
+        it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+            val file = maybeLink.create(tempFolder.newFile("test"))
+            expect {
+                expect(file).isEmptyDirectoryFun()
+            }.toThrow<AssertionError>().message {
+                contains(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                containsExplanationFor(maybeLink)
+            }
+        }
+
+        it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
+            val dir = tempFolder.newDirectory("notEmpty")
+            dir.newFile("a")
+            val folder = maybeLink.create(dir)
+            expect {
+                expect(folder).isEmptyDirectoryFun()
+            }.toThrow<AssertionError>().message {
+                contains(expectedEmptyMessage)
+                containsExplanationFor(maybeLink)
+                contains("a")
+            }
+        }
+
+        it("throws an AssertionError for a directory that contains an empty directory") withAndWithoutSymlink
+            { maybeLink ->
+                val dir = tempFolder.newDirectory("notEmpty")
+                dir.newDirectory("a")
+                val folder = maybeLink.create(dir)
+                expect {
+                    expect(folder).isEmptyDirectoryFun()
+                }.toThrow<AssertionError>().message {
+                    contains(expectedEmptyMessage)
+                    containsExplanationFor(maybeLink)
+                    contains("a")
+                }
+            }
+
+        it("does not throw for an empty directory") withAndWithoutSymlink { maybeLink ->
+            val folder = maybeLink.create(tempFolder.newDirectory("test"))
+            expect(folder).isEmptyDirectoryFun()
         }
     }
 

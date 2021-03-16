@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.aSymbolicLink
+import ch.tutteli.atrium.api.infix.en_GB.anEmptyDirectory
 import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.niok.newDirectory
 import ch.tutteli.niok.newFile
 import java.nio.file.Files
 import kotlin.test.Test
@@ -27,6 +29,21 @@ class PathAssertionSamples {
         // Fails, as subject `path` is a not a symbolic link
         fails {
             expect(path) toBe aSymbolicLink
+        }
+    }
+
+    @Test
+    fun isEmptyDirectory() {
+        val path = tempDir.newDirectory("dir")
+        expect(path) toBe anEmptyDirectory
+    }
+
+    @Test
+    fun isNotEmptyDirectory() {
+        tempDir.newFile("a")
+
+        fails {
+            expect(tempDir) toBe anEmptyDirectory
         }
     }
 }
