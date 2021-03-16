@@ -29,9 +29,12 @@ interface PathAssertions {
     fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion
     fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion
-    fun <T : Path> toBeASymbolicLink(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isSymbolicLink(container: AssertionContainer<T>): Assertion
     fun <T : Path> isAbsolute(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRelative(container: AssertionContainer<T>): Assertion
+
+    fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion
+    fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion
 
     fun <T : Path> hasSameTextualContentAs(
         container: AssertionContainer<T>,
@@ -50,7 +53,4 @@ interface PathAssertions {
         container: AssertionContainer<T>,
         other: String
     ): FeatureExtractorBuilder.ExecutionStep<T, Path>
-
-    fun <T : Path> hasDirectoryEntry(container: AssertionContainer<T>, entries: List<String>): Assertion
-    fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion
 }

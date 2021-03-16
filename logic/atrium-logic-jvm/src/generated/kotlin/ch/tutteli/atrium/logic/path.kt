@@ -34,9 +34,12 @@ fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(t
 fun <T : Path> AssertionContainer<T>.isExecutable(): Assertion = impl.isExecutable(this)
 fun <T : Path> AssertionContainer<T>.isRegularFile(): Assertion = impl.isRegularFile(this)
 fun <T : Path> AssertionContainer<T>.isDirectory(): Assertion = impl.isDirectory(this)
-fun <T : Path> AssertionContainer<T>.toBeASymbolicLink(): Assertion = impl.toBeASymbolicLink(this)
+fun <T : Path> AssertionContainer<T>.isSymbolicLink(): Assertion = impl.isSymbolicLink(this)
 fun <T : Path> AssertionContainer<T>.isAbsolute(): Assertion = impl.isAbsolute(this)
 fun <T : Path> AssertionContainer<T>.isRelative(): Assertion = impl.isRelative(this)
+
+fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): Assertion = impl.hasDirectoryEntry(this, entries)
+fun <T : Path> AssertionContainer<T>.isEmptyDirectory(): Assertion = impl.isEmptyDirectory(this)
 
 fun <T : Path> AssertionContainer<T>.hasSameTextualContentAs(targetPath: Path, sourceCharset: Charset, targetCharset: Charset): Assertion =
     impl.hasSameTextualContentAs(this, targetPath, sourceCharset, targetCharset)
@@ -48,9 +51,6 @@ fun <T : Path> AssertionContainer<T>.extension(): FeatureExtractorBuilder.Execut
 fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): FeatureExtractorBuilder.ExecutionStep<T, String> = impl.fileNameWithoutExtension(this)
 fun <T : Path> AssertionContainer<T>.parent(): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.parent(this)
 fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.resolve(this, other)
-
-fun <T : Path> AssertionContainer<T>.hasDirectoryEntry(entries: List<String>): Assertion = impl.hasDirectoryEntry(this, entries)
-fun <T : Path> AssertionContainer<T>.isEmptyDirectory(): Assertion = impl.isEmptyDirectory(this)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

@@ -81,6 +81,31 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> =
     _logicAppend { existsNot() }
 
 /**
+ * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.9.0
+ */
+val <T : Path> Expect<T>.extension: Expect<String>
+    get() = _logic.extension().transform()
+
+/**
+ * Expects that the property [Path.extension][ch.tutteli.niok.extension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.9.0
+ */
+fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    _logic.extension().collectAndAppend(assertionCreator)
+
+/**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -281,11 +306,10 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
  *
  * @since 0.16.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isASymbolicLink
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isNotASymbolicLink
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isASymbolicLink
  */
-fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
-    _logicAppend { toBeASymbolicLink() }
+fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
+    _logicAppend { isSymbolicLink() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
@@ -310,6 +334,19 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
     _logicAppend { isRelative() }
 
 /**
+ * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isEmptyDirectory
+ */
+fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
+    _logicAppend { isEmptyDirectory() }
+
+/**
  * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
  * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
  * Furthermore, every argument string resolved against the subject yields an existing file system entry.
@@ -330,30 +367,6 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
 fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String, vararg otherEntries: String): Expect<T> =
     _logicAppend { hasDirectoryEntry(entry glue otherEntries) }
 
-/**
- * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-val <T : Path> Expect<T>.extension: Expect<String>
-    get() = _logic.extension().transform()
-
-/**
- * Expects that the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.extension().collectAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) has the same textual content
@@ -382,17 +395,3 @@ fun <T : Path> Expect<T>.hasSameTextualContentAs(
  */
 fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
-
-/**
- * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
- * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.16.0
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isEmptyDirectory
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathAssertionSamples.isNotEmptyDirectory
- */
-fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
-    _logicAppend { isEmptyDirectory() }

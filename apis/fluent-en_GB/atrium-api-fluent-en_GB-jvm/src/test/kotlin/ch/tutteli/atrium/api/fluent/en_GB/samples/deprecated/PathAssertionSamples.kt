@@ -1,8 +1,8 @@
-package ch.tutteli.atrium.api.infix.en_GB.samples
+package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 
-import ch.tutteli.atrium.api.infix.en_GB.aSymbolicLink
-import ch.tutteli.atrium.api.infix.en_GB.anEmptyDirectory
-import ch.tutteli.atrium.api.infix.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.isEmptyDirectory
+import ch.tutteli.atrium.api.fluent.en_GB.samples.fails
+import ch.tutteli.atrium.api.fluent.en_GB.isSymbolicLink
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.niok.newDirectory
 import ch.tutteli.niok.newFile
@@ -19,31 +19,24 @@ class PathAssertionSamples {
         val link = Files.createSymbolicLink(tempDir.resolve("link"), target)
 
         // Passes, as subject `link` is a symbolic link
-        expect(link) toBe aSymbolicLink
-    }
+        expect(link).isSymbolicLink()
 
-    @Test
-    fun isNotASymbolicLink() {
-        val path = tempDir.newFile("somePath")
+        val file = tempDir.newFile("somePath")
 
         // Fails, as subject `path` is a not a symbolic link
         fails {
-            expect(path) toBe aSymbolicLink
+            expect(file).isSymbolicLink()
         }
     }
 
     @Test
     fun isEmptyDirectory() {
-        val path = tempDir.newDirectory("dir")
-        expect(path) toBe anEmptyDirectory
-    }
+        val dir = tempDir.newDirectory("dir")
+        expect(dir).isEmptyDirectory()
 
-    @Test
-    fun isNotEmptyDirectory() {
-        tempDir.newFile("a")
-
+        dir.newFile("test.txt")
         fails {
-            expect(tempDir) toBe anEmptyDirectory
+            expect(dir).isEmptyDirectory()
         }
     }
 }
