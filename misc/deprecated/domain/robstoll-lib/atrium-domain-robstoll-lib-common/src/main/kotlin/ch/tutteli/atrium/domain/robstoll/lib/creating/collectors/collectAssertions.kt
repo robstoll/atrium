@@ -19,7 +19,8 @@ fun <T> _collect(
 ): Assertion {
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    //TODO 0.16.0 don't use DefaultComponentFactoryContainer but the one from the container
+    //we shouldn't use DefaultComponentFactoryContainer but the one from the container.
+    // Yet, since we remove this with 0.17.0 we don't fix it.
     val collectedAssertions = CollectingExpect(maybeSubject, DefaultComponentFactoryContainer)
         .addAssertionsCreatedBy(assertionCreator)
         .getAssertions()

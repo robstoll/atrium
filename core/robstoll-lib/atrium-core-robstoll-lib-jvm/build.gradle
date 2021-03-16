@@ -13,7 +13,7 @@ dependencies {
     testImplementation prefixedProject('specs-jvm')
 }
 
-//TODO 0.16.0 or 0.17.0 should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+//TODO 0.17.0 or 0.18.0 should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
 compileTestKotlin.dependsOn(
     prefixedProject('core-robstoll-jvm').compileKotlin,
     prefixedProject('core-robstoll-jvm').processResources,

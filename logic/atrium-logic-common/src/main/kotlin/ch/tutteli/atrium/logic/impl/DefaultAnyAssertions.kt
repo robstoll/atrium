@@ -27,15 +27,6 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(IS_NOT_SAME, expected) { it !== expected }
 
-    override fun <T> toBeNull(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(TO_BE, Text.NULL) { it == null }
-
-    override fun <T : Any> toBeNullIfNullGivenElse(
-        container: AssertionContainer<T?>,
-        type: KClass<T>,
-        assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-    ): Assertion = toBeNullIfNullGivenElse(container, assertionCreatorOrNull)
-
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
@@ -47,7 +38,7 @@ class DefaultAnyAssertions : AnyAssertions {
             val assertion = container.collectBasedOnSubject(collectSubject) {
                 addAssertionsCreatedBy(assertionCreatorOrNull)
             }
-            //TODO 0.16.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            //TODO 0.17.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(
                 {
                     // already in an explanatory assertion context, no need to wrap it again

@@ -46,7 +46,6 @@ data class FeatureExpectOptions<R>(
 fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
     FeatureExpectOptionsChooser(configuration)
 
-//TODO 0.16.0 deprecate and move to logic
 /**
  * Helper lambda to specify [FeatureExpectOptions] via convenience methods.
  *

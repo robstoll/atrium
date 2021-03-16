@@ -20,21 +20,6 @@ fun <T> AssertionContainer<T>.notToBe(expected: T): Assertion = impl.notToBe(thi
 fun <T> AssertionContainer<T>.isSameAs(expected: T): Assertion = impl.isSameAs(this, expected)
 fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSameAs(this, expected)
 
-    //TODO 0.16.0 remove in case we keep AnyAssertions (i.e. don't introduce something like AnyRecordFactory)
-    @Suppress("DEPRECATION")
-    @Deprecated("Use toBe(null) instead; will be removed with 0.16.0", ReplaceWith("this.toBe(null)"))
-fun <T : Any?> AssertionContainer<T>.toBeNull(): Assertion = impl.toBeNull(this)
-
-
-    //TODO 0.16.0 remove in case we keep AnyAssertions (i.e. don't introduce something like AnyRecordFactory)
-    @Suppress("DEPRECATION")
-    @Deprecated(
-        "Use the overload which does not expect `type`; will be removed with 0.16.0",
-        ReplaceWith("this.toBeNullIfNullGivenElse(container, assertionCreatorOrNull)")
-    )
-fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(type: KClass<T>, assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion =
-    impl.toBeNullIfNullGivenElse(this, type, assertionCreatorOrNull)
-
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion = impl.toBeNullIfNullGivenElse(this, assertionCreatorOrNull)
 
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)

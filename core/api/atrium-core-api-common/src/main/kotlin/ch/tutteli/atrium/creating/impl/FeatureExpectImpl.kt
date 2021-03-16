@@ -53,7 +53,7 @@ internal class FeatureExpectImpl<T, R>(
     }
 
     override val components: ComponentFactoryContainer
-        // TODO 0.16.0 the function to turn an Expect into a ProofContainer should be located in core
+        // TODO 0.17.0 the function to turn an Expect into a ProofContainer should be located in core
         get() = (previousExpect as AssertionContainer<*>).components
 
 

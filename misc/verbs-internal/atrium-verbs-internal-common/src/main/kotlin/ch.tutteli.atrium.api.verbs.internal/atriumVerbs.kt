@@ -10,7 +10,6 @@ import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.ReporterFactory
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -29,11 +28,10 @@ fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
         .withOptions {
-            //TODO 0.16.0 also withComponentFactoryContainer so that one can pass a singleton
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
 
             // TODO 0.17.0 remove with removing getAtriumProperty (also means we cannot run bc for 0.14.0 and 0.15.0)
-            getAtriumProperty(ReporterFactory.ATRIUM_PROPERTY_KEY)?.let {
+            getAtriumProperty(ch.tutteli.atrium.reporting.ReporterFactory.ATRIUM_PROPERTY_KEY)?.let {
                 withComponent(Reporter::class) { reporter }
             }
         }
