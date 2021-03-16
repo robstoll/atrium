@@ -105,6 +105,10 @@ class DefaultTextReporter(
     private fun calculateMaxLengths(node: OutputNode): List<Int> {
         val maxLengths = mutableListOf<Int>()
         fun updateMaxLengths(child: OutputNode) {
+            //TODO take span into account. Is not 100% correct yet.
+            // e.g. `expected that subject` = 20, first column is empty
+            // there is no need to pad `expected that subject` with 22 in this particular case because 20 is the longest
+            // and no child is longer than 20 combining column 1 + 2
             val currentSize = maxLengths.size
             child.columns.forEachIndexed { index, s ->
                 val length = s.unstyled.length
@@ -356,11 +360,19 @@ interface Styler {
     fun style(s: String, styleId: String, noWrap: Boolean = true): StyledString
 }
 
+enum class HorizontalAlignment {
+    LEFT,
+    CENTER,
+    RIGHT,
+}
+
 data class StyledString(
     val unstyled: String,
     val maybeStyled: Option<String>,
     val span: Int = 0,
-    val noWrap: Boolean = true
+    val noWrap: Boolean = true,
+    //TODO take this one into account as well
+    val align: HorizontalAlignment = HorizontalAlignment.LEFT
 ) {
 
     override fun toString(): String = "SS(u=$unstyled)"
