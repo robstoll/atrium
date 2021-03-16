@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 internal actual object ReporterBuilderImpl : ReporterBuilder {
 
     override fun withoutTranslations(primaryLocale: Locale) = withTranslator(UsingDefaultTranslator(primaryLocale))

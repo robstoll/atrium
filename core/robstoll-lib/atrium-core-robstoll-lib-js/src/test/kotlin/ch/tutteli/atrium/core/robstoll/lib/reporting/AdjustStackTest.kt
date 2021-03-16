@@ -11,7 +11,6 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter

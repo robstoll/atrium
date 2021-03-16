@@ -14,6 +14,7 @@ import ch.tutteli.atrium.reporting.translating.*
 /**
  * Provides options to create a [Translator] or [TranslationSupplier].
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 actual interface ReporterBuilder : ReporterBuilderCommon {
     actual companion object {
         actual fun create(): ReporterBuilder = ReporterBuilderImpl

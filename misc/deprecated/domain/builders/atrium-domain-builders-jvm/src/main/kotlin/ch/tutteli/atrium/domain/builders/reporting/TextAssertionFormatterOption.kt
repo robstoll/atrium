@@ -17,6 +17,7 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
 /**
  * Provides options to register [AssertionFormatter]s to the chosen [AssertionFormatterFacade].
  */
+@Deprecated("Configure components via withOptions when creating an expectation verb instead; will be removed with 0.17.0")
 actual interface TextAssertionFormatterOption : TextAssertionFormatterOptionCommon {
 
     /**

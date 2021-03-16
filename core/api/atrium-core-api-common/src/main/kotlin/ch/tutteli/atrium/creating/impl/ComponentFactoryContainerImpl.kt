@@ -119,9 +119,8 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 @ExperimentalComponentFactoryContainer
 //TODO 0.17.0 or 0.18.0 make internal
 object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
-
     mapOf(
-        Reporter::class createSingletonVia  { c ->
+        Reporter::class createSingletonVia { c ->
             OnlyFailureReporter(c.build(), c.build())
         },
 
@@ -161,7 +160,7 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
     ),
 
-    mapOf(TextAssertionFormatterFactory::class createChainVia (
+    mapOf(TextAssertionFormatterFactory::class createChainVia
         sequenceOf(
             { c ->
                 val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
@@ -204,5 +203,5 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
                 }
             }
         )
-        ))
+    )
 )
