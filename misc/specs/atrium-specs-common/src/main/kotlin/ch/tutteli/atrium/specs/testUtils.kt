@@ -250,7 +250,7 @@ val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
 val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
 
-expect val lineSeperator: String
+expect val lineSeparator: String
 
 fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
 

@@ -8,14 +8,13 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.specs.toBeDescr
@@ -23,7 +22,6 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import kotlin.random.Random
 import kotlin.reflect.KClass
 
 class TextFallbackAssertionFormatterSpec : Spek({
@@ -64,8 +62,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()) toBe
-                    "${EXPECT.getDefault()}: subject$lineSeperator" +
-                        "$squarePoint $toBeDescr: bli$lineSeperator" +
+                    "${EXPECT.getDefault()}: subject$lineSeparator" +
+                        "$squarePoint $toBeDescr: bli$lineSeparator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
             }
         }

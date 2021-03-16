@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.specs.toBeDescr
@@ -64,8 +64,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()).toBe(
-                    "${EXPECT.getDefault()}: subject$lineSeperator" +
-                        "$squarePoint $toBeDescr: bli$lineSeperator" +
+                    "${EXPECT.getDefault()}: subject$lineSeparator" +
+                        "$squarePoint $toBeDescr: bli$lineSeparator" +
                         "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
                 )
             }

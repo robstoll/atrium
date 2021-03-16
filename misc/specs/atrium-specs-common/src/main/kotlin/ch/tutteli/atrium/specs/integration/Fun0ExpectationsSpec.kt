@@ -62,7 +62,7 @@ abstract class Fun0ExpectationsSpec(
     val messageDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault()
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
     val causeDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault()
-    val separator = lineSeperator
+    val separator = lineSeparator
 
     val errMessage = "oho... error occurred"
     fun messageAndStackTrace(message: String) =

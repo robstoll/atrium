@@ -33,7 +33,7 @@ abstract class Fun0ExpectationsJvmSpec(
     val stackTraceDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
     val causeDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault()
     val supressedDescr = DescriptionThrowableAssertion.OCCURRED_EXCEPTION_SUPPRESSED.getDefault()
-    val separator = lineSeperator
+    val separator = lineSeparator
 
     val errMessage = "oho... error occurred"
 

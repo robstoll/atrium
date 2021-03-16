@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.specs.format
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -25,6 +25,6 @@ abstract class CharSequenceContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) 
         val atMost = DescriptionCharSequenceAssertion.AT_MOST.getDefault()
 
         val illegalArgumentException = IllegalArgumentException::class.simpleName
-        val separator = lineSeperator
+        val separator = lineSeparator
     }
 }
