@@ -205,17 +205,21 @@ class DefaultPathAssertions : PathAssertions {
             }.let { expectResult ->
                 assertionBuilder.descriptive
                     .withTest(expectResult) { it is Success && it.value.isEmpty() }
-                    .withFailureHintBasedOnDefinedSubject(expectResult) {
-                        explainForResolvedLink(it.path) { realPath ->
-                            when (it) {
+                    .withFailureHintBasedOnDefinedSubject(expectResult) { ioResult ->
+                        explainForResolvedLink(ioResult.path) { realPath ->
+                            when (ioResult) {
                                 is Success -> {
-                                    val maxEntries = it.value.take(showMax).map { path ->
-                                        assertionBuilder.representationOnly
-                                            .holding
-                                            .withRepresentation(it.path.relativize(path))
-                                            .build()
-                                    }
-                                    val entries = if (it.value.size > showMax) {
+                                    val maxEntries = ioResult.value
+                                        .asSequence()
+                                        .sortedBy { it.fileNameAsString }
+                                        .take(showMax)
+                                        .map { path ->
+                                            assertionBuilder.representationOnly
+                                                .holding
+                                                .withRepresentation(ioResult.path.relativize(path))
+                                                .build()
+                                        }
+                                    val entries = if (ioResult.value.size > showMax) {
                                         maxEntries +
                                             assertionBuilder.representationOnly.holding.withRepresentation(Text("..."))
                                                 .build()
@@ -227,12 +231,12 @@ class DefaultPathAssertions : PathAssertions {
                                         .withAssertion(
                                             assertionBuilder.list
                                                 .withDescriptionAndEmptyRepresentation(DIRECTORY_CONTAINS)
-                                                .withAssertions(entries)
+                                                .withAssertions(entries.toList())
                                                 .build()
                                         )
                                         .build()
                                 }
-                                is Failure -> hintForIoException(realPath, it.exception)
+                                is Failure -> hintForIoException(realPath, ioResult.exception)
                             }
                         }
                     }

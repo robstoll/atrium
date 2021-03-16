@@ -179,7 +179,10 @@ abstract class PathExpectationsSpec(
     }
 
     fun Suite.itPrintsFileAccessProblemDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
-        it("prints the closest existing parent if it is a directory", forceNoLink = forceNoLinks) withAndWithoutSymlink { maybeLink ->
+        it(
+            "prints the closest existing parent if it is a directory",
+            forceNoLink = forceNoLinks
+        ) withAndWithoutSymlink { maybeLink ->
             val start = tempFolder.newDirectory("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
@@ -984,7 +987,7 @@ abstract class PathExpectationsSpec(
         it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
             val dir = tempFolder.newDirectory("notEmpty")
             val showMax = 10
-            (0 until showMax+1).forEach {
+            (0 until showMax + 1).forEach {
                 dir.newFile("f$it")
             }
             val folder = maybeLink.create(dir)
@@ -993,10 +996,14 @@ abstract class PathExpectationsSpec(
             }.toThrow<AssertionError>().message {
                 contains(expectedEmptyMessage)
                 containsExplanationFor(maybeLink)
-                (0 until showMax).forEach {
-                    contains("${listBulletPoint}f$it")
+                val sb = StringBuilder()
+                // entries should be sorted but not naturally, i.e. f10 comes before f2
+                val files = ((0..1) + (10..showMax) + (2 until 10)).take(showMax)
+                files.forEach {
+                    sb.append(".*${listBulletPoint}f$it.*$lineSeperator")
                 }
-                contains("$listBulletPoint...")
+                sb.append(".*${listBulletPoint}\\.\\.\\.")
+                containsRegex(sb.toString())
                 containsNot("f${showMax + 1}")
             }
         }
