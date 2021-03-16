@@ -83,6 +83,31 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
     _logicAppend { existsNot() }
 
 /**
+ * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.12.0
+ */
+val <T : Path> Expect<T>.extension: Expect<String>
+    get() = _logic.extension().transform()
+
+/**
+ * Expects that the property [Path.extension][ch.tutteli.niok.extension]
+ * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.12.0
+ */
+infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
+    _logic.extension().collectAndAppend(assertionCreator)
+
+/**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -164,58 +189,6 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  */
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     _logic.resolve(other).transform()
-
-/**
- * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided [entry].
- * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
- * Furthermore, the argument string resolved against the subject yields an existing file system entry.
- *
- * This assertion _resolves_ symbolic links for the subject, but not for the [entry].
- * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
- * the link points at. If a symbolic link exists at the [entry], this will fulfill the assertion and the entry’s
- * symbolic link will not be followed.
- *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
- * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
- * take place.
- *
- * @return an [Expect] for the subject of `this` expectation.
- * @see [has]
- *
- * @since 0.14.0
- */
-infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
-    _logicAppend { hasDirectoryEntry(listOf(entry)) }
-
-/**
- * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
- * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
- * Furthermore, every argument string resolved against the subject yields an existing file system entry.
- *
- * This assertion _resolves_ symbolic links for the subject, but not for the entries.
- * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
- * the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
- * the entry’s symbolic link will not be followed.
- *
- * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
- * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
- * take place.
- *
- * @return an [Expect] for the subject of `this` expectation.
- * @see [directoryEntries]
- * @see [hasDirectoryEntry]
- *
- * @since 0.14.0
- */
-infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
-    _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
-
-/**
- * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
- *
- * @since 0.14.0
- */
-fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry, otherEntries)
 
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
@@ -343,11 +316,10 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  *
  * @since 0.16.0
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isASymbolicLink
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isNotASymbolicLink
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeASymbolicLink
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink: aSymbolicLink): Expect<T> =
-    _logicAppend { toBeASymbolicLink() }
+    _logicAppend { isSymbolicLink() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
@@ -373,29 +345,69 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") relative: rela
 
 
 /**
- * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
+ * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided [entry].
+ * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
+ * Furthermore, the argument string resolved against the subject yields an existing file system entry.
  *
- * @return The newly created [Expect] for the extracted feature.
+ * This assertion _resolves_ symbolic links for the subject, but not for the [entry].
+ * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+ * the link points at. If a symbolic link exists at the [entry], this will fulfill the assertion and the entry’s
+ * symbolic link will not be followed.
  *
- * @since 0.12.0
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+ * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @see [has]
+ *
+ * @since 0.14.0
  */
-val <T : Path> Expect<T>.extension: Expect<String>
-    get() = _logic.extension().transform()
+infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
+    _logicAppend { hasDirectoryEntry(listOf(entry)) }
 
 /**
- * Expects that the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
+ * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
+ * That means that there is a file system entry at the location the [Path] points to and that it is a directory.
+ * Furthermore, every argument string resolved against the subject yields an existing file system entry.
+ *
+ * This assertion _resolves_ symbolic links for the subject, but not for the entries.
+ * Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+ * the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
+ * the entry’s symbolic link will not be followed.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+ * The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @see [directoryEntries]
+ * @see [hasDirectoryEntry]
+ *
+ * @since 0.14.0
+ */
+infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
+    _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
+
+/**
+ * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
+ *
+ * @since 0.14.0
+ */
+fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry, otherEntries)
+
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.16.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeAnEmptyDirectory
  */
-infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.extension().collectAndAppend(assertionCreator)
+infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
+    _logicAppend { isEmptyDirectory() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) has the same textual content
@@ -449,17 +461,3 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWit
  */
 infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
-
-/**
- * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
- * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.16.0
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isEmptyDirectory
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathAssertionSamples.isNotEmptyDirectory
- */
-infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
-    _logicAppend { isEmptyDirectory() }

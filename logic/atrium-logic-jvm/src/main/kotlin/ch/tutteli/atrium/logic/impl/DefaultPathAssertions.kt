@@ -18,9 +18,11 @@ import ch.tutteli.atrium.logic.creating.filesystem.*
 import ch.tutteli.atrium.logic.creating.filesystem.hints.*
 import ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import java.nio.charset.Charset
@@ -111,7 +113,7 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_DIRECTORY) { it.isDirectory }
 
-    override fun <T : Path> toBeASymbolicLink(container: AssertionContainer<T>): Assertion =
+    override fun <T : Path> isSymbolicLink(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_SYMBOLIC_LINK, NOFOLLOW_LINKS) { it.isSymbolicLink }
 
     override fun <T : Path> isAbsolute(container: AssertionContainer<T>): Assertion =
@@ -197,27 +199,46 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isEmptyDirectory(container: AssertionContainer<T>): Assertion {
         val isDirectory = container.isDirectory()
         if (isDirectory.holds()) {
+            val showMax = 10
             return container.changeSubject.unreported {
-                it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.firstOrNull() } }
+                it.runCatchingIo { Files.newDirectoryStream(it).use { stream -> stream.take(showMax + 1) } }
             }.let { expectResult ->
-                    assertionBuilder.descriptive.withTest(expectResult) { it is Success && it.value == null }
-                        .withFailureHintBasedOnDefinedSubject(expectResult) {
-                            explainForResolvedLink(it.path) { realPath ->
-                                when (it) {
-                                    is Success ->
-                                        assertionBuilder.descriptive.failing
-                                            .withDescriptionAndRepresentation(
-                                                DIRECTORY_CONTAINS,
-                                                it.path.relativize(it.value!!)
-                                            )
+                assertionBuilder.descriptive
+                    .withTest(expectResult) { it is Success && it.value.isEmpty() }
+                    .withFailureHintBasedOnDefinedSubject(expectResult) {
+                        explainForResolvedLink(it.path) { realPath ->
+                            when (it) {
+                                is Success -> {
+                                    val maxEntries = it.value.take(showMax).map { path ->
+                                        assertionBuilder.representationOnly
+                                            .holding
+                                            .withRepresentation(it.path.relativize(path))
                                             .build()
-                                    is Failure -> hintForIoException(realPath, it.exception)
                                     }
+                                    val entries = if (it.value.size > showMax) {
+                                        maxEntries +
+                                            assertionBuilder.representationOnly.holding.withRepresentation(Text("..."))
+                                                .build()
+                                    } else {
+                                        maxEntries
+                                    }
+                                    assertionBuilder.explanatoryGroup
+                                        .withWarningType
+                                        .withAssertion(
+                                            assertionBuilder.list
+                                                .withDescriptionAndEmptyRepresentation(DIRECTORY_CONTAINS)
+                                                .withAssertions(entries)
+                                                .build()
+                                        )
+                                        .build()
                                 }
+                                is Failure -> hintForIoException(realPath, it.exception)
                             }
-                        .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
-                        .build()
-                }
+                        }
+                    }
+                    .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
+                    .build()
+            }
         } else return isDirectory
     }
 }

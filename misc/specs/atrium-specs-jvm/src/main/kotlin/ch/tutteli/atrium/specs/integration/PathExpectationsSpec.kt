@@ -833,7 +833,7 @@ abstract class PathExpectationsSpec(
             it("throws an AssertionError for a non-existent path") {
                 val path = tempFolder.resolve("nonExistent")
                 expect {
-                    expect(path).toBeASymbolicLink()
+                    expect(path).isSymbolicLink()
                 }.toThrow<AssertionError>().message {
                     contains(
                         expectedMessage,
@@ -983,14 +983,21 @@ abstract class PathExpectationsSpec(
 
         it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
             val dir = tempFolder.newDirectory("notEmpty")
-            dir.newFile("a")
+            val showMax = 10
+            (0 until showMax+1).forEach {
+                dir.newFile("f$it")
+            }
             val folder = maybeLink.create(dir)
             expect {
                 expect(folder).isEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
                 contains(expectedEmptyMessage)
                 containsExplanationFor(maybeLink)
-                contains("a")
+                (0 until showMax).forEach {
+                    contains("${listBulletPoint}f$it")
+                }
+                contains("$listBulletPoint...")
+                containsNot("f${showMax + 1}")
             }
         }
 
@@ -1005,6 +1012,7 @@ abstract class PathExpectationsSpec(
                     contains(expectedEmptyMessage)
                     containsExplanationFor(maybeLink)
                     contains("a")
+                    containsNot("$listBulletPoint...")
                 }
             }
 

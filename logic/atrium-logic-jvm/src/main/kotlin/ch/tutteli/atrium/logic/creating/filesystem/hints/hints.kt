@@ -57,7 +57,7 @@ fun explainForResolvedLink(
     val resolvedPathAssertion = resolvedPathAssertionProvider(realPath)
     return if (hintList.isNotEmpty()) {
         when (resolvedPathAssertion) {
-            //TODO this should be done differently
+            //TODO 0.17.0 this should be done differently - see isEmptyDirectory !! directory contains is suddenly >> directory contains.
             is AssertionGroup -> hintList.addAll(resolvedPathAssertion.assertions)
             else -> hintList.add(resolvedPathAssertion)
         }
