@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import org.spekframework.spek2.style.specification.Suite
@@ -38,7 +38,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
                 .withAssertions(listOf())
                 .build()
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
-            expect(sb.toString()).toBe("$name:$lineSeperator$indentBulletPoint$subject")
+            expect(sb.toString()).toBe("$name:$lineSeparator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${Text::class.simpleName}${Text.Companion::EMPTY.name}") {
@@ -56,7 +56,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         context("current indent 0, no prefix") {
             it("puts the representation on the next line without indent") {
                 testee.format(parameterObject, Untranslatable(name), subject)
-                expect(sb.toString()).toBe("$name:$lineSeperator$subject")
+                expect(sb.toString()).toBe("$name:$lineSeparator$subject")
             }
         }
 
@@ -64,7 +64,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
             it("puts the representation on the next line with 2 indent") {
                 val newParameterObject = parameterObject.createChildWithNewPrefix("==")
                 testee.format(newParameterObject, Untranslatable(name), subject)
-                expect(sb.toString()).toBe("$name:$lineSeperator  $subject")
+                expect(sb.toString()).toBe("$name:$lineSeparator  $subject")
             }
         }
 

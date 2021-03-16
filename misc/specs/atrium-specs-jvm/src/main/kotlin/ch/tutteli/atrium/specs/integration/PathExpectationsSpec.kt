@@ -1000,7 +1000,7 @@ abstract class PathExpectationsSpec(
                 // entries should be sorted but not naturally, i.e. f10 comes before f2
                 val files = ((0..1) + (10..showMax) + (2 until 10)).take(showMax)
                 files.forEach {
-                    sb.append(".*${listBulletPoint}f$it.*$lineSeperator")
+                    sb.append(".*${listBulletPoint}f$it.*$lineSeparator")
                 }
                 sb.append(".*${listBulletPoint}\\.\\.\\.")
                 containsRegex(sb.toString())

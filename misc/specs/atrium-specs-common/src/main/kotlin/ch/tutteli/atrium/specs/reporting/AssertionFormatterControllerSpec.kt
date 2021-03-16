@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.root
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.Text
@@ -20,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -170,7 +169,7 @@ abstract class AssertionFormatterControllerSpec(
                         it("appends the assertions without group header, if the assertion group holds") {
                             testee.format(holdingGroup, parameterObject)
                             expect(sb.toString()).toBe(
-                                lineSeperator +
+                                lineSeparator +
                                     "$prefix ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                             )
                         }
@@ -178,7 +177,7 @@ abstract class AssertionFormatterControllerSpec(
                         it("appends the assertions without group header, if the assertion group does not hold") {
                             testee.format(failingGroup, parameterObject)
                             expect(sb.toString()).toBe(
-                                lineSeperator +
+                                lineSeparator +
                                     "$prefix ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2"
                             )
                         }
@@ -208,7 +207,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toBe(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                     )
                 }
@@ -226,7 +225,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toBe(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$warning ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                     )
                 }
@@ -249,10 +248,10 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toBe(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeperator" +
-                            "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeperator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeperator" +
+                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
+                            "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeparator" +
                             "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                     )
                 }
@@ -269,10 +268,10 @@ abstract class AssertionFormatterControllerSpec(
                             .build()
                         testee.format(rootGroup2, parameterObject)
                         expect(sb.toString()).toBe(
-                            "${IS_LESS_THAN.getDefault()}: 10$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeperator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeperator" +
+                            "${IS_LESS_THAN.getDefault()}: 10$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeparator" +
                                 "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                         )
                     }
@@ -309,9 +308,9 @@ abstract class AssertionFormatterControllerSpec(
                             .build()
                         testee.format(summaryGroup, parameterObject)
                         expect(sb.toString()).toBe(
-                            lineSeperator +
-                                "${AssertionVerb.ASSERT.getDefault()}: ${Text.EMPTY}$lineSeperator" +
-                                "$successfulBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeperator" +
+                            lineSeparator +
+                                "${AssertionVerb.ASSERT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
+                                "$successfulBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
                                 "$failingBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2"
                         )
                     }

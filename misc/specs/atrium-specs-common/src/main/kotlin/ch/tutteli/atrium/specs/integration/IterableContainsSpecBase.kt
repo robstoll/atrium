@@ -50,7 +50,7 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
         val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
-        val separator = lineSeperator
+        val separator = lineSeparator
 
         fun Expect<String>.containsSize(actual: Int, expected: Int) =
             contains.exactly(1).regex("${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected")

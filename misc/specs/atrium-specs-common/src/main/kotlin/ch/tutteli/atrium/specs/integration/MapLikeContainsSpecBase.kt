@@ -4,7 +4,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.lineSeperator
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.Spek
@@ -23,7 +23,7 @@ abstract class MapLikeContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
         val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
 
-        val separator = lineSeperator
+        val separator = lineSeparator
 
         val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
         val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
