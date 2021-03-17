@@ -9,6 +9,7 @@ module ch.tutteli.atrium.domain.builders {
     exports ch.tutteli.atrium.domain.builders.reporting;
     exports ch.tutteli.atrium.domain.builders.utils;
 
+    //TODO 0.17.0 remove
     provides ch.tutteli.atrium.reporting.ReporterFactory
         with ch.tutteli.atrium.domain.builders.reporting.impl.DefaultReporterFactory;
 }

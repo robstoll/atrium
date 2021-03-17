@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @param assertionFormatterFacade The formatter used to format [Assertion]s.
  * @param atriumErrorAdjuster The adjuster which should be used to adjust the resulting [AtriumError].
  */
-//TODO deprecate with 0.16.0
+@Deprecated("Reporting will fundamentally change with the replacement of Assertion with Proof in 0.17.0. There is a replacement in 0.16.0 in atrium-api-core which will be deprecated again in 0.17.0. This class will be removed with 0.17.0")
 class OnlyFailureReporter(
     private val assertionFormatterFacade: AssertionFormatterFacade,
     override val atriumErrorAdjuster: AtriumErrorAdjuster

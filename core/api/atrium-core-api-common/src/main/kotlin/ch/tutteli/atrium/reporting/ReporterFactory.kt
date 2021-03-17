@@ -21,6 +21,7 @@ import ch.tutteli.atrium.core.polyfills.setAtriumProperty
  * Please [open an issue](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]%20change%20Reporter%20during%20test%20run)
  * if you want to able to change the [Reporter] during a test-run.
  */
+@Deprecated("A Reporter should now be be retrieved via ComponentFactoryContainer where the different components of a reporter should also be defined via ComponentFactoryContainer. This property will be removed with 0.17.0")
 val reporter: Reporter by lazy {
     val id = getAtriumProperty(ReporterFactory.ATRIUM_PROPERTY_KEY) ?: "default"
     val factory = loadServices(ReporterFactory::class)
@@ -37,7 +38,7 @@ val reporter: Reporter by lazy {
  * It identify itself via its [id]. This id can be used by a user to specify that this [ReporterFactory] shall be used.
  * In order to do that, the user has to define the system property `ch.tutteli.atrium.reporting.reporterFactory`
  */
-//TODO 0.16.0 deprecate
+@Deprecated("A Reporter should now be be retrieved via ComponentFactoryContainer where the different components of a reporter should also be defined via ComponentFactoryContainer. This class will be removed with 0.17.0")
 interface ReporterFactory {
     /**
      * Identification of the supplier
@@ -52,11 +53,13 @@ interface ReporterFactory {
     /**
      * Provides utility functions to specify a [ReporterFactory].
      */
+    @Suppress("DeprecatedCallableAddReplaceWith")
     companion object {
         /**
          * The key of Atrium's property which is used to define which [ReporterFactory] shall be used.
          * You can use [ReporterFactory.specifyFactory] or [ReporterFactory.specifyFactoryIfNotYetSet]
          */
+        @Deprecated("A Reporter should now be be retrieved via ComponentFactoryContainer where the different components of a reporter should also be defined via ComponentFactoryContainer. ReporterFactory will be removed with 0.17.0")
         const val ATRIUM_PROPERTY_KEY = "ch.tutteli.atrium.reporting.reporterFactory"
 
         /**
@@ -67,6 +70,7 @@ interface ReporterFactory {
          * Use [specifyFactoryIfNotYetSet] if you only want to set a default value but not overwrite an existing
          * specification.
          */
+        @Deprecated("A Reporter should now be be retrieved via ComponentFactoryContainer where the different components of a reporter should also be defined via ComponentFactoryContainer. ReporterFactory will be removed with 0.17.0")
         fun specifyFactory(reporterFactoryId: String) {
             setAtriumProperty(ATRIUM_PROPERTY_KEY, reporterFactoryId)
         }
@@ -79,6 +83,7 @@ interface ReporterFactory {
          * Use [specifyFactory] if you do not care if another id was specified before or in other words, if you want to
          * overwrite a potentially previously defined id.
          */
+        @Deprecated("A Reporter should now be be retrieved via ComponentFactoryContainer where the different components of a reporter should also be defined via ComponentFactoryContainer. ReporterFactory will be removed with 0.17.0")
         fun specifyFactoryIfNotYetSet(reporterFactoryId: String) {
             if (getAtriumProperty(ATRIUM_PROPERTY_KEY) == null) {
                 specifyFactory(reporterFactoryId)
