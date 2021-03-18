@@ -74,6 +74,29 @@ abstract class FeatureExpectationsSpec(
 
     isAbleToEvaluateDescription: Boolean,
     additionalContentInException: String? = null,
+    return0ImmediateFeatureInfo: String = "${TestData::return0.name}()",
+    return1ImmediateFeatureInfo: String = "${TestData::return1.name}(\"a\")",
+    return2ImmediateFeatureInfo: String =  "${TestData::return2.name}(\"a\", 1)",
+    return3ImmediateFeatureInfo: String =  "${TestData::return3.name}(\"a\", 1, true)",
+    return4ImmediateFeatureInfo: String =  "${TestData::return4.name}(\"a\", 1, true, 1.2)",
+    return5ImmediateFeatureInfo: String =  "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
+    return0LazyFeatureInfo: String = "${TestData::return0.name}()",
+    return1LazyFeatureInfo: String = "${TestData::return1.name}(\"a\")",
+    return2LazyFeatureInfo: String =  "${TestData::return2.name}(\"a\", 1)",
+    return3LazyFeatureInfo: String =  "${TestData::return3.name}(\"a\", 1, true)",
+    return4LazyFeatureInfo: String =  "${TestData::return4.name}(\"a\", 1, true, 1.2)",
+    return5LazyFeatureInfo: String =  "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
+
+    return0NullableFeatureInfo: String =  "${TestData::returnNullable0.name}()",
+    return1NullableFeatureInfo: String = "${TestData::returnNullable1.name}(\"a\")",
+    return2NullableFeatureInfo: String = "${TestData::returnNullable2.name}(\"a\", 1)",
+    return3NullableFeatureInfo: String = "${TestData::returnNullable3.name}(\"a\", 1, true)",
+    return4NullableFeatureInfo: String = "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)",
+    return5NullableFeatureInfo: String = "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')",
+
+    lazyWithNestedImmediateFeatureInfo : String = "length",
+    lazyWithNestedLazyFeatureInfo: String  = "length",
+
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -85,27 +108,27 @@ abstract class FeatureExpectationsSpec(
     val functions = arrayOf(
         Triple("property immediate", propertyImmediate, TestData::nonNullValue.name),
         Triple("property lazy", propertyLazy, TestData::nonNullValue.name),
-        Triple("fun without arguments and immediate", f0Immediate, "${TestData::return0.name}()"),
-        Triple("fun with 1 argument and immediate", f1Immediate, "${TestData::return1.name}(\"a\")"),
-        Triple("fun with 2 arguments and immediate", f2Immediate, "${TestData::return2.name}(\"a\", 1)"),
-        Triple("fun with 3 arguments and immediate", f3Immediate, "${TestData::return3.name}(\"a\", 1, true)"),
-        Triple("fun with 4 arguments and immediate", f4Immediate, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
-        Triple("fun with 5 arguments and immediate", f5Immediate, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')"),
-        Triple("fun without arguments and lazy", f0Lazy, "${TestData::return0.name}()"),
-        Triple("fun with 1 argument and lazy", f1Lazy, "${TestData::return1.name}(\"a\")"),
-        Triple("fun with 2 arguments and lazy", f2Lazy, "${TestData::return2.name}(\"a\", 1)"),
-        Triple("fun with 3 arguments and lazy", f3Lazy, "${TestData::return3.name}(\"a\", 1, true)"),
-        Triple("fun with 4 arguments and lazy", f4Lazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
-        Triple("fun with 5 arguments and lazy", f5Lazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
+        Triple("fun without arguments and immediate", f0Immediate, return0ImmediateFeatureInfo),
+        Triple("fun with 1 argument and immediate", f1Immediate, return1ImmediateFeatureInfo),
+        Triple("fun with 2 arguments and immediate", f2Immediate,return2ImmediateFeatureInfo),
+        Triple("fun with 3 arguments and immediate", f3Immediate,return3ImmediateFeatureInfo),
+        Triple("fun with 4 arguments and immediate", f4Immediate,return4ImmediateFeatureInfo),
+        Triple("fun with 5 arguments and immediate", f5Immediate,return5ImmediateFeatureInfo),
+        Triple("fun without arguments and lazy", f0Lazy,return0LazyFeatureInfo),
+        Triple("fun with 1 argument and lazy", f1Lazy, return1LazyFeatureInfo),
+        Triple("fun with 2 arguments and lazy", f2Lazy, return2LazyFeatureInfo),
+        Triple("fun with 3 arguments and lazy", f3Lazy, return3LazyFeatureInfo),
+        Triple("fun with 4 arguments and lazy", f4Lazy, return4LazyFeatureInfo),
+        Triple("fun with 5 arguments and lazy", f5Lazy, return5LazyFeatureInfo)
     )
     val nullableFailingFunctions = arrayOf(
         Triple("property toBe(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
-        Triple("fun without argument and toBe(null)", f0NullableDoesNotHold, "${TestData::returnNullable0.name}()"),
-        Triple("fun with 1 argument and toBe(null)", f1NullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
-        Triple("fun with 2 arguments and toBe(null)", f2NullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
-        Triple("fun with 3 arguments and toBe(null)", f3NullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
-        Triple("fun with 4 arguments and toBe(null)", f4NullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
-        Triple("fun with 5 arguments and toBe(null)", f5NullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
+        Triple("fun without argument and toBe(null)", f0NullableDoesNotHold,return0NullableFeatureInfo),
+        Triple("fun with 1 argument and toBe(null)", f1NullableDoesNotHold, return1NullableFeatureInfo),
+        Triple("fun with 2 arguments and toBe(null)", f2NullableDoesNotHold,return2NullableFeatureInfo ),
+        Triple("fun with 3 arguments and toBe(null)", f3NullableDoesNotHold,return3NullableFeatureInfo ),
+        Triple("fun with 4 arguments and toBe(null)", f4NullableDoesNotHold,return4NullableFeatureInfo ),
+        Triple("fun with 5 arguments and toBe(null)", f5NullableDoesNotHold,return5NullableFeatureInfo)
     )
     val nullableHoldsFunctions = arrayOf(
         "property notToBeNull" to propertyNullableHolds,
@@ -207,7 +230,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
-                    messageContains("length: 37", "$toBeDescr: 12")
+                    messageContains("$lazyWithNestedImmediateFeatureInfo: 37", "$toBeDescr: 12")
                 }
             }
         }
@@ -219,7 +242,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
-                    messageContains("length: 37", "$toBeDescr: 12")
+                    messageContains("$lazyWithNestedLazyFeatureInfo: 37", "$toBeDescr: 12")
                 }
             }
         }

@@ -1,12 +1,45 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.creating.feature.FeatureInfo
 import kotlin.reflect.*
+
+/**
+ * Extracts a feature out of the current subject of `this` expectation with the help of the given [extractor],
+ * creates a new [Expect] for it and
+ * returns it so that subsequent calls are based on the feature.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.16.0
+ */
+
+fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
+    itsInternal(extractor).transform()
+
+/**
+ * Extracts a feature out  of the current subject of `this` expectation with the help of the given [extractor],
+ * creates a new [Expect] for it,
+ * applies an assertion group based on the given [assertionCreator] for the feature and
+ * returns the initial [Expect] with the current subject.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.16.0
+ */
+fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): Expect<T>  =
+    itsInternal(extractor).collectAndAppend(assertionCreator)
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
+private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
+    _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
 
 /**
  * Extracts the [property] out of the current subject of `this` expectation,
