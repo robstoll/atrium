@@ -1,14 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.feature.ExtractorWithCreator
-import ch.tutteli.atrium.api.infix.en_GB.creating.feature.Feature
-import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureWithCreator
-import ch.tutteli.atrium.api.infix.en_GB.creating.feature.MetaFeatureOptionWithCreator
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.*
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.feature.FeatureInfo
-import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
-import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
 

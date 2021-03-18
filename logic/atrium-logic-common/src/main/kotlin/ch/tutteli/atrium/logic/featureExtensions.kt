@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.domain.creating.MetaFeature
+import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -19,7 +19,6 @@ fun <T, R> AssertionContainer<T>.manualFeature(
     provider: T.() -> R
 ): FeatureExtractorBuilder.ExecutionStep<T, R> = manualFeature(Untranslatable(description), provider)
 
-//TODO use MetaFeature from logic with 0.16.0
 fun <T, R> AssertionContainer<T>.genericSubjectBasedFeature(
     provider: (T) -> MetaFeature<R>
 ): FeatureExtractorBuilder.ExecutionStep<T, R> =

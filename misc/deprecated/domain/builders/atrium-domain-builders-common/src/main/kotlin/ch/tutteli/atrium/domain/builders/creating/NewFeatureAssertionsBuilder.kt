@@ -1,5 +1,5 @@
 //TODO remove file with 0.17.0
-@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
+@file:Suppress("DEPRECATION", "OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith")
 
 package ch.tutteli.atrium.domain.builders.creating
 
@@ -16,8 +16,7 @@ import kotlin.reflect.*
  * into an overload ambiguity, then either [p] (for property) or one of the `fN` functions (e.g. [f2] for
  * a function which expects 2 arguments).
  */
-//TODO move to API, this could potentially be different per API
-//TODO deprecate in 0.16.0
+@Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
 class MetaFeatureOption<T>(private val expect: Expect<T>) {
 
     /**
@@ -28,6 +27,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the property, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <R> f(property: KProperty0<R>): MetaFeature<R> = p(property)
 
     //@formatter:off
@@ -40,6 +40,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <R> f(f: KFunction0<R>): MetaFeature<R> =
         f0(f)
 
@@ -52,6 +53,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, R> f(f: KFunction1<A1, R>, a1: A1): MetaFeature<R> =
         f1(f, a1)
 
@@ -64,6 +66,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, R> f(f: KFunction2<A1, A2, R>, a1: A1, a2: A2): MetaFeature<R> =
         f2(f, a1, a2)
 
@@ -76,6 +79,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, R> f(f: KFunction3<A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): MetaFeature<R> =
         f3(f, a1, a2, a3)
 
@@ -88,6 +92,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, A4, R> f(f: KFunction4<A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): MetaFeature<R> =
         f4(f, a1, a2, a3, a4)
 
@@ -100,6 +105,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, A4, A5, R> f(f: KFunction5<A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): MetaFeature<R> =
         f5(f, a1, a2, a3, a4, a5)
 
@@ -113,6 +119,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the property, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <R> p(property: KProperty0<R>): MetaFeature<R> =
         MetaFeatureBuilder.property(property)
 
@@ -124,6 +131,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <R> f0(f: KFunction0<R>): MetaFeature<R> =
         MetaFeatureBuilder.f0(expect, f)
 
@@ -135,6 +143,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, R> f1(f: KFunction1<A1, R>, a1: A1): MetaFeature<R> =
         MetaFeatureBuilder.f1(expect, f, a1)
 
@@ -146,6 +155,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, R> f2(f: KFunction2<A1, A2, R>, a1: A1, a2: A2): MetaFeature<R> =
         MetaFeatureBuilder.f2(expect, f, a1, a2)
 
@@ -157,6 +167,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, R> f3(f: KFunction3<A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): MetaFeature<R> =
         MetaFeatureBuilder.f3(expect, f, a1, a2, a3)
 
@@ -168,6 +179,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, A4, R> f4(f: KFunction4<A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): MetaFeature<R> =
         MetaFeatureBuilder.f4(expect, f, a1, a2, a3, a4)
 
@@ -179,6 +191,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
      */
+    @Deprecated("Use the MetaFeatureOption of your API; will be removed with 0.17.0")
     fun <A1, A2, A3, A4, A5, R> f5(f: KFunction5<A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): MetaFeature<R> =
         MetaFeatureBuilder.f5(expect, f, a1, a2, a3, a4, a5)
 
@@ -190,6 +203,7 @@ class MetaFeatureOption<T>(private val expect: Expect<T>) {
  * [Reporter]
  */
 @Suppress("UNUSED_PARAMETER" /* we will need it as soon as methodCallFormatter is taken from the specified Reporter */)
+@Deprecated("Will be removed with 0.17.0 without replacement")
 object MetaFeatureBuilder {
 
     fun <TProperty> property(property: KProperty0<TProperty>) = MetaFeature(property.name, property.invoke())

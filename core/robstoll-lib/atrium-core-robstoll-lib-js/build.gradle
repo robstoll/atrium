@@ -17,5 +17,6 @@ dependencies {
 //TODO 0.17.0 or 0.18.0 should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
 compileTestKotlin2Js.dependsOn(
     prefixedProject('core-robstoll-js').jar,
-    prefixedProject('domain-robstoll-js').jar
+    prefixedProject('domain-robstoll-js').jar,
+    prefixedProject('domain-builders-js').jar
 )
