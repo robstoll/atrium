@@ -4,6 +4,8 @@ import ch.tutteli.atrium.core.polyfills.ConcurrentMap
 import ch.tutteli.atrium.core.polyfills.MutableConcurrentMap
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.feature.impl.StackTraceBasedFeatureInfo
+import ch.tutteli.atrium.creating.feature.FeatureInfo
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
@@ -143,6 +145,7 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
                 emptyList()
             )
         },
+        FeatureInfo::class createVia { _ -> StackTraceBasedFeatureInfo() },
 
         //Text specific factories
         AssertionFormatterFacade::class createVia { c ->

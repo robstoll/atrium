@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.asEntries
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
-import ch.tutteli.atrium.api.fluent.en_GB.isKeyValue
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 

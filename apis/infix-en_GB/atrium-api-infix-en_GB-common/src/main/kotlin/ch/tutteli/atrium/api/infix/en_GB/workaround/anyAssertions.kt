@@ -10,10 +10,10 @@ import ch.tutteli.atrium.creating.Expect
  * For instance:
  * ```
  * // use
- * expect(person) feature { f(it::age) } it { o toBe 20 }
+ * expect(person) feature { f(it::age) } it { this toBe 20 }
  *
  * // instead of (which causes problems with Kotlin < 1.4)
- * expect(person) feature of({ f(it::age) }) { o toBe 20 }
+ * expect(person) feature of({ f(it::age) }) { it toBe 20 }
  * ```
  *
  * Note that this workaround will be removed in some minor version after a major version with Kotlin 1.4 support

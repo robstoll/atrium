@@ -28,4 +28,3 @@ class BigDecimalExpectationsSpec : Spek({
         }
     }
 })
-

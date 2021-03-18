@@ -34,8 +34,33 @@ class FeatureExtractorSpec : Spek({
     val myPerson = Person("Robert", "Stoll", false)
     //snippet-Person-end
 
-    test("ex-property-methods-single") {
+    test("code-Person") {
         //snippet-Person-insert
+    }
+
+    test("ex-its-single") {
+        expect(myPerson)
+            .its({ isStudent }) { toBe(true) } // fails, subject still Person afterwards
+            .its { fullName() }                // not evaluated anymore, subject String afterwards
+            .startsWith("rob")                 // not evaluated anymore
+    }
+
+    //@formatter:off
+    test("ex-its-group") {
+        expect(myPerson) { // forms an assertion group block
+
+            its({ firstName }) {   // forms an assertion group block
+                startsWith("Pe")   // fails
+                endsWith("er")     // is evaluated nonetheless
+            }                      // fails as a whole
+
+            // still evaluated, as it is in outer assertion group block
+            its { lastName }.toBe("Dummy")
+        }
+    }
+    //@formatter:on
+
+    test("ex-property-methods-single") {
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
@@ -60,8 +85,8 @@ class FeatureExtractorSpec : Spek({
     test("ex-methods-args") {
         expect(myPerson)
             .feature { f(it::nickname, false) } // subject narrowed to String
-            .toBe("Robert aka. Stoll")  // fails
-            .startsWith("llotS")         // not evaluated anymore
+            .toBe("Robert aka. Stoll")          // fails
+            .startsWith("llotS")                // not evaluated anymore
     }
 
     //@formatter:off

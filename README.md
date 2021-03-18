@@ -485,7 +485,7 @@ We will start of with properties and method calls and go on with more complicate
 ### Property and Methods
 We are using the `data class Person` in the following examples:
 
-<ex-property-methods-single>
+<code-Person>
 
 ```kotlin
 data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
@@ -497,12 +497,95 @@ data class Person(val firstName: String, val lastName: String, val isStudent: Bo
 }
 
 val myPerson = Person("Robert", "Stoll", false)
+```
+</code-Person>
+
+The simplest way of defining assertions for a property of an instance or for the return value of a method call is by
+using the extension method `its`.
+
+<ex-its-single>
+
+```kotlin
+expect(myPerson)
+    .its({ isStudent }) { toBe(true) } // fails, subject still Person afterwards
+    .its { fullName() }                // not evaluated anymore, subject String afterwards
+    .startsWith("rob")                 // not evaluated anymore
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-its-single)</sub>
+<a name="ex-its-single"></a>
+```text
+expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+◆ ▶ its.definedIn(FeatureExtractorSpec.kt:43): false
+    ◾ equals: true
+```
+</ex-its-single>
+
+In the above example we created two assertions, one for the property `isStudent` of `myPerson`
+and a second one for the return value of calling `fullName()` on `myPerson`.
+A feature assertion is indicated as follows in reporting:
+It starts with a `▶` followed by the feature's description and its actual value.
+So the above output can be read as 
+
+> I expected that the subject of the assertion, which is actually the Person(...), 
+> respectively its property which was defined in FeatureExtractorSpec.kt on line 43, 
+> which is actually `false`, equals `true`.
+
+The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups)
+which have fail-fast semantic.
+
+Feature assertions follow the common pattern of having two overloads:
+- the first expects only the extractor-lambda.
+  This overload narrows the subject to the feature,
+  meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
+
+- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
+  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
+  It has also the benefit, that Atrium can provide those sub-assertions in error reporting,
+  Moreover, the subject stays the same so that subsequent calls are still about the same subject.
+
+  <ex-its-group>
+  
+  ```kotlin
+  expect(myPerson) { // forms an assertion group block
+  
+      its({ firstName }) {   // forms an assertion group block
+          startsWith("Pe")   // fails
+          endsWith("er")     // is evaluated nonetheless
+      }                      // fails as a whole
+  
+      // still evaluated, as it is in outer assertion group block
+      its { lastName }.toBe("Dummy")
+  }
+  ```
+  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L49)</sub> ↓ <sub>[Output](#ex-its-group)</sub>
+  <a name="ex-its-group"></a>
+  ```text
+  expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+  ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:52): "Robert"        <1234789>
+      ◾ starts with: "Pe"        <1234789>
+      ◾ ends with: "er"        <1234789>
+  ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:58): "Stoll"        <1234789>
+      ◾ equals: "Dummy"        <1234789>
+  ```
+  </ex-its-group>
+
+<br/>
+
+One drawback of `its` (which we plan to improve but most likely not before we drop support for Kotlin < 1.5) is that reading the resulting
+feature description does not immediately tell us what feature we extracted.
+
+That is where the `feature` function comes into play. It is based on reflection and uses the name of the feature 
+as description. Following the first example rewritten to `feature`.
+
+<ex-property-methods-single>
+
+```kotlin
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
     .startsWith("rob")                            // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L37)</sub> ↓ <sub>[Output](#ex-property-methods-single)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L63)</sub> ↓ <sub>[Output](#ex-property-methods-single)</sub>
 <a name="ex-property-methods-single"></a>
 ```text
 expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
@@ -511,66 +594,51 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 ```
 </ex-property-methods-single>
 
-<sub>We are sorry that the syntax is not yet the nicest one. 
-We admit that one has to get used to it first and that is a pity. 
-Yet, it is due to many [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) standing in the way -- 
-we hoped it would be better once Kotlin 1.4 is out (the new type inference respectively) but unfortunately not. 
-We are looking for [alternatives](https://github.com/robstoll/atrium/issues/790) to improve the situation. Stay tuned.</sub>
+The report reads much nicer now: 
+
+> I expected that the subject of the assertion, 
+> which is actually the Person(...), respectively its property `isStudent`, 
+> which is actually `false`, equals `true`
+
+The drawback of `feature` compared to `its` is its syntax. Certainly, one has to get used to it first. Another is that
+you might run into [Ambiguity Problems](#ambiguity-problems) due to Kotlin bugs.
 
 `feature` has several overloads, we are looking at the one expecting a lambda in which you have to provide a `MetaFeature`.
 Creating a `MetaFeature` is done via the function `f` by passing in a 
 [bounded reference](https://kotlinlang.org/docs/reference/reflection.html#bound-function-and-property-references-since-11) 
 of the corresponding property or method (including arguments if required).
 `it` within the `MetaFeature`-provider-lambda refers to the subject of the assertion (`myPerson` in the above example).
-Have a look at [Ambiguity Problems](#ambiguity-problems) in case the compiler is not happy (it is most likely due to a Kotlin Bug).
 
-In the above example we created two assertions, one for the property `isStudent` of `myPerson` 
-and a second one for the return value of calling `fullName()` on `myPerson`.
-A feature assertion is indicated as follows in reporting: 
-It starts with a `▶` followed by the feature's name and its actual value.
-So the above output can be read as "I expected that the subject of the assertion, which is actually the Person(...), respectively its property `isStudent`, which is actually `false`, equals `true`. 
-The second feature is not shown in reporting as the first already failed and we have chosen to use [single assertions](#define-single-assertions-or-assertion-groups) 
-which have fail-fast semantic.
+Also `feature` follows the common pattern of having two overloads where the second expects an `assertionCreator`-lambda.
+Following the second example rewritten from `its` to `feature`:
 
-Feature assertions follow the common pattern of having two overloads:
-- the first expects only the `MetaFeature`-provider-lambda. 
-  This overload narrows the subject to the feature, 
-  meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
-  
-- the second expects an `assertionCreator`-lambda in addition, in which you can define sub-assertions for the feature.
-  An `assertionCreator`-lambda has always the semantic of an [assertion group block](#define-single-assertions-or-assertion-groups) or in other words, not-fail fast.
-  It has also the benefit, that Atrium can provide those sub-assertions in error reporting, 
-  Moreover, the subject stays the same so that subsequent calls are still about the same subject.
-  
-  <ex-property-methods-group>
-  
-  ```kotlin
-  expect(myPerson) { // forms an assertion group block
-  
-      feature({ f(it::firstName) }) { // forms an assertion group block
-          startsWith("Pe")            // fails
-          endsWith("er")              // is evaluated nonetheless
-      }                               // fails as a whole
-  
-      // still evaluated, as it is in outer assertion group block
-      feature { f(it::lastName) }.toBe("Dummy")
-  }
-  ```
-  ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L46)</sub> ↓ <sub>[Output](#ex-property-methods-group)</sub>
-  <a name="ex-property-methods-group"></a>
-  ```text
-  expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
-  ◆ ▶ firstName: "Robert"        <1234789>
-      ◾ starts with: "Pe"        <1234789>
-      ◾ ends with: "er"        <1234789>
-  ◆ ▶ lastName: "Stoll"        <1234789>
-      ◾ equals: "Dummy"        <1234789>
-  ```
-  </ex-property-methods-group>
+<ex-property-methods-group>
 
-<br/>
+```kotlin
+expect(myPerson) { // forms an assertion group block
 
-Atrium provides several shortcuts for commonly used properties so that you can use them instead of writing `feature(...)` all the time.
+    feature({ f(it::firstName) }) { // forms an assertion group block
+        startsWith("Pe")            // fails
+        endsWith("er")              // is evaluated nonetheless
+    }                               // fails as a whole
+
+    // still evaluated, as it is in outer assertion group block
+    feature { f(it::lastName) }.toBe("Dummy")
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L71)</sub> ↓ <sub>[Output](#ex-property-methods-group)</sub>
+<a name="ex-property-methods-group"></a>
+```text
+expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+◆ ▶ firstName: "Robert"        <1234789>
+    ◾ starts with: "Pe"        <1234789>
+    ◾ ends with: "er"        <1234789>
+◆ ▶ lastName: "Stoll"        <1234789>
+    ◾ equals: "Dummy"        <1234789>
+```
+</ex-property-methods-group>
+
+Atrium provides several shortcuts for commonly used properties so that you can use them instead of writing `its { ... }` / `feature(...)` all the time.
 For instance, `message` for Throwable (see [Expect an Exception](#expect-an-exception)), `first` and `second` for `Pair` and others.
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) in case you miss a shortcut.
 
@@ -604,10 +672,10 @@ Last but not least, let us have a look at an example where a method with argumen
 ```kotlin
 expect(myPerson)
     .feature { f(it::nickname, false) } // subject narrowed to String
-    .toBe("Robert aka. Stoll")  // fails
-    .startsWith("llotS")         // not evaluated anymore
+    .toBe("Robert aka. Stoll")          // fails
+    .startsWith("llotS")                // not evaluated anymore
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L60)</sub> ↓ <sub>[Output](#ex-methods-args)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-methods-args)</sub>
 <a name="ex-methods-args"></a>
 ```text
 expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
@@ -618,17 +686,6 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 `f` supports methods with up to 5 arguments.
 
-<details>
-<summary>💬 Why only overloads for up to 5 parameters</summary>
- 
-You might be asking yourself why we stopped at 5 Parameters.
-You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it 😜.
-In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
-then we suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
-
-</details>
-
-
 Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.isPresent` or `Result.isSuccess` 
 where all of them include some additional checking (index bound, existence of the key within the map etc.)
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
@@ -637,15 +694,15 @@ in case you miss a shortcut.
 <details>
 <summary>💬 Write own feature assertion functions with additional checks.</summary>
 
-Atrium provides a feature extractor which allows to make feature assertions in a safe way in case the extraction is only valid for certain subjects.
-It is for instance used for [`List.get`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13)
+Atrium provides a feature extractor which allows making feature assertions in a safe way in case the extraction is only valid for certain subjects.
+It is inter alia used for [`List.get`](https://github.com/robstoll/atrium/tree/master/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13)
 
 </details>
 
 ### Arbitrary Features
 A feature does not necessarily have to be directly related to the subject as properties or method calls do.
-You can use the overload which expects a feature description in form of a `String` as first argument instead.
-Following an example:
+Either use `its` the overload of `feature` which expects a feature description in form of a `String` as first argument.
+Following an example using `feature`.
 
 <ex-arbitrary-features>
 
@@ -660,7 +717,7 @@ expect(myFamily)
     .feature("first member's name") { members.first().name }    // subject narrowed to String
     .toBe("Peter")
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L77)</sub> ↓ <sub>[Output](#ex-arbitrary-features)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L102)</sub> ↓ <sub>[Output](#ex-arbitrary-features)</sub>
 <a name="ex-arbitrary-features"></a>
 ```text
 expected that subject: Family(members=[FamilyMember(name=Robert)])        (readme.examples.FeatureExtractorSpec$1$Family <1234789>)
@@ -681,14 +738,17 @@ Also this version of `feature` provides two different kind of overloads:
 
 As you can see, Atrium provides a generic way to postulate assertions about features. 
 Yet, if you use such feature assertion often or it gets more complicated, 
-then it might be worth to [write an own assertion function](#write-own-assertion-functions).
+then it might be worth to [write an own assertion function](#write-own-assertion-functions) where we recommend to 
+use `feature` over `its`.
 
 ### Within Assertion Functions
 
-In case you write an own assertion function, then we discourage to use the `MetaFeature`-provider-lambda 
-(as shown in [Property and Methods](#property-and-methods))
-but encourage to pass a [class references](https://kotlinlang.org/docs/reference/reflection.html#class-references)
-to `feature` instead.
+In case you write an own assertion function, then we discourage two things: 
+- using `its` because the reporting reads less nice and it is also less efficient than `feature`
+- using `feature` with a `MetaFeature`-provider-lambda (as shown in [Property and Methods](#property-and-methods))
+
+Instead, we encourage you to pass a [class references](https://kotlinlang.org/docs/reference/reflection.html#class-references)
+to `feature`.
 This has the benefit, that we can always show the feature name, also in case a previous feature extraction or subject
 transformation failed.
 Following an example: 
@@ -707,7 +767,7 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
     firstToBe(1)
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L93)</sub> ↓ <sub>[Output](#ex-within-assertion-functions)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L118)</sub> ↓ <sub>[Output](#ex-within-assertion-functions)</sub>
 <a name="ex-within-assertion-functions"></a>
 ```text
 expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
@@ -719,12 +779,13 @@ expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234
 ```
 </ex-within-assertion-functions>
 
-Also this version of `feature` provides to kind of overloads, one without and one with `assertionCreator`-lambda.
+Also, this version of `feature` provides to kind of overloads, one without and one with `assertionCreator`-lambda.
 (see for instance [Arbitrary Features](#arbitrary-features) for more information).
 
 ### Ambiguity Problems
 Unfortunately there are several Kotlin bugs when it comes to overloading, especially in conjunction with `KFunction`
 (see [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) and upvote in case you run into one).
+It might happen that you run into such issues using `feature` in conjuction with a `MetaFeature`-provider-lambda (as shown in [Property and Methods](#property-and-methods)).
 However, Atrium provides alternative functions next to `f` within the `MetaFeature`-provider-lambda to disambiguate the situation.
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
@@ -752,15 +813,15 @@ expect(WorstCase()) {
 Notice, that you might run into the situation that Intellij is happy but the compiler is not.
 For instance, Intellij will suggest that you can remove the type parameters in the above example. 
 Yet, if you do so, then the compiler will fail, mentioning ambiguous overloads. 
-Most of the time this problem stems from the reason that the new type inference algorithm is used per default within Intellij 
-(see File | Settings | Build, Execution, Deployment | Compiler | Kotlin Compiler => Enable new type inference...)
+Most of the time this problem stems from the reason that Intellij is using a newer Kotlin version to analyse
+than the one you compile your project with.
 
-Next to using the alternative functions, you could also use the syntax for [arbitrary features](#arbitrary-features) 
-to circumvent the problem -- up to you.
+Next to using the alternative functions, you could also use `its` or the overload of `feauture` which expects
+a `String` as description (as shown in [arbitrary features](#arbitrary-features).
 
 ### Property does not exist
 
-In case you deal with Java code, then you might run into the problem that a property does not exist. 
+In case you deal with Java code and are using `feature`, then you might run into the problem that a property does not exist. 
 This is due to the fact that Kotlin only provides syntactic sugar to access a getter via property syntax. 
 In such a case, use the `get...` method instead. For instance:
 ```java

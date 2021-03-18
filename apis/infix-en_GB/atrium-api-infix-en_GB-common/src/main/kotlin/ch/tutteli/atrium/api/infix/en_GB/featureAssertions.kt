@@ -1,14 +1,54 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.ExtractorWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.Feature
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.FeatureWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.MetaFeatureOptionWithCreator
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.feature.FeatureInfo
 import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
 import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
+
+/**
+ * Extracts a feature out of the current subject of `this` expectation with the help of the given [extractor],
+ * creates a new [Expect] for it and
+ * returns it so that subsequent calls are based on the feature.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.16.0
+ */
+
+infix fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
+    itsInternal(extractor).transform()
+
+/**
+ * Extracts a feature out  of the current subject of `this` expectation with the help of the given
+ * [extractorWithCreator.extractor][ExtractorWithCreator.extractor],
+ * creates a new [Expect] for it, applies an assertion group based on the given
+ * [extractorWithCreator.assertionCreator][ExtractorWithCreator.assertionCreator] for the feature and
+ * returns the initial [Expect] with the current subject.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.16.0
+ */
+infix fun <T, R> Expect<T>.its(extractorWithCreator: ExtractorWithCreator<T, R>): Expect<T> =
+    itsInternal(extractorWithCreator.extractor).collectAndAppend(extractorWithCreator.assertionCreator)
+
+/**
+ * Helper function to create an [ExtractorWithCreator]
+ */
+fun <T, R> feature(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): ExtractorWithCreator<T, R> =
+    ExtractorWithCreator(extractor, assertionCreator)
+
+@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+@UseExperimental(ExperimentalComponentFactoryContainer::class)
+private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
+    _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
 
 /**
  * Extracts the [property] out of the current subject of `this` expectation,
