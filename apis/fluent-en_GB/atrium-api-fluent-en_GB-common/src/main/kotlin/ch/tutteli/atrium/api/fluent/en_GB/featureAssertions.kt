@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.creating.feature.MetaFeatureOption
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.build
-import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
-import ch.tutteli.atrium.domain.creating.MetaFeature
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.creating.feature.FeatureInfo
+import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import kotlin.reflect.*
 
 /**

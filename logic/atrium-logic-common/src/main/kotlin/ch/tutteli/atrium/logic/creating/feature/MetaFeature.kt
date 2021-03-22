@@ -1,6 +1,4 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-package ch.tutteli.atrium.domain.creating
+package ch.tutteli.atrium.logic.creating.feature
 
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
@@ -18,7 +16,6 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
  *   was not.
  */
-@Deprecated("Use MetaFeature from atrium-logic; will be removed with 0.17.0")
 data class MetaFeature<T>(val description: Translatable, val representation: Any?, val maybeSubject: Option<T>) {
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
         this(Untranslatable(description), representation, maybeSubject)

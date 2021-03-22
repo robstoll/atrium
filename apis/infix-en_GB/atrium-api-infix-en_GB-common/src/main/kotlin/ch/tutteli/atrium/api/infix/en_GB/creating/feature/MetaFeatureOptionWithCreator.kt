@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating.feature
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.domain.builders.creating.MetaFeatureOption
-import ch.tutteli.atrium.domain.creating.MetaFeature
+import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 
 /**
  * Parameter object which combines a lambda with a [MetaFeatureOption] receiver (called [provider])

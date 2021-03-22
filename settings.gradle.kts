@@ -48,7 +48,9 @@ buildscript {
                                         "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
                                         "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
                                         "IterableContainsInOrderOnlyEntriesAssertionsSpec"
-                                    ) + ".*/returnValueOf"
+                                    ) + ".*/returnValueOf",
+                                    // we moved MetaFeature and MetaFeatureOptions
+                                    "FeatureAssertions.*(Manual|Reference).*Spec"
                                 ) + ".*)",
                             // removed overload which expects kClass
                             "ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples#toBeNullIfNullGivenElse"
@@ -100,7 +102,9 @@ buildscript {
                                     "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
                                     "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec",
                                     "IterableContainsInOrderOnlyEntriesAssertionsSpec"
-                                ) + ".*/returnValueOf"
+                                ) + ".*/returnValueOf",
+                                // we moved MetaFeature and MetaFeatureOptions
+                                "FeatureAssertions.*(Manual|Reference).*Spec"
                             ) + ".*)"
                     )
                 )
