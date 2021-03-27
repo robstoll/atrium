@@ -42,18 +42,18 @@ class CollectionAssertionSamples {
 
     @Test
     fun sizeFeature() {
-        expect(listOf(1, 2, 3)) size {
-            it isGreaterThan 1 // subject is now of type Int (actually 3)
-        } size {
-            it isLessThan 4 // subject is still of type Int (still 3)
-        }
+        expect(listOf(1, 2, 3))
+            .size isGreaterThan 1 isLessThan 4
+            //|         |             | subject is still of type Int (still 3)
+            //|         | subject is still of type Int (still 3)
+            //| subject is now of type Int (actually 3)
 
         fails {
-            expect(listOf(1, 2, 3)) size {
-                it isLessThan 1 // fails
-            } size {
-                it isGreaterThan 4 // not reported because `isLessThan(1)` already fails
-            }
+            expect(listOf(1, 2, 3))
+                .size isLessThan 1 isGreaterThan 4
+                //|       |              | not reported because `isLessThan 1` already fails
+                //|       | fails
+                //| subject is now of type Int (actually 3)
         } message {
             contains("${isLessThanDescr}: 1")
             containsNot("${isGreaterThanDescr}: 4")
@@ -64,16 +64,17 @@ class CollectionAssertionSamples {
     fun size() {
         expect(listOf(1, 2, 3)) size { // subject inside this block is of type Int (actually 3)
             it isGreaterThan 1
+        } size { // subject inside this block is of type Int (actually 3)
             it isLessThan 4
         }
 
         fails {
             // all assertions are evaluated inside an assertion group block; for more details:
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
-            expect(listOf(1, 2, 3)) size {
-                it isLessThan 1    // fails
-                it isGreaterThan 4 // still evaluated even though `isLessThan(1)` already fails,
-                // use `.size.` if you want a fail fast behaviour
+            expect(listOf(1, 2, 3)) size { // subject inside this block is of type Int (actually 3)
+                it isLessThan 1     // fails
+                it isGreaterThan 4  // isLessThan 1 fails, but isGreaterThan 4 still evaluated
+                                    // use `.size.` if you want a fail fast behaviour
             }
         } messageContains values(
             "${isLessThanDescr}: 1",

@@ -46,6 +46,8 @@ infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CollectionAssertionSamples.sizeFeature
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::identity).transform()
@@ -57,7 +59,7 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CollectionAssertionSamples.sizeFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CollectionAssertionSamples.size
  */
 infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::identity).collectAndAppend(assertionCreator)

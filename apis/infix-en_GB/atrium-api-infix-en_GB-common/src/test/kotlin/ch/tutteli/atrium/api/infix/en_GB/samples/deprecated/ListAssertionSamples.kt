@@ -29,7 +29,7 @@ class ListAssertionSamples {
             // use `get index(elementIndex) { ... }` if you want that all assertions are evaluated
         } message {
             contains("index out of bounds")
-            containsNot("is less than: 2")
+            containsNot("is less than: 0")
         }
 
         fails {
