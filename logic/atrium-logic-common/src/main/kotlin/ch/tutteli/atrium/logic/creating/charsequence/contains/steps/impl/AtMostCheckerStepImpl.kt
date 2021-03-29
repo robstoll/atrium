@@ -5,7 +5,7 @@ import ch.tutteli.atrium.logic.creating.basic.contains.checkers.validateAtMost
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtMostCheckerStep
 
-internal class AtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
+class AtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,

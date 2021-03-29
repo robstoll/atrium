@@ -5,7 +5,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.ButAtMostCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepLogic
 
-internal class ButAtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
+class ButAtMostCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     atLeastBuilder: WithTimesCheckerStepLogic<T, S>,
     nameContainsNotFun: String,

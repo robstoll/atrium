@@ -14,9 +14,11 @@ fun <T : CharSequence> atLeastChecker(
     times: Int,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
-): AtLeastChecker = container.getImpl(AtLeastChecker::class) {
-    DefaultAtLeastChecker(times, nameContainsNotFun, atLeastCall)
-}
+): AtLeastChecker =
+    //TODO 0.16.0 use components.build instead?
+    container.getImpl(AtLeastChecker::class) {
+        DefaultAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+    }
 
 @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
 @UseExperimental(ExperimentalNewExpectTypes::class)
@@ -25,6 +27,8 @@ fun <T : CharSequence> atMostChecker(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String
-): AtMostChecker = container.getImpl(AtMostChecker::class) {
-    DefaultAtMostChecker(times, nameContainsNotFun, atMostCall)
-}
+): AtMostChecker =
+
+    container.getImpl(AtMostChecker::class) {
+        DefaultAtMostChecker(times, nameContainsNotFun, atMostCall)
+    }

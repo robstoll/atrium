@@ -6,7 +6,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl.DefaultNotChecker
 
-internal class NotCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
+class NotCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     override val entryPointStepLogic: CharSequenceContains.EntryPointStepLogic<T, S>
 ) : NotCheckerStep<T, S>, CharSequenceContains.CheckerStepInternal<T, S> {
 
