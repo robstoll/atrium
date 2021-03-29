@@ -4,8 +4,5 @@ dependencies {
     api prefixedProject('core-api-common')
     api prefixedProject('logic-common')
 
-    //TODO remove with 0.16.0
-    runtimeOnly prefixedProject('core-robstoll-common')
-
     testImplementation prefixedProject('specs-common')
 }
