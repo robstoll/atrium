@@ -75,7 +75,6 @@ internal abstract class ComponentFactoryContainerImpl : ComponentFactoryContaine
         private val redefiningFactoryContainer: ComponentFactoryContainer
     ) : ComponentFactoryContainerImpl() {
 
-
         override fun getFactoryOrNull(kClass: KClass<*>): ComponentFactory? =
             redefiningFactoryContainer.getFactoryOrNull(kClass) ?: previousFactoryContainer.getFactoryOrNull(kClass)
 

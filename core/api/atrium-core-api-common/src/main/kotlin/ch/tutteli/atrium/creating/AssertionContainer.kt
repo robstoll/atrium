@@ -26,9 +26,11 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
     override val maybeSubject: Option<T>
 
     /**
-     * Do not use yet, this is experimental
+     * Do not use yet, this is experimental and will definitely change in 0.17.0 or 0.18.0.
+     *
+     * Might be we completely remove it without prior notice.
      */
-    //TODO 0.16.0 replace by components?
+    //TODO 0.17.0/0.18.0 maybe it would be better to have proofFactories as val like we have components?
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 
