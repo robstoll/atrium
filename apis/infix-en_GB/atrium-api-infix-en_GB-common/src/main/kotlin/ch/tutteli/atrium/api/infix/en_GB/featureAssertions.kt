@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.feature.*
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
 import ch.tutteli.atrium.creating.feature.FeatureInfo
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.feature.MetaFeature
@@ -42,7 +43,7 @@ fun <T, R> feature(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit)
     ExtractorWithCreator(extractor, assertionCreator)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
+@UseExperimental(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
 private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
     _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
 

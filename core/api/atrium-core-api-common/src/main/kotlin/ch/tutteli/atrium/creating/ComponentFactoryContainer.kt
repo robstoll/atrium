@@ -11,6 +11,10 @@ import ch.tutteli.atrium.reporting.Reporter
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.LOCAL_VARIABLE)
 annotation class ExperimentalComponentFactoryContainer
 
+/**
+ * Manages the factories to create the different components of Atrium.
+ * It takes basically the responsibility of a dependency injection facility, tailored for Atrium.
+ */
 @ExperimentalComponentFactoryContainer
 interface ComponentFactoryContainer {
 

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.core.polyfills.ConcurrentMap
 import ch.tutteli.atrium.core.polyfills.MutableConcurrentMap
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
 import ch.tutteli.atrium.creating.feature.impl.StackTraceBasedFeatureInfo
 import ch.tutteli.atrium.creating.feature.FeatureInfo
 import ch.tutteli.atrium.reporting.*
@@ -145,7 +146,13 @@ object DefaultComponentFactoryContainer : ComponentFactoryContainer by Component
                 emptyList()
             )
         },
-        FeatureInfo::class createVia { _ -> StackTraceBasedFeatureInfo() },
+        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+        @UseExperimental(ExperimentalFeatureInfo::class)
+        FeatureInfo::class createVia { _ ->
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalFeatureInfo::class)
+            StackTraceBasedFeatureInfo()
+        },
 
         //Text specific factories
         AssertionFormatterFacade::class createVia { c ->

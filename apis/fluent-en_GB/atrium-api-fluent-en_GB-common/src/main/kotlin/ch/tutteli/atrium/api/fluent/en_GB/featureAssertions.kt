@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.creating.feature.FeatureInfo
 import ch.tutteli.atrium.logic.creating.feature.MetaFeature
@@ -37,7 +38,7 @@ fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() ->
     itsInternal(extractor).collectAndAppend(assertionCreator)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
+@UseExperimental(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
 private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
     _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
 
