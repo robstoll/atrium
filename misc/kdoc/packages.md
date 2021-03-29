@@ -31,12 +31,7 @@ Logic modules:
      - **atrium-logic-kotlin_1_3** provides the implementation of assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
   
 Core modules:
-- **atrium-core-api** defines the contracts of the core of Atrium.
-
-- **atrium-core-robstoll** provides an implementation for 
-  [CoreFactory](./ch.tutteli.atrium.core/-core-factory/index.html) which uses the implementations 
-  of *atrium-core-robstoll-lib*
-- **atrium-core-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
+- **atrium-core-api** defines core contracts of Atrium and contains default implementation. Will be renamed to **atrium-core** with 0.17.0
 
 Translation modules:
 - **atrium-translations-de&#95;CH** provides translations in German for 
@@ -54,14 +49,21 @@ Misc modules:
 
 Atrium has currently several modules to retain backward compatibility. 
 You should not rely on them and move to the suggested predecessor: 
+- **atrium-core-robstoll** use `atrium-api-core` instead.
+- **atrium-core-robstoll-lib** use `atrium-logic` instead.
 - **atrium-domain-api** use `atrium-logic` instead. 
 - **atrium-domain-robstoll**  use `atrium-logic` instead. 
 - **atrium-domain-robstoll-lib**  use `atrium-logic` instead. 
-- **atrium-domain-builders** use `atrium-logic` instead.   
+- **atrium-domain-builders** use `atrium-logic` instead.
 
 # ch.tutteli.atrium.api.fluent.en_GB
 Contains API which provides a pure fluent API in English and which has its design focus on usability 
 in conjunction with code completion.
+
+# ch.tutteli.atrium.api.fluent.en_GB.creating.feature
+
+Contains the [MetaFeatureOptions](./ch.tutteli.atrium.api.fluent.en_-g-b.creating.feature/-meta-feature-option/index.html) 
+which is used `feature`.
 
 # ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 Contains an API for types introduced with Kotlin 1.3
@@ -123,49 +125,49 @@ Contains polyfills for functionality which is missing on certain platforms so th
 # ch.tutteli.atrium.creating
 Everything involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
+# ch.tutteli.atrium.creating.feature
+Contains feature related contracts, such  as [FeatureInfo](./ch.tutteli.atrium.creating.feature/-feature-info/index.html)
+which is responsible to determine the description of a feature extraction.
+
+# ch.tutteli.atrium.creating.feature.impl
+Contains (default) implementations for feature related contracts.
+
 # ch.tutteli.atrium.creating.impl
-Contains implementations which are involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
+Contains (default) implementations for things like [Expect](./ch.tutteli.atrium.creating/-expect/index.html).
 
-# ch.tutteli.atrium.domain.assertions.composers
-The [AssertionComposer](./ch.tutteli.atrium.domain.assertions.composers/-assertion-composer/index.html) 
-which delegates to an implementation which composes different assertions to new 
-[Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
-
-
-# ch.tutteli.atrium.domain.builders
-Contains [ExpectImpl](./ch.tutteli.atrium.domain.builders/-expect-impl/index.html).
-
-# ch.tutteli.atrium.domain.builders.assertions.builders
-Contains extension functions for the 
-[AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html).
 
 # ch.tutteli.atrium.domain.builders.creating
-Builders involved in delegating to assertion implementations.
+**Deprecated** - will be removed with 0.17.0. Contains builders involved in delegating to assertion implementations.
 
 # ch.tutteli.atrium.domain.builders.creating.collectors
-Contains the builder behind 
+**Deprecated** - will be removed with 0.17.0. Contains the builder behind 
 [ExpectImpl.collector](./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html)
 
 # ch.tutteli.atrium.domain.builders.reporting
-Contains the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html).
+**Deprecated** - will be removed with 0.17.0. Contains the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html).
 
 # ch.tutteli.atrium.domain.builders.utils
-Contains utility functions for APIs.
-
-
+**Deprecated** - will be removed with 0.17.0. Contains utility functions for APIs.
 
 # ch.tutteli.atrium.domain.creating
-Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.
+**Deprecated** - will be removed with 0.17.0. Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.
 
 # ch.tutteli.atrium.domain.creating.collectors
-Contains [AssertionCollector](./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html). 
+**Deprecated** - will be removed with 0.17.0. Contains [AssertionCollector](./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html). 
+
 
 # ch.tutteli.atrium.logic
 Contains all the assertion interfaces (e.g. [AnyAssertions](./ch.tutteli.atrium.logic/-any-assertions/index.html)
 as well as [_logic](./ch.tutteli.atrium.logic/_logic.html) and helper functions for [AssertionContainer](./ch.tutteli.atrium.creating/-assertion-container/index.html)
 
+# ch.tutteli.atrium.logic.assertions.impl
+Contains internal implementations of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html).
+
 # ch.tutteli.atrium.logic.creating.basic.contains
 Contains the abstract contract sophisticated `contains` assertion builders: [Contains](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/index.html)
+
+# ch.tutteli.atrium.logic.creating
+Contains builders which help in creating different types of [Expect](./ch.tutteli.atrium.creating/-expect/index.html).
 
 # ch.tutteli.atrium.logic.creating.basic.contains.checkers
 Contains interfaces implementing [Contains.Checker](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html)
@@ -176,34 +178,135 @@ Contains default implementations for the interfaces defined in [ch.tutteli.atriu
 # ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 Contains base classes which can be handy to implement [Contains.Creator](./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html)
 
+# ch.tutteli.atrium.logic.creating.basic.contains.steps.impl
+Contains base classes which can be handy to implement steps of the building process.
+
 # ch.tutteli.atrium.logic.creating.charsequence.contains
 Contains the contract for sophisticated `CharSequence.contains` assertion builders: [CharSequenceContains](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/index.html)
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.checkers
-Contains interfaces implementing [CharSequence.Checker](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html)
+Contains interfaces implementing [CharSequenceContains.Checker](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html)
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.checkers].
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.creators
-Contains [CharSequenceContainsAssertions](./ch.tutteli.atrium.logic.creating.charsequence.contains.creators/-char-sequence-contains-assertions/index.html) 
-which defines the minimum set of [CharSequence.Creator](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-creator.html)s 
-an implementation has to deliver as well as some extension functions which delegate to those.
+Contains inter alia [CharSequenceContains.Creator](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-creator.html)s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.creators].
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
-Contains interfaces implementing [CharSequence.SearchBehaviour](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html)
+Contains interfaces implementing [CharSequenceContains.SearchBehaviour](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html)
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours].
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl
-Contains implementations of [CharSequence.Searcher](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html)
+Contains implementations of [CharSequenceContains.Searcher](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html)
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.steps
 Contains steps for sophisticated `CharSequence.contains` assertion builders.
+
+# ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
+Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.steps].
+
+
+# ch.tutteli.atrium.logic.creating.collectors
+Contains helper functions to collection [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
+
+# ch.tutteli.atrium.logic.creating.feature
+Contains interfaces which are used in the building process of feature extractors.
+
+# ch.tutteli.atrium.logic.creating.filesystem
+Contains constracts / data structures which help in dealing with file-IO.
+
+# ch.tutteli.atrium.logic.creating.filesystem.hints
+Contains helper functions which help in defining failure hints in case your expectation function deals with the file system.
+
+# ch.tutteli.atrium.logic.creating.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating].
+
+
+# ch.tutteli.atrium.logic.creating.iterable.contains
+Contains the contract for sophisticated `IterableLike.contains` assertion builders: 
+[IterableLikeContains](./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/index.html)
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.checkers
+Contains interfaces implementing [IterableLikeContains.Checker](./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker.html)
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.checkers].
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.creators
+Contains inter alia [IterableLikeContains.Creator](./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-creator.html)s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.creators].
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours
+Contains interfaces implementing [IterableLikeContains.SearchBehaviour](./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-search-behaviour.html)
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours].
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.steps
+Contains steps for sophisticated `IterableLike.contains` assertion builders.
+
+# ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
+Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.steps].
+
+
+# ch.tutteli.atrium.logic.creating.maplike.contains
+Contains the contract for sophisticated `MapLike.contains` assertion builders:
+[MapLikeContains](./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/index.html)
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.checkers
+Contains interfaces implementing [MapLikeContains.Checker](./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-checker.html)
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.checkers].
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.creators
+Contains inter alia [MapLikeContains.Creator](./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-creator.html)s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.creators].
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours
+Contains interfaces implementing [MapLikeContains.SearchBehaviour](./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-search-behaviour.html)
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours].
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.steps
+Contains steps for sophisticated `MaplikeLike.contains` assertion builders.
+
+# ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl
+Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.steps].
+
+
+# ch.tutteli.atrium.logic.creating.transformers
+Contains contracts involved in transforming [Expect](./ch.tutteli.atrium.creating/-expect/index.html), their subject respectively.
+
+# ch.tutteli.atrium.logic.creating.transformers.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.transformers].
+
+# ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.transformers] specific to feature extraction.
+
+# ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.transformers] specific to subject changing.
+
+
+# ch.tutteli.atrium.logic.creating.typeutils
+Contains type alias used in Atrium to better describe the intent behind the types.
+
+# ch.tutteli.atrium.logic.creating.typeutils.impl
+Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.typeutils.impl] specific to subject changing.
 
 # ch.tutteli.atrium.logic.impl
 Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic].
@@ -214,11 +317,36 @@ Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. [Result
 # ch.tutteli.atrium.logic.kotlin_1_3.impl
 Contains default implementations of the assertion interfaces defined in [ch.tutteli.atrium.logic.kotlin_1_3].
 
+
+# ch.tutteli.atrium.logic.utils
+Contains inter alia the [mapArgument](./ch.tutteli.atrium.logic.utils/map-arguments.html) function next to other
+helper functions such as [nullable](./ch.tutteli.atrium.logic.utils/nullable.html) and co.
+
 # ch.tutteli.atrium.reporting
 Everything involved in reporting [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
 
+# ch.tutteli.atrium.reporting.text
+Text specific, in other words terminal specific, reporting contracts.
+
+# ch.tutteli.atrium.reporting.text.impl
+Contains default implementations of the interfaces defined in [ch.tutteli.atrium.reporting.text].
+
+# ch.tutteli.atrium.reporting.impl
+Contains default implementations of the interfaces defined in [ch.tutteli.atrium.reporting].
+
+# ch.tutteli.atrium.reporting.erroradjusters
+Contains marker interfaces for different kinds of [AtriumErroAdjuster](./ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html)s.
+
+# ch.tutteli.atrium.reporting.erroradjusters.impl
+Contains default implementations of the interfaces defined in [ch.tutteli.atrium.reporting.erroradjusters].
+
+
 # ch.tutteli.atrium.reporting.translating
 Everything involved in translating [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
+
+# ch.tutteli.atrium.reporting.translating.impl
+Contains default implementations of the interfaces defined in [ch.tutteli.atrium.reporting.translating].
+
 
 # ch.tutteli.atrium.translations
 Contains [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
