@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MapLikeContains - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.maplike.contains</a>&nbsp;/&nbsp;<a href="./index.html">MapLikeContains</a><br/>
+<br/>
+<h1>MapLikeContains</h1>
+<code><span class="keyword">interface </span><span class="identifier">MapLikeContains</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains.kt#L20">(source)</a>
+<p>Defines the contract for sophisticated <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html">MapLike</a> contains assertion builders.</p>
+<p>The building process is typically started by the creation of an <a href="-entry-point-step.html">EntryPointStep</a>,
+goes on by specifying a desired <a href="-search-behaviour.html">SearchBehaviour</a>,
+defines which <a href="-checker.html">Checker</a>s should be applied and
+is finalized by one of the <a href="../../ch.tutteli.atrium.logic.creating.maplike.contains.creators/-map-like-contains-assertions/index.html">MapLikeContainsAssertions</a> which usually use a <a href="-creator.html">Creator</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-checker.html">Checker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Checker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html"><span class="identifier">Contains.Checker</span></a></code>
+<p>Represents a check for the search result such as:
+the object is contained exactly once in the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html"><span class="identifier">Contains.Creator</span></a><span class="symbol">&lt;</span><a href="-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-entry-point-step.html">EntryPointStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStep</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step.html"><span class="identifier">Contains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="-entry-point-step.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The entry point of the contract.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-entry-point-step-internal.html">EntryPointStepInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepInternal</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-internal.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-entry-point-step-logic/index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-internal.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a> from newcomers which
+usually do not have to deal with this type and to keep the API clean.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepLogic</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/index.html"><span class="identifier">Contains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="-entry-point-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-entry-point-step-logic/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The entry point of the contract on the logic level, containing the <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/container.html">container</a> -- i.e. the subject of this expectation
+for which the sophisticated <code>contain</code> assertion should be created -- as well as the chosen <a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/search-behaviour.html">searchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-search-behaviour.html">SearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-search-behaviour/index.html"><span class="identifier">Contains.SearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-creator.html">Creator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

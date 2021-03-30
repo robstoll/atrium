@@ -1,0 +1,807 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>doc</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="./index.html">doc</a><br/>
+<br/>
+<h2>KDoc of Atrium</h2>
+<p>Atrium is built up by different modules, each available for different platforms.</p>
+<p>The following names do not include the platform specific suffixes which are <code>-common</code>, <code>-jvm</code>, and <code>-js</code>. </p>
+<p>Bundle modules:</p>
+<ul><li><strong>atrium-fluent-en&#95;GB</strong>  defines to have a dependency on
+  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll</li>
+<li><strong>atrium-infix-en&#95;GB-robstoll</strong> defines to have a dependency on
+  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll</li>
+</ul>
+  
+<p>API modules:  </p>
+<ul><li>
+<p><strong>atrium-api-fluent-en&#95;GB</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is a pure fluent API.
+  extensions:</p>
+  <ul><li><strong>atrium-api-fluent-en&#95;GB-kotlin_1_3</strong> provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for <code>Result</code>)</li>
+</ul>
+</li>
+  <li>
+<p><strong>atrium-api-infix-en&#95;GB</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is an infix API.
+  extensions:</p>
+  <ul><li><strong>atrium-api-infix-en&#95;GB-kotlin_1_3</strong> provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for <code>Result</code>) </li>
+</ul>
+</li>
+</ul>
+  
+<p>Logic modules:</p>
+<ul><li>
+<p><strong>atrium-logic</strong> provides the implementation of assertion functions as well as helper functions for 
+  assertion writers.
+  extensions:</p>
+  <ul><li><strong>atrium-logic-kotlin_1_3</strong> provides the implementation of assertion functions for types introduced in Kotlin 1.3 (e.g. for <code>Result</code>)</li>
+</ul>
+</li>
+</ul>
+  
+<p>Core modules:</p>
+<ul><li><strong>atrium-core-api</strong> defines core contracts of Atrium and contains default implementation. Will be renamed to <strong>atrium-core</strong> with 0.17.0</li>
+</ul>
+<p>Translation modules:</p>
+<ul><li><strong>atrium-translations-de&#95;CH</strong> provides translations in German for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+<li><strong>atrium-translations-en&#95;GB</strong> provides translations in English for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+</ul>
+<p>Misc modules:</p>
+<ul><li><strong>atrium-specs</strong> contains <a href="https://spekframework.org/">Spek</a> specifications for interfaces (defined in 
+  <em>atrium-core-api</em>) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
+  as well as by API implementations to assure they fulfill the specifications.  </li>
+<li><strong>atrium-verbs</strong> contains out of the box assertion verbs </li>
+<li><strong>atrium-verbs-internal</strong> contains the assertion verbs Atrium uses internally - use with care, 
+  no backward compatibility guarantees.</li>
+</ul>
+<p>Atrium has currently several modules to retain backward compatibility. 
+You should not rely on them and move to the suggested predecessor: </p>
+<ul><li><strong>atrium-core-robstoll</strong> use <code>atrium-api-core</code> instead.</li>
+<li><strong>atrium-core-robstoll-lib</strong> use <code>atrium-logic</code> instead.</li>
+<li><strong>atrium-domain-api</strong> use <code>atrium-logic</code> instead. </li>
+<li><strong>atrium-domain-robstoll</strong>  use <code>atrium-logic</code> instead. </li>
+<li><strong>atrium-domain-robstoll-lib</strong>  use <code>atrium-logic</code> instead. </li>
+<li><strong>atrium-domain-builders</strong> use <code>atrium-logic</code> instead.</li>
+</ul>
+<h3>Packages</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b/index.html">ch.tutteli.atrium.api.fluent.en_GB</a></p>
+</td>
+<td>
+<p>Contains API which provides a pure fluent API in English and which has its design focus on usability 
+in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.creating.feature/index.html">ch.tutteli.atrium.api.fluent.en_GB.creating.feature</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.api.fluent.en_-g-b.creating.feature/-meta-feature-option/index.html">MetaFeatureOptions</a> 
+which is used <code>feature</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.fluent.en_-g-b.kotlin_1_3/index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a></p>
+</td>
+<td>
+<p>Contains an API for types introduced with Kotlin 1.3</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b/index.html">ch.tutteli.atrium.api.infix.en_GB</a></p>
+</td>
+<td>
+<p>Contains API which provides an infix API in English and which has its design focus on usability 
+in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.creating/index.html">ch.tutteli.atrium.api.infix.en_GB.creating</a></p>
+</td>
+<td>
+<p>Contains parameter objects  .</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.creating.feature/index.html">ch.tutteli.atrium.api.infix.en_GB.creating.feature</a></p>
+</td>
+<td>
+<p>Contains parameter objects related to feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.creating.iterable/index.html">ch.tutteli.atrium.api.infix.en_GB.creating.iterable</a></p>
+</td>
+<td>
+<p>Contains parameter objects related to Iterable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.creating.map/index.html">ch.tutteli.atrium.api.infix.en_GB.creating.map</a></p>
+</td>
+<td>
+<p>Contains parameter objects related to Map.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.creating.path/index.html">ch.tutteli.atrium.api.infix.en_GB.creating.path</a></p>
+</td>
+<td>
+<p>Contains parameter objects related to Path.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.kotlin_1_3/index.html">ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3</a></p>
+</td>
+<td>
+<p>Contains an API for types introduced with Kotlin 1.3</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.infix.en_-g-b.workaround/index.html">ch.tutteli.atrium.api.infix.en_GB.workaround</a></p>
+</td>
+<td>
+<p>Contains functions necessary for the infix API to work due to Kotlin related bugs / or insufficient type 
+inference capabilities .</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.verbs/index.html">ch.tutteli.atrium.api.verbs</a></p>
+</td>
+<td>
+<p>Contains the  <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">out-of-the-box Assertion Verbs</a>
+such as <a href="./ch.tutteli.atrium.api.verbs/expect.html">expect</a>, <a href="./ch.tutteli.atrium.api.verbs/assert.html">assert</a>
+and <a href="./ch.tutteli.atrium.api.verbs/assert-that.html">assertThat</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions/index.html">ch.tutteli.atrium.assertions</a></p>
+</td>
+<td>
+<p>Contains different types of <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>,
+e.g. <a href="./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a>.
+Currently, it contains also <code>@Deprecated</code> types which will be made internal with 0.17.0 or earlier</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.builders/index.html">ch.tutteli.atrium.assertions.builders</a></p>
+</td>
+<td>
+<p>The <a href="./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a> 
+and other builders to ease the creation of Assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.builders.common/index.html">ch.tutteli.atrium.assertions.builders.common</a></p>
+</td>
+<td>
+<p>Package containing/defining common steps for builders. </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core/index.html">ch.tutteli.atrium.core</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core.migration/index.html">ch.tutteli.atrium.core.migration</a></p>
+</td>
+<td>
+<p>Contains helper functions which shall ease the migration to a newer version of Atrium. 
+For instance, it contains <a href="./ch.tutteli.atrium.core.migration/java.util.-locale/to-atrium-locale.html">toAtriumLocale</a>
+to convert a Java <code>Locale</code> to an Atrium specific and platform independent representation of an <code>Locale</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.core.polyfills/index.html">ch.tutteli.atrium.core.polyfills</a></p>
+</td>
+<td>
+<p>Contains polyfills for functionality which is missing on certain platforms so that they can be used in a common way.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating/index.html">ch.tutteli.atrium.creating</a></p>
+</td>
+<td>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating.feature/index.html">ch.tutteli.atrium.creating.feature</a></p>
+</td>
+<td>
+<p>Contains feature related contracts, such  as <a href="./ch.tutteli.atrium.creating.feature/-feature-info/index.html">FeatureInfo</a>
+which is responsible to determine the description of a feature extraction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating.feature.impl/index.html">ch.tutteli.atrium.creating.feature.impl</a></p>
+</td>
+<td>
+<p>Contains (default) implementations for feature related contracts.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating.impl/index.html">ch.tutteli.atrium.creating.impl</a></p>
+</td>
+<td>
+<p>Contains (default) implementations for things like <a href="./ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating/index.html">ch.tutteli.atrium.domain.builders.creating</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains builders involved in delegating to assertion implementations.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.creating.collectors/index.html">ch.tutteli.atrium.domain.builders.creating.collectors</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains the builder behind 
+<a href="./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html">ExpectImpl.collector</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.reporting/index.html">ch.tutteli.atrium.domain.builders.reporting</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains the <a href="./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html">ReporterBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.builders.utils/index.html">ch.tutteli.atrium.domain.builders.utils</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains utility functions for APIs.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating/index.html">ch.tutteli.atrium.domain.creating</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.domain.creating.collectors/index.html">ch.tutteli.atrium.domain.creating.collectors</a></p>
+</td>
+<td>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains <a href="./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a>. </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic/index.html">ch.tutteli.atrium.logic</a></p>
+</td>
+<td>
+<p>Contains all the assertion interfaces (e.g. <a href="./ch.tutteli.atrium.logic/-any-assertions/index.html">AnyAssertions</a>
+as well as <a href="./ch.tutteli.atrium.logic/_logic.html">_logic</a> and helper functions for <a href="./ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.assertions.impl/index.html">ch.tutteli.atrium.logic.assertions.impl</a></p>
+</td>
+<td>
+<p>Contains internal implementations of <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating/index.html">ch.tutteli.atrium.logic.creating</a></p>
+</td>
+<td>
+<p>Contains builders which help in creating different types of <a href="./ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.basic.contains/index.html">ch.tutteli.atrium.logic.creating.basic.contains</a></p>
+</td>
+<td>
+<p>Contains the abstract contract sophisticated <code>contains</code> assertion builders: <a href="./ch.tutteli.atrium.logic.creating.basic.contains/-contains/index.html">Contains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.basic.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.basic.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-checker/index.html">Contains.Checker</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl/index.html">ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.basic.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.basic.contains.checkers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.basic.contains.creators.impl/index.html">ch.tutteli.atrium.logic.creating.basic.contains.creators.impl</a></p>
+</td>
+<td>
+<p>Contains base classes which can be handy to implement <a href="./ch.tutteli.atrium.logic.creating.basic.contains/-contains/-creator/index.html">Contains.Creator</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.basic.contains.steps.impl/index.html">ch.tutteli.atrium.logic.creating.basic.contains.steps.impl</a></p>
+</td>
+<td>
+<p>Contains base classes which can be handy to implement steps of the building process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated <code>CharSequence.contains</code> assertion builders: <a href="./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/index.html">CharSequenceContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.charsequence.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.checkers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.creators/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.creators</a></p>
+</td>
+<td>
+<p>Contains inter alia <a href="./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-creator.html">CharSequenceContains.Creator</a>s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.charsequence.contains.creators/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.creators</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html">CharSequenceContains.SearchBehaviour</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl</a></p>
+</td>
+<td>
+<p>Contains implementations of <a href="./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.steps/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.steps</a></p>
+</td>
+<td>
+<p>Contains steps for sophisticated <code>CharSequence.contains</code> assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl</a></p>
+</td>
+<td>
+<p>Contains the default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.charsequence.contains.steps/index.html">ch.tutteli.atrium.logic.creating.charsequence.contains.steps</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.collectors/index.html">ch.tutteli.atrium.logic.creating.collectors</a></p>
+</td>
+<td>
+<p>Contains helper functions to collection <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.feature/index.html">ch.tutteli.atrium.logic.creating.feature</a></p>
+</td>
+<td>
+<p>Contains interfaces which are used in the building process of feature extractors.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.filesystem/index.html">ch.tutteli.atrium.logic.creating.filesystem</a></p>
+</td>
+<td>
+<p>Contains constracts / data structures which help in dealing with file-IO.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.filesystem.hints/index.html">ch.tutteli.atrium.logic.creating.filesystem.hints</a></p>
+</td>
+<td>
+<p>Contains helper functions which help in defining failure hints in case your expectation function deals with the file system.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.impl/index.html">ch.tutteli.atrium.logic.creating.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating/index.html">ch.tutteli.atrium.logic.creating</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains/index.html">ch.tutteli.atrium.logic.creating.iterable.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated <code>IterableLike.contains</code> assertion builders: 
+<a href="./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/index.html">IterableLikeContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-checker.html">IterableLikeContains.Checker</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.iterable.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.checkers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.creators/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators</a></p>
+</td>
+<td>
+<p>Contains inter alia <a href="./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-creator.html">IterableLikeContains.Creator</a>s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.iterable.contains.creators/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-search-behaviour.html">IterableLikeContains.SearchBehaviour</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.steps/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.steps</a></p>
+</td>
+<td>
+<p>Contains steps for sophisticated <code>IterableLike.contains</code> assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl</a></p>
+</td>
+<td>
+<p>Contains the default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.iterable.contains.steps/index.html">ch.tutteli.atrium.logic.creating.iterable.contains.steps</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains/index.html">ch.tutteli.atrium.logic.creating.maplike.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated <code>MapLike.contains</code> assertion builders:
+<a href="./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/index.html">MapLikeContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-checker.html">MapLikeContains.Checker</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.maplike.contains.checkers/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.checkers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.creators/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.creators</a></p>
+</td>
+<td>
+<p>Contains inter alia <a href="./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-creator.html">MapLikeContains.Creator</a>s
+as well as the minimum set of functions which are intended to be used as part of the final step of the building process.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.maplike.contains.creators/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.creators</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains interfaces implementing <a href="./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-search-behaviour.html">MapLikeContains.SearchBehaviour</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.impl/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.steps/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.steps</a></p>
+</td>
+<td>
+<p>Contains steps for sophisticated <code>MaplikeLike.contains</code> assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl</a></p>
+</td>
+<td>
+<p>Contains the default implementations for the interfaces defined in <a href="ch.tutteli.atrium.logic.creating.maplike.contains.steps/index.html">ch.tutteli.atrium.logic.creating.maplike.contains.steps</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.transformers/index.html">ch.tutteli.atrium.logic.creating.transformers</a></p>
+</td>
+<td>
+<p>Contains contracts involved in transforming <a href="./ch.tutteli.atrium.creating/-expect/index.html">Expect</a>, their subject respectively.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.transformers.impl/index.html">ch.tutteli.atrium.logic.creating.transformers.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="#">ch.tutteli.atrium.logic.transformers</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor/index.html">ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="#">ch.tutteli.atrium.logic.transformers</a> specific to feature extraction.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger/index.html">ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="#">ch.tutteli.atrium.logic.transformers</a> specific to subject changing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.typeutils/index.html">ch.tutteli.atrium.logic.creating.typeutils</a></p>
+</td>
+<td>
+<p>Contains type alias used in Atrium to better describe the intent behind the types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.creating.typeutils.impl/index.html">ch.tutteli.atrium.logic.creating.typeutils.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations for the interfaces defined in <a href="#">ch.tutteli.atrium.logic.typeutils.impl</a> specific to subject changing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.impl/index.html">ch.tutteli.atrium.logic.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the assertion interfaces defined in <a href="ch.tutteli.atrium.logic/index.html">ch.tutteli.atrium.logic</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.kotlin_1_3/index.html">ch.tutteli.atrium.logic.kotlin_1_3</a></p>
+</td>
+<td>
+<p>Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. <a href="./ch.tutteli.atrium.logic.kotlin_1_3/-result-assertions/index.html">ResultAssertions</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.kotlin_1_3.impl/index.html">ch.tutteli.atrium.logic.kotlin_1_3.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the assertion interfaces defined in <a href="ch.tutteli.atrium.logic.kotlin_1_3/index.html">ch.tutteli.atrium.logic.kotlin_1_3</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.logic.utils/index.html">ch.tutteli.atrium.logic.utils</a></p>
+</td>
+<td>
+<p>Contains inter alia the <a href="./ch.tutteli.atrium.logic.utils/map-arguments.html">mapArgument</a> function next to other
+helper functions such as <a href="./ch.tutteli.atrium.logic.utils/nullable.html">nullable</a> and co.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting/index.html">ch.tutteli.atrium.reporting</a></p>
+</td>
+<td>
+<p>Everything involved in reporting <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.erroradjusters/index.html">ch.tutteli.atrium.reporting.erroradjusters</a></p>
+</td>
+<td>
+<p>Contains marker interfaces for different kinds of <a href="./ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErroAdjuster</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.erroradjusters.impl/index.html">ch.tutteli.atrium.reporting.erroradjusters.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the interfaces defined in <a href="ch.tutteli.atrium.reporting.erroradjusters/index.html">ch.tutteli.atrium.reporting.erroradjusters</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.impl/index.html">ch.tutteli.atrium.reporting.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the interfaces defined in <a href="ch.tutteli.atrium.reporting/index.html">ch.tutteli.atrium.reporting</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.text/index.html">ch.tutteli.atrium.reporting.text</a></p>
+</td>
+<td>
+<p>Text specific, in other words terminal specific, reporting contracts.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.text.impl/index.html">ch.tutteli.atrium.reporting.text.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the interfaces defined in <a href="ch.tutteli.atrium.reporting.text/index.html">ch.tutteli.atrium.reporting.text</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.translating/index.html">ch.tutteli.atrium.reporting.translating</a></p>
+</td>
+<td>
+<p>Everything involved in translating <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.translating.impl/index.html">ch.tutteli.atrium.reporting.translating.impl</a></p>
+</td>
+<td>
+<p>Contains default implementations of the interfaces defined in <a href="ch.tutteli.atrium.reporting.translating/index.html">ch.tutteli.atrium.reporting.translating</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.translations/index.html">ch.tutteli.atrium.translations</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Index</h3>
+<a href="alltypes/index.html">All Types</a>
+</BODY>
+</HTML>

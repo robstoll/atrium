@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TextExplanatoryAssertionGroupFormatter - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.text.impl</a>&nbsp;/&nbsp;<a href="./index.html">TextExplanatoryAssertionGroupFormatter</a><br/>
+<br/>
+<h1>TextExplanatoryAssertionGroupFormatter</h1>
+<code><span class="keyword">class </span><span class="identifier">TextExplanatoryAssertionGroupFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-no-special-child-formatting-single-assertion-group-type-formatter/index.html"><span class="identifier">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/text/impl/TextExplanatoryAssertionGroupFormatter.kt#L34">(source)</a>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> by
+neglecting the group header and defining an child-<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> which indicates that we are in an
+explanatory assertion.</p>
+<p>Furthermore it uses the bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-warning-assertion-group-type.html">WarningAssertionGroupType</a> in <code>bulletPoints</code> (see constructor)
+(<code>"❗❗ "</code> if absent) as prefix for the child-<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> if the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a> is a
+<a href="../../ch.tutteli.atrium.assertions/-warning-assertion-group-type.html">WarningAssertionGroupType</a>. Otherwise it is using the bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>
+(<code>"» "</code> if absent).</p>
+<p>Its usage is intended for text output (e.g. to the console).</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TextExplanatoryAssertionGroupFormatter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter$<init>(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController)/bulletPoints">bulletPoints</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter$<init>(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController)/assertionFormatterController">assertionFormatterController</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">)</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an
+<a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> by defining only an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> -- which indicates
+that we are in an explanatory assertion group and uses the <code>bulletPoints</code> (passed as argument) as prefix --
+and completely ignoring <a href="../../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> and <a href="../../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format-group-header-and-get-child-parameter-object.html">formatGroupHeaderAndGetChildParameterObject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">formatGroupHeaderAndGetChildParameterObject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter$formatGroupHeaderAndGetChildParameterObject(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertionGroup">assertionGroup</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter$formatGroupHeaderAndGetChildParameterObject(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a></code>
+<p>Formats the group header of the given <a href="../-single-assertion-group-type-formatter/format-group-header-and-get-child-parameter-object.html#ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupHeaderAndGetChildParameterObject(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertionGroup">assertionGroup</a> (with <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a> <a href="../-single-assertion-group-type-formatter/index.html#T">T</a>) -- appends the
+result to the <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/sb.html">sb</a> of the given <a href="../-single-assertion-group-type-formatter/format-group-header-and-get-child-parameter-object.html#ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupHeaderAndGetChildParameterObject(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</a> -- and returns the
+<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> which shall be used for the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-no-special-child-formatting-single-assertion-group-type-formatter/format-group-assertions.html">formatGroupAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">formatGroupAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.NoSpecialChildFormattingSingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/formatAssertions">formatAssertions</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.NoSpecialChildFormattingSingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/childParameterObject">childParameterObject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> -- has to call the given <a href="../-single-assertion-group-type-formatter/format-group-assertions.html#ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/formatAssertions">formatAssertions</a> function in order that
+the <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a> can steer the process.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

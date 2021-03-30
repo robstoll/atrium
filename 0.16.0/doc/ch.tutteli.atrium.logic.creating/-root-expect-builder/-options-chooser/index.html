@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RootExpectBuilder.OptionsChooser - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating</a>&nbsp;/&nbsp;<a href="../index.html">RootExpectBuilder</a>&nbsp;/&nbsp;<a href="./index.html">OptionsChooser</a><br/>
+<br/>
+<h1>OptionsChooser</h1>
+<code><span class="keyword">interface </span><span class="identifier">OptionsChooser</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/RootExpectBuilder.kt#L103">(source)</a>
+<p>Helper lambda to specify <a href="../../../ch.tutteli.atrium.creating/-root-expect-options/index.html">RootExpectOptions</a> via convenience methods.</p>
+<p>Calling multiple times the same method overrides the previously defined value.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="prepend-chained-components.html">prependChainedComponents</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">prependChainedComponents</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$prependChainedComponents(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.prependChainedComponents.I)), kotlin.sequences.Sequence((ch.tutteli.atrium.creating.ComponentFactory)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="prepend-chained-components.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$prependChainedComponents(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.prependChainedComponents.I)), kotlin.sequences.Sequence((ch.tutteli.atrium.creating.ComponentFactory)))/factories">factories</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.creating/-component-factory/index.html"><span class="identifier">ComponentFactory</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="with-component.html">withComponent</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">withComponent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withComponent(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withComponent.I)), kotlin.Function1((ch.tutteli.atrium.creating.ComponentFactoryContainer, ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withComponent.I)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="with-component.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withComponent(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withComponent.I)), kotlin.Function1((ch.tutteli.atrium.creating.ComponentFactoryContainer, ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withComponent.I)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="with-component.html#I"><span class="identifier">I</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Expects a factory which creates the component of type <a href="with-component.html#I">I</a> which is used instead of the currently specified
+factory.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-representation.html">withRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the given <a href="with-representation.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</a> into a <a href="../../../ch.tutteli.atrium.reporting/-text/index.html">Text</a> and uses it as representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.T, kotlin.Any)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses the given <a href="with-representation.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.T, kotlin.Any)))/representationProvider">representationProvider</a> to retrieve a representation which can be based on the current
+subject where it is used as new representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-singleton-component.html">withSingletonComponent</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">withSingletonComponent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withSingletonComponent(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withSingletonComponent.I)), kotlin.Function1((ch.tutteli.atrium.creating.ComponentFactoryContainer, ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withSingletonComponent.I)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="with-singleton-component.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withSingletonComponent(kotlin.reflect.KClass((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withSingletonComponent.I)), kotlin.Function1((ch.tutteli.atrium.creating.ComponentFactoryContainer, ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.withSingletonComponent.I)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="with-singleton-component.html#I"><span class="identifier">I</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Expects a factory which creates the component of type <a href="with-singleton-component.html#I">I</a> which is used instead of the currently specified
+factory.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-verb.html">withVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withVerb</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withVerb(kotlin.String)/verb">verb</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the given <a href="with-verb.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withVerb(kotlin.String)/verb">verb</a> into an <a href="../../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> and passes it to the overload
+which expects a <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> -- this is then used as custom expectation verb
+instead of the previously defined verb.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withVerb</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withVerb(ch.tutteli.atrium.reporting.translating.Translatable)/verb">verb</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses the given <a href="with-verb.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser$withVerb(ch.tutteli.atrium.reporting.translating.Translatable)/verb">verb</a> as expectation verb instead of the previously defined verb.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.Companion$invoke(kotlin.Function1((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser((ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser.Companion.invoke.T)), kotlin.Unit)))/configuration">configuration</span><span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RootExpectBuilder.OptionsChooser</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-root-expect-options/index.html"><span class="identifier">RootExpectOptions</span></a><span class="symbol">&lt;</span><a href="invoke.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../with-component.html">withComponent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">RootExpectBuilder.OptionsChooser</span></a><span class="symbol">&lt;</span><a href="../../with-component.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withComponent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating$withComponent(ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsChooser((ch.tutteli.atrium.logic.creating.withComponent.T)), kotlin.Function1((ch.tutteli.atrium.creating.ComponentFactoryContainer, ch.tutteli.atrium.logic.creating.withComponent.I)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../with-component.html#I"><span class="identifier">I</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Convenience function which infers the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a> usually required for <a href="with-component.html">RootExpectBuilder.OptionsChooser.withComponent</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.impl/-root-expect-options-chooser-impl/index.html">RootExpectOptionsChooserImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RootExpectOptionsChooserImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RootExpectBuilder.OptionsChooser</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.impl/-root-expect-options-chooser-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

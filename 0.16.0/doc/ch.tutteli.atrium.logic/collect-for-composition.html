@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>collectForComposition - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic</a>&nbsp;/&nbsp;<a href="./collect-for-composition.html">collectForComposition</a><br/>
+<br/>
+<h1>collectForComposition</h1>
+<a name="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectForComposition</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utilsCollect.kt#L53">(source)</a>
+<p>Use this function if you want to collect <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of another <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> (e.g. as part
+of an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>).</p>
+<p>Note that an assertion will be added which fails in case <a href="collect-for-composition.html#ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> does not create a single assertion.</p>
+<p>It uses the <a href="../ch.tutteli.atrium.creating/-assertion-container/maybe-subject.html">AssertionContainer.maybeSubject</a> as subject of the given <a href="collect-for-composition.html#ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> and
+delegates to <a href="collect-for-composition-based-on-subject.html">collectForCompositionBasedOnSubject</a>.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - A lambda which defines the expectations for the <a href="../ch.tutteli.atrium.creating/-assertion-container/maybe-subject.html">AssertionContainer.maybeSubject</a>.</p>
+<p><strong>Return</strong><br/>
+The collected assertions as a <code>List&lt;[Assertion]&gt;</code>.</p>
+</BODY>
+</HTML>

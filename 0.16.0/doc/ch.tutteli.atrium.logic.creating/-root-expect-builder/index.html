@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RootExpectBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating</a>&nbsp;/&nbsp;<a href="./index.html">RootExpectBuilder</a><br/>
+<br/>
+<h1>RootExpectBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">RootExpectBuilder</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/RootExpectBuilder.kt#L15">(source)</a>
+<p>Defines the contract to create custom expectation verbs, <code>RootExpect&lt;T&gt;</code> respectively.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-expectation-verb-step/index.html">ExpectationVerbStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExpectationVerbStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to specify the expectation verb which shall be used.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-final-step/index.html">FinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Final step in the <a href="../../ch.tutteli.atrium.creating/-root-expect/index.html">RootExpect</a> building process which creates a new <a href="../../ch.tutteli.atrium.creating/-root-expect/index.html">RootExpect</a> based
+on the so far specified options.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-chooser/index.html">OptionsChooser</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsChooser</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Helper lambda to specify <a href="../../ch.tutteli.atrium.creating/-root-expect-options/index.html">RootExpectOptions</a> via convenience methods.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-options-step/index.html">OptionsStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OptionsStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Step which allows to override previously defined properties -- such as use a different expectation verb -- but
+also allows to define options where usually a default value is used, such as use a custom <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="for-subject.html">forSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">forSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion$forSubject(ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion.forSubject.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="for-subject.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-expectation-verb-step/index.html"><span class="identifier">RootExpectBuilder.ExpectationVerbStep</span></a><span class="symbol">&lt;</span><a href="for-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="./index.html">RootExpectBuilder</a> which helps in creating
+an expectation verb for the given <a href="for-subject.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion$forSubject(ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion.forSubject.T)/subject">subject</a> or in other words a <a href="../../ch.tutteli.atrium.creating/-root-expect/index.html">RootExpect</a> for the given <a href="for-subject.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion$forSubject(ch.tutteli.atrium.logic.creating.RootExpectBuilder.Companion.forSubject.T)/subject">subject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

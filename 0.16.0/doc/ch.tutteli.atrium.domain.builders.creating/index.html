@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.creating - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.creating</h2>
+<p><strong>Deprecated</strong> - will be removed with 0.17.0. Contains builders involved in delegating to assertion implementations.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-meta-feature-builder/index.html">MetaFeatureBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><s><span class="identifier">MetaFeatureBuilder</span></s></code>
+<p>Builder which helps to create <a href="../ch.tutteli.atrium.domain.creating/-meta-feature/index.html">MetaFeature</a> inter alia by using the <a href="../ch.tutteli.atrium.reporting/-method-call-formatter/index.html">MethodCallFormatter</a> defined initially by the
+<a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-meta-feature-option/index.html">MetaFeatureOption</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">MetaFeatureOption</span></s><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Helper class to circumvent overload bugs and KFunction bugs incorporated in Kotlin -- use <a href="-meta-feature-option/f.html">f</a> and in case you run
+into an overload ambiguity, then either <a href="-meta-feature-option/p.html">p</a> (for property) or one of the <code>fN</code> functions (e.g. <a href="-meta-feature-option/f2.html">f2</a> for
+a function which expects 2 arguments).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-please-use-replacement-exception/index.html">PleaseUseReplacementException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">PleaseUseReplacementException</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html"><span class="identifier">Exception</span></a></code>
+<p>Indicates a problem which was indicated by a <code>@Deprecated</code> annotation but was ignored by you ;-)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

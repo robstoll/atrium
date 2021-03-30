@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslationSupplierBasedTranslator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating.impl</a>&nbsp;/&nbsp;<a href="./index.html">TranslationSupplierBasedTranslator</a><br/>
+<br/>
+<h1>TranslationSupplierBasedTranslator</h1>
+<code><span class="keyword">class </span><span class="identifier">TranslationSupplierBasedTranslator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/index.html"><span class="identifier">ArgumentsSupportingTranslator</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/impl/TranslationSupplierBasedTranslator.kt#L27">(source)</a>
+<p>Represents a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> which uses a given <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> to retrieve translations and
+a given <a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a> to determine in which order it should try to find translations
+for a given <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TranslationSupplierBasedTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator$<init>(ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/translationSupplier">translationSupplier</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator$<init>(ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/localeOrderDecider">localeOrderDecider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html"><span class="identifier">LocaleOrderDecider</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator$<init>(ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator$<init>(ch.tutteli.atrium.reporting.translating.TranslationSupplier, ch.tutteli.atrium.reporting.translating.LocaleOrderDecider, ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents a <a href="../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> which uses a <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> to retrieve translations and
+<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a> to determine in which order it should try to find translations for a given
+<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/fallback-locales.html">fallbackLocales</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">fallbackLocales</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span></code>
+<p>Used in case a translation for a given <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> is not defined for
+<a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/primary-locale.html">primaryLocale</a> or one of its secondary alternatives -- the fallback <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s are used in the given order.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/primary-locale.html">primaryLocale</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">primaryLocale</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a></code>
+<p>The <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> to which the translator translates per default as well as the <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>
+which will be used in <a href="../../ch.tutteli.atrium.core.polyfills/kotlin.-string/format.html">String.format</a>, which in turn is used to substitute the placeholders in
+the resulting translation of <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/translatable.html">TranslatableWithArgs.translatable</a> with the <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/arguments.html">TranslatableWithArgs.arguments</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="translate-without-args.html">translateWithoutArgs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">translateWithoutArgs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator$translateWithoutArgs(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Do not call this method in case you want to translate a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>
+use <a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/translate.html">translate</a> in this case.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/translate.html">translate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">translate</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translate(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the translation of the given <a href="../../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/translate.html#ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator$translate(ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> or its <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/get-default.html">getDefault</a>
+in case there is not a translation defined for it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.assertions - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.assertions</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.assertions</h2>
+<p>Contains different types of <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>,
+e.g. <a href="./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a>.
+Currently, it contains also <code>@Deprecated</code> types which will be made internal with 0.17.0 or earlier</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion/index.html">Assertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Assertion</span></code>
+<p>The base interface of all assertions, providing the method <a href="-assertion/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-group/index.html">AssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="-assertion/index.html">Assertion</a> groups, providing a default implementation for <a href="-assertion/holds.html">Assertion.holds</a>
+which returns <code>true</code> if all its <a href="-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-group-type.html">AssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a></code>
+<p>Represents a type of an <a href="-assertion-group/index.html">AssertionGroup</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-bullet-point-identifier.html">BulletPointIdentifier</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">BulletPointIdentifier</span></code>
+<p>A marker interface for types which can be used to identify bullet points in
+<a href="../ch.tutteli.atrium.core/-core-factory-common/register-text-assertion-formatter-capabilities.html">CoreFactory.registerTextAssertionFormatterCapabilities</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-explanatory-assertion-group-type.html">DefaultExplanatoryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultExplanatoryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are used to explain
+something rather than pointing something out -- accordingly the <a href="-assertion-group/holds.html">AssertionGroup.holds</a> should always return <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-feature-assertion-group-type.html">DefaultFeatureAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultFeatureAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-feature-assertion-group-type.html"><span class="identifier">FeatureAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s which contain any kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-list-assertion-group-type.html">DefaultListAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultListAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-list-assertion-group-type.html"><span class="identifier">ListAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should be displayed
+in a list.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-summary-assertion-group-type.html">DefaultSummaryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultSummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should not be
+filtered (by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) and for which an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> should state whether they hold or not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-descriptive-assertion/index.html">DescriptiveAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="-assertion/index.html">Assertion</a>s which consist of a <a href="-descriptive-assertion/representation.html">representation</a> of an expected result
+with a complementary <a href="-descriptive-assertion/description.html">description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-do-not-filter-assertion-group-type.html">DoNotFilterAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DoNotFilterAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>An <a href="-assertion-group-type.html">AssertionGroupType</a> which indicates that a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not filter its <a href="-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion/index.html">ExplanatoryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Represents an <a href="-assertion/index.html">Assertion</a> which can be used to explain/show an instance which is eventually formatted
+by an <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> in reporting -- it needs to be a child of an <a href="-assertion-group/index.html">AssertionGroup</a>
+with an <a href="-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are mainly
+used to explain something -- hence in the normal case it should not be of importance whether they hold or not
+and thus such <a href="-assertion-group/index.html">AssertionGroup</a>s should usually return <code>true</code> for <a href="-assertion-group/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-assertion-group-type.html">FeatureAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s which contain some kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-information-assertion-group-type/index.html">InformationAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">InformationAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are used to document
+the reason for one or multiple assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">InvisibleAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+be displayed in a manner that the user does not even notice that the <a href="-assertion/index.html">Assertion</a>s have been grouped.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-list-assertion-group-type.html">ListAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ListAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+be displayed in a list (up to the <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> if it is a list with bullets, squares etc.).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-prefix-failing-summary-assertion.html">PrefixFailingSummaryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PrefixFailingSummaryAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a></code>
+<p>Represents the identifier for bullet points used to prefix <a href="-assertion/index.html">Assertion</a>s which do not hold, in context of an
+<a href="-assertion-group/index.html">AssertionGroup</a> with type <a href="-summary-assertion-group-type.html">SummaryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-prefix-feature-assertion-group-header.html">PrefixFeatureAssertionGroupHeader</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PrefixFeatureAssertionGroupHeader</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a></code>
+<p>This class is only used as identifier for <a href="../ch.tutteli.atrium.core/-core-factory-common/register-text-assertion-formatter-capabilities.html">CoreFactory.registerTextAssertionFormatterCapabilities</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PrefixSuccessfulSummaryAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a></code>
+<p>Represents the identifier for bullet points used to prefix <a href="-assertion/index.html">Assertion</a>s which hold, in context of an
+<a href="-assertion-group/index.html">AssertionGroup</a> with type <a href="-summary-assertion-group-type.html">SummaryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-representation-only-assertion/index.html">RepresentationOnlyAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RepresentationOnlyAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>The base interface for <a href="-assertion/index.html">Assertion</a>s which only consist of a <a href="-representation-only-assertion/representation.html">representation</a> (next to <a href="-assertion/holds.html">holds</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-assertion-group-type.html">RootAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RootAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s which are the root of all assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-summary-assertion-group-type.html">SummaryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+all be reported in reporting (no filtering by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) since it represents a summary which itself
+will point out which assertions hold and which do not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-warning-assertion-group-type.html">WarningAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">WarningAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are used to state
+a warning rather than making an assumption.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

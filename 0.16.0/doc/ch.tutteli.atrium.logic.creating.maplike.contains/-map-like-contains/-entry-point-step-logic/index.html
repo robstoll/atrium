@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MapLikeContains.EntryPointStepLogic - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating.maplike.contains</a>&nbsp;/&nbsp;<a href="../index.html">MapLikeContains</a>&nbsp;/&nbsp;<a href="./index.html">EntryPointStepLogic</a><br/>
+<br/>
+<h1>EntryPointStepLogic</h1>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepLogic</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/index.html"><span class="identifier">Contains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains.kt#L36">(source)</a>
+<p>The entry point of the contract on the logic level, containing the <a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/container.html">container</a> -- i.e. the subject of this expectation
+for which the sophisticated <code>contain</code> assertion should be created -- as well as the chosen <a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/search-behaviour.html">searchBehaviour</a>.</p>
+<p>The <a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/search-behaviour.html">searchBehaviour</a> might me modified in which case it is recommended that a new <a href="../-entry-point-step.html">EntryPointStep</a> is created (retain
+immutability).</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="converter.html">converter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">converter</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="index.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
+<p>The converter which shall be used to turn the subject of this expectation into an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> of type <a href="#">E</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/container.html">container</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">container</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The <a href="../../../ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a> from which this building process started and to which the resulting <a href="../../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>
+should be appended.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/search-behaviour.html">searchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">searchBehaviour</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-entry-point-step-logic/index.html#S"><span class="identifier">S</span></a></code>
+<p>The chosen <a href="../../../ch.tutteli.atrium.logic.creating.basic.contains/-contains/-search-behaviour/index.html">SearchBehaviour</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-search-behaviour.html">withSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">S2</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">withSearchBehaviour</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic$withSearchBehaviour(ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic.withSearchBehaviour.S2)/searchBehaviour">searchBehaviour</span><span class="symbol">:</span>&nbsp;<a href="with-search-behaviour.html#S2"><span class="identifier">S2</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="index.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="with-search-behaviour.html#S2"><span class="identifier">S2</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html">andOnly</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-order-search-behaviour.html"><span class="identifier">InOrderSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">andOnly</span><span class="symbol">: </span><a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/and-only.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-order-only-search-behaviour.html"><span class="identifier">InOrderOnlySearchBehaviour</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html">butOnly</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">butOnly</span><span class="symbol">: </span><a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/but-only.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-any-order-only-search-behaviour.html"><span class="identifier">InAnyOrderOnlySearchBehaviour</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html">inAnyOrder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">inAnyOrder</span><span class="symbol">: </span><a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-any-order.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-any-order-search-behaviour.html"><span class="identifier">InAnyOrderSearchBehaviour</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html">inOrder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">inOrder</span><span class="symbol">: </span><a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.steps/in-order.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-order-search-behaviour.html"><span class="identifier">InOrderSearchBehaviour</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.utils/to-var-arg-pairs.html">toVarArgPairs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toVarArgPairs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$toVarArgPairs(ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic((kotlin.Any, , kotlin.Any, ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.SearchBehaviour)), kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html"><span class="identifier">MapLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.utils/to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.utils/to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.utils/to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.logic.utils/to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html">MapLike</a> to <code>Pair&lt;Pair&lt;K, V&gt;, Array&lt;out Pair&lt;K, V&gt;&gt;&gt;</code> with the intention that
+it can be easily used for a function requiring <code>Pair&lt;K, V&gt;, vararg Pair&lt;K, V&gt;</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-entry-point-step-internal.html">EntryPointStepInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">EntryPointStepInternal</span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour.html"><span class="identifier">MapLikeContains.SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-entry-point-step.html"><span class="identifier">MapLikeContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="../-entry-point-step-internal.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><a href="../-entry-point-step-internal.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#V"><span class="identifier">V</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-entry-point-step-internal.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="./index.html">EntryPointStepLogic</a> from newcomers which
+usually do not have to deal with this type and to keep the API clean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

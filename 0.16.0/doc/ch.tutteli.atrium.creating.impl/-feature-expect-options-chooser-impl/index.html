@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExpectOptionsChooserImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating.impl</a>&nbsp;/&nbsp;<a href="./index.html">FeatureExpectOptionsChooserImpl</a><br/>
+<br/>
+<h1>FeatureExpectOptionsChooserImpl</h1>
+<code><span class="keyword">class </span><s><span class="identifier">FeatureExpectOptionsChooserImpl</span></s><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/index.html"><span class="identifier">FeatureExpectOptionsChooser</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/FeatureExpectOptionsChooserImpl.kt#L13">(source)</a><br/>
+<strong>Deprecated:</strong> Use FeatureExpectOptionsChooserImpl from atrium-logic; will be removed with 0.17.0<br/>
+<br/>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">FeatureExpectOptionsChooserImpl</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-feature-expect-options/index.html"><span class="identifier">FeatureExpectOptions</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.impl.FeatureExpectOptionsChooserImpl$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses the given <a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-description.html#ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withDescription(ch.tutteli.atrium.reporting.translating.Translatable)/description">description</a> as custom description instead of the previously defined description.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-representation.html">withRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.impl.FeatureExpectOptionsChooserImpl$withRepresentation(kotlin.Function1((ch.tutteli.atrium.creating.impl.FeatureExpectOptionsChooserImpl.R, kotlin.Any)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Uses the given <a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-representation.html#ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.creating.FeatureExpectOptionsChooser.R, kotlin.Any)))/representationProvider">representationProvider</a> to retrieve a representation which can be based on the current
+subject where this provided representation is used as new representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-description.html">withDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><s><span class="identifier">withDescription</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withDescription(kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the given <a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-description.html#ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withDescription(kotlin.String)/description">description</a> into an <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> and passes it to the overload
+which expects a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> -- this is then used as custom description
+instead of the previously defined description.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-representation.html">withRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><s><span class="identifier">withRepresentation</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the given <a href="../../ch.tutteli.atrium.creating/-feature-expect-options-chooser/with-representation.html#ch.tutteli.atrium.creating.FeatureExpectOptionsChooser$withRepresentation(kotlin.String)/textRepresentation">textRepresentation</a> into a <a href="../../ch.tutteli.atrium.reporting/-text/index.html">Text</a> and uses it as representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

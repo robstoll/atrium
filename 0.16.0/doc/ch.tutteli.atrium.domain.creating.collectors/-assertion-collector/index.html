@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionCollector - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.collectors</a>&nbsp;/&nbsp;<a href="./index.html">AssertionCollector</a><br/>
+<br/>
+<h1>AssertionCollector</h1>
+<code><span class="keyword">interface </span><s><span class="identifier">AssertionCollector</span></s></code> <a href="https://github.com/robstoll/atrium/tree/v0.16.0/misc/deprecated/domain/api/atrium-domain-api-common/src/main/kotlin/ch/tutteli/atrium/domain/creating/collectors/AssertionCollector.kt#L29">(source)</a><br/>
+<strong>Deprecated:</strong> Use one of the utility functions: collectBasedOnSubject/collectForCompositionBasedOnSubject from atrium-logic; will be removed with 0.17.0<br/>
+<br/>
+<p>Responsible to collect assertions made in an <code>assertionCreator</code>-lambda.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="collect.html">collect</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">collect</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collect(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Unit)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collect(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Uses the <a href="../../ch.tutteli.atrium.creating/-expect/maybe-subject.html">Expect.maybeSubject</a> and delegates to the other overload.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">collect</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collect(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collect(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Use this function if you want to make <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s about a feature or you perform a type transformation or any
+other action which results in an assertion container being created and
+you do not require this resulting container.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="collect-for-composition.html">collectForComposition</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <s><span class="identifier">collectForComposition</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collectForComposition(ch.tutteli.atrium.core.Option((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Use this function if you want to collect <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
