@@ -50,7 +50,7 @@ class CollectionAssertionSamples {
     fun sizeFeature() {
         expect(listOf(1, 2, 3))
             .size             // subject is now of type Int (actually 3)
-            .isGreaterThan(1) // subject is still of type Int (still 1)
+            .isGreaterThan(1) // subject is still of type Int (still 3)
             .isLessThan(4)
 
         fails {
