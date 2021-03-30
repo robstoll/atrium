@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.16.0'
+    rootProject.version = '0.17.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -36,7 +36,6 @@ buildscript {
             !it.name.endsWith("-js") &&
                 !it.name.endsWith("-android") &&
                 !it.name.contains("robstoll") &&
-                it.name != "${rootProject.name}-spec" &&
                 !it.name.startsWith("${rootProject.name}-specs")
 
         }
@@ -57,7 +56,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.16.0"
+        dokka_sourceMapping = "tree/master"
 
 
         toolProjects = toolProjectsFun
@@ -481,7 +480,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=0.16.0
-export ATRIUM_VERSION=0.16.0
+export ATRIUM_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/master@tree/v$ATRIUM_VERSION@g;" \
@@ -546,7 +545,7 @@ alternatively the manual steps:
 
 3. deploy to bintray:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"9" && CI=true gr clean publishToBintray
+    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToBintray
     b) Log in to bintray, check that there are 960 artifacts and publish them
     c) synchronise to maven central
 
@@ -560,7 +559,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.16.0
-export ATRIUM_NEXT_VERSION=0.16.0
+export ATRIUM_NEXT_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/master@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
