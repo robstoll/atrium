@@ -511,7 +511,14 @@ alternatively the manual steps:
     g) comment out the warning in README.md about taking a sneak peak
     h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
-2. update github pages:
+2. prepare release on github
+    a) git tag vX.Y.Z
+    b) git push origin vX.Y.Z
+    c) Log in to github and create draft for the release
+
+The tag is required for dokka in order that the source-mapping works
+
+3. update github pages:
 Assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
@@ -543,10 +550,8 @@ alternatively the manual steps:
     b) Log in to bintray, check that there are 960 artifacts and publish them
     c) synchronise to maven central
 
-4. create release on github
-    a) git tag vX.Y.Z
-    b) git push origin vX.Y.Z
-    c) Log in to github and create release
+4. publish release on github
+    1) Log in to github and publish draft
 
 Prepare next dev cycle
 -----------------------
