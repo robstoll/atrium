@@ -109,6 +109,11 @@ buildscript {
                     )
                 )
             }
+        ),
+        Triple(
+            "0.16.0",
+            allApisAllTargets,
+            Pair("", true to "")
         )
     )
     (gradle as ExtensionAware).extra.apply {
