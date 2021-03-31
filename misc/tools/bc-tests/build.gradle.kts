@@ -631,13 +631,6 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                         .replace(Regex(" StaticName\\.([a-zA-Z]+)"), "\"$1\"")
                 }
 
-                // TODO 0.16.0 remove once we support js again
-                rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
-                    it
-                        .replaceFirst("import kotlin.js.JsName", "")
-                        .replaceFirst("@JsName(\"propFun\")", "")
-                }
-
                 rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableAnyAssertionsSpec.kt") {
                     it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
                 }
@@ -705,3 +698,18 @@ with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
     }
 }
 
+// TODO 0.18.0 remove once we support js again
+listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+            fixSrc = {
+                rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
+                    it
+                        .replaceFirst("import kotlin.js.JsName", "")
+                        .replaceFirst("@JsName(\"propFun\")", "")
+                }
+
+            }
+        }
+    }
+}
