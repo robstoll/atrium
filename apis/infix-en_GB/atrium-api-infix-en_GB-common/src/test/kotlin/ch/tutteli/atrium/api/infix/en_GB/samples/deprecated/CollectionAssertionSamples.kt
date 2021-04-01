@@ -64,7 +64,8 @@ class CollectionAssertionSamples {
     fun size() {
         expect(listOf(1, 2, 3)) size { // subject inside this block is of type Int (actually 3)
             it isGreaterThan 1
-        } size { // subject inside this block is of type Int (actually 3)
+        } /* // subject here is back to type List<Int>
+        */size { // subject inside this block is of type Int (actually 3)
             it isLessThan 4
         }
 

@@ -13,6 +13,8 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.asListFeature
+ *
  * @since 0.12.0
  */
 infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
@@ -26,6 +28,8 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
  * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.asList
  *
  * @since 0.12.0
  */
@@ -41,6 +45,8 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.asListEOut
+ *
  * @since 0.12.0
  */
 @JvmName("asListEOut")
@@ -54,6 +60,8 @@ infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.byteArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -70,6 +78,8 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.byteArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("byteArrAsList")
@@ -84,6 +94,8 @@ infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Un
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.charArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -100,6 +112,8 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.charArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("charArrAsList")
@@ -114,6 +128,8 @@ infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Un
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.shortArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -130,6 +146,8 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.shortArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("shortArrAsList")
@@ -144,6 +162,8 @@ infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> 
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.intArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -160,6 +180,8 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.intArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("intArrAsList")
@@ -174,6 +196,8 @@ infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.longArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -190,6 +214,8 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.longArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("longArrAsList")
@@ -204,6 +230,8 @@ infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Un
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.floatArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -220,6 +248,8 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.floatArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("floatArrAsList")
@@ -234,6 +264,8 @@ infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> 
  * Use `feature { f(it::asList) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.doubleArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -250,6 +282,8 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.doubleArrAsList
+ *
  * @since 0.12.0
  */
 @JvmName("doubleArrAsList")
@@ -265,6 +299,8 @@ infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.booleanArrAsListFeature
+ *
  * @since 0.12.0
  */
 @JvmName("boolArrAsList")
@@ -279,6 +315,8 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
  * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ArrayAssertionSamples.booleanArrAsList
  *
  * @since 0.12.0
  */
