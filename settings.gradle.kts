@@ -15,21 +15,32 @@ buildscript {
             "0.14.0",
             allApisAllTargets,
             // forgive for bc and bbc
-            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
-                or(
-                    // improved reporting
-                    "IterableContainsInOrderOnly.*Spec",
-                    "IterableContainsInAnyOrder.*error cases",
-                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
-                    // implementation and spec was wrong
-                    "IterableAssertionsSpec/.*`" + or(
-                        "containsNoDuplicates",
-                        "contains noDuplicates"
-                    ) + "`/list with duplicates",
-                    // changed reporting as most of it is no longer based on IterableLike.contains
-                    "MapAssertionsSpec.*",
-                    "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
-                ) + ".*)").let { commonPatterns ->
+            or(
+                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                    or(
+                        // improved reporting
+                        "IterableContainsInOrderOnly.*Spec",
+                        "IterableContainsInAnyOrder.*error cases",
+                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
+                        // implementation and spec was wrong
+                        "IterableAssertionsSpec/.*`" + or(
+                            "containsNoDuplicates",
+                            "contains noDuplicates"
+                        ) + "`/list with duplicates",
+                        // changed reporting as most of it is no longer based on IterableLike.contains
+                        "MapAssertionsSpec.*",
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                    ) + ".*)",
+                // we don't use asci bullet points in reporting since 0.17.0
+                // but have own tests to assure that changing bullet points work
+                "(ch/tutteli/atrium/api/infix/en_GB/.*Spec.*" + or(
+                    "throws",
+                    "is thrown",
+                    "error message contains",
+                    "shows (all )?suppressed",
+                    "null was missing", "failing cases"
+                ) + ".*)"
+            ).let { commonPatterns ->
                 Pair(
                     // bc
                     commonPatterns,
@@ -50,7 +61,9 @@ buildscript {
                                         "IterableContainsInOrderOnlyEntriesAssertionsSpec"
                                     ) + ".*/returnValueOf",
                                     // we moved MetaFeature and MetaFeatureOptions
-                                    "FeatureAssertions.*(Manual|Reference).*Spec"
+                                    "FeatureAssertions.*(Manual|Reference).*Spec",
+                                    // we removed ExpectBuilder and SubjectLessSpec uses it
+                                    ".*assertion function can be used in an AssertionGroup with an ExplanatoryAssertionGroupType and reportBuilder without failure.*"
                                 ) + ".*)",
                             // removed overload which expects kClass
                             "ch.tutteli.atrium.api.fluent.en_GB.samples.AnyAssertionSamples#toBeNullIfNullGivenElse"
@@ -62,18 +75,30 @@ buildscript {
             "0.15.0",
             allApisAllTargets,
             // forgive for bc and bbc
-            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
-                or(
-                    "IterableContainsInOrderOnly.*error cases",
-                    "IterableContainsInAnyOrder.*error cases",
-                    "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
-                    // implementation and spec was wrong
-                    "IterableAssertionsSpec/.*`" + or(
-                        "containsNoDuplicates",
-                        "contains noDuplicates"
-                    ) + "`/list with duplicates",
-                    "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
-                ) + ".*)").let { commonPatterns ->
+            or(
+                "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
+                    or(
+                        "IterableContainsInOrderOnly.*error cases",
+                        "IterableContainsInAnyOrder.*error cases",
+                        "IterableContainsInAnyOrderOnlyEntriesAssertionsSpec.*nullable cases",
+                        // implementation and spec was wrong
+                        "IterableAssertionsSpec/.*`" + or(
+                            "containsNoDuplicates",
+                            "contains noDuplicates"
+                        ) + "`/list with duplicates",
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                    ) + ".*)",
+                // we don't use asci bullet points in reporting since 0.17.0
+                // but have own tests to assure that changing bullet points work
+                "(ch/tutteli/atrium/api/infix/en_GB/.*Spec.*" + or(
+                    "throws",
+                    "is thrown",
+                    "error message contains",
+                    "shows (all )?suppressed",
+                    "null was missing", "failing cases",
+                    "provoke the failing"
+                ) + ".*)"
+            ).let { commonPatterns ->
                 Pair(
                     //bc
                     or(
@@ -104,7 +129,9 @@ buildscript {
                                     "IterableContainsInOrderOnlyEntriesAssertionsSpec"
                                 ) + ".*/returnValueOf",
                                 // we moved MetaFeature and MetaFeatureOptions
-                                "FeatureAssertions.*(Manual|Reference).*Spec"
+                                "FeatureAssertions.*(Manual|Reference).*Spec",
+                                // we removed ExpectBuilder and SubjectLessSpec uses it
+                                ".*assertion function can be used in an AssertionGroup with an ExplanatoryAssertionGroupType and report without failure.*"
                             ) + ".*)"
                     )
                 )
@@ -160,8 +187,6 @@ if (System.getenv("BC") != null) {
 
 includeBundleAndApisWithExtensionsAndSmokeTest("fluent-en_GB", "infix-en_GB")
 includeKotlinJvmJs("core/api", "atrium-core-api")
-includeKotlinJvmJs("core/robstoll", "atrium-core-robstoll")
-includeKotlinJvmJs("core/robstoll-lib", "atrium-core-robstoll-lib")
 
 includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
 
@@ -172,12 +197,6 @@ include("misc/tools", "readme-examples")
 
 includeKotlinJvmJs("translations/de_CH", "atrium-translations-de_CH")
 includeKotlinJvmJs("translations/en_GB", "atrium-translations-en_GB")
-
-//TODO 0.17.0 remove
-includeKotlinJvmJs("misc/deprecated/domain/api", "atrium-domain-api")
-includeKotlinJvmJs("misc/deprecated/domain/robstoll", "atrium-domain-robstoll")
-includeKotlinJvmJs("misc/deprecated/domain/robstoll-lib", "atrium-domain-robstoll-lib")
-includeKotlinJvmJs("misc/deprecated/domain/builders", "atrium-domain-builders")
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"

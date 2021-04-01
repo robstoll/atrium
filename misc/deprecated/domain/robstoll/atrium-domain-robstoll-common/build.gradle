@@ -1,6 +1,0 @@
-description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain of Atrium as common module'
-
-dependencies {
-    api prefixedProject('domain-api-common')
-    implementation prefixedProject('domain-robstoll-lib-common')
-}

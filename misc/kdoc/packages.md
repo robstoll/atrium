@@ -7,9 +7,9 @@ The following names do not include the platform specific suffixes which are `-co
 
 Bundle modules:
 - **atrium-fluent-en&#95;GB**  defines to have a dependency on   
-  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll
+  atrium-api-fluent-en&#95;GB, atrium-translations-en&#95;GB and atrium-logic
 - **atrium-infix-en&#95;GB-robstoll** defines to have a dependency on  
-  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB, atrium-logic and atrium-core-robstoll
+  atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB and atrium-logic
   
 API modules:  
 - **atrium-api-fluent-en&#95;GB** provides an assertion function API in English where the main 
@@ -46,15 +46,6 @@ Misc modules:
 - **atrium-verbs** contains out of the box assertion verbs 
 - **atrium-verbs-internal** contains the assertion verbs Atrium uses internally - use with care, 
   no backward compatibility guarantees.
-
-Atrium has currently several modules to retain backward compatibility. 
-You should not rely on them and move to the suggested predecessor: 
-- **atrium-core-robstoll** use `atrium-api-core` instead.
-- **atrium-core-robstoll-lib** use `atrium-logic` instead.
-- **atrium-domain-api** use `atrium-logic` instead. 
-- **atrium-domain-robstoll**  use `atrium-logic` instead. 
-- **atrium-domain-robstoll-lib**  use `atrium-logic` instead. 
-- **atrium-domain-builders** use `atrium-logic` instead.
 
 # ch.tutteli.atrium.api.fluent.en_GB
 Contains API which provides a pure fluent API in English and which has its design focus on usability 
@@ -134,27 +125,6 @@ Contains (default) implementations for feature related contracts.
 
 # ch.tutteli.atrium.creating.impl
 Contains (default) implementations for things like [Expect](./ch.tutteli.atrium.creating/-expect/index.html).
-
-
-# ch.tutteli.atrium.domain.builders.creating
-**Deprecated** - will be removed with 0.17.0. Contains builders involved in delegating to assertion implementations.
-
-# ch.tutteli.atrium.domain.builders.creating.collectors
-**Deprecated** - will be removed with 0.17.0. Contains the builder behind 
-[ExpectImpl.collector](./ch.tutteli.atrium.domain.builders.creating.collectors/-assertion-collector-builder/index.html)
-
-# ch.tutteli.atrium.domain.builders.reporting
-**Deprecated** - will be removed with 0.17.0. Contains the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html).
-
-# ch.tutteli.atrium.domain.builders.utils
-**Deprecated** - will be removed with 0.17.0. Contains utility functions for APIs.
-
-# ch.tutteli.atrium.domain.creating
-**Deprecated** - will be removed with 0.17.0. Contains interfaces defining the minimum set of assertion functions (on level domain) which an implementation has to provide.
-
-# ch.tutteli.atrium.domain.creating.collectors
-**Deprecated** - will be removed with 0.17.0. Contains [AssertionCollector](./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html). 
-
 
 # ch.tutteli.atrium.logic
 Contains all the assertion interfaces (e.g. [AnyAssertions](./ch.tutteli.atrium.logic/-any-assertions/index.html)

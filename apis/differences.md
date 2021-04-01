@@ -7,12 +7,10 @@ Atrium provides so called bundle-modules which merely bundle dependencies (they 
 These modules bundle:
 - an API module
 - a translation module (the language used in reporting)
-- an implementation of the domain of Atrium
-- an implementation of the core of Atrium
-
+- predefined expectation verbs.
 
 Following a list of the available bundle-modules. 
-The links point to the KDoc of their included API where you find an overview of all available assertion functions of the API.
+The links point to the KDoc of their included API where you find an overview of all available expectation functions of the API.
 
 - [atrium-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
 - [atrium-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
@@ -39,7 +37,7 @@ If you forget to dit it, then the compiler will complain that you have the same 
 
 Atrium currently provides two API styles: fluent and infix. 
 We dit not show every single difference but merely where the APIs differ in naming.
-For instance, the assertion function `Expect<T>.toBe`:
+For instance, the expectation function `Expect<T>.toBe`:
 
 *atrium-api-fluent-en_GB*
 ```kotlin
@@ -60,7 +58,7 @@ is toit similar, we will not list it here (ok, we did now but I guess you get th
     - [in any order](#iterable-contains-in-any-order)
     - [in order](#iterable-contains-in-order)
 - [Iterable contains not](#iterable-contains-not)
-- [Iterable predicate-like assertions](#iterable-predicate-like-assertions)
+- [Iterable predicate-like expectations](#iterable-predicate-like-expectations)
 - [List get](#list-get)
 - [Map getExisting](#map-getexisting)
 - [Map contains](#map-contains)
@@ -111,7 +109,7 @@ expect(x).contains.ignoringCase.notOrAtMost(1).elementsOf(anIterable)
 ```
 Notice that the final steps
 `value`, `values` and `regex` 
-in the sophisticated assertion building process
+in the sophisticated expectation building process
 are applicable to all shown examples 
 (e.g. `exactly(1).values("hello", "robert")` could have been finished with `exactly(1).regex("h(e|a)llo")` as well).
 
@@ -128,7 +126,7 @@ expect(x) contains o ignoring case notOrAtMost 1 elementsOf anIterable
 ```
 Notice that the final steps 
 `value`, `values(...)`, `regex` and `regexPatterns(..)` 
-in the sophisticated assertion building process
+in the sophisticated expectation building process
 are applicable to all shown examples 
 (e.g. `exactly 1 values("hello", "robert")` could have been finished with `exactly 1 regex "h(e|a)llo"` as well).
 
@@ -154,7 +152,7 @@ expect(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 ```
 Notice that the final steps 
 `value`, `values`, `entry` and `entries` 
-in the sophisticated assertion building process
+in the sophisticated expectation building process
 are applicable to all shown examples
 (e.g. `butAtMost(2).value(3.2)` could have been finished with `entries(...)` as well)
 
@@ -178,7 +176,7 @@ Note that `o` is a filler object which is only there so that we can turn extensi
 a method with one parameter and thus make it available as infix method.
 
 The final steps `value`, `values(...)`, `entry` and `entries(...)` 
-in the sophisticated assertion building process,
+in the sophisticated expectation building process,
 are applicable to all shown examples 
 (e.g. `butAtMost 2 value 3.2` could have been finished with `entries(...)` as well)
 
@@ -257,8 +255,8 @@ expect(x) containsNot o entry { it isLessThan 2 }
 expect(x) containsNot o the entries(null, { it isLessThan 2 }, { it isGreaterThan 5 })
 ```
 
-# Iterable predicate-like assertions
-For more sophisticated assertions such as "there should be two matches", use the sophisticated assertion builder `contains.inAnyOrder` 
+# Iterable predicate-like expectations
+For more sophisticated expectations such as "there should be two matches", use the sophisticated expectation builder `contains.inAnyOrder` 
 -&gt; see [Iterable contains in any order](#iterable-contains-in-any-order) for more information 
 
 *atrium-api-fluent-en_GB*

@@ -5,24 +5,11 @@ ext.jacoco_additional = [
     prefixedProject('translations-en_GB-jvm'),
     prefixedProject('logic-jvm'),
     prefixedProject('core-api-jvm'),
-    //TODO remove with 0.17.0
-    prefixedProject('domain-builders-jvm'),
-    prefixedProject('domain-robstoll-jvm'),
-    prefixedProject('domain-robstoll-lib-jvm'),
-    prefixedProject('domain-api-jvm'),
-    prefixedProject('core-robstoll-jvm'),
-    prefixedProject('core-robstoll-lib-jvm'),
 ]
-
 
 dependencies {
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-infix-en_GB-jvm')
     api prefixedProject('translations-en_GB-jvm')
-    api prefixedProject('domain-builders-jvm')
-    api prefixedProject('domain-api-jvm')
     api prefixedProject('core-api-jvm')
-
-    runtimeOnly prefixedProject('domain-robstoll-jvm')
-    runtimeOnly prefixedProject('core-robstoll-jvm')
 }

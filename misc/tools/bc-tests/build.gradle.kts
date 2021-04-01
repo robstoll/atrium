@@ -100,7 +100,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
         module: String,
         specifier: String,
         sourceSet: String,
-        target: String
+        target: String,
+        applyFixSrcIfDefined: Boolean
     ): TaskProvider<*> {
         val confName = "bcConf_${oldVersion}_${module}_${target}"
         configurations {
@@ -126,7 +127,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                 // solved like this in order that we don't change the content after the unzip task because otherwise
                 // we have to re-run unzip on every execution where it should suffice to do it once
-                if (project.extra.has(fixSrcPropertyName)) {
+                if (applyFixSrcIfDefined && project.extra.has(fixSrcPropertyName)) {
                     fixSrc()
                 }
             }
@@ -138,8 +139,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
         fun compileTask(target: String) =
             tasks.named(if (sourceSet == "Main") "compileKotlin${target.capitalize()}" else "compile${sourceSet}Kotlin${target.capitalize()}")
 
-        targets.forEach { target ->
-            val unzip = createUnzipTask(module, specifier, sourceSet, target)
+        targets.forEachIndexed { index, target ->
+            val unzip = createUnzipTask(module, specifier, sourceSet, target, index == targets.size - 1)
             val compileTasks = when (target) {
                 "common" -> targets.filter { it != "common" }.map { compileTask(it) }
                 else -> listOf(compileTask(target))
@@ -579,17 +580,6 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 }
             }
 
-            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt") {
-                it.replaceFirst("import ch.tutteli.atrium.domain.builders.ExpectImpl", "")
-            }
-
-            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/testutils/AsciiBulletPointReporterFactory.kt") {
-                it.replaceFirst(
-                    "                @Suppress(\"DEPRECATION\" /* TODO remove together with entry with 1.0.0 */)\n" +
-                        "                IndentAssertionGroupType::class to \"| \",", ""
-                )
-            }
-
             // fix specs, was a wrong implementation and the specs tested the wrong thing
             rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/IterableAssertionsSpec.kt") {
                 it.replaceFirst(
@@ -615,6 +605,78 @@ listOf("0.14.0", "0.15.0").forEach { version ->
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/checking/").deleteRecursively()
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/creating/").deleteRecursively()
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/reporting/TextIndentAssertionGroupFormatterSpec.kt").delete()
+
+            // we removed ExpectBuilder in 0.17.0
+            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/SubjectLessSpec.kt") {
+                it
+                    .replaceFirst("import ch.tutteli.atrium.core.coreFactory", "")
+                    .replaceFirst(
+                        "import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder\n" +
+                            "import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions",
+                        "import ch.tutteli.atrium.logic.creating.RootExpectBuilder\n" +
+                            "import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer\n" +
+                            "import ch.tutteli.atrium.core.ExperimentalNewExpectTypes\n" +
+                            "import ch.tutteli.atrium.reporting.AtriumErrorAdjuster\n" +
+                            "import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster\n"
+                    )
+                    .replaceFirst(
+                        "val container = ExpectBuilder.forSubject(1.0)",
+                        "@Suppress(\"DEPRECATION\" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)\n" +
+                            "                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)\n" +
+                            "                val container = RootExpectBuilder.forSubject(1.0)"
+                    )
+                    .replaceFirst(
+                        ".withOptions(\n" +
+                            "                        ExpectOptions(\n" +
+                            "                            reporter = coreFactory.newOnlyFailureReporter(\n" +
+                            "                                coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController()),\n" +
+                            "                                coreFactory.newNoOpAtriumErrorAdjuster()\n" +
+                            "                            )\n" +
+                            "                        )\n" +
+                            "                    )", ".withOptions {\n" +
+                            "                        withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }\n" +
+                            "                    }"
+                    )
+
+            }
+
+            // ReporterFactory removed, needs to be done via ComponentFactoryContainer
+            file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/testutils/AsciiBulletPointReporterFactory.kt").toPath()
+                .deleteIfExists()
+            //just don't bother to rewrite it and this one is not that important
+            file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt").toPath()
+                .deleteIfExists()
+
+            rewriteFile("src/jvmMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/BigDecimalAssertionsSpec.kt") {
+                it.replaceFirst(
+                    "import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException",
+                    "import ch.tutteli.atrium.creating.PleaseUseReplacementException"
+                )
+            }
+
+            rewriteFile("src/jvmMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/reporting/translating/TranslatorIntSpec.kt") {
+                it
+                    .replaceFirst(
+                        "import ch.tutteli.atrium.domain.builders.reporting.ExpectBuilder\n" +
+                            "import ch.tutteli.atrium.domain.builders.reporting.ExpectOptions",
+                        "import ch.tutteli.atrium.logic.creating.RootExpectBuilder\n" +
+                            "import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer\n" +
+                            "import ch.tutteli.atrium.core.ExperimentalNewExpectTypes\n"
+                    )
+                    .replaceFirst(
+                        "abstract class TranslatorIntSpec(",
+                        "@Suppress(\"DEPRECATION\" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)\n" +
+                            "@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)\n" +
+                            "abstract class TranslatorIntSpec("
+                    )
+                    .replace(Regex("ExpectBuilder\\.forSubject\\(([^\\)]+)\\)"), "RootExpectBuilder.forSubject\\($1\\)")
+                    .replace(
+                        Regex("\\.withOptions\\(ExpectOptions\\(reporter = ([^\\)]+)\\)\\)"),
+                        ".withOptions\\{\n" +
+                            "                withComponent\\(Reporter::class\\) \\{ _ -> $1\\}\n" +
+                            "            \\}"
+                    )
+            }
         }
     }
 
@@ -665,24 +727,115 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                     targetDir.resolve("META-INF")
                 )
             }
+
+            // we removed WithAsciiReporter in 0.17.0
+            listOf(
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/AnyAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ArrayAsListAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/CharSequenceAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/CharSequenceContainsSpecBase.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/CollectionAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ComparableAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/FeatureAssertionsBoundedReferenceAlternativeSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/FeatureAssertionsBoundedReferenceSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/FeatureAssertionsClassReferenceSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/FeatureAssertionsManualSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/Fun0AssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/IterableAllAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/IterableAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/IterableContainsSpecBase.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/IteratorAssertionSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ListAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapAsEntriesAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapEntryAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/PairAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ThrowableAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/BigDecimalAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateTimeAssertionSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoZonedDateTimeAssertionSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/FileAsPathAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/Fun0AssertionsJvmSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/LocalDateAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/LocalDateTimeAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/OptionalAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/PathAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/PathFeatureAssertionsSpec.kt",
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ZonedDateTimeAssertionsSpec.kt"
+            ).forEach { file ->
+                rewriteFile(file) {
+                    it
+                        .replaceFirst("import ch.tutteli.atrium.specs.testutils.WithAsciiReporter", "")
+                        .replaceFirst(": WithAsciiReporter()", "")
+                }
+            }
         }
     }
-    // we removed ch/tutteli/atrium/assertions/IndentAssertionGroupType in 0.16.0 but it is required for the setup in
-    // 0.14.0 and 0.15.0 in the AsciiBulletPointReporterFactory
-    with(project(":bc-tests:$version-api-infix-en_GB-bbc")) {
-        the<KotlinMultiplatformExtension>().apply {
-            sourceSets {
-                val main = file("src/main/kotlin/")
-                val jvmTest by getting {
-                    kotlin.srcDir(main)
+
+
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB-bbc")) {
+            the<KotlinMultiplatformExtension>().apply {
+                sourceSets {
+                    val main = file("src/main/kotlin/")
+                    val jvmTest by getting {
+                        kotlin.srcDir(main)
+                    }
+                    main.mkdirs()
+
+                    // we removed  ch.tutteli.atrium.domain.builders.utils.Group in 0.17.0 but it is
+                    // required for the setup of bbc version 0.14.0 and 0.15.0. E.g. it is used in
+                    // ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec
+                    main.resolve("Group.kt").writeText(
+                        """
+                            package ch.tutteli.atrium.domain.builders.utils
+                            interface Group<out T> {
+                                /**
+                                 * Returns the members of the group as [List].
+                                 */
+                                fun toList(): List<T>
+                            }
+                        """.trimIndent()
+                    )
+
+                    //we removed PleaseUseReplacementException and it is used in a test - we could also forgive but
+                    //this seems to be easier
+                    main.resolve("PleaseUseReplacementException.kt").writeText(
+                        """
+                            package ch.tutteli.atrium.domain.builders.creating
+                            class PleaseUseReplacementException(reason: String) : Exception(reason)
+                        """.trimIndent()
+                    )
+                    // infix is using ReportFactory since it is using the AsciiReportFactory
+                    main.resolve("ReporterFactory.kt").writeText(
+                        """
+                            @file:Suppress("UNUSED_PARAMETER")
+                            package ch.tutteli.atrium.reporting
+                            import ch.tutteli.atrium.core.polyfills.loadServices
+
+                            val reporter: Reporter by lazy {
+                                val id = "ascii"
+                                val factory = loadServices(ReporterFactory::class)
+                                    .firstOrNull { it.id == id }
+                                    ?: throw IllegalStateException("Could not find ...")
+
+                                factory.create()
+                            }
+                            interface ReporterFactory {
+                                val id: String
+                                fun create(): Reporter
+
+                                companion object {
+                                    const val ATRIUM_PROPERTY_KEY = "ch.tutteli.atrium.reporting.reporterFactory"
+                                    fun specifyFactory(reporterFactoryId: String) {}
+                                    fun specifyFactoryIfNotYetSet(reporterFactoryId: String) {}
+                                }
+                            }
+
+                        """.trimIndent()
+                    )
                 }
-                main.mkdirs()
-                main.resolve("IndentAssertionGroupType.kt").writeText(
-                    """
-                    package ch.tutteli.atrium.assertions
-                    class IndentAssertionGroupType
-                """.trimIndent()
-                )
             }
         }
     }
@@ -694,6 +847,12 @@ with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
             it
                 .replace("import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator", "")
                 .replace("KeyWithValueCreator", "keyValue")
+        }
+
+        rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsSpecBase.kt") {
+            it
+                .replaceFirst("import ch.tutteli.atrium.specs.testutils.WithAsciiReporter", "")
+                .replaceFirst(": WithAsciiReporter()", "")
         }
     }
 }

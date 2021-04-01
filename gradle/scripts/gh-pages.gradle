@@ -67,8 +67,6 @@ dokka {
 
     [
         "ch.tutteli.atrium.api.verbs.internal",
-        //TODO remove the below with 0.17.0
-        "ch.tutteli.atrium.domain.builders.reporting.impl",
         //TODO remove with 0.18.0
         "ch.tutteli.atrium.assertions.builders.impl",
 

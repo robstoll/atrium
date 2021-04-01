@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import java.util.*
 
+//TODO 0.17.0 deprecate
 actual interface CoreFactory : CoreFactoryCommon {
 
     /**
