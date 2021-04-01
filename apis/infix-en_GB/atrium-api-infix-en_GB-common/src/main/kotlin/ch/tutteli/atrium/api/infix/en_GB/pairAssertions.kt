@@ -10,6 +10,8 @@ import ch.tutteli.atrium.logic.second
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PairAssertionSamples.firstFeature
  */
 val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
     get() = _logic.first().transform()
@@ -20,6 +22,8 @@ val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PairAssertionSamples.first
  */
 infix fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.first().collectAndAppend(assertionCreator)
@@ -29,6 +33,8 @@ infix fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() 
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PairAssertionSamples.secondFeature
  */
 val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
     get() = _logic.second().transform()
@@ -39,6 +45,8 @@ val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PairAssertionSamples.second
  */
 infix fun <K, V, T : Pair<K, V>> Expect<T>.second(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.second().collectAndAppend(assertionCreator)
