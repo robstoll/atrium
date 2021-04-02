@@ -2000,8 +2000,10 @@ This is kind of the simplest way of defining assertion functions. Following an e
 <code-own-boolean-1>
 
 ```kotlin
+import ch.tutteli.atrium.logic._logic
+
 fun Expect<Int>.isMultipleOf(base: Int) =
-    createAndAddAssertion("is multiple of", base) { it % base == 0 }
+    _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
 ```
 </code-own-boolean-1>
 
@@ -2012,7 +2014,7 @@ and its usage:
 ```kotlin
 expect(12).isMultipleOf(5)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L39)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L44)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
 ```text
 expected that subject: 12        (kotlin.Int <1234789>)
@@ -2048,8 +2050,10 @@ Consider the following assertion function:
 <code-own-boolean-2>
 
 ```kotlin
+import ch.tutteli.atrium.logic._logic
+
 fun Expect<Int>.isEven() =
-    createAndAddAssertion("is", Text("an even number")) { it % 2 == 0 }
+    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
 ```
 </code-own-boolean-2>
 
@@ -2062,7 +2066,7 @@ Its usage looks then as follows:
 ```kotlin
 expect(13).isEven()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L50)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L57)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
 ```text
 expected that subject: 13        (kotlin.Int <1234789>)
@@ -2095,8 +2099,10 @@ if you want that both are evaluated:
 <code-own-compose-2>
 
 ```kotlin
+import ch.tutteli.atrium.logic._logic
+
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    addAssertionsCreatedBy {
+    _logic.appendAssertionsCreatedBy {
         isGreaterThanOrEqual(lowerBoundInclusive)
         isLessThan(upperBoundExclusive)
     }
@@ -2161,7 +2167,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasNumberOfChildren(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L67)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L74)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2195,7 +2201,7 @@ but we do not have to, as `all` already checks that there is at least one elemen
 expect(Person("Susanne", "Whitley", 43, listOf()))
     .hasAdultChildren()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L82)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L89)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2237,7 +2243,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     .children // using the val -> subsequent assertions are about children and fail fast
     .hasSize(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L92)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L99)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
@@ -2458,8 +2464,13 @@ we do no longer use a `String` but a proper `Translatable`.
 <code-i18n-1>
 
 ```kotlin
-fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
-    createAndAddAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+import ch.tutteli.atrium.logic.*
+
+fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logic.run {
+    appendAssertion(
+        createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+    )
+}
 
 enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
@@ -2505,8 +2516,13 @@ as second example:
 <code-i18n-2>
 
 ```kotlin
-fun Expect<Int>.isEven(): Expect<Int> =
-    createAndAddAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+import ch.tutteli.atrium.logic.*
+
+fun Expect<Int>.isEven(): Expect<Int> = _logic.run {
+    appendAssertion(
+        createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+    )
+}
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")

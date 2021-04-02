@@ -163,22 +163,22 @@ interface AssertionBuilder {
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
      */
-    //TODO remove with 0.17.0
+    //TODO remove with 0.18.0
     @Suppress("DEPRECATION")
     @Deprecated(
-        "Use _logic.createDescriptive instead; will be removed with 0.17.0",
+        "Use _logic.createDescriptive instead; will be removed with 0.18.0",
         ReplaceWith(
-            "container.createDescriptiveAssertion",
+            "container.createDescriptiveAssertion(expect, description, represetnation, test)",
             "ch.tutteli.atrium.logic._logic",
             "ch.tutteli.atrium.logic.createDescriptiveAssertion"
         )
     )
     fun <T> createDescriptive(
-        subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+        expect: Expect<T>,
         description: String,
         representation: Any?,
         test: (T) -> Boolean
-    ): DescriptiveAssertion = createDescriptive(subjectProvider, Untranslatable(description), representation, test)
+    ): DescriptiveAssertion = createDescriptive(expect, Untranslatable(description), representation, test)
 
     /**
      * Creates a [DescriptiveAssertion] based on the [description], [representation] and [test] as well as the
@@ -201,23 +201,23 @@ interface AssertionBuilder {
      * @param representation The representation of the expected outcome.
      * @param test The test which checks whether the assertion holds.
      */
-    //TODO remove with 0.17.0
+    //TODO remove with 0.18.0
     @Deprecated(
-        "Use extension AssertionContainer.createDescriptiveAssertion instead - e.g. _logic.createDescriptiveAssertion; will be removed with 0.17.0",
+        "Use extension AssertionContainer.createDescriptiveAssertion instead - e.g. _logic.createDescriptiveAssertion; will be removed with 0.18.0",
         ReplaceWith(
-            "container.createDescriptiveAssertion",
+            "container.createDescriptiveAssertion(expect, description, represetantion, test)",
             "ch.tutteli.atrium.logic._logic",
             "ch.tutteli.atrium.logic.createDescriptiveAssertion"
         )
     )
     fun <T> createDescriptive(
-        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+        expect: Expect<T>,
         description: Translatable,
         representation: Any?,
         test: (T) -> Boolean
     ): DescriptiveAssertion =
         descriptive
-            .withTest(subjectProvider, test)
+            .withTest(expect, test)
             .withDescriptionAndRepresentation(description, representation)
             .build()
 }

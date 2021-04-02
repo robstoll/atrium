@@ -17,7 +17,7 @@ class IterableNoneExpectationsSpec : Spek({
         "[Atrium][Predicate] "
     )
 
-    // TODO 0.17.0 #722 this will differ once we don't implement the same behaviour for contains and none
+    // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for contains and none
     // that's fine and we can simply remove this test here
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
         functionDescription to C::containsNotFun,

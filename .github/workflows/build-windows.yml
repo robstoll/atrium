@@ -47,7 +47,7 @@ jobs:
         run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
         shell: bash
 
-      # TODO 0.17.0 or 0.18.0 re-activate scala API
+      # TODO 0.18.0 re-activate scala API
       #            -   name: composite build atrium-scala2
       #                run: ./gradlew build
       #                working-directory: misc\tools\atrium-scala2-test

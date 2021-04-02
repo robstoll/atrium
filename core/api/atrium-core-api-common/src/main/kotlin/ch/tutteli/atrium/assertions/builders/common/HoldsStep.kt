@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.builders.common
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.RepresentationOnlyAssertion
+import ch.tutteli.atrium.creating.Expect
 
 /**
  * Step which allows to specify [RepresentationOnlyAssertion.holds].
@@ -34,9 +35,9 @@ interface HoldsStep<R> {
      * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
      */
     //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
-    // then move to logic and expect AssertionContainer with 0.16.0
+    // then move to logic and expect ProofContainer with 0.18.0
     fun <T> withTest(
-        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+        expect: Expect<T>,
         test: (T) -> Boolean
     ): R
 }

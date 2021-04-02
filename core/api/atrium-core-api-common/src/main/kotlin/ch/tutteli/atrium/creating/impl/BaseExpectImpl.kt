@@ -18,7 +18,7 @@ abstract class BaseExpectImpl<T>(
 ) : ExpectInternal<T> {
 
 
-    // TODO 0.17.0 not every expect should have an own implFactories but only the root,
+    // TODO 0.18.0 not every expect should have an own implFactories but only the root,
     // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
     private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
 
@@ -36,23 +36,28 @@ abstract class BaseExpectImpl<T>(
         implFactories[kClass] = implFactory
     }
 
-    //TODO 0.17.0 move to RootExpectOptions?
+    //TODO 0.18.0 move to RootExpectOptions?
     inline fun <reified I : Any> withImplFactory(noinline implFactory: (oldFactory: () -> I) -> () -> I) {
         registerImpl(I::class, implFactory)
     }
 
-    override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
+    //TODO remove with 0.18.0
+    override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+        appendAssertionsCreatedBy(assertionCreator)
+
+    override fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
         val assertions = CollectingExpect(maybeSubject, components)
-            .addAssertionsCreatedBy(assertionCreator)
+            .appendAssertionsCreatedBy(assertionCreator)
             .getAssertions()
         return addAssertions(assertions)
     }
 
+
     protected fun addAssertions(assertions: List<Assertion>): Expect<T> {
         return when (assertions.size) {
             0 -> this
-            1 -> addAssertion(assertions.first())
-            else -> addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+            1 -> appendAssertion(assertions.first())
+            else -> appendAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
         }
     }
 

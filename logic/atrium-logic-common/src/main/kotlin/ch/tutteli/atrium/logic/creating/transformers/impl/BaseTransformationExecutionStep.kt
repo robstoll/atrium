@@ -37,7 +37,7 @@ abstract class BaseTransformationExecutionStep<T, R, E : Expect<R>>(
      * @return an [Expect] for the subject of this expectation.
      */
     final override fun collectAndAppend(assertionCreator: Expect<R>.() -> Unit): Expect<T> =
-        container.toExpect().addAssertion(collect(assertionCreator))
+        container.appendAssertion(collect(assertionCreator))
 
     /**
      * Finishes the transformation process by collecting the assertions the given [assertionCreator] creates

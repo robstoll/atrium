@@ -25,7 +25,7 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
  * @return an [Expect] for the subject of `this` expectation.
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
-    apply { asIterable().addAssertionsCreatedBy(assertionCreator) }
+    apply { asIterable()._logic.appendAssertionsCreatedBy(assertionCreator) }
 
 /**
  * Turns `Expect<E, T : Sequence<E>>` into `Expect<List<E>`.
@@ -51,4 +51,4 @@ fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * @since 0.14.0
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList().addAssertionsCreatedBy(assertionCreator) }
+    apply { asList()._logic.appendAssertionsCreatedBy(assertionCreator) }

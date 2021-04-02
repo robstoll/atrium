@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import org.spekframework.spek2.Spek
@@ -10,7 +11,7 @@ import org.spekframework.spek2.Spek
 class DescriptiveWithBasedOnSubjectSpec : Spek({
 
     fun addDescriptive(f: (Expect<Int>, Descriptive.HoldsOption) -> Assertion) = expectLambda<Int> {
-        addAssertion(f(this, assertionBuilder.descriptive))
+        _logic.appendAssertion(f(this, assertionBuilder.descriptive))
     }
 
     include(object : SubjectLessSpec<Int>("",

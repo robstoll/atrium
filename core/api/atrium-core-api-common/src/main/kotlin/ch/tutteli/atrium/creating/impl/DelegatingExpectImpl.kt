@@ -14,5 +14,8 @@ internal class DelegatingExpectImpl<T>(private val container: AssertionContainer
         get() = container.components
 
     override fun addAssertion(assertion: Assertion): Expect<T> =
+        appendAssertion(assertion)
+
+    override fun appendAssertion(assertion: Assertion): Expect<T> =
         apply { container.addAssertion(assertion) }
 }

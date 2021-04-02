@@ -4,6 +4,9 @@ package readme.examples
 //snippet-mapArguments-start
 import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
+//snippet-own-boolean-import-start
+import ch.tutteli.atrium.logic._logic
+//snippet-own-boolean-import-end
 //@formatter:on
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -31,9 +34,11 @@ object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-1-start
     fun Expect<Int>.isMultipleOf(base: Int) =
-        createAndAddAssertion("is multiple of", base) { it % base == 0 }
+        _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
     test("code-own-boolean-1") {
+        //snippet-own-boolean-import-insert
+
         //snippet-own-boolean-1-insert
     }
     test("ex-own-boolean-1") {
@@ -42,9 +47,11 @@ object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-2-start
     fun Expect<Int>.isEven() =
-        createAndAddAssertion("is", Text("an even number")) { it % 2 == 0 }
+        _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     test("code-own-boolean-2") {
+        //snippet-own-boolean-import-insert
+
         //snippet-own-boolean-2-insert
     }
     test("ex-own-boolean-2") {

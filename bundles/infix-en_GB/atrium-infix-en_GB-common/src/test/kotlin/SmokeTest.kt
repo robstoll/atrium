@@ -3,6 +3,7 @@ import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
@@ -20,6 +21,7 @@ class SmokeTest {
     @Test
     fun assertionFunctionWithoutI18nCanBeUsed() {
         assertThat(2) tobe even
+        assertThat(1) tobe odd
     }
 
     @Test
@@ -53,10 +55,14 @@ class SmokeTest {
 
 @Suppress("ClassName")
 object even
+@Suppress("ClassName")
+object odd
 
-//TODO 0.17.0 also add test case for using the string overload once we have createAndAppend
 infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
-    createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
+    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
+
+infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") odd: odd) =
+    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
 
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
 

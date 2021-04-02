@@ -6,6 +6,10 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.util.*
 
+//snippet-own-compose-import-start
+import ch.tutteli.atrium.logic._logic
+//snippet-own-compose-import-end
+
 /**
  * The tests and error message are written here and automatically placed into the README via generation.
  * The generation is done during the project built. To trigger it manually, you have to run:
@@ -23,8 +27,10 @@ import java.util.*
 
 object Between2Spec : Spek({
     test("code-own-compose-2") {
+        //snippet-own-compose-import-insert
+
         fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-            addAssertionsCreatedBy {
+            _logic.appendAssertionsCreatedBy {
                 isGreaterThanOrEqual(lowerBoundInclusive)
                 isLessThan(upperBoundExclusive)
             }

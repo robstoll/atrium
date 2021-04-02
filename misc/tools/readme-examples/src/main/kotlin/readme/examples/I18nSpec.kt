@@ -35,15 +35,25 @@ import org.spekframework.spek2.Spek
 object I18nSpec : Spek({
 
     test("code-i18n-1") {
-        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
-            createAndAddAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+        //snippet-import-logic-insert
+
+        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logic.run {
+            appendAssertion(
+                createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+            )
+        }
 
         //snippet-DescriptionIntAssertion-insert
     }
 
     test("code-i18n-2") {
-        fun Expect<Int>.isEven(): Expect<Int> =
-            createAndAddAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+        //snippet-import-logic-insert
+
+        fun Expect<Int>.isEven(): Expect<Int> = _logic.run {
+            appendAssertion(
+                createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+            )
+        }
 
         //snippet-DescriptionIntAssertions-insert
     }

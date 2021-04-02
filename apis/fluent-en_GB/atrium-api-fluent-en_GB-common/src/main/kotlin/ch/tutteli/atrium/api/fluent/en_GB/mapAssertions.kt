@@ -236,7 +236,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
-): Expect<T> = apply { asEntries().addAssertionsCreatedBy(assertionCreator) }
+): Expect<T> = apply { asEntries()._logic.appendAssertionsCreatedBy(assertionCreator) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].

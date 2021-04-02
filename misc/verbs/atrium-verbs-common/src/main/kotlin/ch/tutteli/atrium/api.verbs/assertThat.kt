@@ -33,7 +33,7 @@ fun <T> assertThat(subject: T): RootExpect<T> =
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    assertThat(subject).addAssertionsCreatedBy(assertionCreator)
+    assertThat(subject)._logic.appendAssertionsCreatedBy(assertionCreator)
 
 @Deprecated(
     "`assertThat` should not be nested, use `feature` instead.",

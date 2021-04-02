@@ -25,8 +25,8 @@ annotation class ExpectMarker
  *
  * See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.
  */
-interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>{
-    //TODO remove with 0.17.0 no longer necessary once it only exist in AssertionContainer
+interface ExpectInternal<T> : Expect<T>, AssertionContainer<T> {
+    //TODO remove with 0.18.0 no longer necessary once it only exist in AssertionContainer
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject change could not be
      * carried out.
@@ -38,8 +38,6 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>{
 /**
  * Represents the extension point for [Assertion] functions and sophisticated builders for subjects of type [T].
  *
- * Note, do not use [SubjectProvider] as this interface is only temporary and will be removed with 0.17.0.
- *
  * @param T The type of the subject of `this` expectation.
  */
 @Suppress("DEPRECATION")
@@ -47,7 +45,7 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>{
 interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
 
     @Deprecated(
-        "use _logic.maybeSubject will be removed with 0.17.0",
+        "use _logic.maybeSubject; will be removed with 0.18.0",
         ReplaceWith("this._logic.maybeSubject", "ch.tutteli.atrium.logic._logic")
     )
     override val maybeSubject: Option<T>
@@ -64,7 +62,10 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO 0.17.0 move to ProofContainer and deprecate
+    @Deprecated(
+        "use _logic.appendAssertionsCreatedBy; will be removed with 0.18.0",
+        ReplaceWith("this._logic.appendAssertionsCreatedBy(assertionCreator)", "ch.tutteli.atrium.logic._logic")
+    )
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
@@ -74,9 +75,11 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO 0.17.0 move to ProofContainer and deprecate
+    @Deprecated(
+        "use _logic.appendAssertion; will be removed with 0.18.0",
+        ReplaceWith("this._logic.appendAssertion(assertion)", "ch.tutteli.atrium.logic._logic")
+    )
     override fun addAssertion(assertion: Assertion): Expect<T>
-
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
@@ -88,7 +91,13 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO 0.17.0 move to ProofContainer and deprecate
+    @Deprecated(
+        "use _logic.createAndAppendAssertion; will be removed with 0.18.0",
+        ReplaceWith(
+            "this._logic.createAndAppendAssertion(description, expected, test)",
+            "ch.tutteli.atrium.logic._logic"
+        )
+    )
     fun createAndAddAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
         createAndAddAssertion(Untranslatable(description), expected, test)
 
@@ -102,7 +111,14 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO 0.17.0 move to ProofContainer and deprecate
+    @Deprecated(
+        "use _logic.createAndAppendAssertion; will be removed with 0.18.0",
+        ReplaceWith(
+            "this._logic.appendAssertion(this._logic.createDescriptiveAssertion(description, expected, test))",
+            "ch.tutteli.atrium.logic._logic",
+            "ch.tutteli.atrium.logic.createDescriptiveAssertion"
+        )
+    )
     fun createAndAddAssertion(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         addAssertion(assertionBuilder.createDescriptive(this, description, expected, test))
 }

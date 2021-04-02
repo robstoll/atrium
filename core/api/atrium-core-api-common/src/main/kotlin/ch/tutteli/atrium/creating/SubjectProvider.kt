@@ -5,7 +5,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 
-//TODO remove with 0.17.0
+//TODO remove with 0.18.0
 /**
  * Provides the subject of an [Assertion].
  *
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.core.Some
  * removed in 0.16.0 and thus this interface will be removed with 0.17.0.
  */
 @Suppress("DEPRECATION")
-@Deprecated("Will be removed with 0.17.0 without replacement, switch to Expect or AssertionContainer")
+@Deprecated("Will be removed with 0.18.0 without replacement, switch to Expect or AssertionContainer")
 interface SubjectProvider<out T> {
 
 

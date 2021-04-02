@@ -22,7 +22,6 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import java.nio.charset.Charset

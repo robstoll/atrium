@@ -12,6 +12,7 @@ import ch.tutteli.atrium.assertions.builders.withFailureHint
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.BigDecimalAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
@@ -35,7 +36,7 @@ class DefaultBigDecimalAssertions : BigDecimalAssertions {
         nameOfIsNumericallyEqualTo: String
     ): Assertion =
         assertionBuilder.descriptive
-            .withTest(container) { it == expected }
+            .withTest(container.toExpect()) { it == expected }
             .withFailureHint {
                 assertionBuilder.explanatoryGroup
                     .withInformationType(withIndent = true)
@@ -45,7 +46,7 @@ class DefaultBigDecimalAssertions : BigDecimalAssertions {
                     )
                     .build()
             }
-            .showBasedOnDefinedSubjectOnlyIf(container) {
+            .showBasedOnDefinedSubjectOnlyIf(container.toExpect()) {
                 isNumericallyEqualTo(it, expected)
             }
             .withDescriptionAndRepresentation(IS_EQUAL_INCLUDING_SCALE, expected)

@@ -21,7 +21,27 @@ interface CollectingExpect<T> : Expect<T> {
      */
     fun getAssertions(): List<Assertion>
 
+    @Deprecated(
+        "use appendAssertionsCreatedBy; will be removed with 0.18.0",
+        ReplaceWith("this.appendAssertionsCreatedBy(assertionCreator)")
+    )
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
+
+    /**
+     * Appends the [Assertion]s the given [assertionCreator] creates to this container and
+     * returns an [Expect] which includes them.
+     *
+     * Whether the returned [Expect] is the same as the initial one is up to the implementation (i.e. if a mutable
+     * structure is used or an immutable). Atrium strives for an immutable data structure in the long run and will
+     * little by little refactor the code accordingly.
+     *
+     * @param assertionCreator The lambda which will create assertions.
+     *
+     * @return an [Expect] for the subject of `this` expectation.
+     *
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
+    */
+    fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
     companion object {
         @Suppress(

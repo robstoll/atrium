@@ -4,6 +4,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -188,13 +190,14 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr' and 'it'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_Fr(1).createAndAddAssertion(
+                        val assertwithdechFr = assertWithDeCh_Fr(1)
+                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
                                 firstOfFeb2017,
                                 firstOfFeb2017
                             ), 1
-                        ) { false }
+                        ) { false })
                     }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
@@ -202,12 +205,13 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it' but not for 'fr'") {
                 it("uses default translation but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_Fr(1).createAndAddAssertion(
+                        val assertwithdechFr = assertWithDeCh_Fr(1)
+                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_UNKNOWN,
                                 firstOfFeb2017
                             ), 1
-                        ) { false }
+                        ) { false })
                     }.toThrow<AssertionError> { messageContains("only Mittwoch") }
                 }
             }
@@ -221,12 +225,13 @@ abstract class TranslatorIntSpec(
                         + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe"
                 ) {
                     expect {
-                        assertWithDeCh_Fr(1).createAndAddAssertion(
+                        val assertwithdechFr = assertWithDeCh_Fr(1)
+                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.PLACEHOLDER,
                                 toBe
                             ), 1
-                        ) { false }
+                        ) { false })
                     }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
                 }
             }
@@ -245,13 +250,14 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr' and 'it'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_FrCh_ItCh(1).createAndAddAssertion(
+                        val assertwithdechFrchItch = assertWithDeCh_FrCh_ItCh(1)
+                        assertwithdechFrchItch._logic.appendAssertion(assertwithdechFrchItch._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
                                 firstOfFeb2017,
                                 firstOfFeb2017
                             ), 1
-                        ) { false }
+                        ) { false })
                     }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
@@ -259,12 +265,13 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it' but not for 'fr'") {
                 it("uses 'it' but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_FrCh_ItCh(1).createAndAddAssertion(
+                        val assertwithdechFrchItch = assertWithDeCh_FrCh_ItCh(1)
+                        assertwithdechFrchItch._logic.appendAssertion(assertwithdechFrchItch._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_UNKNOWN,
                                 firstOfFeb2017
                             ), 1
-                        ) { false }
+                        ) { false })
                     }.toThrow<AssertionError> { messageContains("solo Mittwoch!!") }
                 }
             }

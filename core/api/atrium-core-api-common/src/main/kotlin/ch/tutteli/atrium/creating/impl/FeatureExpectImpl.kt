@@ -57,7 +57,10 @@ internal class FeatureExpectImpl<T, R>(
         get() = (previousExpect as AssertionContainer<*>).components
 
 
-    override fun addAssertion(assertion: Assertion): Expect<R> {
+    override fun addAssertion(assertion: Assertion): Expect<R> =
+        appendAssertion(assertion)
+
+    override fun appendAssertion(assertion: Assertion): Expect<R> {
         assertions.add(assertion)
         //Would be nice if we don't have to add it immediately to the previousExpect but only:
         //if (!assertion.holds()) {
@@ -73,7 +76,7 @@ internal class FeatureExpectImpl<T, R>(
         //
         //However, for this to work we would need to know when no more assertion is defined. This would be possible
         //for CollectingExpectImpl
-        previousExpect.addAssertion(
+        (previousExpect as AssertionContainer<*>).appendAssertion(
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(description, representation)
                 .withAssertions(ArrayList(assertions))

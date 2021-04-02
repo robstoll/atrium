@@ -4,6 +4,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint.*
+import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -33,12 +35,12 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
-// then move to logic and expect AssertionContainer with 0.16.0
+// then move to logic and expect ProofContainer with 0.18.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
-    @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+    expect: Expect<T>,
     failureHintFactory: (T) -> Assertion
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
-    return withFailureHintBasedOnSubject(subjectProvider) {
+    return withFailureHintBasedOnSubject(expect) {
         ifDefined(failureHintFactory)
             .ifAbsent {
                 assertionBuilder.explanatoryGroup
@@ -46,7 +48,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
                     .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
                     .build()
             }
-    }.showOnlyIfSubjectDefined(subjectProvider)
+    }.showOnlyIfSubjectDefined(expect)
 }
 
 /**
@@ -54,15 +56,15 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
  * (which is based on the subject of the expectation)
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  *
- * You can use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * You can use [withFailureHint] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnSubject(
-    @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+    expect: Expect<T>,
     failureHintSubStep: DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption<T>.() -> Pair<() -> Assertion, (T) -> Assertion>
 ): DescriptiveAssertionWithFailureHint.ShowOption = withFailureHint {
     SubjectBasedOption(
-        subjectProvider,
+        expect,
         failureHintSubStep,
         DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption.Companion::create
     )
@@ -117,31 +119,31 @@ interface DescriptiveAssertionWithFailureHint {
          * Defines that the failure hint shall be shown in any case as long as the subject is defined
          */
         fun <T> showOnlyIfSubjectDefined(
-            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>
+            expect: Expect<T>
         ): Descriptive.DescriptionOption<FinalStep> =
-            showOnlyIf { subjectProvider.maybeSubject.isDefined() }
+            showOnlyIf { (expect as AssertionContainer<*>).maybeSubject.isDefined() }
 
         /**
          * Defines that the failure hint shall be shown if the subject is defined and the given [predicate] holds for it
          */
         fun <T> showBasedOnDefinedSubjectOnlyIf(
-            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+            expect: Expect<T>,
             predicate: (T) -> Boolean
         ): Descriptive.DescriptionOption<FinalStep> =
-            showBasedOnSubjectOnlyIf(subjectProvider) { ifDefined { predicate(it) } ifAbsent { false } }
+            showBasedOnSubjectOnlyIf(expect) { ifDefined { predicate(it) } ifAbsent { false } }
 
         /**
          * Defines that the failure hint shall only be shown based on a predicate influenced by the
          * subject of the expectation.
          *
-         * You can use the other overload without [subjectProvider] in case the predicate is not based on the subject
+         * You can use the other overload without [expect] in case the predicate is not based on the subject
          * of the assertion.
          */
         fun <T> showBasedOnSubjectOnlyIf(
-            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+            expect: Expect<T>,
             showSubStep: ShowSubjectDefinedOption<T>.() -> Pair<() -> Boolean, (T) -> Boolean>
         ): Descriptive.DescriptionOption<FinalStep> = showOnlyIf {
-            SubjectBasedOption(subjectProvider, showSubStep, ShowSubjectDefinedOption.Companion::create)
+            SubjectBasedOption(expect, showSubStep, ShowSubjectDefinedOption.Companion::create)
         }
 
         companion object {

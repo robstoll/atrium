@@ -46,7 +46,14 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     { emptyList() }
                 )
                 if (list.size > index) {
-                    addAssertion(createAdditionalElementsAssertion(container, index, list, remainingList.iterator()))
+                    _logic.appendAssertion(
+                        createAdditionalElementsAssertion(
+                            container,
+                            index,
+                            list,
+                            remainingList.iterator()
+                        )
+                    )
                 }
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
@@ -74,7 +81,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         itr: Iterator<E?>
     ): Assertion {
         return container.collectBasedOnSubject(Some(iterableAsList)) {
-            addAssertion(LazyThreadUnsafeAssertionGroup {
+            _logic.appendAssertion(LazyThreadUnsafeAssertionGroup {
                 val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                     val description = TranslatableWithArgs(
                         DescriptionIterableAssertion.ELEMENT_WITH_INDEX,
