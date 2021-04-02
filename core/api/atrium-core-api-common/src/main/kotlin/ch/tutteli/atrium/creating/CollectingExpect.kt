@@ -29,7 +29,7 @@ interface CollectingExpect<T> : Expect<T> {
             "DeprecatedCallableAddReplaceWith" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */
         )
         @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-        @Deprecated("Use the overload which expects a ComponentFactoryContainer; will be removed with 0.17.0")
+        @Deprecated("Use the overload which expects a ComponentFactoryContainer; will be removed with 0.18.0")
         operator fun <T> invoke(maybeSubject: Option<T>): CollectingExpect<T> =
             CollectingExpectImpl(maybeSubject, DefaultComponentFactoryContainer)
 

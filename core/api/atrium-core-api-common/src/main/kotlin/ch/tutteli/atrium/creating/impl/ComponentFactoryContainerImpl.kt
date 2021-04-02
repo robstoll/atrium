@@ -119,7 +119,7 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 // resources to re-create all over and over again. On the other hand they would be very short-lived an most likely
 // just be swept away when GC kicks in (not survive the young generation)
 @ExperimentalComponentFactoryContainer
-//TODO 0.17.0 or 0.18.0 make internal
+//TODO 0.18.0 make internal
 object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
     mapOf(
         Reporter::class createSingletonVia { c ->

@@ -835,6 +835,20 @@ listOf("0.14.0", "0.15.0").forEach { version ->
 
                         """.trimIndent()
                     )
+                    main.resolve("StaticName.kt").writeText(
+                        """
+                        package ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl
+                        internal object StaticName {
+                            val containsNotValuesFun = "containsNot"
+
+                            val atLeast = "atLeast"
+                            val butAtMost = "butAtMost"
+                            val atMost = "atMost"
+                            val exactly = "exactly"
+                            val notOrAtMost = "notOrAtMost"
+                        }
+                        """.trimIndent()
+                    )
                 }
             }
         }
@@ -867,7 +881,6 @@ listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
                         .replaceFirst("import kotlin.js.JsName", "")
                         .replaceFirst("@JsName(\"propFun\")", "")
                 }
-
             }
         }
     }
