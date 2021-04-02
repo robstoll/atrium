@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.reporting.translating.impl.TranslationSupplierBasedTranslator
 
 @ExperimentalComponentFactoryContainer
-object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.specs.reporting.translating.RealTranslatorIntSpec(
+object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
     { optionsChooser, primaryLocale, fallbackLocales ->
         optionsChooser.apply {
             withSingletonComponent(TranslationSupplier::class){

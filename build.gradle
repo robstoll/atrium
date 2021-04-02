@@ -80,12 +80,7 @@ buildscript {
                     !(it.projectDir.path.contains("/translations/") || it.projectDir.path.contains("\\translations\\")) &&
                         !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
-                        it.name != "${rootProject.name}-domain-api-jvm" &&
-                        it.name != "${rootProject.name}-core-robstoll-jvm" &&
-                        !it.name.startsWith("${rootProject.name}-specs") &&
-                        //TODO remove with 0.17.0
-                        it.name != "${rootProject.name}-domain-robstoll-jvm" &&
-                        it.name != "${rootProject.name}-domain-builders-jvm"
+                        !it.name.startsWith("${rootProject.name}-specs")
                 }
         ]
     }
@@ -319,66 +314,7 @@ configure(bundleSmokeTests) {
 
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.function.Function
 import java.util.stream.Collectors
-
-def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
-    Project project = prefixedProject(projectName)
-    configure(project) {
-        def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
-            def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
-            def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
-            def services = project.file("$srcKotlin/${packageName.replace('.', '/')}/registerServices.kt")
-            inputs.dir servicesDir
-            outputs.file services
-
-            doLast {
-                services.write("""\
-                @file:Suppress("DEPRECATION")
-
-                package $packageName
-
-                import ch.tutteli.atrium.core.polyfills.registerService
-
-                @Suppress("unused" /* here in order that the code is executed when module is loaded */)
-                private val register = run {
-            """.stripIndent())
-                def sortedMap = new TreeMap<String, String>()
-                servicesDir.traverse {
-                    if (it.isFile() && filter.apply(it.name)) {
-                        sortedMap.put(it.name, it.withReader { it.readLine() })
-                    }
-                }
-                sortedMap.each { entry ->
-                    services.append("\n    registerService<")
-                    services.append(entry.key)
-                    services.append("> { ")
-                    services.append(entry.value)
-                    services.append("() }")
-                }
-                services.append("\n}\n")
-            }
-        }
-        compileKotlin2Js.dependsOn registerJsServices
-    }
-}
-
-//TODO remove with 0.17.0
-createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.core.robstoll') { true }
-createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
-createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
-    !(it in [
-        'ch.tutteli.atrium.domain.creating.BigDecimalAssertions',
-        'ch.tutteli.atrium.domain.creating.OptionalAssertions',
-        'ch.tutteli.atrium.domain.creating.PathAssertions',
-        'ch.tutteli.atrium.domain.creating.LocalDateAssertions',
-        'ch.tutteli.atrium.domain.creating.LocalDateTimeAssertions',
-        'ch.tutteli.atrium.domain.creating.ZonedDateTimeAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoLocalDateAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoLocalDateTimeAssertions',
-        'ch.tutteli.atrium.domain.creating.ChronoZonedDateTimeAssertions'
-    ])
-}
 
 List<Project> projectNamesToProject(String[] names) {
     names.collect { projectName -> prefixedProject(projectName) }
@@ -430,10 +366,10 @@ def createJsTestTask(String... subprojectNames) {
 
 createJsTestTask(
     'core-api-js',
-    'core-robstoll-lib-js',
     'api-fluent-en_GB-js',
     'api-infix-en_GB-js',
-    'fluent-en_GB-js'
+    'fluent-en_GB-js',
+    'infix-en_GB-js'
 )
 
 def useJupiter(String... projectNames) {

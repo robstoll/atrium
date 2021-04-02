@@ -19,6 +19,7 @@ annotation class ExperimentalNewExpectTypes
  *
  * It loads the implementation lazily via [loadSingleService].
  */
+//TODO 0.17.0 deprecate
 val coreFactory by lazy { loadSingleService(CoreFactory::class) }
 
 /**
@@ -30,6 +31,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
  * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
+//TODO 0.17.0 deprecate
 expect interface CoreFactory : CoreFactoryCommon
 
 /**
@@ -50,6 +52,7 @@ expect interface CoreFactory : CoreFactoryCommon
  * - [Reporter]
  * - [AtriumErrorAdjuster]
  */
+//TODO 0.17.0 deprecate
 interface CoreFactoryCommon {
 
     /**

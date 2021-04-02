@@ -10,7 +10,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
  * Defines the minimum set of `contains` assertion functions for [Iterable],
- * which an implementation of the domain of Atrium has to provide.
+ * which an implementation of the domain logic of Atrium has to provide.
  */
 interface IterableLikeContainsInAnyOrderAssertions {
 

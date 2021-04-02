@@ -1,21 +1,14 @@
 description = 'Provides specifications of Atrium (as common module) which can be reused by ' +
-    'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
+    'APIs and logic/core implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    api prefixedProject('domain-api-common')
     api prefixedProject('core-api-common')
-    api prefixedProject('domain-builders-common')
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-common')
     api prefixedProject('verbs-internal-common')
     api "io.mockk:mockk-common:$mockkVersion"
 
     implementation prefixedProject('api-fluent-en_GB-common')
-
-    // exclude this dependency in case you want to use another implementation
-    runtimeOnly prefixedProject('core-robstoll-common')
-    //TODO remove with 0.17.0
-    runtimeOnly prefixedProject('domain-robstoll-common')
 }
 
 dependencies {

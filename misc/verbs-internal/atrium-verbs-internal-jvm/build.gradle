@@ -4,7 +4,5 @@ dependencies {
     api prefixedProject('core-api-jvm')
     api prefixedProject('logic-jvm')
 
-    runtimeOnly prefixedProject('core-robstoll-jvm')
-
     testImplementation prefixedProject('specs-jvm')
 }

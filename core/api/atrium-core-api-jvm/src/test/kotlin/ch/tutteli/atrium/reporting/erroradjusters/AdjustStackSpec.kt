@@ -13,8 +13,6 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.reporter
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 

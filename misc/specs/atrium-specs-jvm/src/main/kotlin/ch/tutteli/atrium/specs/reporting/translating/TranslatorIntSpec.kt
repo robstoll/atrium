@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -94,8 +93,10 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
+//TODO 1.0.0 rename to TranslatorIntSpec
+@ExperimentalComponentFactoryContainer
 abstract class TranslatorIntSpec(
-    reporterFactory: (Locale, Array<out Locale>) -> Reporter,
+    translatorConfiguration: (RootExpectBuilder.OptionsChooser<*>, Locale, List<Locale>) -> Unit,
     //TODO Remove as soon as https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
     withSpecialCases: Boolean = true,
     describePrefix: String = "[Atrium] "
@@ -110,21 +111,17 @@ abstract class TranslatorIntSpec(
         RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
             .withOptions {
-                withComponent(Reporter::class) { _ ->
-                    reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
-                }
+                translatorConfiguration(this, Locale("de", "CH"), listOf(Locale("fr")))
             }
             .build()
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    fun <T : Any> assertWithDeCh_Fr_It(subject: T) =
+    fun <T : Any> assertWithDeCh_FrCh_ItCh(subject: T) =
         RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.ASSERT)
             .withOptions {
-                withComponent(Reporter::class) { _ ->
-                    reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr", "CH"), Locale("it", "CH")))
-                }
+                translatorConfiguration(this, Locale("de", "CH"), listOf(Locale("fr", "CH"), Locale("it", "CH")))
             }
             .build()
 
@@ -241,14 +238,14 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr' nor for 'it'") {
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {
-                        assertWithDeCh_Fr_It(1).isLessThan(1)
+                        assertWithDeCh_FrCh_ItCh(1).isLessThan(1)
                     }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr' and 'it'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_Fr_It(1).createAndAddAssertion(
+                        assertWithDeCh_FrCh_ItCh(1).createAndAddAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
                                 firstOfFeb2017,
@@ -262,7 +259,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it' but not for 'fr'") {
                 it("uses 'it' but the primary Locale to format the date") {
                     expect {
-                        assertWithDeCh_Fr_It(1).createAndAddAssertion(
+                        assertWithDeCh_FrCh_ItCh(1).createAndAddAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_UNKNOWN,
                                 firstOfFeb2017
@@ -288,9 +285,7 @@ abstract class TranslatorIntSpec(
             val assert = RootExpectBuilder.forSubject(1)
                 .withVerb(AssertionVerb.ASSERT)
                 .withOptions {
-                    withComponent(Reporter::class) { _ ->
-                        reporterFactory(locale, arrayOf())
-                    }
+                    translatorConfiguration(this, locale, emptyList())
                 }
                 .build()
 

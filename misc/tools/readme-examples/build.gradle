@@ -14,7 +14,6 @@ dependencies {
 
     implementation kotlinStdlib()
     implementation prefixedProject('fluent-en_GB-jvm')
-    implementation prefixedProject('core-robstoll-lib-jvm')
     implementation niok()
     implementation spekExtensions()
 }

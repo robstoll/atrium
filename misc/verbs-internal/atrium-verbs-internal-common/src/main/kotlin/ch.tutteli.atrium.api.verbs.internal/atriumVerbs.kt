@@ -3,15 +3,12 @@ package ch.tutteli.atrium.api.verbs.internal
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.core.polyfills.getAtriumProperty
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
@@ -29,11 +26,6 @@ fun <T> expect(subject: T): RootExpect<T> =
         .withVerb(EXPECT)
         .withOptions {
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
-
-            // TODO 0.17.0 remove with removing getAtriumProperty (also means we cannot run bc for 0.14.0 and 0.15.0)
-            getAtriumProperty(ch.tutteli.atrium.reporting.ReporterFactory.ATRIUM_PROPERTY_KEY)?.let {
-                withComponent(Reporter::class) { reporter }
-            }
         }
         .build()
 

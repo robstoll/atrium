@@ -1,5 +1,5 @@
 module ch.tutteli.atrium.logic {
-    requires ch.tutteli.atrium.domain.builders;
+    requires ch.tutteli.atrium.core.api;
     requires ch.tutteli.niok;
     requires kotlin.stdlib;
 

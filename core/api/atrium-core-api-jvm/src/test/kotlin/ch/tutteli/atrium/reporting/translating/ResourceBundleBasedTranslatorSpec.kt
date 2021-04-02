@@ -13,7 +13,7 @@ object ResourceBundleBasedTranslatorSpec : Spek({
     )
 
 
-    object AtriumsTranslatorIntSpec : ch.tutteli.atrium.specs.reporting.translating.RealTranslatorIntSpec(
+    object AtriumsTranslatorIntSpec : ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec(
         { options, primaryLocale, fallbackLocales ->
             options.apply {
                 withSingletonComponent(Translator::class) {

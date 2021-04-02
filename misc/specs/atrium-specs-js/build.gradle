@@ -1,19 +1,12 @@
 description = 'Provides specifications of Atrium (for the JS platforms) which can be reused by ' +
-    'APIs and domain/core-implementations of Atrium, to verify that they fulfill the specification.'
+    'APIs and logic/core implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    api prefixedProject('domain-api-js')
     api prefixedProject('core-api-js')
-    api prefixedProject('domain-builders-js')
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-js')
     api prefixedProject('verbs-internal-js')
     api "io.mockk:mockk-dsl-js:$mockkVersion"
-
-    // exclude these dependencies in case you want to use another implementation
-    // `api` and not `implementation` in order that a depending module can use dependOn_...
-    api prefixedProject('core-robstoll-js')
-    api prefixedProject('domain-robstoll-js')
 
     implementation prefixedProject('api-fluent-en_GB-js')
 }
