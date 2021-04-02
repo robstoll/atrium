@@ -30,7 +30,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains "C"  // fails
                     it contains "D"  // still evaluated even though `contains "C"` already fails
-                    //                  use `.asList.` if you want a fail fast behaviour
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -49,7 +49,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains "C" // fails
                     it contains "D" // still evaluated even though `contains "C"` already fails
-                    //                 use `.asList.` if you want a fail fast behaviour
+                    //                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -74,7 +74,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98  // fails
                     it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `.asList.` if you want a fail fast behaviour
+                    //                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -99,7 +99,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 'X'  // fails
                     it contains 'Y'  // still evaluated even though `contains 'X'` already fails
-                    //                  use `.asList.` if you want a fail fast behaviour
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -124,7 +124,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98  // fails
                     it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `.asList.` if you want a fail fast behaviour
+                    //                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -149,7 +149,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98  // fails
                     it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `.asList.` if you want a fail fast behaviour
+                    //                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -174,7 +174,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98L  // fails
                     it contains 99L  // still evaluated even though `contains 98L` already fails
-                    //                  use `.asList.` if you want a fail fast behaviour
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -199,7 +199,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98f  // fails
                     it contains 99f  // still evaluated even though `contains 98f` already fails
-                    //                  use `.asList.` if you want a fail fast behaviour
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -224,7 +224,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains 98.1  // fails
                     it contains 99.2  // still evaluated even though `contains 98.1` already fails
-                    //                   use `.asList.` if you want a fail fast behaviour
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -249,7 +249,7 @@ class ArrayAssertionSamples {
                 .asList {
                     it contains false  //                              fails
                     it contains o inAny order atLeast 3 value true  // still evaluated even though `contains false` already fails
-                    //                                                 use `.asList.` if you want a fail fast behaviour
+                    //                                                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }
