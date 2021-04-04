@@ -62,11 +62,13 @@ class CollectionAssertionSamples {
 
     @Test
     fun size() {
-        expect(listOf(1, 2, 3)) size { // subject inside this block is of type Int (actually 3)
-            it isGreaterThan 1
-        } size { // subject inside this block is of type Int (actually 3)
-            it isLessThan 4
-        }
+        expect(listOf(1, 2, 3))
+            .size { // subject inside this block is of type Int (actually 3)
+                it isGreaterThan 1
+            } // subject here is back to type List<Int>
+            .size { // subject inside this block is of type Int (actually 3)
+                it isLessThan 4
+            }
 
         fails {
             // all assertions are evaluated inside an assertion group block; for more details:
