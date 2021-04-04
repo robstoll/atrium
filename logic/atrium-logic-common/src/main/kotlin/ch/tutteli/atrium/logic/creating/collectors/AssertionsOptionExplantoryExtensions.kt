@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
  *
- * //TODO 0.17.0 in case we somehow incorporate the current container in AssertionsOptions, then remove container as parameter
+ * //TODO 0.18.0 in case we somehow incorporate the current container in AssertionsOptions, then remove container as parameter
  */
 fun <T, G : ExplanatoryAssertionGroupType, R> AssertionsOption<G, R>.collectAssertions(
     container: AssertionContainer<*>,

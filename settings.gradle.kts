@@ -7,7 +7,7 @@ buildscript {
 
     val allTargets = listOf("common", "jvm", "js")
     val commonJvm = listOf("common", "jvm")
-    //TODO 0.17.0 or 0.18.0 change to allTargets and remove commonJvm once we have transitioned everything to the new MPP plugin
+    //TODO 0.18.0 or 0.18.0 change to allTargets and remove commonJvm once we have transitioned everything to the new MPP plugin
     val allApisAllTargets = listOf("fluent-en_GB" to commonJvm, "infix-en_GB" to commonJvm)
 
     val bcConfigs = listOf(
