@@ -119,7 +119,7 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
     mapOf(
         Reporter::class createSingletonVia { c ->
-            OnlyFailureReporter(c.build(), c.build())
+            OnlyFailureReporter(c.build())
         },
 
         AssertionFormatterController::class createVia { _ -> DefaultAssertionFormatterController() },
