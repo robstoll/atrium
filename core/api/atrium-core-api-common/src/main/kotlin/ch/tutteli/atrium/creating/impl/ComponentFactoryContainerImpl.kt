@@ -114,10 +114,6 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
     this to factories.map { ComponentFactory(it, producesSingleton = false) }
 
 
-// TODO 0.17.0 I guess it would make sense to cache instance here and only re-create them if this component was merged
-// with another because most Atrium users won't change the components and it would most likely just be a waste of
-// resources to re-create all over and over again. On the other hand they would be very short-lived an most likely
-// just be swept away when GC kicks in (not survive the young generation)
 @ExperimentalComponentFactoryContainer
 //TODO 0.18.0 make internal
 object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
