@@ -32,7 +32,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * Might be we completely remove it without prior notice.
      */
-    //TODO 0.17.0/0.18.0 maybe it would be better to have proofFactories as val like we have components?
+    //TODO 0.18.0/0.19.0 maybe it would be better to have proofFactories as val like we have components?
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 

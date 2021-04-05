@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController

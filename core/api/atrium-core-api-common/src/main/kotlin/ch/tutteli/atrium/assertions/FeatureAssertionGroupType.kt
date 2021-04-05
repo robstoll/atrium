@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.core.CoreFactory
 
 /**
  * Represents the [AssertionGroupType] for [AssertionGroup]s which contain some kind of feature assertions.
@@ -8,7 +7,7 @@ import ch.tutteli.atrium.core.CoreFactory
 interface FeatureAssertionGroupType : AssertionGroupType
 
 /**
- * This class is only used as identifier for [CoreFactory.registerTextAssertionFormatterCapabilities].
+ * This class is only used as [BulletPointIdentifier].
  */
 class PrefixFeatureAssertionGroupHeader private constructor() : BulletPointIdentifier
 

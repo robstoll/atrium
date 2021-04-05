@@ -1,6 +1,7 @@
+//TODO remove file with 0.18.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
+    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE", "DEPRECATION"
 )
 
 package ch.tutteli.atrium.core
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import java.util.*
 
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 actual interface CoreFactory : CoreFactoryCommon {
 
     /**
@@ -27,7 +28,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      *
      * @return The newly created translation supplier.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; Will be removed with 0.18.0")
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     @Deprecated(

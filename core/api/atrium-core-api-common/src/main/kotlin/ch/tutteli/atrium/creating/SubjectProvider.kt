@@ -10,7 +10,7 @@ import ch.tutteli.atrium.core.Some
  * Provides the subject of an [Assertion].
  *
  * Notice, this interface had its mere purpose to facilitate the transition from `Assert` to [Expect] -- `Assert` was
- * removed in 0.16.0 and thus this interface will be removed with 0.17.0.
+ * removed in 0.16.0 and thus this interface will be removed with 0.18.0.
  */
 @Suppress("DEPRECATION")
 @Deprecated("Will be removed with 0.18.0 without replacement, switch to Expect or AssertionContainer")
