@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
@@ -26,6 +27,7 @@ object SmokeSpec : Spek({
 
     test("see if own assertion function without i18n can be used") {
         assertThat(2).isEven()
+        assertThat(1).isOdd()
     }
 
     test("see if own assertion function with i18n can be used") {
@@ -34,7 +36,10 @@ object SmokeSpec : Spek({
 })
 
 fun Expect<Int>.isEven() =
-    createAndAddAssertion(DescriptionBasic.IS, Text("an even number")) { it % 2 == 0 }
+    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+
+fun Expect<Int>.isOdd() =
+    _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
 
 fun Expect<Int>.isMultipleOf(base: Int) = _logicAppend { isMultipleOf(base) }
 

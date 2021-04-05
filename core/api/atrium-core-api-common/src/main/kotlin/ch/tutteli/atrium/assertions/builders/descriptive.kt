@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.DescriptionOptionImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.FinalStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.descriptive.HoldsOptionImpl
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -34,16 +35,15 @@ interface Descriptive {
         fun withTest(test: () -> Boolean): DescriptionOption<FinalStep>
 
         /**
-         * Uses the given [test] as [DescriptiveAssertion.holds] based on the subject provided by [subjectProvider].
+         * Uses the given [test] as [DescriptiveAssertion.holds] based on the subject provided by [expect].
          *
          * Notice, this function might change its signature with 1.0.0 to something like
          * ```
          * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
          * ```
          */
-        //TODO 0.18.0: don't use SubjectProvider in the new ProofBuilder but ProofContainer instead
         fun <T> withTest(
-            @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+            expect: Expect<T>,
             test: (T) -> Boolean
         ): DescriptionOption<FinalStep>
 

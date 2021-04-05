@@ -385,4 +385,4 @@ infix fun <E, T : Iterable<E>> Expect<T>.asList(
  * @since 0.14.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList(o).addAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }

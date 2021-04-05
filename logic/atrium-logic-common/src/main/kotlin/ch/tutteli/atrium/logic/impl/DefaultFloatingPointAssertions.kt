@@ -8,6 +8,8 @@ import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.FloatingPointAssertions
+import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion.*
 import kotlin.math.absoluteValue
@@ -69,10 +71,11 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
     tolerance: T,
     absDiff: (T) -> T,
     explanatoryAssertionCreator: (T) -> List<Assertion>
-): Assertion = assertionBuilder.descriptive
-    .withTest(container) { absDiff(it) <= tolerance }
-    .withFailureHintBasedOnDefinedSubject(container) { subject ->
-        //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
+): Assertion =
+    assertionBuilder.descriptive
+    .withTest(container.toExpect()) { absDiff(it) <= tolerance }
+    .withFailureHintBasedOnDefinedSubject(container.toExpect()) { subject ->
+        //TODO 0.18.0 that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
         //we do not want to see the failure nor the exact check in the 'an entry which...' part
         //same problematic applies to feature assertions within an identification lambda
         // => yet explanatory assertion should always hold

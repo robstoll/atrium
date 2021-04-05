@@ -46,15 +46,14 @@ class DefaultSubjectChanger : SubjectChanger {
             .withDescriptionAndRepresentation(description, representation)
             .build()
 
-        if (shallTransform) {
-            expect.addAssertion(descriptiveAssertion)
-            maybeSubAssertions.fold({ /* nothing to do */ }) { assertionCreator ->
-                expect.addAssertionsCreatedBy(assertionCreator)
+        return if (shallTransform) {
+            val e = expect._logic.appendAssertion(descriptiveAssertion)
+            maybeSubAssertions.fold({ e }) { assertionCreator ->
+                expect._logic.appendAssertionsCreatedBy(assertionCreator)
             }
         } else {
             val assertion = failureHandler.createAssertion(container, descriptiveAssertion, maybeSubAssertions)
-            expect.addAssertion(assertion)
+            expect._logic.appendAssertion(assertion)
         }
-        return expect
     }
 }

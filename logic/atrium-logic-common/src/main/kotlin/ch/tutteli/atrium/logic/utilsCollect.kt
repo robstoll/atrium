@@ -97,6 +97,8 @@ inline fun <T> AssertionContainer<*>.collectForDifferentSubject(
  *
  * @return The collected assertions.
  */
+//TODO check if it makes more sense to stay on the logic level for assertionCreator
+//TODO 0.18.0 deprecate and move to ProofContainer
 inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
     maybeSubject: Option<T>,
     noinline assertionCreator: Expect<T>.() -> Unit

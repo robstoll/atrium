@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 inline fun <K, V, T : Any, S : MapLikeContains.SearchBehaviour>
     MapLikeContains.EntryPointStep<K, V, T, S>._logicAppend(
     factory: MapLikeContains.EntryPointStepLogic<K, V, T, S>.() -> Assertion
-): Expect<T> = _logic.let { l -> l.container.toExpect().addAssertion(l.factory()) }
+): Expect<T> = _logic.let { l -> l.container.appendAssertion(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

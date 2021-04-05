@@ -36,9 +36,9 @@ class DefaultAnyAssertions : AnyAssertions {
         } else {
             val collectSubject = container.maybeSubject.flatMap { if (it != null) Some(it) else None }
             val assertion = container.collectBasedOnSubject(collectSubject) {
-                addAssertionsCreatedBy(assertionCreatorOrNull)
+                _logic.appendAssertionsCreatedBy(assertionCreatorOrNull)
             }
-            //TODO 0.17.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            //TODO 0.18.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(
                 {
                     // already in an explanatory assertion context, no need to wrap it again
@@ -74,7 +74,7 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion {
         val assertions = expected.map { value ->
             assertionBuilder.representationOnly
-                .withTest(container) { it != value }
+                .withTest(container.toExpect()) { it != value }
                 .withRepresentation(value)
                 .build()
         }

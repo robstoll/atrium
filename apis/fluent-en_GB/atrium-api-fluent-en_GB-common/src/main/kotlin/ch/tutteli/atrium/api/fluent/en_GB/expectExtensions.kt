@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Text

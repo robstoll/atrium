@@ -1,12 +1,7 @@
-//TODO remove file with 0.17.0
-@file:Suppress("OverridingDeprecatedMember")
-
 package ch.tutteli.atrium.reporting.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
-import ch.tutteli.atrium.reporting.AtriumError
-import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -16,11 +11,9 @@ import ch.tutteli.atrium.reporting.Reporter
  *
  * @constructor A [Reporter] which reports only failing assertions.
  * @param assertionFormatterFacade The formatter used to format [Assertion]s.
- * @param atriumErrorAdjuster The adjuster which should be used to adjust the resulting [AtriumError].
  */
 class OnlyFailureReporter(
-    private val assertionFormatterFacade: AssertionFormatterFacade,
-    override val atriumErrorAdjuster: AtriumErrorAdjuster
+    private val assertionFormatterFacade: AssertionFormatterFacade
 ) : Reporter {
 
     /**

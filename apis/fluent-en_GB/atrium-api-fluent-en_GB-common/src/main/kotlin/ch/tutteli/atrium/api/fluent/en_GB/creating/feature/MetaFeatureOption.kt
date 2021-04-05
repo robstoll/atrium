@@ -18,7 +18,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given [property] => use [p] in case of ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(List<Int>::size)`).
      * This way we are always able to report the property, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -30,7 +30,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] without arguments => use [f0] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -42,7 +42,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] which expects 1 argument => use [f1] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -54,7 +54,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] which expects 2 arguments => use [f2] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -66,7 +66,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] which expects 3 arguments => use [f3] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -78,7 +78,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] which expects 4 arguments => use [f4] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -90,7 +90,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
      * Creates a [MetaFeature] for the given function [f] which expects 5 arguments => use [f5] in case of
      * ambiguity issues.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -103,7 +103,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given property [property].
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(List<Int>::size)`).
      * This way we are always able to report the property, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -114,7 +114,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] without arguments.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -125,7 +125,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 1 argument.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -136,7 +136,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 2 arguments.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -147,7 +147,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 3 arguments.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -158,7 +158,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 4 arguments.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.
@@ -169,7 +169,7 @@ class MetaFeatureOption<T>(expect: Expect<T>) {
     /**
      * Creates a [MetaFeature] for the given function [f] which expects 5 arguments.
      *
-     * Notice for assertion function writers: you should use [feature] and pass a
+     * Notice for expectation function writers: you should use [feature] and pass a
      * class reference instead of using this convenience function (e.g. `feature(MyClass::fun, ...)`).
      * This way we are always able to report the function name, even if the subject is not defined which occurs if a
      * previous transformation of the subject could not be carried out.

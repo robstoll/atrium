@@ -27,7 +27,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            // TODO 0.17.0 more efficient and pragmatic than turnSubjectToList, use at other places too
+            // TODO 0.18.0 more efficient and pragmatic than turnSubjectToList, use at other places too
             val maybeList = container.maybeSubject.map {
                 //TODO move into when with 1.0.0, update to Kotlin 1.4 respectively
                 val iterable = converter(it)
@@ -46,7 +46,14 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     { emptyList() }
                 )
                 if (list.size > index) {
-                    addAssertion(createAdditionalElementsAssertion(container, index, list, remainingList.iterator()))
+                    _logic.appendAssertion(
+                        createAdditionalElementsAssertion(
+                            container,
+                            index,
+                            list,
+                            remainingList.iterator()
+                        )
+                    )
                 }
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
@@ -74,7 +81,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         itr: Iterator<E?>
     ): Assertion {
         return container.collectBasedOnSubject(Some(iterableAsList)) {
-            addAssertion(LazyThreadUnsafeAssertionGroup {
+            _logic.appendAssertion(LazyThreadUnsafeAssertionGroup {
                 val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                     val description = TranslatableWithArgs(
                         DescriptionIterableAssertion.ELEMENT_WITH_INDEX,

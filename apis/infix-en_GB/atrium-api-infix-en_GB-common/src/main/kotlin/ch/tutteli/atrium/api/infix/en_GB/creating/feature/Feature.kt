@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.feature
 
 import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import kotlin.reflect.KProperty1
 
 /**
@@ -13,7 +12,7 @@ import kotlin.reflect.KProperty1
  * [KProperty1] or a `KFunctionX` and the remaining arguments are the required arguments in case of a `KFunctionX`
  * where `X` > 1.
  *
- * @property description The description of the feature.
+ * @property descriptionProvider Provides the description of the feature.
  * @property extractor The extractor which extracts the feature out of the subject of the expectation.
  *
  * @since 0.12.0
@@ -26,7 +25,4 @@ data class Feature<T, R> internal constructor(
 ) {
     internal constructor(description: String, extractor: (T) -> R) :
         this({ description }, extractor)
-
-    @Deprecated("Use descriptionProvider instead; will be removed with 0.17.0")
-    val description: String = descriptionProvider(DefaultComponentFactoryContainer)
 }

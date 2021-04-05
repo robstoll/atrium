@@ -92,7 +92,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         return group to count
     }
 
-    //TODO 0.17.0 check if this is still state of the art to add a hint that no assertion was created
+    //TODO 0.18.0 check if this is still state of the art to add a hint that no assertion was created
     // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
     // maybe it would be enough to collect
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)

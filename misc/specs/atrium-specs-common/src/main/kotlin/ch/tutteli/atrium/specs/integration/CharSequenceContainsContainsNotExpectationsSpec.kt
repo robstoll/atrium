@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import org.spekframework.spek2.style.specification.Suite
@@ -165,18 +166,18 @@ abstract class CharSequenceContainsContainsNotExpectationsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${contains.name} 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person).addAssertionsCreatedBy {
+                        expect(person)._logic.appendAssertionsCreatedBy(fun Expect<Person>.() {
                             feature(Person::name).containsFun("treboR", "llotS")
-                        }
+                        })
                     }.toThrow<AssertionError> {
                         message { this.contains.exactly(1).value(nameWithArrow) }
                     }
                 }
                 it("${containsNot.name} 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person).addAssertionsCreatedBy {
+                        expect(person)._logic.appendAssertionsCreatedBy(fun Expect<Person>.() {
                             feature(Person::name).containsNotFun("Robert", "Stoll")
-                        }
+                        })
                     }.toThrow<AssertionError> {
                         message { this.contains.exactly(1).value(nameWithArrow) }
                     }

@@ -3,6 +3,8 @@ package ch.tutteli.atrium.assertions.builders.impl.descriptive
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -21,10 +23,11 @@ internal object HoldsOptionImpl : Descriptive.HoldsOption {
         Descriptive.DescriptionOption.create(test, Descriptive.FinalStep.Companion::create)
 
     override fun <T> withTest(
-        @Suppress("DEPRECATION") subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+        expect: Expect<T>,
         test: (T) -> Boolean
     ): Descriptive.DescriptionOption<Descriptive.FinalStep> = withTest {
-        subjectProvider.maybeSubject.fold(falseProvider, test)
+        @Suppress("UNCHECKED_CAST")
+        (expect as AssertionContainer<T>).maybeSubject.fold(falseProvider, test)
     }
 }
 

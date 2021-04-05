@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -16,7 +17,7 @@ fun <T> expect(t: T): Expect<T> =
     }
 
 fun <T> expect(t: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(t).addAssertionsCreatedBy(assertionCreator)
+    expect(t)._logic.appendAssertionsCreatedBy(assertionCreator)
 
 class ReadmeObjectFormatter(translator: Translator) : AbstractTextObjectFormatter(translator) {
 

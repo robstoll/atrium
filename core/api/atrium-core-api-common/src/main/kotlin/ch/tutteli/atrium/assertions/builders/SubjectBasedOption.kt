@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.assertions.builders
 
+import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
+
 /**
  * Contract for sub option steps which are based on a defined or absent subject of the expectation.
  */
@@ -40,12 +43,13 @@ interface SubjectBasedOption {
     companion object {
         @Suppress("DEPRECATION")
         operator fun <T, R, PO : DefinedOption<T, R, *>> invoke(
-            subjectProvider: ch.tutteli.atrium.creating.SubjectProvider<T>,
+            expect: Expect<T>,
             subStep: PO.() -> Pair<() -> R, (T) -> R>,
             presentOptionFactory: () -> PO
         ): R {
             val (ifAbsent, ifPresent) = presentOptionFactory().subStep()
-            return subjectProvider.maybeSubject.fold(ifAbsent, ifPresent)
+            @Suppress("UNCHECKED_CAST")
+            return (expect as AssertionContainer<T>).maybeSubject.fold(ifAbsent, ifPresent)
         }
     }
 }

@@ -73,17 +73,29 @@ subprojects {
 }
 
 val fixSrcPropertyName = "fixSrc"
-var Project.fixSrc: () -> Unit
-    get() = @Suppress("UNCHECKED_CAST") (project.extra[fixSrcPropertyName] as () -> Unit)
-    set(f) {
-        val g: () -> Unit = if (project.extra.has(fixSrcPropertyName)) {
-            val current = fixSrc
-            { current(); f() }
-        } else {
-            f
-        }
-        project.extra.set(fixSrcPropertyName, g)
+fun Project.defineSourceFix(target: String, fix: () -> Unit) {
+    val map = if (project.extra.has(fixSrcPropertyName)) {
+        getSrcFixes()
+    } else {
+        val map = mutableMapOf<String, () -> Unit>()
+        project.extra.set(fixSrcPropertyName, map)
+        map
     }
+    val current = map[target]
+    if (current != null) {
+        map[target] = { current(); fix() }
+    } else {
+        map[target] = fix
+    }
+}
+fun Project.getSrcFixes() =
+    @Suppress("UNCHECKED_CAST") (project.extra[fixSrcPropertyName] as MutableMap<String, () -> Unit>)
+
+fun Project.applySourceFix(target: String) {
+    val map = getSrcFixes()
+    val sourceFix = map[target]
+    if (sourceFix != null) sourceFix()
+}
 
 val testEngineProjectName = ":bc-tests:test-engine"
 bcConfigs.forEach { (oldVersion, apis, pair) ->
@@ -100,8 +112,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
         module: String,
         specifier: String,
         sourceSet: String,
-        target: String,
-        applyFixSrcIfDefined: Boolean
+        target: String
     ): TaskProvider<*> {
         val confName = "bcConf_${oldVersion}_${module}_${target}"
         configurations {
@@ -127,8 +138,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                 // solved like this in order that we don't change the content after the unzip task because otherwise
                 // we have to re-run unzip on every execution where it should suffice to do it once
-                if (applyFixSrcIfDefined && project.extra.has(fixSrcPropertyName)) {
-                    fixSrc()
+                if (project.extra.has(fixSrcPropertyName)) {
+                    applySourceFix(target)
                 }
             }
         }
@@ -139,8 +150,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
         fun compileTask(target: String) =
             tasks.named(if (sourceSet == "Main") "compileKotlin${target.capitalize()}" else "compile${sourceSet}Kotlin${target.capitalize()}")
 
-        targets.forEachIndexed { index, target ->
-            val unzip = createUnzipTask(module, specifier, sourceSet, target, index == targets.size - 1)
+        targets.forEach { target ->
+            val unzip = createUnzipTask(module, specifier, sourceSet, target)
             val compileTasks = when (target) {
                 "common" -> targets.filter { it != "common" }.map { compileTask(it) }
                 else -> listOf(compileTask(target))
@@ -559,7 +570,7 @@ fun Project.rewriteFile(filePath: String, f: (String) -> String) {
 
 listOf("0.14.0", "0.15.0").forEach { version ->
     with(project(":bc-tests:$version-specs")) {
-        fixSrc = {
+        defineSourceFix("common") {
             listOf(
                 "IterableAnyAssertionsSpec",
                 "IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec",
@@ -646,14 +657,15 @@ listOf("0.14.0", "0.15.0").forEach { version ->
             //just don't bother to rewrite it and this one is not that important
             file("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/verbs/VerbSpec.kt").toPath()
                 .deleteIfExists()
+        }
 
+        defineSourceFix("jvm") {
             rewriteFile("src/jvmMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/integration/BigDecimalAssertionsSpec.kt") {
                 it.replaceFirst(
                     "import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException",
                     "import ch.tutteli.atrium.creating.PleaseUseReplacementException"
                 )
             }
-
             rewriteFile("src/jvmMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/reporting/translating/TranslatorIntSpec.kt") {
                 it
                     .replaceFirst(
@@ -682,7 +694,7 @@ listOf("0.14.0", "0.15.0").forEach { version ->
 
     listOf("fluent", "infix").forEach { apiShortName ->
         with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
-            fixSrc = {
+            defineSourceFix("common") {
                 // not really a source compatibility break but we don't have access here to an internal function
                 rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/CharSequenceContainsSpecBase.kt") {
                     it
@@ -716,18 +728,7 @@ listOf("0.14.0", "0.15.0").forEach { version ->
 
     // testsources jar currently includes resources files in the root (as it would be in a jar)
     with(project(":bc-tests:$version-api-infix-en_GB")) {
-        fixSrc = {
-            val source = Paths.get("${project.projectDir}/src/jvmTest/kotlin/META-INF")
-            if (source.exists) {
-                val targetDir = Paths.get("${project.projectDir}/src/jvmTest/resources")
-                targetDir.reCreateDirectory()
-
-                Files.move(
-                    source,
-                    targetDir.resolve("META-INF")
-                )
-            }
-
+        defineSourceFix("common") {
             // we removed WithAsciiReporter in 0.17.0
             listOf(
                 "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/AnyAssertionsSpec.kt",
@@ -750,8 +751,23 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapAssertionsSpec.kt",
                 "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapEntryAssertionsSpec.kt",
                 "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/PairAssertionsSpec.kt",
-                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ThrowableAssertionsSpec.kt",
-                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/BigDecimalAssertionsSpec.kt",
+                "src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ThrowableAssertionsSpec.kt"
+            ).forEach { file ->
+                removeWithAsciiReporter(file)
+            }
+        }
+        defineSourceFix("jvm") {
+            val source = Paths.get("${project.projectDir}/src/jvmTest/kotlin/META-INF")
+            if (source.exists) {
+                val targetDir = Paths.get("${project.projectDir}/src/jvmTest/resources")
+                targetDir.reCreateDirectory()
+
+                Files.move(
+                    source,
+                    targetDir.resolve("META-INF")
+                )
+            }
+            listOf("src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/BigDecimalAssertionsSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateAssertionsSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateTimeAssertionSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoZonedDateTimeAssertionSpec.kt",
@@ -764,11 +780,7 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/PathFeatureAssertionsSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ZonedDateTimeAssertionsSpec.kt"
             ).forEach { file ->
-                rewriteFile(file) {
-                    it
-                        .replaceFirst("import ch.tutteli.atrium.specs.testutils.WithAsciiReporter", "")
-                        .replaceFirst(": WithAsciiReporter()", "")
-                }
+                removeWithAsciiReporter(file)
             }
         }
     }
@@ -835,25 +847,43 @@ listOf("0.14.0", "0.15.0").forEach { version ->
 
                         """.trimIndent()
                     )
+                    main.resolve("StaticName.kt").writeText(
+                        """
+                        package ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl
+                        internal object StaticName {
+                            val containsNotValuesFun = "containsNot"
+
+                            val atLeast = "atLeast"
+                            val butAtMost = "butAtMost"
+                            val atMost = "atMost"
+                            val exactly = "exactly"
+                            val notOrAtMost = "notOrAtMost"
+                        }
+                        """.trimIndent()
+                    )
                 }
             }
         }
     }
 }
 
+fun Project.removeWithAsciiReporter(file: String) {
+    rewriteFile(file) {
+        it
+            .replaceFirst("import ch.tutteli.atrium.specs.testutils.WithAsciiReporter", "")
+            .replaceFirst(": WithAsciiReporter()", "")
+    }
+}
+
 with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
-    fixSrc = {
+    defineSourceFix("common") {
         rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsInAnyOrderKeyValueAssertionsSpec.kt") {
             it
                 .replace("import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator", "")
                 .replace("KeyWithValueCreator", "keyValue")
         }
 
-        rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsSpecBase.kt") {
-            it
-                .replaceFirst("import ch.tutteli.atrium.specs.testutils.WithAsciiReporter", "")
-                .replaceFirst(": WithAsciiReporter()", "")
-        }
+        removeWithAsciiReporter("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsSpecBase.kt")
     }
 }
 
@@ -861,13 +891,12 @@ with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
 listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
     listOf("fluent", "infix").forEach { apiShortName ->
         with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
-            fixSrc = {
+            defineSourceFix("common") {
                 rewriteFile("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FeatureWorstCaseTest.kt") {
                     it
                         .replaceFirst("import kotlin.js.JsName", "")
                         .replaceFirst("@JsName(\"propFun\")", "")
                 }
-
             }
         }
     }
