@@ -50,23 +50,5 @@ abstract class ObjectFormatterSpec(
                 expect(result).isSameAs(translatedText)
             }
         }
-
-        //TODO remove with 1.0.0
-        @Suppress("DEPRECATION")
-        context("a ${ch.tutteli.atrium.reporting.StringBasedRawString::class.simpleName}") {
-            val result = testee.format(Text("hello"))
-            it("returns the containing string") {
-                expect(result).toBe("hello")
-            }
-        }
-
-        //TODO remove with 1.0.0
-        @Suppress("DEPRECATION")
-        context("a ${ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString::class.simpleName}") {
-            val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
-            it("returns the translated string") {
-                expect(result).isSameAs(translatedText)
-            }
-        }
     }
 })

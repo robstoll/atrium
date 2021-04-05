@@ -53,10 +53,6 @@ abstract class TextObjectFormatterCommon(
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
         is Throwable -> format(value)
-        //TODO remove with 1.0.0
-        is StringBasedRawString -> limitRepresentation(value.string)
-        is ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString -> limitRepresentation(translator.translate(value.translatable))
-
         else -> limitRepresentation(value.toString()) + classNameAndIdentity(value)
     }
 

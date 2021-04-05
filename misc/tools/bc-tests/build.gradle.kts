@@ -88,6 +88,7 @@ fun Project.defineSourceFix(target: String, fix: () -> Unit) {
         map[target] = fix
     }
 }
+
 fun Project.getSrcFixes() =
     @Suppress("UNCHECKED_CAST") (project.extra[fixSrcPropertyName] as MutableMap<String, () -> Unit>)
 
@@ -767,7 +768,8 @@ listOf("0.14.0", "0.15.0").forEach { version ->
                     targetDir.resolve("META-INF")
                 )
             }
-            listOf("src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/BigDecimalAssertionsSpec.kt",
+            listOf(
+                "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/BigDecimalAssertionsSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateAssertionsSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoLocalDateTimeAssertionSpec.kt",
                 "src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/ChronoZonedDateTimeAssertionSpec.kt",
@@ -886,6 +888,37 @@ with(project(":bc-tests:0.15.0-api-infix-en_GB")) {
         removeWithAsciiReporter("src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/MapContainsSpecBase.kt")
     }
 }
+
+
+// we removed RawString and co in 0.17.0
+listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
+    with(project(":bc-tests:$version-specs")) {
+        defineSourceFix("common") {
+            rewriteFile("src/commonMain/kotlin/main/kotlin/ch/tutteli/atrium/specs/reporting/ObjectFormatterSpec.kt") {
+                it.replaceFirst(
+                    "//TODO remove with 1.0.0\n" +
+                        "        @Suppress(\"DEPRECATION\")\n" +
+                        "        context(\"a \${ch.tutteli.atrium.reporting.StringBasedRawString::class.simpleName}\") {\n" +
+                        "            val result = testee.format(Text(\"hello\"))\n" +
+                        "            it(\"returns the containing string\") {\n" +
+                        "                expect(result).toBe(\"hello\")\n" +
+                        "            }\n" +
+                        "        }\n" +
+                        "\n" +
+                        "        //TODO remove with 1.0.0\n" +
+                        "        @Suppress(\"DEPRECATION\")\n" +
+                        "        context(\"a \${ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString::class.simpleName}\") {\n" +
+                        "            val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)\n" +
+                        "            it(\"returns the translated string\") {\n" +
+                        "                expect(result).isSameAs(translatedText)\n" +
+                        "            }\n" +
+                        "        }", ""
+                )
+            }
+        }
+    }
+}
+
 
 // TODO 0.18.0 remove once we support js again
 listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
