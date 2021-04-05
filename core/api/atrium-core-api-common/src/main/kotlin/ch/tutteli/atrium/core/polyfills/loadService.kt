@@ -1,3 +1,4 @@
+//TODO remove file with 0.18.0
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.kbox.forEachRemaining
@@ -11,7 +12,7 @@ import kotlin.reflect.KClass
  * @throws NoSuchElementException in case there is no service found for [kClass].
  * @throws IllegalStateException in case there is more than one service found for [kClass].
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 expect fun <T : Any> loadSingleService(kClass: KClass<T>): T
 
 /**
@@ -19,7 +20,7 @@ expect fun <T : Any> loadSingleService(kClass: KClass<T>): T
  *
  * @return The loaded services as a [Sequence].
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 expect fun <T : Any> loadServices(kClass: KClass<T>): Sequence<T>
 
 /**
@@ -28,7 +29,7 @@ expect fun <T : Any> loadServices(kClass: KClass<T>): Sequence<T>
  * @throws NoSuchElementException in case there is no service found for [kClass].
  * @throws IllegalStateException in case there is more than one service found for [kClass].
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 fun <T : Any> useSingleService(kClass: KClass<T>, itr: Iterator<T>): T {
     if (!itr.hasNext()) throw NoSuchElementException("Could not find any implementation for ${kClass.fullName}")
 

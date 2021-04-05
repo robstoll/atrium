@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject

@@ -48,11 +48,10 @@ class TextNextLineAssertionPairFormatter(
     ) {
         parameterObject.sb.append(translator.translate(translatable)).append(":")
 
-        @Suppress(/* TODO remove RawString.Empty with 1.0.0*/ "DEPRECATION")
         // yes, we check only for Text.EMPTY and not for `representation !is Text || representation.string != ""`
         // on purpose. You can only create an empty Text via a hack and not via the normal invoke function in
         // the companion of Text
-        if (representation != Text.EMPTY && representation != RawString.EMPTY) {
+        if (representation != Text.EMPTY) {
             newParameterObject.appendLnAndIndent()
             newParameterObject.indent(newParameterObject.prefix.length)
             parameterObject.sb.append(objectFormatter.format(representation))

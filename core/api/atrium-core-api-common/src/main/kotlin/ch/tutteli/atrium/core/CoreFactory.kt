@@ -1,3 +1,6 @@
+//TODO remove file with 0.18.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.*
@@ -19,7 +22,7 @@ annotation class ExperimentalNewExpectTypes
  *
  * It loads the implementation lazily via [loadSingleService].
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 val coreFactory by lazy { loadSingleService(CoreFactory::class) }
 
 /**
@@ -31,7 +34,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
  * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 expect interface CoreFactory : CoreFactoryCommon
 
 /**
@@ -52,7 +55,7 @@ expect interface CoreFactory : CoreFactoryCommon
  * - [Reporter]
  * - [AtriumErrorAdjuster]
  */
-//TODO 0.17.0 deprecate
+@Deprecated("Retrieve components via ComponentFactoryContainer; will be removed with 0.18.0")
 interface CoreFactoryCommon {
 
     /**
@@ -64,7 +67,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created method call formatter.
      */
-    @Deprecated("Create a new MethodCallFormatter via the ComponentFactoryContainer, e.g. via _logic.components.build<MethodCallFormatter>(); will be removed with 0.17.0")
+    @Deprecated("Create a new MethodCallFormatter via the ComponentFactoryContainer, e.g. via _logic.components.build<MethodCallFormatter>(); will be removed with 0.18.0")
     fun newMethodCallFormatter(): MethodCallFormatter
 
 
@@ -91,7 +94,7 @@ interface CoreFactoryCommon {
      * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
      *   have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
-    @Deprecated("Create a new Translator via the ComponentFactoryContainer, e.g. via _logic.components.build<Translator>(); will be removed with 0.17.0")
+    @Deprecated("Create a new Translator via the ComponentFactoryContainer, e.g. via _logic.components.build<Translator>(); will be removed with 0.18.0")
     fun newTranslator(
         translationSupplier: TranslationSupplier,
         localeOrderDecider: LocaleOrderDecider,
@@ -108,7 +111,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created [Locale] order decider.
      */
-    @Deprecated("Create a new LocaleOrderDecider via the ComponentFactoryContainer, e.g. via _logic.components.build<LocaleOrderDecider>(); will be removed with 0.17.0")
+    @Deprecated("Create a new LocaleOrderDecider via the ComponentFactoryContainer, e.g. via _logic.components.build<LocaleOrderDecider>(); will be removed with 0.18.0")
     fun newLocaleOrderDecider(): LocaleOrderDecider
 
     /**
@@ -117,7 +120,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created object formatter.
      */
-    @Deprecated("Create a new ObjectFormatter via the ComponentFactoryContainer, e.g. via _logic.components.build<ObjectFormatter>(); will be removed with 0.17.0")
+    @Deprecated("Create a new ObjectFormatter via the ComponentFactoryContainer, e.g. via _logic.components.build<ObjectFormatter>(); will be removed with 0.18.0")
     fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
 
     /**
@@ -125,7 +128,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter controller.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newAssertionFormatterController(): AssertionFormatterController
 
     /**
@@ -135,7 +138,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter facade.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
 
     /**
@@ -154,7 +157,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Create it via TextAssertionPairFormatter.newSameLine(...); will be removed with 0.17.0")
+    @Deprecated("Create it via TextAssertionPairFormatter.newSameLine(...); will be removed with 0.18.0")
     fun newTextSameLineAssertionPairFormatter(
         objectFormatter: ObjectFormatter,
         translator: Translator
@@ -178,7 +181,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Create it via TextAssertionPairFormatter.newNextLine(...); will be removed with 0.17.0")
+    @Deprecated("Create it via TextAssertionPairFormatter.newNextLine(...); will be removed with 0.18.0")
     fun newTextNextLineAssertionPairFormatter(
         objectFormatter: ObjectFormatter,
         translator: Translator
@@ -199,7 +202,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newTextFallbackAssertionFormatter(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterController: AssertionFormatterController,
@@ -221,7 +224,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newTextFeatureAssertionGroupFormatter(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterController: AssertionFormatterController,
@@ -242,7 +245,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newTextListAssertionGroupFormatter(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterController: AssertionFormatterController,
@@ -264,7 +267,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newTextSummaryAssertionGroupFormatter(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterController: AssertionFormatterController,
@@ -284,7 +287,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created assertion formatter.
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun newTextExplanatoryAssertionGroupFormatter(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterController: AssertionFormatterController
@@ -305,7 +308,7 @@ interface CoreFactoryCommon {
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
      */
-    @Deprecated("Open an issue in case you used this; Will be removed with 0.17.0")
+    @Deprecated("Open an issue in case you used this; will be removed with 0.18.0")
     fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
@@ -333,7 +336,7 @@ interface CoreFactoryCommon {
      * @return The newly created adjuster.
      */
     @Deprecated(
-        "Use NoOpAtriumErrorAdjuster instead; will be removed with 0.17.0",
+        "Use NoOpAtriumErrorAdjuster instead; will be removed with 0.18.0",
         ReplaceWith("ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster")
     )
     fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
@@ -343,7 +346,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
-    @Deprecated("Create a new RemoveRunnerFromAtriumError via the ComponentFactoryContainer, e.g. via _logic.components.build<RemoveRunnerFromAtriumError>(); will be removed with 0.17.0")
+    @Deprecated("Create a new RemoveRunnerFromAtriumError via the ComponentFactoryContainer, e.g. via _logic.components.build<RemoveRunnerFromAtriumError>(); will be removed with 0.18.0")
     fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
 
     /**
@@ -351,7 +354,7 @@ interface CoreFactoryCommon {
      *
      * @return The newly created adjuster.
      */
-    @Deprecated("Create a new RemoveAtriumFromAtriumError via the ComponentFactoryContainer, e.g. via _logic.components.build<RemoveAtriumFromAtriumError>(); will be removed with 0.17.0")
+    @Deprecated("Create a new RemoveAtriumFromAtriumError via the ComponentFactoryContainer, e.g. via _logic.components.build<RemoveAtriumFromAtriumError>(); will be removed with 0.18.0")
     fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
 
     /**
@@ -365,7 +368,7 @@ interface CoreFactoryCommon {
      * @return The newly created adjuster.
      */
     @Deprecated(
-        "Use MultiAtriumErrorAdjuster instead; will be removed with 0.17.0",
+        "Use MultiAtriumErrorAdjuster instead; will be removed with 0.18.0",
         ReplaceWith(
             "MultiAtriumErrorAdjuster(firstAdjuster, secondAdjuster, otherAdjusters)",
             "ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster"

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build

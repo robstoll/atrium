@@ -8,14 +8,6 @@ package ch.tutteli.atrium.reporting.translating
  * @param representation A representation which is not intended to be translated.
  */
 class Untranslatable(representation: String) : Translatable {
-
-    @Suppress("DEPRECATION")
-    @Deprecated("Use the overload which expects String; will be removed with 0.17.0")
-    constructor(representation: CharSequence) : this({ representation.toString() })
-
-    @Deprecated("Use the overload which expects String; will be removed with 0.17.0")
-    constructor(representation: () -> String) : this(representation())
-
     override val name: String = representation
     override fun getDefault() = name
 

@@ -71,32 +71,6 @@ inline fun <T> AssertionContainer<T>.collectForComposition(
  *
  * @return The collected assertions.
  */
-@Deprecated(
-    "Use collectBasedOnDifferentSubject; will be removed with 0.17.0",
-    ReplaceWith("this.collectBasedOnDifferentSubject(maybeSubject, assertionCreator)")
-)
-inline fun <T> AssertionContainer<*>.collectForDifferentSubject(
-    maybeSubject: Option<T>,
-    noinline assertionCreator: Expect<T>.() -> Unit
-): Assertion = collectBasedOnSubject(maybeSubject, assertionCreator)
-
-/**
- * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
- * other action which results in an [Expect] being created for a different subject and
- * you do not require this resulting [Expect].
- *
- * Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
- * [Expect].
- *
- * Note that an assertion will be added which fails in case [assertionCreator] does not create a single assertion.
- *
- * @param maybeSubject Either [Some] wrapping the subject of the current assertion or
- *   [None] in case a previous subject transformation was not successful -
- *   this will be used as subject for the given [assertionCreator].
- * @param assertionCreator A lambda which defines the expectations for the given [maybeSubject].
- *
- * @return The collected assertions.
- */
 //TODO check if it makes more sense to stay on the logic level for assertionCreator
 //TODO 0.18.0 deprecate and move to ProofContainer
 inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
@@ -135,7 +109,7 @@ inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
  * which is returned when calling [TransformationExecutionStep.collectAndAppend] with [_logicAppend]
  * and the given [assertionCreator].
  *
- * See [collectForDifferentSubject] for more information.
+ * See [collectBasedOnSubject] for more information.
  *
  * @return an [Expect] for the subject of this expectation.
  */

@@ -15,10 +15,6 @@ object DefaultTextMethodCallFormatter : TextMethodCallFormatter {
     override fun formatCall(methodName: String, arguments: Array<out Any?>): String =
         arguments.joinToString(", ", prefix = "$methodName(", postfix = ")") { formatArgument(it) }
 
-    override fun format(methodName: String, arguments: Array<out Any?>): () -> String = {
-        formatCall(methodName, arguments)
-    }
-
     override fun formatArgument(argument: Any?): String = when (argument) {
         null -> Text.NULL.string
         is CharSequence -> "\"$argument\"".replace("\r", "\\r").replace("\n", "\\n")
