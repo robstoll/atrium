@@ -17,21 +17,21 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
     REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED("kann die Representation NICHT evaluieren, da sie auf dem Subjekt der Behauptung beruht, welches nicht definiert ist."),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED")
     )
     AT_LEAST_ONE_ASSERTION_DEFINED("at least one assertion defined"),
     //    AT_LEAST_ONE_ASSERTION_DEFINED("zumindest eine Behauptung definiert"),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.FORGOT_DO_DEFINE_ASSERTION")
     )
     FORGOT_DO_DEFINE_ASSERTION("You forgot to define assertions in the assertionCreator-lambda"),
     //    FORGOT_DO_DEFINE_ASSERTION("Sie vergassen eine Behauptung innerhalb der assertionCreator-Lambda zu definieren"),
 
     @Deprecated(
-        "Is no longer used, use ErrorMessages of atrium-core-api; will be removed latest with 1.0.0",
+        "Is no longer used, use ErrorMessages of atrium-core; will be removed latest with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.creating.ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED")
     )
     HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),

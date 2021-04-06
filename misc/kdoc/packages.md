@@ -12,39 +12,39 @@ Bundle modules:
   atrium-api-infix-en&#95;GB, atrium-translations-en&#95;GB and atrium-logic
   
 API modules:  
-- **atrium-api-fluent-en&#95;GB** provides an assertion function API in English where the main 
+- **atrium-api-fluent-en&#95;GB** provides an expectation function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
   It is a pure fluent API.
   extensions:
-  - **atrium-api-fluent-en&#95;GB-kotlin_1_3** provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
+  - **atrium-api-fluent-en&#95;GB-kotlin_1_3** provides additional expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
   
-- **atrium-api-infix-en&#95;GB** provides an assertion function API in English where the main 
+- **atrium-api-infix-en&#95;GB** provides an expectation function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
   It is an infix API.
   extensions:
-    - **atrium-api-infix-en&#95;GB-kotlin_1_3** provides additional assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`) 
+    - **atrium-api-infix-en&#95;GB-kotlin_1_3** provides additional expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`) 
   
 Logic modules:
-- **atrium-logic** provides the implementation of assertion functions as well as helper functions for 
-  assertion writers.
+- **atrium-logic** provides the implementation of expectation functions as well as helper functions for 
+  expectation function writers.
   extensions:
-     - **atrium-logic-kotlin_1_3** provides the implementation of assertion functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
+     - **atrium-logic-kotlin_1_3** provides the implementation of expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
   
 Core modules:
-- **atrium-core-api** defines core contracts of Atrium and contains default implementation. Will be renamed to **atrium-core** with 0.17.0
+- **atrium-core** defines core contracts of Atrium and contains default implementation.
 
 Translation modules:
 - **atrium-translations-de&#95;CH** provides translations in German for 
-  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
+  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in expectation functions. 
 - **atrium-translations-en&#95;GB** provides translations in English for 
-  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
+  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in expectation functions. 
 
 Misc modules:
 - **atrium-specs** contains [Spek](https://spekframework.org/) specifications for interfaces (defined in 
-  _atrium-core-api_) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
+  _atrium-core_) and expectation functions. The specifications can be reused by implementations of the core of Atrium 
   as well as by API implementations to assure they fulfill the specifications.  
-- **atrium-verbs** contains out of the box assertion verbs 
-- **atrium-verbs-internal** contains the assertion verbs Atrium uses internally - use with care, 
+- **atrium-verbs** contains out of the box expectation verbs 
+- **atrium-verbs-internal** contains the expectation verbs Atrium uses internally - use with care, 
   no backward compatibility guarantees.
 
 # ch.tutteli.atrium.api.fluent.en_GB
@@ -67,7 +67,7 @@ in conjunction with code completion.
 Contains parameter objects  .
 
 # ch.tutteli.atrium.api.infix.en_GB.creating.feature
-Contains parameter objects related to feature assertions.
+Contains parameter objects related to feature extraction.
 
 # ch.tutteli.atrium.api.infix.en_GB.creating.iterable
 Contains parameter objects related to Iterable.
@@ -177,7 +177,7 @@ Contains default implementations for the interfaces defined in [ch.tutteli.atriu
 Contains implementations of [CharSequenceContains.Searcher](./ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html)
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.steps
-Contains steps for sophisticated `CharSequence.contains` assertion builders.
+Contains steps for sophisticated `CharSequence.contains` expectation builders.
 
 # ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
 Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.charsequence.contains.steps].
@@ -200,7 +200,7 @@ Contains default implementations for the interfaces defined in [ch.tutteli.atriu
 
 
 # ch.tutteli.atrium.logic.creating.iterable.contains
-Contains the contract for sophisticated `IterableLike.contains` assertion builders: 
+Contains the contract for sophisticated `IterableLike.contains` expectation builders: 
 [IterableLikeContains](./ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/index.html)
 
 # ch.tutteli.atrium.logic.creating.iterable.contains.checkers
@@ -223,14 +223,14 @@ Contains interfaces implementing [IterableLikeContains.SearchBehaviour](./ch.tut
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours].
 
 # ch.tutteli.atrium.logic.creating.iterable.contains.steps
-Contains steps for sophisticated `IterableLike.contains` assertion builders.
+Contains steps for sophisticated `IterableLike.contains` expectation builders.
 
 # ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.steps].
 
 
 # ch.tutteli.atrium.logic.creating.maplike.contains
-Contains the contract for sophisticated `MapLike.contains` assertion builders:
+Contains the contract for sophisticated `MapLike.contains` expectation builders:
 [MapLikeContains](./ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/index.html)
 
 # ch.tutteli.atrium.logic.creating.maplike.contains.checkers
@@ -253,7 +253,7 @@ Contains interfaces implementing [MapLikeContains.SearchBehaviour](./ch.tutteli.
 Contains default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours].
 
 # ch.tutteli.atrium.logic.creating.maplike.contains.steps
-Contains steps for sophisticated `MaplikeLike.contains` assertion builders.
+Contains steps for sophisticated `MaplikeLike.contains` expectation builders.
 
 # ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl
 Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.maplike.contains.steps].

@@ -22,7 +22,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) contains entries(
                 { contains("mocha") },
-                { contains("atrium-core-api-js.js") }
+                { contains("atrium-core-js.js") }
             )
         }
     }
@@ -34,7 +34,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it containsNot o entry { it contains "mocha" }
-                it contains { it contains "atrium-core-api-js.js" }
+                it contains { it contains "atrium-core-js.js" }
             }
         }
     }
@@ -48,7 +48,7 @@ class AdjustStackTest {
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
             it containsNot o entry { it contains "mocha" }
-            it contains { it contains "atrium-core-api-js" }
+            it contains { it contains "atrium-core-js" }
         }
     }
 
@@ -59,7 +59,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it contains { it contains "mocha" }
-                it containsNot o entry { it contains "atrium-core-api-js.js" }
+                it containsNot o entry { it contains "atrium-core-js.js" }
             }
         }
     }
@@ -73,7 +73,7 @@ class AdjustStackTest {
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
             it contains { it contains "mocha" }
-            it containsNot o entry { it contains "atrium-core-api-js" }
+            it containsNot o entry { it contains "atrium-core-js" }
         }
     }
 

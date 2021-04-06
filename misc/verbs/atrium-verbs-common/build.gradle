@@ -2,7 +2,7 @@ description = 'Assertion verbs for Atrium as common module.'
 
 dependencies {
     api prefixedProject('logic-common')
-    api prefixedProject('core-api-common')
+    api prefixedProject('core-common')
 
     testImplementation prefixedProject('specs-common')
 }

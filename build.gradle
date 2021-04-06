@@ -365,7 +365,7 @@ def createJsTestTask(String... subprojectNames) {
 }
 
 createJsTestTask(
-    'core-api-js',
+    'core-js',
     'api-fluent-en_GB-js',
     'api-infix-en_GB-js',
     'fluent-en_GB-js',
@@ -386,7 +386,7 @@ def useJupiter(String... projectNames) {
 }
 
 useJupiter(
-    'core-api-jvm',
+    'core-jvm',
     'api-fluent-en_GB-jvm',
     'api-infix-en_GB-jvm',
 )
