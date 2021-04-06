@@ -179,7 +179,7 @@ This is due to the loosely coupled design of Atrium and dead code elimination pe
 Atrium itself is using mocha as well 
 (see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/master/build.gradle#L290))
 and has tests written in JS modules 
-(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-js/src/test/kotlin/ch/tutteli/atrium/reporting/erroradjusters/AdjustStackTest.kt))
+(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/master/core/atrium-core-js/src/test/kotlin/ch/tutteli/atrium/reporting/erroradjusters/AdjustStackTest.kt))
 as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/src/test/kotlin/SmokeTest.kt))
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
@@ -2445,7 +2445,7 @@ You prefer another reporting style but Atrium does not yet support it?
 Please let us know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 There are more options to choose from. Take a look at the 
-[DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/master/core/api/atrium-core-api-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L121)
+[DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/master/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L121)
 to see the default configuration.
 
 # Internationalization

@@ -2,7 +2,7 @@ description = 'Assertion verbs for Atrium for the JS platform.'
 
 dependencies {
     api prefixedProject('logic-js')
-    api prefixedProject('core-api-js')
+    api prefixedProject('core-js')
 
     testImplementation prefixedProject('specs-js')
 }

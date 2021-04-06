@@ -186,7 +186,7 @@ if (System.getenv("BC") != null) {
 }
 
 includeBundleAndApisWithExtensionsAndSmokeTest("fluent-en_GB", "infix-en_GB")
-includeKotlinJvmJs("core/api", "atrium-core-api")
+includeKotlinJvmJs("core", "atrium-core")
 
 includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
 
