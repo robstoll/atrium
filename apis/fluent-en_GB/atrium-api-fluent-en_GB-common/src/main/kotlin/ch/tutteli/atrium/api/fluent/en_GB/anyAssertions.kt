@@ -45,6 +45,7 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  */
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *
@@ -55,7 +56,7 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
  *
  * @since 0.15.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.because
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.because
  */
 fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logicAppend { because(reason, assertionCreator) }
@@ -167,6 +168,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Can be used to separate single assertions.
  *
@@ -176,10 +178,11 @@ inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.andFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.andFeature
  */
 inline val <T> Expect<T>.and: Expect<T> get() = this
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
  *
@@ -190,7 +193,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.and
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logic.appendAssertionsCreatedBy(assertionCreator)
