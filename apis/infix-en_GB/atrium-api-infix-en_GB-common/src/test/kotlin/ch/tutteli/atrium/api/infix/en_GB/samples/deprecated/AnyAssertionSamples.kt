@@ -4,19 +4,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples.deprecated
 
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.isNotSameAs
-import ch.tutteli.atrium.api.infix.en_GB.toBe
-import ch.tutteli.atrium.api.infix.en_GB.all
-import ch.tutteli.atrium.api.infix.en_GB.and
-import ch.tutteli.atrium.api.infix.en_GB.because
-import ch.tutteli.atrium.api.infix.en_GB.isA
-import ch.tutteli.atrium.api.infix.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual
-import ch.tutteli.atrium.api.infix.en_GB.isLessThan
-import ch.tutteli.atrium.api.infix.en_GB.isNotIn
-import ch.tutteli.atrium.api.infix.en_GB.notToBeNull
 import ch.tutteli.atrium.api.infix.en_GB.samples.fails
-import ch.tutteli.atrium.api.infix.en_GB.toBeNullIfNullGivenElse
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
@@ -103,12 +91,12 @@ class AnyAssertionSamples {
 
         expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
             it isLessThan 2
-        } // subject here is remains to type Int
+        } // subject here is back to type Int?
 
         fails {
             expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
                 it isLessThan 0
-            } // subject here is remains to type Int
+            } // subject here is back to type Int?
         }
     }
 
@@ -129,7 +117,7 @@ class AnyAssertionSamples {
         expect<Int?>(1) notToBeNull { // subject is now of type Int
             it isGreaterThan 0
             it isLessThan 10
-        } toBe 1 // subject here is remains to type Int
+        } toBe 1 // subject here remains type Int
 
         fails {
             // because you forgot to define an assertion in the assertion group block
@@ -141,20 +129,20 @@ class AnyAssertionSamples {
             // notToBeNull already fails, reporting mentions that subject was expected `to be: 2`
             expect<Int?>(null) notToBeNull { // subject inside this block is of type Int (actually 1)
                 it toBe 2
-            }  // subject here is remains to type Int
+            }  // subject here remains type Int
         }
 
         fails {
             expect<Int?>(1) notToBeNull { // subject inside this block is of type Int (actually 1)
                 it isLessThan 0
-            } // subject here is remains to type Int
+            } // subject here remains type Int
         }
     }
 
     @Test
     fun isAFeature() {
         val n: Number = 1
-        expect(n).isA<Int>() isGreaterThan  0
+        expect(n).isA<Int>() isGreaterThan 0
         //          | subject is now of type Int
 
         fails {
