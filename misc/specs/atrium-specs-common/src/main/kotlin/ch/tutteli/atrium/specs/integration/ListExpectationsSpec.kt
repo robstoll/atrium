@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
@@ -22,20 +22,20 @@ abstract class ListExpectationsSpec(
 
     include(object : SubjectLessSpec<List<Int>>(describePrefix,
         getFeature.forSubjectLess(1),
-        get.forSubjectLess(1) { toBe(1) }
+        get.forSubjectLess(1) { toEqual(1) }
     ) {})
     include(object : SubjectLessSpec<List<Int?>>("$describePrefix[nullable Element] ",
         getFeatureNullable.forSubjectLess(1),
-        getNullable.forSubjectLess(1) { toBe(null) }
+        getNullable.forSubjectLess(1) { toEqual(null) }
     ) {})
 
     include(object : AssertionCreatorSpec<List<Int>>(
         describePrefix, list,
-        get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+        get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<List<Int?>>(
         "$describePrefix[nullable Element] ", list,
-        getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toBe(2) }
+        getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -56,11 +56,11 @@ abstract class ListExpectationsSpec(
         context("list $list") {
             getFunctions.forEach { (name, getFun, hasExtraHint) ->
                 it("$name - can perform sub-assertion on existing index") {
-                    fluent.getFun(0) { toBe(1) }
+                    fluent.getFun(0) { toEqual(1) }
                 }
                 it("$name - non-existing index throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        fluent.getFun(4) { toBe(3) }
+                        fluent.getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageContains("get(4): $indexOutOfBounds")
                         if (hasExtraHint) messageContains("$toBeDescr: 3")
@@ -77,7 +77,7 @@ abstract class ListExpectationsSpec(
         context("list $listNullable") {
             getFunctions.forEach { (name, getFun, _) ->
                 it("$name - can perform sub-assertion on existing index with value null") {
-                    fluentNullable.getFun(1) { toBe(null) }
+                    fluentNullable.getFun(1) { toEqual(null) }
                 }
             }
         }

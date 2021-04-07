@@ -5,8 +5,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 /**
  * Marker interface for keywords.
  *
- * For instance, can be used to add a deprecated overload in case an assertion function accepts Any as argument type
- * (see toBe).
+ * For instance, can be used to add a deprecated overload in case an expectation function accepts Any as argument type
+ * (see toEqual).
  */
 interface Keyword
 

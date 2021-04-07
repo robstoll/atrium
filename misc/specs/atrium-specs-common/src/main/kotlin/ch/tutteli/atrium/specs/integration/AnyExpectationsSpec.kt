@@ -74,7 +74,7 @@ abstract class AnyExpectationsSpec(
         notToEqualOneOfInt.forSubjectLess(1, emptyArray()),
         notToEqualOneInInt.forSubjectLess(listOf(1)),
         andPair.forSubjectLess(),
-        andLazyPair.forSubjectLess { toBe(1) }
+        andLazyPair.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : SubjectLessSpec<Int?>(
@@ -87,27 +87,27 @@ abstract class AnyExpectationsSpec(
         notToBeNullableInt.forSubjectLess(listOf(1)),
         toBeNull.forSubjectLess(),
         toBeAIntFeature.forSubjectLess(),
-        toBeAInt.forSubjectLess { toBe(1) },
+        toBeAInt.forSubjectLess { toEqual(1) },
         notToBeNullFeature.forSubjectLess(),
-        notToBeNull.forSubjectLess { toBe(1) }
+        notToBeNull.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Int>(
         describePrefix, 1,
-        andLazyPair.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+        andLazyPair.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<Int?>(
         "$describePrefix[nullable Element] ", 1,
-        toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
+        toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) },
         assertionCreatorSpecTriple(
             toBeAInt.name,
             "$toBeDescr: 1",
-            { apply { toBeAInt.invoke(this) { toBe(1) } } },
+            { apply { toBeAInt.invoke(this) { toEqual(1) } } },
             { apply { toBeAInt.invoke(this) {} } }),
         assertionCreatorSpecTriple(
             notToBeNull.name,
             "$toBeDescr: 1",
-            { apply { notToBeNull.invoke(this) { toBe(1) } } },
+            { apply { notToBeNull.invoke(this) { toEqual(1) } } },
             { apply { notToBeNull.invoke(this) {} } })
 
     ) {})
@@ -392,8 +392,24 @@ abstract class AnyExpectationsSpec(
         }
     }
 
-    describeFun(toEqualInt, notToEqualInt, toBeTheInstanceInt, notToBeTheInstanceInt, notToEqualOneOfInt, notToEqualOneInInt) {
-        checkInt("primitive", expect(1), toEqualInt, notToEqualInt, toBeTheInstanceInt, notToBeTheInstanceInt, notToEqualOneOfInt, notToEqualOneInInt)
+    describeFun(
+        toEqualInt,
+        notToEqualInt,
+        toBeTheInstanceInt,
+        notToBeTheInstanceInt,
+        notToEqualOneOfInt,
+        notToEqualOneInInt
+    ) {
+        checkInt(
+            "primitive",
+            expect(1),
+            toEqualInt,
+            notToEqualInt,
+            toBeTheInstanceInt,
+            notToBeTheInstanceInt,
+            notToEqualOneOfInt,
+            notToEqualOneInInt
+        )
         checkInt(
             "nullable primitive",
             expect(1 as Int?),
@@ -533,7 +549,7 @@ abstract class AnyExpectationsSpec(
             }
             it("throws an AssertionError if not null is passed") {
                 expect {
-                    expect(subject).toBeNullIfNullElseFun { toBe(1) }
+                    expect(subject).toBeNullIfNullElseFun { toEqual(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": null", "${TO_BE.getDefault()}: 1")
                 }
@@ -570,7 +586,7 @@ abstract class AnyExpectationsSpec(
             notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(null as Int?).notToBeNullFun { toBe(1) }
+                        expect(null as Int?).notToBeNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
                         if (hasExtraHint) messageContains("$toBeDescr: 1")
@@ -634,7 +650,7 @@ abstract class AnyExpectationsSpec(
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     class A(val i: Int? = null)
                     expect {
-                        expect(A()).feature(A::i).notToBeNullFun { toBe(1) }
+                        expect(A()).feature(A::i).notToBeNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             A::class.simpleName!!,
@@ -647,7 +663,7 @@ abstract class AnyExpectationsSpec(
                 it("$name - throws an AssertionError which contains subsequent assertions") {
                     class A(val i: Int? = null)
                     expect {
-                        expect(A()).feature(A::i).notToBeNull { isLessThan(1) }
+                        expect(A()).feature(A::i).notToEqualNull { isLessThan(1) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             A::class.simpleName!!,
@@ -668,7 +684,7 @@ abstract class AnyExpectationsSpec(
             toBeAIntFunctions.forEach { (name, toBeAInt, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect("hello" as Any?).toBeAInt { toBe(1) }
+                        expect("hello" as Any?).toBeAInt { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
                         if (hasExtraHint) messageContains(TO_BE.getDefault() + ": 1")
@@ -705,14 +721,14 @@ abstract class AnyExpectationsSpec(
                 toBeASuperTypeFunctions.forEach { (name, toBeASuperType, _) ->
                     it("$name - does not throw if it holds") {
                         val subject = SubType()
-                        expect(subject as Any?).toBeASuperType { isSameAs(subject) }
+                        expect(subject as Any?).toBeASuperType { toBeTheInstance(subject) }
                     }
 
                     it("$name - throws if it does not hold") {
                         val subject = SubType()
                         val otherSubType = SubType()
                         expect {
-                            expect(subject as Any?).toBeASuperType { isSameAs(otherSubType) }
+                            expect(subject as Any?).toBeASuperType { toBeTheInstance(otherSubType) }
                         }.toThrow<AssertionError> {
                             messageContains(subject.toString(), IS_SAME.getDefault(), otherSubType.toString())
                         }
@@ -727,7 +743,7 @@ abstract class AnyExpectationsSpec(
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
 
                     expect {
-                        expect(SuperType() as Any?).toBeASubType { isSameAs(SubType()) }
+                        expect(SuperType() as Any?).toBeASubType { toBeTheInstance(SubType()) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             SuperType::class.fullName,
@@ -743,13 +759,13 @@ abstract class AnyExpectationsSpec(
     prefixedDescribe("property `${andPair.name}` immediate") {
         it("returns the same container") {
             val container = expect(1)
-            expect(container.(andPair.lambda)()).toBe(container)
+            expect(container.(andPair.lambda)()).toEqual(container)
         }
     }
     prefixedDescribe("`${andLazyPair.name}` group") {
         it("returns the same container") {
             val container = expect(1)
-            expect(container.(andLazyPair.lambda){ toBe(1) }).toBe(container)
+            expect(container.(andLazyPair.lambda){ toEqual(1) }).toEqual(container)
         }
     }
 
@@ -787,11 +803,11 @@ abstract class AnyExpectationsSpec(
                     .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
                         isGreaterThanOrEqual(12)
                         isLessThan(18)
-                        isNoneOf(21)
+                        notToEqualOneOf(21)
                     }
             }.toThrow<AssertionError> {
                 message {
-                    containsBecause( "we use the definition that teens are between 12 and 18 years old")
+                    containsBecause("we use the definition that teens are between 12 and 18 years old")
                 }
             }
         }

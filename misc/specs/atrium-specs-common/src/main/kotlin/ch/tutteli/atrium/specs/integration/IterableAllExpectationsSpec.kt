@@ -14,7 +14,7 @@ abstract class IterableAllExpectationsSpec(
 ) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        all.first to expectLambda { all.second(this) { toBe(2.5) } }
+        all.first to expectLambda { all.second(this) { toEqual(2.5) } }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
         "${allNullable.first} for nullable" to expectLambda { allNullable.second(this, null) }

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.*
 import ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider
@@ -45,7 +45,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     fun Suite.checkUsesDefaultOfTranslatable(testee: Translator) {
         it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
             val result = testee.translate(translatableHello)
-            expect(result).toBe(translatableHello.value)
+            expect(result).toEqual(translatableHello.value)
         }
     }
 
@@ -58,14 +58,14 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         describe("but for the wrong ${Translatable::class.simpleName}") {
             it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
                 val result = testee.translate(translatableTest)
-                expect(result).toBe(translatableTest.value)
+                expect(result).toEqual(translatableTest.value)
             }
         }
 
         describe("for the desired ${Translatable::class.simpleName}") {
             it("uses the translation of Locale $locale") {
                 val result = testee.translate(translatableHello)
-                expect(result).toBe(translation)
+                expect(result).toEqual(translation)
             }
         }
     }

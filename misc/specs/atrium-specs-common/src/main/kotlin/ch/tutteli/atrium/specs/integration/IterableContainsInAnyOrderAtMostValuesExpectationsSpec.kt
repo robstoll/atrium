@@ -40,12 +40,12 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
             it("for at most 0 -- points to $containsNot") {
                 expect {
                     expect(oneToSeven()).containsAtMostFun(0, 0.0)
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("for at most 1 -- points to $exactly") {
                 expect {
                     expect(oneToSeven()).containsAtMostFun(1, 0.0)
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
             }
         }
 

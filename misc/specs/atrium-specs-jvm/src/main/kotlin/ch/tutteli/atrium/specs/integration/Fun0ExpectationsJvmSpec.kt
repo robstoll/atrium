@@ -68,7 +68,7 @@ abstract class Fun0ExpectationsJvmSpec(
                     expect {
                         expect<() -> Any?> {
                             throw exceptionWithSuppressed
-                        }.toThrowFun { message.toBe("hello") }
+                        }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
                         if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
@@ -81,7 +81,7 @@ abstract class Fun0ExpectationsJvmSpec(
                     expect {
                         expect<() -> Int> {
                             throw exceptionWithSuppressed
-                        }.notToThrowFun { toBe(2) }
+                        }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
                         if (hasExtraHint) messageContains("$toBeDescr: 2")
@@ -112,7 +112,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         expect {
                             expect<() -> Any?> {
                                 throw exceptionWithSuppressedWhichHasCause
-                            }.toThrowFun { message.toBe("hello") }
+                            }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
                             if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
@@ -125,7 +125,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         expect {
                             expect<() -> Int> {
                                 throw exceptionWithSuppressedWhichHasCause
-                            }.notToThrowFun { toBe(2) }
+                            }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
                             if (hasExtraHint) messageContains("$toBeDescr: 2")

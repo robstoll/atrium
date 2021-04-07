@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.feature
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -44,7 +44,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         .withAssertions(listOf())
                         .build()
                 )
-            }.toBe(true)
+            }.toEqual(true)
         }
     }
 
@@ -69,10 +69,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
-                            + "$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
+                                + "$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -100,7 +100,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
                     val indent = if(withIndent) indentFeatureBulletPoint else ""
 
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$indentArrow$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
@@ -131,7 +131,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
@@ -158,7 +158,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                             sb,
                             alwaysTrueAssertionFilter
                         )
-                        expect(sb.toString()).toBe(
+                        expect(sb.toString()).toEqual(
                             lineSeparator
                                 + "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator"
                                 + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
@@ -195,7 +195,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 21$lineSeparator"
                             + "$indent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"

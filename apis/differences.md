@@ -36,19 +36,19 @@ If you forget to dit it, then the compiler will complain that you have the same 
 # Different API styles
 
 Atrium currently provides two API styles: fluent and infix. 
-We dit not show every single difference but merely where the APIs differ in naming.
-For instance, the expectation function `Expect<T>.toBe`:
+We will not show every single difference but merely where the APIs differ in naming.
+For instance, the expectation function `Expect<T>.toEqual`:
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).toBe(2)
+expect(x).toEqual(2)
 ``` 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) toBe 2
+expect(x) toEqual 2
 ``` 
 
-is toit similar, we will not list it here (ok, we did now but I guess you get the point).
+is so similar, we will not list it here (ok, we did now, but I guess you get the point).
 
 ## Table of Content
 - [Empty CharSequence / Collection](#empty-charsequence--collection)

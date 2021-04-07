@@ -166,18 +166,18 @@ abstract class CharSequenceContainsContainsNotExpectationsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${contains.name} 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAssertionsCreatedBy(fun Expect<Person>.() {
+                        expect(person)._logic.appendAssertionsCreatedBy {
                             feature(Person::name).containsFun("treboR", "llotS")
-                        })
+                        }
                     }.toThrow<AssertionError> {
                         message { this.contains.exactly(1).value(nameWithArrow) }
                     }
                 }
                 it("${containsNot.name} 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAssertionsCreatedBy(fun Expect<Person>.() {
+                        expect(person)._logic.appendAssertionsCreatedBy {
                             feature(Person::name).containsNotFun("Robert", "Stoll")
-                        })
+                        }
                     }.toThrow<AssertionError> {
                         message { this.contains.exactly(1).value(nameWithArrow) }
                     }

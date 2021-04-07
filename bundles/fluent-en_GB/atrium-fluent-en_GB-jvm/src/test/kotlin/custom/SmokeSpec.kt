@@ -1,7 +1,7 @@
 package custom
 
 import ch.tutteli.atrium.api.fluent.en_GB.existsNot
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.assert
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
@@ -18,7 +18,7 @@ import java.nio.file.Paths
 
 object SmokeSpec : Spek({
     test("see if `toBe` can be used") {
-        assertThat(1).toBe(1)
+        assertThat(1).toEqual(1)
     }
 
     test("see if `Path.existsNot` can be used") {

@@ -27,7 +27,7 @@ abstract class CollectionExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
         describePrefix, listOf(999),
-        size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+        size.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

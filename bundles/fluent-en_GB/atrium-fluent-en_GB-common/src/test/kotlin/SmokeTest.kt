@@ -1,7 +1,4 @@
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.AssertionVerb
 import ch.tutteli.atrium.api.verbs.assert
 import ch.tutteli.atrium.api.verbs.assertThat
@@ -21,7 +18,7 @@ import kotlin.test.Test
 class SmokeTest {
     @Test
     fun toBe_canBeUsed() {
-        assertThat(1).toBe(1)
+        assertThat(1).toEqual(1)
     }
 
     @Test
@@ -41,7 +38,7 @@ class SmokeTest {
         expect {
             assert(1) {
                 @Suppress("DEPRECATION")
-                assert(2).toBe(1)
+                (assert(2).toEqual(1))
             }
         }.toThrow<AssertionError> {
             messageContains(
@@ -57,7 +54,7 @@ class SmokeTest {
         expect {
             @Suppress("DEPRECATION")
             assertThat(1) {
-                assertThat(2).toBe(1)
+                assertThat(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
             messageContains(
@@ -73,7 +70,7 @@ class SmokeTest {
         expect {
             @Suppress("DEPRECATION")
             expect(1) {
-                expect(2).toBe(1)
+                expect(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
             messageContains(

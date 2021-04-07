@@ -87,9 +87,9 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
  * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `entries({ isGreaterThan(0) }, { toBe(1) })` but for
- * `entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
- * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
+ * `entries({ isGreaterThan(0) }, { toEqual(1) })` but for
+ * `entries({ toEqual(1) }, { isGreaterThan(0) })` otherwise
+ * `isGreaterThan(0)` matches `1` before `toEqual(1)` would match it. As a consequence `toEqual(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
  * Note that we might change the signature of this function with the next version

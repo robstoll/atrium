@@ -78,159 +78,159 @@ class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec : Spek({
         var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map = map.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        subMap = subMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        nValueMap = nValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
-        starMap = starMap.contains.inAnyOrder.only.entry(KeyValue(1) { toBe("a") })
+        map = map.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        subMap = subMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        nValueMap = nValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
+        starMap = starMap.contains.inAnyOrder.only.entry(KeyValue(1) { toEqual("a") })
 
-        map = map.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        subMap = subMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        nValueMap = nValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
-        starMap = starMap.contains.inAnyOrder.only.entries(KeyValue(1) { toBe("a") })
+        map = map.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        subMap = subMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        nValueMap = nValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
+        starMap = starMap.contains.inAnyOrder.only.entries(KeyValue(1) { toEqual("a") })
 
         map = map.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         subMap = subMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nValueMap = nValueMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         starMap = starMap.contains.inAnyOrder.only.entries(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
 
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(null) { toBe("a") })
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(null) { toEqual("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entry(KeyValue(null) { toEqual("a") })
         nValueMap = nValueMap.contains.inAnyOrder.only.entry(KeyValue(1.2, null))
-        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null) { toBe("a") })
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null) { toEqual("a") })
         nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null, null))
-        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null) { toBe("a") })
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null) { toEqual("a") })
         ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entry(KeyValue(null, null))
-        starMap = starMap.contains.inAnyOrder.only.entry(KeyValue(null) { toBe("a") })
+        starMap = starMap.contains.inAnyOrder.only.entry(KeyValue(null) { toEqual("a") })
         starMap = starMap.contains.inAnyOrder.only.entry(KeyValue(null, null))
 
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(null) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(null) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(null) { toBe("a") })
-        starMap = starMap.contains.inAnyOrder.only.entries(KeyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(null) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(null) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(KeyValue(null) { toEqual("a") })
+        starMap = starMap.contains.inAnyOrder.only.entries(KeyValue(null) { toEqual("a") })
 
-        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(null) { toBe("a") })
-        nValueMap = nValueMap.contains.inAnyOrder.only.entries(KeyValue(1, null), KeyValue(1) { toBe("a") })
+        nKeyMap = nKeyMap.contains.inAnyOrder.only.entries(KeyValue(null) { toEqual("a") })
+        nValueMap = nValueMap.contains.inAnyOrder.only.entries(KeyValue(1, null), KeyValue(1) { toEqual("a") })
         nKeyValueMap = nKeyValueMap.contains.inAnyOrder.only.entries(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )
         ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.only.entries(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )
         starMap = starMap.contains.inAnyOrder.only.entries(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )
 
         /// ------------- shortcuts -----------------------------------------------------------------
 
-        map = map.containsOnly(KeyValue(1) { toBe("a") })
-        subMap = subMap.containsOnly(KeyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap.containsOnly(KeyValue(1) { toBe("a") })
-        nValueMap = nValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        starMap = starMap.containsOnly(KeyValue(1) { toBe("a") })
+        map = map.containsOnly(KeyValue(1) { toEqual("a") })
+        subMap = subMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nKeyMap = nKeyMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nValueMap = nValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        starMap = starMap.containsOnly(KeyValue(1) { toEqual("a") })
 
-        map = map.containsOnly(KeyValue(1) { toBe("a") })
-        subMap = subMap.containsOnly(KeyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap.containsOnly(KeyValue(1) { toBe("a") })
-        nValueMap = nValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(1) { toBe("a") })
-        starMap = starMap.containsOnly(KeyValue(1) { toBe("a") })
+        map = map.containsOnly(KeyValue(1) { toEqual("a") })
+        subMap = subMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nKeyMap = nKeyMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nValueMap = nValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(1) { toEqual("a") })
+        starMap = starMap.containsOnly(KeyValue(1) { toEqual("a") })
 
         map = map.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         subMap = subMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nKeyMap = nKeyMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nValueMap = nValueMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         nKeyValueMap = nKeyValueMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         ronKeyValueMap = ronKeyValueMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
         starMap = starMap.containsOnly(
-            KeyValue(1 as Number) { toBe("a") },
-            KeyValue(1.2) { toBe("b") }
+            KeyValue(1 as Number) { toEqual("a") },
+            KeyValue(1.2) { toEqual("b") }
         )
 
-        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toEqual("a") })
         nValueMap = nValueMap.containsOnly(KeyValue(1.2, null))
-        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(null) { toBe("a") })
+        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(null) { toEqual("a") })
         nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(null, null))
-        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(null) { toBe("a") })
+        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(null) { toEqual("a") })
         ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(null, null))
-        starMap = starMap.containsOnly(KeyValue(null) { toBe("a") })
+        starMap = starMap.containsOnly(KeyValue(null) { toEqual("a") })
         starMap = starMap.containsOnly(KeyValue(null, null))
 
-        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toBe("a") })
-        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(null) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(null) { toBe("a") })
-        starMap = starMap.containsOnly(KeyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toEqual("a") })
+        nKeyValueMap = nKeyValueMap.containsOnly(KeyValue(null) { toEqual("a") })
+        ronKeyValueMap = ronKeyValueMap.containsOnly(KeyValue(null) { toEqual("a") })
+        starMap = starMap.containsOnly(KeyValue(null) { toEqual("a") })
 
-        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toBe("a") })
-        nValueMap = nValueMap.containsOnly(KeyValue(1, null), KeyValue(1) { toBe("a") })
+        nKeyMap = nKeyMap.containsOnly(KeyValue(null) { toEqual("a") })
+        nValueMap = nValueMap.containsOnly(KeyValue(1, null), KeyValue(1) { toEqual("a") })
         nKeyValueMap = nKeyValueMap.containsOnly(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )
         ronKeyValueMap = ronKeyValueMap.containsOnly(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )
         starMap = starMap.containsOnly(
-            KeyValue(null) { toBe("a") },
+            KeyValue(null) { toEqual("a") },
             KeyValue(null, null),
             KeyValue(1, null)
         )

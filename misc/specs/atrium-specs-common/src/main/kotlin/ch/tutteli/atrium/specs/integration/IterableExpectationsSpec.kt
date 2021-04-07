@@ -27,13 +27,13 @@ abstract class IterableExpectationsSpec(
         minFeature.forSubjectLess(),
         min.forSubjectLess { isGreaterThan(-100) },
         maxFeature.forSubjectLess(),
-        max.forSubjectLess { toBe(1) }
+        max.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20, 20, 0),
-        min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) },
-        max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
+        min.forAssertionCreatorSpec("$toBeDescr: -20") { toEqual(-20) },
+        max.forAssertionCreatorSpec("$toBeDescr: 20") { toEqual(20) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -92,11 +92,11 @@ abstract class IterableExpectationsSpec(
             }
             maxFunctions.forEach { (name, maxFun, _) ->
                 it("$name - toBe(4) holds") {
-                    fluent.maxFun { toBe(4) }
+                    fluent.maxFun { toEqual(4) }
                 }
                 it("$name - toBe(3) fails") {
                     expect {
-                        fluent.maxFun { toBe(3) }
+                        fluent.maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageContains("max(): 4")
                     }
@@ -111,7 +111,7 @@ abstract class IterableExpectationsSpec(
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - fails warning about empty iterable") {
                     expect {
-                        emptyIterable.minFun { toBe(1) }
+                        emptyIterable.minFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(noElementsDescr)
                     }
@@ -120,7 +120,7 @@ abstract class IterableExpectationsSpec(
             maxFunctions.forEach { (name, maxFun, _) ->
                 it("$name - fails warning about empty iterable") {
                     expect {
-                        emptyIterable.maxFun { toBe(1) }
+                        emptyIterable.maxFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(noElementsDescr)
                     }

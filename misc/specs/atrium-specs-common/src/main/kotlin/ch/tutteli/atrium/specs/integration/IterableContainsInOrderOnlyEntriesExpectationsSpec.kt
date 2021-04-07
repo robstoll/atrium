@@ -14,7 +14,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsInOrderOnlyEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
+        containsInOrderOnlyEntries.forSubjectLess({ toEqual(2.5) }, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ",
@@ -25,14 +25,14 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
         describePrefix, listOf(1.2, 2.0),
         *containsInOrderOnlyEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
+            { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0) as Iterable<Double?>,
         *containsInOrderOnlyNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
+            { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
 
@@ -107,11 +107,11 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
             context("happy case") {
                 it("1.0, 2.0, 3.0, 4.0, 4.0") {
                     expect(oneToFour()).containsEntriesFun(
-                        { toBe(1.0) },
-                        { toBe(2.0) },
-                        { toBe(3.0) },
-                        { toBe(4.0) },
-                        { toBe(4.0) })
+                        { toEqual(1.0) },
+                        { toEqual(2.0) },
+                        { toEqual(3.0) },
+                        { toEqual(4.0) },
+                        { toEqual(4.0) })
                 }
                 it("$isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0)") {
                     expect(oneToFour()).containsEntriesFun(
@@ -129,10 +129,10 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                     expect {
                         expect(oneToFour()).containsEntriesFun(
                             { isLessThan(5.0) },
-                            { toBe(1.0) },
-                            { toBe(2.0) },
+                            { toEqual(1.0) },
+                            { toEqual(2.0) },
                             { isGreaterThan(2.0) },
-                            { toBe(4.0) })
+                            { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -149,10 +149,10 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                     expect {
                         expect(oneToFour()).containsEntriesFun(
-                            { toBe(1.0) },
-                            { toBe(2.0) },
-                            { toBe(3.0) },
-                            { toBe(4.0) })
+                            { toEqual(1.0) },
+                            { toEqual(2.0) },
+                            { toEqual(3.0) },
+                            { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -171,7 +171,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
 
                 it("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
                     expect {
-                        expect(oneToFour()).containsEntriesFun({ toBe(1.0) }, { toBe(4.0) })
+                        expect(oneToFour()).containsEntriesFun({ toEqual(1.0) }, { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -189,7 +189,8 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 }
                 it("1.0, 3.0, $isGreaterThanFun(4.0) -- $isGreaterThanFun(4.0) is wrong and 4.0 and 4.0 are missing") {
                     expect {
-                        expect(oneToFour()).containsEntriesFun({ toBe(1.0) }, { toBe(3.0) }, { isGreaterThan(4.0) })
+                        expect(oneToFour()).containsEntriesFun({ toEqual(1.0) },
+                            { toEqual(3.0) }, { isGreaterThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -208,12 +209,12 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 too much") {
                     expect {
                         expect(oneToFour()).containsEntriesFun(
-                            { toBe(1.0) },
-                            { toBe(2.0) },
-                            { toBe(3.0) },
-                            { toBe(4.0) },
-                            { toBe(4.0) },
-                            { toBe(5.0) })
+                            { toEqual(1.0) },
+                            { toEqual(2.0) },
+                            { toEqual(3.0) },
+                            { toEqual(4.0) },
+                            { toEqual(4.0) },
+                            { toEqual(5.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -243,9 +244,9 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                     it("null, 1.0, null, 3.0") {
                         expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                             null,
-                            { toBe(1.0) },
+                            { toEqual(1.0) },
                             null,
-                            { toBe(3.0) })
+                            { toEqual(3.0) })
                     }
                     it("null, $isLessThanFun(5.0), null, $isLessThanFun(5.0)") {
                         expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
@@ -283,9 +284,9 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                         expect {
                             expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                                 null,
-                                { toBe(1.0) },
+                                { toEqual(1.0) },
                                 null,
-                                { toBe(3.0) },
+                                { toEqual(3.0) },
                                 null
                             )
                         }.toThrow<AssertionError> {

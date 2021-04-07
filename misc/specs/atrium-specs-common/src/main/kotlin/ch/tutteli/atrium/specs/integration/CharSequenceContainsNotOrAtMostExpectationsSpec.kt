@@ -50,7 +50,7 @@ abstract class CharSequenceContainsNotOrAtMostExpectationsSpec(
             it("for not at all or at most 0 -- points to $containsNot") {
                 expect {
                     fluent.containsNotOrAtMostFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("if an object is passed as first expected") {
                 expect {

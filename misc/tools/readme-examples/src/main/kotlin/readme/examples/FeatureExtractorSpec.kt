@@ -40,7 +40,7 @@ class FeatureExtractorSpec : Spek({
 
     test("ex-its-single") {
         expect(myPerson)
-            .its({ isStudent }) { toBe(true) } // fails, subject still Person afterwards
+            .its({ isStudent }) { toEqual(true) } // fails, subject still Person afterwards
             .its { fullName() }                // not evaluated anymore, subject String afterwards
             .startsWith("rob")                 // not evaluated anymore
     }
@@ -55,14 +55,14 @@ class FeatureExtractorSpec : Spek({
             }                      // fails as a whole
 
             // still evaluated, as it is in outer assertion group block
-            its { lastName }.toBe("Dummy")
+            its { lastName }.toEqual("Dummy")
         }
     }
     //@formatter:on
 
     test("ex-property-methods-single") {
         expect(myPerson)
-            .feature({ f(it::isStudent) }) { toBe(true) } // fails, subject still Person afterwards
+            .feature({ f(it::isStudent) }) { toEqual(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
             .startsWith("rob")                            // not evaluated anymore
     }
@@ -77,7 +77,7 @@ class FeatureExtractorSpec : Spek({
             }                               // fails as a whole
 
             // still evaluated, as it is in outer assertion group block
-            feature { f(it::lastName) }.toBe("Dummy")
+            feature { f(it::lastName) }.toEqual("Dummy")
         }
     }
     //@formatter:on
@@ -85,7 +85,7 @@ class FeatureExtractorSpec : Spek({
     test("ex-methods-args") {
         expect(myPerson)
             .feature { f(it::nickname, false) } // subject narrowed to String
-            .toBe("Robert aka. Stoll")          // fails
+            .toEqual("Robert aka. Stoll")          // fails
             .startsWith("llotS")                // not evaluated anymore
     }
 
@@ -102,17 +102,17 @@ class FeatureExtractorSpec : Spek({
     test("ex-arbitrary-features") {
         //snippet-Family-insert
         expect(myFamily)
-            .feature("number of members", { members.size }) { toBe(1) } // subject still Family afterwards
+            .feature("number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
             .feature("first member's name") { members.first().name }    // subject narrowed to String
-            .toBe("Peter")
+            .toEqual("Peter")
     }
 
     //snippet-within-funs-start
     fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBeDoneWrong(expected: F) =
-        feature({ f(it::first) }) { toBe(expected) }
+        feature({ f(it::first) }) { toEqual(expected) }
 
     fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBe(expected: F) =
-        feature(Pair<F, *>::first) { toBe(expected) }
+        feature(Pair<F, *>::first) { toEqual(expected) }
     //snippet-within-funs-end
 
     test("ex-within-assertion-functions") {
@@ -143,7 +143,7 @@ class FeatureExtractorSpec : Spek({
             feature { p<Int>(it::propAndFun) }
             feature { f0<Int>(it::propAndFun) }
             feature { f0<Int>(it::overloaded) }
-            feature { f1<Boolean, Int>(it::overloaded, true) }.toBe(1)
+            feature { f1<Boolean, Int>(it::overloaded, true) }.toEqual(1)
         }
     }
 })

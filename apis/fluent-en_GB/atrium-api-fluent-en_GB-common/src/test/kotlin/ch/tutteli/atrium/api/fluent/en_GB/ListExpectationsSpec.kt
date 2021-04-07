@@ -26,13 +26,13 @@ object ListExpectationsSpec : Spek({
        describe("Narrow Iterable down to List") {
            it("Containing the same List after narrowing down the type") {
                val list = listOf(1, 2, 3)
-               expect(list as Iterable<Int>).asList().toBe(list)
+               expect(list as Iterable<Int>).asList().toEqual(list)
            }
 
            it("Containing the same List after narrowing down the type using the assertionCreator") {
                val list = listOf(1, 2, 3)
                expect(list as Iterable<Int>).asList {
-                  toBe(list)
+                   toEqual(list)
                }
            }
        }
@@ -42,13 +42,13 @@ object ListExpectationsSpec : Spek({
         describe("Terminate Sequence by transforming it to a List") {
             it("Containing the same sequence of values after transforming the Sequence to a List ") {
                 val sequence = sequenceOf(1, 2, 3)
-                expect(sequence).asList().toBe(listOf(1, 2, 3))
+                expect(sequence).asList().toEqual(listOf(1, 2, 3))
             }
 
             it("Containing the same sequence of values after transforming the Sequence to a List using the assertionCreator") {
                 val sequence = sequenceOf(1, 2, 3)
                 expect(sequence).asList {
-                    toBe(listOf(1, 2, 3))
+                    toEqual(listOf(1, 2, 3))
                 }
             }
         }

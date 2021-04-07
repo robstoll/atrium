@@ -14,7 +14,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsInAnyOrderEntries.forSubjectLess({ toBe(2.5) }, arrayOf())
+        containsInAnyOrderEntries.forSubjectLess({ toEqual(2.5) }, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
@@ -25,14 +25,14 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
         describePrefix, listOf(1.2, 2.0),
         *containsInAnyOrderEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
+            { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
         *containsInAnyOrderNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
-            { toBe(1.2) }, arrayOf(expectLambda { toBe(2.0) })
+            { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
 
@@ -131,17 +131,17 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
             context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
-                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(1.0) })
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toEqual(1.0) })
                     }
                     it("null") {
                         expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(null)
                     }
                     it("$toBeFun(1.0) and null") {
-                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(1.0) }, null)
+                        expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toEqual(1.0) }, null)
                     }
                     it("$toBeFun(4.0), null and $toBeFun(1.0)") {
                         expect(oneToSevenNullable())
-                            .containsInAnyOrderNullableEntriesFun({ toBe(4.0) }, null, { toBe(1.0) })
+                            .containsInAnyOrderNullableEntriesFun({ toEqual(4.0) }, null, { toEqual(1.0) })
                     }
                     it("null, null, null") {
                         // finds twice the same entry with null but that is fine
@@ -153,7 +153,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                 context("failing cases") {
                     it("$toBeFun(2.0)") {
                         expect {
-                            expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toBe(2.0) })
+                            expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun({ toEqual(2.0) })
                         }.toThrow<AssertionError> {
                             messageContains(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",

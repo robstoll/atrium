@@ -15,7 +15,7 @@ import java.util.*
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is empty (not present).
  *
- * Shortcut for more or less something like `feature(Optional<T>::isEmpty) { toBe(true) }`
+ * Shortcut for more or less something like `feature(Optional<T>::isEmpty) { toEqual(true) }`
  * depends on the underlying implementation though.
  *
  * @return an [Expect] for the subject of `this` expectation.

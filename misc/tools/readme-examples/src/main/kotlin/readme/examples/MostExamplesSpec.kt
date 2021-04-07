@@ -2,6 +2,7 @@ package readme.examples
 
 import readme.examples.utils.expect
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
 
@@ -64,34 +65,34 @@ class MostExamplesSpec : Spek({
 
     test("ex-type-assertions-1") {
         //snippet-type-assertions-insert
-        expect(x).isA<SubType1>()
+        expect(x).toBeA<SubType1>()
             .feature { f(it::number) }
-            .toBe(2)
+            .toEqual(2)
     }
     test("ex-type-assertions-2") {
-        expect(x).isA<SubType2> {
-            feature { f(it::word) }.toBe("goodbye")
-            feature { f(it::flag) }.toBe(false)
+        expect(x).toBeA<SubType2> {
+            feature { f(it::word) }.toEqual("goodbye")
+            feature { f(it::flag) }.toEqual(false)
         }
     }
 
 
     test("ex-nullable-1") {
         val slogan1: String? = "postulating assertions made easy"
-        expect(slogan1).toBe(null)
+        expect(slogan1).toEqual(null)
     }
     test("ex-nullable-2") {
         val slogan2: String? = null
-        expect(slogan2).toBe("postulating assertions made easy")
+        expect(slogan2).toEqual("postulating assertions made easy")
     }
     val slogan2: String? = null
     test("ex-nullable-3") {
         expect(slogan2)     // subject has type String?
-            .notToBeNull()  // subject narrowed to String
+            .notToEqualNull()  // subject narrowed to String
             .startsWith("atrium")
     }
     test("ex-nullable-4") {
-        expect(slogan2).notToBeNull { startsWith("atrium") }
+        expect(slogan2).notToEqualNull { startsWith("atrium") }
     }
 
     test("ex-collection-short-1") {
@@ -136,7 +137,7 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-2") {
         expect(mapOf("a" to 1, "b" to 2)).contains(
-            KeyValue("c") { toBe(2) },
+            KeyValue("c") { toEqual(2) },
             KeyValue("a") { isGreaterThan(2) },
             KeyValue("b") { isLessThan(2) }
         )
@@ -147,7 +148,7 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-only-2") {
         expect(mapOf("a" to 1, "b" to 2)).containsOnly(
-            KeyValue("c") { toBe(2) },
+            KeyValue("c") { toEqual(2) },
             KeyValue("a") { isLessThan(2) },
             KeyValue("b") { isLessThan(2) }
         )
@@ -171,11 +172,11 @@ class MostExamplesSpec : Spek({
         val bernstein = Person("Leonard", "Bernstein", 50)
         expect(mapOf("bernstein" to bernstein))
             .getExisting("bernstein") {
-                feature { f(it::firstName) }.toBe("Leonard")
-                feature { f(it::age) }.toBe(60)
+                feature { f(it::firstName) }.toEqual("Leonard")
+                feature { f(it::age) }.toEqual(60)
             }
             .getExisting("einstein") {
-                feature { f(it::firstName) }.toBe("Albert")
+                feature { f(it::firstName) }.toEqual("Albert")
             }
     }
     test("ex-map-4") {

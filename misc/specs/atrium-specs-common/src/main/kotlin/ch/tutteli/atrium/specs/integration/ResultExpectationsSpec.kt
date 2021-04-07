@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
@@ -26,23 +26,23 @@ abstract class ResultExpectationsSpec(
     include(object : SubjectLessSpec<Result<Int>>(
         describePrefix,
         isSuccessFeature.forSubjectLess(),
-        isSuccess.forSubjectLess { toBe(1) },
+        isSuccess.forSubjectLess { toEqual(1) },
         isFailureFeature.forSubjectLess(),
         isFailure.forSubjectLess { messageContains("message") }
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         "$describePrefix[nullable] ",
         isSuccessFeatureNullable.forSubjectLess(),
-        isSuccessNullable.forSubjectLess { toBe(1) }
+        isSuccessNullable.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, Result.success(2),
-        isSuccess.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
+        isSuccess.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<Result<Int?>>(
         "$describePrefix[nullable] ", Result.success(2),
-        isSuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
+        isSuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
@@ -77,11 +77,11 @@ abstract class ResultExpectationsSpec(
         context("subject is $resultSuccess") {
             successFunctions.forEach { (name, isSuccessFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultSuccess).isSuccessFun { toBe(1) }
+                    expect(resultSuccess).isSuccessFun { toEqual(1) }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultSuccess).isSuccessFun { toBe(2) }
+                        expect(resultSuccess).isSuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         messageContains("value: 1", "$toBeDescr: 2")
                     }
@@ -112,7 +112,7 @@ abstract class ResultExpectationsSpec(
             successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
                 it("$name throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(resultFailure).isSuccessFun { toBe(1) }
+                        expect(resultFailure).isSuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains("value: $isNotSuccessDescr")
                         if (hasExtraHint) messageContains("$toBeDescr: 1")
@@ -144,11 +144,11 @@ abstract class ResultExpectationsSpec(
         successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
             context("subject is $resultNullSuccess") {
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultNullSuccess).isSuccessFun { toBe(null) }
+                    expect(resultNullSuccess).isSuccessFun { toEqual(null) }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultNullSuccess).isSuccessFun { toBe(2) }
+                        expect(resultNullSuccess).isSuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         messageContains("value: null", "$toBeDescr: 2")
                     }
@@ -158,7 +158,7 @@ abstract class ResultExpectationsSpec(
             context("subject is $resultNullableFailure") {
                 it("${isSuccessFeature.name} throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(resultNullableFailure).isSuccessFun { toBe(1) }
+                        expect(resultNullableFailure).isSuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains("value: $isNotSuccessDescr")
                         if (hasExtraHint) messageContains("$toBeDescr: 1")

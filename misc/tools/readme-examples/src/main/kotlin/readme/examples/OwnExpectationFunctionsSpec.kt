@@ -100,7 +100,7 @@ object OwnExpectationFunctionsSpec : Spek({
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
             .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
                 none { feature { f(it::firstName) }.startsWith("Ro") }
-                all { feature { f(it::lastName) }.toBe("Whitley") }
+                all { feature { f(it::lastName) }.toEqual("Whitley") }
             } // subject is still Person here
             .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast

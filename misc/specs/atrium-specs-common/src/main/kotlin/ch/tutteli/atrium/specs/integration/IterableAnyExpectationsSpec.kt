@@ -15,7 +15,7 @@ abstract class IterableAnyExpectationsSpec(
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        any.forSubjectLess { toBe(2.5) }
+        any.forSubjectLess { toEqual(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
@@ -88,7 +88,7 @@ abstract class IterableAnyExpectationsSpec(
             context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
                     it("$toBeFun(1.0)") {
-                        expect(oneToSevenNullable()).anyNullableFun { toBe(1.0) }
+                        expect(oneToSevenNullable()).anyNullableFun { toEqual(1.0) }
                     }
                     it("null") {
                         expect(oneToSevenNullable()).anyNullableFun(null)
@@ -98,7 +98,7 @@ abstract class IterableAnyExpectationsSpec(
                 context("failing cases") {
                     it("$toBeFun(2.0)") {
                         expect {
-                            expect(oneToSevenNullable()).anyNullableFun { toBe(2.0) }
+                            expect(oneToSevenNullable()).anyNullableFun { toEqual(2.0) }
                         }.toThrow<AssertionError> {
                             message {
                                 contains.exactly(1).values(
