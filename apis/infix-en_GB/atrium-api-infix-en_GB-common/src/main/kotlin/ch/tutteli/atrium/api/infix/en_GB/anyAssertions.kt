@@ -23,6 +23,8 @@ infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expec
  * Expects that the subject of `this` expectation is not (equal to) [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBe
  */
 infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
@@ -30,6 +32,8 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe
  * Expects that the subject of `this` expectation is the same instance as [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isSameAs
  */
 infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
@@ -37,6 +41,8 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  * Expects that the subject of `this` expectation is not the same instance as [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotSameAs
  */
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
@@ -65,6 +71,8 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
 infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
@@ -78,6 +86,8 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNullFeature
+ *
  * @since 0.12.0
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
@@ -89,6 +99,8 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before)
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNull
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
@@ -115,6 +127,8 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
@@ -163,6 +177,8 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
@@ -178,6 +194,8 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.andFeature
+ *
  * @since 0.12.0
  */
 @Suppress("NOTHING_TO_INLINE")
@@ -192,6 +210,8 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logic.appendAssertionsCreatedBy(assertionCreator)
@@ -250,6 +270,8 @@ inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNoneOf
+ *
  * @since 0.13.0
  */
 infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
@@ -263,6 +285,8 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case the iterable is empty.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotIn
  *
  * @since 0.13.0
  */
