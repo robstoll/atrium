@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
-import ch.tutteli.atrium.reporting.Reporter
 import kotlin.reflect.KClass
 
 /**
@@ -15,57 +13,45 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBe
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.toEqual
  */
-infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
+infix fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBe
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToEqual
  */
-infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
+infix fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is the same instance as [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isSameAs
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.toBeTheInstance
  */
-infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
+infix fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of `this` expectation is not the same instance as [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotSameAs
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToBeTheInstance
  */
-infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+infix fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Allows to state a reason for one or multiple assertions for the current subject.
- *
- * @param keyWithCreator Combines the reason with the assertionCreator-lambda. Use the function
- *   `of(reason) { ... }` to create a [KeyWithCreator].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.15.0
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
- */
-infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
-    _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
-
-/**
- * Helper function to create a [KeyWithCreator] based on the given [reason] and [assertionCreator].
- */
-fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreator<String, T> =
-    KeyWithCreator(reason, assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation is either `null` in case [assertionCreatorOrNull]
@@ -73,9 +59,11 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBeNullIfNullGivenElse
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.toEqualNullIfNullGivenElse
  */
-infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
+infix fun <T : Any> Expect<T?>.toEqualNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
@@ -87,29 +75,30 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNullFeature
+ * @since 0.17.0
  *
- * @since 0.12.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToEqualNullFeature
  */
-@Suppress(/* less magic */ "RemoveExplicitTypeArguments")
-inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
-    notToBeNullButOfType(T::class).transform()
+inline infix fun <reified T : Any> Expect<T?>.notToEqualNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
+    notToEqualNullButToBeA(T::class).transform()
 
 /**
  * Expects that the subject of `this` expectation is not null and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return An [Expect] with the non-nullable type [T] (was `T?` before)
+ * @return An [Expect] with the non-nullable type [T] (was `T?` before).
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNull
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToEqualNull
  */
-@Suppress(/* less magic */ "RemoveExplicitTypeArguments")
-inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
+inline infix fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    notToEqualNullButToBeA(T::class).transformAndAppend(assertionCreator)
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
+internal fun <T : Any> Expect<T?>.notToEqualNullButToBeA(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
     _logic.notToBeNullButOfType(kClass)
+
 
 /**
  * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type)
@@ -129,14 +118,16 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.toBeAFeature
  */
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
-inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
-    isA(TSub::class).transform()
+inline fun <reified TSub : Any> Expect<*>.toBeA(): Expect<TSub> =
+    toBeA(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
+internal fun <TSub : Any> Expect<*>.toBeA(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
     _logic.isA(kClass)
 
 /**
@@ -179,93 +170,12 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isA
+ * @since 0.17.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.toBeA
  */
-inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    isA(TSub::class).transformAndAppend(assertionCreator)
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to separate single assertions.
- *
- * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
- * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
- * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
- *
- * @param o The filler object [o].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.andFeature
- *
- * @since 0.12.0
- */
-@Suppress("NOTHING_TO_INLINE")
-inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = this
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to create a group of sub assertions when using the fluent API.
- *
- * For instance `assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
- * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
- * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.and
- */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAssertionsCreatedBy(assertionCreator)
-
-//TODO 0.17.0 deprecate?
-/**
- * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
- *
- * For instance, instead of:
- * ```
- * expect("hello world") {
- *   this startsWith "hello"
- *   this ends with "world"
- * }
- * ```
- * You can write
- * ```
- * expect("hello world") {
- *   it startsWith "hello"
- *   it ends with "world"
- * }
- * ```
- *
- * @return `this`
- *
- * @since 0.12.0
- */
-inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
- *
- * For instance, instead of:
- * ```
- * expect(person) {
- *   this name toBe 1
- * }
- * ```
- * You can write
- * ```
- * expect("hello world") {
- *   its name toBe 1
- * }
- * ```
- *
- * @return `this`
- *
- * @since 0.12.0
- */
-inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
+inline infix fun <reified TSub : Any> Expect<*>.toBeA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
+    toBeA(TSub::class).transformAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) in [values].
@@ -275,11 +185,11 @@ inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNoneOf
+ * @since 0.17.0
  *
- * @since 0.13.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToEqualOneOf
  */
-infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
+infix fun <T> Expect<T>.notToEqualOneOf(values: Values<T>): Expect<T> =
     _logicAppend { isNotIn(values.toList()) }
 
 /**
@@ -291,9 +201,9 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotIn
+ * @since 0.17.0
  *
- * @since 0.13.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToEqualOneIn
  */
-infix fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
+infix fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

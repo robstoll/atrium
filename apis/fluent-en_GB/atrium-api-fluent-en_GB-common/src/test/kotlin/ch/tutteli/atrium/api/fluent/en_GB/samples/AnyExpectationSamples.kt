@@ -42,8 +42,7 @@ class AnyExpectationSamples {
         val list = listOf(3)
         expect(list).toBeTheInstance(list)
 
-        fails {
-            // fails because toBeTheInstance is based on identity, use toEqual for equality
+        fails { // because toBeTheInstance is based on identity, use toEqual for equality
             expect(listOf(3)).toBeTheInstance(listOf(3))
         }
     }
@@ -53,7 +52,7 @@ class AnyExpectationSamples {
         // holds because notToBeTheInstance is based on identity, use noToEqual for equality
         expect(listOf(2)).notToBeTheInstance(listOf(2))
 
-        fails {
+        fails { // because notToBeTheInstance is based on identity, use notToEqual for equality
             val list = listOf(3)
             expect(list).notToBeTheInstance(list)
         }
@@ -63,12 +62,11 @@ class AnyExpectationSamples {
     fun toEqualNullIfNullGivenElse() {
         expect<Int?>(null).toEqualNullIfNullGivenElse(null)
 
-        expect<Int?>(1).toEqualNullIfNullGivenElse {
+        expect<Int?>(1).toEqualNullIfNullGivenElse { // subject inside this block is of type Int
             isLessThan(2)
-        }
+        }  // subject here is back to type Int?
 
-        fails {
-            // sub-expectation fails
+        fails { // because sub-expectation fails
             expect<Int?>(1).toEqualNullIfNullGivenElse {
                 isLessThan(0)
             }
@@ -84,33 +82,33 @@ class AnyExpectationSamples {
         fails {
             expect<Int?>(null)
                 .notToEqualNull() // fails
-                .isLessThan(2) // not shown in reporting as notToEqualNull already fails
+                .isLessThan(2) // not reported because `notToEqualNull` already fails
         }
     }
 
     @Test
     fun notToEqualNull() {
-        expect<Int?>(1).notToEqualNull { // subject is now of type Int, within this block but also afterwards
-            isGreaterThan(0)
-            isLessThan(10)
-        }.toEqual(1)
+        expect<Int?>(1)
+            .notToEqualNull { // subject is now of type Int
+                isGreaterThan(0)
+                isLessThan(10)
+            } // subject remains type Int also after the block
+            .toEqual(1)
 
         fails {
             // because you forgot to define an expectation in the expectation group block
-            // use `notToEqualNull()` if this is all you want to assert
+            // use `notToEqualNull()` if this is all you expect
             expect<Int?>(1).notToEqualNull { }
         }
 
 
-        fails {
-            // notToBeNull already fails, reporting mentions that subject was expected `to equal: 2`
+        fails { // because subject is null, but since we use a block...
             expect<Int?>(null).notToEqualNull {
-                isGreaterThan(2)
+                isGreaterThan(2) // ...reporting mentions that subject was expected `to be greater than: 2`
             }
         }
 
-        fails {
-            // sub-expectation fails
+        fails { // because sub-expectation fails
             expect<Int?>(1).notToEqualNull {
                 isLessThan(0)
             }
@@ -135,20 +133,20 @@ class AnyExpectationSamples {
     @Test
     fun toBeA() {
         val n: Number = 16
-        expect(n).toBeA<Int> { // subject is now of type Int, within this block but also afterwards
-            isGreaterThanOrEqual(15)
-        }.isLessThan(20)
+        expect(n)
+            .toBeA<Int> { // subject is now of type Int
+                isGreaterThanOrEqual(15)
+            } // subject remains type Int also after the block
+            .isLessThan(20)
 
-        fails {
-            // because wrong type expected (Long instead of String)
+        fails { // because wrong type expected (Long instead of String), but since we use a block...
             expect("A").toBeA<Long> {
-                toEqual(43)
+                toEqual(43) // ...reporting mentions that subject was expected `to equal: 43`
             }
         }
 
-        fails {
-            // type fits, but sub-expectation fails
-            expect(54L).toBeA<Long> {
+        fails { // because sub-expectation fails
+            expect(n).toBeA<Long> {
                 toEqual(-1L)
             }
         }
