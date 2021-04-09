@@ -68,31 +68,31 @@ class FeatureExpectationsClassReferenceSpec : ch.tutteli.atrium.specs.integratio
         val return4ValueLazy: F = { its feature of(TestData::return4, "a", 1, true, 1.2) { contains("hello") } }
         val return5ValueLazy: F = { its feature of(TestData::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-        val propertyNullableDoesNotHold: F = { its feature TestData::nullableValue toBe null }
-        val return0ValueNullableDoesNotHold: F = { its feature TestData::returnNullable0 toBe null }
-        val return1ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable1, "a") toBe null  }
-        val return2ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable2, "a", 1) toBe null  }
-        val return3ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable3, "a", 1, true) toBe null  }
-        val return4ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable4, "a", 1, true, 1.2) toBe null  }
-        val return5ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') toBe null  }
+        val propertyNullableDoesNotHold: F = { its feature TestData::nullableValue toEqual null }
+        val return0ValueNullableDoesNotHold: F = { its feature TestData::returnNullable0 toEqual null }
+        val return1ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable1, "a") toEqual null  }
+        val return2ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable2, "a", 1) toEqual null  }
+        val return3ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable3, "a", 1, true) toEqual null  }
+        val return4ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable4, "a", 1, true, 1.2) toEqual null  }
+        val return5ValueNullableDoesNotHold: F = { its feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') toEqual null  }
 
-        val propertyNullableHolds: F = { its feature TestData::nullableValue notToBeNull { it toBe 1 } }
-        val return0ValueNullableHolds: F = { its feature TestData::returnNullable0 notToBeNull { it toBe 1 } }
-        val return1ValueNullableHolds: F = { its feature of(TestData::returnNullable1, "a") notToBeNull { it toBe 1 } }
-        val return2ValueNullableHolds: F = { its feature of(TestData::returnNullable2, "a", 1) notToBeNull { it toBe 1 } }
-        val return3ValueNullableHolds: F = { its feature of(TestData::returnNullable3, "a", 1, true) notToBeNull { it toBe 1 } }
-        val return4ValueNullableHolds: F = { its feature of(TestData::returnNullable4, "a", 1, true, 1.2) notToBeNull { it toBe 1 } }
-        val return5ValueNullableHolds: F = { its feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') notToBeNull { it toBe 1 } }
+        val propertyNullableHolds: F = { its feature TestData::nullableValue notToEqualNull { it toEqual 1 } }
+        val return0ValueNullableHolds: F = { its feature TestData::returnNullable0 notToEqualNull { it toEqual 1 } }
+        val return1ValueNullableHolds: F = { its feature of(TestData::returnNullable1, "a") notToEqualNull { it toEqual 1 } }
+        val return2ValueNullableHolds: F = { its feature of(TestData::returnNullable2, "a", 1) notToEqualNull { it toEqual 1 } }
+        val return3ValueNullableHolds: F = { its feature of(TestData::returnNullable3, "a", 1, true) notToEqualNull { it toEqual 1 } }
+        val return4ValueNullableHolds: F = { its feature of(TestData::returnNullable4, "a", 1, true, 1.2) notToEqualNull { it toEqual 1 } }
+        val return5ValueNullableHolds: F = { its feature of(TestData::returnNullable5, "a", 1, true, 1.2, 'b') notToEqualNull { it toEqual 1 } }
         //@formatter:on
 
         val propertyLazyWithNestedImmediate: F = {
             its feature of(TestData::nonNullValue) {
-                its feature String::length toBe 12
+                its feature String::length toEqual 12
             }
         }
         val propertyLazyWithNestedLazy: F = {
             its feature of(TestData::nonNullValue) {
-                its feature of(String::length) { it toBe (12) }
+                its feature of(String::length) { it toEqual (12) }
             }
         }
 

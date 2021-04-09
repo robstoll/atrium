@@ -20,7 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
+    test("see if `toEqual` can be used") {
         expect(1).toEqual(1)
     }
 

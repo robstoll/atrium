@@ -60,8 +60,8 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>
-        a1 min o toBe 2
-        a1 max o toBe 3
+        a1 min o toEqual 2
+        a1 max o toEqual 3
 
         a1 = a1 min { }
         a1 = a1 max { }

@@ -131,7 +131,7 @@ object present : Keyword
 object readable : Keyword
 
 /**
- * Represents the pseudo keyword `success` as in [toBe] `success.
+ * Represents the pseudo keyword `success` as in [toEqual] `success.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.12.0

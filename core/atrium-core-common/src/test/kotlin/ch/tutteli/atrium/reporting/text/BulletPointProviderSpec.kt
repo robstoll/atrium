@@ -30,7 +30,7 @@ class BulletPointProviderSpec : Spek({
         val redefinedBulletPoints =
             mapOf<KClass<out BulletPointIdentifier>, Pair<String, (Pair<KClass<out BulletPointIdentifier>, String>) -> Expect<*>>>(
                 RootAssertionGroupType::class to ("* " to { p ->
-                    expectWitNewBulletPoint(p, "a") toBe "b"
+                    expectWitNewBulletPoint(p, "a") toEqual "b"
                 }),
                 ListAssertionGroupType::class to ("- " to { p ->
                     expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {
@@ -42,10 +42,10 @@ class BulletPointProviderSpec : Spek({
                     }
                 }),
                 FeatureAssertionGroupType::class to (">> " to { p ->
-                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toBe 2
+                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixFeatureAssertionGroupHeader::class to ("=> "  to { p ->
-                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toBe 2
+                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixSuccessfulSummaryAssertion::class to ("(/) " to { p ->
                     expectWitNewBulletPoint(p, listOf(1)) containsExactly values(1, 2)

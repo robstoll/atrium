@@ -94,7 +94,7 @@ abstract class IterableExpectationsSpec(
                 it("$name - toBe(4) holds") {
                     fluent.maxFun { toEqual(4) }
                 }
-                it("$name - toBe(3) fails") {
+                it("$name - $toBeDescr(3) fails") {
                     expect {
                         fluent.maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {

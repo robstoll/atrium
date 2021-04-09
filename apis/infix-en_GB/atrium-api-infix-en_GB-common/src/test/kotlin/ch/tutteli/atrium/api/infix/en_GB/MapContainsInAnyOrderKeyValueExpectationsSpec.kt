@@ -80,159 +80,159 @@ class MapContainsInAnyOrderKeyValueExpectationsSpec : Spek({
         var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map = map contains o inAny order entry keyValue(1) { toBe("a") }
-        subMap = subMap contains o inAny order entry keyValue(1) { toBe("a") }
-        nKeyMap = nKeyMap contains o inAny order entry keyValue(1) { toBe("a") }
-        nValueMap = nValueMap contains o inAny order entry keyValue(1) { toBe("a") }
-        nKeyValueMap = nKeyValueMap contains o inAny order entry keyValue(1) { toBe("a") }
-        ronKeyValueMap = ronKeyValueMap contains o inAny order entry keyValue(1) { toBe("a") }
-        starMap = starMap contains o inAny order entry keyValue(1) { toBe("a") }
+        map = map contains o inAny order entry keyValue(1) { this toEqual "a" }
+        subMap = subMap contains o inAny order entry keyValue(1) { this toEqual "a" }
+        nKeyMap = nKeyMap contains o inAny order entry keyValue(1) { this toEqual "a" }
+        nValueMap = nValueMap contains o inAny order entry keyValue(1) { this toEqual "a" }
+        nKeyValueMap = nKeyValueMap contains o inAny order entry keyValue(1) { this toEqual "a" }
+        ronKeyValueMap = ronKeyValueMap contains o inAny order entry keyValue(1) { this toEqual "a" }
+        starMap = starMap contains o inAny order entry keyValue(1) { this toEqual "a" }
 
-        map = map contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        subMap = subMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        nValueMap = nValueMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
-        starMap = starMap contains o inAny order the keyValues(keyValue(1) { toBe("a") })
+        map = map contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        subMap = subMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        starMap = starMap contains o inAny order the keyValues(keyValue(1) { this toEqual "a" })
 
         map = map contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         subMap = subMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nKeyMap = nKeyMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nValueMap = nValueMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         starMap = starMap contains o inAny order the keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
 
-        nKeyMap = nKeyMap contains o inAny order entry keyValue(null) { toBe("a") }
-        nKeyMap = nKeyMap contains o inAny order entry keyValue(null) { toBe("a") }
+        nKeyMap = nKeyMap contains o inAny order entry keyValue(null) { this toEqual "a" }
+        nKeyMap = nKeyMap contains o inAny order entry keyValue(null) { this toEqual "a" }
         nValueMap = nValueMap contains o inAny order entry keyValue(1.2, null)
-        nKeyValueMap = nKeyValueMap contains o inAny order entry keyValue(null) { toBe("a") }
+        nKeyValueMap = nKeyValueMap contains o inAny order entry keyValue(null) { this toEqual "a" }
         nKeyValueMap = nKeyValueMap contains o inAny order entry keyValue(null, null)
-        ronKeyValueMap = ronKeyValueMap contains o inAny order entry keyValue(null) { toBe("a") }
+        ronKeyValueMap = ronKeyValueMap contains o inAny order entry keyValue(null) { this toEqual "a" }
         ronKeyValueMap = ronKeyValueMap contains o inAny order entry keyValue(null, null)
-        starMap = starMap contains o inAny order entry keyValue(null) { toBe("a") }
+        starMap = starMap contains o inAny order entry keyValue(null) { this toEqual "a" }
         starMap = starMap contains o inAny order entry keyValue(null, null)
 
-        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(null) { toBe("a") })
-        nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(keyValue(null) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(keyValue(null) { toBe("a") })
-        starMap = starMap contains o inAny order the keyValues(keyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(null) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(keyValue(null) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(keyValue(null) { this toEqual "a" })
+        starMap = starMap contains o inAny order the keyValues(keyValue(null) { this toEqual "a" })
 
-        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(null) { toBe("a") })
-        nValueMap = nValueMap contains o inAny order the keyValues(keyValue(1, null), keyValue(1) { toBe("a") })
+        nKeyMap = nKeyMap contains o inAny order the keyValues(keyValue(null) { this toEqual "a" })
+        nValueMap = nValueMap contains o inAny order the keyValues(keyValue(1, null), keyValue(1) { this toEqual "a" })
         nKeyValueMap = nKeyValueMap contains o inAny order the keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
         ronKeyValueMap = ronKeyValueMap contains o inAny order the keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
         starMap = starMap contains o inAny order the keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
 
         /// ------------- shortcuts -----------------------------------------------------------------
 
-        map = map contains keyValue(1) { toBe("a") }
-        subMap = subMap contains keyValue(1) { toBe("a") }
-        nKeyMap = nKeyMap contains keyValue(1) { toBe("a") }
-        nValueMap = nValueMap contains keyValue(1) { toBe("a") }
-        nKeyValueMap = nKeyValueMap contains keyValue(1) { toBe("a") }
-        ronKeyValueMap = ronKeyValueMap contains keyValue(1) { toBe("a") }
-        starMap = starMap contains keyValue(1) { toBe("a") }
+        map = map contains keyValue(1) { this toEqual "a" }
+        subMap = subMap contains keyValue(1) { this toEqual "a" }
+        nKeyMap = nKeyMap contains keyValue(1) { this toEqual "a" }
+        nValueMap = nValueMap contains keyValue(1) { this toEqual "a" }
+        nKeyValueMap = nKeyValueMap contains keyValue(1) { this toEqual "a" }
+        ronKeyValueMap = ronKeyValueMap contains keyValue(1) { this toEqual "a" }
+        starMap = starMap contains keyValue(1) { this toEqual "a" }
 
-        map = map contains keyValues(keyValue(1) { toBe("a") })
-        subMap = subMap contains keyValues(keyValue(1) { toBe("a") })
-        nKeyMap = nKeyMap contains keyValues(keyValue(1) { toBe("a") })
-        nValueMap = nValueMap contains keyValues(keyValue(1) { toBe("a") })
-        nKeyValueMap = nKeyValueMap contains keyValues(keyValue(1) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap contains keyValues(keyValue(1) { toBe("a") })
-        starMap = starMap contains keyValues(keyValue(1) { toBe("a") })
+        map = map contains keyValues(keyValue(1) { this toEqual "a" })
+        subMap = subMap contains keyValues(keyValue(1) { this toEqual "a" })
+        nKeyMap = nKeyMap contains keyValues(keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap contains keyValues(keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap contains keyValues(keyValue(1) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap contains keyValues(keyValue(1) { this toEqual "a" })
+        starMap = starMap contains keyValues(keyValue(1) { this toEqual "a" })
 
         map = map contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         subMap = subMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nKeyMap = nKeyMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nValueMap = nValueMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         nKeyValueMap = nKeyValueMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         ronKeyValueMap = ronKeyValueMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
         starMap = starMap contains keyValues(
-            keyValue(1 as Number) { toBe("a") },
-            keyValue(1.2) { toBe("b") }
+            keyValue(1 as Number) { this toEqual "a" },
+            keyValue(1.2) { this toEqual "b" }
         )
 
-        nKeyMap = nKeyMap contains keyValue(null) { toBe("a") }
+        nKeyMap = nKeyMap contains keyValue(null) { this toEqual "a" }
         nValueMap = nValueMap contains keyValue(1.2, null)
-        nKeyValueMap = nKeyValueMap contains keyValue(null) { toBe("a") }
+        nKeyValueMap = nKeyValueMap contains keyValue(null) { this toEqual "a" }
         nKeyValueMap = nKeyValueMap contains keyValue(null, null)
-        ronKeyValueMap = ronKeyValueMap contains keyValue(null) { toBe("a") }
+        ronKeyValueMap = ronKeyValueMap contains keyValue(null) { this toEqual "a" }
         ronKeyValueMap = ronKeyValueMap contains keyValue(null, null)
-        starMap = starMap contains keyValue(null) { toBe("a") }
+        starMap = starMap contains keyValue(null) { this toEqual "a" }
         starMap = starMap contains keyValue(null, null)
 
-        nKeyMap = nKeyMap contains keyValues(keyValue(null) { toBe("a") })
-        nKeyValueMap = nKeyValueMap contains keyValues(keyValue(null) { toBe("a") })
-        ronKeyValueMap = ronKeyValueMap contains keyValues(keyValue(null) { toBe("a") })
-        starMap = starMap contains keyValues(keyValue(null) { toBe("a") })
+        nKeyMap = nKeyMap contains keyValues(keyValue(null) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap contains keyValues(keyValue(null) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap contains keyValues(keyValue(null) { this toEqual "a" })
+        starMap = starMap contains keyValues(keyValue(null) { this toEqual "a" })
 
-        nKeyMap = nKeyMap contains keyValues(keyValue(null) { toBe("a") })
-        nValueMap = nValueMap contains keyValues(keyValue(1, null), keyValue(1) { toBe("a") })
+        nKeyMap = nKeyMap contains keyValues(keyValue(null) { this toEqual "a" })
+        nValueMap = nValueMap contains keyValues(keyValue(1, null), keyValue(1) { this toEqual "a" })
         nKeyValueMap = nKeyValueMap contains keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
         ronKeyValueMap = ronKeyValueMap contains keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
         starMap = starMap contains keyValues(
-            keyValue(null) { toBe("a") },
+            keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )

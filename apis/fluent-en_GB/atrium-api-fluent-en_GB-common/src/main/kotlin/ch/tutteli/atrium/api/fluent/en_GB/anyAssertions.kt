@@ -108,7 +108,10 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNull
  */
-@Deprecated("Use notToEqualNull; will be removed latest with 1.0.0", ReplaceWith("this.notToEqualNull<T>(assertionCreator)"))
+@Deprecated(
+    "Use notToEqualNull; will be removed latest with 1.0.0",
+    ReplaceWith("this.notToEqualNull<T>(assertionCreator)")
+)
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
 
@@ -224,7 +227,10 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isNoneOf
  */
-@Deprecated("Use notToEqualOneOf; will be removed latest with 1.0.0", ReplaceWith("this.notToEqualOneOf<T>(expected, *otherValues)"))
+@Deprecated(
+    "Use notToEqualOneOf; will be removed latest with 1.0.0",
+    ReplaceWith("this.notToEqualOneOf<T>(expected, *otherValues)")
+)
 fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
     _logicAppend { isNotIn(expected glue otherValues) }
 

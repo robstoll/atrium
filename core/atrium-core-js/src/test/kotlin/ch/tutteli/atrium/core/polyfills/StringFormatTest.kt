@@ -24,8 +24,12 @@ class StringFormatTest {
                 Triple("hello %s %s", threeArgs, "hello robert stoll"),
                 Triple("Welcome %s %s here at %s", threeArgs, "Welcome robert stoll here at the Atrium")
             ).forEach { (string, args, expected) ->
-                it feature { f("($string / $args)", string.format(args.first(), *args.drop(1).toTypedArray())) } toBe expected
-                it feature { f("($string / $args)", string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray()) )} toBe expected
+                it feature {
+                    f("($string / $args)", string.format(args.first(), *args.drop(1).toTypedArray()))
+                } toEqual expected
+                it feature {
+                    f("($string / $args)", string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray()))
+                } toEqual expected
             }
         }
     }

@@ -104,10 +104,10 @@ abstract class VerbSpec(
         val (_, assertionVerb) = forNullable
 
         context("subject is null") {
-            it("does not throw an exception when calling toBe(`null`)") {
+            it("does not throw an exception when calling $toBeDescr(`null`)") {
                 assertionVerb(null).toEqual(null)
             }
-            it("throws an AssertionError when calling notToBeNull") {
+            it("throws an AssertionError when calling notToEqualNull") {
                 assert {
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {

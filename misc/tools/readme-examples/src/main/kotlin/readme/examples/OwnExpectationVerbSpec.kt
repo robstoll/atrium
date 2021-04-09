@@ -9,7 +9,6 @@ import ch.tutteli.atrium.creating.build
 //@formatter:on
 
 import ch.tutteli.atrium.api.fluent.en_GB.ExperimentalWithOptions
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.creating.Expect

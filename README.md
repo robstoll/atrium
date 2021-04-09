@@ -2425,7 +2425,7 @@ Following an example using the expectation verb
 ```kotlin
 expect(10).toEqual(9)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationVerbSpec.kt#L52)</sub> ↓ <sub>[Output](#ex-own-expectation-verb)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationVerbSpec.kt#L51)</sub> ↓ <sub>[Output](#ex-own-expectation-verb)</sub>
 <a name="ex-own-expectation-verb"></a>
 ```text
 expected the subject:
