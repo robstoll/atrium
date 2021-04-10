@@ -103,12 +103,12 @@ class AnyAssertionSamples {
     @Test
     fun notToBeNullFeature() {
         expect<Int?>(1) notToBeNull o isLessThan 2
-        //                           | subject is now of type Int (actually 1)
+        //                   | subject is now of type Int (actually 1)
 
         fails {
             expect<Int?>(null) notToBeNull o isLessThan 2
-            //                              |             | not reported because `notToBeNull` already fails
-            //                              | fails
+            //                      |             | not reported because `notToBeNull` already fails
+            //                      | fails
         }
     }
 
@@ -193,8 +193,8 @@ class AnyAssertionSamples {
                 // all assertions are evaluated inside an assertion group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
                 it isNoneOf values(1, 2, 13)  // fails
-                it isLessThan 10  //                                 still evaluated and included in the error report
-                //                                                   use `.and.` if you want fail fast behaviour
+                it isLessThan 10  //             still evaluated and included in the error report
+                //                               use `.and.` if you want fail fast behaviour
             }
         }
     }
