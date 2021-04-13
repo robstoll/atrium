@@ -53,9 +53,9 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isEqualComparingTo
+ *
+ * @since 0.13.0
  */
 fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T): Expect<T> =
     _logicAppend { isEqualComparingTo(expected) }

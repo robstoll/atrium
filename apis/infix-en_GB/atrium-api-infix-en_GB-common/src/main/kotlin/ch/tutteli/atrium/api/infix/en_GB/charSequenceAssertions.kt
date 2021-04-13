@@ -224,9 +224,9 @@ infix fun <T : CharSequence> Expect<T>.startsWith(expected: CharSequence): Expec
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsWithChar
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.startsWith(expected: Char): Expect<T> =
     it startsWith expected.toString()
@@ -246,9 +246,9 @@ infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Ex
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsNotWithChar
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     it startsNotWith expected.toString()
@@ -269,9 +269,9 @@ infix fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsWithChar
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     it endsWith expected.toString()
@@ -291,9 +291,9 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expe
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsNotWithChar
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     it endsNotWith expected.toString()
@@ -342,9 +342,9 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") bla
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.matches
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
@@ -356,9 +356,9 @@ infix fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  *
  * @return This assertion container to support a fluent API.
  *
- * @since 0.12.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.mismatches
+ *
+ * @since 0.12.0
  */
 infix fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     _logicAppend { mismatches(expected) }

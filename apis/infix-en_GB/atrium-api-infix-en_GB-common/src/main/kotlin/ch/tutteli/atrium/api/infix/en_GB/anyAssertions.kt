@@ -62,8 +62,9 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
+ *
+ * @since 0.15.0
  */
 infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
     _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }

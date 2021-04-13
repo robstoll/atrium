@@ -62,9 +62,9 @@ fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSame
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.because
+ *
+ * @since 0.15.0
  */
 fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logicAppend { because(reason, assertionCreator) }
@@ -223,9 +223,9 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isNoneOf
+ *
+ * @since 0.13.0
  */
 @Deprecated(
     "Use notToEqualOneOf; will be removed latest with 1.0.0",
@@ -243,9 +243,9 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isNotIn
+ *
+ * @since 0.13.0
  */
 @Deprecated("Use notToBeIn; will be removed latest with 1.0.0", ReplaceWith("this.notToBeIn<T>(expected)"))
 fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =

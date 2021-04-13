@@ -13,9 +13,9 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toEqual
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
@@ -24,9 +24,9 @@ fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqual
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
@@ -35,9 +35,9 @@ fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(ex
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeTheInstance
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
@@ -46,9 +46,9 @@ fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSam
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToBeTheInstance
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
@@ -106,9 +106,9 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOfFeature
+ *
+ * @since 0.17.0
  */
 inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(): Expect<TSub> = toBeAnInstanceOf(TSub::class).transform()
 
@@ -156,9 +156,9 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): Subj
  *
  * @return An [Expect] with the new type [TSub].
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOf
+ *
+ * @since 0.17.0
  */
 inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
@@ -169,9 +169,9 @@ inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCre
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualOneOf
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T> =
     _logicAppend { isNotIn(expected glue otherValues) }
@@ -185,9 +185,9 @@ fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T>
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case the iterable is empty.
  *
- * @since 0.17.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualOneIn
+ *
+ * @since 0.17.0
  */
 fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

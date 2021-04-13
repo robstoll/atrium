@@ -314,9 +314,9 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.16.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeASymbolicLink
+ *
+ * @since 0.16.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink: aSymbolicLink): Expect<T> =
     _logicAppend { isSymbolicLink() }
@@ -402,9 +402,9 @@ fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntr
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.16.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeAnEmptyDirectory
+ *
+ * @since 0.16.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
     _logicAppend { isEmptyDirectory() }

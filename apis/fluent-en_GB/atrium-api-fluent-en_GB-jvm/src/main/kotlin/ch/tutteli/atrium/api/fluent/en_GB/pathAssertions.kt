@@ -304,9 +304,9 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.16.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isASymbolicLink
+ *
+ * @since 0.16.0
  */
 fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
     _logicAppend { isSymbolicLink() }
@@ -339,9 +339,9 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.16.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isEmptyDirectory
+ *
+ * @since 0.16.0
  */
 fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
     _logicAppend { isEmptyDirectory() }
