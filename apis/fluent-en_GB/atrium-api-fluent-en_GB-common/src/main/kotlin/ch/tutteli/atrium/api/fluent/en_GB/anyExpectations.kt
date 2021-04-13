@@ -71,11 +71,11 @@ fun <T : Any> Expect<T?>.toEqualNullIfNullGivenElse(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualNullFeature
  */
-inline fun <reified T : Any> Expect<T?>.notToEqualNull(): Expect<T> = notToEqualNullButToBeA(T::class).transform()
+inline fun <reified T : Any> Expect<T?>.notToEqualNull(): Expect<T> = notToEqualNullButToBeAnInstanceOf(T::class).transform()
 
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <T : Any> Expect<T?>.notToEqualNullButToBeA(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
+internal fun <T : Any> Expect<T?>.notToEqualNullButToBeAnInstanceOf(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
     _logic.notToBeNullButOfType(kClass)
 
 /**
@@ -87,7 +87,7 @@ internal fun <T : Any> Expect<T?>.notToEqualNullButToBeA(kClass: KClass<T>): Sub
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualNull
  */
 inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    notToEqualNullButToBeA(T::class).transformAndAppend(assertionCreator)
+    notToEqualNullButToBeAnInstanceOf(T::class).transformAndAppend(assertionCreator)
 /**
  * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type)
  * and changes the subject to this type.
@@ -96,24 +96,24 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `expect({x: Int -> "hello"}).toBeA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).toBeAnInstanceOf<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
- * For instance `toBeA<List<String>>` would only check if the subject is a `List` without checking if
+ * For instance `toBeAnInstanceOf<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `expect(listOf(1, 2)).toBeA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).toBeAnInstanceOf<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
  * @since 0.17.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOfFeature
  */
-inline fun <reified TSub : Any> Expect<*>.toBeA(): Expect<TSub> = toBeA(TSub::class).transform()
+inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(): Expect<TSub> = toBeAnInstanceOf(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.toBeA(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
+internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
     _logic.isA(kClass)
 
 /**
@@ -136,7 +136,7 @@ internal fun <TSub : Any> Expect<*>.toBeA(kClass: KClass<TSub>): SubjectChangerB
  *
  * val p: Person = Student()
  * expect(p)                 // subject of type Person
- *   .toBeA<Student> { ... } // subject now refined to Student
+ *   .toBeAnInstanceOfnInstanceOf<Student> { ... } // subject now refined to Student
  *   .baz()                  // available via Student
  *   .foo()                  // not available to Student, only to Person, results in compilation error
  *   .bar()                  // available via T : Person
@@ -146,22 +146,22 @@ internal fun <TSub : Any> Expect<*>.toBeA(kClass: KClass<TSub>): SubjectChangerB
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `expect({x: Int -> "hello"}).toBeA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).toBeAnInstanceOfnInstanceOf<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
- * For instance `toBeA<List<String>>` would only check if the subject is a `List` without checking if
+ * For instance `toBeAnInstanceOfnInstanceOf<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `expect(listOf(1, 2)).toBeA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).toBeAnInstanceOfnInstanceOf<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
  * @since 0.17.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeA
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOf
  */
-inline fun <reified TSub : Any> Expect<*>.toBeA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    toBeA(TSub::class).transformAndAppend(assertionCreator)
+inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
+    toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
 
 
 /**

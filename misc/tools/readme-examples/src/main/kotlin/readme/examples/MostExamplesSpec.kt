@@ -2,7 +2,6 @@ package readme.examples
 
 import readme.examples.utils.expect
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
 
@@ -65,12 +64,12 @@ class MostExamplesSpec : Spek({
 
     test("ex-type-assertions-1") {
         //snippet-type-assertions-insert
-        expect(x).toBeA<SubType1>()
+        expect(x).toBeAnInstanceOf<SubType1>()
             .feature { f(it::number) }
             .toEqual(2)
     }
     test("ex-type-assertions-2") {
-        expect(x).toBeA<SubType2> {
+        expect(x).toBeAnInstanceOf<SubType2> {
             feature { f(it::word) }.toEqual("goodbye")
             feature { f(it::flag) }.toEqual(false)
         }

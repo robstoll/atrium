@@ -135,7 +135,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
-@Deprecated("Use toBeA; will be removed latest with 1.0.0", ReplaceWith("this.toBeA<TSub>()"))
+@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> = isA(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
@@ -184,7 +184,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
-@Deprecated("Use toBeA; will be removed latest with 1.0.0", ReplaceWith("this.toBeA<TSub>(assertionCreator)"))
+@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>(assertionCreator)"))
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 

@@ -147,7 +147,7 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
-@Deprecated("Use toBeA; will be removed latest with 1.0.0", ReplaceWith("this.toBeA<TSub>()"))
+@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
     isA(TSub::class).transform()
@@ -198,7 +198,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
-@Deprecated("Use toBeA; will be removed latest with 1.0.0", ReplaceWith("this toBeA assertionCreator"))
+@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this toBeAnInstanceOf assertionCreator"))
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 

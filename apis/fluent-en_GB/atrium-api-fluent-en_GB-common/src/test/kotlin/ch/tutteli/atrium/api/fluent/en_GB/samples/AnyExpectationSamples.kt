@@ -116,37 +116,37 @@ class AnyExpectationSamples {
     }
 
     @Test
-    fun toBeAFeature() {
+    fun toBeAnInstanceOfFeature() {
         val n: Number = 1
         expect(n)
-            .toBeA<Int>() // subject is now of type Int
+            .toBeAnInstanceOf<Int>() // subject is now of type Int
             .isGreaterThan(0)
 
         fails {
             expect("A")
-                .toBeA<Long>()
+                .toBeAnInstanceOf<Long>()
                 .isLessThan(2L) // not shown in reporting as `toBeA<Long>()` already fails
 
         }
     }
 
     @Test
-    fun toBeA() {
+    fun toBeAnInstanceOf() {
         val n: Number = 16
         expect(n)
-            .toBeA<Int> { // subject is now of type Int
+            .toBeAnInstanceOf<Int> { // subject is now of type Int
                 isGreaterThanOrEqual(15)
             } // subject remains type Int also after the block
             .isLessThan(20)
 
         fails { // because wrong type expected (Long instead of String), but since we use a block...
-            expect("A").toBeA<Long> {
+            expect("A").toBeAnInstanceOf<Long> {
                 toEqual(43) // ...reporting mentions that subject was expected `to equal: 43`
             }
         }
 
         fails { // because sub-expectation fails
-            expect(n).toBeA<Long> {
+            expect(n).toBeAnInstanceOf<Long> {
                 toEqual(-1L)
             }
         }
@@ -154,7 +154,7 @@ class AnyExpectationSamples {
 
     @Test
     fun andFeature() {
-        // and is just a filler word; does not have any behaviour
+        // `and` is just a filler word; does not have any behaviour
         expect(13).isGreaterThan(5).and.isLessThan(20)
 
         // i.e. the above is equivalent to:
@@ -163,13 +163,13 @@ class AnyExpectationSamples {
 
     @Test
     fun and() {
-        expect(13).toBeA<Int>().and {
+        expect(13).toBeAnInstanceOf<Int>().and {
             isGreaterThan(5)
             isLessThan(20)
         }
 
         fails {
-            expect(13).toBeA<Int>().and {
+            expect(13).toBeAnInstanceOf<Int>().and {
                 // introduces an expectation group block
                 // all expectations are evaluated inside an expectation group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups

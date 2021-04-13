@@ -48,13 +48,13 @@ abstract class AnyExpectationsSpec(
     toBeNull: Fun0<Int?>,
     toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
 
-    toBeAIntFeature: Feature0<out Any?, Int>,
-    toBeAInt: Feature1<out Any?, Expect<Int>.() -> Unit, Int>,
+    toBeAnInstanceOfIntFeature: Feature0<out Any?, Int>,
+    toBeAnInstanceOfInt: Feature1<out Any?, Expect<Int>.() -> Unit, Int>,
 
-    toBeASuperTypeFeature: Feature0<out Any?, SuperType>,
-    toBeASuperType: Feature1<out Any?, Expect<SuperType>.() -> Unit, SuperType>,
-    toBeASubTypeFeature: Feature0<out Any?, SubType>,
-    toBeASubType: Feature1<out Any?, Expect<SubType>.() -> Unit, SubType>,
+    toBeAnInstanceOfSuperTypeFeature: Feature0<out Any?, SuperType>,
+    toBeAnInstanceOfSuperType: Feature1<out Any?, Expect<SuperType>.() -> Unit, SuperType>,
+    toBeAnInstanceOfSubTypeFeature: Feature0<out Any?, SubType>,
+    toBeAnInstanceOfSubType: Feature1<out Any?, Expect<SubType>.() -> Unit, SubType>,
 
     notToBeNullFeature: Feature0<Int?, Int>,
     notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
@@ -86,8 +86,8 @@ abstract class AnyExpectationsSpec(
         notToEqualOneOfNullableInt.forSubjectLess(1, emptyArray()),
         notToBeNullableInt.forSubjectLess(listOf(1)),
         toBeNull.forSubjectLess(),
-        toBeAIntFeature.forSubjectLess(),
-        toBeAInt.forSubjectLess { toEqual(1) },
+        toBeAnInstanceOfIntFeature.forSubjectLess(),
+        toBeAnInstanceOfInt.forSubjectLess { toEqual(1) },
         notToBeNullFeature.forSubjectLess(),
         notToBeNull.forSubjectLess { toEqual(1) }
     ) {})
@@ -100,10 +100,10 @@ abstract class AnyExpectationsSpec(
         "$describePrefix[nullable Element] ", 1,
         toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) },
         assertionCreatorSpecTriple(
-            toBeAInt.name,
+            toBeAnInstanceOfInt.name,
             "$toBeDescr: 1",
-            { apply { toBeAInt.invoke(this) { toEqual(1) } } },
-            { apply { toBeAInt.invoke(this) {} } }),
+            { apply { toBeAnInstanceOfInt.invoke(this) { toEqual(1) } } },
+            { apply { toBeAnInstanceOfInt.invoke(this) {} } }),
         assertionCreatorSpecTriple(
             notToBeNull.name,
             "$toBeDescr: 1",
@@ -677,14 +677,14 @@ abstract class AnyExpectationsSpec(
         }
     }
 
-    describeFun(toBeAIntFeature, toBeAInt) {
-        val toBeAIntFunctions = unifySignatures<Any?, Int>(toBeAIntFeature, toBeAInt)
+    describeFun(toBeAnInstanceOfIntFeature, toBeAnInstanceOfInt) {
+        val toBeAnInstanceOfIntFunctions = unifySignatures<Any?, Int>(toBeAnInstanceOfIntFeature, toBeAnInstanceOfInt)
 
         context("subject is not in type hierarchy") {
-            toBeAIntFunctions.forEach { (name, toBeAInt, hasExtraHint) ->
+            toBeAnInstanceOfIntFunctions.forEach { (name, toBeAnInstanceOfInt, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect("hello" as Any?).toBeAInt { toEqual(1) }
+                        expect("hello" as Any?).toBeAnInstanceOfInt { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageContains(IS_A.getDefault() + ": Int (kotlin.Int)")
                         if (hasExtraHint) messageContains(TO_BE.getDefault() + ": 1")
@@ -696,16 +696,16 @@ abstract class AnyExpectationsSpec(
 
         context("subject is the same type") {
             context("it allows to perform sub assertions") {
-                toBeAIntFunctions.forEach { (name, toBeAInt, _) ->
+                toBeAnInstanceOfIntFunctions.forEach { (name, toBeAnInstanceOfInt, _) ->
                     it("$name - does not throw if it holds") {
-                        expect(1 as Any?).toBeAInt { isLessThan(2) }
+                        expect(1 as Any?).toBeAnInstanceOfInt { isLessThan(2) }
                     }
 
                     val expectedLessThan = 2
                     val actualValue: Any? = 5
                     it("$name - throws if it does not hold") {
                         expect {
-                            expect(actualValue).toBeAInt { isLessThan(expectedLessThan) }
+                            expect(actualValue).toBeAnInstanceOfInt { isLessThan(expectedLessThan) }
                         }.toThrow<AssertionError> {
                             messageContains(actualValue as Any, IS_LESS_THAN.getDefault(), expectedLessThan)
                         }
@@ -715,20 +715,20 @@ abstract class AnyExpectationsSpec(
         }
 
         context("subject is a subtype") {
-            val toBeASuperTypeFunctions = unifySignatures<Any?, SuperType>(toBeASuperTypeFeature, toBeASuperType)
+            val toBeAnInstanceOfSuperTypeFunctions = unifySignatures<Any?, SuperType>(toBeAnInstanceOfSuperTypeFeature, toBeAnInstanceOfSuperType)
 
             context("it allows to perform sub assertions") {
-                toBeASuperTypeFunctions.forEach { (name, toBeASuperType, _) ->
+                toBeAnInstanceOfSuperTypeFunctions.forEach { (name, toBeAnInstanceOfSuperType, _) ->
                     it("$name - does not throw if it holds") {
                         val subject = SubType()
-                        expect(subject as Any?).toBeASuperType { toBeTheInstance(subject) }
+                        expect(subject as Any?).toBeAnInstanceOfSuperType { toBeTheInstance(subject) }
                     }
 
                     it("$name - throws if it does not hold") {
                         val subject = SubType()
                         val otherSubType = SubType()
                         expect {
-                            expect(subject as Any?).toBeASuperType { toBeTheInstance(otherSubType) }
+                            expect(subject as Any?).toBeAnInstanceOfSuperType { toBeTheInstance(otherSubType) }
                         }.toThrow<AssertionError> {
                             messageContains(subject.toString(), IS_SAME.getDefault(), otherSubType.toString())
                         }
@@ -738,12 +738,12 @@ abstract class AnyExpectationsSpec(
         }
 
         context("subject is a supertype") {
-            val toBeASubTypeFunctions = unifySignatures<Any?, SubType>(toBeASubTypeFeature, toBeASubType)
-            toBeASubTypeFunctions.forEach { (name, toBeASubType, hasExtraHint) ->
+            val toBeAnInstanceOfSubTypeFunctions = unifySignatures<Any?, SubType>(toBeAnInstanceOfSubTypeFeature, toBeAnInstanceOfSubType)
+            toBeAnInstanceOfSubTypeFunctions.forEach { (name, toBeAnInstanceOfSubType, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
 
                     expect {
-                        expect(SuperType() as Any?).toBeASubType { toBeTheInstance(SubType()) }
+                        expect(SuperType() as Any?).toBeAnInstanceOfSubType { toBeTheInstance(SubType()) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             SuperType::class.fullName,

@@ -17,7 +17,7 @@ object IoResultSpec : Spek({
 
         it("creates a Success if the block completes normally") {
             val result = testPath.runCatchingIo { "testString" }
-            expect(result).toBeA(fun Expect<Success<String>>.() {
+            expect(result).toBeAnInstanceOf(fun Expect<Success<String>>.() {
                 feature(IoResult<*>::path).toEqual(testPath)
                 feature(Success<*>::value).toEqual("testString")
             })
@@ -26,7 +26,7 @@ object IoResultSpec : Spek({
         it("creates a Failure if the block thrown an IOException") {
             val testException = NoSuchFileException(testPath.toFile())
             val result = testPath.runCatchingIo { throw testException }
-            expect(result).toBeA<Failure> {
+            expect(result).toBeAnInstanceOf<Failure> {
                 feature(IoResult<*>::path).toEqual(testPath)
                 feature(Failure::exception).toBeTheInstance(testException)
             }
