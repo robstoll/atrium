@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.toBe
  */
-@Deprecated("Use toEqual; will be removed latest with 1.0.0", ReplaceWith("this.toEqual<T>(expected)"))
+@Deprecated("Use toEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqual<T>(expected)"))
 fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
@@ -27,7 +27,7 @@ fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.notToBe
  */
-@Deprecated("Use notToEqual; will be removed latest with 1.0.0", ReplaceWith("this.notToEqual<T>(expected)"))
+@Deprecated("Use notToEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEqual<T>(expected)"))
 fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
@@ -37,7 +37,7 @@ fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expec
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isSameAs
  */
-@Deprecated("Use toBeTheInstance; will be removed latest with 1.0.0", ReplaceWith("this.toBeTheInstance<T>(expected)"))
+@Deprecated("Use toBeTheInstance; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeTheInstance<T>(expected)"))
 fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
@@ -48,7 +48,7 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isNotSameAs
  */
 @Deprecated(
-    "Use notToBeTheInstance; will be removed latest with 1.0.0",
+    "Use notToBeTheInstance; will be removed with 1.0.0 at the latest",
     ReplaceWith("this.notToBeTheInstance<T>(expected)")
 )
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
@@ -79,7 +79,7 @@ fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
 @Deprecated(
-    "Use toEqualNullIfNullGivenElse; will be removed latest with 1.0.0",
+    "Use toEqualNullIfNullGivenElse; will be removed with 1.0.0 at the latest",
     ReplaceWith("this.toEqualNullIfNullGivenElse<T>(assertionCreatorOrNull)")
 )
 fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
@@ -93,7 +93,7 @@ fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNullFeature
  */
-@Deprecated("Use notToEqualNull; will be removed latest with 1.0.0", ReplaceWith("this.notToEqualNull<T>()"))
+@Deprecated("Use notToEqualNull; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEqualNull<T>()"))
 inline fun <reified T : Any> Expect<T?>.notToBeNull(): Expect<T> = notToBeNullButOfType(T::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
@@ -109,7 +109,7 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNull
  */
 @Deprecated(
-    "Use notToEqualNull; will be removed latest with 1.0.0",
+    "Use notToEqualNull; will be removed with 1.0.0 at the latest",
     ReplaceWith("this.notToEqualNull<T>(assertionCreator)")
 )
 inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
@@ -135,7 +135,7 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
-@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
+@Deprecated("Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> = isA(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
@@ -184,7 +184,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
-@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>(assertionCreator)"))
+@Deprecated("Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAnInstanceOf<TSub>(assertionCreator)"))
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 
@@ -228,7 +228,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * @since 0.13.0
  */
 @Deprecated(
-    "Use notToEqualOneOf; will be removed latest with 1.0.0",
+    "Use notToEqualOneOf; will be removed with 1.0.0 at the latest",
     ReplaceWith("this.notToEqualOneOf<T>(expected, *otherValues)")
 )
 fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
@@ -247,7 +247,7 @@ fun <T> Expect<T>.isNoneOf(expected: T, vararg otherValues: T): Expect<T> =
  *
  * @since 0.13.0
  */
-@Deprecated("Use notToBeIn; will be removed latest with 1.0.0", ReplaceWith("this.notToBeIn<T>(expected)"))
+@Deprecated("Use notToBeIn; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToBeIn<T>(expected)"))
 fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
 
