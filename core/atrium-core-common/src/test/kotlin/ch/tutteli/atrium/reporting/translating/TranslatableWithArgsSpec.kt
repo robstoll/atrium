@@ -2,8 +2,6 @@ package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.translating.Translations.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -43,8 +41,8 @@ class TranslatableWithArgsSpec : Spek({
                 }
             }
             it("one argument given; OK") {
-                expect(TranslatableWithArgs(WITH_1_ARG, "hello").getDefault()).toBe("a) hello")
-                expect(TranslatableWithArgs(WITH_1_ARG, listOf("hello")).getDefault()).toBe("a) hello")
+                expect(TranslatableWithArgs(WITH_1_ARG, "hello").getDefault()) toEqual "a) hello"
+                expect(TranslatableWithArgs(WITH_1_ARG, listOf("hello")).getDefault()) toEqual "a) hello"
             }
             it("two arguments given; throws") {
                 expect {
@@ -80,9 +78,8 @@ class TranslatableWithArgsSpec : Spek({
                 }
             }
             it("two arguments given; OK") {
-                expect(TranslatableWithArgs(WITH_2_ARGS, "hello", "world").getDefault()).toBe("a) hello b) world")
-                expect(TranslatableWithArgs(WITH_2_ARGS, listOf("hello", "world")).getDefault())
-                    .toBe("a) hello b) world")
+                expect(TranslatableWithArgs(WITH_2_ARGS, "hello", "world").getDefault()) toEqual "a) hello b) world"
+                expect(TranslatableWithArgs(WITH_2_ARGS, listOf("hello", "world")).getDefault()) toEqual "a) hello b) world"
             }
         }
     }

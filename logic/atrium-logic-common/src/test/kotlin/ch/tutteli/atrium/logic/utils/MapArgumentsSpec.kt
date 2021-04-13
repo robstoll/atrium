@@ -1,4 +1,3 @@
-
 package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -18,7 +17,7 @@ object MapArgumentsSpec : Spek({
                 fun it(i: String, vararg iX: String) = mapArguments(i, iX) { "$it." }
 
                 expect(it("a", "b", "c"))
-                    .first { toBe("a.") }
+                    .first { toEqual("a.") }
                     .second.asList().containsExactly("b.", "c.")
             }
 
@@ -26,7 +25,7 @@ object MapArgumentsSpec : Spek({
                 fun it(i: String, vararg iX: String) = mapArguments(i, iX).to { "$it." }
 
                 expect(it("a", "b", "c"))
-                    .first { toBe("a.") }
+                    .first { toEqual("a.") }
                     .second.asList().containsExactly("b.", "c.")
             }
 
@@ -47,8 +46,8 @@ object MapArgumentsSpec : Spek({
                         mapArguments(i, iX).toNullOr().toExpect<String> { startsWith(it) }
 
                     val (first, others) = it(null, "b", "c")
-                    expect(first).toBe(null)
-                    expect(others[0]).notToBeNull {
+                    expect(first).toEqual(null)
+                    expect(others[0]).notToEqualNull {
                         _logic.maybeSubject.map { assertionCreator ->
                             _logic.changeSubject.unreported { "banana" }.assertionCreator()
                         }
@@ -72,7 +71,7 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
 
@@ -80,7 +79,7 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Byte, vararg iX: Byte) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
         }
@@ -89,14 +88,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Char, vararg iX: Char) = mapArguments(i, iX) { it + 1 }
 
                 expect(it('a', 'b', 'c'))
-                    .first { toBe('b') }
+                    .first { toEqual('b') }
                     .second.asList().containsExactly('c', 'd')
             }
             it("with second step") {
                 fun it(i: Char, vararg iX: Char) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it('a', 'b', 'c'))
-                    .first { toBe('b') }
+                    .first { toEqual('b') }
                     .second.asList().containsExactly('c', 'd')
             }
         }
@@ -105,14 +104,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Short, vararg iX: Short) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Short, vararg iX: Short) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
         }
@@ -121,14 +120,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Int, vararg iX: Int) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Int, vararg iX: Int) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1, 2, 3, 4))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
         }
@@ -137,14 +136,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Long, vararg iX: Long) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1L, 2L, 3L, 4L))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
             it("with second step") {
                 fun it(i: Long, vararg iX: Long) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1L, 2L, 3L, 4L))
-                    .first { toBe(2) }
+                    .first { toEqual(2) }
                     .second.asList().containsExactly(3, 4, 5)
             }
         }
@@ -153,14 +152,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Float, vararg iX: Float) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1f, 2f, 3f, 4f))
-                    .first { toBe(2f) }
+                    .first { toEqual(2f) }
                     .second.asList().containsExactly(3f, 4f, 5f)
             }
             it("with second step") {
                 fun it(i: Float, vararg iX: Float) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1f, 2f, 3f, 4f))
-                    .first { toBe(2f) }
+                    .first { toEqual(2f) }
                     .second.asList().containsExactly(3f, 4f, 5f)
             }
         }
@@ -169,14 +168,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX) { it + 1 }
 
                 expect(it(1.0, 2.0, 3.0, 4.0))
-                    .first { toBe(2.0) }
+                    .first { toEqual(2.0) }
                     .second.asList().containsExactly(3.0, 4.0, 5.0)
             }
             it("with second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
 
                 expect(it(1.0, 2.0, 3.0, 4.0))
-                    .first { toBe(2.0) }
+                    .first { toEqual(2.0) }
                     .second.asList().containsExactly(3.0, 4.0, 5.0)
             }
         }
@@ -185,14 +184,14 @@ object MapArgumentsSpec : Spek({
                 fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX) { !it }
 
                 expect(it(true, false, true))
-                    .first { toBe(false) }
+                    .first { toEqual(false) }
                     .second.asList().containsExactly(true, false)
             }
             it("with second step") {
                 fun it(i: Boolean, vararg iX: Boolean) = mapArguments(i, iX).to { if (it) "a" else "b" }
 
                 expect(it(true, false, false))
-                    .first { toBe("a") }
+                    .first { toEqual("a") }
                     .second.asList().containsExactly("b", "b")
             }
         }

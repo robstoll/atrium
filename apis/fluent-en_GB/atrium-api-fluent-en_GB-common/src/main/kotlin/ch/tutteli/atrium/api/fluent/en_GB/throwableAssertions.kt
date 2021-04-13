@@ -14,7 +14,7 @@ import kotlin.reflect.KClass
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of `this` expectation.
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
-    get() = feature(Throwable::message).notToBeNull()
+    get() = feature(Throwable::message).notToEqualNull()
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and
@@ -24,7 +24,7 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  * @return an [Expect] for the subject of `this` expectation.
  */
 fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    feature(Throwable::message) { notToBeNull(assertionCreator) }
+    feature(Throwable::message) { notToEqualNull(assertionCreator) }
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains

@@ -6,7 +6,7 @@
 package custom
 
 import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -20,12 +20,12 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
-        expect(1).toBe(1)
+    test("see if `toEqual` can be used") {
+        expect(1).toEqual(1)
     }
 
     test("see if `Result.isSuccess` can be used") {
-        expect(Result.success(1)).isSuccess { toBe(1) }
+        expect(Result.success(1)).isSuccess { toEqual(1) }
     }
 
     test("see if own assertion function without i18n can be used") {

@@ -32,6 +32,6 @@ class FirstExampleSpec: Spek({
         //snippet-import-insert
 
         val x = 10
-        expect(x).toBe(9)
+        expect(x).toEqual(9)
     }
 })

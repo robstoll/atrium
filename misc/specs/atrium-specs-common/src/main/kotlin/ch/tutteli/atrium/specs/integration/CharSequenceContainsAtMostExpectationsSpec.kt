@@ -51,12 +51,12 @@ abstract class CharSequenceContainsAtMostExpectationsSpec(
             it("for at most 0 -- points to $containsNot") {
                 expect {
                     fluent.containsAtMostFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("for at most 1 -- points to $exactly") {
                 expect {
                     fluent.containsAtMostFun(1, "")
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
             }
             it("if an object is passed as first expected") {
                 expect {

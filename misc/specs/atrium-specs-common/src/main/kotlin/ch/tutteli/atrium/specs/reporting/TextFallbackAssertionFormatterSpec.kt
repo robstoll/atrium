@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -74,14 +74,14 @@ abstract class TextFallbackAssertionFormatterSpec(
                 val assertion =
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
                 testee.formatNonGroup(assertion, parameterObject)
-                expect(sb.toString()).toBe("$lineSeparator${IS_SAME.getDefault()}: bli")
+                expect(sb.toString()).toEqual("$lineSeparator${IS_SAME.getDefault()}: bli")
             }
         }
         context("assertion of type ${RepresentationOnlyAssertion::class.simpleName}") {
             it("writes ${RepresentationOnlyAssertion::representation.name} without any additional colon or such") {
                 val assertion = assertionBuilder.representationOnly.failing.withRepresentation("hello").build()
                 testee.formatNonGroup(assertion, parameterObject)
-                expect(sb.toString()).toBe("${lineSeparator}hello")
+                expect(sb.toString()).toEqual("${lineSeparator}hello")
             }
         }
     }

@@ -28,13 +28,13 @@ abstract class ThrowableExpectationsSpec(
     include(object : SubjectLessSpec<Throwable>(
         describePrefix,
         messageFeature.forSubjectLess(),
-        message.forSubjectLess { toBe("hello") },
+        message.forSubjectLess { toEqual("hello") },
         messageContains.forSubjectLess("hello", arrayOf())
     ) {})
 
     include(object : AssertionCreatorSpec<Throwable>(
         describePrefix, RuntimeException("hello"),
-        message.forAssertionCreatorSpec("$toBeDescr: hello") { toBe("hello") }
+        message.forAssertionCreatorSpec("$toBeDescr: hello") { toEqual("hello") }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -50,7 +50,7 @@ abstract class ThrowableExpectationsSpec(
             messageFunctions.forEach { (name, messageFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(throwable).messageFun { toBe("hello") }
+                        expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
                         messageContains(
                             DescriptionAnyAssertion.IS_A.getDefault(),
@@ -83,7 +83,7 @@ abstract class ThrowableExpectationsSpec(
             messageFunctions.forEach { (name, messageFun, _) ->
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
-                        expect(throwable).messageFun { toBe("hello") }
+                        expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
                 }
 
@@ -108,12 +108,12 @@ abstract class ThrowableExpectationsSpec(
             messageFunctions.forEach { (name, messageFun, _) ->
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
-                        expect(throwable).messageFun { toBe("hello") }
+                        expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
-                    expect(throwable).messageFun { toBe("   ") }
+                    expect(throwable).messageFun { toEqual("   ") }
                 }
             }
             it("${messageContains.name} - throws an AssertionError if the assertion does not hold") {
@@ -132,7 +132,7 @@ abstract class ThrowableExpectationsSpec(
             messageFunctions.forEach { (name, messageFun, _) ->
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
-                        expect(throwable).messageFun { toBe("hello") }
+                        expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
                 }
 
@@ -169,7 +169,7 @@ abstract class ThrowableExpectationsSpec(
 
             causeFunctions.forEach { (name, causeFun) ->
                 it("$name - does not throw if the assertion holds") {
-                    expect(throwable).causeFun { toBe(exceptionCause) }
+                    expect(throwable).causeFun { toEqual(exceptionCause) }
                 }
 
                 it("$name - throws an AssertionError") {

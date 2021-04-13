@@ -19,8 +19,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
         containsInOrderOnlyGroupedEntries.forSubjectLess(
-            context({ toBe(2.5) }),
-            context({ toBe(4.1) }),
+            context({ toEqual(2.5) }),
+            context({ toEqual(4.1) }),
             arrayOf()
         )
     ) {})
@@ -28,16 +28,16 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         describePrefix, listOf(1.2, 2.0, 3.0),
         assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [first empty]", "$toBeDescr: 1.2",
-            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
-            { containsInOrderOnlyGroupedEntries(this, Entry { }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) }
+            { containsInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) }
         ),
         assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [second empty]", "$toBeDescr: 2.0",
-            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { toBe(3.0) })) },
-            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { }, arrayOf( Entry { toBe(3.0) })) }
+            { containsInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { }, arrayOf( Entry { toEqual(3.0) })) }
         ),
         assertionCreatorSpecTriple(containsInOrderOnlyGroupedEntries.name + " [third empty]", "$toBeDescr: 3.0",
-            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry { })) },
-            { containsInOrderOnlyGroupedEntries(this, Entry { toBe(1.2) }, Entry { toBe(2.0) }, arrayOf( Entry {  })) }
+            { containsInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { })) },
+            { containsInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry {  })) }
         )
     ) {})
     //@formatter:on
@@ -151,14 +151,14 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     expect {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
                             context(),
-                            context({ toBe(-1.2) })
+                            context({ toEqual(-1.2) })
                         )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as second parameter") {
                     expect {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.2) }),
+                            context({ toEqual(1.2) }),
                             context()
                         )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
@@ -166,8 +166,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                 it("if an empty group is given as third parameter") {
                     expect {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.2) }),
-                            context({ toBe(4.3) }),
+                            context({ toEqual(1.2) }),
+                            context({ toEqual(4.3) }),
                             context()
                         )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
@@ -175,9 +175,9 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                 it("if an empty group is given as fourth parameter") {
                     expect {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.2) }),
-                            context({ toBe(4.3) }),
-                            context({ toBe(5.7) }),
+                            context({ toEqual(1.2) }),
+                            context({ toEqual(4.3) }),
+                            context({ toEqual(5.7) }),
                             context()
                         )
                     }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
@@ -188,7 +188,11 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                 val fluentEmpty = expect(setOf<Double?>().asIterable())
                 it("(1.0), (1.2) throws AssertionError") {
                     expect {
-                        fluentEmpty.containsInOrderOnlyGroupedEntriesFun(context({ toBe(1.0) }), context({ toBe(1.2) }))
+                        fluentEmpty.containsInOrderOnlyGroupedEntriesFun(context({ toEqual(1.0) }), context({
+                            toEqual(
+                                1.2
+                            )
+                        }))
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
@@ -206,29 +210,29 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                 context("happy case") {
                     it("(1.0), (2.0, 3.0), (4.0, 4.0)") {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.0) }),
-                            context({ toBe(2.0) }, { toBe(3.0) }),
-                            context({ toBe(4.0) }, { toBe(4.0) })
+                            context({ toEqual(1.0) }),
+                            context({ toEqual(2.0) }, { toEqual(3.0) }),
+                            context({ toEqual(4.0) }, { toEqual(4.0) })
                         )
                     }
                     it("(2.0, 1.0), (4.0, 3.0), (4.0)") {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(2.0) }, { toBe(1.0) }),
-                            context({ toBe(4.0) }, { toBe(3.0) }),
-                            context({ toBe(4.0) })
+                            context({ toEqual(2.0) }, { toEqual(1.0) }),
+                            context({ toEqual(4.0) }, { toEqual(3.0) }),
+                            context({ toEqual(4.0) })
                         )
                     }
                     it("(2.0, 3.0, 1.0), (4.0), (4.0)") {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(2.0) }, { toBe(3.0) }, { toBe(1.0) }),
-                            context({ toBe(4.0) }),
-                            context({ toBe(4.0) })
+                            context({ toEqual(2.0) }, { toEqual(3.0) }, { toEqual(1.0) }),
+                            context({ toEqual(4.0) }),
+                            context({ toEqual(4.0) })
                         )
                     }
                     it("(1.0, 2.0), (4.0, 3.0, 4.0)") {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.0) }, { toBe(2.0) }),
-                            context({ toBe(4.0) }, { toBe(3.0) }, { toBe(4.0) })
+                            context({ toEqual(1.0) }, { toEqual(2.0) }),
+                            context({ toEqual(4.0) }, { toEqual(3.0) }, { toEqual(4.0) })
                         )
                     }
                     it("[$isLessThanFun(2.1) && $isGreaterThanFun(1.0), $isLessThanFun(2.0)], [$isGreaterThanFun(3.0), $isGreaterThanFun(2.0), $isGreaterThanFun(1.0) && $isLessThanFun(5.0)]") {
@@ -246,8 +250,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("(4.0, 1.0), (2.0, 3.0, 4.0) -- wrong order") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                                context({ toBe(4.0) }, { toBe(1.0) }),
-                                context({ toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) })
+                                context({ toEqual(4.0) }, { toEqual(1.0) }),
+                                context({ toEqual(2.0) }, { toEqual(3.0) }, { toEqual(4.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {
@@ -277,7 +281,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
                                 context({ isLessThan(2.1) }, { isLessThan(2.0) }),
-                                context({ toBe(4.0) }, { toBe(3.0) }, { toBe(4.0) })
+                                context({ toEqual(4.0) }, { toEqual(3.0) }, { toEqual(4.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {
@@ -304,8 +308,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("(1.0), (4.0, 3.0, 2.0) -- 4.0 was missing") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                                context({ toBe(1.0) }),
-                                context({ toBe(4.0) }, { toBe(2.0) }, { toBe(3.0) })
+                                context({ toEqual(1.0) }),
+                                context({ toEqual(4.0) }, { toEqual(2.0) }, { toEqual(3.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {
@@ -325,10 +329,10 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("(1.0), (4.0) -- 2.0, 3.0 and 4.0 was missing") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(context({
-                                toBe(
+                                toEqual(
                                     1.0
                                 )
-                            }), context({ toBe(4.0) }))
+                            }), context({ toEqual(4.0) }))
                         }.toThrow<AssertionError> {
                             message {
                                 containsSize(5, 2)
@@ -342,8 +346,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("(1.0, 3.0), (5.0) -- 5.0 is wrong and 4.0 and 4.0 are missing") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                                context({ toBe(1.0) }, { toBe(3.0) }),
-                                context({ toBe(5.0) })
+                                context({ toEqual(1.0) }, { toEqual(3.0) }),
+                                context({ toEqual(5.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {
@@ -363,8 +367,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("(4.0, 1.0, 3.0, 2.0), (5.0, 4.0) -- 5.0 too much") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                                context({ toBe(4.0) }, { toBe(1.0) }, { toBe(3.0) }, { toBe(2.0) }),
-                                context({ toBe(5.0) }, { toBe(4.0) })
+                                context({ toEqual(4.0) }, { toEqual(1.0) }, { toEqual(3.0) }, { toEqual(2.0) }),
+                                context({ toEqual(5.0) }, { toEqual(4.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {
@@ -402,8 +406,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                 context("happy case") {
                     it("[$toBeFun(1.0), null], [null, $toBeFun(3.0)]") {
                         expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
-                            context({ toBe(1.0) }, null),
-                            context(null, { toBe(3.0) })
+                            context({ toEqual(1.0) }, null),
+                            context(null, { toEqual(3.0) })
                         )
                     }
                     it("[null], [null, $isGreaterThanFun(2.0), $isLessThanFun(5.0)]") {
@@ -444,8 +448,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("[null, $toBeFun(1.0)], [$toBeFun(3.0), null, null] -- null too much") {
                         expect {
                             expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
-                                context(null, { toBe(1.0) }),
-                                context({ toBe(3.0) }, null, null)
+                                context(null, { toEqual(1.0) }),
+                                context({ toEqual(3.0) }, null, null)
                             )
                         }.toThrow<AssertionError> {
                             message {

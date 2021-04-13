@@ -13,10 +13,10 @@ abstract class IterableNoneExpectationsSpec(
 ) : IterableContainsEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        none.forSubjectLess { toBe(2.3) }
+        none.forSubjectLess { toEqual(2.3) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        noneNullable.forSubjectLess { toBe(2.3) }
+        noneNullable.forSubjectLess { toEqual(2.3) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
@@ -51,7 +51,7 @@ abstract class IterableNoneExpectationsSpec(
             context("happy case") {
                 listOf(1.1, 2.2, 3.3).forEach {
                     it("$toBeDescr($it) does not throw") {
-                        expect(oneToSeven()).noneFun { toBe(1.1) }
+                        expect(oneToSeven()).noneFun { toEqual(1.1) }
                     }
                 }
             }
@@ -59,7 +59,7 @@ abstract class IterableNoneExpectationsSpec(
             context("failing cases; search string at different positions") {
                 it("$toBeDescr(4.0) throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).noneFun { toBe(4.0) }
+                        expect(oneToSeven()).noneFun { toEqual(4.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -107,7 +107,7 @@ abstract class IterableNoneExpectationsSpec(
 
                 it("1.0 throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable()).noneFun { toBe(1.0) }
+                        expect(oneToSevenNullable()).noneFun { toEqual(1.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

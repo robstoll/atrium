@@ -15,13 +15,13 @@ class SmokeTest {
 
     @Test
     fun toBe_canBeUsed() {
-        assertThat(1) toBe 1
+        assertThat(1) toEqual 1
     }
 
     @Test
     fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2) tobe even
-        assertThat(1) tobe odd
+        assertThat(2) toBe even
+        assertThat(1) toBe odd
     }
 
     @Test
@@ -58,10 +58,10 @@ object even
 @Suppress("ClassName")
 object odd
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") odd: odd) =
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
 
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }

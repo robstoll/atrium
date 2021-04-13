@@ -18,7 +18,7 @@ class AdjustStackTest {
     @Test
     fun noOp_containsMochaAndAtrium() {
         expect {
-            assertNoOp(1).toBe(2)
+            assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) contains entries(
                 { contains("mocha") },
@@ -30,7 +30,7 @@ class AdjustStackTest {
     @Test
     fun removeRunner_containsAtriumButNotMocha() {
         expect {
-            assertRemoveRunner(1).toBe(2)
+            assertRemoveRunner(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it containsNot o entry { it contains "mocha" }
@@ -55,7 +55,7 @@ class AdjustStackTest {
     @Test
     fun removeAtrium_containsMochaButNotAtrium() {
         expect {
-            assertRemoveAtrium(1).toBe(2)
+            assertRemoveAtrium(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it contains { it contains "mocha" }

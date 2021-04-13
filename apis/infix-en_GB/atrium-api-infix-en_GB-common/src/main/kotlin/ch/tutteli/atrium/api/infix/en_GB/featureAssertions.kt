@@ -167,17 +167,17 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  * ```
  * // use
  * import ch.tutteli.atrium.api.infix.en_GB.workaround.it
- * expect(person) feature { f(it::age) } it { o toBe 20 }
+ * expect(person) feature { f(it::age) } it { this toEqual 20 }
  *
  * // instead of (which causes problems with Kotlin < 1.4)
- * expect(person) feature of({ f(it::age) }) { o toBe 20 }
+ * expect(person) feature of({ f(it::age) }) { this toEqual 20 }
  * ```
  *
  * @param of Use the function `of({ ... }) { ... }` to create the [MetaFeatureOptionWithCreator] where the first
  *   argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
  *   where the subject of `this` expectation is available via implicit parameter `it`.
  *   Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
- *   e.g. `feature of({ f(it::size) }) { o toBe 3 }`
+ *   e.g. `feature of({ f(it::size) }) { it toEqual 3 }`
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @since 0.12.0
@@ -360,7 +360,7 @@ fun <T, R> of(description: String, extractor: T.() -> R): Feature<T, R> =
  *
  * For instance:
  * ```
- * expect(person) feature of("first underage child", { children.first { it < 18 }) { name.toBe("robert) }
+ * expect(person) feature of("first underage child", { children.first { it < 18 }) { name.toEqual("robert) }
  * ```
  *
  * Note, you need to enable the new type inference of Kotlin (or use Kotlin 1.4 and above) in order that Kotlin
@@ -370,10 +370,10 @@ fun <T, R> of(description: String, extractor: T.() -> R): Feature<T, R> =
  * ```
  * // use
  * import ch.tutteli.atrium.api.infix.en_GB.workaround.it
- * expect(person) feature { f(it::age) } it { o toBe 20 }
+ * expect(person) feature { f(it::age) } it { this toEqual 20 }
  *
  * // instead of (which causes problems with Kotlin < 1.4)
- * expect(person) feature of({ f(it::age) }) { o toBe 20 }
+ * expect(person) feature of({ f(it::age) }) { this toEqual 20 }
  * ```
  *
  * @return The newly created [Feature].

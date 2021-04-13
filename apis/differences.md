@@ -36,19 +36,19 @@ If you forget to dit it, then the compiler will complain that you have the same 
 # Different API styles
 
 Atrium currently provides two API styles: fluent and infix. 
-We dit not show every single difference but merely where the APIs differ in naming.
-For instance, the expectation function `Expect<T>.toBe`:
+We will not show every single difference but merely where the APIs differ in naming.
+For instance, the expectation function `Expect<T>.toEqual`:
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).toBe(2)
+expect(x).toEqual(2)
 ``` 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) toBe 2
+expect(x) toEqual 2
 ``` 
 
-is toit similar, we will not list it here (ok, we did now but I guess you get the point).
+is so similar, we will not list it here (ok, we did now, but I guess you get the point).
 
 ## Table of Content
 - [Empty CharSequence / Collection](#empty-charsequence--collection)
@@ -144,11 +144,11 @@ expect(x).contains({ isLessThan(2) }, { isGreaterThan(5) })
 expect(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
 expect(x).contains.inAnyOrder.exactly(1).values("hello", "robert")
 expect(x).contains.inAnyOrder.atMost(2).entry { isLessOrEquals(2) }
-expect(x).contains.inAnyOrder.notOrAtMost(2).entries({ notToBe(3) }, { isGreaterOrEquals(2) })
+expect(x).contains.inAnyOrder.notOrAtMost(2).entries({ notToEqual(3) }, { isGreaterOrEquals(2) })
 expect(x).contains.inAnyOrder.only.value("hello")
 expect(x).contains.inAnyOrder.only.values(personA, personB)
 expect(x).contains.inAnyOrder.only.entry { isLessThan(2) }
-expect(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
+expect(x).contains.inAnyOrder.only.entries({ toEqual(3) }, { isLessThan(2) })
 ```
 Notice that the final steps 
 `value`, `values`, `entry` and `entries` 
@@ -166,7 +166,7 @@ expect(x) contains entries({ it isLessThan 2 }, { it isGreaterThan 5 })
 expect(x) contains o inAny order atLeast 1 butAtMost 2 value 3.2
 expect(x) contains o inAny order exactly 1 the values("hello", "robert")
 expect(x) contains o inAny order atMost 2 entry { it isLessOrEquals 2 }
-expect(x) contains o inAny order notOrAtMost 2 the entries({ it notToBe 3 }, { it isGreaterOrEquals 2 })
+expect(x) contains o inAny order notOrAtMost 2 the entries({ it notToEqual 3 }, { it isGreaterOrEquals 2 })
 expect(x) contains o inAny order but only value "hello"
 expect(x) contains o inAny order but only the values(personA, personB)
 expect(x) contains o inAny order but only entry { it isLessThan 2 } 

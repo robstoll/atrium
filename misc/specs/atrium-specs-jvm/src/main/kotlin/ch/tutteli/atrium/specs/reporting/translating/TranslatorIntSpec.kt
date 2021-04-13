@@ -144,7 +144,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionAnyAssertion.$toBe is provided for 'de_CH'") {
                 it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                     expect {
-                        assertWithDeCh_Fr(1).toBe(2)
+                        assertWithDeCh_Fr(1).toEqual(2)
                     }.toThrow<AssertionError> { messageContains("ist: 2") }
                 }
             }
@@ -153,7 +153,7 @@ abstract class TranslatorIntSpec(
                 val text = "ist nicht"
                 it("a failing assertion contains '$text' instead of 'not to be' in the error message") {
                     expect {
-                        assertWithDeCh_Fr(1).notToBe(1)
+                        assertWithDeCh_Fr(1).notToEqual(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
@@ -162,7 +162,7 @@ abstract class TranslatorIntSpec(
                 val text = "n'est pas la même instance que"
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
-                        assertWithDeCh_Fr(1).isNotSameAs(1)
+                        assertWithDeCh_Fr(1).notToBeTheInstance(1)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
@@ -173,7 +173,7 @@ abstract class TranslatorIntSpec(
                 val text = "il applique que"
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
-                        assertWithDeCh_Fr(1).toBe(2)
+                        assertWithDeCh_Fr(1).toEqual(2)
                     }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
@@ -301,14 +301,14 @@ abstract class TranslatorIntSpec(
                     describe("translation for $descriptionAnyAssertion.$toBe is provided for 'zh_$country' and for ${zhWithScript}_$country") {
                         it("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
                             expect {
-                                assert.toBe(2)
+                                assert.toEqual(2)
                             }.toThrow<AssertionError> { messageContains("$toBe ${zhWithScript}_$country: 2") }
                         }
                     }
                     describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'zh_$country' and for $zhWithScript") {
                         it("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
                             expect {
-                                assert.notToBe(1)
+                                assert.notToEqual(1)
                             }.toThrow<AssertionError> { messageContains("$notToBe $zhWithScript: 1") }
                         }
                     }
@@ -316,14 +316,14 @@ abstract class TranslatorIntSpec(
                 describe("translation for $descriptionAnyAssertion.$isNotSame is provided for 'zh_$country' and zh") {
                     it("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
                         expect {
-                            assert.isNotSameAs(1)
+                            assert.notToBeTheInstance(1)
                         }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
                     it("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
                         expect {
-                            assert.isSameAs(2)
+                            assert.toBeTheInstance(2)
                         }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }
                     }
                 }

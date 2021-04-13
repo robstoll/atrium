@@ -132,7 +132,7 @@ class KClassCastTest {
 
     private fun Expect<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
         return { (value, kClass) ->
-            it feature { f("value", kClass.cast(value)) } isSameAs value
+            it feature { f("value", kClass.cast(value)) } toBeTheInstance value
         }
     }
 }

@@ -46,28 +46,28 @@ abstract class IterableContainsInAnyOrderAtLeastValuesExpectationsSpec(
             it("for at least 0 -- points to $containsNot") {
                 expect {
                     expect(oneToSeven()).containsAtLeastFun(0, 9.0)
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             context("using $containsAtLeastButAtMost") {
                 it("for at least 1 but at most -1 -- since -1 is smaller than 1") {
                     expect {
                         expect(oneToSeven()).containsAtLeastButAtMostFun(1, -1, 9.0)
-                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(1, -1)) } }
+                    }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, -1)) } }
                 }
                 it("for at least 1 but at most 0 -- since 0 is smaller than 1") {
                     expect {
                         expect(oneToSeven()).containsAtLeastButAtMostFun(1, 0, 9.0)
-                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(1, 0)) } }
+                    }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, 0)) } }
                 }
                 it("for at least 2 but at most 1 -- since 1 is smaller than 2") {
                     expect {
                         expect(oneToSeven()).containsAtLeastButAtMostFun(2, 1, 9.0)
-                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(2, 1)) } }
+                    }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(2, 1)) } }
                 }
                 it("for at least 1 but at most 1 -- points to $exactly") {
                     expect {
                         expect(oneToSeven()).containsAtLeastButAtMostFun(1, 1, 9.0)
-                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
+                    }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
                 }
             }
         }

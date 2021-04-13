@@ -1,11 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -40,10 +35,10 @@ abstract class LocalDateTimeExpectationsSpec(
 
     include(object : AssertionCreatorSpec<LocalDateTime>(
         describePrefix, LocalDateTime.of(2040, 1, 15, 10, 20, 30),
-        year.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(2040) },
-        month.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) },
-        day.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(15) },
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(DayOfWeek.SUNDAY) }
+        year.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(2040) },
+        month.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) },
+        day.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(15) },
+        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

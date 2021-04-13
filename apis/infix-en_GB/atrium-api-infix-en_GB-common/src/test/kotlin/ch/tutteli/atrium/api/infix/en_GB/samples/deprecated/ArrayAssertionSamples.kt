@@ -12,7 +12,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun asListFeature() {
-        expect(arrayOf("A", "B")) asList o toBe listOf("A", "B")
+        expect(arrayOf("A", "B")) asList o toEqual listOf("A", "B")
         //                           | subject is now of type List<String>
     }
 
@@ -20,7 +20,7 @@ class ArrayAssertionSamples {
     fun asList() {
         expect(arrayOf("A", "B"))
             .asList { // subject within this block is of type List<String>
-                it toBe listOf("A", "B")
+                it toEqual listOf("A", "B")
             } // subject here is back to type Array<String>
 
         fails {
@@ -39,7 +39,7 @@ class ArrayAssertionSamples {
     fun asListEOut() {
         expect<Array<out String>>(arrayOf("A", "B"))
             .asList { // subject within this block is of type List<String>
-                it toBe listOf("A", "B")
+                it toEqual listOf("A", "B")
             } // subject here is back to type Array<out String>
 
         fails {
@@ -56,7 +56,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun byteArrAsListFeature() {
-        expect(byteArrayOf(1, 2, 3)) asList o toBe listOf<Byte>(1, 2, 3)
+        expect(byteArrayOf(1, 2, 3)) asList o toEqual listOf<Byte>(1, 2, 3)
         //                              | subject is now of type List<Byte>
     }
 
@@ -64,7 +64,7 @@ class ArrayAssertionSamples {
     fun byteArrAsList() {
         expect(byteArrayOf(1, 2, 3))
             .asList { // subject within this block is of type List<Byte>
-                it toBe listOf<Byte>(1, 2, 3)
+                it toEqual listOf<Byte>(1, 2, 3)
             } // subject here is back to type Array<Byte>
 
         fails {
@@ -81,7 +81,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun charArrAsListFeature() {
-        expect(charArrayOf('A', 'B', 'C')) asList o toBe listOf('A', 'B', 'C')
+        expect(charArrayOf('A', 'B', 'C')) asList o toEqual listOf('A', 'B', 'C')
         //                                    | subject is now of type List<Char>
     }
 
@@ -89,7 +89,7 @@ class ArrayAssertionSamples {
     fun charArrAsList() {
         expect(charArrayOf('A', 'B', 'C'))
             .asList { // subject within this block is of type List<Char>
-                it toBe listOf('A', 'B', 'C')
+                it toEqual listOf('A', 'B', 'C')
             } // subject here is back to type Array<Char>
 
         fails {
@@ -106,7 +106,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun shortArrAsListFeature() {
-        expect(shortArrayOf(1, 2, 3)) asList o toBe listOf<Short>(1, 2, 3)
+        expect(shortArrayOf(1, 2, 3)) asList o toEqual listOf<Short>(1, 2, 3)
         //                               | subject is now of type List<Short>
     }
 
@@ -114,7 +114,7 @@ class ArrayAssertionSamples {
     fun shortArrAsList() {
         expect(shortArrayOf(1, 2, 3))
             .asList { // subject within this block is of type List<Short>
-                it toBe listOf<Short>(1, 2, 3)
+                it toEqual listOf<Short>(1, 2, 3)
             } // subject here is back to type Array<Short>
 
         fails {
@@ -131,7 +131,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun intArrAsListFeature() {
-        expect(intArrayOf(1, 2, 3)) asList o toBe listOf(1, 2, 3)
+        expect(intArrayOf(1, 2, 3)) asList o toEqual listOf(1, 2, 3)
         //                             | subject is now of type List<Int>
     }
 
@@ -139,7 +139,7 @@ class ArrayAssertionSamples {
     fun intArrAsList() {
         expect(intArrayOf(1, 2, 3))
             .asList { // subject within this block is of type List<Int>
-                it toBe listOf(1, 2, 3)
+                it toEqual listOf(1, 2, 3)
             } // subject here is back to type Array<Int>
 
         fails {
@@ -156,7 +156,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun longArrAsListFeature() {
-        expect(longArrayOf(1L, 2L, 3L)) asList o toBe listOf(1L, 2L, 3L)
+        expect(longArrayOf(1L, 2L, 3L)) asList o toEqual listOf(1L, 2L, 3L)
         //                                 | subject is now of type List<Long>
     }
 
@@ -164,7 +164,7 @@ class ArrayAssertionSamples {
     fun longArrAsList() {
         expect(longArrayOf(1L, 2L, 3L))
             .asList { // subject within this block is of type List<Long>
-                it toBe listOf(1L, 2L, 3L)
+                it toEqual listOf(1L, 2L, 3L)
             } // subject here is back to type Array<Long>
 
         fails {
@@ -181,7 +181,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun floatArrAsListFeature() {
-        expect(floatArrayOf(1f, 2f, 3f)) asList o toBe listOf(1f, 2f, 3f)
+        expect(floatArrayOf(1f, 2f, 3f)) asList o toEqual listOf(1f, 2f, 3f)
         //                                  | subject is now of type List<Float>
     }
 
@@ -189,7 +189,7 @@ class ArrayAssertionSamples {
     fun floatArrAsList() {
         expect(floatArrayOf(1f, 2f, 3f))
             .asList { // subject within this block is of type List<Float>
-                it toBe listOf(1f, 2f, 3f)
+                it toEqual listOf(1f, 2f, 3f)
             } // subject here is back to type Array<Float>
 
         fails {
@@ -206,7 +206,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun doubleArrAsListFeature() {
-        expect(doubleArrayOf(1.1, 2.2, 3.3)) asList o toBe listOf(1.1, 2.2, 3.3)
+        expect(doubleArrayOf(1.1, 2.2, 3.3)) asList o toEqual listOf(1.1, 2.2, 3.3)
         //                                      | subject is now of type List<Double>
     }
 
@@ -214,7 +214,7 @@ class ArrayAssertionSamples {
     fun doubleArrAsList() {
         expect(doubleArrayOf(1.1, 2.2, 3.3))
             .asList { // subject within this block is of type List<Double>
-                it toBe listOf(1.1, 2.2, 3.3)
+                it toEqual listOf(1.1, 2.2, 3.3)
             } // subject here is back to type Array<Double>
 
         fails {
@@ -231,7 +231,7 @@ class ArrayAssertionSamples {
 
     @Test
     fun booleanArrAsListFeature() {
-        expect(booleanArrayOf(true, false)) asList o toBe listOf(true, false)
+        expect(booleanArrayOf(true, false)) asList o toEqual listOf(true, false)
         //                                     | subject is now of type List<Boolean>
     }
 
@@ -239,7 +239,7 @@ class ArrayAssertionSamples {
     fun booleanArrAsList() {
         expect(booleanArrayOf(true, false))
             .asList { // subject within this block is of type List<Boolean>
-                it toBe listOf(true, false)
+                it toEqual listOf(true, false)
             } // subject here is back to type Array<Boolean>
 
         fails {

@@ -33,38 +33,38 @@ object NullableSpec : Spek({
 
     describeFun(nullableFun.name) {
         it("can be applied to String!") {
-            expect(nullable(testee.string)).toBe(null)
+            expect(nullable(testee.string)).toEqual(null)
         }
 
         context("can be usd in feature assertions") {
             it("for a method with 0 arguments") {
                 expect(testee) {
-                    feature { f(nullable(it::arg0)) }.toBe(0)
+                    feature { f(nullable(it::arg0)) }.toEqual(0)
                 }
             }
             it("for a method with 1 arguments") {
                 expect(testee) {
-                    feature { f(nullable(testee::arg1), 1) }.toBe(1)
+                    feature { f(nullable(testee::arg1), 1) }.toEqual(1)
                 }
             }
             it("for a method with 2 arguments") {
                 expect(testee) {
-                    feature { f(nullable(testee::arg2), 1, 2) }.toBe(2)
+                    feature { f(nullable(testee::arg2), 1, 2) }.toEqual(2)
                 }
             }
             it("for a method with 3 arguments") {
                 expect(testee) {
-                    feature { f(nullable(testee::arg3), 1, 2, 3) }.toBe(3)
+                    feature { f(nullable(testee::arg3), 1, 2, 3) }.toEqual(3)
                 }
             }
             it("for a method with 4 arguments") {
                 expect(testee) {
-                    feature { f(nullable(testee::arg4), 1, 2, 3, 4) }.toBe(4)
+                    feature { f(nullable(testee::arg4), 1, 2, 3, 4) }.toEqual(4)
                 }
             }
             it("for a method with 5 arguments") {
                 expect(testee) {
-                    feature { f(nullable(testee::arg5), 1, 2, 3, 4, 5) }.toBe(5)
+                    feature { f(nullable(testee::arg5), 1, 2, 3, 4, 5) }.toEqual(5)
                 }
             }
         }
@@ -76,7 +76,7 @@ object NullableSpec : Spek({
                 expect(nullableContainer(testee.strings)).contains(null)
             }
             it("can be combined with ${nullableFun.name}") {
-                expect(nullable(nullableContainer(testee.strings))).notToBeNull {
+                expect(nullable(nullableContainer(testee.strings))).notToEqualNull {
                     contains(null, "hello")
                 }
             }
@@ -87,7 +87,7 @@ object NullableSpec : Spek({
                 expect(nullableContainer(testee.stringArray)).asList().contains(null)
             }
             it("can be combined with ${nullableFun.name}") {
-                expect(nullable(nullableContainer(testee.stringArray))).notToBeNull {
+                expect(nullable(nullableContainer(testee.stringArray))).notToEqualNull {
                     asList().contains(null, "hello")
                 }
             }
@@ -97,30 +97,30 @@ object NullableSpec : Spek({
     describeFun(nullableKeyMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
             expect(nullableKeyMap(testee.numbersWithString)).getExisting(2) {
-                toBe("hello")
+                toEqual("hello")
             }
         }
         it("throws if the value was actually null") {
             expect {
-                expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toBe("a")
+                expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toEqual("a")
             }.toThrow<AssertionError> { messageContains("get(1): null", "equals: \"a\"") }
         }
         it("can pass `null` as key") {
-            expect(nullableKeyMap(testee.numbersWithString)[null]).toBe("tada")
+            expect(nullableKeyMap(testee.numbersWithString)[null]).toEqual("tada")
         }
 
         it("can be combined with ${nullableFun.name}") {
-            expect(nullable(nullableKeyMap(testee.numbersWithString))).notToBeNull {
-                feature { f<Int, String?>(it::get, 0) }.toBe(null)
+            expect(nullable(nullableKeyMap(testee.numbersWithString))).notToEqualNull {
+                feature { f<Int, String?>(it::get, 0) }.toEqual(null)
             }
         }
     }
 
     describeFun(nullableValueMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
-            expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
+            expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toEqual(null)
             expect {
-                expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toBe("test")
+                expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toEqual("test")
             }.toThrow<AssertionError> {
                 messageContains(
                     "get(1): null",
@@ -130,17 +130,17 @@ object NullableSpec : Spek({
 
         }
         it("can be combined with ${nullableFun.name}") {
-            expect(nullable(nullableValueMap(testee.numbersWithString))).notToBeNull {
-                feature { f(it::get, 0) }.toBe(null)
+            expect(nullable(nullableValueMap(testee.numbersWithString))).notToEqualNull {
+                feature { f(it::get, 0) }.toEqual(null)
             }
         }
     }
 
     describeFun(nullableKeyValueMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
-            expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe(null)
+            expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toEqual(null)
             expect {
-                expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toBe("hello")
+                expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toEqual("hello")
             }.toThrow<AssertionError> {
                 messageContains(
                     "get(1): null",
@@ -150,12 +150,12 @@ object NullableSpec : Spek({
         }
 
         it("can pass `null` as key") {
-            expect(nullableKeyMap(testee.numbersWithString)).getExisting(null).toBe("tada")
+            expect(nullableKeyMap(testee.numbersWithString)).getExisting(null).toEqual("tada")
         }
 
         it("can be combined with ${nullableFun.name}") {
-            expect(nullable(nullableKeyValueMap(testee.numbersWithString))).notToBeNull {
-                feature { f<Int?, String?>(it::get, 0) }.toBe(null)
+            expect(nullable(nullableKeyValueMap(testee.numbersWithString))).notToEqualNull {
+                feature { f<Int?, String?>(it::get, 0) }.toEqual(null)
             }
         }
     }

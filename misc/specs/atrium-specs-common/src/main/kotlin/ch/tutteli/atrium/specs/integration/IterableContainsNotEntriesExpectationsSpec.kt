@@ -15,11 +15,11 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsNotEntries.forSubjectLess({ toBe(2.3) }, arrayOf())
+        containsNotEntries.forSubjectLess({ toEqual(2.3) }, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        containsNotNullableEntries.forSubjectLess({ toBe(2.3) }, arrayOf())
+        containsNotNullableEntries.forSubjectLess({ toEqual(2.3) }, arrayOf())
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
@@ -63,7 +63,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
 
             it("$toBeFun(4.0) throws AssertionError") {
                 expect {
-                    fluent.containsNotFun({ toBe(4.0) })
+                    fluent.containsNotFun({ toEqual(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         containsRegex(
@@ -87,10 +87,10 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                     expect(oneToSeven()).containsNotFun({ isGreaterThan(1.0); isLessThan(2.0) })
                 }
                 it("$toBeFun(1.1), $toBeFun(2.2), $toBeFun(3.3) does not throw") {
-                    expect(oneToSeven()).containsNotFun({ toBe(1.1) }, { toBe(2.2) }, { toBe(3.3) })
+                    expect(oneToSeven()).containsNotFun({ toEqual(1.1) }, { toEqual(2.2) }, { toEqual(3.3) })
                 }
                 it("$toBeFun(3.3), $toBeFun(1.1), $toBeFun(2.2) does not throw") {
-                    expect(oneToSeven()).containsNotFun({ toBe(3.3) }, { toBe(1.1) }, { toBe(2.2) })
+                    expect(oneToSeven()).containsNotFun({ toEqual(3.3) }, { toEqual(1.1) }, { toEqual(2.2) })
                 }
             }
 
@@ -114,7 +114,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                 }
                 it("$toBeFun(1.0), $toBeFun(4.0) throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsNotFun({ toBe(1.0) }, { toBe(4.0) })
+                        expect(oneToSeven()).containsNotFun({ toEqual(1.0) }, { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -137,7 +137,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                 }
                 it("$toBeFun(4.0), $toBeFun(1.1) throws AssertionError mentioning only 4.0") {
                     expect {
-                        expect(oneToSeven()).containsNotFun({ toBe(4.0) }, { toBe(1.0) })
+                        expect(oneToSeven()).containsNotFun({ toEqual(4.0) }, { toEqual(1.0) })
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex("$anElementWhich: $separator.*$toBeDescr: 4.0")
@@ -178,7 +178,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        expect(oneToSevenNullable()).containsNotNullableFun({ toBe(1.1) }, null)
+                        expect(oneToSevenNullable()).containsNotNullableFun({ toEqual(1.1) }, null)
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(

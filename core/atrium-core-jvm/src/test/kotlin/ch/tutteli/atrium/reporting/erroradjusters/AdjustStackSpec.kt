@@ -26,7 +26,7 @@ class AdjustStackSpec : Spek({
 
         it("contains spek, junit, atrium.creating and atrium.reporting") {
             expect {
-                assertNoOp(1).toBe(2)
+                assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
                 feature { f(it::stackBacktrace) } contains entries(
                     { it startsWith "org.spekframework.spek2" },
@@ -60,7 +60,7 @@ class AdjustStackSpec : Spek({
         describe(description) {
             it("does not contain $containsNot in stackBacktrace but $contains") {
                 expect {
-                    createExpect(1, factory).toBe(2)
+                    createExpect(1, factory) toEqual 2
                 }.toThrow<AssertionError> {
                     feature { f(it::stackBacktrace) } and {
                         it containsNot o the entries(containsNotFirst, *containsNotRest)
@@ -170,7 +170,7 @@ class AdjustStackSpec : Spek({
         describe(description) {
             it("stackBacktrace is empty as we filter out everything") {
                 expect {
-                    createExpect(1, factory).toBe(2)
+                    createExpect(1, factory) toEqual 2
                 }.toThrow<AssertionError> {
                     it feature { f(it::stackBacktrace) } toBe empty
                 }

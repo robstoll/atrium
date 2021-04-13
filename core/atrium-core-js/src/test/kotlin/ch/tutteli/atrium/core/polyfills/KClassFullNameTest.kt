@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.infix.en_GB.f
-import ch.tutteli.atrium.api.infix.en_GB.feature
-import ch.tutteli.atrium.api.infix.en_GB.it
-import ch.tutteli.atrium.api.infix.en_GB.toBe
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
@@ -75,7 +72,7 @@ class KClassFullNameTest {
                 listOf<Int>() to "EmptyList",
                 listOf(1, 2) to "ArrayList"
             ).forEach { (value, expected) ->
-                it feature { f("fullname", value::class.fullName(value)) } toBe expected
+                it feature { f("fullname", value::class.fullName(value)) } toEqual expected
             }
         }
     }
@@ -108,14 +105,14 @@ class KClassFullNameTest {
                 f1 to "Function1 (js: KClassFullNameTest\$fun_functionTypes\$lambda_0)",
                 f2 to "Function2 (js: KClassFullNameTest\$fun_functionTypes\$lambda_1)"
             ).forEach { (value, expected) ->
-                it feature { f("fullName",  value::class.fullName(value)) } toBe expected
+                it feature { f("fullName", value::class.fullName(value)) } toEqual expected
             }
         }
     }
 
     private fun Expect<String>.fullNameIsExpected(): (Pair<KClass<*>, String>) -> Unit {
         return { (kClass, expected) ->
-            it feature { f("fullName", kClass.fullName) } toBe expected
+            it feature { f("fullName", kClass.fullName) } toEqual expected
         }
     }
 }

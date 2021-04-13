@@ -38,7 +38,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
             it("for not at all or at most 0 -- points to $containsNot") {
                 expect {
                     expect(oneToSeven()).containsNotOrAtMostFun(0, 0.0)
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
         }
 

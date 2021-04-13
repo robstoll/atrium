@@ -44,7 +44,7 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * val p: Person = Student()
  * expect(p)               // subject of type Person
- *   .isA<Student> { ... } // subject now refined to Student
+ *   .toBeA<Student> { ... } // subject now refined to Student
  *   .baz()                // available via Student
  *   .foo()                // not available to Student, only to Person, results in compilation error
  *   .bar()                // available via T : Person

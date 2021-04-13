@@ -1,6 +1,6 @@
 package custom
 
-import ch.tutteli.atrium.api.infix.en_GB.toBe
+import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -15,7 +15,7 @@ import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
     test("see if `toBe` can be used") {
-        assertThat(1) toBe 1
+        assertThat(1) toEqual 1
     }
 
     test("see if own assertion function without i18n can be used") {

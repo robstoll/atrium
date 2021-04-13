@@ -12,8 +12,8 @@ class JsNameAmbiguityTest {
 
     @Test
     fun toBeNullable() {
-        expect(null as Int?) toBe null
-        expect(1 as Int?) toBe 1
+        expect(null as Int?) toEqual null
+        expect(1 as Int?) toEqual 1
     }
 
     @Test

@@ -41,8 +41,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
  *   `entries({ ... }, ...)`; so a call could look as follows:
  *   ```
  *   inAny order(
- *     entry { it toBe 1 },
- *     entries({ it lessThan 2 }, {it toBe 3 })
+ *     entry { it toEqual 1 },
+ *     entries({ it lessThan 2 }, { it toEqual 3 })
  *   )
  *   ```
  *

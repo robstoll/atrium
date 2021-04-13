@@ -52,7 +52,7 @@ abstract class CharSequenceContainsExactlyExpectationsSpec(
             it("for exactly 0 -- points to $containsNot") {
                 expect {
                     fluent.containsExactlyFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("if an object is passed as first expected") {
                 expect {

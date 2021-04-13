@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -49,7 +49,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     .build()
             )
 
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
     }
 
@@ -76,11 +76,11 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         summaryAssertionGroup,
                         sb, onlyFailingAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.ASSERT.getDefault()}: 22$lineSeparator"
-                            + "$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
-                            + "$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "${AssertionVerb.ASSERT.getDefault()}: 22$lineSeparator"
+                                + "$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
+                                + "$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -102,7 +102,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         featureAssertionGroup,
                         sb, onlyFailingAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 22$lineSeparator"
@@ -131,7 +131,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         listAssertionGroup,
                         sb, onlyFailingAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 22$lineSeparator"
@@ -158,7 +158,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                             listAssertionGroup2,
                             sb, onlyFailingAssertionFilter
                         )
-                        expect(sb.toString()).toBe(
+                        expect(sb.toString()).toEqual(
                             lineSeparator
                                 + "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator"
                                 + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
@@ -203,7 +203,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         summaryAssertionGroup2,
                         sb, onlyFailingAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$failingBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 21$lineSeparator"

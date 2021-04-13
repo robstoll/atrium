@@ -28,14 +28,14 @@ class ListExpectationsSpec : Spek({
             it("Containing the same List after narrowing down the type") {
                 val list = listOf(1, 2, 3)
                 val expect: Expect<Iterable<Int>> = expect(list)
-                expect asList o toBe list
+                expect asList o toEqual list
             }
 
             it("Containing the same List after narrowing down the type using the assertionCreator") {
                 val list = listOf(1, 2, 3)
                 val expect: Expect<Iterable<Int>> = expect(list)
                 expect asList {
-                    it toBe list
+                    it toEqual list
                 }
             }
         }
@@ -46,14 +46,14 @@ class ListExpectationsSpec : Spek({
             it("Containing the same sequence of values after transforming the Sequence to a List ") {
                 val sequence = sequenceOf(1, 2, 3)
                 val expect: Expect<Sequence<Int>> = expect(sequence)
-                expect asList o toBe listOf(1, 2, 3)
+                expect asList o toEqual listOf(1, 2, 3)
             }
 
             it("Containing the same sequence of values after transforming the Sequence to a List using the assertionCreator") {
                 val sequence = sequenceOf(1, 2, 3)
                 val expect: Expect<Sequence<Int>> = expect(sequence)
                 expect asList {
-                    it toBe listOf(1, 2, 3)
+                    it toEqual listOf(1, 2, 3)
                 }
             }
         }

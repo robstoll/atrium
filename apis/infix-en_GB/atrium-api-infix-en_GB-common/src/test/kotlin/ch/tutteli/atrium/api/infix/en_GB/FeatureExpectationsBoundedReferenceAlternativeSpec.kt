@@ -69,31 +69,31 @@ class FeatureExpectationsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.spe
         val f4Lazy: F = { its feature of<TestData, String>({ f4(it::return4, "a", 1, true, 1.2) }) {  it contains "hello" } }
         val f5Lazy: F = { its feature of<TestData, String>({ f5(it::return5, "a", 1, true, 1.2, 'b') }) {  it contains "hello" } }
 
-        val propertyNullableDoesNotHold: F = { its feature { p(it::nullableValue) } toBe null }
-        val f0NullableDoesNotHold: F = { its feature { f0(it::returnNullable0) } toBe null }
-        val f1NullableDoesNotHold: F = { its feature { f1(it::returnNullable1, "a") } toBe null }
-        val f2NullableDoesNotHold: F = { its feature { f2(it::returnNullable2, "a", 1) } toBe null }
-        val f3NullableDoesNotHold: F = { its feature { f3(it::returnNullable3, "a", 1, true) } toBe null }
-        val f4NullableDoesNotHold: F = { its feature { f4(it::returnNullable4, "a", 1, true, 1.2) } toBe null }
-        val f5NullableDoesNotHold: F = { its feature { f5(it::returnNullable5, "a", 1, true, 1.2, 'b') } toBe null }
+        val propertyNullableDoesNotHold: F = { its feature { p(it::nullableValue) } toEqual null }
+        val f0NullableDoesNotHold: F = { its feature { f0(it::returnNullable0) } toEqual null }
+        val f1NullableDoesNotHold: F = { its feature { f1(it::returnNullable1, "a") } toEqual null }
+        val f2NullableDoesNotHold: F = { its feature { f2(it::returnNullable2, "a", 1) } toEqual null }
+        val f3NullableDoesNotHold: F = { its feature { f3(it::returnNullable3, "a", 1, true) } toEqual null }
+        val f4NullableDoesNotHold: F = { its feature { f4(it::returnNullable4, "a", 1, true, 1.2) } toEqual null }
+        val f5NullableDoesNotHold: F = { its feature { f5(it::returnNullable5, "a", 1, true, 1.2, 'b') } toEqual null }
 
-        val propertyNullableHolds: F = { its feature { p(it::nullableValue) } notToBeNull { it toBe 1 } }
-        val f0NullableHolds: F = { its feature { f0(it::returnNullable0) } notToBeNull { it toBe 1 } }
-        val f1NullableHolds: F = { its feature { f1(it::returnNullable1, "a") } notToBeNull { it toBe 1 } }
-        val f2NullableHolds: F = { its feature { f2(it::returnNullable2, "a", 1) } notToBeNull { it toBe 1 } }
-        val f3NullableHolds: F = { its feature { f3(it::returnNullable3, "a", 1, true) } notToBeNull { it toBe 1 } }
-        val f4NullableHolds: F = { its feature { f4(it::returnNullable4, "a", 1, true, 1.2) } notToBeNull { it toBe 1 } }
-        val f5NullableHolds: F = { its feature { f5(it::returnNullable5, "a", 1, true, 1.2, 'b') } notToBeNull { it toBe 1 } }
+        val propertyNullableHolds: F = { its feature { p(it::nullableValue) } notToEqualNull { it toEqual 1 } }
+        val f0NullableHolds: F = { its feature { f0(it::returnNullable0) } notToEqualNull { it toEqual 1 } }
+        val f1NullableHolds: F = { its feature { f1(it::returnNullable1, "a") } notToEqualNull { it toEqual 1 } }
+        val f2NullableHolds: F = { its feature { f2(it::returnNullable2, "a", 1) } notToEqualNull { it toEqual 1 } }
+        val f3NullableHolds: F = { its feature { f3(it::returnNullable3, "a", 1, true) } notToEqualNull { it toEqual 1 } }
+        val f4NullableHolds: F = { its feature { f4(it::returnNullable4, "a", 1, true, 1.2) } notToEqualNull { it toEqual 1 } }
+        val f5NullableHolds: F = { its feature { f5(it::returnNullable5, "a", 1, true, 1.2, 'b') } notToEqualNull { it toEqual 1 } }
         //@formatter:on
 
         val propertyLazyWithNestedImmediate: F = {
             its feature { p(it::nonNullValue) } it {
-                feature { p(it::length) } toBe 12
+                feature { p(it::length) } toEqual 12
             }
         }
         val propertyLazyWithNestedLazy: F = {
             it feature { p(it::nonNullValue) } it {
-                feature { p(it::length) } it { this toBe 12 }
+                feature { p(it::length) } it { this toEqual 12 }
             }
         }
 

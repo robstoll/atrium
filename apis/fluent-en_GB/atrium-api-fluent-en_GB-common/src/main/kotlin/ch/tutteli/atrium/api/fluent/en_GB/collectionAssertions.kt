@@ -31,14 +31,14 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
 /**
  * Expects that the subject of `this` expectation (a [Collection]) has the given [expected] size.
  *
- * Shortcut for `size.toBe(expected)`.
+ * Shortcut for `size.toEqual(expected)`.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.hasSize
  */
 fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
-    size { toBe(expected) }
+    size { toEqual(expected) }
 
 /**
  * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,

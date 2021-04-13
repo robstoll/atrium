@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -60,7 +60,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     .withAssertions(listOf())
                     .build()
             )
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
     }
 
@@ -96,11 +96,11 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$arrow placeholder %s: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "$arrow placeholder %s: 2$lineSeparator"
+                                + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
+                                + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -123,7 +123,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
                             + "$listBulletPoint $arrow placeholder %s: 2$lineSeparator"
@@ -155,7 +155,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$lineSeparator"
                             + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator"

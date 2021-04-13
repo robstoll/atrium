@@ -16,13 +16,13 @@ import java.math.BigDecimal
  *
  * Use [isNumericallyEqualTo] if you expect that the following assertion holds:
  * ```
- * expect(BigDecimal("10").toBe(BigDecimal("10.0"))
+ * expect(BigDecimal("10").toEqual(BigDecimal("10.0"))
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [isEqualIncludingScale].
  */
 @Deprecated(
     "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).toEqual(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
@@ -37,7 +37,7 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing =
 @JvmName("toBeNullable")
 @Deprecated(
     "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).toEqual(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )

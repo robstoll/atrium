@@ -39,22 +39,22 @@ abstract class VerbSpec(
 
         context("the assertions hold") {
             it("does not throw an exception") {
-                assertionVerb(1) { toBe(1) }
+                assertionVerb(1) { toEqual(1) }
             }
             context("a subsequent assertion holds") {
                 it("does not throw an exception") {
-                    assertionVerb(1) { toBe(1) }.isLessThan(2)
+                    assertionVerb(1) { toEqual(1) }.isLessThan(2)
                 }
             }
             context("a subsequent group of assertions hold") {
                 it("does not throw an exception") {
-                    assertionVerb(1) { toBe(1) }.and { isLessThan(2) }
+                    assertionVerb(1) { toEqual(1) }.and { isLessThan(2) }
                 }
             }
             context("a subsequent assertion fails") {
                 it("throws an AssertionError") {
                     assert {
-                        assertionVerb(1) { toBe(1) }.isLessThan(1)
+                        assertionVerb(1) { toEqual(1) }.isLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
                             contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
@@ -67,7 +67,7 @@ abstract class VerbSpec(
             context("multiple assertions of a subsequent group of assertion fails") {
                 it("evaluates all assertions and then throws an AssertionError, reporting only failing") {
                     assert {
-                        assertionVerb(1) { toBe(1) }.and { isLessThan(0); toBe(1); isGreaterThan(2) }
+                        assertionVerb(1) { toEqual(1) }.and { isLessThan(0); toEqual(1); isGreaterThan(2) }
                     }.toThrow<AssertionError> {
                         message {
                             contains(
@@ -104,12 +104,12 @@ abstract class VerbSpec(
         val (_, assertionVerb) = forNullable
 
         context("subject is null") {
-            it("does not throw an exception when calling toBe(`null`)") {
-                assertionVerb(null).toBe(null)
+            it("does not throw an exception when calling $toBeDescr(`null`)") {
+                assertionVerb(null).toEqual(null)
             }
-            it("throws an AssertionError when calling notToBeNull") {
+            it("throws an AssertionError when calling notToEqualNull") {
                 assert {
-                    assertionVerb(null).notToBeNull { toBe(1) }
+                    assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
                     @Suppress("DEPRECATION")
                     messageContains(
@@ -133,7 +133,7 @@ abstract class VerbSpec(
                 assertionVerb {
                     throw IllegalArgumentException("hello")
                 }.toThrow<IllegalArgumentException> {
-                    message.toBe("hello")
+                    message.toEqual("hello")
                 }
             }
             it("throws an AssertionError when expecting an UnsupportedOperationException") {
@@ -156,7 +156,7 @@ abstract class VerbSpec(
 
 private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
     it("does not throw an exception in case the assertion holds") {
-        assertionVerb(1).toBe(1)
+        assertionVerb(1).toEqual(1)
     }
     it("throws an AssertionError as soon as one assertion fails") {
         assert {

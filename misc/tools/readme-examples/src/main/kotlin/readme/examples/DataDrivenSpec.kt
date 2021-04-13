@@ -41,7 +41,7 @@ class DataDrivenSpec : Spek({
                 2 to 'c',
                 3 to 'e'
             ).forEach { (arg, result) ->
-                feature { f(::myFun, arg) }.toBe(result)
+                feature { f(::myFun, arg) }.toEqual(result)
             }
         }
     }
@@ -52,7 +52,7 @@ class DataDrivenSpec : Spek({
         expect("calling myFun with ...") {
             mapOf(
                 1 to expectLambda<Char> { isLessThan('f') },
-                2 to expectLambda { toBe('c') },
+                2 to expectLambda { toEqual('c') },
                 3 to expectLambda { isGreaterThan('e') }
             ).forEach { (arg, assertionCreator) ->
                 feature({ f(::myFun, arg) }, assertionCreator)
@@ -72,11 +72,11 @@ class DataDrivenSpec : Spek({
                 Int.MIN_VALUE to expectLambda<String> { contains("min") },
                 -1 to null,
                 0 to null,
-                1 to expectLambda { toBe("1") },
+                1 to expectLambda { toEqual("1") },
                 2 to expectLambda { endsWith("2") },
-                Int.MAX_VALUE to expectLambda { toBe("max") }
+                Int.MAX_VALUE to expectLambda { toEqual("max") }
             ).forEach { (arg, assertionCreatorOrNull) ->
-                feature { f(::myNullableFun, arg) }.toBeNullIfNullGivenElse(assertionCreatorOrNull)
+                feature { f(::myNullableFun, arg) }.toEqualNullIfNullGivenElse(assertionCreatorOrNull)
             }
         }
     }
