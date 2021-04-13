@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBe
  */
-@Deprecated("Use toEqual; will be removed latest with 1.0.0", ReplaceWith("this toEqual expected"))
+@Deprecated("Use toEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this toEqual expected"))
 infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
@@ -27,7 +27,7 @@ infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expec
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBe
  */
-@Deprecated("Use notToEqual; will be removed latest with 1.0.0", ReplaceWith("this notToEqual expected"))
+@Deprecated("Use notToEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this notToEqual expected"))
 infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
@@ -37,7 +37,7 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isSameAs
  */
-@Deprecated("Use toBeTheInstance; will be removed latest with 1.0.0", ReplaceWith("this toBeTheInstance expected"))
+@Deprecated("Use toBeTheInstance; will be removed with 1.0.0 at the latest", ReplaceWith("this toBeTheInstance expected"))
 infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
@@ -48,7 +48,7 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotSameAs
  */
 @Deprecated(
-    "Use notToBeTheInstance; will be removed latest with 1.0.0",
+    "Use notToBeTheInstance; will be removed with 1.0.0 at the latest",
     ReplaceWith("this notToBeTheInstance expected")
 )
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
@@ -62,8 +62,9 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
+ *
+ * @since 0.15.0
  */
 infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
     _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
@@ -83,7 +84,7 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
 @Deprecated(
-    "Use toEqualNullIfNullGivenElse; will be removed latest with 1.0.0",
+    "Use toEqualNullIfNullGivenElse; will be removed with 1.0.0 at the latest",
     ReplaceWith("this toEqualNullIfNullGivenElse assertionCreatorOrNull")
 )
 infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
@@ -103,7 +104,7 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @since 0.12.0
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
-@Deprecated("Use notToEqualNull; will be removed latest with 1.0.0", ReplaceWith("this notToEqualNull o"))
+@Deprecated("Use notToEqualNull; will be removed with 1.0.0 at the latest", ReplaceWith("this notToEqualNull o"))
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
     notToBeNullButOfType(T::class).transform()
 
@@ -117,7 +118,7 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
 @Deprecated(
-    "Use notToEqualNull; will be removed latest with 1.0.0",
+    "Use notToEqualNull; will be removed with 1.0.0 at the latest",
     ReplaceWith("this notToEqualNull assertionCreator")
 )
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
@@ -147,7 +148,7 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
-@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
+@Deprecated("Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAnInstanceOf<TSub>()"))
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
     isA(TSub::class).transform()
@@ -198,7 +199,7 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
-@Deprecated("Use toBeAnInstanceOf; will be removed latest with 1.0.0", ReplaceWith("this toBeAnInstanceOf assertionCreator"))
+@Deprecated("Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest", ReplaceWith("this toBeAnInstanceOf assertionCreator"))
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 
@@ -298,7 +299,7 @@ inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
  * @since 0.13.0
  */
 @Deprecated(
-    "Use notToEqualOneOf; will be removed latest with 1.0.0",
+    "Use notToEqualOneOf; will be removed with 1.0.0 at the latest",
     ReplaceWith("this notToEqualOneOf values")
 )
 infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
@@ -317,6 +318,6 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  *
  * @since 0.13.0
  */
-@Deprecated("Use notToBeIn; will be removed latest with 1.0.0", ReplaceWith("this notToBeIn expected"))
+@Deprecated("Use notToBeIn; will be removed with 1.0.0 at the latest", ReplaceWith("this notToBeIn expected"))
 infix fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

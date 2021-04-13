@@ -137,7 +137,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
 ): Expect<T> = it contains o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
 @Deprecated(
-    "Use `contains keyValues` instead; will be removed latest with 1.0.0",
+    "Use `contains keyValues` instead; will be removed with 1.0.0 at the latest",
     ReplaceWith(
         "this contains keyValues(all.expected, *all.otherExpected)",
         "ch.tutteli.atrium.api.infix.en_GB.contains",

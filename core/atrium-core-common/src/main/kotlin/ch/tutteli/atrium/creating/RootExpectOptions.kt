@@ -21,7 +21,7 @@ data class RootExpectOptions<T>(
     val representationInsteadOfSubject: ((T) -> Any)?,
     val componentFactoryContainer: ComponentFactoryContainer?
 ) {
-    @Deprecated("Use expectationVerb; will be removed latest with 1.0.0 (maybe earlier)")
+    @Deprecated("Use expectationVerb; will be removed with 1.0.0 at the latest (maybe earlier)")
     val assertionVerb = expectationVerb
 
     /**

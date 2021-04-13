@@ -180,6 +180,7 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  *   e.g. `feature of({ f(it::size) }) { it toEqual 3 }`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =

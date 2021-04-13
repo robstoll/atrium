@@ -10,9 +10,9 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.IteratorAssertionSamples.has
+ *
+ * @since 0.13.0
  */
 infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNext() }
@@ -22,9 +22,9 @@ infix fun <E, T : Iterator<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.IteratorAssertionSamples.hasNot
+ *
+ * @since 0.13.0
  */
 infix fun <E, T : Iterator<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNotNext() }

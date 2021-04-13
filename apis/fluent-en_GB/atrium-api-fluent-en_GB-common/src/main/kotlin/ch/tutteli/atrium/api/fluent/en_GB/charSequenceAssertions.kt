@@ -136,9 +136,9 @@ fun <T : CharSequence> Expect<T>.containsRegex(pattern: String, vararg otherPatt
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.containsRegex
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.containsRegex(pattern: Regex, vararg otherPatterns: Regex): Expect<T> =
     contains.atLeast(1).regex(pattern, *otherPatterns)
@@ -180,9 +180,9 @@ fun <T : CharSequence> Expect<T>.startsNotWith(expected: CharSequence): Expect<T
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.startsNotWithChar
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.startsNotWith(expected: Char): Expect<T> =
     startsNotWith(expected.toString())
@@ -203,9 +203,9 @@ fun <T : CharSequence> Expect<T>.endsWith(expected: CharSequence): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsWithChar
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.endsWith(expected: Char): Expect<T> =
     endsWith(expected.toString())
@@ -225,8 +225,9 @@ fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expect<T> 
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.endsNotWithChar
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     endsNotWith(expected.toString())
@@ -269,9 +270,9 @@ fun <T : CharSequence> Expect<T>.isNotBlank(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.matches
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
     _logicAppend { matches(expected) }
@@ -283,9 +284,9 @@ fun <T : CharSequence> Expect<T>.matches(expected: Regex): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CharSequenceAssertionSamples.mismatches
+ *
+ * @since 0.9.0
  */
 fun <T : CharSequence> Expect<T>.mismatches(expected: Regex): Expect<T> =
     _logicAppend { mismatches(expected) }
