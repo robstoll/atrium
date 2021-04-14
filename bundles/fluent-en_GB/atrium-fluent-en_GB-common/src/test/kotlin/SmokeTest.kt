@@ -17,27 +17,28 @@ import kotlin.test.Test
 
 class SmokeTest {
     @Test
-    fun toBe_canBeUsed() {
-        assertThat(1).toEqual(1)
+    fun toEqual_canBeUsed() {
+        expect(1).toEqual(1)
     }
 
     @Test
-    fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2).isEven()
-        assertThat(1).isOdd()
+    fun expectationFunctionWithoutI18nCanBeUsed() {
+        expect(2).toBeEven()
+        expect(1).toBeOdd()
     }
 
     @Test
-    fun assertionFunctionWithI18nCanBeUsed() {
-        assertThat(4).isMultipleOf(2)
+    fun expectationFunctionWithI18nCanBeUsed() {
+        expect(4).toBeMultipleOf(2)
     }
 
 
+    //TODO remove with 0.18.0
     @Test
     fun assertWithinAssert() {
+        @Suppress("DEPRECATION")
         expect {
             assert(1) {
-                @Suppress("DEPRECATION")
                 (assert(2).toEqual(1))
             }
         }.toThrow<AssertionError> {
@@ -49,10 +50,11 @@ class SmokeTest {
         }
     }
 
+    //TODO remove with 0.18.0
     @Test
     fun assertThatWithinAssertThat() {
+        @Suppress("DEPRECATION")
         expect {
-            @Suppress("DEPRECATION")
             assertThat(1) {
                 assertThat(2).toEqual(1)
             }
@@ -68,8 +70,8 @@ class SmokeTest {
     @Test
     fun expectWithinExpect() {
         expect {
-            @Suppress("DEPRECATION")
             expect(1) {
+                @Suppress("DEPRECATION")
                 expect(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
@@ -82,15 +84,15 @@ class SmokeTest {
     }
 
     @Test
-    fun assertAnExceptionOccurred() {
-        assertThat {
+    fun expectAnExceptionOccurred() {
+        expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
     }
 
     @Test
-    fun assertAnExceptionWithAMessageOccurred() {
-        assertThat {
+    fun expectAnExceptionWithAMessageOccurred() {
+        expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
             messageContains("hello")
@@ -98,22 +100,22 @@ class SmokeTest {
     }
 
     @Test
-    fun assertNotToThrow() {
-        assertThat {
+    fun expectNotToThrow() {
+        expect {
 
         }.notToThrow()
     }
 }
 
-fun Expect<Int>.isEven() =
+fun Expect<Int>.toBeEven() =
     _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
 
-fun Expect<Int>.isOdd() =
+fun Expect<Int>.toBeOdd() =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
+fun Expect<Int>.toBeMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeMultipleOf(base) }
 
-private fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {

@@ -2,12 +2,16 @@ package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.specs.verbs.VerbSpec
 
+//TODO remove with 0.18.0
+@Suppress("DEPRECATION")
 object AssertSpec : VerbSpec(
     "assert" to { subject: Int -> assert(subject) },
     "assert" to { subject: Int, assertionCreator -> assert(subject, assertionCreator) },
     "assert" to { subject: Int? -> assert(subject) },
     "assert" to { act -> assert { act() } })
 
+//TODO remove with 0.18.0
+@Suppress("DEPRECATION")
 object AssertThatSpec : VerbSpec(
     "assertThat" to { subject: Int -> assertThat(subject) },
     "assertThat" to { subject: Int, assertionCreator -> assertThat(subject, assertionCreator) },

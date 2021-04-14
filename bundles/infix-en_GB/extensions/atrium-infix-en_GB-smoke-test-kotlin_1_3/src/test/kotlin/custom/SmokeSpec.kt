@@ -21,7 +21,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
+    test("see if `toEqual` can be used") {
         expect(1) toEqual 1
     }
 
@@ -29,12 +29,12 @@ object SmokeSpec : Spek({
         expect(Result.success(1)) toBe success
     }
 
-    test("see if own assertion function without i18n can be used") {
-        expect(2) tobe even
-        expect(1) tobe odd
+    test("see if own expectation function without i18n can be used") {
+        expect(2) toBe even
+        expect(1) toBe odd
     }
 
-    test("see if own assertion function with i18n can be used") {
+    test("see if own expectation function with i18n can be used") {
         expect(4) isMultipleOf 2
     }
 })
@@ -44,10 +44,10 @@ object even
 @Suppress("ClassName")
 object odd
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an even number")) { it % 2 == 0 })
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") odd: odd) =
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
 
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }

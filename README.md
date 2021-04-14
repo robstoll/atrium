@@ -71,7 +71,7 @@ For instance, the [README of v0.16.0](https://github.com/robstoll/atrium/tree/v0
     - [Compose Functions](#compose-assertion-functions)
     - [Enhanced Reporting](#enhanced-reporting)
     - [Own Sophisticated Assertion Builders](#own-sophisticated-assertion-builders)
-- [Use own Assertion Verbs](#use-own-assertion-verbs)
+- [Use own Expectation Verb](#use-own-expectation-verb)
   - [Use own Components](#use-own-components)
 - [Internationalization](#internationalization-1)
 - [API Styles](#api-styles)
@@ -274,24 +274,12 @@ In this sense the report can be read as `I expected that the subject of the asse
 -- and needless to say, this assertion is wrong and thus the thrown error.
 
 We are using the bundle [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
-and the predefined assertion verb `expect` in the examples. 
-Thus the corresponding `import`s at the beginning of the file in the above example.
+and the predefined expectation verb `expect` in the examples. 
+Thus, the corresponding `import`s at the beginning of the file in the above example.
 We will omit the `import` statements in the remaining examples for brevity. 
 
 **You want to run the examples yourself?**
 Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium.
-
-👓 _&lt;- this icon signifies additional information, worth reading IMO but if you are only after code examples,
-then you can skip now to the next section (otherwise click on the arrow to expand the section)._<br/> 
-
-<details>
-<summary>👓 further assertion verbs...</summary>
-
-Atrium provides two further assertion verbs next to `expect` out of the box: `assert` and `assertThat`
-which you can import with `import ch.tutteli.atrium.api.verbs.assert`, `import ch.tutteli.atrium.api.verbs.assertThat` respectively. 
-Yet, you can also [define your own assertion verbs](#use-own-assertion-verbs) if another is your favourite.
-<hr/>
-</details> 
 
 The next section shows how you can define multiple assertions for the same subject.
 
@@ -970,10 +958,13 @@ expected that subject: null
 Atrium provides one additional function which is intended for [data driven testing](#data-driven-testing) 
 involving nullable types and is explained in the corresponding section.
 
+👓 _&lt;- this icon signifies additional information, worth reading in our opinion but if you are only after code examples,
+then you can skip now to the next section (otherwise click on the arrow to expand the section)._<br/>
+
 <details>
 <summary>👓 dealing a lot with nullable types from Java...</summary>
 
-... in this case we recommend to have a look at the [Java Interoperability](#java-interoperability) section.
+... in this case we recommend having a look at the [Java Interoperability](#java-interoperability) section.
 
 </details>
 
@@ -1013,9 +1004,7 @@ This is reflected in the output, which tells us that we expected that the `numbe
 <summary>👓 and what about expected value 2?</summary>
 
 Exactly, what about the expected value `2`, why do we not see anything about it in the output?
-The output does not show anything about the expected value `2` because the predefined assertion verbs have configured [`ReporterBuilder`](#reporterbuilder) 
-to use an [Only Failure Reporter](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html) 
-which shows us only assertions (or sub assertions) which failed.
+The output does not show anything about the expected value `2` because the default reporter reports only failing assertions.
 
 Back to the shortcut functions.
 <hr/>
@@ -1949,17 +1938,17 @@ expected that subject: [1]        (java.util.Collections.SingletonList <1234789>
 ## Flexibility
 Another design goal of Atrium was to give you the flexibility needed but still adhere to a concise design. 
 First and most importantly, Atrium does not enforce a certain style on your code base. 
-Quite the contrary, it gives you the flexibility to [choose a desired name for the assertion verbs](#use-own-assertion-verbs), 
-it continues by providing the possibility to configure the [reporting style](#reporterbuilder), 
-goes on that you can chose from different [API Styles](#api-styles) 
-and ends that you can replace almost all components by other implementations and hook into existing.
+Quite the contrary, it gives you the flexibility to [choose a desired name for the expectation verb](#use-own-expectation-verb), 
+it continues by providing the possibility to configure the [reporting style](#use-own-components), 
+goes on that you can choose from different [API Styles](#api-styles) 
+and ends that you can [replace almost all components](#use-own-components) by other implementations and hook into existing.
 
 So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix-en_GB`. 
 You prefer pure fluent and do not even want to see infix style in your code, 
 then use `atrium-fluent-en_GB` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
-You could even mix up different API-Styles if needed (but not without losing conciseness -- but hey, it is your decision 😉). 
+You could even mix up different API-styles if needed (but not without losing conciseness -- but hey, it is your decision 😉). 
 
 ## Migration of Deprecated Functionality
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
@@ -1970,7 +1959,7 @@ as well as migration guides in the [Release Notes](https://github.com/robstoll/a
 This way we hope that we provide a pleasant way to stay up-to-date without the need to migrate everything from one day to the other.
 
 ## Internationalization
-The last difference is not yet fully-blown implemented but the design of Atrium has everything needed to go down the planed [Roadmap](#roadmap).
+The last difference is not yet fully-blown implemented, but the design of Atrium has everything needed to go down the planed [Roadmap](#roadmap).
 Might well be that this topic is not really a concern of yours; unless...  
 
 - you are using domain-driven-design and would like to adopt the ubiquitous language also to your test code.
@@ -1990,7 +1979,7 @@ We should not go on here, the HTML-Report feature is not yet implemented, but yo
 Are you missing an assertion function for a specific type and the generic 
 [Feature Assertions](#feature-assertions) are not good enough?
 
-The following sub sections will show how you can write your own assertion functions. 
+The following subsections will show how you can write your own assertion functions. 
 A pull request of your new assertion function is very much appreciated.
 
 ## Boolean based Assertions
@@ -2347,15 +2336,15 @@ We are willing to provide more documentation if you need it (please open an issu
 In the meantime we might help you via slack, please post your questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet).
 
-# Use own Assertion Verbs
+# Use own Expectation Verb
 
-Atrium offers three assertion verbs out of the box: `expect`, `assert` and `assertThat`. 
+Atrium offers the expectation verb `expect` out of the box. 
 
-But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
-In order to create an own assertion verb it is sufficient to:
+You can also define your own expectation verb if `expect` does not suite you or in case you want to change some default implementation.
+In order to create an own expectation verb it is sufficient to:
  1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content 
-    -- notice that you can also use a `String` for the assertion verb in case you do not care about [Internationalization](#internationalization-1)
+    -- notice that you can also use a `String` for the expectation verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
@@ -2367,9 +2356,7 @@ In order to create an own assertion verb it is sufficient to:
     }
     ```
 
-What are the benefits of creating own assertion verbs:
-- you can limit the set of available assertion verbs. <br/>
-  Say you want that everyone uses `expect` but not `assert` nor `assertThat`, removing them is surely a better option than using a linter.
+What are the benefits of creating an own expectation verb:
 - you can encapsulate the reporting style. <br/>
   This is especially useful if you have multiple projects and want to have a consistent reporting style.  
   For instance, you could change from same-line to multi-line reporting or report not only failing but also successful assertions, change the output language etc.
@@ -2377,21 +2364,22 @@ What are the benefits of creating own assertion verbs:
     <details>
     <summary>💬 where should I put the atriumVerbs.kt?</summary>
     
-    We suggest you create an adapter project for Atrium where you specify the assertion verbs. 
+    We suggest you create an adapter project for Atrium where you specify the expectation verb. 
     And most likely you will accumulate them with assertion functions which are so common 
     that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature 😉
     
     <hr/>
     </details>
- 
+- you can define some default configurations like show only failing assertions for `contains.inOrder.only`  
+
  
 What are the drawbacks:
-- you have to maintain your assertion verbs. That should not be a big deal 
+- you have to maintain your expectation verb. That should not be a big deal though
   -- you might have to replace deprecated options by their replacement when you upgrade to a newer Atrium version but that's about it.
 
 ## Use own Components
 
-Replacing existing components with your own (or third-party) components can be done when specifying an own expection verb
+Replacing existing components with your own (or third-party) components can be done when specifying an own expectation verb
 via `withOptions`. See for instance [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt#L31)
 which is used internally of Atrium in tests and uses a different `AtriumErrorAdjuster`.
 
@@ -2600,7 +2588,7 @@ Atrium is
 [built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 However, this is more intended for advanced user with special requirements.
-Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined assertion verbs,
+Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined expectation verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
 - [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)

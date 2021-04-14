@@ -55,6 +55,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    //TODO 0.17.0 rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
     fun appendAssertion(assertion: Assertion): Expect<T>
 
     /**
@@ -71,6 +72,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    //TODO 0.17.0  rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
     fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
@@ -84,6 +86,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO remove SUPPRESS with 0.18.0
+    //TODO 0.17.0  rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
     @Suppress("UNCHECKED_CAST", "DEPRECATION")
     fun createAndAppendAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
         appendAssertion(assertionBuilder.createDescriptive(this as Expect<T>, Untranslatable(description),expected, test))

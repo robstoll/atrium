@@ -123,13 +123,13 @@ inline fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: E
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
  * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
@@ -172,13 +172,13 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
  * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
@@ -206,7 +206,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
  *
- * For instance `assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
+ * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
