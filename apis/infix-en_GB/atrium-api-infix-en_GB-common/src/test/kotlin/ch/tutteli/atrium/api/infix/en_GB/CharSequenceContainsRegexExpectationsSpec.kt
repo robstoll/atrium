@@ -19,7 +19,7 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
         }
     }
 }) {
-    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexExpectationsSpec(
+    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
         getNameContainsRegex(),
         getAtLeastTripleString(),
         getAtLeastIgnoringCaseTripleString(),
@@ -29,7 +29,7 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
         "[StringSpec] "
     )
 
-    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsRegexExpectationsSpec(
+    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
         getNameContainsRegex(),
         getAtLeastTripleRegex(),
         getAtLeastIgnoringCaseTripleString(),

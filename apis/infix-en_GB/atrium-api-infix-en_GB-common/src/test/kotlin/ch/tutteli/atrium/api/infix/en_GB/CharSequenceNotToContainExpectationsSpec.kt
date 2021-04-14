@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 
-class CharSequenceContainsNotExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceContainsNotExpectationsSpec(
+class CharSequenceNotToContainExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceNotToContainExpectationsSpec(
     getContainsNotTriple(),
     getContainsNotIgnoringCaseTriple()
 ) {

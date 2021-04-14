@@ -9,19 +9,19 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceContainsNotExpectationsSpec(
-    containsNotPair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
-    containsNotIgnoringCasePair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
+abstract class CharSequenceNotToContainExpectationsSpec(
+    notToContainPair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
+    notToContainIgnoringCasePair: Pair<(String) -> String, Fun2<CharSequence, Any, Array<out Any>>>,
     describePrefix: String = "[Atrium] "
-) : CharSequenceContainsSpecBase({
+) : CharSequenceToContainSpecBase({
 
-    val containsNot = containsNotPair.second
-    val containsNotIgnoringCase = containsNotIgnoringCasePair.second
+    val notToContain = notToContainPair.second
+    val notToContainIgnoringCase = notToContainIgnoringCasePair.second
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        containsNot.forSubjectLess(2.3, arrayOf()),
-        containsNotIgnoringCase.forSubjectLess(2.3, arrayOf())
+        notToContain.forSubjectLess(2.3, arrayOf()),
+        notToContainIgnoringCase.forSubjectLess(2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -30,105 +30,105 @@ abstract class CharSequenceContainsNotExpectationsSpec(
     val fluent = expect(text as CharSequence)
     val fluentHelloWorld = expect(helloWorld as CharSequence)
 
-    fun Expect<CharSequence>.containsNotFun(a: Any, vararg aX: Any) = containsNot(this, a, aX)
+    fun Expect<CharSequence>.notToContainFun(a: Any, vararg aX: Any) = notToContain(this, a, aX)
 
-    fun Expect<CharSequence>.containsNotIgnoringCaseFun(a: Any, vararg aX: Any) = containsNotIgnoringCase(this, a, aX)
+    fun Expect<CharSequence>.notToContainIgnoringCaseFun(a: Any, vararg aX: Any) = notToContainIgnoringCase(this, a, aX)
 
-    val containsNotDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
-    val containsNotIgnoringCaseDescr =
-        String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), containsNotDescr)
+    val notToContainDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
+    val notToContainIgnoringCaseDescr =
+        String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), notToContainDescr)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
-    describeFun(containsNot.name, containsNotIgnoringCase.name) {
+    describeFun(notToContain.name, notToContainIgnoringCase.name) {
 
         context("throws an $illegalArgumentException") {
 
             it("if an object is passed as first expected") {
                 expect {
-                    fluent.containsNotFun(fluent)
+                    fluent.notToContainFun(fluent)
                 }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
-                    fluent.containsNotFun("that's fine", fluent)
+                    fluent.notToContainFun("that's fine", fluent)
                 }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as first expected") {
                 expect {
-                    fluent.containsNotIgnoringCaseFun(fluent)
+                    fluent.notToContainIgnoringCaseFun(fluent)
                 }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
-                    fluent.containsNotIgnoringCaseFun("that's fine", fluent)
+                    fluent.notToContainIgnoringCaseFun("that's fine", fluent)
                 }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
 
         context("text '$helloWorld'") {
-            context("happy case with $containsNot once") {
-                it("${containsNotPair.first("'h'")} does not throw") {
-                    fluentHelloWorld.containsNotFun('h')
+            context("happy case with $notToContain once") {
+                it("${notToContainPair.first("'h'")} does not throw") {
+                    fluentHelloWorld.notToContainFun('h')
                 }
-                it("${containsNotPair.first("'h' and 'E' and 'w'")} does not throw") {
-                    fluentHelloWorld.containsNotFun('h', 'E', 'w')
+                it("${notToContainPair.first("'h' and 'E' and 'w'")} does not throw") {
+                    fluentHelloWorld.notToContainFun('h', 'E', 'w')
                 }
-                it("${containsNotPair.first("'w' and 'h' and 'E'")} does not throw") {
-                    fluentHelloWorld.containsNotFun('w', 'h', 'E')
+                it("${notToContainPair.first("'w' and 'h' and 'E'")} does not throw") {
+                    fluentHelloWorld.notToContainFun('w', 'h', 'E')
                 }
-                it("${containsNotIgnoringCasePair.first("'x' and 'y' and 'z'")} does not throw") {
-                    fluentHelloWorld.containsNotIgnoringCaseFun('x', 'y', 'z')
+                it("${notToContainIgnoringCasePair.first("'x' and 'y' and 'z'")} does not throw") {
+                    fluentHelloWorld.notToContainIgnoringCaseFun('x', 'y', 'z')
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("${containsNotPair.first("'l'")} throws AssertionError") {
+                it("${notToContainPair.first("'l'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotFun('l')
+                        fluentHelloWorld.notToContainFun('l')
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$rootBulletPoint$containsNotDescr: $separator" +
+                            "$rootBulletPoint$notToContainDescr: $separator" +
                                 "$valueWithIndent: 'l'",
                             "$numberOfOccurrences: 3",
                             "${DescriptionBasic.IS.getDefault()}: 0"
                         )
                     }
                 }
-                it("${containsNotPair.first("'H', 'l'")} throws AssertionError") {
+                it("${notToContainPair.first("'H', 'l'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotFun('H', 'l')
+                        fluentHelloWorld.notToContainFun('H', 'l')
                     }.toThrow<AssertionError> { messageContains("$valueWithIndent: 'l'") }
                 }
-                it("${containsNotPair.first("'l', 'H'")} once throws AssertionError") {
+                it("${notToContainPair.first("'l', 'H'")} once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotFun('l', 'H')
+                        fluentHelloWorld.notToContainFun('l', 'H')
                     }.toThrow<AssertionError> { messageContains("$valueWithIndent: 'l'") }
                 }
-                it("${containsNotIgnoringCasePair.first("'H', 'l'")} throws AssertionError") {
+                it("${notToContainIgnoringCasePair.first("'H', 'l'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotIgnoringCaseFun('H', 'l')
+                        fluentHelloWorld.notToContainIgnoringCaseFun('H', 'l')
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$rootBulletPoint$containsNotIgnoringCaseDescr: $separator" +
+                            "$rootBulletPoint$notToContainIgnoringCaseDescr: $separator" +
                                 "$valueWithIndent: 'H'",
                             "$valueWithIndent: 'l'"
                         )
                     }
                 }
-                it("${containsNotIgnoringCasePair.first("'L', 'H'")} throws AssertionError") {
+                it("${notToContainIgnoringCasePair.first("'L', 'H'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotIgnoringCaseFun('L', 'H')
+                        fluentHelloWorld.notToContainIgnoringCaseFun('L', 'H')
                     }.toThrow<AssertionError> { messageContains('H', 'L') }
                 }
-                it("${containsNotPair.first("'o', 'E', 'w', 'l'")} throws AssertionError") {
+                it("${notToContainPair.first("'o', 'E', 'w', 'l'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotFun('o', 'E', 'w', 'l')
+                        fluentHelloWorld.notToContainFun('o', 'E', 'w', 'l')
                     }.toThrow<AssertionError> { messageContains('o', 'l') }
                 }
-                it("${containsNotIgnoringCasePair.first("'o', 'E', 'w', 'l'")} throws AssertionError") {
+                it("${notToContainIgnoringCasePair.first("'o', 'E', 'w', 'l'")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsNotIgnoringCaseFun('o', 'E', 'w', 'l')
+                        fluentHelloWorld.notToContainIgnoringCaseFun('o', 'E', 'w', 'l')
                     }.toThrow<AssertionError> { messageContains('o', 'E', "w", 'l') }
                 }
             }

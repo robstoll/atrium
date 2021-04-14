@@ -9,7 +9,7 @@ import kotlin.reflect.KFunction3
 internal object StaticNames {
     val containsNotValuesFun = run {
         val f: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
-            Expect<CharSequence>::containsNot
+            Expect<CharSequence>::notToContain
         f.name
     }
 

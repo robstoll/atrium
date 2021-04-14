@@ -5,29 +5,29 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 
-class CharSequenceContainsContainsNotExpectationsSpec : Spek({
+class CharSequenceToContainNotToContainExpectationsSpec : Spek({
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
         getContainsPair(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         "[Atrium][Builder]"
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
         getContainsShortcutPair(),
-        getContainsNotShortcutPair(),
+        getNotToContainShortcutPair(),
         "[Atrium][Shortcut]"
     ) {})
 }) {
-    companion object : CharSequenceContainsSpecBase() {
-        private fun getContainsPair() = "$contains.$atLeast(1).$value/$values" to Companion::containsValues
+    companion object : CharSequenceToContainSpecBase() {
+        private fun getContainsPair() = "$toContain.$atLeast(1).$value/$values" to Companion::containsValues
 
         private fun containsValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect.contains.atLeast(1).value(a)
             else expect.contains.atLeast(1).values(a, *aX)
 
-        private fun getContainsNotPair() =
-            "${super.containsNot}.$value/$values" to Companion::containsNotValues
+        private fun getNotToContainPair() =
+            "${super.toContainNot}.$value/$values" to Companion::containsNotValues
 
         private fun containsNotValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect.containsNot.value(a)
@@ -36,7 +36,7 @@ class CharSequenceContainsContainsNotExpectationsSpec : Spek({
         private fun getContainsShortcutPair() =
             fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::contains)
 
-        private fun getContainsNotShortcutPair() =
+        private fun getNotToContainShortcutPair() =
             fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::containsNot)
     }
 

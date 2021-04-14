@@ -28,8 +28,10 @@ buildscript {
                             "contains noDuplicates"
                         ) + "`/list with duplicates",
                         // changed reporting as most of it is no longer based on IterableLike.contains
-                        "MapAssertionsSpec.*",
-                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                        "MapAssertionsSpec",
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException",
+                        // we renamed containsNot to notToContain with 0.17.0
+                        "CharSequenceContains.*Spec.*points to containsNot"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -86,7 +88,9 @@ buildscript {
                             "containsNoDuplicates",
                             "contains noDuplicates"
                         ) + "`/list with duplicates",
-                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*",
+                        // we renamed containsNot to notToContain with 0.17.0
+                        "CharSequenceContains.*Spec.*points to containsNot"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -140,7 +144,13 @@ buildscript {
         Triple(
             "0.16.0",
             allApisAllTargets,
-            Pair("", true to "")
+            // forgive for bc and bbc
+            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" + or(
+                // we renamed containsNot to notToContain with 0.17.0
+                "CharSequenceContains.*Spec.*points to containsNot"
+            ) + ".*)").let { commonPatterns ->
+                Pair(commonPatterns, true to commonPatterns)
+            }
         )
     )
     (gradle as ExtensionAware).extra.apply {

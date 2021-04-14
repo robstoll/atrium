@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 
 class CharSequenceContainsAtLeastExpectationsSpec : Spek({
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
         getAtLeastValuesTriple(),
         getAtLeastIgnoringCaseValuesTriple(),
         getAtLeastButAtMostValuesTriple(),
@@ -14,7 +14,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
         getAtLeastElementsOfTriple(),
         getAtLeastIgnoringCaseElementsOfTriple(),
         getAtLeastButAtMostElementsOfTriple(),

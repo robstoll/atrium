@@ -3,52 +3,52 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 
-class CharSequenceContainsAtLeastExpectationsSpec : Spek({
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastExpectationsSpec(
+class CharSequenceToContainAtLeastExpectationsSpec : Spek({
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
         getAtLeastValuesTriple(),
         getAtLeastIgnoringCaseValuesTriple(),
         getAtLeastButAtMostValuesTriple(),
         getAtLeastBustAtMostIgnoringCaseValuesTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair(),
-        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
+        CharSequenceToContainAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsAtLeastExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
         getAtLeastElementsOfTriple(),
         getAtLeastIgnoringCaseElementsOfTriple(),
         getAtLeastButAtMostElementsOfTriple(),
         getAtLeastButAtMostIgnoringCaseElementsOfTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair(),
-        CharSequenceContainsAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
+        CharSequenceToContainAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<String>(
-        "$contains.$atLeast(1).$elementsOf",
+        "$toContain.$atLeast(1).$elementsOf",
         "hello",
         { input -> contains.atLeast(1).elementsOf(input) }
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<String>(
-        "$contains.$ignoringCase.$atLeast(1).$elementsOf",
+        "$toContain.$ignoringCase.$atLeast(1).$elementsOf",
         "hello",
         { input -> contains.ignoringCase.atLeast(1).elementsOf(input) }
     ) {})
 
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<String>(
-        "$contains.$ignoringCase.$elementsOf",
+        "$toContain.$ignoringCase.$elementsOf",
         "hello",
         { input -> contains.ignoringCase.elementsOf(input) }
     ) {})
 }) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
-        private val atLeastDescr = { what: String, times: String -> "$contains $what $atLeast $times" }
+        private val atLeastDescr = { what: String, times: String -> "$toContain $what $atLeast $times" }
         internal fun getAtLeastValuesTriple() =
-            atLeastDescr to ("$contains.$atLeast.$value/$values" to Companion::containsAtLeast)
+            atLeastDescr to ("$toContain.$atLeast.$value/$values" to Companion::containsAtLeast)
 
         private fun containsAtLeast(
             expect: Expect<CharSequence>,
@@ -60,7 +60,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
             else expect.contains.atLeast(atLeast).values(a, *aX)
 
         internal fun getAtLeastElementsOfTriple() =
-            atLeastDescr to ("$contains.$atLeast.$elementsOf" to Companion::containsAtLeastElementsOf)
+            atLeastDescr to ("$toContain.$atLeast.$elementsOf" to Companion::containsAtLeastElementsOf)
 
         private fun containsAtLeastElementsOf(
             expect: Expect<CharSequence>,
@@ -71,10 +71,10 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
             expect.contains.atLeast(atLeast).elementsOf(listOf(a, *aX))
 
         private val atLeastIgnoringCaseDescr =
-            { what: String, times: String -> "$contains $ignoringCase $what $atLeast $times" }
+            { what: String, times: String -> "$toContain $ignoringCase $what $atLeast $times" }
 
         private fun getAtLeastIgnoringCaseValuesTriple() =
-            atLeastIgnoringCaseDescr to ("$contains.$ignoringCase.$atLeast.$value/$values" to Companion::containsAtLeastIgnoringCaseValues)
+            atLeastIgnoringCaseDescr to ("$toContain.$ignoringCase.$atLeast.$value/$values" to Companion::containsAtLeastIgnoringCaseValues)
 
         private fun containsAtLeastIgnoringCaseValues(
             expect: Expect<CharSequence>,
@@ -91,7 +91,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
             }
 
         private fun getAtLeastIgnoringCaseElementsOfTriple() =
-            atLeastIgnoringCaseDescr to ("$contains.$ignoringCase.$atLeast.$elementsOf" to Companion::containsAtLeastIgnoringCaseElementsOf)
+            atLeastIgnoringCaseDescr to ("$toContain.$ignoringCase.$atLeast.$elementsOf" to Companion::containsAtLeastIgnoringCaseElementsOf)
 
         private fun containsAtLeastIgnoringCaseElementsOf(
             expect: Expect<CharSequence>,
@@ -108,11 +108,11 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
             }
 
         private val atLeastButAtMostDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
-            "$contains $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
+            "$toContain $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
         }
 
         private fun getAtLeastButAtMostElementsOfTriple() =
-            atLeastButAtMostDescr to ("$contains.$atLeast.$butAtMost.$elementsOf" to Companion::containsAtLeastButAtMostElementsOf)
+            atLeastButAtMostDescr to ("$toContain.$atLeast.$butAtMost.$elementsOf" to Companion::containsAtLeastButAtMostElementsOf)
 
         private fun containsAtLeastButAtMostElementsOf(
             expect: Expect<CharSequence>,
@@ -123,7 +123,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         ) = expect.contains.atLeast(atLeast).butAtMost(butAtMost).elementsOf(listOf(a, *aX))
 
         private fun getAtLeastButAtMostValuesTriple() =
-            atLeastButAtMostDescr to ("$contains.$atLeast.$butAtMost.$value/$values" to Companion::containsAtLeastButAtMostValues)
+            atLeastButAtMostDescr to ("$toContain.$atLeast.$butAtMost.$value/$values" to Companion::containsAtLeastButAtMostValues)
 
         private fun containsAtLeastButAtMostValues(
             expect: Expect<CharSequence>,
@@ -134,11 +134,11 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         ) = expect.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private val atLeastButAtMostIgnoringCaseDescr = { what: String, timesAtLeast: String, timesAtMost: String ->
-            "$contains $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
+            "$toContain $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost"
         }
 
         private fun getAtLeastBustAtMostIgnoringCaseValuesTriple() =
-            atLeastButAtMostIgnoringCaseDescr to ("$contains.$ignoringCase.$atLeast.$butAtMost.$value/$values" to Companion::containsAtLeastButAtMostIgnoringCaseValues)
+            atLeastButAtMostIgnoringCaseDescr to ("$toContain.$ignoringCase.$atLeast.$butAtMost.$value/$values" to Companion::containsAtLeastButAtMostIgnoringCaseValues)
 
         private fun containsAtLeastButAtMostIgnoringCaseValues(
             expect: Expect<CharSequence>,
@@ -149,7 +149,7 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
         ) = expect.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getAtLeastButAtMostIgnoringCaseElementsOfTriple() =
-            atLeastButAtMostIgnoringCaseDescr to ("$contains.$ignoringCase.$atLeast.$butAtMost.$elementsOf" to Companion::containsAtLeastButAtMostIgnoringCaseElementsOf)
+            atLeastButAtMostIgnoringCaseDescr to ("$toContain.$ignoringCase.$atLeast.$butAtMost.$elementsOf" to Companion::containsAtLeastButAtMostIgnoringCaseElementsOf)
 
         private fun containsAtLeastButAtMostIgnoringCaseElementsOf(
             expect: Expect<CharSequence>,
@@ -159,9 +159,9 @@ class CharSequenceContainsAtLeastExpectationsSpec : Spek({
             aX: Array<out Any>
         ) = expect.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).elementsOf(listOf(a, *aX))
 
-        private fun getContainsNotPair() = containsNot to ::getErrorMsgContainsNot
+        private fun getNotToContainPair() = toContainNot to ::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $atLeast($times)"
+        private fun getErrorMsgNotToContain(times: Int) = "use $toContainNot instead of $atLeast($times)"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 

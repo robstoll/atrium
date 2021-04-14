@@ -3,34 +3,34 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 
 
-class CharSequenceContainsAtMostExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceContainsAtMostExpectationsSpec(
+class CharSequenceToContainAtMostExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.CharSequenceToContainAtMostExpectationsSpec(
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair()
     ) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
         private fun getAtMostTriple() =
-            { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains.$atMost.$value/$values" to Companion::containsAtMost)
+            { what: String, times: String -> "$toContain $what $atMost $times" } to
+                ("$toContain.$atMost.$value/$values" to Companion::containsAtMost)
 
         private fun containsAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             expect.contains.atMost(atMost).values(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() =
-            { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" } to
-                ("$contains.$ignoringCase.$atMost.$value/$values" to Companion::containsAtMostIgnoringCase)
+            { what: String, times: String -> "$toContain $ignoringCase $what $atMost $times" } to
+                ("$toContain.$ignoringCase.$atMost.$value/$values" to Companion::containsAtMostIgnoringCase)
 
         private fun containsAtMostIgnoringCase(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
             expect.contains.ignoringCase.atMost(atMost).values(a, *aX)
 
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = toContainNot to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $atMost($times)"
+        private fun getErrorMsgNotToContain(times: Int) = "use $toContainNot instead of $atMost($times)"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 

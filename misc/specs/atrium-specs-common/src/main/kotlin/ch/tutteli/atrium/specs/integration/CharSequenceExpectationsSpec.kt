@@ -25,7 +25,7 @@ abstract class CharSequenceExpectationsSpec(
     matches: Fun1<CharSequence, Regex>,
     mismatches: Fun1<CharSequence, Regex>,
     describePrefix: String = "[Atrium] "
-) : CharSequenceContainsSpecBase({
+) : CharSequenceToContainSpecBase({
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,

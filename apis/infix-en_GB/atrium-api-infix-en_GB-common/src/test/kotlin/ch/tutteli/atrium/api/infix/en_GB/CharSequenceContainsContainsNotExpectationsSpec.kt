@@ -7,13 +7,13 @@ import org.spekframework.spek2.Spek
 
 class CharSequenceContainsContainsNotExpectationsSpec : Spek({
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
         getContainsPair(),
         getContainsNotPair(),
         "[Atrium][Builder]"
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceContainsContainsNotExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
         getContainsShortcutPair(),
         getContainsNotShortcutPair(),
         "[Atrium][Shortcut]"
