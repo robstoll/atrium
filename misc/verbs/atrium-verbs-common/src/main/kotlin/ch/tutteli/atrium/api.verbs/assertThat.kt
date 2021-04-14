@@ -1,3 +1,6 @@
+//TODO remove file with 0.18.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.api.verbs.AssertionVerb.ASSERT_THAT
@@ -17,6 +20,10 @@ import ch.tutteli.atrium.logic.manualFeature
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
+@Deprecated(
+    "Switch to `expect` or use an own assertion verb; will be removed with 0.18.0",
+    ReplaceWith("expect<T>(subject)", "ch.tutteli.atrium.api.verbs.expect")
+)
 fun <T> assertThat(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb(ASSERT_THAT)
@@ -32,6 +39,10 @@ fun <T> assertThat(subject: T): RootExpect<T> =
  * @return The newly created assertion container.
  * @throws AssertionError in case an assertion does not hold.
  */
+@Deprecated(
+    "Switch to `expect` or use an own assertion verb; will be removed with 0.18.0",
+    ReplaceWith("expect<T>(subject, assertionCreator)", "ch.tutteli.atrium.api.verbs.expect")
+)
 fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     assertThat(subject)._logic.appendAssertionsCreatedBy(assertionCreator)
 

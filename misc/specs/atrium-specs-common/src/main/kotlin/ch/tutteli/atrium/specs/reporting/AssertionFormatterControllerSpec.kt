@@ -199,7 +199,7 @@ abstract class AssertionFormatterControllerSpec(
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
                 it("appends only the explanatory assertion group") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertions(
                             assertionBuilder.explanatoryGroup.withDefaultType.withAssertion(holdingAssertion).build(),
                             holdingAssertion
@@ -207,7 +207,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
+                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                     )
                 }
@@ -216,7 +216,7 @@ abstract class AssertionFormatterControllerSpec(
             context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
                 it("appends only the explanatory assertion group") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertions(
                             holdingAssertion,
                             assertionBuilder.explanatoryGroup.withWarningType.withAssertion(holdingAssertion).build(),
@@ -225,7 +225,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
+                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$warning ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
                     )
                 }
@@ -243,12 +243,12 @@ abstract class AssertionFormatterControllerSpec(
 
                 it("appends the explanatory assertion group including all its assertions") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertion(explanatoryAssertionGroup)
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator" +
+                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
                             "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
                             "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeparator" +
@@ -303,13 +303,13 @@ abstract class AssertionFormatterControllerSpec(
                             override val assertions = listOf(holdingAssertion, failingAssertion)
                         }
                         val summaryGroup = assertionBuilder.summary
-                            .withDescription(AssertionVerb.ASSERT)
+                            .withDescription(AssertionVerb.EXPECT)
                             .withAssertion(invisibleGroup)
                             .build()
                         testee.format(summaryGroup, parameterObject)
                         expect(sb.toString()).toEqual(
                             lineSeparator +
-                                "${AssertionVerb.ASSERT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
+                                "${AssertionVerb.EXPECT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
                                 "$successfulBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
                                 "$failingBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2"
                         )

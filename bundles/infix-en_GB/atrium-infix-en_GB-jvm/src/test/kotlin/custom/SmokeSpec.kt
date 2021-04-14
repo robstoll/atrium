@@ -1,7 +1,7 @@
 package custom
 
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -14,17 +14,17 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
-        assertThat(1) toEqual 1
+    test("see if `toEqual` can be used") {
+        expect(1) toEqual 1
     }
 
-    test("see if own assertion function without i18n can be used") {
-        assertThat(2) tobe even
-        assertThat(1) tobe odd
+    test("see if own expectation function without i18n can be used") {
+        expect(2) tobe even
+        expect(1) tobe odd
     }
 
-    test("see if own assertion function with i18n can be used") {
-        assertThat(4) isMultipleOf 2
+    test("see if own expectation function with i18n can be used") {
+        expect(4) isMultipleOf 2
     }
 })
 

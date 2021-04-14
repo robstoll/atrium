@@ -45,7 +45,7 @@ interface AssertionBuilder {
      *
      * For example, hamcrest has this problem; if you write the following using hamcrest:
      *
-     * `assertThat(listOf(1,1), IsIterableContainingInOrder.contains(1))`
+     * `expect(listOf(1,1), IsIterableContainingInOrder.contains(1))`
      *
      * it will complain that you expected `1` but it did not match `1`. If you could see that it actually matched the
      * first `1` and only did not match the second `1`, then it would be clear from the beginning.

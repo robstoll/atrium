@@ -111,7 +111,7 @@ abstract class TranslatorIntSpec(
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     fun <T : Any> assertWithDeCh_Fr(subject: T) =
         RootExpectBuilder.forSubject(subject)
-            .withVerb(AssertionVerb.ASSERT)
+            .withVerb(AssertionVerb.EXPECT)
             .withOptions {
                 translatorConfiguration(this, Locale("de", "CH"), listOf(Locale("fr")))
             }
@@ -121,7 +121,7 @@ abstract class TranslatorIntSpec(
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     fun <T : Any> assertWithDeCh_FrCh_ItCh(subject: T) =
         RootExpectBuilder.forSubject(subject)
-            .withVerb(AssertionVerb.ASSERT)
+            .withVerb(AssertionVerb.EXPECT)
             .withOptions {
                 translatorConfiguration(this, Locale("de", "CH"), listOf(Locale("fr", "CH"), Locale("it", "CH")))
             }
@@ -169,7 +169,7 @@ abstract class TranslatorIntSpec(
         }
 
         context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents") {
-            describe("translation for ${AssertionVerb::class.simpleName}.${AssertionVerb.ASSERT} is provided for 'fr'") {
+            describe("translation for ${AssertionVerb::class.simpleName}.${AssertionVerb.EXPECT} is provided for 'fr'") {
                 val text = "il applique que"
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
@@ -290,7 +290,7 @@ abstract class TranslatorIntSpec(
             @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
             @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
             val assert = RootExpectBuilder.forSubject(1)
-                .withVerb(AssertionVerb.ASSERT)
+                .withVerb(AssertionVerb.EXPECT)
                 .withOptions {
                     translatorConfiguration(this, locale, emptyList())
                 }
