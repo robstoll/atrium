@@ -199,7 +199,7 @@ class AnyExpectationSamples {
     @Test
     fun becauseOf() {
         expect("filename") because of("? is not allowed in file names on Windows") {
-            it containsNot "?"
+            it notToContain "?"
         }
 
         expect(customers) all {

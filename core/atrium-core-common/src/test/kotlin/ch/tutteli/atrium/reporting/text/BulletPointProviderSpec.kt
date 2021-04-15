@@ -97,8 +97,8 @@ class BulletPointProviderSpec : Spek({
                     expectBuilder(kClass to newBulletPoint)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(newBulletPoint)
-                        containsNot(defaultBulletPoint)
+                        toContain(newBulletPoint)
+                        notToContain(defaultBulletPoint)
                     }
                 }
             }

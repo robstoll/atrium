@@ -36,8 +36,8 @@ class CharSequenceToContainNotToContainExpectationsSpec : Spek({
         private fun getNotToContainShortcutPair() = fun2<CharSequence, Any, Array<out Any>>(Companion::notToContain)
 
         private fun contains(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect contains a
-            else expect contains values(a, *aX)
+            if (aX.isEmpty()) expect toContain a
+            else expect toContain values(a, *aX)
 
         private fun notToContain(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
             if (aX.isEmpty()) expect notToContain a
@@ -48,7 +48,7 @@ class CharSequenceToContainNotToContainExpectationsSpec : Spek({
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 
-        a1 contains values(1, "a", 'c')
+        a1 toContain values(1, "a", 'c')
         a1 notToContain values(1, "a", 'c')
     }
 }

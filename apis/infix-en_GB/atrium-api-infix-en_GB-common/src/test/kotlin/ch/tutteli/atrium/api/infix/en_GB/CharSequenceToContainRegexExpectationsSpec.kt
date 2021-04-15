@@ -95,16 +95,16 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
             a: String,
             aX: Array<out String>
         ) =
-            if (aX.isEmpty()) expect containsRegex a
-            else expect contains regexPatterns(a, *aX)
+            if (aX.isEmpty()) expect toContainRegex a
+            else expect toContain regexPatterns(a, *aX)
 
         private fun containsShortcutRegex(
             expect: Expect<CharSequence>,
             a: String,
             aX: Array<out String>
         ) =
-            if (aX.isEmpty()) expect contains Regex(a)
-            else expect contains all(Regex(a), *aX.map { it.toRegex() }.toTypedArray())
+            if (aX.isEmpty()) expect toContain Regex(a)
+            else expect toContain all(Regex(a), *aX.map { it.toRegex() }.toTypedArray())
 
 
         private fun getAtMostTripleString() =

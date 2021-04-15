@@ -22,7 +22,7 @@ abstract class CharSequenceToContainSpecBase {
 
     private val notToContainFun: KFunction2<Expect<String>, Any, Expect<String>> = Expect<String>::notToContain
     protected val notToContainValues = "${notToContainFun.name} values"
-    protected val toContainRegex = fun1<String, String>(Expect<String>::containsRegex).name
+    protected val toContainRegex = fun1<String, String>(Expect<String>::toContainRegex).name
     protected val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
     protected val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
     protected val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name

@@ -52,21 +52,21 @@ class FeatureExpectationsManualSpec : ch.tutteli.atrium.specs.integration.Featur
     //TODO remove type parameters for `of` with Kotiln 1.4 including parentheses (make the calls infix again
     companion object {
         //@formatter:off
-        val propertyImmediate: F = { it feature { f("nonNullValue", it.nonNullValue) } contains "hello" }
+        val propertyImmediate: F = { (it feature { f("nonNullValue", it.nonNullValue) }).toContain("hello") }
 
-        val propertyLazy: F = { it feature(of<TestData, String>({ f("nonNullValue", it.nonNullValue) }) { it contains "hello" }) }
-        val f0Immediate: F = { it feature { f("return0()", it.return0()) } contains "hello" }
-        val f1Immediate: F = { it feature { f("return1(\"a\")", it.return1("a")) } contains "hello" }
-        val f2Immediate: F = { it feature { f("return2(\"a\", 1)", it.return2("a", 1)) } contains "hello" }
-        val f3Immediate: F = { it feature { f("return3(\"a\", 1, true)", it.return3("a", 1, true)) } contains "hello" }
-        val f4Immediate: F = { it feature { f("return4(\"a\", 1, true, 1.2)", it.return4("a", 1, true, 1.2)) } contains "hello" }
-        val f5Immediate: F = { it feature { f("return5(\"a\", 1, true, 1.2, 'b')", it.return5("a", 1, true, 1.2, 'b')) } contains "hello" }
-        val f0Lazy: F = { it feature of<TestData, String>({ f("return0()", it.return0()) }) { it contains "hello" } }
-        val f1Lazy: F = { it feature of<TestData, String>({ f("return1(\"a\")", it.return1("a")) }) { it contains "hello" } }
-        val f2Lazy: F = { it feature of<TestData, String>({ f("return2(\"a\", 1)", it.return2("a", 1)) }) { it contains "hello" } }
-        val f3Lazy: F = { it feature of<TestData, String>({ f("return3(\"a\", 1, true)", it.return3("a", 1, true)) }) { it contains "hello" } }
-        val f4Lazy: F = { it feature of<TestData, String>({ f("return4(\"a\", 1, true, 1.2)", it.return4("a", 1, true, 1.2)) }) { it contains "hello" } }
-        val f5Lazy: F = { it feature of<TestData, String>({ f("return5(\"a\", 1, true, 1.2, 'b')", it.return5("a", 1, true, 1.2, 'b')) }) { it contains "hello" } }
+        val propertyLazy: F = { it feature(of<TestData, String>({ f("nonNullValue", it.nonNullValue) }) { it toContain "hello" }) }
+        val f0Immediate: F = { (it feature { f("return0()", it.return0()) }).toContain("hello") }
+        val f1Immediate: F = { (it feature { f("return1(\"a\")", it.return1("a")) }).toContain("hello") }
+        val f2Immediate: F = { (it feature { f("return2(\"a\", 1)", it.return2("a", 1)) }).toContain("hello") }
+        val f3Immediate: F = { (it feature { f("return3(\"a\", 1, true)", it.return3("a", 1, true)) }).toContain("hello") }
+        val f4Immediate: F = { (it feature { f("return4(\"a\", 1, true, 1.2)", it.return4("a", 1, true, 1.2)) }).toContain("hello") }
+        val f5Immediate: F = { (it feature { f("return5(\"a\", 1, true, 1.2, 'b')", it.return5("a", 1, true, 1.2, 'b')) }).toContain("hello") }
+        val f0Lazy: F = { it feature of<TestData, String>({ f("return0()", it.return0()) }) { it toContain "hello" } }
+        val f1Lazy: F = { it feature of<TestData, String>({ f("return1(\"a\")", it.return1("a")) }) { it toContain "hello" } }
+        val f2Lazy: F = { it feature of<TestData, String>({ f("return2(\"a\", 1)", it.return2("a", 1)) }) { it toContain "hello" } }
+        val f3Lazy: F = { it feature of<TestData, String>({ f("return3(\"a\", 1, true)", it.return3("a", 1, true)) }) { it toContain "hello" } }
+        val f4Lazy: F = { it feature of<TestData, String>({ f("return4(\"a\", 1, true, 1.2)", it.return4("a", 1, true, 1.2)) }) { it toContain "hello" } }
+        val f5Lazy: F = { it feature of<TestData, String>({ f("return5(\"a\", 1, true, 1.2, 'b')", it.return5("a", 1, true, 1.2, 'b')) }) { it toContain "hello" } }
 
         val propertyNullableDoesNotHold: F = { it feature { f("nullableValue", it.nullableValue) } toEqual null }
         val f0NullableDoesNotHold: F = { it feature { f("returnNullable0()", it.returnNullable0()) } toEqual null }
