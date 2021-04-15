@@ -6,36 +6,36 @@ class CharSequenceNotToContainOrAtMostExpectationsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceNotToContainOrAtMostExpectationsSpec(
         getNotOrAtMostTriple(),
         getNotOrAtMostIgnoringCaseTriple(),
-        getContainsNotPair()
+        getNotToContainPair()
     ) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
         private fun getNotOrAtMostTriple() =
-            { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
-                ("$contains o $notOrAtMost $value/$values" to Companion::containsNotOrAtMost)
+            { what: String, times: String -> "$toContain $what $notOrAtMost $times" } to
+                ("$toContain o $notOrAtMost $value/$values" to Companion::notToContainOrAtMost)
 
-        private fun containsNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect contains o notOrAtMost atMost value a
-            else expect contains o notOrAtMost atMost the values(a, *aX)
+        private fun notToContainOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect toContain o notOrAtMost atMost value a
+            else expect toContain o notOrAtMost atMost the values(a, *aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() =
-            { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" } to
-                ("$contains o $ignoringCase $notOrAtMost $value/$values" to Companion::containsNotOrAtMostIgnoringCase)
+            { what: String, times: String -> "$toContain $ignoringCase $what $notOrAtMost $times" } to
+                ("$toContain o $ignoringCase $notOrAtMost $value/$values" to Companion::notToContainOrAtMostIgnoringCase)
 
-        private fun containsNotOrAtMostIgnoringCase(
+        private fun notToContainOrAtMostIgnoringCase(
             expect: Expect<CharSequence>,
             atMost: Int,
             a: Any,
             aX: Array<out Any>
         ) =
-            if (aX.isEmpty()) expect contains o ignoring case notOrAtMost atMost value a
-            else expect contains o ignoring case notOrAtMost atMost the values(a, *aX)
+            if (aX.isEmpty()) expect toContain o ignoring case notOrAtMost atMost value a
+            else expect toContain o ignoring case notOrAtMost atMost the values(a, *aX)
 
 
-        private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = notToContainValues to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use `$containsNotValues` instead of `$notOrAtMost $times`"
+        private fun getErrorMsgNotToContain(times: Int) = "use `$notToContainValues` instead of `$notOrAtMost $times`"
 
     }
 }

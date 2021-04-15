@@ -6,34 +6,34 @@ class CharSequenceToContainExactlyExpectationsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceToContainExactlyExpectationsSpec(
         getExactlyTriple(),
         getExactlyIgnoringCaseTriple(),
-        getContainsNotPair()
+        getNotToContainPair()
     ) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
         private fun getExactlyTriple() =
-            { what: String, times: String -> "$contains $what $exactly $times" } to
-                ("$contains o $exactly $value/$values" to Companion::containsExactly)
+            { what: String, times: String -> "$toContain $what $exactly $times" } to
+                ("$toContain o $exactly $value/$values" to Companion::toContainExactly)
 
-        private fun containsExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect contains o exactly exactly value a
-            else expect contains o exactly exactly the values(a, *aX)
+        private fun toContainExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect toContain o exactly exactly value a
+            else expect toContain o exactly exactly the values(a, *aX)
 
         private fun getExactlyIgnoringCaseTriple() =
-            { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" } to
-                ("$contains o $ignoringCase $exactly $value/$values" to Companion::containsExactlyIgnoringCase)
+            { what: String, times: String -> "$toContain $ignoringCase $what $exactly $times" } to
+                ("$toContain o $ignoringCase $exactly $value/$values" to Companion::toContainExactlyIgnoringCase)
 
 
-        private fun containsExactlyIgnoringCase(
+        private fun toContainExactlyIgnoringCase(
             expect: Expect<CharSequence>,
             exactly: Int,
             a: Any,
             aX: Array<out Any>
         ) =
-            if (aX.isEmpty()) expect contains o ignoring case exactly exactly value a
-            else expect contains o ignoring case exactly exactly the values(a, *aX)
+            if (aX.isEmpty()) expect toContain o ignoring case exactly exactly value a
+            else expect toContain o ignoring case exactly exactly the values(a, *aX)
 
-        private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
-        private fun getErrorMsgContainsNot(times: Int) = "use `$containsNotValues` instead of `$exactly $times`"
+        private fun getNotToContainPair() = notToContainValues to Companion::getErrorMsgNotToContain
+        private fun getErrorMsgNotToContain(times: Int) = "use `$notToContainValues` instead of `$exactly $times`"
     }
 }

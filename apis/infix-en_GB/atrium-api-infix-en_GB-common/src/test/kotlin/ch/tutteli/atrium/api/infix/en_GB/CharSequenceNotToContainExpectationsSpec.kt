@@ -3,26 +3,26 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 
 class CharSequenceNotToContainExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceNotToContainExpectationsSpec(
-    getContainsNotTriple(),
-    getContainsNotIgnoringCaseTriple()
+    getNotToContainTriple(),
+    getNotToContainIgnoringCaseTriple()
 ) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
-        private fun getContainsNotTriple() =
-            { what: String -> "$containsNotValues $what" } to
-                (containsNotValues to Companion::containsNotFun)
+        private fun getNotToContainTriple() =
+            { what: String -> "$notToContainValues $what" } to
+                (notToContainValues to Companion::notToContainFun)
 
-        private fun containsNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the values(a, *aX)
+        private fun notToContainFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect notToContain o value a
+            else expect notToContain o the values(a, *aX)
 
-        private fun getContainsNotIgnoringCaseTriple() =
-            { what: String -> "$containsNotValues $ignoringCase $what" } to
-                ("$containsNotValues o $ignoringCase" to Companion::containsNotIgnoringCase)
+        private fun getNotToContainIgnoringCaseTriple() =
+            { what: String -> "$notToContainValues $ignoringCase $what" } to
+                ("$notToContainValues o $ignoringCase" to Companion::notToContainIgnoringCase)
 
-        private fun containsNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect containsNot o ignoring case value a
-            else expect containsNot o ignoring case the values(a, *aX)
+        private fun notToContainIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect notToContain o ignoring case value a
+            else expect notToContain o ignoring case the values(a, *aX)
     }
 }

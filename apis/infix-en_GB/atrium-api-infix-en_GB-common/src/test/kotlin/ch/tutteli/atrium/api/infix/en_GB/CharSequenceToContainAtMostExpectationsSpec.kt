@@ -7,31 +7,31 @@ class CharSequenceToContainAtMostExpectationsSpec :
     ch.tutteli.atrium.specs.integration.CharSequenceToContainAtMostExpectationsSpec(
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair()
     ) {
 
-    companion object : CharSequenceContainsSpecBase() {
+    companion object : CharSequenceToContainSpecBase() {
 
         private fun getAtMostTriple() =
-            { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains o $atMost $value/$values" to Companion::containsAtMost)
+            { what: String, times: String -> "$toContain $what $atMost $times" } to
+                ("$toContain o $atMost $value/$values" to Companion::toContainAtMost)
 
-        private fun containsAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect contains o atMost atMost value a
-            else expect contains o atMost atMost the values(a, *aX)
+        private fun toContainAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect toContain o atMost atMost value a
+            else expect toContain o atMost atMost the values(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() =
-            { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" } to
-                ("$contains o $ignoringCase $atMost $value/$values" to Companion::containsAtMostIgnoringCase)
+            { what: String, times: String -> "$toContain $ignoringCase $what $atMost $times" } to
+                ("$toContain o $ignoringCase $atMost $value/$values" to Companion::toContainAtMostIgnoringCase)
 
-        private fun containsAtMostIgnoringCase(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect contains o ignoring case atMost atMost value a
-            else expect contains o ignoring case atMost atMost the values(a, *aX)
+        private fun toContainAtMostIgnoringCase(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect toContain o ignoring case atMost atMost value a
+            else expect toContain o ignoring case atMost atMost the values(a, *aX)
 
-        private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = notToContainValues to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use `$containsNotValues` instead of `$atMost $times`"
+        private fun getErrorMsgNotToContain(times: Int) = "use `$notToContainValues` instead of `$atMost $times`"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 

@@ -230,7 +230,7 @@ fun <T : CharSequence> Expect<T>.notToBeBlank(): Expect<T> =
     _logicAppend { isNotBlank() }
 
 /**
- * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [Regex] [pattern] .
  *
  * In contrast to [toContainRegex] it does not look for a partial match but for an entire match.
  *
@@ -240,13 +240,13 @@ fun <T : CharSequence> Expect<T>.notToBeBlank(): Expect<T> =
  *
  * @since 0.17.0
  */
-fun <T : CharSequence> Expect<T>.toMatch(expected: Regex): Expect<T> =
-    _logicAppend { matches(expected) }
+fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
+    _logicAppend { matches(pattern) }
 
 /**
- * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [expected] [Regex].
+ * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [Regex] [pattern].
  *
- * In contrast to `notToContain.regex` it does not look for a partial match but for an entire match.
+ * In contrast to `notToContain.regex(pattern)` it does not look for a partial match but for an entire match.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -254,5 +254,5 @@ fun <T : CharSequence> Expect<T>.toMatch(expected: Regex): Expect<T> =
  *
  * @since 0.17.0
  */
-fun <T : CharSequence> Expect<T>.notToMatch(expected: Regex): Expect<T> =
-    _logicAppend { mismatches(expected) }
+fun <T : CharSequence> Expect<T>.notToMatch(pattern: Regex): Expect<T> =
+    _logicAppend { mismatches(pattern) }

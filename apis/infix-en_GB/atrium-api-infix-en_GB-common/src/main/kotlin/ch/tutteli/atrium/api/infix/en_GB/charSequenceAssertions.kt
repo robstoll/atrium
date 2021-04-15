@@ -299,6 +299,7 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     it endsNotWith expected.toString()
 
 
+//TODO move to charSequenceExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
  *
@@ -306,11 +307,12 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isEmpty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty() }
 
+//TODO move to charSequenceExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
  *
@@ -318,11 +320,12 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isNotEmpty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty() }
 
+//TODO move to charSequenceExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
  *
@@ -330,7 +333,7 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  *
  * @return This assertion container to support a fluent API.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CharSequenceAssertionSamples.isNotBlank
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
     _logicAppend { isNotBlank() }
