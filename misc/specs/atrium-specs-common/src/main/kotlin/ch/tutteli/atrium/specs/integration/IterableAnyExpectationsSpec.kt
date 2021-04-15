@@ -101,7 +101,7 @@ abstract class IterableAnyExpectationsSpec(
                             expect(oneToSevenNullable()).anyNullableFun { toEqual(2.0) }
                         }.toThrow<AssertionError> {
                             message {
-                                contains.exactly(1).values(
+                                toContain.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrder: $separator",
                                     "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
@@ -120,7 +120,7 @@ abstract class IterableAnyExpectationsSpec(
                         expect(oneToSeven() as Iterable<Double?>).anyNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$isDescr: null",

@@ -72,20 +72,20 @@ class FeatureExpectationsItsSpec : ch.tutteli.atrium.specs.integration.FeatureEx
     companion object {
         //@formatter:off
         const val offset = 77
-        val propertyImmediate: F = { its { nonNullValue }.contains("hello") }
-        val propertyLazy: F = { its({ nonNullValue }) { contains("hello") } }
-        val f0Immediate: F = { its { return0() }.contains("hello") }
-        val f1Immediate: F = { its { return1("a") }.contains("hello") }
-        val f2Immediate: F = { its { return2("a", 1) }.contains("hello") }
-        val f3Immediate: F = { its { return3("a", 1, true) }.contains("hello") }
-        val f4Immediate: F = { its { return4("a", 1, true, 1.2) }.contains("hello") }
-        val f5Immediate: F = { its { return5("a", 1, true, 1.2, 'b') }.contains("hello") }
-        val f0Lazy: F = { its ({ return0() }) { contains("hello") } }
-        val f1Lazy: F = { its ({ return1("a") }) { contains("hello") } }
-        val f2Lazy: F = { its ({ return2("a", 1) }) { contains("hello") } }
-        val f3Lazy: F = { its ({ return3("a", 1, true) }) { contains("hello") } }
-        val f4Lazy: F = { its ({ return4("a", 1, true, 1.2) }) { contains("hello") } }
-        val f5Lazy: F = { its ({ return5("a", 1, true, 1.2, 'b') }) { contains("hello") } }
+        val propertyImmediate: F = { its { nonNullValue }.toContain("hello" ) }
+        val propertyLazy: F = { its({ nonNullValue }) { toContain("hello" ) } }
+        val f0Immediate: F = { its { return0() }.toContain("hello" ) }
+        val f1Immediate: F = { its { return1("a") }.toContain("hello" ) }
+        val f2Immediate: F = { its { return2("a", 1) }.toContain("hello" ) }
+        val f3Immediate: F = { its { return3("a", 1, true) }.toContain("hello" ) }
+        val f4Immediate: F = { its { return4("a", 1, true, 1.2) }.toContain("hello" ) }
+        val f5Immediate: F = { its { return5("a", 1, true, 1.2, 'b') }.toContain("hello" ) }
+        val f0Lazy: F = { its ({ return0() }) { toContain("hello" ) } }
+        val f1Lazy: F = { its ({ return1("a") }) { toContain("hello" ) } }
+        val f2Lazy: F = { its ({ return2("a", 1) }) { toContain("hello" ) } }
+        val f3Lazy: F = { its ({ return3("a", 1, true) }) { toContain("hello" ) } }
+        val f4Lazy: F = { its ({ return4("a", 1, true, 1.2) }) { toContain("hello" ) } }
+        val f5Lazy: F = { its ({ return5("a", 1, true, 1.2, 'b') }) { toContain("hello" ) } }
 
         val propertyNullableDoesNotHold: F = { its { nullableValue }.toEqual(null) }
         val f0NullableDoesNotHold: F = { its { returnNullable0() }.toEqual(null) }

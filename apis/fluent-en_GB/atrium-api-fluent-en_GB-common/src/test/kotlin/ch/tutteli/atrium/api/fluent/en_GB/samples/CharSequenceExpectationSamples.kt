@@ -115,15 +115,6 @@ class CharSequenceExpectationSamples {
     }
 
     @Test
-    fun toStartWithChar() {
-        expect("ABC").toStartWith('A')
-
-        fails {
-            expect("ABC").toStartWith('X')
-        }
-    }
-
-    @Test
     fun notToStartWith() {
         expect("ABC").notToStartWith("X")
 
@@ -131,16 +122,6 @@ class CharSequenceExpectationSamples {
             expect("ABC").notToStartWith("AB")
         }
     }
-
-    @Test
-    fun notToStartWithChar() {
-        expect("ABC").notToStartWith('X')
-
-        fails {
-            expect("ABC").notToStartWith('A')
-        }
-    }
-
 
     @Test
     fun toEndWith() {
@@ -152,29 +133,11 @@ class CharSequenceExpectationSamples {
     }
 
     @Test
-    fun toEndWithChar() {
-        expect("ABC").toEndWith('C')
-
-        fails {
-            expect("ABC").toEndWith('X')
-        }
-    }
-
-    @Test
     fun notToEndWith() {
         expect("ABC").notToEndWith("X")
 
         fails {
             expect("ABC").notToEndWith("BC")
-        }
-    }
-
-    @Test
-    fun notToEndWithChar() {
-        expect("ABC").notToEndWith('X')
-
-        fails {
-            expect("ABC").notToEndWith('C')
         }
     }
 

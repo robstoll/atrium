@@ -9,13 +9,9 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::startsWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsNotWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::startsNotWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::endsWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsNotWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::endsNotWith),
     fun1<CharSequence, Regex>(Expect<CharSequence>::matches),
     fun1<CharSequence, Regex>(Expect<CharSequence>::mismatches)
 ) {

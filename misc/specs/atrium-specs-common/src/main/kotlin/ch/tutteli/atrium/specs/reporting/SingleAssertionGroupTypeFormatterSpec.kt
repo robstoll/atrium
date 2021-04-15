@@ -114,7 +114,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
             expect {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
             }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
-            expect(sb).isEmpty()
+            expect(sb).toBeEmpty()
         }
     }
 
@@ -125,7 +125,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
             expect {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
             }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
-            expect(sb).isEmpty()
+            expect(sb).toBeEmpty()
         }
 
         it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {

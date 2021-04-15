@@ -389,7 +389,7 @@ The following example uses the first overload
 ```kotlin
 expect {
     throw IllegalArgumentException()
-}.toThrow<IllegalArgumentException>().message.startsWith("firstName")
+}.toThrow<IllegalArgumentException>().message.toStartWith("firstName")
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L44)</sub> ↓ <sub>[Output](#ex-toThrow2)</sub>
 <a name="ex-toThrow2"></a>
@@ -409,7 +409,7 @@ And this one uses the second overload; notice the difference in reporting.
 expect {
     throw IllegalArgumentException()
 }.toThrow<IllegalArgumentException> {
-    message { startsWith("firstName") }
+    message { toStartWith("firstName") }
 }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L50)</sub> ↓ <sub>[Output](#ex-toThrow3)</sub>
@@ -497,7 +497,7 @@ using the extension method `its`.
 expect(myPerson)
     .its({ isStudent }) { toEqual(true) } // fails, subject still Person afterwards
     .its { fullName() }                // not evaluated anymore, subject String afterwards
-    .startsWith("rob")                 // not evaluated anymore
+    .toStartWith("rob")                 // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-its-single)</sub>
 <a name="ex-its-single"></a>
@@ -537,8 +537,8 @@ Feature assertions follow the common pattern of having two overloads:
   expect(myPerson) { // forms an assertion group block
   
       its({ firstName }) {   // forms an assertion group block
-          startsWith("Pe")   // fails
-          endsWith("er")     // is evaluated nonetheless
+          toStartWith("Pe")   // fails
+          toEndWith("er")     // is evaluated nonetheless
       }                      // fails as a whole
   
       // still evaluated, as it is in outer assertion group block
@@ -571,7 +571,7 @@ as description. Following the first example rewritten to `feature`.
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toEqual(true) } // fails, subject still Person afterwards
     .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
-    .startsWith("rob")                            // not evaluated anymore
+    .toStartWith("rob")                            // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L63)</sub> ↓ <sub>[Output](#ex-property-methods-single)</sub>
 <a name="ex-property-methods-single"></a>
@@ -606,8 +606,8 @@ Following the second example rewritten from `its` to `feature`:
 expect(myPerson) { // forms an assertion group block
 
     feature({ f(it::firstName) }) { // forms an assertion group block
-        startsWith("Pe")            // fails
-        endsWith("er")              // is evaluated nonetheless
+        toStartWith("Pe")            // fails
+        toEndWith("er")              // is evaluated nonetheless
     }                               // fails as a whole
 
     // still evaluated, as it is in outer assertion group block
@@ -661,7 +661,7 @@ Last but not least, let us have a look at an example where a method with argumen
 expect(myPerson)
     .feature { f(it::nickname, false) } // subject narrowed to String
     .toEqual("Robert aka. Stoll")          // fails
-    .startsWith("llotS")                // not evaluated anymore
+    .toStartWith("llotS")                // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-methods-args)</sub>
 <a name="ex-methods-args"></a>
@@ -927,7 +927,7 @@ Following an example:
 ```kotlin
 expect(slogan2)     // subject has type String?
     .notToEqualNull()  // subject narrowed to String
-    .startsWith("atrium")
+    .toStartWith("atrium")
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L88)</sub> ↓ <sub>[Output](#ex-nullable-3)</sub>
 <a name="ex-nullable-3"></a>
@@ -944,7 +944,7 @@ one without (example above) and one with `assertionCreator`-lambda (example belo
 <ex-nullable-4>
 
 ```kotlin
-expect(slogan2).notToEqualNull { startsWith("atrium") }
+expect(slogan2).notToEqualNull { toStartWith("atrium") }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L93)</sub> ↓ <sub>[Output](#ex-nullable-4)</sub>
 <a name="ex-nullable-4"></a>
@@ -1448,7 +1448,7 @@ In case you want to make an assertion only about the keys or values of the `Map`
 
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)) {
-    keys { all { startsWith("a") } }
+    keys { all { toStartWith("a") } }
     values { none { isGreaterThan(1) } }
 }
 ```
@@ -1485,7 +1485,7 @@ then it will come in handy:
 expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
     { isKeyValue("a", 1) },
     {
-        key.startsWith("a")
+        key.toStartWith("a")
         value.isGreaterThan(2)
     }
 )
@@ -1583,7 +1583,7 @@ use `because`:
 ```kotlin
 expect("filename?")
     .because("? is not allowed in file names on Windows") {
-        containsNot("?")
+        notToContain("?")
     }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L197)</sub> ↓ <sub>[Output](#ex-because-1)</sub>
@@ -1706,11 +1706,11 @@ fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
 
 expect("calling myNullableFun with ...") {
     mapOf(
-        Int.MIN_VALUE to expectLambda<String> { contains("min") },
+        Int.MIN_VALUE to expectLambda<String> { toContain("min") },
         -1 to null,
         0 to null,
         1 to expectLambda { toEqual("1") },
-        2 to expectLambda { endsWith("2") },
+        2 to expectLambda { toEndWith("2") },
         Int.MAX_VALUE to expectLambda { toEqual("max") }
     ).forEach { (arg, assertionCreatorOrNull) ->
         feature { f(::myNullableFun, arg) }.toEqualNullIfNullGivenElse(assertionCreatorOrNull)
@@ -2221,7 +2221,7 @@ With this, we can write things like:
 ```kotlin
 expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
     .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
-        none { feature { f(it::firstName) }.startsWith("Ro") }
+        none { feature { f(it::firstName) }.toStartWith("Ro") }
         all { feature { f(it::lastName) }.toEqual("Whitley") }
     } // subject is still Person here
     .apply { // only evaluated because the previous assertion group holds
@@ -2285,8 +2285,8 @@ fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
     person: Person, vararg otherPersons: Person
 ): Expect<T> {
     val (first, others) = mapArguments(person, otherPersons).toExpect<Pair<String, String>> {
-        first.startsWith(it.firstName[0].toString())
-        second.startsWith(it.lastName[0].toString())
+        first.toStartWith(it.firstName[0].toString())
+        second.toStartWith(it.lastName[0].toString())
     }
     return contains.inOrder.only.entries(first, *others)
 }

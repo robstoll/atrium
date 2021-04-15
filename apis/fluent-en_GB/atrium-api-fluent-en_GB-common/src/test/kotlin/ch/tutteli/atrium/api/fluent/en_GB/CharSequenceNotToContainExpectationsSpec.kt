@@ -11,16 +11,16 @@ class CharSequenceNotToContainExpectationsSpec : ch.tutteli.atrium.specs.integra
 
         private fun getNotToContainTriple() =
             { what: String -> "$toContainNot $what" } to
-                ("$toContainNot.$value/$values" to Companion::containsNotFun)
+                ("$toContainNot.$value/$values" to Companion::toContainNotFun)
 
-        private fun containsNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            expect.containsNot.values(a, *aX)
+        private fun toContainNotFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.notToContain.values(a, *aX)
 
         private fun getNotToContainIgnoringCaseTriple() =
             { what: String -> "$toContainNot $ignoringCase $what" } to
-                ("$toContainNot.$ignoringCase.$value/$values" to Companion::containsNotIgnoringCase)
+                ("$toContainNot.$ignoringCase.$value/$values" to Companion::toContainNotIgnoringCase)
 
-        private fun containsNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            expect.containsNot.ignoringCase.values(a, *aX)
+        private fun toContainNotIgnoringCase(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            expect.notToContain.ignoringCase.values(a, *aX)
     }
 }

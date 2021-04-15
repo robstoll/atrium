@@ -57,8 +57,8 @@ abstract class VerbSpec(
                         assertionVerb(1) { toEqual(1) }.isLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
-                            containsNot(toBeDescr)
+                            toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
+                            notToContain(toBeDescr)
                         }
                     }
                 }
@@ -70,12 +70,12 @@ abstract class VerbSpec(
                         assertionVerb(1) { toEqual(1) }.and { isLessThan(0); toEqual(1); isGreaterThan(2) }
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 ": 1",
                                 "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0",
                                 "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2"
                             )
-                            containsNot(toBeDescr)
+                            notToContain(toBeDescr)
                         }
                     }
                 }
@@ -91,9 +91,9 @@ abstract class VerbSpec(
                     }
                 }.toThrow<AssertionError> {
                     message {
-                        contains(": 1")
-                        contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0")
-                        contains("${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2")
+                        toContain(": 1")
+                        toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0")
+                        toContain("${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2")
                     }
                 }
             }
@@ -163,9 +163,9 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
             assertionVerb(1).isLessThanOrEqual(10).and.isLessThanOrEqual(0).and.isGreaterThanOrEqual(2)
         }.toThrow<AssertionError> {
             message {
-                contains(": 1")
-                contains("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()}: 0")
-                containsNot("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()}: 2")
+                toContain(": 1")
+                toContain("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()}: 0")
+                notToContain("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()}: 2")
             }
         }
     }

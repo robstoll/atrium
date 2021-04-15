@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsNot
-import ch.tutteli.atrium.api.fluent.en_GB.containsRegex
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -48,7 +45,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                     expect(fluentEmpty()).containsNotFun(4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        containsRegex(
+                        toContainRegex(
                             "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                 "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                 "$featureSuccess$numberOfOccurrences: 0$separator" +
@@ -81,7 +78,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun(4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
@@ -97,7 +94,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
@@ -118,7 +115,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun(4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
@@ -152,7 +149,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                         expect(oneToSevenNullable()).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
@@ -169,7 +166,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                         expect(oneToSevenNullable()).containsNotNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
@@ -177,7 +174,7 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
-                            containsNot("$containsNotDescr: 1.1")
+                            notToContain("$containsNotDescr: 1.1")
                         }
                     }
                 }

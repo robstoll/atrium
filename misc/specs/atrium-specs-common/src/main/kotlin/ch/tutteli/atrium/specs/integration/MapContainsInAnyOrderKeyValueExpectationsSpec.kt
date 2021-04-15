@@ -90,13 +90,13 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 entry("b", 2),
                                 "$lessThanDescr: 2",
                                 entry("c", keyDoesNotExist),
                                 "$lessThanDescr: 1"
                             )
-                            containsNot(entry("a"))
+                            notToContain(entry("a"))
                         }
                     }
                 }
@@ -149,13 +149,13 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                     )
                 }.toThrow<AssertionError> {
                     message {
-                        contains(
+                        toContain(
                             entry("b", 2),
                             "$lessThanDescr: 2",
                             entry("c", keyDoesNotExist),
                             "$lessThanDescr: 1"
                         )
-                        containsNot(entry("a"))
+                        notToContain(entry("a"))
                     }
                 }
             }

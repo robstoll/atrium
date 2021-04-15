@@ -141,8 +141,8 @@ abstract class BigDecimalExpectationsSpec(
                     assertTenAny.notToBeAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(BigDecimal.TEN, "${NOT_TO_BE.getDefault()}: $expected")
-                        containsNot(failureHintNotNumerically)
+                        toContain(BigDecimal.TEN, "${NOT_TO_BE.getDefault()}: $expected")
+                        notToContain(failureHintNotNumerically)
                     }
                 }
             }
@@ -151,11 +151,11 @@ abstract class BigDecimalExpectationsSpec(
                     assertTen.isNotEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(
+                        toContain(
                             BigDecimal.TEN,
                             "${DescriptionBigDecimalAssertion.IS_NOT_EQUAL_INCLUDING_SCALE.getDefault()}: $expected"
                         )
-                        containsNot(failureHintNotNumerically)
+                        notToContain(failureHintNotNumerically)
                     }
                 }
             }
@@ -186,8 +186,8 @@ abstract class BigDecimalExpectationsSpec(
                         assertTenAny.toBeAnyFun(expected)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(BigDecimal.TEN, "$toBeDescr: $expected")
-                            containsNot(failureHintNumerically)
+                            toContain(BigDecimal.TEN, "$toBeDescr: $expected")
+                            notToContain(failureHintNumerically)
                         }
                     }
                 }
@@ -230,8 +230,8 @@ abstract class BigDecimalExpectationsSpec(
                     assertTenAny.toBeAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(BigDecimal.TEN, "$toBeDescr: $expected")
-                        containsNot(failureHintNumerically)
+                        toContain(BigDecimal.TEN, "$toBeDescr: $expected")
+                        notToContain(failureHintNumerically)
                     }
                 }
             }
@@ -240,11 +240,11 @@ abstract class BigDecimalExpectationsSpec(
                     assertTen.isEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(
+                        toContain(
                             BigDecimal.TEN,
                             "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected"
                         )
-                        containsNot(failureHintNumerically)
+                        notToContain(failureHintNumerically)
                     }
                 }
             }

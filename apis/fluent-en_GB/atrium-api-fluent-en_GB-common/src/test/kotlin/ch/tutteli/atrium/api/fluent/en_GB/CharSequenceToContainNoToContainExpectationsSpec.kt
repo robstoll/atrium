@@ -8,43 +8,43 @@ import org.spekframework.spek2.Spek
 class CharSequenceToContainNotToContainExpectationsSpec : Spek({
 
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
-        getContainsPair(),
+        getToContainPair(),
         getNotToContainPair(),
         "[Atrium][Builder]"
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
-        getContainsShortcutPair(),
+        getToContainShortcutPair(),
         getNotToContainShortcutPair(),
         "[Atrium][Shortcut]"
     ) {})
 }) {
     companion object : CharSequenceToContainSpecBase() {
-        private fun getContainsPair() = "$toContain.$atLeast(1).$value/$values" to Companion::containsValues
+        private fun getToContainPair() = "$toContain.$atLeast(1).$value/$values" to Companion::toContainValues
 
-        private fun containsValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect.contains.atLeast(1).value(a)
-            else expect.contains.atLeast(1).values(a, *aX)
+        private fun toContainValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect.toContain.atLeast(1).value(a)
+            else expect.toContain.atLeast(1).values(a, *aX)
 
         private fun getNotToContainPair() =
-            "${super.toContainNot}.$value/$values" to Companion::containsNotValues
+            "${super.toContainNot}.$value/$values" to Companion::notToContainValues
 
-        private fun containsNotValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
-            if (aX.isEmpty()) expect.containsNot.value(a)
-            else expect.containsNot.values(a, *aX)
+        private fun notToContainValues(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>) =
+            if (aX.isEmpty()) expect.notToContain.value(a)
+            else expect.notToContain.values(a, *aX)
 
-        private fun getContainsShortcutPair() =
-            fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::contains)
+        private fun getToContainShortcutPair() =
+            fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::toContain)
 
         private fun getNotToContainShortcutPair() =
-            fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::containsNot)
+            fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::notToContain)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 
-        a1.contains(1, "a", 'c')
-        a1.containsNot(1, "a", 'c')
+        a1.toContain(1, "a", 'c')
+        a1.notToContain(1, "a", 'c')
     }
 }

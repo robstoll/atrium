@@ -144,8 +144,8 @@ abstract class IterableExpectationsSpec(
                 expect(input).containsNoDuplicatesFun()
             }.toThrow<AssertionError> {
                 message {
-                    contains("$hasNotDescr: $duplicateElements")
-                    contains(index(2, 1), index(3, 2), index(6, 4), index(7, 4))
+                    toContain("$hasNotDescr: $duplicateElements")
+                    toContain(index(2, 1), index(3, 2), index(6, 4), index(7, 4))
                 }
             }
         }

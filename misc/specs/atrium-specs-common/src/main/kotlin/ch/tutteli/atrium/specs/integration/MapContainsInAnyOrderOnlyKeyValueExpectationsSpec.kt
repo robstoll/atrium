@@ -80,7 +80,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
                             containsInAnyOrderOnlyDescr()
                             containsSize(0, 1)
                             entryNonExisting("a", "$toBeDescr: 1")
-                            containsNot(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr)
                         }
                     }
                 }
@@ -100,7 +100,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
                             entryNonExisting("a", "$lessThanDescr: 1")
                             entryNonExisting("b", "$toBeDescr: 3")
                             entryNonExisting("c", "$lessThanDescr: 4")
-                            containsNot(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr)
                         }
                     }
                 }
@@ -151,7 +151,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
                             entryNonExisting("a", "$toBeDescr: 1")
                             additionalEntries("b" to 2)
 
-                            containsNot(sizeDescr)
+                            notToContain(sizeDescr)
                         }
                     }
                 }
@@ -173,7 +173,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
                             entryFailing("b", 2, "$lessThanDescr: 1")
                             entryNonExisting("c", "$toBeDescr: 4")
 
-                            containsNot(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr)
                         }
                     }
                 }
@@ -240,7 +240,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
                         entryFailing(null, "1", "$toBeDescr: null")
                         entrySuccess("b", "2", "$lessThanDescr: 3")
 
-                        containsNot(additionalEntriesDescr)
+                        notToContain(additionalEntriesDescr)
                     }
                 }
             }

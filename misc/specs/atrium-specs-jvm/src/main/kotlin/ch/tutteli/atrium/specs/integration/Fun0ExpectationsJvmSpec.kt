@@ -53,12 +53,12 @@ abstract class Fun0ExpectationsJvmSpec(
 
             fun Expect<AssertionError>.expectSuppressedInReporting() =
                 message {
-                    containsRegex(
+                    toContainRegex(
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
                         "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace("not good"),
+                                messageAndStackTrace("not good"),
                         "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
+                                messageAndStackTrace(errMessage)
                     )
                 }
 
@@ -96,12 +96,12 @@ abstract class Fun0ExpectationsJvmSpec(
 
                 fun Expect<AssertionError>.expectSuppressedAndCauseInReporting() =
                     message {
-                        containsRegex(
+                        toContainRegex(
                             UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
-                                messageAndStackTrace("io"),
+                                    messageAndStackTrace("io"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                                messageAndStackTrace(errMessage)
+                                    messageAndStackTrace(errMessage)
                         )
 
                     }

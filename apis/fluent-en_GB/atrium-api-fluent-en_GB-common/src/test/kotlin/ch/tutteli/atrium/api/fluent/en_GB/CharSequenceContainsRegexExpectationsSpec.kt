@@ -11,10 +11,10 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
 
     describe("context 'aaaa'") {
         it("search for 'aa' finds 3 hits since we want non disjoint matches") {
-            expect("aaaa").contains.exactly(3).regex("aa")
+            expect("aaaa").toContain.exactly(3).regex("aa")
         }
         it("search for 'aa?' finds 4 hits since we want non disjoint matches") {
-            expect("aaaa").contains.exactly(4).regex("aa?")
+            expect("aaaa").toContain.exactly(4).regex("aa?")
         }
     }
 }) {
@@ -44,71 +44,71 @@ class CharSequenceContainsRegexExpectationsSpec : Spek({
 
         private fun getAtLeastTripleString() =
             { what: String, times: String -> "$toContain $what $atLeast $times" } to
-                ("$toContain.$atLeast.$regex" to ::containsAtLeastString)
+                ("$toContain.$atLeast.$regex" to ::toContainAtLeastString)
 
         private fun getAtLeastTripleRegex() =
             { what: String, times: String -> "$toContain $what $atLeast $times" } to
-                ("$toContain.$atLeast.$regex" to ::containsAtLeastRegex)
+                ("$toContain.$atLeast.$regex" to ::toContainAtLeastRegex)
 
-        private fun containsAtLeastString(
+        private fun toContainAtLeastString(
             expect: Expect<CharSequence>,
             atLeast: Int,
             a: String,
             aX: Array<out String>
-        ) = expect.contains.atLeast(atLeast).regex(a, *aX)
+        ) = expect.toContain.atLeast(atLeast).regex(a, *aX)
 
-        private fun containsAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
-            expect.contains.atLeast(atLeast).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+        private fun toContainAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
+            expect.toContain.atLeast(atLeast).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun getAtLeastIgnoringCaseTripleString() =
             { what: String, times: String -> "$toContain $ignoringCase $what $atLeast $times" } to
-                ("$toContain.$atLeast.$ignoringCase.$regex" to ::containsAtLeastIgnoringCase)
+                ("$toContain.$atLeast.$ignoringCase.$regex" to ::toContainAtLeastIgnoringCase)
 
-        private fun containsAtLeastIgnoringCase(
+        private fun toContainAtLeastIgnoringCase(
             expect: Expect<CharSequence>,
             atLeast: Int,
             a: String,
             aX: Array<out String>
-        ) = if (atLeast == 1) expect.contains.ignoringCase.regex(a, *aX)
-        else expect.contains.ignoringCase.atLeast(atLeast).regex(a, *aX)
+        ) = if (atLeast == 1) expect.toContain.ignoringCase.regex(a, *aX)
+        else expect.toContain.ignoringCase.atLeast(atLeast).regex(a, *aX)
 
         private fun getShortcutTripleString() =
             { what: String, times: String -> "$toContain $what $atLeast $times" } to
-                (toContainRegex to ::containsShortcutString)
+                (toContainRegex to ::toContainShortcutString)
 
         private fun getShortcutTripleRegex() =
             { what: String, times: String -> "$toContain $what $atLeast $times" } to
-                (toContainRegex to ::containsShortcutRegex)
+                (toContainRegex to ::toContainShortcutRegex)
 
-        private fun containsShortcutString(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
-            expect.containsRegex(a, *aX)
+        private fun toContainShortcutString(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
+            expect.toContainRegex(a, *aX)
 
-        private fun containsShortcutRegex(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
-            expect.containsRegex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+        private fun toContainShortcutRegex(expect: Expect<CharSequence>, a: String, aX: Array<out String>) =
+            expect.toContainRegex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun getAtMostTripleString() =
             { what: String, times: String -> "$toContain $what $atMost $times" } to
-                ("$toContain.$atMost.$regex" to ::containsAtMostString)
+                ("$toContain.$atMost.$regex" to ::toContainAtMostString)
 
         private fun getAtMostTripleRegex() =
             { what: String, times: String -> "$toContain $what $atMost $times" } to
-                ("$toContain.$atMost.$regex" to ::containsAtMostRegex)
+                ("$toContain.$atMost.$regex" to ::toContainAtMostRegex)
 
-        private fun containsAtMostString(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
-            expect.contains.atMost(atMost).regex(a, *aX)
+        private fun toContainAtMostString(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
+            expect.toContain.atMost(atMost).regex(a, *aX)
 
         private fun getAtMostIgnoringCaseTripleString() =
             { what: String, times: String -> "$toContain $ignoringCase $what $atMost $times" } to
-                ("$toContain.$ignoringCase.$atMost.$regex" to ::containsAtMostIgnoringCase)
+                ("$toContain.$ignoringCase.$atMost.$regex" to ::toContainAtMostIgnoringCase)
 
-        private fun containsAtMostRegex(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
-            expect.contains.atMost(atMost).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+        private fun toContainAtMostRegex(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
+            expect.toContain.atMost(atMost).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
-        private fun containsAtMostIgnoringCase(
+        private fun toContainAtMostIgnoringCase(
             expect: Expect<CharSequence>,
             atMost: Int,
             a: String,
             aX: Array<out String>
-        ) = expect.contains.ignoringCase.atMost(atMost).regex(a, *aX)
+        ) = expect.toContain.ignoringCase.atMost(atMost).regex(a, *aX)
     }
 }

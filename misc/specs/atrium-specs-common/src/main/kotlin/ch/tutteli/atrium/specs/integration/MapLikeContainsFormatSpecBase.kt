@@ -16,12 +16,12 @@ abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeCon
         val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
 
         fun Expect<String>.containsSize(actual: Int, expected: Int) =
-            contains.exactly(1)
+            toContain.exactly(1)
                 .regex("\\Q$rootBulletPoint$featureArrow$sizeDescr\\E: $actual[^:]+${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
 
 
         fun Expect<String>.containsInAnyOrderOnlyDescr() =
-            contains.exactly(1).value(
+            toContain.exactly(1).value(
                 "$rootBulletPoint${
                     DescriptionMapLikeAssertion.IN_ANY_ORDER_ONLY.getDefault()
                         .format(DescriptionMapLikeAssertion.CONTAINS.getDefault())
@@ -30,7 +30,7 @@ abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeCon
 
 
         fun Expect<String>.containsInOrderOnlyDescr() =
-            contains.exactly(1).value(
+            toContain.exactly(1).value(
                 "$rootBulletPoint${
                     DescriptionMapLikeAssertion.IN_ORDER_ONLY.getDefault()
                         .format(DescriptionMapLikeAssertion.CONTAINS.getDefault())
@@ -38,28 +38,28 @@ abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeCon
             )
 
         fun Expect<String>.entrySuccess(key: String, actual: Any?, expected: String): Expect<String> {
-            return this.contains.exactly(1).regex(
+            return this.toContain.exactly(1).regex(
                 "$indentRootBulletPoint\\Q$successfulBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
                     "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailing(key: String?, actual: Any?, expected: String): Expect<String> {
-            return this.contains.exactly(1).regex(
+            return this.toContain.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
                     "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailingExplaining(key: String?, actual: Any?, expected: String): Expect<String> {
-            return this.contains.exactly(1).regex(
+            return this.toContain.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
                     "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryNonExisting(key: String, expected: String): Expect<String> {
-            return this.contains.exactly(1).regex(
+            return this.toContain.exactly(1).regex(
                 "\\Q$failingBulletPoint$featureArrow${entry(key)}: $keyDoesNotExist\\E.*${separator}" +
                     "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
@@ -69,9 +69,10 @@ abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeCon
             and {
                 val additionalEntries =
                     "\\Q$warningBulletPoint${DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()}\\E: $separator"
-                contains.exactly(1).regex(additionalEntries)
+                toContain.exactly(1).regex(additionalEntries)
                 pairs.forEach { (key, value) ->
-                    contains.exactly(1).regex(additionalEntries + "(.|$separator)+$listBulletPoint${entry(key, value)}")
+                    toContain.exactly(1)
+                        .regex(additionalEntries + "(.|$separator)+$listBulletPoint${entry(key, value)}")
                 }
             }
     }

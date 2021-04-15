@@ -94,7 +94,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostFun(2, 'H', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 2", "$valueWithIndent: 'l'")
+                            toContain("$atMost: 2", "$valueWithIndent: 'l'")
                             notToContain(atLeast, "$valueWithIndent: 'H'")
                         }
                     }
@@ -104,7 +104,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostFun(2, 'l', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 2", "$valueWithIndent: 'l'")
+                            toContain("$atMost: 2", "$valueWithIndent: 'l'")
                             notToContain(atLeast, "$valueWithIndent: 'H'")
                         }
                     }
@@ -119,7 +119,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostIgnoringCaseFun(2, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 2", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                            toContain("$atMost: 2", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
                             notToContain(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
                         }
                     }
@@ -129,7 +129,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostFun(2, 'x', 'y', 'z')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$atLeast: 1",
                                 "$valueWithIndent: 'x'",
                                 "$valueWithIndent: 'y'",
@@ -154,12 +154,12 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainIgnoringCase: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
+                            toEndWith("$atMost: 2")
                         }
                     }
                 }
@@ -175,12 +175,12 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         fluentHelloWorld.toContainAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
+                            toEndWith("$atMost: 2")
                             notToContain("$valueWithIndent: 'o'")
                         }
                     }
@@ -213,7 +213,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                         aaaaFluent.toContainAtMostFun(3, 'a')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$valueWithIndent: 'a'", "$numberOfOccurrences: 4", "$atMost: 3")
+                            toContain("$valueWithIndent: 'a'", "$numberOfOccurrences: 4", "$atMost: 3")
                             notToContain(atLeast)
                         }
                     }

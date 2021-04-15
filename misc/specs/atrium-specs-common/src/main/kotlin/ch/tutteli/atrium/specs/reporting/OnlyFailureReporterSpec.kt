@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -81,7 +82,7 @@ abstract class OnlyFailureReporterSpec(
         ).forEach { (typeRepresentation, assertion) ->
             it("does not append anything if $typeRepresentation holds") {
                 testee.format(assertion, sb)
-                expect(sb).isEmpty()
+                expect(sb).toBeEmpty()
             }
         }
 

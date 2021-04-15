@@ -1,13 +1,9 @@
 package ch.tutteli.atrium.specs
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.containsNot
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ErrorMessages
-//import ch.tutteli.atrium.translations.ErrorMessages
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -29,12 +25,12 @@ abstract class AssertionCreatorSpec<T>(
                             .createAssertionFail()
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
                                 ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
                                 ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
                             )
-                            containsNot(stringNotInMessage)
+                            notToContain(stringNotInMessage)
                         }
                     }
                 }

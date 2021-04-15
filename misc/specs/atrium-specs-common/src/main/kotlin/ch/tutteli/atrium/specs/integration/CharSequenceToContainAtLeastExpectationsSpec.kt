@@ -162,7 +162,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$valueWithIndent: 'E'")
+                            toContain("$atLeast: 1", "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -181,7 +181,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(1, 'H', 'E', 'w', 'r')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atLeast: 1", "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
+                            toContain("$atLeast: 1", "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
                             notToContain("$valueWithIndent: 'H'", "$valueWithIndent: 'r'")
                         }
                     }
@@ -207,12 +207,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(3, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
+                            toEndWith("$atLeast: 3")
                         }
                     }
                 }
@@ -235,12 +235,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
+                            toEndWith("$atLeast: 3")
                             notToContain("$valueWithIndent: 'l'")
                         }
                     }
@@ -262,12 +262,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastButAtMostFun(1, 2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
+                            toEndWith("$atMost: 2")
                             notToContain(atLeast, "$valueWithIndent: 'o'")
                         }
                     }
@@ -290,12 +290,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastButAtMostFun(3, 4, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atLeast: 3")
+                            toEndWith("$atLeast: 3")
                             notToContain(atMost, "$valueWithIndent: 'l'")
                         }
                     }

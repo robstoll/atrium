@@ -70,8 +70,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$anElementWhichIs: 2.3")
-                            containsNot("$anElementWhichIs: 1.0")
+                            toContain("$exactly: 1", "$anElementWhichIs: 2.3")
+                            notToContain("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -81,8 +81,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$anElementWhichIs: 2.3")
-                            containsNot("$anElementWhichIs: 1.0")
+                            toContain("$exactly: 1", "$anElementWhichIs: 2.3")
+                            notToContain("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -92,12 +92,12 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(1, 1.0, 2.3, 3.1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(exactly, 2.3, 3.1)
-                            contains.exactly(2).values(
+                            toContain(exactly, 2.3, 3.1)
+                            toContain.exactly(2).values(
                                 "$numberOfOccurrences: 0",
                                 "$exactly: 1"
                             )
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 2.3",
                                 "$anElementWhichIs: 3.1"
@@ -127,12 +127,12 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(3, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$exactly: 3")
+                            toEndWith("$exactly: 3")
                         }
                     }
                 }
@@ -142,13 +142,13 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$exactly: 2")
-                            containsNot("$anElementWhichIs: 5.0")
+                            toEndWith("$exactly: 2")
+                            notToContain("$anElementWhichIs: 5.0")
                         }
                     }
                 }
@@ -165,13 +165,13 @@ abstract class IterableContainsInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).containsExactlyFun(3, 5.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$exactly: 3")
-                            containsNot("$anElementWhichIs: 4.0")
+                            toEndWith("$exactly: 3")
+                            notToContain("$anElementWhichIs: 4.0")
                         }
                     }
                 }

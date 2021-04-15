@@ -55,13 +55,13 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
                         fluent.containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 entry("b", 2),
                                 "$toBeDescr: 3",
                                 entry("c", keyDoesNotExist),
                                 "$toBeDescr: 4"
                             )
-                            containsNot(entry("a"))
+                            notToContain(entry("a"))
                         }
                     }
                 }
@@ -96,13 +96,13 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
                     nullableFluent.containsNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
                 }.toThrow<AssertionError> {
                     message {
-                        contains(
+                        toContain(
                             entry("b", 2),
                             "$toBeDescr: 3",
                             entry("c", keyDoesNotExist),
                             "$toBeDescr: 4"
                         )
-                        containsNot(entry("a"))
+                        notToContain(entry("a"))
                     }
                 }
             }

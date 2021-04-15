@@ -66,7 +66,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                     fluent.containsNotFun({ toEqual(4.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        containsRegex(
+                        toContainRegex(
                             "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                 "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                 "$afterExplanatory$toBeDescr: 4.0.*$separator" +
@@ -100,7 +100,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun({ isLessThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isLessThanDescr: 4.0.*$separator" +
@@ -117,7 +117,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun({ toEqual(1.0) }, { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
@@ -140,8 +140,8 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                         expect(oneToSeven()).containsNotFun({ toEqual(4.0) }, { toEqual(1.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex("$anElementWhich: $separator.*$toBeDescr: 4.0")
-                            containsNot.regex("$anElementWhich: $separator.*$toBeDescr: 1.1")
+                            toContainRegex("$anElementWhich: $separator.*$toBeDescr: 4.0")
+                            notToContain.regex("$anElementWhich: $separator.*$toBeDescr: 1.1")
                         }
                     }
                 }
@@ -163,7 +163,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                         expect(oneToSevenNullable()).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
@@ -181,7 +181,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                         expect(oneToSevenNullable()).containsNotNullableFun({ toEqual(1.1) }, null)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
@@ -190,7 +190,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
-                            this.containsNot("$containsNotDescr: 1.1")
+                            this.notToContain("$containsNotDescr: 1.1")
                         }
                     }
                 }

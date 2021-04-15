@@ -69,11 +69,11 @@ class DataDrivenSpec : Spek({
 
         expect("calling myNullableFun with ...") {
             mapOf(
-                Int.MIN_VALUE to expectLambda<String> { contains("min") },
+                Int.MIN_VALUE to expectLambda<String> { toContain("min") },
                 -1 to null,
                 0 to null,
                 1 to expectLambda { toEqual("1") },
-                2 to expectLambda { endsWith("2") },
+                2 to expectLambda { toEndWith("2") },
                 Int.MAX_VALUE to expectLambda { toEqual("max") }
             ).forEach { (arg, assertionCreatorOrNull) ->
                 feature { f(::myNullableFun, arg) }.toEqualNullIfNullGivenElse(assertionCreatorOrNull)

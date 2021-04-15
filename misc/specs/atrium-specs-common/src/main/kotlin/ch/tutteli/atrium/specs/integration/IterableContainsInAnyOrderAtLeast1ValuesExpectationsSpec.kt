@@ -83,11 +83,11 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                         expect(oneToSeven()).containsFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(2).values(
+                            toContain.exactly(2).values(
                                 "$numberOfOccurrences: 0",
                                 "$atLeastDescr: 1"
                             )
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 9.5",
                                 "$anElementWhichIs: 7.1"
@@ -100,8 +100,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                         expect(oneToSeven()).containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex("$containsInAnyOrder: $separator.*$anElementWhichIs: 9.5")
-                            containsNot.regex("$containsInAnyOrder: $separator.*$anElementWhichIs: 1.0")
+                            toContainRegex("$containsInAnyOrder: $separator.*$anElementWhichIs: 9.5")
+                            notToContain.regex("$containsInAnyOrder: $separator.*$anElementWhichIs: 1.0")
                         }
                     }
                 }

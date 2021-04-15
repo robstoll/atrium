@@ -13,21 +13,21 @@ class CharSequenceNotToContainOrAtMostExpectationsSpec :
 
         private fun getNotOrAtMostTriple() =
             { what: String, times: String -> "$toContain $what $notOrAtMost $times" } to
-                ("$toContain.$notOrAtMost.$value/$values" to Companion::containsNotOrAtMost)
+                ("$toContain.$notOrAtMost.$value/$values" to Companion::toContainNotOrAtMost)
 
-        private fun containsNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
-            expect.contains.notOrAtMost(atMost).values(a, *aX)
+        private fun toContainNotOrAtMost(expect: Expect<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>) =
+            expect.toContain.notOrAtMost(atMost).values(a, *aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() =
             { what: String, times: String -> "$toContain $ignoringCase $what $notOrAtMost $times" } to
-                ("$toContain.$ignoringCase.$notOrAtMost.$value/$values" to Companion::containsNotOrAtMostIgnoringCase)
+                ("$toContain.$ignoringCase.$notOrAtMost.$value/$values" to Companion::toContainNotOrAtMostIgnoringCase)
 
-        private fun containsNotOrAtMostIgnoringCase(
+        private fun toContainNotOrAtMostIgnoringCase(
             expect: Expect<CharSequence>,
             atMost: Int,
             a: Any,
             aX: Array<out Any>
-        ) = expect.contains.ignoringCase.notOrAtMost(atMost).values(a, *aX)
+        ) = expect.toContain.ignoringCase.notOrAtMost(atMost).values(a, *aX)
 
 
         private fun getNotToContainPair() = toContainNot to Companion::getErrorMsgNotToContain

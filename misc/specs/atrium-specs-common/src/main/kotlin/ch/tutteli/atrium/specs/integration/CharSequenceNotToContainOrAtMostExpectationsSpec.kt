@@ -94,7 +94,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         fluentHelloWorld.notToContainOrAtMostFun(1, 'H', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            toContain("$atMost: 1", "$valueWithIndent: 'l'")
                             notToContain(atLeast, "$valueWithIndent: 'H'")
                         }
                     }
@@ -104,7 +104,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         fluentHelloWorld.notToContainOrAtMostFun(1, 'l', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            toContain("$atMost: 1", "$valueWithIndent: 'l'")
                             notToContain(atLeast, "$valueWithIndent: 'H'")
                         }
                     }
@@ -119,7 +119,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         fluentHelloWorld.notToContainOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                            toContain("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
                             notToContain(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
                         }
                     }
@@ -135,12 +135,12 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         fluentHelloWorld.notToContainOrAtMostFun(1, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atMost: 1")
+                            toEndWith("$atMost: 1")
                         }
                     }
                 }
@@ -165,12 +165,12 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         fluentHelloWorld.notToContainOrAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMost: 2")
+                            toEndWith("$atMost: 2")
                             notToContain("$valueWithIndent: 'o'")
                         }
                     }

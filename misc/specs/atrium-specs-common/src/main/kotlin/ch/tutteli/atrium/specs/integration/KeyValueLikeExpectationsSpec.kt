@@ -30,7 +30,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
 
     include(object : SubjectLessSpec<T>(describePrefix,
         keyFeature.forSubjectLess(),
-        key.forSubjectLess { endsWith("a") },
+        key.forSubjectLess { toEndWith("a") },
         valueFeature.forSubjectLess(),
         value.forSubjectLess { isGreaterThan(2) }
     ) {})
@@ -72,11 +72,11 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
         context("$mapEntry") {
             keyFunctions.forEach { (name, keyFun, _) ->
                 it("$name - startsWith(h) holds") {
-                    fluent.keyFun { startsWith("h") }
+                    fluent.keyFun { toStartWith("h") }
                 }
                 it("$name - endsWith(h) fails") {
                     expect {
-                        fluent.keyFun { endsWith('h') }
+                        fluent.keyFun { toEndWith("h") }
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$keyName: \"hello\"",

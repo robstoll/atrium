@@ -10,13 +10,9 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
     fun0(Expect<CharSequence>::notToBeEmpty),
     fun0(Expect<CharSequence>::notToBeBlank),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::toStartWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::toStartWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToStartWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::notToStartWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::toEndWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::toEndWith),
     fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToEndWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::notToEndWith),
     fun1<CharSequence, Regex>(Expect<CharSequence>::toMatch),
     fun1<CharSequence, Regex>(Expect<CharSequence>::notToMatch)
 ) {
@@ -32,11 +28,6 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
         a1.notToStartWith("expected")
         a1.toEndWith("expected")
         a1.notToEndWith("expected")
-
-        a1.toStartWith('a')
-        a1.notToStartWith('a')
-        a1.toEndWith('a')
-        a1.notToEndWith('a')
 
         a1.toMatch(Regex("a"))
         a1.notToMatch(Regex("a"))

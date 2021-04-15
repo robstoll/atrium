@@ -180,11 +180,11 @@ abstract class AnyExpectationsSpec(
                         expectSubject.notToEqualOneOfFun(1, arrayOf(2))
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint${IS_NONE_OF.getDefault()}\\E:.*$separator" +
                                     "$indentBulletPoint${listBulletPoint}1"
                             )
-                            containsNot("$listBulletPoint 2")
+                            notToContain("$listBulletPoint 2")
                         }
                     }
                 }
@@ -193,8 +193,8 @@ abstract class AnyExpectationsSpec(
                         expectSubject.notToEqualOneInFun(listOf(1, 2))
                     }.toThrow<AssertionError> {
                         message {
-                            contains(IS_NONE_OF.getDefault(), "${listBulletPoint}1")
-                            containsNot("$listBulletPoint 2")
+                            toContain(IS_NONE_OF.getDefault(), "${listBulletPoint}1")
+                            notToContain("$listBulletPoint 2")
                         }
                     }
                 }
@@ -626,8 +626,8 @@ abstract class AnyExpectationsSpec(
                             expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(5) }
                         }.toThrow<AssertionError> {
                             message {
-                                contains(IS_GREATER_THAN.getDefault())
-                                containsNot(IS_LESS_THAN.getDefault())
+                                toContain(IS_GREATER_THAN.getDefault())
+                                notToContain(IS_LESS_THAN.getDefault())
                             }
                         }
                     }
@@ -774,12 +774,12 @@ abstract class AnyExpectationsSpec(
         val becauseFunForInt = becauseInt.lambda
 
         fun Expect<String>.containsBecause(reason: String) =
-            contains.exactly(1).value("$separator${informationBulletPoint}${BECAUSE.getDefault().format(reason)}")
+            toContain.exactly(1).value("$separator${informationBulletPoint}${BECAUSE.getDefault().format(reason)}")
 
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")
                 .becauseFun("? is not allowed in file names on Windows") {
-                    containsNot("?")
+                    notToContain("?")
                 }
         }
 
@@ -787,8 +787,8 @@ abstract class AnyExpectationsSpec(
             expect {
                 expect("filename?")
                     .becauseFun("? is not allowed in file names on Windows") {
-                        containsNot("?")
-                        startsWith("f")
+                        notToContain("?")
+                        toStartWith("f")
                     }
             }.toThrow<AssertionError> {
                 message {

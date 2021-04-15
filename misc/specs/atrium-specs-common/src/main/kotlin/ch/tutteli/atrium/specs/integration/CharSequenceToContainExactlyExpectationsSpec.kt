@@ -99,7 +99,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(1, 'H', 'E')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$valueWithIndent: 'E'")
+                            toContain("$exactly: 1", "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -113,7 +113,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$exactly: 1", "$valueWithIndent: 'E'")
+                            toContain("$exactly: 1", "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -146,12 +146,12 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainIgnoringCase: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$exactly: 2")
+                            toEndWith("$exactly: 2")
                         }
                     }
                 }
@@ -164,12 +164,12 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(3, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$exactly: 3")
+                            toEndWith("$exactly: 3")
                         }
                     }
                 }
@@ -185,12 +185,12 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$exactly: 2")
+                            toEndWith("$exactly: 2")
                             notToContain("$valueWithIndent: 'o'")
                         }
                     }
@@ -208,12 +208,12 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$toContainDescr: $separator" +
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$exactly: 3")
+                            toEndWith("$exactly: 3")
                             notToContain("$valueWithIndent: 'l'")
                         }
                     }

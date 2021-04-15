@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
@@ -64,8 +65,8 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("writes whether the assertion holds including a message telling the type is unsupported") {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
                 expect(sb) {
-                    contains("false")
-                    contains("Unsupported type ${unsupportedAssertion::class.fullName}")
+                    toContain("false")
+                    toContain("Unsupported type ${unsupportedAssertion::class.fullName}")
                 }
             }
         }
@@ -113,10 +114,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
 
-                    expect(sb).contains(
+                    expect(sb).toContain(
                         "group: subject of group$lineSeparator" +
-                            "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
-                            "$bulletPoint $toBeDescr: d"
+                                "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
+                                "$bulletPoint $toBeDescr: d"
                     )
                 }
             }
@@ -151,7 +152,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
 
-                    expect(sb).contains(
+                    expect(sb).toContain(
                         "outer group: subject of outer group$lineSeparator" +
                             "$bulletPoint inner group: subject of inner group$lineSeparator" +
                             "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +

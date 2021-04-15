@@ -158,18 +158,6 @@ fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expect<T> 
     _logicAppend { startsWith(expected) }
 
 /**
- * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationSamples.toStartWithChar
- *
- * @since 0.17.0
- */
-fun <T : CharSequence> Expect<T>.toStartWith(expected: Char): Expect<T> =
-    toStartWith(expected.toString())
-
-/**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -180,19 +168,6 @@ fun <T : CharSequence> Expect<T>.toStartWith(expected: Char): Expect<T> =
  */
 fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): Expect<T> =
     _logicAppend { startsNotWith(expected) }
-
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationSamples.notToStartWithChar
- *
- * @since 0.17.0
- */
-fun <T : CharSequence> Expect<T>.notToStartWith(expected: Char): Expect<T> =
-    notToStartWith(expected.toString())
-
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
@@ -207,18 +182,6 @@ fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsWith(expected) }
 
 /**
- * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationSamples.toEndWithChar
- *
- * @since 0.17.0
- */
-fun <T : CharSequence> Expect<T>.toEndWith(expected: Char): Expect<T> =
-    toEndWith(expected.toString())
-
-/**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -229,19 +192,6 @@ fun <T : CharSequence> Expect<T>.toEndWith(expected: Char): Expect<T> =
  */
 fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Expect<T> =
     _logicAppend { endsNotWith(expected) }
-
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationSamples.notToEndWithChar
- *
- * @since 0.17.0
- */
-fun <T : CharSequence> Expect<T>.notToEndWith(expected: Char): Expect<T> =
-    notToEndWith(expected.toString())
-
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].

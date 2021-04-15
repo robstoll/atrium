@@ -13,22 +13,22 @@ class CharSequenceToContainExactlyExpectationsSpec :
 
         private fun getExactlyTriple() =
             { what: String, times: String -> "$toContain $what $exactly $times" } to
-                ("$toContain.$exactly.$value/$values" to Companion::containsExactly)
+                ("$toContain.$exactly.$value/$values" to Companion::toContainExactly)
 
-        private fun containsExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
-            expect.contains.exactly(exactly).values(a, *aX)
+        private fun toContainExactly(expect: Expect<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>) =
+            expect.toContain.exactly(exactly).values(a, *aX)
 
         private fun getExactlyIgnoringCaseTriple() =
             { what: String, times: String -> "$toContain $ignoringCase $what $exactly $times" } to
-                ("$toContain.$ignoringCase.$exactly.$value/$values" to Companion::containsExactlyIgnoringCase)
+                ("$toContain.$ignoringCase.$exactly.$value/$values" to Companion::toContainExactlyIgnoringCase)
 
 
-        private fun containsExactlyIgnoringCase(
+        private fun toContainExactlyIgnoringCase(
             expect: Expect<CharSequence>,
             exactly: Int,
             a: Any,
             aX: Array<out Any>
-        ) = expect.contains.ignoringCase.exactly(exactly).values(a, *aX)
+        ) = expect.toContain.ignoringCase.exactly(exactly).values(a, *aX)
 
 
         private fun getNotToContainPair() = toContainNot to Companion::getErrorMsgNotToContain

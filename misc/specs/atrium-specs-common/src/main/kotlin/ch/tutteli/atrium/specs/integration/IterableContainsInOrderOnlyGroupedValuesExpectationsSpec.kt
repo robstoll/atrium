@@ -72,7 +72,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
 
 
     fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(index)}: $expected\\E.*$separator" +
                 "$toBeAfterSuccess: $expected"
         )
@@ -85,7 +85,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
         sizeCheck: String,
         vararg expected: String
     ): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$sizeCheck.*$separator" +
                 "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -95,7 +95,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
     }
 
     fun Expect<String>.indexFail(index: Int, actual: Any, expected: Double): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected"
         )
@@ -108,7 +108,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
         sizeCheck: String,
         vararg expected: String
     ): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$sizeCheck.*$separator" +
                 "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$containsInAnyOrderOnly: $separator" +
@@ -117,7 +117,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
     }
 
     fun Expect<String>.indexNonExisting(index: Int, expected: Double): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
                 "$afterFail$explanatoryBulletPoint$toBeDescr: $expected"
         )
@@ -162,10 +162,10 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                     expect(fluentEmpty()).containsFun(context(1.0), context(1.2))
                 }.toThrow<AssertionError> {
                     message {
-                        contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                        toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                         indexNonExisting(0, 1.0)
                         indexNonExisting(1, 1.2)
-                        containsNot(additionalElements)
+                        notToContain(additionalElements)
                         containsSize(0, 2)
                     }
                 }
@@ -196,7 +196,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(context(4.0, 1.0), context(2.0, 3.0, 4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
                                 sizeCheck(2, 2),
@@ -212,7 +212,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                                 successAfterFail(4.0),
                                 mismatchesAfterFail(4.0)
                             )
-                            containsNot(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
+                            notToContain(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                         }
                     }
                 }
@@ -222,7 +222,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(context(1.0), context(4.0, 2.0, 3.0))
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexSuccess(0, 1.0)
                             indexSuccess(
                                 1, 3, listOf(2.0, 3.0, 4.0),
@@ -230,7 +230,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                                 successAfterSuccess(4.0, 2.0, 3.0)
                             )
                             sizeCheck(5, 4)
-                            containsRegex(additional(4 to 4.0))
+                            toContainRegex(additional(4 to 4.0))
                         }
                     }
                 }
@@ -240,11 +240,11 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(context(1.0), context(4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexSuccess(0, 1.0)
                             indexFail(1, 2.0, 4.0)
                             sizeCheck(5, 2)
-                            containsRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
+                            toContainRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
                         }
                     }
                 }
@@ -253,7 +253,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(context(1.0, 3.0), context(5.0))
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
                                 sizeCheck(2, 2),
@@ -263,7 +263,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                             )
                             indexFail(2, 3.0, 5.0)
                             sizeCheck(5, 3)
-                            containsRegex(additional(3 to 4.0, 4 to 4.0))
+                            toContainRegex(additional(3 to 4.0, 4 to 4.0))
                         }
                     }
                 }
@@ -272,7 +272,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(context(4.0, 1.0, 3.0, 2.0), context(5.0, 4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                             indexSuccess(
                                 0, 3, listOf(1.0, 2.0, 3.0, 4.0),
                                 sizeCheck(4, 4),
@@ -324,7 +324,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                                toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexFail(
                                     0, 1, listOf(null, 1.0),
                                     sizeCheck(2, 2),
@@ -337,7 +337,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                                     successAfterFail(3.0),
                                     failAfterFail(1.0)
                                 )
-                                containsNot(size(indentRootBulletPoint, successfulBulletPoint, 4, 4))
+                                notToContain(size(indentRootBulletPoint, successfulBulletPoint, 4, 4))
                             }
                         }
                     }
@@ -350,10 +350,10 @@ abstract class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
+                                toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexSuccess(
                                     0, 1, listOf(null, 1.0),
-                                    sizeCheck(2,2),
+                                    sizeCheck(2, 2),
                                     successAfterSuccess(null),
                                     successAfterSuccess(1.0)
                                 )
