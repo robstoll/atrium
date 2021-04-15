@@ -80,7 +80,7 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.12.0
  */
