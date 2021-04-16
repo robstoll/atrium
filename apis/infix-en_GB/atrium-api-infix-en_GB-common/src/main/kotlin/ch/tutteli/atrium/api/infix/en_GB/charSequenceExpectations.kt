@@ -60,7 +60,7 @@ infix fun <T : CharSequence> Expect<T>.notToContain(
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContain
@@ -94,7 +94,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(expected: CharSequenceOrNumberO
  * @param values The values which are expected to be contained within the input of the search
  *   -- use the function `values(t, ...)` to create a [Values].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a
  *   [CharSequence], [Number] or [Char].
  *
@@ -114,7 +114,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(values: Values<CharSequenceOrNu
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToContain
  *
@@ -135,7 +135,7 @@ infix fun <T : CharSequence> Expect<T>.notToContain(expected: CharSequenceOrNumb
  *
  * @param values The values which should not be found -- use the function `values(t, ...)` to create a [Values].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToContain
  *
@@ -152,7 +152,7 @@ infix fun <T : CharSequence> Expect<T>.notToContain(values: Values<CharSequenceO
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexStringSingle
  *
@@ -169,7 +169,7 @@ infix fun <T : CharSequence> Expect<T>.toContainRegex(pattern: String): Expect<T
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexSingle
  *
@@ -198,7 +198,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(pattern: Regex): Expect<T> =
  * @param regexPatterns The patterns which are expected to have a match against the input of the search --
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexStringMultiple
  *
@@ -228,7 +228,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(regexPatterns: RegexPatterns): 
  * @param patterns The patterns which are expected to have a match against the input of the search --
  *   use the function `all(Regex(...), ...)` to create a [All].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexMultiple
  *
@@ -240,7 +240,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(patterns: All<Regex>): Expect<T
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toStartWith
  *
@@ -252,7 +252,7 @@ infix fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expe
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToStartWith
  *
@@ -264,7 +264,7 @@ infix fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): E
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toEndWith
  *
@@ -277,7 +277,7 @@ infix fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToEndWith
  *
@@ -291,7 +291,7 @@ infix fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Exp
  *
  * In contrast to [toContainRegex] it does not look for a partial match but for an entire match.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toMatch
  *
@@ -305,7 +305,7 @@ infix fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
  *
  * In contrast to `notToContain o regex expected` it does not look for a partial match but for an entire match.
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToMatch
  *

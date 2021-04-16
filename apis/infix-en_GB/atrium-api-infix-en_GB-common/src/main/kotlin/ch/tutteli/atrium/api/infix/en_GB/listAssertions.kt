@@ -23,7 +23,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *
  *  Use the function `index(Int) { ... }` to create an [IndexWithCreator].
  *
- * @return This assertion container to support a fluent API.
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.ListAssertionSamples.get
  */
