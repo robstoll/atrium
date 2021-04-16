@@ -56,20 +56,20 @@ class FeatureExpectationsBoundedReferenceSpec : ch.tutteli.atrium.specs.integrat
     //TODO remove type parameters for `of` with Kotlin 1.4 including parentheses (make the calls infix again
     companion object {
         //@formatter:off
-        val propertyImmediate: F = { its feature { f(it::nonNullValue) } contains "hello" }
-        val propertyLazy: F = { its feature of<TestData, String>({ f(it::nonNullValue) }) { it contains "hello" } }
-        val f0Immediate: F = { its feature { f(it::return0) } contains "hello" }
-        val f1Immediate: F = { its feature { f(it::return1, "a") } contains "hello" }
-        val f2Immediate: F = { its feature { f(it::return2, "a", 1) } contains "hello" }
-        val f3Immediate: F = { its feature { f(it::return3, "a", 1, true) } contains "hello" }
-        val f4Immediate: F = { its feature { f(it::return4, "a", 1, true, 1.2) } contains "hello" }
-        val f5Immediate: F = { its feature { f(it::return5, "a", 1, true, 1.2, 'b') } contains "hello" }
-        val f0Lazy: F = { its feature of<TestData, String>({ f(it::return0) }) { it contains "hello" } }
-        val f1Lazy: F = { its feature of<TestData, String>({ f(it::return1, "a") }) { it contains "hello" } }
-        val f2Lazy: F = { its feature of<TestData, String>({ f(it::return2, "a", 1) }) { it contains "hello" } }
-        val f3Lazy: F = { its feature of<TestData, String>({ f(it::return3, "a", 1, true) }) { it contains "hello" } }
-        val f4Lazy: F = { its feature of<TestData, String>({ f(it::return4, "a", 1, true, 1.2) }) { it contains "hello" } }
-        val f5Lazy: F = { its feature of<TestData, String>({ f(it::return5, "a", 1, true, 1.2, 'b') }) { it contains "hello" } }
+        val propertyImmediate: F = { (its feature { f(it::nonNullValue) }).toContain("hello") }
+        val propertyLazy: F = { its feature of<TestData, String>({ f(it::nonNullValue) }) { it toContain "hello" } }
+        val f0Immediate: F = { (its feature { f(it::return0) }).toContain("hello") }
+        val f1Immediate: F = { (its feature { f(it::return1, "a") }).toContain("hello") }
+        val f2Immediate: F = { (its feature { f(it::return2, "a", 1) }).toContain("hello") }
+        val f3Immediate: F = { (its feature { f(it::return3, "a", 1, true) }).toContain("hello") }
+        val f4Immediate: F = { (its feature { f(it::return4, "a", 1, true, 1.2) }).toContain("hello") }
+        val f5Immediate: F = { (its feature { f(it::return5, "a", 1, true, 1.2, 'b') }).toContain("hello") }
+        val f0Lazy: F = { its feature of<TestData, String>({ f(it::return0) }) { it toContain "hello" } }
+        val f1Lazy: F = { its feature of<TestData, String>({ f(it::return1, "a") }) { it toContain "hello" } }
+        val f2Lazy: F = { its feature of<TestData, String>({ f(it::return2, "a", 1) }) { it toContain "hello" } }
+        val f3Lazy: F = { its feature of<TestData, String>({ f(it::return3, "a", 1, true) }) { it toContain "hello" } }
+        val f4Lazy: F = { its feature of<TestData, String>({ f(it::return4, "a", 1, true, 1.2) }) { it toContain "hello" } }
+        val f5Lazy: F = { its feature of<TestData, String>({ f(it::return5, "a", 1, true, 1.2, 'b') }) { it toContain "hello" } }
 
         val propertyNullableDoesNotHold: F = { its feature { f(it::nullableValue) } toEqual null }
         val f0NullableDoesNotHold: F = { its feature { f(it::returnNullable0) } toEqual null }

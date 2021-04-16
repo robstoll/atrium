@@ -62,7 +62,7 @@ abstract class IterableNoneExpectationsSpec(
                         expect(oneToSeven()).noneFun { toEqual(4.0) }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
@@ -92,7 +92,7 @@ abstract class IterableNoneExpectationsSpec(
                         expect(oneToSevenNullable()).noneFun(null)
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
@@ -110,7 +110,7 @@ abstract class IterableNoneExpectationsSpec(
                         expect(oneToSevenNullable()).noneFun { toEqual(1.0) }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +

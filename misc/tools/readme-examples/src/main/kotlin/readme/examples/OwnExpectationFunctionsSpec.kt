@@ -99,7 +99,7 @@ object OwnExpectationFunctionsSpec : Spek({
     test("ex-own-compose-5"){
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
             .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
-                none { feature { f(it::firstName) }.startsWith("Ro") }
+                none { feature { f(it::firstName) }.toStartWith("Ro") }
                 all { feature { f(it::lastName) }.toEqual("Whitley") }
             } // subject is still Person here
             .apply { // only evaluated because the previous assertion group holds
@@ -132,8 +132,8 @@ object OwnExpectationFunctionsSpec : Spek({
             person: Person, vararg otherPersons: Person
         ): Expect<T> {
             val (first, others) = mapArguments(person, otherPersons).toExpect<Pair<String, String>> {
-                first.startsWith(it.firstName[0].toString())
-                second.startsWith(it.lastName[0].toString())
+                first.toStartWith(it.firstName[0].toString())
+                second.toStartWith(it.lastName[0].toString())
             }
             return contains.inOrder.only.entries(first, *others)
         }

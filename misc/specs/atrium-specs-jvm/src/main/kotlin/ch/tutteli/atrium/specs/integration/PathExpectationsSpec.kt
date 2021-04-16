@@ -145,7 +145,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     block(doesNotExist)
                 }.toThrow<AssertionError>().message {
-                    contains(
+                    toContain(
                         String.format(FAILURE_DUE_TO_PARENT.getDefault(), start),
                         FAILURE_DUE_TO_ACCESS_DENIED.getDefault(),
                         String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g= o="),
@@ -172,8 +172,8 @@ abstract class PathExpectationsSpec(
             expect {
                 block(throwingPath())
             }.toThrow<AssertionError>().message {
-                contains(String.format(FAILURE_DUE_TO_ACCESS_EXCEPTION.getDefault(), IOException::class.simpleName))
-                contains(TEST_IO_EXCEPTION_MESSAGE)
+                toContain(String.format(FAILURE_DUE_TO_ACCESS_EXCEPTION.getDefault(), IOException::class.simpleName))
+                toContain(TEST_IO_EXCEPTION_MESSAGE)
             }
         }
     }
@@ -190,7 +190,7 @@ abstract class PathExpectationsSpec(
             expect {
                 block(doesNotExist)
             }.toThrow<AssertionError>().message {
-                contains(existingParentHintMessage)
+                toContain(existingParentHintMessage)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -208,7 +208,7 @@ abstract class PathExpectationsSpec(
             expect {
                 block(doesNotExist)
             }.toThrow<AssertionError>().message {
-                contains(parentErrorMessage, parentErrorDescription)
+                toContain(parentErrorMessage, parentErrorDescription)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -244,7 +244,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(notExisting).existsFun()
                     }.toThrow<AssertionError>().message {
-                        contains("${TO.getDefault()}: ${EXIST.getDefault()}")
+                        toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -282,7 +282,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).existsNotFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
                             "${WAS.getDefault()}: ${A_FILE.getDefault()}"
                         )
@@ -301,7 +301,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).existsNotFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
                             "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
                         )
@@ -420,7 +420,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isReadableFun()
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -451,7 +451,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isReadableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedPermissionHint,
@@ -468,7 +468,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isReadableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedPermissionHint,
@@ -487,13 +487,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isReadableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             file.expectedAclEntryPartFor("DENY", "READ_DATA"),
                             // we only check a few of the allowed options
                             file.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
@@ -510,13 +510,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isReadableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             folder.expectedAclEntryPartFor("DENY", "READ_DATA"),
                             // we only check a few of the allowed options
                             folder.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
@@ -539,7 +539,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isWritableFun()
                 }.toThrow<AssertionError>().message {
-                    contains(
+                    toContain(
                         expectedMessage,
                         FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
                     )
@@ -573,7 +573,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isWritableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedPermissionHint,
@@ -590,7 +590,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isWritableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedPermissionHint,
@@ -609,13 +609,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isWritableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             file.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
                             file.expectedAclEntryPartFor("ALLOW", "EXECUTE")
                         )
@@ -630,13 +630,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isWritableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             folder.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
                             folder.expectedAclEntryPartFor("ALLOW", "EXECUTE")
                         )
@@ -657,7 +657,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isExecutableFun()
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -708,7 +708,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedPermissionHint,
@@ -725,7 +725,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedPermissionHint,
@@ -744,13 +744,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).isExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             file.expectedAclEntryPartFor("DENY", "EXECUTE"),
                             // we only check a few of the allowed options
                             file.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
@@ -767,13 +767,13 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).isExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        contains(
+                        toContain(
                             expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
-                        containsRegex(
+                        toContainRegex(
                             folder.expectedAclEntryPartFor("DENY", "EXECUTE"),
                             // we only check a few of the allowed options
                             folder.expectedAclEntryPartFor("ALLOW", "WRITE_ACL"),
@@ -796,7 +796,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isRegularFileFun()
                 }.toThrow<AssertionError>().message {
-                    contains(
+                    toContain(
                         expectedMessage,
                         FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
                     )
@@ -819,7 +819,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).isRegularFileFun()
             }.toThrow<AssertionError>().message {
-                contains(
+                toContain(
                     expectedMessage,
                     "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
                 )
@@ -838,7 +838,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(path).isSymbolicLink()
                 }.toThrow<AssertionError>().message {
-                    contains(
+                    toContain(
                         expectedMessage,
                         FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
                     )
@@ -855,7 +855,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).isSymbolicLinkFun()
             }.toThrow<AssertionError>().message {
-                contains(
+                toContain(
                     expectedMessage,
                     "${WAS.getDefault()}: ${A_FILE.getDefault()}"
                 )
@@ -867,7 +867,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).isSymbolicLinkFun()
             }.toThrow<AssertionError>().message {
-                contains(
+                toContain(
                     expectedMessage,
                     "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
                 )
@@ -891,7 +891,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isDirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -906,7 +906,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).isDirectoryFun()
             }.toThrow<AssertionError>().message {
-                contains(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                toContain(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
                 containsExplanationFor(maybeLink)
             }
         }
@@ -964,7 +964,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).isEmptyDirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -979,7 +979,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).isEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
-                contains(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                toContain(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
                 containsExplanationFor(maybeLink)
             }
         }
@@ -994,7 +994,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).isEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
-                contains(expectedEmptyMessage)
+                toContain(expectedEmptyMessage)
                 containsExplanationFor(maybeLink)
                 val sb = StringBuilder()
                 // entries should be sorted but not naturally, i.e. f10 comes before f2
@@ -1003,8 +1003,8 @@ abstract class PathExpectationsSpec(
                     sb.append(".*${listBulletPoint}f$it.*$lineSeparator")
                 }
                 sb.append(".*${listBulletPoint}\\.\\.\\.")
-                containsRegex(sb.toString())
-                containsNot("f${showMax + 1}")
+                toContainRegex(sb.toString())
+                notToContain("f${showMax + 1}")
             }
         }
 
@@ -1016,10 +1016,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).isEmptyDirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    contains(expectedEmptyMessage)
+                    toContain(expectedEmptyMessage)
                     containsExplanationFor(maybeLink)
-                    contains("a")
-                    containsNot("$listBulletPoint...")
+                    toContain("a")
+                    notToContain("$listBulletPoint...")
                 }
             }
 
@@ -1056,8 +1056,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).hasDirectoryEntryFun("fileA")
             }.toThrow<AssertionError>().message {
-                contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                contains("fileA")
+                toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                toContain("fileA")
             }
         }
     }
@@ -1094,10 +1094,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    contains("file1")
-                    containsNot("file2")
-                    containsNot("file3")
+                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    toContain("file1")
+                    notToContain("file2")
+                    notToContain("file3")
                 }
             }
 
@@ -1108,10 +1108,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    contains("file2")
-                    containsNot("file1")
-                    containsNot("file3")
+                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    toContain("file2")
+                    notToContain("file1")
+                    notToContain("file3")
                 }
             }
 
@@ -1122,10 +1122,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    containsNot("file2")
-                    containsNot("file1")
-                    contains("file3")
+                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    notToContain("file2")
+                    notToContain("file1")
+                    toContain("file3")
                 }
             }
 
@@ -1135,10 +1135,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    contains("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    containsNot("file2")
-                    contains("file1")
-                    contains("file3")
+                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    notToContain("file2")
+                    toContain("file1")
+                    toContain("file3")
                 }
             }
         }
@@ -1160,7 +1160,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
             }.toThrow<AssertionError>().message {
-                contains(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
                 containsExplanationFor(maybeLink)
             }
         }
@@ -1241,7 +1241,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_16))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_16))
                 }
             }
 
@@ -1250,7 +1250,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
                 }
             }
 
@@ -1274,7 +1274,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
+                    toContain(HAS_SAME_BINARY_CONTENT.getDefault())
                 }
             }
 
@@ -1288,7 +1288,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
 
@@ -1297,7 +1297,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
                 }
             }
 
@@ -1306,7 +1306,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
         }
@@ -1325,7 +1325,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameBinaryContentAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    contains(HAS_SAME_BINARY_CONTENT.getDefault())
+                    toContain(HAS_SAME_BINARY_CONTENT.getDefault())
                 }
             }
 
@@ -1334,7 +1334,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
 
@@ -1343,7 +1343,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
                 }
             }
 
@@ -1352,7 +1352,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).hasSameTextualContentAsDefaultArgsAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    contains(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorHasSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
         }
@@ -1373,7 +1373,7 @@ abstract class PathExpectationsSpec(
                         val childFolder = tempFolder.newDirectory("child")
                         expect(childFolder).parentFun { toEqual(childFolder) }
                     }.toThrow<AssertionError> {
-                        message { containsRegex("$toBeDescr: .*(/|\\\\)child") }
+                        message { toContainRegex("$toBeDescr: .*(/|\\\\)child") }
                     }
                 }
             }
@@ -1680,7 +1680,7 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
     }
 
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {
-        expect.contains(TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
+        expect.toContain(TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
     }
 }
 

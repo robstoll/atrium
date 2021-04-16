@@ -43,7 +43,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
         val indentToKeyValue =
             "$indentRootBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
 
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$successFailureBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
                 "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toBeDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
@@ -85,9 +85,9 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
         and {
             val additionalEntries =
                 "\\Q${warningBulletPoint}${IterableContainsSpecBase.additionalElements}\\E: $separator"
-            contains.exactly(1).regex(additionalEntries)
+            toContain.exactly(1).regex(additionalEntries)
             pairs.forEach { (index, entry) ->
-                contains.exactly(1).regex(
+                toContain.exactly(1).regex(
                     additionalEntries + "(.|$separator)+${listBulletPoint}${
                         IterableContainsSpecBase.elementWithIndex(index) + ": " + entry
                     }"
@@ -165,7 +165,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
 
                             // TODO 0.18.0 wait for size to be moved out of Iterable.contains
 //                                containsNot(sizeDescr)
-                            containsNot(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr)
                         }
                     }
                 }
@@ -178,7 +178,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
                             elementSuccess(0, "a=1", "a", 1)
                             elementFailing(1, "b=2", "b", 1)
                             elementOutOfBound(2, "c", 4)
-                            containsNot(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr)
                         }
                     }
                 }
@@ -223,7 +223,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
 
                         // TODO 0.18.0 wait for size to be moved out of Iterable.contains
 //                                containsNot(sizeDescr)
-                        containsNot(additionalEntriesDescr)
+                        notToContain(additionalEntriesDescr)
 
                     }
                 }
@@ -241,7 +241,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
 
                         // TODO 0.18.0 wait for size to be moved out of Iterable.contains
 //                                containsNot(sizeDescr)
-                        containsNot(additionalEntriesDescr)
+                        notToContain(additionalEntriesDescr)
                     }
                 }
             }

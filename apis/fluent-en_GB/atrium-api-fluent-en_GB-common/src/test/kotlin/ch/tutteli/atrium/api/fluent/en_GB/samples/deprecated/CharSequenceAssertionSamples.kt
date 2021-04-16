@@ -90,22 +90,22 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun containsRegex() {
-        expect("ABC").containsRegex("(B)?C".toRegex())
+        expect("ABC").toContainRegex("(B)?C".toRegex())
 
         fails {
-            expect("ABC").containsRegex("X".toRegex())
+            expect("ABC").toContainRegex("X".toRegex())
         }
 
         expect("ABC")
-            .containsRegex("A".toRegex(), "B".toRegex()) // all regex patterns match
+            .toContainRegex("A".toRegex(), "B".toRegex()) // all regex patterns match
 
         // holds because `containsRegex` does not search for unique matches
         // use `contains.exactly(2).regex(regex)` to check if subject contains the regex two times
         val regex = "A(B)?".toRegex()
-        expect("ABC").containsRegex(regex, regex)
+        expect("ABC").toContainRegex(regex, regex)
 
         fails { // because second regex doesn't match
-            expect("ABC").containsRegex("A".toRegex(), "X".toRegex())
+            expect("ABC").toContainRegex("A".toRegex(), "X".toRegex())
         }
     }
 

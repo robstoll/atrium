@@ -69,8 +69,8 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMostDescr: 1", "$anElementWhichIs: 4.0")
-                            containsNot("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 1", "$anElementWhichIs: 4.0")
+                            notToContain("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -84,8 +84,8 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$atMostDescr: 1", "$anElementWhichIs: 4.0")
-                            containsNot("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 1", "$anElementWhichIs: 4.0")
+                            notToContain("$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -94,10 +94,10 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(2).values(
+                            toContain.exactly(2).values(
                                 "$atMostDescr: 1"
                             )
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2",
@@ -120,12 +120,12 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(1, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            endsWith("$atMostDescr: 1")
+                            toEndWith("$atMostDescr: 1")
                         }
                     }
                 }
@@ -148,13 +148,13 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).containsNotOrAtMostFun(2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            endsWith("$atMostDescr: 2")
-                            containsNot("$anElementWhichIs: 5.0")
+                            toEndWith("$atMostDescr: 2")
+                            notToContain("$anElementWhichIs: 5.0")
                         }
                     }
                 }

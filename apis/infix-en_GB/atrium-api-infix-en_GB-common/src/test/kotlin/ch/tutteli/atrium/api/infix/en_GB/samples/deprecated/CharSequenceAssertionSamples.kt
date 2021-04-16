@@ -32,31 +32,31 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun contains() {
-        expect("ABC") contains "B"
+        expect("ABC") toContain "B"
 
-        expect("ABC123") contains values("AB", 'C', 12)
+        expect("ABC123") toContain values("AB", 'C', 12)
 
         // holds because `contains` does not search for unique matches
         // use `contains o exactly 2 value "A"` to check if subject contains two "A"s
-        expect("ABC") contains values("A", "A")
+        expect("ABC") toContain values("A", "A")
 
         fails {
-            expect("ABC") contains "X"
+            expect("ABC") toContain "X"
         }
 
         fails { // because subject does not contain all values
-            expect("ABC") contains values("A", 99)
+            expect("ABC") toContain values("A", 99)
         }
     }
 
     @Test
     fun containsNot() {
-        expect("ABC") containsNot "X"
+        expect("ABC") notToContain "X"
 
         expect("ABC") containsNot values("X", 'Y', 1)
 
         fails {
-            expect("ABC") containsNot "B"
+            expect("ABC") notToContain "B"
         }
 
         fails {
@@ -66,33 +66,33 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun containsRegexStringSingle() {
-        expect("ABC") containsRegex "A(B)?"
+        expect("ABC") toContainRegex "A(B)?"
 
         fails {
-            expect("ABC") containsRegex "X"
+            expect("ABC") toContainRegex "X"
         }
     }
 
     @Test
     fun containsRegexStringMultiple() {
         // all regex patterns match
-        expect("ABC") contains regexPatterns("A(B)?", "(B)?C")
+        expect("ABC") toContain regexPatterns("A(B)?", "(B)?C")
 
         // holds because `contains regexPatterns(...)` does not search for unique matches
         // use `contains exactly 2 regex "A(B)?"` to check if subject contains the regex two times
-        expect("ABC") contains regexPatterns("A(B)?", "A(B)?")
+        expect("ABC") toContain regexPatterns("A(B)?", "A(B)?")
 
         fails { // because second regex doesn't match
-            expect("ABC") contains regexPatterns("A", "X")
+            expect("ABC") toContain regexPatterns("A", "X")
         }
     }
 
     @Test
     fun containsRegexSingle() {
-        expect("ABC") contains "(B)?C".toRegex()
+        expect("ABC") toContain "(B)?C".toRegex()
 
         fails {
-            expect("ABC") contains "X".toRegex()
+            expect("ABC") toContain "X".toRegex()
         }
 
     }
@@ -100,15 +100,15 @@ class CharSequenceAssertionSamples {
     @Test
     fun containsRegexMultiple() {
         // all regex patterns match
-        expect("ABC") contains all("A".toRegex(), "B".toRegex())
+        expect("ABC") toContain all("A".toRegex(), "B".toRegex())
 
         // holds because `contains all(...)` does not search for unique matches
         // use `contains exactly 2 regex regex` to check if subject contains the regex two times
         val regex = "A(B)?".toRegex()
-        expect("ABC") contains all(regex, regex)
+        expect("ABC") toContain all(regex, regex)
 
         fails { // because second regex doesn't match
-            expect("ABC") contains all("A".toRegex(), "X".toRegex())
+            expect("ABC") toContain all("A".toRegex(), "X".toRegex())
         }
     }
 
@@ -123,65 +123,65 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun startsWithChar() {
-        expect("ABC") startsWith 'A'
+        expect("ABC") toStartWith 'A'.toString()
 
         fails {
-            expect("ABC") startsWith 'X'
+            expect("ABC") toStartWith 'X'.toString()
         }
     }
 
     @Test
     fun startsNotWith() {
-        expect("ABC") startsNotWith "X"
+        expect("ABC") notToStartWith "X"
 
         fails {
-            expect("ABC") startsNotWith "AB"
+            expect("ABC") notToStartWith "AB"
         }
     }
 
     @Test
     fun startsNotWithChar() {
-        expect("ABC") startsNotWith 'X'
+        expect("ABC") notToStartWith 'X'.toString()
 
         fails {
-            expect("ABC") startsNotWith 'A'
+            expect("ABC") notToStartWith 'A'.toString()
         }
     }
 
 
     @Test
     fun endsWith() {
-        expect("ABC") endsWith "BC"
+        expect("ABC") toEndWith "BC"
 
         fails {
-            expect("ABC") endsWith "X"
+            expect("ABC") toEndWith "X"
         }
     }
 
     @Test
     fun endsWithChar() {
-        expect("ABC") endsWith 'C'
+        expect("ABC") toEndWith 'C'.toString()
 
         fails {
-            expect("ABC") endsWith 'X'
+            expect("ABC") toEndWith 'X'.toString()
         }
     }
 
     @Test
     fun endsNotWith() {
-        expect("ABC") endsNotWith "X"
+        expect("ABC") notToEndWith "X"
 
         fails {
-            expect("ABC") endsNotWith "BC"
+            expect("ABC") notToEndWith "BC"
         }
     }
 
     @Test
     fun endsNotWithChar() {
-        expect("ABC") endsNotWith 'X'
+        expect("ABC") notToEndWith 'X'.toString()
 
         fails {
-            expect("ABC") endsNotWith 'C'
+            expect("ABC") notToEndWith 'C'.toString()
         }
     }
 
@@ -221,19 +221,19 @@ class CharSequenceAssertionSamples {
 
     @Test
     fun matches() {
-        expect("ABC") matches "A(B)?C".toRegex() // subject is fully matched
+        expect("ABC") toMatch "A(B)?C".toRegex() // subject is fully matched
 
         fails { // because subject isn't fully matched, use containsRegex for partial matching
-            expect("ABC") matches "A".toRegex()
+            expect("ABC") toMatch "A".toRegex()
         }
     }
 
     @Test
     fun mismatches() {
-        expect("ABC") mismatches "A".toRegex() // subject isn't fully matched
+        expect("ABC") notToMatch "A".toRegex() // subject isn't fully matched
 
         fails { // because subject is fully matched, use containsNot.regex for partial matching
-            expect("ABC")  mismatches "A(B)?C".toRegex()
+            expect("ABC") notToMatch "A(B)?C".toRegex()
         }
     }
 }

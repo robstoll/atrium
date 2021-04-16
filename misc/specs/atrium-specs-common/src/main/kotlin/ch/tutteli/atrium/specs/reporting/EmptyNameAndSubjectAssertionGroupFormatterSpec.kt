@@ -2,6 +2,8 @@ package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsNot
+import ch.tutteli.atrium.api.fluent.en_GB.notToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
@@ -53,11 +55,11 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
                             sb,
                             alwaysTrueAssertionFilter
                         )
-                        testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
+                        testee.formatGroup(assertionGroup, parameterObject) { _, _ -> sb.append(testString) }
                         expect(sb.toString())
-                            .containsNot(TestDescription.TEST_NAME.getDefault())
-                            .containsNot(testSubject)
-                            .contains(testString)
+                            .notToContain(TestDescription.TEST_NAME.getDefault())
+                            .notToContain(testSubject)
+                            .toContain(testString)
                     }
                 }
             }

@@ -49,20 +49,20 @@ class FeatureExpectationsManualSpec : ch.tutteli.atrium.specs.integration.Featur
 
     companion object {
         //@formatter:off
-        val propertyImmediate: F = { feature("nonNullValue") { nonNullValue }.contains("hello") }
-        val propertyLazy: F = { feature("nonNullValue", { nonNullValue }) { contains("hello") } }
-        val f0Immediate: F = { feature("return0()") { return0() }.contains("hello") }
-        val f1Immediate: F = { feature("return1(\"a\")") { return1("a") }.contains("hello") }
-        val f2Immediate: F = { feature("return2(\"a\", 1)") { return2("a", 1) }.contains("hello") }
-        val f3Immediate: F = { feature("return3(\"a\", 1, true)") { return3("a", 1, true) }.contains("hello") }
-        val f4Immediate: F = { feature("return4(\"a\", 1, true, 1.2)") { return4("a", 1, true, 1.2) }.contains("hello") }
-        val f5Immediate: F = { feature("return5(\"a\", 1, true, 1.2, 'b')") { return5("a", 1, true, 1.2, 'b') }.contains("hello") }
-        val f0Lazy: F = { feature("return0()", { return0() }) { contains("hello") } }
-        val f1Lazy: F = { feature("return1(\"a\")", { return1("a") }) { contains("hello") } }
-        val f2Lazy: F = { feature("return2(\"a\", 1)", { return2("a", 1) }) { contains("hello") } }
-        val f3Lazy: F = { feature("return3(\"a\", 1, true)", { return3("a", 1, true) }) { contains("hello") } }
-        val f4Lazy: F = { feature("return4(\"a\", 1, true, 1.2)", { return4("a", 1, true, 1.2) }) { contains("hello") } }
-        val f5Lazy: F = { feature("return5(\"a\", 1, true, 1.2, 'b')", { return5("a", 1, true, 1.2, 'b') }) { contains("hello") } }
+        val propertyImmediate: F = { feature("nonNullValue") { nonNullValue }.toContain("hello" ) }
+        val propertyLazy: F = { feature("nonNullValue", { nonNullValue }) { toContain("hello" ) } }
+        val f0Immediate: F = { feature("return0()") { return0() }.toContain("hello" ) }
+        val f1Immediate: F = { feature("return1(\"a\")") { return1("a") }.toContain("hello" ) }
+        val f2Immediate: F = { feature("return2(\"a\", 1)") { return2("a", 1) }.toContain("hello" ) }
+        val f3Immediate: F = { feature("return3(\"a\", 1, true)") { return3("a", 1, true) }.toContain("hello" ) }
+        val f4Immediate: F = { feature("return4(\"a\", 1, true, 1.2)") { return4("a", 1, true, 1.2) }.toContain("hello" ) }
+        val f5Immediate: F = { feature("return5(\"a\", 1, true, 1.2, 'b')") { return5("a", 1, true, 1.2, 'b') }.toContain("hello" ) }
+        val f0Lazy: F = { feature("return0()", { return0() }) { toContain("hello" ) } }
+        val f1Lazy: F = { feature("return1(\"a\")", { return1("a") }) { toContain("hello" ) } }
+        val f2Lazy: F = { feature("return2(\"a\", 1)", { return2("a", 1) }) { toContain("hello" ) } }
+        val f3Lazy: F = { feature("return3(\"a\", 1, true)", { return3("a", 1, true) }) { toContain("hello" ) } }
+        val f4Lazy: F = { feature("return4(\"a\", 1, true, 1.2)", { return4("a", 1, true, 1.2) }) { toContain("hello" ) } }
+        val f5Lazy: F = { feature("return5(\"a\", 1, true, 1.2, 'b')", { return5("a", 1, true, 1.2, 'b') }) { toContain("hello" ) } }
 
         val propertyNullableDoesNotHold: F = { feature("nullableValue") { nullableValue }.toEqual(null) }
         val f0NullableDoesNotHold: F = { feature("returnNullable0()") { returnNullable0() }.toEqual(null) }

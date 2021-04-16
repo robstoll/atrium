@@ -87,12 +87,12 @@ abstract class Fun0ExpectationsSpec(
                         }
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
                                     DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
                                 "$isADescr: ${IllegalArgumentException::class.simpleName}"
                             )
-                            if (hasExtraHint) contains("$toBeDescr: ${IllegalArgumentException::class.fullName}")
+                            if (hasExtraHint) toContain("$toBeDescr: ${IllegalArgumentException::class.fullName}")
                         }
                     }
                 }
@@ -136,12 +136,12 @@ abstract class Fun0ExpectationsSpec(
                         }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "$isADescr:.+" + IllegalArgumentException::class.fullName,
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) contains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) toContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -158,7 +158,7 @@ abstract class Fun0ExpectationsSpec(
                         }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Qinvoke()\\E: ${
                                     DescriptionFunLikeAssertion.THREW.getDefault()
                                         .format(UnsupportedOperationException::class.fullName)
@@ -166,7 +166,7 @@ abstract class Fun0ExpectationsSpec(
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) contains("$toBeDescr: 2")
+                            if (hasExtraHint) toContain("$toBeDescr: 2")
                         }
                     }
                 }
@@ -179,7 +179,7 @@ abstract class Fun0ExpectationsSpec(
 
                 fun Expect<AssertionError>.expectCauseInReporting() =
                     message {
-                        containsRegex(
+                        toContainRegex(
                             UnsupportedOperationException::class.simpleName + separator +
                                 messageAndStackTrace("not supported"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
@@ -225,7 +225,7 @@ abstract class Fun0ExpectationsSpec(
 
                     fun Expect<AssertionError>.expectCauseAndNestedInReporting() =
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace("not supported"),
                                 "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +

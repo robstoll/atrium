@@ -56,7 +56,7 @@ abstract class AssertionFormatterSpec(
                     override val assertions: List<Assertion> = emptyList()
                 }, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { toEqual(AssertionFormatter.CALL_FORMAT_GROUP) } }
-            expect(sb).isEmpty()
+            expect(sb).toBeEmpty()
         }
     }
 })

@@ -90,7 +90,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValuePairsExpectationsSpec(
                             entrySuccess("a", 1, "$toBeDescr: 1")
                             entryNonExisting("a", "$toBeDescr: 1")
                             additionalEntries("b" to 2)
-                            containsNot(sizeDescr)
+                            notToContain(sizeDescr)
                         }
                     }
                 }

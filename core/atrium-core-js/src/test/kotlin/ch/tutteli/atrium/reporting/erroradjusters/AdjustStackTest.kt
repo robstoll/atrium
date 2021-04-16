@@ -21,8 +21,8 @@ class AdjustStackTest {
             assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) contains entries(
-                { contains("mocha") },
-                { contains("atrium-core-js.js") }
+                { toContain("mocha") },
+                { toContain("atrium-core-js.js") }
             )
         }
     }
@@ -33,8 +33,8 @@ class AdjustStackTest {
             assertRemoveRunner(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
-                it containsNot o entry { it contains "mocha" }
-                it contains { it contains "atrium-core-js.js" }
+                it containsNot o entry { it toContain "mocha" }
+                it contains { it toContain "atrium-core-js.js" }
             }
         }
     }
@@ -43,12 +43,12 @@ class AdjustStackTest {
     @Test
     fun removeRunner_containsAtriumButNotMochaInCause() {
         val adjuster = assertRemoveRunner(1)._logic.components.build<AtriumErrorAdjuster>()
-        expect(adjuster).isA<RemoveRunnerFromAtriumError>()
+        expect(adjuster).toBeAnInstanceOf<RemoveRunnerFromAtriumError>()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
-            it containsNot o entry { it contains "mocha" }
-            it contains { it contains "atrium-core-js" }
+            it containsNot o entry { it toContain "mocha" }
+            it contains { it toContain "atrium-core-js" }
         }
     }
 
@@ -58,8 +58,8 @@ class AdjustStackTest {
             assertRemoveAtrium(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
-                it contains { it contains "mocha" }
-                it containsNot o entry { it contains "atrium-core-js.js" }
+                it contains { it toContain "mocha" }
+                it containsNot o entry { it toContain "atrium-core-js.js" }
             }
         }
     }
@@ -68,12 +68,12 @@ class AdjustStackTest {
     @Test
     fun removeAtrium_containsMochaButNotAtriumInCause() {
         val adjuster = assertRemoveAtrium(1)._logic.components.build<AtriumErrorAdjuster>()
-        expect(adjuster).isA<RemoveAtriumFromAtriumError>()
+        expect(adjuster).toBeAnInstanceOf<RemoveAtriumFromAtriumError>()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
-            it contains { it contains "mocha" }
-            it containsNot o entry { it contains "atrium-core-js" }
+            it contains { it toContain "mocha" }
+            it containsNot o entry { it toContain "atrium-core-js" }
         }
     }
 

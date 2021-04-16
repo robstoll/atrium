@@ -29,7 +29,7 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
     val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
     fun Expect<String>.elementSuccess(index: Int, expected: String): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${elementWithIndex(index)}: $expected\\E.*$separator" +
                 "$toBeAfterSuccess: $expected"
         )
@@ -38,14 +38,14 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
     fun Expect<String>.elementSuccess(index: Int, expected: Double) = elementSuccess(index, expected.toString())
 
     fun Expect<String>.elementFailing(index: Int, actual: Any, expected: Double): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected"
         )
     }
 
     fun Expect<String>.elementNonExisting(index: Int, expected: Double): Expect<String> {
-        return this.contains.exactly(1).regex(
+        return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
                 "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toBeDescr: $expected"
         )
@@ -67,9 +67,9 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).containsFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$rootBulletPoint$containsInOrderOnly:")
+                        toContain("$rootBulletPoint$containsInOrderOnly:")
                         elementNonExisting(0, 1.0)
-                        containsNot(additionalElements)
+                        notToContain(additionalElements)
                         containsSize(0, 1)
                     }
                 }
@@ -79,10 +79,10 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$rootBulletPoint$containsInOrderOnly:")
+                        toContain("$rootBulletPoint$containsInOrderOnly:")
                         elementNonExisting(0, 1.0)
                         elementNonExisting(1, 4.0)
-                        containsNot(additionalElements)
+                        notToContain(additionalElements)
                         containsSize(0, 2)
                     }
                 }
@@ -104,13 +104,13 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(4.0, 1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             elementFailing(0, 1.0, 4.0)
                             elementFailing(1, 2.0, 1.0)
                             elementFailing(2, 3.0, 2.0)
                             elementFailing(3, 4.0, 3.0)
                             elementSuccess(4, 4.0)
-                            containsNot(sizeDescr)
+                            notToContain(sizeDescr)
                         }
                     }
                 }
@@ -120,12 +120,12 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             elementSuccess(0, 1.0)
                             elementSuccess(1, 2.0)
                             elementSuccess(2, 3.0)
                             elementSuccess(3, 4.0)
-                            contains(
+                            toContain(
                                 "$warningBulletPoint$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )
@@ -139,10 +139,10 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             elementSuccess(0, 1.0)
                             elementFailing(1, 2.0, 4.0)
-                            contains(
+                            toContain(
                                 "$warningBulletPoint$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(2)}: 3.0",
                                 "$listBulletPoint${elementWithIndex(3)}: 4.0",
@@ -157,11 +157,11 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(1.0, 3.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             elementSuccess(0, 1.0)
                             elementFailing(1, 2.0, 3.0)
                             elementFailing(2, 3.0, 5.0)
-                            contains(
+                            toContain(
                                 "$warningBulletPoint$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(3)}: 4.0",
                                 "$listBulletPoint${elementWithIndex(4)}: 4.0"
@@ -175,7 +175,7 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                            toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             elementSuccess(0, 1.0)
                             elementSuccess(1, 2.0)
                             elementSuccess(2, 3.0)
@@ -208,11 +208,11 @@ abstract class IterableContainsInOrderOnlyValuesExpectationsSpec(
                             expect(null1null3()).containsInOrderOnlyNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
+                                toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                                 elementSuccess(0, Text.NULL.string)
                                 elementSuccess(1, 1.0)
                                 elementFailing(2, Text.NULL.string, 3.0)
-                                contains(
+                                toContain(
                                     "$warningBulletPoint$additionalElements:",
                                     "$listBulletPoint${elementWithIndex(3)}: 3.0"
                                 )

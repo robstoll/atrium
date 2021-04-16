@@ -29,16 +29,16 @@ class AdjustStackSpec : Spek({
                 assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
                 feature { f(it::stackBacktrace) } contains entries(
-                    { it startsWith "org.spekframework.spek2" },
-                    { it startsWith "ch.tutteli.atrium.creating" },
-                    { it startsWith "ch.tutteli.atrium.reporting" }
+                    { it toStartWith "org.spekframework.spek2" },
+                    { it toStartWith "ch.tutteli.atrium.creating" },
+                    { it toStartWith "ch.tutteli.atrium.reporting" }
                 )
             }
         }
     }
 
     fun mapStartsWith(list: List<String>): Pair<Expect<String>.() -> Unit, Array<out Expect<String>.() -> Unit>> {
-        val asserts = list.map { c -> expectLambda<String> { startsWith(c) } }
+        val asserts = list.map { c -> expectLambda<String> { toStartWith(c) } }
         return asserts.first() to asserts.drop(1).toTypedArray()
     }
 

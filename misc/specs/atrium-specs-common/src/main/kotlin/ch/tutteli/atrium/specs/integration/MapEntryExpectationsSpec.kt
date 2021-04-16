@@ -67,8 +67,8 @@ abstract class MapEntryExpectationsSpec(
                         fluent.isKeyValueFun("hello", 2)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("value: 1", "$toBeDescr: 2")
-                            containsNot("key")
+                            toContain("value: 1", "$toBeDescr: 2")
+                            notToContain("key")
                         }
                     }
                 }
@@ -77,8 +77,8 @@ abstract class MapEntryExpectationsSpec(
                         fluent.isKeyValueFun("b", 1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("key: \"hello\"", "$toBeDescr: \"b\"")
-                            containsNot("value")
+                            toContain("key: \"hello\"", "$toBeDescr: \"b\"")
+                            notToContain("value")
                         }
                     }
                 }
@@ -101,8 +101,8 @@ abstract class MapEntryExpectationsSpec(
                     fluentNullable.isKeyValueFun(null, 2)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("value: null", "$toBeDescr: 2")
-                        containsNot("key")
+                        toContain("value: null", "$toBeDescr: 2")
+                        notToContain("key")
                     }
                 }
             }
@@ -111,8 +111,8 @@ abstract class MapEntryExpectationsSpec(
                     fluentNullable.isKeyValueFun("b", null)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("key: null", "$toBeDescr: \"b\"")
-                        containsNot("value")
+                        toContain("key: null", "$toBeDescr: \"b\"")
+                        notToContain("value")
                     }
                 }
             }

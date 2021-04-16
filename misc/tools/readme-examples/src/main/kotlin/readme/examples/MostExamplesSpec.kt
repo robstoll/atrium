@@ -44,14 +44,14 @@ class MostExamplesSpec : Spek({
     test("ex-toThrow2") {
         expect {
             throw IllegalArgumentException()
-        }.toThrow<IllegalArgumentException>().message.startsWith("firstName")
+        }.toThrow<IllegalArgumentException>().message.toStartWith("firstName")
     }
 
     test("ex-toThrow3") {
         expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException> {
-            message { startsWith("firstName") }
+            message { toStartWith("firstName") }
         }
     }
 
@@ -88,10 +88,10 @@ class MostExamplesSpec : Spek({
     test("ex-nullable-3") {
         expect(slogan2)     // subject has type String?
             .notToEqualNull()  // subject narrowed to String
-            .startsWith("atrium")
+            .toStartWith("atrium")
     }
     test("ex-nullable-4") {
-        expect(slogan2).notToEqualNull { startsWith("atrium") }
+        expect(slogan2).notToEqualNull { toStartWith("atrium") }
     }
 
     test("ex-collection-short-1") {
@@ -180,7 +180,7 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-4") {
         expect(mapOf("a" to 1, "b" to 2)) {
-            keys { all { startsWith("a") } }
+            keys { all { toStartWith("a") } }
             values { none { isGreaterThan(1) } }
         }
     }
@@ -188,7 +188,7 @@ class MostExamplesSpec : Spek({
         expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
             { isKeyValue("a", 1) },
             {
-                key.startsWith("a")
+                key.toStartWith("a")
                 value.isGreaterThan(2)
             }
         )
@@ -197,7 +197,7 @@ class MostExamplesSpec : Spek({
     test("ex-because-1") {
         expect("filename?")
             .because("? is not allowed in file names on Windows") {
-                containsNot("?")
+                notToContain("?")
             }
     }
 

@@ -88,7 +88,7 @@ abstract class ThrowableExpectationsSpec(
                 }
 
                 it("$name - does not throw if the assertion holds") {
-                    expect(throwable).messageFun { isEmpty() }
+                    expect(throwable).messageFun { toBeEmpty() }
                 }
             }
             it("${messageContains.name} - throws an AssertionError if the assertion does not hold") {
@@ -137,7 +137,7 @@ abstract class ThrowableExpectationsSpec(
                 }
 
                 it("$name - does not throw if the assertion holds") {
-                    expect(throwable).messageFun { contains("hello") }
+                    expect(throwable).messageFun { toContain("hello") }
                 }
             }
 

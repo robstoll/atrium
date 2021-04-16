@@ -53,20 +53,20 @@ class FeatureExpectationsClassReferenceSpec : ch.tutteli.atrium.specs.integratio
     //TODO remove type parameters for `of` with Kotiln 1.4 including parentheses (make the calls infix again
     companion object {
         //@formatter:off
-        val propertyImmediate: F = { its feature TestData::nonNullValue contains "hello" }
-        val propertyLazy: F = { its feature of(TestData::nonNullValue) { it contains "hello" } }
-        val return0ValueImmediate: F = { its feature TestData::return0 contains "hello" }
-        val return1ValueImmediate: F = { its feature of(TestData::return1, "a") contains "hello" }
-        val return2ValueImmediate: F = { its feature of(TestData::return2, "a", 1) contains "hello" }
-        val return3ValueImmediate: F = { its feature of(TestData::return3, "a", 1, true) contains "hello" }
-        val return4ValueImmediate: F = { its feature of(TestData::return4, "a", 1, true, 1.2) contains "hello" }
-        val return5ValueImmediate: F = { its feature of(TestData::return5, "a", 1, true, 1.2, 'b') contains "hello" }
-        val return0ValueLazy: F = { its feature of(TestData::return0) { contains("hello") } }
-        val return1ValueLazy: F = { its feature of(TestData::return1, "a") { contains("hello") } }
-        val return2ValueLazy: F = { its feature of(TestData::return2, "a", 1) { contains("hello") } }
-        val return3ValueLazy: F = { its feature of(TestData::return3, "a", 1, true) { contains("hello") } }
-        val return4ValueLazy: F = { its feature of(TestData::return4, "a", 1, true, 1.2) { contains("hello") } }
-        val return5ValueLazy: F = { its feature of(TestData::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
+        val propertyImmediate: F = { (its feature TestData::nonNullValue).toContain("hello") }
+        val propertyLazy: F = { its feature of(TestData::nonNullValue) { it toContain "hello" } }
+        val return0ValueImmediate: F = { (its feature TestData::return0).toContain("hello") }
+        val return1ValueImmediate: F = { (its feature of(TestData::return1, "a")).toContain("hello") }
+        val return2ValueImmediate: F = { (its feature of(TestData::return2, "a", 1)).toContain("hello") }
+        val return3ValueImmediate: F = { (its feature of(TestData::return3, "a", 1, true)).toContain("hello") }
+        val return4ValueImmediate: F = { (its feature of(TestData::return4, "a", 1, true, 1.2)).toContain("hello") }
+        val return5ValueImmediate: F = { (its feature of(TestData::return5, "a", 1, true, 1.2, 'b')).toContain("hello") }
+        val return0ValueLazy: F = { its feature of(TestData::return0) { toContain("hello") } }
+        val return1ValueLazy: F = { its feature of(TestData::return1, "a") { toContain("hello") } }
+        val return2ValueLazy: F = { its feature of(TestData::return2, "a", 1) { toContain("hello") } }
+        val return3ValueLazy: F = { its feature of(TestData::return3, "a", 1, true) { toContain("hello") } }
+        val return4ValueLazy: F = { its feature of(TestData::return4, "a", 1, true, 1.2) { toContain("hello") } }
+        val return5ValueLazy: F = { its feature of(TestData::return5, "a", 1, true, 1.2, 'b') { toContain("hello") } }
 
         val propertyNullableDoesNotHold: F = { its feature TestData::nullableValue toEqual null }
         val return0ValueNullableDoesNotHold: F = { its feature TestData::returnNullable0 toEqual null }

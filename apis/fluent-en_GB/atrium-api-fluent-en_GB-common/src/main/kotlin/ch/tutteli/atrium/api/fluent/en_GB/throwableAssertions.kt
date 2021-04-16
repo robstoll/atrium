@@ -43,7 +43,7 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
 fun <T : Throwable> Expect<T>.messageContains(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = message { contains(expected, *otherExpected) }
+): Expect<T> = message { toContain(expected, *otherExpected) }
 
 
 /**

@@ -28,8 +28,8 @@ class ListAssertionSamples {
             //             | fails because index 3 is out of bound
             // use `get index(elementIndex) { ... }` if you want that all assertions are evaluated
         } message {
-            contains("index out of bounds")
-            containsNot("is less than: 0")
+            toContain("index out of bounds")
+            notToContain("is less than: 0")
         }
 
         fails {
@@ -41,8 +41,8 @@ class ListAssertionSamples {
             // use `get index(elementIndex) { ... }` if you want that all assertions are evaluated
 
         } message {
-            contains("${isGreaterThanDescr}: 2")
-            containsNot("${isLessThanDescr}: 0")
+            toContain("${isGreaterThanDescr}: 2")
+            notToContain("${isLessThanDescr}: 0")
         }
     }
 

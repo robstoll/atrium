@@ -58,7 +58,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                     expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        contains.exactly(1).values(
+                        toContain.exactly(1).values(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$isLessThanDescr: 1.0",
@@ -73,12 +73,12 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                     expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        contains.exactly(2).values(
+                        toContain.exactly(2).values(
                             "$anElementWhich: $separator",
                             "$numberOfOccurrences: 0",
                             "$atLeastDescr: 1"
                         )
-                        contains.exactly(1).values(
+                        toContain.exactly(1).values(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
                             "$isLessThanDescr: 1.0",
                             "$isGreaterThanDescr: 2.0"
@@ -95,7 +95,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                         expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$isGreaterThanDescr: 1.0",
@@ -173,12 +173,12 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                contains.exactly(2).values(
+                                toContain.exactly(2).values(
                                     "$anElementWhich: $separator",
                                     "$numberOfOccurrences: 0",
                                     "$atLeastDescr: 1"
                                 )
-                                contains.exactly(1).values(
+                                toContain.exactly(1).values(
                                     "$rootBulletPoint$containsInAnyOrder: $separator",
                                     "$isLessThanDescr: 1.0",
                                     "$isGreaterThanDescr: 7.0"

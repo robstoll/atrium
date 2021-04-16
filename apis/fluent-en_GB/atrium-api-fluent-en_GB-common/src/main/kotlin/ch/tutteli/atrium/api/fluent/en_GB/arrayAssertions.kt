@@ -1,3 +1,4 @@
+//TODO rename file with 0.18.0 to arrayExpectations.kt
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -13,7 +14,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.asListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.asListFeature
  *
  * @since 0.9.0
  */
@@ -29,7 +30,7 @@ fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.asList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.asList
  *
  * @since 0.9.0
  */
@@ -45,7 +46,7 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.asListEOut
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.asListEOut
  *
  * @since 0.9.0
  */
@@ -61,7 +62,7 @@ fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.byteArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.byteArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -78,7 +79,7 @@ fun Expect<ByteArray>.asList(): Expect<List<Byte>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.byteArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.byteArrAsList
  *
  * @since 0.9.0
  */
@@ -95,7 +96,7 @@ fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.charArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.charArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -112,7 +113,7 @@ fun Expect<CharArray>.asList(): Expect<List<Char>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.charArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.charArrAsList
  *
  * @since 0.9.0
  */
@@ -129,7 +130,7 @@ fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.shortArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.shortArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -146,7 +147,7 @@ fun Expect<ShortArray>.asList(): Expect<List<Short>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.shortArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.shortArrAsList
  *
  * @since 0.9.0
  */
@@ -163,7 +164,7 @@ fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit):
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.intArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.intArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -180,7 +181,7 @@ fun Expect<IntArray>.asList(): Expect<List<Int>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.intArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.intArrAsList
  *
  * @since 0.9.0
  */
@@ -197,7 +198,7 @@ fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Exp
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.longArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.longArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -214,7 +215,7 @@ fun Expect<LongArray>.asList(): Expect<List<Long>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.longArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.longArrAsList
  *
  * @since 0.9.0
  */
@@ -231,7 +232,7 @@ fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): E
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.floatArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.floatArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -248,7 +249,7 @@ fun Expect<FloatArray>.asList(): Expect<List<Float>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.floatArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.floatArrAsList
  *
  * @since 0.9.0
  */
@@ -265,7 +266,7 @@ fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit):
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.doubleArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.doubleArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -282,7 +283,7 @@ fun Expect<DoubleArray>.asList(): Expect<List<Double>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.doubleArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.doubleArrAsList
  *
  * @since 0.9.0
  */
@@ -299,7 +300,7 @@ fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.booleanArrAsListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.booleanArrAsListFeature
  *
  * @since 0.9.0
  */
@@ -316,7 +317,7 @@ fun Expect<BooleanArray>.asList(): Expect<List<Boolean>> =
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ArrayAssertionSamples.booleanArrAsList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ArrayExpectationSamples.booleanArrAsList
  *
  * @since 0.9.0
  */

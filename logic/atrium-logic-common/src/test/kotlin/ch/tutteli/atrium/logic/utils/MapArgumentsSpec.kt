@@ -31,7 +31,7 @@ object MapArgumentsSpec : Spek({
 
             it("toExpect") {
                 fun it(i: String, vararg iX: String) =
-                    mapArguments(i, iX).toExpect<String> { startsWith(it) }
+                    mapArguments(i, iX).toExpect<String> { toStartWith(it) }
 
                 val (first, others) = it("a", "b", "c")
                 expect("apple").first()
@@ -43,7 +43,7 @@ object MapArgumentsSpec : Spek({
 
                 it("toExpect") {
                     fun it(i: String?, vararg iX: String?) =
-                        mapArguments(i, iX).toNullOr().toExpect<String> { startsWith(it) }
+                        mapArguments(i, iX).toNullOr().toExpect<String> { toStartWith(it) }
 
                     val (first, others) = it(null, "b", "c")
                     expect(first).toEqual(null)

@@ -53,7 +53,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect<T> =
-    message { contains(values) }
+    message { toContain(values) }
 
 /**
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),

@@ -31,8 +31,8 @@ class PairAssertionSamples {
                 //| subject is now of type Int (actually 1)
                 // use `.first { ... }` if you want that all assertions are evaluated
         } message {
-            contains("${isGreaterThanDescr}: 2")
-            containsNot("${isLessThanDescr}: 0")
+            toContain("${isGreaterThanDescr}: 2")
+            notToContain("${isLessThanDescr}: 0")
         }
     }
 
@@ -81,8 +81,8 @@ class PairAssertionSamples {
                 //| subject is now of type Int (actually 1)
                 // use `.second { ... }` if you want that all assertions are evaluated
         } message {
-            contains("${isGreaterThanDescr}: 2")
-            containsNot("${isLessThanDescr}: 0")
+            toContain("${isGreaterThanDescr}: 2")
+            notToContain("${isLessThanDescr}: 0")
         }
     }
 

@@ -142,11 +142,11 @@ class AnyAssertionSamples {
     @Test
     fun isAFeature() {
         val n: Number = 1
-        expect(n).isA<Int>() isGreaterThan 0
+        expect(n).toBeAnInstanceOf<Int>() isGreaterThan 0
         //          | subject is now of type Int
 
         fails {
-            expect("A").isA<Long>() isLessThan 2L // not shown in reporting as `isA<Long>()` already fails
+            expect("A").toBeAnInstanceOf<Long>() isLessThan 2L // not shown in reporting as `isA<Long>()` already fails
         }
     }
 
@@ -183,13 +183,13 @@ class AnyAssertionSamples {
 
     @Test
     fun and() {
-        expect(13).isA<Int>() and {
+        expect(13).toBeAnInstanceOf<Int>() and {
             it isGreaterThan 5
             it isLessThan 20
         }
 
         fails {
-            expect(13).isA<Int>() and {
+            expect(13).toBeAnInstanceOf<Int>() and {
                 // all assertions are evaluated inside an assertion group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
                 it isNoneOf values(1, 2, 13)  // fails
@@ -224,7 +224,7 @@ class AnyAssertionSamples {
     @Test
     fun becauseOf() {
         expect("filename") because of("? is not allowed in file names on Windows") {
-            it containsNot "?"
+            it notToContain "?"
         }
 
         expect(customers) all {

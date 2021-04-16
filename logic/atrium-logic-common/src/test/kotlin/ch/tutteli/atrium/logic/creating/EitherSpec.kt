@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.logic.creating
 
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.startsWith
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
@@ -26,7 +23,7 @@ object EitherSpec : Spek({
         val either: Either<String, Int> =
             Left("hello")
         it("isLeft does not throw") {
-            expect(either).isLeft { startsWith("h") }
+            expect(either).isLeft { toStartWith("h") }
         }
         it("isRight throws AssertionError containing explanation") {
             expect {
@@ -45,7 +42,7 @@ object EitherSpec : Spek({
             Right(1)
         it("isLeft does not throw") {
             expect {
-                expect(either).isLeft { startsWith("h") }
+                expect(either).isLeft { toStartWith("h") }
             }.toThrow<AssertionError> {
                 messageContains(
                     "value of Left: ❗❗ is not a Left",

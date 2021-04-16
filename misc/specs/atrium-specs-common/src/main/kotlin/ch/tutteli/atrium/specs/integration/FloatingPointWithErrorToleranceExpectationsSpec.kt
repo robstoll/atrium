@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.containsNot
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
@@ -98,15 +95,15 @@ fun <T : Number> Root.checkFloatingPoint(
                                     formatFloatingPointNumber(absDiff(subject, num)),
                                     formatFloatingPointNumber(tolerance)
                                 )
-                                contains(
+                                toContain(
                                     subject,
                                     "$toBeInclErrorTolerance: $num",
                                     exactCheck
                                 )
                                 if (withFailureNotice) {
-                                    contains(failureNotice)
+                                    toContain(failureNotice)
                                 } else {
-                                    containsNot(failureNotice)
+                                    notToContain(failureNotice)
                                 }
                             }
                         }

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
+import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
@@ -233,7 +234,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     summaryAssertionGroup,
                     sb, onlyFailingAssertionFilter
                 )
-                expect(sb.toString()).isEmpty()
+                expect(sb.toString()).toBeEmpty()
             }
         }
     }

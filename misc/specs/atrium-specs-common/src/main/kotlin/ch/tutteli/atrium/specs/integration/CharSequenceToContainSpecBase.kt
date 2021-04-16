@@ -6,14 +6,14 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 
-abstract class CharSequenceContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
+abstract class CharSequenceToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         const val text = "Hello my name is Robert"
         const val helloWorld = "Hello World, I am Oskar"
 
-        val containsDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
-        val containsIgnoringCase = String.format(
+        val toContainDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
+        val toContainIgnoringCase = String.format(
             DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(),
             DescriptionCharSequenceAssertion.CONTAINS.getDefault()
         )

@@ -62,7 +62,7 @@ abstract class IterableAllExpectationsSpec(
                         expect(oneToSeven()).allFun { isGreaterThan(2.5); isLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$allDescr: $separator",
                                 "$explanatoryPointWithIndent$isGreaterThanDescr: 2.5",
                                 "$explanatoryPointWithIndent$isLessThanDescr: 7.0",
@@ -102,7 +102,7 @@ abstract class IterableAllExpectationsSpec(
                         expect(oneToSevenNullable()).allNullableFun { isGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "$rootBulletPoint$allDescr: $separator",
                                 "$explanatoryPointWithIndent$isGreaterThanDescr: 0.5",
                                 "$warningBulletPoint$mismatches:",
