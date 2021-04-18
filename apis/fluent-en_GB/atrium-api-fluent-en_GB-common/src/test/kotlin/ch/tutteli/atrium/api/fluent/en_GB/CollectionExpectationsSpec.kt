@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
 object CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
-    fun0(Expect<Collection<Int>>::isEmpty),
-    fun0(Expect<Collection<Int>>::isNotEmpty),
+    fun0(Expect<Collection<Int>>::toBeEmpty),
+    fun0(Expect<Collection<Int>>::notToBeEmpty),
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
     fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
 ) {
