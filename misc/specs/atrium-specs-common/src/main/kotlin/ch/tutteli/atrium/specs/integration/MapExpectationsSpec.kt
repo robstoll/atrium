@@ -38,9 +38,9 @@ abstract class MapExpectationsSpec(
         isEmpty.forSubjectLess().unchecked1(),
         isNotEmpty.forSubjectLess().unchecked1(),
         keysFeature.forSubjectLess(),
-        keys.forSubjectLess { isEmpty() },
+        keys.forSubjectLess { this.toBeEmpty() },
         valuesFeature.forSubjectLess(),
-        values.forSubjectLess { isEmpty() },
+        values.forSubjectLess { this.toBeEmpty() },
         getExistingFeature.forSubjectLess("a"),
         getExisting.forSubjectLess("a") { isGreaterThan(1) }
     ) {})
@@ -182,24 +182,24 @@ abstract class MapExpectationsSpec(
 
         context("map with two entries") {
             keysFunctions.forEach { (name, keysFun, _) ->
-                it("$name - hasSize(2) holds") {
-                    fluent.keysFun { hasSize(2) }
+                it("$name - toHaveSize(2) holds") {
+                    fluent.keysFun { toHaveSize(2) }
                 }
-                it("$name - hasSize(1) throws AssertionError") {
+                it("$name - toHaveSize(1) throws AssertionError") {
                     expect {
-                        fluent.keysFun { hasSize(1) }
+                        fluent.keysFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
                         messageContains("keys: [a, b]")
                     }
                 }
             }
             valuesFunctions.forEach { (name, valuesFun, _) ->
-                it("$name - hasSize(2) holds") {
-                    fluent.valuesFun { hasSize(2) }
+                it("$name - toHaveSize(2) holds") {
+                    fluent.valuesFun { toHaveSize(2) }
                 }
-                it("$name - hasSize(1) throws AssertionError") {
+                it("$name - toHaveSize(1) throws AssertionError") {
                     expect {
-                        fluent.valuesFun { hasSize(1) }
+                        fluent.valuesFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
                         messageContains("values: [1, 2]")
                     }

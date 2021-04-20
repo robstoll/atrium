@@ -15,6 +15,7 @@ import ch.tutteli.kbox.identity
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.isEmpty
  */
+@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeEmpty<T>()"))
 fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::identity) }
 
@@ -25,6 +26,7 @@ fun <T : Collection<*>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.isNotEmpty
  */
+@Deprecated("Use notToBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToBeEmpty<T>()"))
 fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::identity) }
 
@@ -37,6 +39,7 @@ fun <T : Collection<*>> Expect<T>.isNotEmpty(): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.CollectionAssertionSamples.hasSize
  */
+@Deprecated("Use toHaveSize; will be removed with 1.0.0 at the latest", ReplaceWith("this.toHaveSize<T>(expected)"))
 fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toEqual(expected) }
 

@@ -16,14 +16,18 @@ object CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.Collecti
 
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1.isEmpty()
-        a1.isNotEmpty()
+        a1.toBeEmpty()
+        a1.notToBeEmpty()
 
-        a1b.isEmpty()
-        a1b.isNotEmpty()
+        a1b.toBeEmpty()
+        a1b.notToBeEmpty()
 
-        star.isEmpty()
-        star.isNotEmpty()
+        star.toBeEmpty()
+        star.notToBeEmpty()
+
+        a1.toHaveSize(2)
+        a1b.toHaveSize(2)
+        star.toHaveSize(2)
 
         a1.size
         a1 = a1.size { }
