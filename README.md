@@ -351,7 +351,7 @@ expect(4 + 6) {
 
 ```kotlin
 expect {
-    //this block does something but eventually...
+    // this block does something but eventually...
     throw IllegalArgumentException("name is empty")
 }.toThrow<IllegalStateException>()
 ```
@@ -432,7 +432,7 @@ There is also the counterpart to `toThrow` named `notToThrow`:
 
 ```kotlin
 expect {
-    //this block does something but eventually...
+    // this block does something but eventually...
     throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
 }.notToThrow()
 ```
@@ -496,8 +496,8 @@ using the extension method `its`.
 ```kotlin
 expect(myPerson)
     .its({ isStudent }) { toEqual(true) } // fails, subject still Person afterwards
-    .its { fullName() }                // not evaluated anymore, subject String afterwards
-    .toStartWith("rob")                 // not evaluated anymore
+    .its { fullName() }                   // not evaluated anymore, subject String afterwards
+    .toStartWith("rob")                   // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-its-single)</sub>
 <a name="ex-its-single"></a>
@@ -537,8 +537,8 @@ Feature assertions follow the common pattern of having two overloads:
   expect(myPerson) { // forms an assertion group block
   
       its({ firstName }) {   // forms an assertion group block
-          toStartWith("Pe")   // fails
-          toEndWith("er")     // is evaluated nonetheless
+          toStartWith("Pe")  // fails
+          toEndWith("er")    // is evaluated nonetheless
       }                      // fails as a whole
   
       // still evaluated, as it is in outer assertion group block
@@ -570,8 +570,8 @@ as description. Following the first example rewritten to `feature`.
 ```kotlin
 expect(myPerson)
     .feature({ f(it::isStudent) }) { toEqual(true) } // fails, subject still Person afterwards
-    .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
-    .toStartWith("rob")                            // not evaluated anymore
+    .feature { f(it::fullName) }                     // not evaluated anymore, subject String afterwards
+    .toStartWith("rob")                              // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L63)</sub> ↓ <sub>[Output](#ex-property-methods-single)</sub>
 <a name="ex-property-methods-single"></a>
@@ -606,8 +606,8 @@ Following the second example rewritten from `its` to `feature`:
 expect(myPerson) { // forms an assertion group block
 
     feature({ f(it::firstName) }) { // forms an assertion group block
-        toStartWith("Pe")            // fails
-        toEndWith("er")              // is evaluated nonetheless
+        toStartWith("Pe")           // fails
+        toEndWith("er")             // is evaluated nonetheless
     }                               // fails as a whole
 
     // still evaluated, as it is in outer assertion group block
@@ -660,8 +660,8 @@ Last but not least, let us have a look at an example where a method with argumen
 ```kotlin
 expect(myPerson)
     .feature { f(it::nickname, false) } // subject narrowed to String
-    .toEqual("Robert aka. Stoll")          // fails
-    .toStartWith("llotS")                // not evaluated anymore
+    .toEqual("Robert aka. Stoll")       // fails
+    .toStartWith("llotS")               // not evaluated anymore
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-methods-args)</sub>
 <a name="ex-methods-args"></a>
@@ -702,7 +702,7 @@ data class Family(val members: List<FamilyMember>)
 val myFamily = Family(listOf(FamilyMember("Robert")))
 expect(myFamily)
     .feature("number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
-    .feature("first member's name") { members.first().name }    // subject narrowed to String
+    .feature("first member's name") { members.first().name }       // subject narrowed to String
     .toEqual("Peter")
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L102)</sub> ↓ <sub>[Output](#ex-arbitrary-features)</sub>
@@ -925,8 +925,8 @@ Following an example:
 <ex-nullable-3>
 
 ```kotlin
-expect(slogan2)     // subject has type String?
-    .notToEqualNull()  // subject narrowed to String
+expect(slogan2)        // subject has type String?
+    .notToEqualNull()  // subject is narrowed to String
     .toStartWith("atrium")
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L88)</sub> ↓ <sub>[Output](#ex-nullable-3)</sub>

@@ -41,8 +41,8 @@ class FeatureExtractorSpec : Spek({
     test("ex-its-single") {
         expect(myPerson)
             .its({ isStudent }) { toEqual(true) } // fails, subject still Person afterwards
-            .its { fullName() }                // not evaluated anymore, subject String afterwards
-            .toStartWith("rob")                 // not evaluated anymore
+            .its { fullName() }                   // not evaluated anymore, subject String afterwards
+            .toStartWith("rob")                   // not evaluated anymore
     }
 
     //@formatter:off
@@ -50,8 +50,8 @@ class FeatureExtractorSpec : Spek({
         expect(myPerson) { // forms an assertion group block
 
             its({ firstName }) {   // forms an assertion group block
-                toStartWith("Pe")   // fails
-                toEndWith("er")     // is evaluated nonetheless
+                toStartWith("Pe")  // fails
+                toEndWith("er")    // is evaluated nonetheless
             }                      // fails as a whole
 
             // still evaluated, as it is in outer assertion group block
@@ -63,8 +63,8 @@ class FeatureExtractorSpec : Spek({
     test("ex-property-methods-single") {
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toEqual(true) } // fails, subject still Person afterwards
-            .feature { f(it::fullName) }                  // not evaluated anymore, subject String afterwards
-            .toStartWith("rob")                            // not evaluated anymore
+            .feature { f(it::fullName) }                     // not evaluated anymore, subject String afterwards
+            .toStartWith("rob")                              // not evaluated anymore
     }
 
     //@formatter:off
@@ -72,8 +72,8 @@ class FeatureExtractorSpec : Spek({
         expect(myPerson) { // forms an assertion group block
 
             feature({ f(it::firstName) }) { // forms an assertion group block
-                toStartWith("Pe")            // fails
-                toEndWith("er")              // is evaluated nonetheless
+                toStartWith("Pe")           // fails
+                toEndWith("er")             // is evaluated nonetheless
             }                               // fails as a whole
 
             // still evaluated, as it is in outer assertion group block
@@ -85,8 +85,8 @@ class FeatureExtractorSpec : Spek({
     test("ex-methods-args") {
         expect(myPerson)
             .feature { f(it::nickname, false) } // subject narrowed to String
-            .toEqual("Robert aka. Stoll")          // fails
-            .toStartWith("llotS")                // not evaluated anymore
+            .toEqual("Robert aka. Stoll")       // fails
+            .toStartWith("llotS")               // not evaluated anymore
     }
 
     //@formatter:off
@@ -103,7 +103,7 @@ class FeatureExtractorSpec : Spek({
         //snippet-Family-insert
         expect(myFamily)
             .feature("number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
-            .feature("first member's name") { members.first().name }    // subject narrowed to String
+            .feature("first member's name") { members.first().name }       // subject narrowed to String
             .toEqual("Peter")
     }
 
