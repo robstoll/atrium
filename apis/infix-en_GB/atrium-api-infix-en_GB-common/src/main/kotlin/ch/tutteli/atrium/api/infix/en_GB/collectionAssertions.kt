@@ -39,6 +39,7 @@ infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") em
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.CollectionAssertionSamples.hasSize
  */
+@Deprecated("Use toHaveSize; will be removed with 1.0.0 at the latest", ReplaceWith("this.toHaveSize<T>(expected)"))
 infix fun <T : Collection<*>> Expect<T>.hasSize(expected: Int): Expect<T> =
     size { toEqual(expected) }
 
