@@ -2139,7 +2139,7 @@ Say you want to make an assertion about the number of children a person has:
 
 ```kotlin
 fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> =
-    feature(Person::children) { hasSize(number) }
+    feature(Person::children) { toHaveSize(number) }
 
 ```
 </code-own-compose-3b>
@@ -2226,11 +2226,11 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     } // subject is still Person here
     .apply { // only evaluated because the previous assertion group holds
         children  // using the val -> subsequent assertions are about children and fail fast
-            .hasSize(2)
+            .toHaveSize(2)
             .any { feature { f(it::age) }.isGreaterThan(18) }
     } // subject is still Person here due to the `apply`
     .children // using the val -> subsequent assertions are about children and fail fast
-    .hasSize(2)
+    .toHaveSize(2)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L99)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
