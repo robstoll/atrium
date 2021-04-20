@@ -36,7 +36,7 @@ class MostExamplesSpec : Spek({
 
     test("ex-toThrow1") {
         expect {
-            //this block does something but eventually...
+            // this block does something but eventually...
             throw IllegalArgumentException("name is empty")
         }.toThrow<IllegalStateException>()
     }
@@ -57,7 +57,7 @@ class MostExamplesSpec : Spek({
 
     test("ex-notToThrow") {
         expect {
-            //this block does something but eventually...
+            // this block does something but eventually...
             throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
         }.notToThrow()
     }
@@ -86,8 +86,8 @@ class MostExamplesSpec : Spek({
     }
     val slogan2: String? = null
     test("ex-nullable-3") {
-        expect(slogan2)     // subject has type String?
-            .notToEqualNull()  // subject narrowed to String
+        expect(slogan2)        // subject has type String?
+            .notToEqualNull()  // subject is narrowed to String
             .toStartWith("atrium")
     }
     test("ex-nullable-4") {
