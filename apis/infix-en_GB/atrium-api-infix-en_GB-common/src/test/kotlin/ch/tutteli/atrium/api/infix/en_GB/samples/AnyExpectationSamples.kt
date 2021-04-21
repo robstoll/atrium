@@ -64,23 +64,23 @@ class AnyExpectationSamples {
         expect<Int?>(null) toEqualNullIfNullGivenElse null
 
         expect<Int?>(1) toEqualNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
-            it isLessThan 2
+            it toBeLessThan 2
         } // subject here is back to type Int?
 
         fails { // because sub-expectation fails
             expect<Int?>(1) toEqualNullIfNullGivenElse {
-                it isLessThan 0
+                it toBeLessThan 0
             }
         }
     }
 
     @Test
     fun notToEqualNullFeature() {
-        expect<Int?>(1) notToEqualNull o isLessThan 2
+        expect<Int?>(1) notToEqualNull o toBeLessThan 2
         //                             | subject is now of type Int
 
         fails {
-            expect<Int?>(null) notToEqualNull o isLessThan 2
+            expect<Int?>(null) notToEqualNull o toBeLessThan 2
             //                      |             | not reported because `notToEqualNull` already fails
             //                      | fails
         }
@@ -89,8 +89,8 @@ class AnyExpectationSamples {
     @Test
     fun notToEqualNull() {
         expect<Int?>(1) notToEqualNull { // subject is now of type Int
-            it isGreaterThan 0
-            it isLessThan 10
+            it toBeGreaterThan 0
+            it toBeLessThan 10
         } /* subject remains type Int also after the block
         */ toEqual 1
 
@@ -102,13 +102,13 @@ class AnyExpectationSamples {
 
         fails { // because subject is null, but since we use a block...
             expect<Int?>(null) notToEqualNull {
-                it isGreaterThan 2  // ...reporting mentions that subject was expected `to be greater than: 2`
+                it toBeGreaterThan 2  // ...reporting mentions that subject was expected `to be greater than: 2`
             }
         }
 
         fails { // because sub-expectation fails
             expect<Int?>(1) notToEqualNull {
-                it isLessThan 0
+                it toBeLessThan 0
             }
         }
     }
@@ -116,11 +116,11 @@ class AnyExpectationSamples {
     @Test
     fun toBeAnInstanceOfFeature() {
         val n: Number = 1
-        expect(n).toBeAnInstanceOf<Int>() isGreaterThan 0
+        expect(n).toBeAnInstanceOf<Int>() toBeGreaterThan 0
         //                   | subject is now of type Int
 
         fails {
-            expect("A").toBeAnInstanceOf<Long>() isLessThan 2L
+            expect("A").toBeAnInstanceOf<Long>() toBeLessThan 2L
             //                        | not shown in reporting as `toBeA<Long>()` already fails
         }
     }
@@ -129,9 +129,9 @@ class AnyExpectationSamples {
     fun toBeAnInstanceOf() {
         val n: Number = 16
         expect(n).toBeAnInstanceOf<Int> { // subject is now of type Int
-            it isGreaterThanOrEqual 15
+            it toBeGreaterThanOrEqual 15
         } /* subject remains type Int also after the block
-        */ isLessThan 20
+        */ toBeLessThan 20
 
         fails { // because wrong type expected (Long instead of String), but since we use a block...
             expect("A").toBeAnInstanceOf<Long> {
@@ -149,17 +149,17 @@ class AnyExpectationSamples {
     @Test
     fun andFeature() {
         // `and` is just a filler word does not have any behaviour
-        expect(13) isGreaterThan 5 and o isLessThan 20
+        expect(13) toBeGreaterThan 5 and o toBeLessThan 20
 
         // i.e. the above is equivalent to:
-        expect(13) isGreaterThan 5 isLessThan 20
+        expect(13) toBeGreaterThan 5 toBeLessThan 20
     }
 
     @Test
     fun and() {
         expect(13).toBeAnInstanceOf<Int>() and {
-            it isGreaterThan 5
-            it isLessThan 20
+            it toBeGreaterThan 5
+            it toBeLessThan 20
         }
 
         fails {
@@ -167,9 +167,9 @@ class AnyExpectationSamples {
                 // introduces an expectation group block
                 // all expectations are evaluated inside an expectations group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
-                it notToEqualOneOf values(1, 2, 13)  // fails
-                it isLessThan 10              // still evaluated and included in the error report
-                // use `.and.` if you want fail fast behaviour
+                it notToEqualOneOf values(1, 2, 13) // fails
+                it toBeLessThan 10                  // still evaluated and included in the error report
+                //                                     use `.and.` if you want fail fast behaviour
             }
         }
     }
@@ -204,7 +204,7 @@ class AnyExpectationSamples {
 
         expect(customers) all {
             it because of("the legal age of maturity in Switzerland is 18") {
-                feature { f(it::age) } isGreaterThanOrEqual 18
+                feature { f(it::age) } toBeGreaterThanOrEqual 18
             }
         }
     }
