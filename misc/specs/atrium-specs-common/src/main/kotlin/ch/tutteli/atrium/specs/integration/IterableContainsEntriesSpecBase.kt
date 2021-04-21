@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
@@ -12,8 +11,8 @@ abstract class IterableContainsEntriesSpecBase(
     spec: Root.() -> Unit
 ) : IterableContainsSpecBase(spec) {
     init {
-        isLessThanFun = Expect<Double>::isLessThan.name
-        isGreaterThanFun = Expect<Double>::isGreaterThan.name
+        isLessThanFun = Expect<Double>::toBeLessThan.name
+        isGreaterThanFun = Expect<Double>::toBeGreaterThan.name
         toBeFun = fun1<Double, Double>(Expect<Double>::toEqual).name
     }
 

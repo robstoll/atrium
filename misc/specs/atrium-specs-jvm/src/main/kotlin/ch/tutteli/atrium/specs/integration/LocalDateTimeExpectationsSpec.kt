@@ -24,13 +24,13 @@ abstract class LocalDateTimeExpectationsSpec(
 
     include(object : SubjectLessSpec<LocalDateTime>(describePrefix,
         yearFeature.forSubjectLess().adjustName { "$it feature" },
-        year.forSubjectLess { isGreaterThan(2000) },
+        year.forSubjectLess { toBeGreaterThan(2000) },
         monthFeature.forSubjectLess().adjustName { "$it feature" },
-        month.forSubjectLess { isLessThan(12) },
+        month.forSubjectLess { toBeLessThan(12) },
         dayFeature.forSubjectLess().adjustName { "$it feature" },
-        day.forSubjectLess { isLessThanOrEqual(20) },
+        day.forSubjectLess { toBeLessThanOrEqual(20) },
         dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { isLessThanOrEqual(DayOfWeek.SUNDAY) }
+        dayOfWeek.forSubjectLess { toBeLessThanOrEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<LocalDateTime>(
@@ -56,11 +56,11 @@ abstract class LocalDateTimeExpectationsSpec(
         context("LocalDateTime with year 2009") {
             yearFunctions.forEach { (name, yearFun, _) ->
                 it("$name - is greater than 2009 holds") {
-                    fluent.yearFun { isGreaterThan(2008) }
+                    fluent.yearFun { toBeGreaterThan(2008) }
                 }
                 it("$name - is less than 2009 fails") {
                     expect {
-                        fluent.yearFun { isLessThan(2009) }
+                        fluent.yearFun { toBeLessThan(2009) }
                     }.toThrow<AssertionError> {
                         messageContains("$yearDescr: 2009")
                     }
@@ -75,11 +75,11 @@ abstract class LocalDateTimeExpectationsSpec(
         context("LocalDateTime with month May(5)") {
             monthFunctions.forEach { (name, monthFun, _) ->
                 it("$name - is greater than February(2) holds") {
-                    fluent.monthFun { isGreaterThan(2) }
+                    fluent.monthFun { toBeGreaterThan(2) }
                 }
                 it("$name - is less than 5 fails") {
                     expect {
-                        fluent.monthFun { isLessThan(5) }
+                        fluent.monthFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
                         messageContains("$monthDescr: 5")
                     }
@@ -94,11 +94,11 @@ abstract class LocalDateTimeExpectationsSpec(
         context("LocalDateTime with day of month 15") {
             dayFunctions.forEach { (name, dayFun, _) ->
                 it("$name - is greater than 5 holds") {
-                    fluent.dayFun { isGreaterThan(5) }
+                    fluent.dayFun { toBeGreaterThan(5) }
                 }
                 it("$name - is less than 5 fails") {
                     expect {
-                        fluent.dayFun { isLessThan(5) }
+                        fluent.dayFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
                         messageContains("$dayDescr: 15")
                     }
@@ -113,11 +113,11 @@ abstract class LocalDateTimeExpectationsSpec(
         context("LocalDateTime with day of week Friday(5)") {
             dayOfWeekFunctions.forEach { (name, dayOfWeekFun, _) ->
                 it("$name - is greater than Monday(1) holds") {
-                    fluent.dayOfWeekFun { isGreaterThan(DayOfWeek.MONDAY) }
+                    fluent.dayOfWeekFun { toBeGreaterThan(DayOfWeek.MONDAY) }
                 }
                 it("$name - is less than Friday(5) fails") {
                     expect {
-                        fluent.dayOfWeekFun { isLessThan(DayOfWeek.FRIDAY) }
+                        fluent.dayOfWeekFun { toBeLessThan(DayOfWeek.FRIDAY) }
                     }.toThrow<AssertionError> {
                         messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
                     }

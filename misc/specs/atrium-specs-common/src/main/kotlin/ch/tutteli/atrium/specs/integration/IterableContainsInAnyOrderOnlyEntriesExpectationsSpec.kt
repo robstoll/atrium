@@ -59,7 +59,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
@@ -73,7 +73,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
@@ -114,11 +114,11 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                         { toEqual(2.0) },
                         { toEqual(3.0) },
                         { toEqual(4.0) },
-                        { isGreaterThan(0.0) })
+                        { toBeGreaterThan(0.0) })
                 }
                 it(" $isLessThanFun(3.0), 2.0, 3.0, 4.0 and 4.0") {
                     expect(oneToFour()).containsEntriesFun(
-                        { isLessThan(3.0) },
+                        { toBeLessThan(3.0) },
                         { toEqual(2.0) },
                         { toEqual(3.0) },
                         { toEqual(4.0) },
@@ -127,7 +127,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                 it("2.0, $isLessThanFun(5.0), 3.0, 4.0 and 4.0") {
                     expect(oneToFour()).containsEntriesFun(
                         { toEqual(2.0) },
-                        { isLessThan(5.0) },
+                        { toBeLessThan(5.0) },
                         { toEqual(3.0) },
                         { toEqual(4.0) },
                         { toEqual(4.0) })
@@ -162,7 +162,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
 
                     it("$isLessThanFun(3.0), isGreaterThan(3.0) -- 2.0, 3.0 and 4.0 was missing") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun({ isLessThan(3.0) }, { isGreaterThan(3.0) })
+                            expect(oneToFour()).containsEntriesFun({ toBeLessThan(3.0) }, { toBeGreaterThan(3.0) })
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
@@ -184,7 +184,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                     it("first wins: $isLessThanFun(5.0), 1.0, 2.0, 3.0, 4.0") {
                         expect {
                             expect(oneToFour()).containsEntriesFun(
-                                { isLessThan(5.0) },
+                                { toBeLessThan(5.0) },
                                 { toEqual(1.0) },
                                 { toEqual(2.0) },
                                 { toEqual(3.0) },
@@ -212,8 +212,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                         expect {
                             expect(oneToFour()).containsEntriesFun(
                                 { toEqual(1.0) },
-                                { isGreaterThan(3.0) },
-                                { isGreaterThan(4.0) })
+                                { toBeGreaterThan(3.0) },
+                                { toBeGreaterThan(4.0) })
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
@@ -316,7 +316,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                     it("first wins: $isLessThanFun(4.0), null, null, $toBeDescr(1.0)") {
                         expect {
                             expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
-                                { isLessThan(4.0) },
+                                { toBeLessThan(4.0) },
                                 null,
                                 null,
                                 { toEqual(1.0) })

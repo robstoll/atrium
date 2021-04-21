@@ -237,10 +237,11 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     }
                     it("[$isLessThanFun(2.1) && $isGreaterThanFun(1.0), $isLessThanFun(2.0)], [$isGreaterThanFun(3.0), $isGreaterThanFun(2.0), $isGreaterThanFun(1.0) && $isLessThanFun(5.0)]") {
                         expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                            context({ isLessThan(2.1).and.isGreaterThan(1.0) }, { isLessThan(2.0) }),
-                            context({ isGreaterThan(3.0) },
-                                { isGreaterThan(2.0) },
-                                { isGreaterThan(1.0); isLessThan(5.0) })
+                            context({ toBeLessThan(2.1).and.toBeGreaterThan(1.0) }, { toBeLessThan(2.0) }),
+                            context(
+                                { toBeGreaterThan(3.0) },
+                                { toBeGreaterThan(2.0) },
+                                { toBeGreaterThan(1.0); toBeLessThan(5.0) })
                         )
                     }
                 }
@@ -280,7 +281,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("[$isLessThanFun(2.1), $isLessThanFun(2.0)], (4.0, 3.0, 4.0) -- first win also applies here, $isLessThanFun(2.1) matches 1.0 and not 2.0") {
                         expect {
                             expect(oneToFour() as Iterable<Double?>).containsInOrderOnlyGroupedEntriesFun(
-                                context({ isLessThan(2.1) }, { isLessThan(2.0) }),
+                                context({ toBeLessThan(2.1) }, { toBeLessThan(2.0) }),
                                 context({ toEqual(4.0) }, { toEqual(3.0) }, { toEqual(4.0) })
                             )
                         }.toThrow<AssertionError> {
@@ -413,7 +414,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                     it("[null], [null, $isGreaterThanFun(2.0), $isLessThanFun(5.0)]") {
                         expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                             context(null),
-                            context(null, { isGreaterThan(2.0) }, { isLessThan(5.0) })
+                            context(null, { toBeGreaterThan(2.0) }, { toBeLessThan(5.0) })
                         )
                     }
                 }
@@ -424,7 +425,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
                         expect {
                             expect(null1null3()).containsInOrderOnlyGroupedEntriesFun(
                                 context(null, null),
-                                context({ isLessThan(5.0) }, { isGreaterThan(2.0) })
+                                context({ toBeLessThan(5.0) }, { toBeGreaterThan(2.0) })
                             )
                         }.toThrow<AssertionError> {
                             message {

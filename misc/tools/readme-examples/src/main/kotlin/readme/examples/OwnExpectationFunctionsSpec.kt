@@ -79,7 +79,7 @@ object OwnExpectationFunctionsSpec : Spek({
     //snippet-own-compose-4-start
     fun Expect<Person>.hasAdultChildren(): Expect<Person> =
         feature(Person::children) {
-            all { feature(Person::age).isGreaterThanOrEqual(18) }
+            all { feature(Person::age).toBeGreaterThanOrEqual(18) }
         }
 
     //snippet-own-compose-4-end
@@ -105,7 +105,7 @@ object OwnExpectationFunctionsSpec : Spek({
             .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
                     .toHaveSize(2)
-                    .any { feature { f(it::age) }.isGreaterThan(18) }
+                    .any { feature { f(it::age) }.toBeGreaterThan(18) }
             } // subject is still Person here due to the `apply`
             .children // using the val -> subsequent assertions are about children and fail fast
             .toHaveSize(2)

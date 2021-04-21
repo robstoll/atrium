@@ -11,6 +11,7 @@ import ch.tutteli.atrium.logic.*
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThan
  */
+@Deprecated("Use toBeLessThan; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeLessThan<T>(expected)"))
 fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
     _logicAppend { isLessThan(expected) }
 
@@ -22,6 +23,10 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThanOrEqual
  */
+@Deprecated(
+    "Use toBeLessThanOrEqual; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeLessThanOrEqual<T>(expected)")
+)
 fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
 
@@ -33,6 +38,10 @@ fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThan
  */
+@Deprecated(
+    "Use toBeGreaterThan; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeGreaterThan<T>(expected)")
+)
 fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
     _logicAppend { isGreaterThan(expected) }
 
@@ -44,6 +53,10 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThanOrEqual
  */
+@Deprecated(
+    "Use toBeGreaterThanOrEqual; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeGreaterThanOrEqual<T>(expected)")
+)
 fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }
 
@@ -57,5 +70,9 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeEqualComparingTo; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeEqualComparingTo<T>(expected)")
+)
 fun <T : Comparable<T>> Expect<T>.isEqualComparingTo(expected: T): Expect<T> =
     _logicAppend { isEqualComparingTo(expected) }

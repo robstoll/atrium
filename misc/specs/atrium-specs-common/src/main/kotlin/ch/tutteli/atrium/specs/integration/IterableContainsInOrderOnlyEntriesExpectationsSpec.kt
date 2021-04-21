@@ -77,7 +77,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain("$rootBulletPoint$containsInOrderOnly:")
@@ -89,7 +89,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -115,11 +115,11 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 }
                 it("$isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0)") {
                     expect(oneToFour()).containsEntriesFun(
-                        { isLessThan(5.0) },
-                        { isLessThan(5.0) },
-                        { isLessThan(5.0) },
-                        { isLessThan(5.0) },
-                        { isLessThan(5.0) })
+                        { toBeLessThan(5.0) },
+                        { toBeLessThan(5.0) },
+                        { toBeLessThan(5.0) },
+                        { toBeLessThan(5.0) },
+                        { toBeLessThan(5.0) })
                 }
             }
 
@@ -128,10 +128,10 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 it("$isLessThanFun(5.0), 1.0, 2.0, $isGreaterThanFun(2.0), 4.0 -- wrong order") {
                     expect {
                         expect(oneToFour()).containsEntriesFun(
-                            { isLessThan(5.0) },
+                            { toBeLessThan(5.0) },
                             { toEqual(1.0) },
                             { toEqual(2.0) },
-                            { isGreaterThan(2.0) },
+                            { toBeGreaterThan(2.0) },
                             { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
@@ -190,7 +190,7 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                 it("1.0, 3.0, $isGreaterThanFun(4.0) -- $isGreaterThanFun(4.0) is wrong and 4.0 and 4.0 are missing") {
                     expect {
                         expect(oneToFour()).containsEntriesFun({ toEqual(1.0) },
-                            { toEqual(3.0) }, { isGreaterThan(4.0) })
+                            { toEqual(3.0) }, { toBeGreaterThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
@@ -251,9 +251,9 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                     it("null, $isLessThanFun(5.0), null, $isLessThanFun(5.0)") {
                         expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                             null,
-                            { isLessThan(5.0) },
+                            { toBeLessThan(5.0) },
                             null,
-                            { isLessThan(5.0) }
+                            { toBeLessThan(5.0) }
                         )
                     }
                 }
@@ -265,8 +265,8 @@ abstract class IterableContainsInOrderOnlyEntriesExpectationsSpec(
                             expect(null1null3()).containsInOrderOnlyNullableEntriesFun(
                                 null,
                                 null,
-                                { isLessThan(5.0) },
-                                { isGreaterThan(2.0) }
+                                { toBeLessThan(5.0) },
+                                { toBeGreaterThan(2.0) }
                             )
                         }.toThrow<AssertionError> {
                             message {

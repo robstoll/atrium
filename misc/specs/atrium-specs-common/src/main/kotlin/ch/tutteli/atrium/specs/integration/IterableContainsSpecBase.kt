@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
 import ch.tutteli.atrium.api.fluent.en_GB.regex
 import ch.tutteli.atrium.api.fluent.en_GB.toContain

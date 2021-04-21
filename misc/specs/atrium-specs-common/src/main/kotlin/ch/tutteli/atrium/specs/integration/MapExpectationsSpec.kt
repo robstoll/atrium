@@ -42,7 +42,7 @@ abstract class MapExpectationsSpec(
         valuesFeature.forSubjectLess(),
         values.forSubjectLess { this.toBeEmpty() },
         getExistingFeature.forSubjectLess("a"),
-        getExisting.forSubjectLess("a") { isGreaterThan(1) }
+        getExisting.forSubjectLess("a") { toBeGreaterThan(1) }
     ) {})
 
     include(object : SubjectLessSpec<Map<out String?, Int?>>(

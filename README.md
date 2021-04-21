@@ -288,7 +288,7 @@ The next section shows how you can define multiple assertions for the same subje
 
 ```kotlin
 // two single assertions, only first evaluated
-expect(4 + 6).isLessThan(5).isGreaterThan(10)
+expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L24)</sub> ↓ <sub>[Output](#ex-single)</sub>
 <a name="ex-single"></a>
@@ -319,8 +319,8 @@ If you want that both assertions are evaluated together, then use the assertion 
 ```kotlin
 // assertion group with two assertions, both evaluated
 expect(4 + 6) {
-    isLessThan(5)
-    isGreaterThan(10)
+    toBeLessThan(5)
+    toBeGreaterThan(10)
 }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L29)</sub> ↓ <sub>[Output](#ex-group)</sub>
@@ -1020,8 +1020,8 @@ Following an example:
 
 ```kotlin
 expect(listOf(1, 2, 2, 4)).contains(
-    { isLessThan(0) },
-    { isGreaterThan(2).isLessThan(4) }
+    { toBeLessThan(0) },
+    { toBeGreaterThan(2).toBeLessThan(4) }
 )
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L101)</sub> ↓ <sub>[Output](#ex-collection-short-2)</sub>
@@ -1062,7 +1062,7 @@ Following each in action:
 <ex-collection-any>
 
 ```kotlin
-expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
+expect(listOf(1, 2, 3, 4)).any { toBeLessThan(0) }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L108)</sub> ↓ <sub>[Output](#ex-collection-any)</sub>
 <a name="ex-collection-any"></a>
@@ -1079,7 +1079,7 @@ expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>
 <ex-collection-none>
 
 ```kotlin
-expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
+expect(listOf(1, 2, 3, 4)).none { toBeGreaterThan(2) }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L111)</sub> ↓ <sub>[Output](#ex-collection-none)</sub>
 <a name="ex-collection-none"></a>
@@ -1098,7 +1098,7 @@ expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>
 <ex-collection-all>
 
 ```kotlin
-expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
+expect(listOf(1, 2, 3, 4)).all { toBeGreaterThan(2) }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L114)</sub> ↓ <sub>[Output](#ex-collection-all)</sub>
 <a name="ex-collection-all"></a>
@@ -1128,7 +1128,7 @@ Following on the last section we will start with an `inOrder` example:
 <ex-collection-builder-1>
 
 ```kotlin
-expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ toBeLessThan(3) }, { toBeLessThan(2) })
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L118)</sub> ↓ <sub>[Output](#ex-collection-builder-1)</sub>
 <a name="ex-collection-builder-1"></a>
@@ -1201,7 +1201,7 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
 <ex-collection-builder-3>
 
 ```kotlin
-expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ toBeLessThan(3) })
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L124)</sub> ↓ <sub>[Output](#ex-collection-builder-3)</sub>
 <a name="ex-collection-builder-3"></a>
@@ -1289,8 +1289,8 @@ the help of the parameter object `KeyValue`:
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains(
     KeyValue("c") { toEqual(2) },
-    KeyValue("a") { isGreaterThan(2) },
-    KeyValue("b") { isLessThan(2) }
+    KeyValue("a") { toBeGreaterThan(2) },
+    KeyValue("b") { toBeLessThan(2) }
 )
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L137)</sub> ↓ <sub>[Output](#ex-map-2)</sub>
@@ -1336,8 +1336,8 @@ And the other overload which expects a `KeyValue` and allows to define sub asert
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).containsOnly(
     KeyValue("c") { toEqual(2) },
-    KeyValue("a") { isLessThan(2) },
-    KeyValue("b") { isLessThan(2) }
+    KeyValue("a") { toBeLessThan(2) },
+    KeyValue("b") { toBeLessThan(2) }
 )
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L148)</sub> ↓ <sub>[Output](#ex-map-only-2)</sub>
@@ -1392,8 +1392,8 @@ And the other expecting `KeyValue`s which allow to specify sub assertions for th
 
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries(
-    KeyValue("a") { isLessThan(2) },
-    KeyValue("b") { isLessThan(2) })
+    KeyValue("a") { toBeLessThan(2) },
+    KeyValue("b") { toBeLessThan(2) })
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L159)</sub> ↓ <sub>[Output](#ex-map-builder-2)</sub>
 <a name="ex-map-builder-2"></a>
@@ -1449,7 +1449,7 @@ In case you want to make an assertion only about the keys or values of the `Map`
 ```kotlin
 expect(mapOf("a" to 1, "b" to 2)) {
     keys { all { toStartWith("a") } }
-    values { none { isGreaterThan(1) } }
+    values { none { toBeGreaterThan(1) } }
 }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L181)</sub> ↓ <sub>[Output](#ex-map-4)</sub>
@@ -1486,7 +1486,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entrie
     { isKeyValue("a", 1) },
     {
         key.toStartWith("a")
-        value.isGreaterThan(2)
+        value.toBeGreaterThan(2)
     }
 )
 ```
@@ -1668,9 +1668,9 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 
 expect("calling myFun with ...") {
     mapOf(
-        1 to expectLambda<Char> { isLessThan('f') },
+        1 to expectLambda<Char> { toBeLessThan('f') },
         2 to expectLambda { toEqual('c') },
-        3 to expectLambda { isGreaterThan('e') }
+        3 to expectLambda { toBeGreaterThan('e') }
     ).forEach { (arg, assertionCreator) ->
         feature({ f(::myFun, arg) }, assertionCreator)
     }
@@ -2075,7 +2075,7 @@ Say you want to build a `isBetween` assertion function for `java.util.Date`, you
 
 ```kotlin
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    isGreaterThanOrEqual(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+    toBeGreaterThanOrEqual(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
 ```
 </code-own-compose-1>
 
@@ -2092,8 +2092,8 @@ import ch.tutteli.atrium.logic._logic
 
 fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     _logic.appendAssertionsCreatedBy {
-        isGreaterThanOrEqual(lowerBoundInclusive)
-        isLessThan(upperBoundExclusive)
+        toBeGreaterThanOrEqual(lowerBoundInclusive)
+        toBeLessThan(upperBoundExclusive)
     }
 ```
 </code-own-compose-2>
@@ -2173,7 +2173,7 @@ Another example: assert the person has children which are all adults (assuming 1
 ```kotlin
 fun Expect<Person>.hasAdultChildren(): Expect<Person> =
     feature(Person::children) {
-        all { feature(Person::age).isGreaterThanOrEqual(18) }
+        all { feature(Person::age).toBeGreaterThanOrEqual(18) }
     }
 
 ```
@@ -2227,7 +2227,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
     .apply { // only evaluated because the previous assertion group holds
         children  // using the val -> subsequent assertions are about children and fail fast
             .toHaveSize(2)
-            .any { feature { f(it::age) }.isGreaterThan(18) }
+            .any { feature { f(it::age) }.toBeGreaterThan(18) }
     } // subject is still Person here due to the `apply`
     .children // using the val -> subsequent assertions are about children and fail fast
     .toHaveSize(2)

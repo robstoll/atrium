@@ -27,7 +27,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
         *containsNotEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
-            { isGreaterThan(8.0) }, arrayOf(expectLambda { isGreaterThan(10.0) })
+            { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
@@ -35,7 +35,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
         *containsNotNullableEntries.forAssertionCreatorSpec(
             "$isGreaterThanDescr: 8.0",
             "$isGreaterThanDescr: 10.0",
-            { isGreaterThan(8.0) }, arrayOf(expectLambda { isGreaterThan(10.0) })
+            { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })
         )
     ) {})
 
@@ -84,7 +84,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
 
             context("happy case") {
                 it("$isGreaterThanFun(1.0) and $isLessThanFun(2.0) does not throw") {
-                    expect(oneToSeven()).containsNotFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                    expect(oneToSeven()).containsNotFun({ toBeGreaterThan(1.0); toBeLessThan(2.0) })
                 }
                 it("$toBeFun(1.1), $toBeFun(2.2), $toBeFun(3.3) does not throw") {
                     expect(oneToSeven()).containsNotFun({ toEqual(1.1) }, { toEqual(2.2) }, { toEqual(3.3) })
@@ -97,7 +97,7 @@ abstract class IterableContainsNotEntriesExpectationsSpec(
             context("failing cases; search string at different positions") {
                 it("$isLessThanFun(4.0) throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsNotFun({ isLessThan(4.0) })
+                        expect(oneToSeven()).containsNotFun({ toBeLessThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(

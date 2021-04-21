@@ -5,10 +5,10 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
 
 object ComparableExpectationsSpec : ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
-    fun1(Expect<Int>::isLessThan),
-    fun1(Expect<Int>::isLessThanOrEqual),
-    fun1(Expect<Int>::isGreaterThan),
-    fun1(Expect<Int>::isGreaterThanOrEqual),
-    fun1(Expect<Int>::isEqualComparingTo),
-    fun1(Expect<DiffEqualsCompareTo>::isEqualComparingTo)
+    fun1(Expect<Int>::toBeLessThan),
+    fun1(Expect<Int>::toBeLessThanOrEqual),
+    fun1(Expect<Int>::toBeGreaterThan),
+    fun1(Expect<Int>::toBeGreaterThanOrEqual),
+    fun1(Expect<Int>::toBeEqualComparingTo),
+    fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo)
 )

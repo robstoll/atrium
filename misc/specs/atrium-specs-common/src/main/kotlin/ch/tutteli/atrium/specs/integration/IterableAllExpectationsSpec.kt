@@ -22,11 +22,11 @@ abstract class IterableAllExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        all.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
+        all.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        allNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { isGreaterThan(0.0) }
+        allNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
     val allDescr = DescriptionIterableAssertion.ALL.getDefault()
@@ -45,7 +45,7 @@ abstract class IterableAllExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).allFun { isLessThan(1.0) }
+                    expect(fluentEmpty()).allFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator" +
@@ -59,7 +59,7 @@ abstract class IterableAllExpectationsSpec(
             context("all are $isGreaterThanFun(2.5) and $isLessThanFun(7.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).allFun { isGreaterThan(2.5); isLessThan(7.0) }
+                        expect(oneToSeven()).allFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
@@ -78,7 +78,7 @@ abstract class IterableAllExpectationsSpec(
 
             context("all are $isGreaterThanFun(0.5) and $isLessThanFun(7.5)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).allFun { isGreaterThan(0.5); isLessThan(7.5) }
+                    expect(oneToSeven()).allFun { toBeGreaterThan(0.5); toBeLessThan(7.5) }
                 }
             }
         }
@@ -99,7 +99,7 @@ abstract class IterableAllExpectationsSpec(
             context("iterable ${oneToSevenNullable().toList()}") {
                 it("$isGreaterThanDescr(0.5) throws because two are `null`") {
                     expect {
-                        expect(oneToSevenNullable()).allNullableFun { isGreaterThan(0.5) }
+                        expect(oneToSevenNullable()).allNullableFun { toBeGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(

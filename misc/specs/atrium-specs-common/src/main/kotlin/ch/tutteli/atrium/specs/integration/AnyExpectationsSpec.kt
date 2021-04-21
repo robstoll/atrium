@@ -559,11 +559,11 @@ abstract class AnyExpectationsSpec(
         context("subject is not null") {
             val subject: Int? = 1
             it("does not throw if sub assertion holds") {
-                expect(subject).toBeNullIfNullElseFun { isLessThan(2) }
+                expect(subject).toBeNullIfNullElseFun { toBeLessThan(2) }
             }
             it("throws an AssertionError if sub assertion does not hold") {
                 expect {
-                    expect(subject).toBeNullIfNullElseFun { isGreaterThan(1) }
+                    expect(subject).toBeNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     messageContains(": 1", "${IS_GREATER_THAN.getDefault()}: 1")
                 }
@@ -602,12 +602,12 @@ abstract class AnyExpectationsSpec(
                 notToBeNullFunctions.forEach { (name, notToBeNullFun, _) ->
 
                     it("$name - does not throw if the assertion holds") {
-                        expect(1 as Int?).notToBeNullFun { isLessThan(2) }
+                        expect(1 as Int?).notToBeNullFun { toBeLessThan(2) }
                     }
 
                     it("$name - throws an AssertionError if the assertion does not hold") {
                         expect {
-                            expect(1 as Int?).notToBeNullFun { isLessThan(0) }
+                            expect(1 as Int?).notToBeNullFun { toBeLessThan(0) }
                         }.toThrow<AssertionError> {
                             messageContains("${IS_LESS_THAN.getDefault()}: 0")
                         }
@@ -617,13 +617,13 @@ abstract class AnyExpectationsSpec(
             context("it allows to define multiple assertions for the subject") {
                 notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
                     it("$name - does not throw if the assertions hold") {
-                        expect(1 as Int?).notToBeNullFun { isGreaterThan(0); isLessThan(2) }
+                        expect(1 as Int?).notToBeNullFun { toBeGreaterThan(0); toBeLessThan(2) }
                     }
 
                     it("$name - throws an AssertionError if one assertion does not hold") {
                         expect {
                             val i: Int? = 1
-                            expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(5) }
+                            expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(5) }
                         }.toThrow<AssertionError> {
                             message {
                                 toContain(IS_GREATER_THAN.getDefault())
@@ -635,7 +635,7 @@ abstract class AnyExpectationsSpec(
                     it("$name - throws an AssertionError if both assertions do not hold " + (if (hasExtraHint) "and contains both messages" else "and contains only first message")) {
                         expect {
                             val i: Int? = 1
-                            expect(i).notToBeNullFun { isGreaterThan(2); isLessThan(0) }
+                            expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(0) }
                         }.toThrow<AssertionError> {
                             messageContains(IS_GREATER_THAN.getDefault())
                             if (hasExtraHint) messageContains(IS_LESS_THAN.getDefault())
@@ -663,7 +663,7 @@ abstract class AnyExpectationsSpec(
                 it("$name - throws an AssertionError which contains subsequent assertions") {
                     class A(val i: Int? = null)
                     expect {
-                        expect(A()).feature(A::i).notToEqualNull { isLessThan(1) }
+                        expect(A()).feature(A::i).notToEqualNull { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             A::class.simpleName!!,
@@ -698,14 +698,14 @@ abstract class AnyExpectationsSpec(
             context("it allows to perform sub assertions") {
                 toBeAnInstanceOfIntFunctions.forEach { (name, toBeAnInstanceOfInt, _) ->
                     it("$name - does not throw if it holds") {
-                        expect(1 as Any?).toBeAnInstanceOfInt { isLessThan(2) }
+                        expect(1 as Any?).toBeAnInstanceOfInt { toBeLessThan(2) }
                     }
 
                     val expectedLessThan = 2
                     val actualValue: Any? = 5
                     it("$name - throws if it does not hold") {
                         expect {
-                            expect(actualValue).toBeAnInstanceOfInt { isLessThan(expectedLessThan) }
+                            expect(actualValue).toBeAnInstanceOfInt { toBeLessThan(expectedLessThan) }
                         }.toThrow<AssertionError> {
                             messageContains(actualValue as Any, IS_LESS_THAN.getDefault(), expectedLessThan)
                         }
@@ -801,8 +801,8 @@ abstract class AnyExpectationsSpec(
             expect {
                 expect(21)
                     .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
-                        isGreaterThanOrEqual(12)
-                        isLessThan(18)
+                        toBeGreaterThanOrEqual(12)
+                        toBeLessThan(18)
                         notToEqualOneOf(21)
                     }
             }.toThrow<AssertionError> {
