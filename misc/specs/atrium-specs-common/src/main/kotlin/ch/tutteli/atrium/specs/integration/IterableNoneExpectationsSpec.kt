@@ -21,11 +21,11 @@ abstract class IterableNoneExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        none.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
+        none.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { isGreaterThan(10.0) }
+        noneNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
     ) {})
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
@@ -40,7 +40,7 @@ abstract class IterableNoneExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).noneFun { isLessThan(1.0) }
+                    expect(fluentEmpty()).noneFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains("$featureArrow$hasElement: false")
                 }

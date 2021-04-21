@@ -55,7 +55,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
         context("empty collection") {
             it("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
@@ -70,7 +70,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
             }
             it("$isLessThanFun(1.0) and $isGreaterThanFun(2.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
+                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(2.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(2).values(
@@ -92,7 +92,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                        expect(oneToSeven()).containsEntriesFun({ toBeGreaterThan(1.0); toBeLessThan(2.0) })
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
@@ -110,14 +110,16 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) })
+                    expect(oneToSeven()).containsEntriesFun({ toBeGreaterThan(1.0); toBeLessThan(2.1) })
                 }
             }
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1) and another entry which is $isLessThanFun(2.0)") {
                 it("does not throw an exception") {
                     //finds twice the entry 1.0 but that is fine since we do not search for unique entries in this case
-                    expect(oneToSeven()).containsEntriesFun({ isGreaterThan(1.0).isLessThan(2.1) }, { isLessThan(2.0) })
+                    expect(oneToSeven()).containsEntriesFun(
+                        { toBeGreaterThan(1.0).toBeLessThan(2.1) },
+                        { toBeLessThan(2.0) })
                 }
             }
 
@@ -168,8 +170,8 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec(
                     it("$isLessThanFun(1.0) and $isGreaterThanDescr(7.0)") {
                         expect {
                             expect(oneToSevenNullable()).containsInAnyOrderNullableEntriesFun(
-                                { isLessThan(1.0) },
-                                { isGreaterThan(7.0) }
+                                { toBeLessThan(1.0) },
+                                { toBeGreaterThan(7.0) }
                             )
                         }.toThrow<AssertionError> {
                             message {

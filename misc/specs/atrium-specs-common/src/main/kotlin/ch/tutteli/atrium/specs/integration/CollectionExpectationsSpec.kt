@@ -22,7 +22,7 @@ abstract class CollectionExpectationsSpec(
         isEmpty.forSubjectLess(),
         isNotEmpty.forSubjectLess(),
         sizeFeature.forSubjectLess().adjustName { "$it feature" },
-        size.forSubjectLess { isGreaterThan(2) }
+        size.forSubjectLess { toBeGreaterThan(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
@@ -72,11 +72,11 @@ abstract class CollectionExpectationsSpec(
         context("list with two entries") {
             sizeFunctions.forEach { (name, sizeFun, _) ->
                 it("$name - is greater than 1 holds") {
-                    fluent.sizeFun { isGreaterThan(1) }
+                    fluent.sizeFun { toBeGreaterThan(1) }
                 }
                 it("$name - is less than 1 fails") {
                     expect {
-                        fluent.sizeFun { isLessThan(1) }
+                        fluent.sizeFun { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
                         messageContains("$sizeDescr: 2")
                     }

@@ -181,7 +181,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr'") {
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {
-                        assertWithDeCh_Fr(1).isLessThan(1)
+                        assertWithDeCh_Fr(1).toBeLessThan(1)
                     }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }
@@ -243,7 +243,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr' nor for 'it'") {
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {
-                        assertWithDeCh_FrCh_ItCh(1).isLessThan(1)
+                        assertWithDeCh_FrCh_ItCh(1).toBeLessThan(1)
                     }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }

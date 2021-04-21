@@ -32,7 +32,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
         keyFeature.forSubjectLess(),
         key.forSubjectLess { toEndWith("a") },
         valueFeature.forSubjectLess(),
-        value.forSubjectLess { isGreaterThan(2) }
+        value.forSubjectLess { toBeGreaterThan(2) }
     ) {})
     include(object : SubjectLessSpec<TNullable>(
         "$describePrefix[nullable] ",
@@ -88,11 +88,11 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
 
             valueFunctions.forEach { (name, valueFun, _) ->
                 it("$name - isGreaterThan(0) holds") {
-                    fluent.valueFun { isGreaterThan(0) }
+                    fluent.valueFun { toBeGreaterThan(0) }
                 }
                 it("$name - isGreaterThan(1) fails") {
                     expect {
-                        fluent.valueFun { isGreaterThan(1) }
+                        fluent.valueFun { toBeGreaterThan(1) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$valueName: 1",
@@ -124,7 +124,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
             }
             valueFunctions.forEach { (name, nullableValueFun, _) ->
                 it("$name - isGreaterThan(0) holds") {
-                    nullableFluent.nullableValueFun { notToEqualNull { isGreaterThan(0) } }
+                    nullableFluent.nullableValueFun { notToEqualNull { toBeGreaterThan(0) } }
                 }
                 it("$name - toBe(null) throws AssertionError") {
                     expect {

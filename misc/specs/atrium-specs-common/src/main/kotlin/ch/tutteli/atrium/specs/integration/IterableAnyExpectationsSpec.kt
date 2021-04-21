@@ -24,11 +24,11 @@ abstract class IterableAnyExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        any.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
+        any.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        anyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { isGreaterThan(1.0) }
+        anyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
     nonNullableCases(
@@ -40,7 +40,7 @@ abstract class IterableAnyExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).anyFun { isLessThan(1.0) }
+                    expect(fluentEmpty()).anyFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -58,7 +58,7 @@ abstract class IterableAnyExpectationsSpec(
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).anyFun { isGreaterThan(1.0); isLessThan(2.0) }
+                        expect(oneToSeven()).anyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
                     }.toThrow<AssertionError> {
                         messageContains(
                             "$rootBulletPoint$containsInAnyOrder: $separator",
@@ -74,7 +74,7 @@ abstract class IterableAnyExpectationsSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).anyFun { isGreaterThan(1.0); isLessThan(2.1) }
+                    expect(oneToSeven()).anyFun { toBeGreaterThan(1.0); toBeLessThan(2.1) }
                 }
             }
         }

@@ -24,7 +24,7 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
         describePrefix,
         keyWithValueAssertions.forSubjectLess(
             keyValue("a") { toEqual(1) },
-            arrayOf(keyValue("a") { isLessThanOrEqual(2) })
+            arrayOf(keyValue("a") { toBeLessThanOrEqual(2) })
         )
     ) {})
 
@@ -77,16 +77,16 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
 
                 it("$name - a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
                     fluent.containsKeyWithValueAssertionsFun(
-                        keyValue("a") { isLessThan(2) },
-                        arrayOf(keyValue("a") { isGreaterThan(0) })
+                        keyValue("a") { toBeLessThan(2) },
+                        arrayOf(keyValue("a") { toBeGreaterThan(0) })
                     )
                 }
 
                 it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                     expect {
                         fluent.containsKeyWithValueAssertionsFun(
-                            keyValue("a") { isLessThan(3) },
-                            arrayOf(keyValue("b") { isLessThan(2) }, keyValue("c") { isLessThan(1) })
+                            keyValue("a") { toBeLessThan(3) },
+                            arrayOf(keyValue("b") { toBeLessThan(2) }, keyValue("c") { toBeLessThan(1) })
                         )
                     }.toThrow<AssertionError> {
                         message {
@@ -143,8 +143,8 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                 expect {
                     nullableFluent.containsFun(
                         keyNullableValue("a", null), arrayOf(
-                            keyNullableValue("b") { isLessThan(2) },
-                            keyNullableValue("c") { isLessThan(1) }
+                            keyNullableValue("b") { toBeLessThan(2) },
+                            keyNullableValue("c") { toBeLessThan(1) }
                         )
                     )
                 }.toThrow<AssertionError> {

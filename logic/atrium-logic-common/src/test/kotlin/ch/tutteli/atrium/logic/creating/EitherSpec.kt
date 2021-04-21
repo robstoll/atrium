@@ -27,7 +27,7 @@ object EitherSpec : Spek({
         }
         it("isRight throws AssertionError containing explanation") {
             expect {
-                expect(either).isRight { isLessThan(2) }
+                expect(either).isRight { toBeLessThan(2) }
             }.toThrow<AssertionError> {
                 messageContains(
                     "value of Right: ❗❗ is not a Right",
@@ -51,7 +51,7 @@ object EitherSpec : Spek({
             }
         }
         it("isRight throws AssertionError containing explanation") {
-            expect(either).isRight { isLessThan(2) }
+            expect(either).isRight { toBeLessThan(2) }
         }
     }
 })

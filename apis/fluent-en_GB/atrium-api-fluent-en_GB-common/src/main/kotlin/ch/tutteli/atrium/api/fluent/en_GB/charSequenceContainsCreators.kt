@@ -224,7 +224,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  *
  * @since 0.9.0
  */
-//TODO rename to `matchFor` with 1.0.0
+//TODO rename to `matchFor` with 0.18.0
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex

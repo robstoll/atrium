@@ -25,7 +25,7 @@ abstract class IterableExpectationsSpec(
         describePrefix,
         hasNext.forSubjectLess(),
         minFeature.forSubjectLess(),
-        min.forSubjectLess { isGreaterThan(-100) },
+        min.forSubjectLess { toBeGreaterThan(-100) },
         maxFeature.forSubjectLess(),
         max.forSubjectLess { toEqual(1) }
     ) {})
@@ -80,11 +80,11 @@ abstract class IterableExpectationsSpec(
             val fluent = expect(listOf(4, 3) as Iterable<Int>)
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - is greater than 2 holds") {
-                    fluent.minFun { isGreaterThan(2) }
+                    fluent.minFun { toBeGreaterThan(2) }
                 }
                 it("$name - is less than 2 fails") {
                     expect {
-                        fluent.minFun { isLessThan(2) }
+                        fluent.minFun { toBeLessThan(2) }
                     }.toThrow<AssertionError> {
                         messageContains("min(): 3")
                     }

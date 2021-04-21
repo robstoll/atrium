@@ -23,14 +23,14 @@ class MostExamplesSpec : Spek({
 
     test("ex-single") {
         // two single assertions, only first evaluated
-        expect(4 + 6).isLessThan(5).isGreaterThan(10)
+        expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
     }
 
     test("ex-group") {
         // assertion group with two assertions, both evaluated
         expect(4 + 6) {
-            isLessThan(5)
-            isGreaterThan(10)
+            toBeLessThan(5)
+            toBeGreaterThan(10)
         }
     }
 
@@ -100,29 +100,29 @@ class MostExamplesSpec : Spek({
 
     test("ex-collection-short-2") {
         expect(listOf(1, 2, 2, 4)).contains(
-            { isLessThan(0) },
-            { isGreaterThan(2).isLessThan(4) }
+            { toBeLessThan(0) },
+            { toBeGreaterThan(2).toBeLessThan(4) }
         )
     }
 
     test("ex-collection-any") {
-        expect(listOf(1, 2, 3, 4)).any { isLessThan(0) }
+        expect(listOf(1, 2, 3, 4)).any { toBeLessThan(0) }
     }
     test("ex-collection-none") {
-        expect(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
+        expect(listOf(1, 2, 3, 4)).none { toBeGreaterThan(2) }
     }
     test("ex-collection-all") {
-        expect(listOf(1, 2, 3, 4)).all { isGreaterThan(2) }
+        expect(listOf(1, 2, 3, 4)).all { toBeGreaterThan(2) }
     }
 
     test("ex-collection-builder-1") {
-        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ toBeLessThan(3) }, { toBeLessThan(2) })
     }
     test("ex-collection-builder-2") {
         expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
     }
     test("ex-collection-builder-3") {
-        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ toBeLessThan(3) })
     }
     test("ex-collection-builder-4") {
         expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
@@ -137,8 +137,8 @@ class MostExamplesSpec : Spek({
     test("ex-map-2") {
         expect(mapOf("a" to 1, "b" to 2)).contains(
             KeyValue("c") { toEqual(2) },
-            KeyValue("a") { isGreaterThan(2) },
-            KeyValue("b") { isLessThan(2) }
+            KeyValue("a") { toBeGreaterThan(2) },
+            KeyValue("b") { toBeLessThan(2) }
         )
     }
 
@@ -148,8 +148,8 @@ class MostExamplesSpec : Spek({
     test("ex-map-only-2") {
         expect(mapOf("a" to 1, "b" to 2)).containsOnly(
             KeyValue("c") { toEqual(2) },
-            KeyValue("a") { isLessThan(2) },
-            KeyValue("b") { isLessThan(2) }
+            KeyValue("a") { toBeLessThan(2) },
+            KeyValue("b") { toBeLessThan(2) }
         )
     }
 
@@ -158,8 +158,8 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-builder-2") {
         expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries(
-            KeyValue("a") { isLessThan(2) },
-            KeyValue("b") { isLessThan(2) })
+            KeyValue("a") { toBeLessThan(2) },
+            KeyValue("b") { toBeLessThan(2) })
     }
 
     //snippet-SimplePerson-start
@@ -181,7 +181,7 @@ class MostExamplesSpec : Spek({
     test("ex-map-4") {
         expect(mapOf("a" to 1, "b" to 2)) {
             keys { all { toStartWith("a") } }
-            values { none { isGreaterThan(1) } }
+            values { none { toBeGreaterThan(1) } }
         }
     }
     test("ex-map-5") {
@@ -189,7 +189,7 @@ class MostExamplesSpec : Spek({
             { isKeyValue("a", 1) },
             {
                 key.toStartWith("a")
-                value.isGreaterThan(2)
+                value.toBeGreaterThan(2)
             }
         )
     }

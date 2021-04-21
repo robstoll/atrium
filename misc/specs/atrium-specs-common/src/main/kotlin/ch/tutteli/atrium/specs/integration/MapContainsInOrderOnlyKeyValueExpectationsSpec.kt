@@ -16,7 +16,7 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
         describePrefix,
         keyWithValueAssertions.forSubjectLess(
             keyValue("a") { toEqual(1) },
-            arrayOf(keyValue("a") { isLessThanOrEqual(2) })
+            arrayOf(keyValue("a") { toBeLessThanOrEqual(2) })
         )
     ) {})
 
@@ -34,8 +34,8 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
             {
                 keyWithValueAssertions(
                     this,
-                    keyValue("a") { isLessThan(2) },
-                    arrayOf(keyValue("b") { isLessThan(3) })
+                    keyValue("a") { toBeLessThan(2) },
+                    arrayOf(keyValue("b") { toBeLessThan(3) })
                 )
             },
             { keyWithValueAssertions(this, keyValue("a") { }, arrayOf(keyValue("b") { })) }
@@ -48,7 +48,7 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
             {
                 keyWithNullableValueAssertions(
                     this,
-                    keyNullableValue("a") { isLessThan(2) },
+                    keyNullableValue("a") { toBeLessThan(2) },
                     arrayOf(keyNullableValue("b", null))
                 )
             },
@@ -152,10 +152,10 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
                 it("$name - a to { isLessThan(1) }, b to { toBe(3) }, c to { isLessThan(4) } } throws AssertionError, reports a, b and c") {
                     expect {
                         expect(emptyMap).containsFun(
-                            keyValue("a") { isLessThan(1) },
+                            keyValue("a") { toBeLessThan(1) },
                             arrayOf(
                                 keyValue("b") { toEqual(3) },
-                                keyValue("c") { isLessThan(4) }
+                                keyValue("c") { toBeLessThan(4) }
                             ))
                     }.toThrow<AssertionError> {
                         message {
@@ -180,8 +180,8 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
                         keyValue("a") { toEqual(1) },
                         keyValue("b") { toEqual(2) }),
                     "a to { isGreaterThan(0) }, b to { isLessThan(3) }" to listOf(
-                        keyValue("a") { isGreaterThan(0) },
-                        keyValue("b") { isLessThan(3) })
+                        keyValue("a") { toBeGreaterThan(0) },
+                        keyValue("b") { toBeLessThan(3) })
                 ).forEach { (description, list) ->
                     it("$name - $description does not throw") {
                         expect(map).containsFun(list.first(), list.drop(1).toTypedArray())
@@ -225,8 +225,8 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
                 it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                     expect {
                         fluent.containsFun(
-                            keyValue("a") { isLessThan(3) },
-                            arrayOf(keyValue("b") { isLessThan(2) }, keyValue("c") { isLessThan(1) })
+                            keyValue("a") { toBeLessThan(3) },
+                            arrayOf(keyValue("b") { toBeLessThan(2) }, keyValue("c") { toBeLessThan(1) })
                         )
                     }.toThrow<AssertionError> {
                         message {
@@ -256,8 +256,8 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
                 "(a, null), null { isLessThan(2) }, b { isGreaterThan(1) }" to
                     listOf(
                         keyNullableValue("a", null),
-                        keyNullableValue(null) { isLessThan(2) },
-                        keyNullableValue("b") { isGreaterThan(1) }
+                        keyNullableValue(null) { toBeLessThan(2) },
+                        keyNullableValue("b") { toBeGreaterThan(1) }
                     )
             ).forEach { (description, keyValues) ->
                 it("$description does not throw") {
@@ -309,8 +309,8 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
                 expect {
                     nullableFluent.containsFun(
                         keyNullableValue("a", null), arrayOf(
-                            keyNullableValue("c") { isLessThan(1) },
-                            keyNullableValue("b") { isLessThan(2) }
+                            keyNullableValue("c") { toBeLessThan(1) },
+                            keyNullableValue("b") { toBeLessThan(2) }
                         )
                     )
                 }.toThrow<AssertionError> {

@@ -32,7 +32,7 @@ abstract class MapAsEntriesExpectationsSpec(
                         { isKeyValue("b", 2) },
                         {
                             key { toStartWith("a") }
-                            value.isGreaterThanOrEqual(1)
+                            value.toBeGreaterThanOrEqual(1)
                         }
                     )
                 }

@@ -51,9 +51,9 @@ class DataDrivenSpec : Spek({
 
         expect("calling myFun with ...") {
             mapOf(
-                1 to expectLambda<Char> { isLessThan('f') },
+                1 to expectLambda<Char> { toBeLessThan('f') },
                 2 to expectLambda { toEqual('c') },
-                3 to expectLambda { isGreaterThan('e') }
+                3 to expectLambda { toBeGreaterThan('e') }
             ).forEach { (arg, assertionCreator) ->
                 feature({ f(::myFun, arg) }, assertionCreator)
             }
