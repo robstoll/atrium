@@ -1,6 +1,6 @@
 package readme.examples
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBeGreaterThanOrEqual
+import ch.tutteli.atrium.api.fluent.en_GB.toBeGreaterThanOrEqualTo
 import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
@@ -31,7 +31,7 @@ object Between2Spec : Spek({
 
         fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
             _logic.appendAssertionsCreatedBy {
-                toBeGreaterThanOrEqual(lowerBoundInclusive)
+                toBeGreaterThanOrEqualTo(lowerBoundInclusive)
                 toBeLessThan(upperBoundExclusive)
             }
     }

@@ -3,8 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB.samples
 import ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo
 import ch.tutteli.atrium.api.infix.en_GB.toBeGreaterThan
 import ch.tutteli.atrium.api.infix.en_GB.toBeLessThan
-import ch.tutteli.atrium.api.infix.en_GB.toBeLessThanOrEqual
-import ch.tutteli.atrium.api.infix.en_GB.samples.fails
+import ch.tutteli.atrium.api.infix.en_GB.toBeLessThanOrEqualTo
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
@@ -20,12 +19,12 @@ class ComparableExpectationSamples {
     }
 
     @Test
-    fun toBeLessThanOrEqual() {
-        expect(1) toBeLessThanOrEqual 2
-        expect(2) toBeLessThanOrEqual 2
+    fun toBeLessThanOrEqualTo() {
+        expect(1) toBeLessThanOrEqualTo 2
+        expect(2) toBeLessThanOrEqualTo 2
 
         fails {
-            expect(2) toBeLessThanOrEqual 1
+            expect(2) toBeLessThanOrEqualTo 1
         }
     }
 
@@ -39,7 +38,7 @@ class ComparableExpectationSamples {
     }
 
     @Test
-    fun toBeGreaterThanOrEqual() {
+    fun toBeGreaterThanOrEqualTo() {
         expect(2) toBeEqualComparingTo 2
 
         fails {

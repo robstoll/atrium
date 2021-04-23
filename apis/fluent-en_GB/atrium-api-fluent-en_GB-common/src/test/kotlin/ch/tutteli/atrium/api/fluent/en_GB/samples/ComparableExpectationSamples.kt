@@ -16,12 +16,12 @@ class ComparableExpectationSamples {
     }
 
     @Test
-    fun toBeLessThanOrEqual() {
-        expect(1).toBeLessThanOrEqual(2)
-        expect(2).toBeLessThanOrEqual(2)
+    fun toBeLessThanOrEqualTo() {
+        expect(1).toBeLessThanOrEqualTo(2)
+        expect(2).toBeLessThanOrEqualTo(2)
 
         fails {
-            expect(2).toBeLessThanOrEqual(1)
+            expect(2).toBeLessThanOrEqualTo(1)
         }
     }
 
@@ -35,12 +35,12 @@ class ComparableExpectationSamples {
     }
 
     @Test
-    fun toBeGreaterThanOrEqual() {
-        expect(2).toBeGreaterThanOrEqual(1)
-        expect(2).toBeGreaterThanOrEqual(2)
+    fun toBeGreaterThanOrEqualTo() {
+        expect(2).toBeGreaterThanOrEqualTo(1)
+        expect(2).toBeGreaterThanOrEqualTo(2)
 
         fails {
-            expect(1).toBeGreaterThanOrEqual(2)
+            expect(1).toBeGreaterThanOrEqualTo(2)
         }
     }
 
