@@ -79,7 +79,7 @@ object OwnExpectationFunctionsSpec : Spek({
     //snippet-own-compose-4-start
     fun Expect<Person>.hasAdultChildren(): Expect<Person> =
         feature(Person::children) {
-            all { feature(Person::age).toBeGreaterThanOrEqual(18) }
+            all { feature(Person::age).toBeGreaterThanOrEqualTo(18) }
         }
 
     //snippet-own-compose-4-end

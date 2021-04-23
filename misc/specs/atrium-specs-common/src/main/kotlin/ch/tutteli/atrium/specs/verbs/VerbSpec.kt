@@ -160,7 +160,7 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
     }
     it("throws an AssertionError as soon as one assertion fails") {
         assert {
-            assertionVerb(1).toBeLessThanOrEqual(10).and.toBeLessThanOrEqual(0).and.toBeGreaterThanOrEqual(2)
+            assertionVerb(1).toBeLessThanOrEqualTo(10).and.toBeLessThanOrEqualTo(0).and.toBeGreaterThanOrEqualTo(2)
         }.toThrow<AssertionError> {
             message {
                 toContain(": 1")

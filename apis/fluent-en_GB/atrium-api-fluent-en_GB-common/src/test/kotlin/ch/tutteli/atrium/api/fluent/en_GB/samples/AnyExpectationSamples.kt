@@ -135,7 +135,7 @@ class AnyExpectationSamples {
         val n: Number = 16
         expect(n)
             .toBeAnInstanceOf<Int> { // subject is now of type Int
-                toBeGreaterThanOrEqual(15)
+                toBeGreaterThanOrEqualTo(15)
             } // subject remains type Int also after the block
             .toBeLessThan(20)
 
@@ -212,7 +212,7 @@ class AnyExpectationSamples {
 
         expect(customers).all {
             because("the legal age of maturity in Switzerland is 18") {
-                feature { f(it::age) }.toBeGreaterThanOrEqual(18)
+                feature { f(it::age) }.toBeGreaterThanOrEqualTo(18)
             }
         }
     }

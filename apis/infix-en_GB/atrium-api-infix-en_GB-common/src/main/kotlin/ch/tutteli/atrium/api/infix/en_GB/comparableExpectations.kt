@@ -22,11 +22,11 @@ infix fun <T : Comparable<T>> Expect<T>.toBeLessThan(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ComparableExpectationSamples.toBeLessThanOrEqual
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ComparableExpectationSamples.toBeLessThanOrEqualTo
  *
  * @since 0.17.0
  */
-infix fun <T : Comparable<T>> Expect<T>.toBeLessThanOrEqual(expected: T): Expect<T> =
+infix fun <T : Comparable<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
 
 /**
@@ -48,11 +48,11 @@ infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThan(expected: T): Expect<T> 
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ComparableExpectationSamples.toBeGreaterThanOrEqual
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ComparableExpectationSamples.toBeGreaterThanOrEqualTo
  *
  * @since 0.17.0
  */
-infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThanOrEqual(expected: T): Expect<T> =
+infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }
 
 /**

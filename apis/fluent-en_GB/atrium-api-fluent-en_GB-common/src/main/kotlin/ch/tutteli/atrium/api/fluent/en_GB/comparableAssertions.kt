@@ -24,8 +24,8 @@ fun <T : Comparable<T>> Expect<T>.isLessThan(expected: T): Expect<T> =
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isLessThanOrEqual
  */
 @Deprecated(
-    "Use toBeLessThanOrEqual; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeLessThanOrEqual<T>(expected)")
+    "Use toBeLessThanOrEqualTo; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeLessThanOrEqualTo<T>(expected)")
 )
 fun <T : Comparable<T>> Expect<T>.isLessThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isLessThanOrEqual(expected) }
@@ -54,8 +54,8 @@ fun <T : Comparable<T>> Expect<T>.isGreaterThan(expected: T): Expect<T> =
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.ComparableAssertionSamples.isGreaterThanOrEqual
  */
 @Deprecated(
-    "Use toBeGreaterThanOrEqual; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeGreaterThanOrEqual<T>(expected)")
+    "Use toBeGreaterThanOrEqualTo; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeGreaterThanOrEqualTo<T>(expected)")
 )
 fun <T : Comparable<T>> Expect<T>.isGreaterThanOrEqual(expected: T): Expect<T> =
     _logicAppend { isGreaterThanOrEqual(expected) }

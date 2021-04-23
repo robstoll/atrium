@@ -17,7 +17,7 @@ abstract class MapContainsInAnyOrderOnlyKeyValueExpectationsSpec(
         describePrefix,
         keyWithValueAssertions.forSubjectLess(
             keyValue("a") { toEqual(1) },
-            arrayOf(keyValue("a") { toBeLessThanOrEqual(2) })
+            arrayOf(keyValue("a") { toBeLessThanOrEqualTo(2) })
         )
     ) {})
 

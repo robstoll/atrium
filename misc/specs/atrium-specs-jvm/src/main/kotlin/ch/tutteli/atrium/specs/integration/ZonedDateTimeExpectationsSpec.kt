@@ -28,9 +28,9 @@ abstract class ZonedDateTimeExpectationsSpec(
         monthFeature.forSubjectLess().adjustName { "$it feature" },
         month.forSubjectLess { toBeLessThan(12) },
         dayFeature.forSubjectLess().adjustName { "$it feature" },
-        day.forSubjectLess { toBeLessThanOrEqual(20) },
+        day.forSubjectLess { toBeLessThanOrEqualTo(20) },
         dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
-        dayOfWeek.forSubjectLess { toBeLessThanOrEqual(DayOfWeek.SUNDAY) }
+        dayOfWeek.forSubjectLess { toBeLessThanOrEqualTo(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<ZonedDateTime>(

@@ -801,7 +801,7 @@ abstract class AnyExpectationsSpec(
             expect {
                 expect(21)
                     .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {
-                        toBeGreaterThanOrEqual(12)
+                        toBeGreaterThanOrEqualTo(12)
                         toBeLessThan(18)
                         notToEqualOneOf(21)
                     }
