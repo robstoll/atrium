@@ -9,7 +9,10 @@ import ch.tutteli.kbox.glue
 import kotlin.reflect.KClass
 
 /**
- * Expects that the subject of `this` expectation is equal to [expected].
+ * Expects that the subject of `this` expectation is equal to [expected]
+ * where the comparison is carried out based on [Any.equals].
+ *
+ * Use [toBeEqualComparingTo] if you want a comparison based on [Comparable.compareTo].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
