@@ -12,18 +12,18 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.math.absoluteValue
 
 abstract class FloatingPointWithErrorToleranceExpectationsSpec(
-    toBeWithErrorToleranceFloat: Fun2<Float, Float, Float>,
-    toBeWithErrorToleranceDouble: Fun2<Double, Double, Double>,
+    toEqualWithErrorToleranceFloat: Fun2<Float, Float, Float>,
+    toEqualWithErrorToleranceDouble: Fun2<Double, Double, Double>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Float>(
         "$describePrefix[Float] ",
-        toBeWithErrorToleranceFloat.forSubjectLess(1.0f, 0.01f)
+        toEqualWithErrorToleranceFloat.forSubjectLess(1.0f, 0.01f)
     ) {})
     include(object : SubjectLessSpec<Double>(
         "$describePrefix[Double] ",
-        toBeWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)
+        toEqualWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)
     ) {})
 
     fun <T : Number> Root.describeFun(
@@ -34,13 +34,13 @@ abstract class FloatingPointWithErrorToleranceExpectationsSpec(
     ) = checkFloatingPoint(describePrefix, pair, withFailureNotice, absDiff, testData)
 
     //@formatter:off
-    describeFun(toBeWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
+    describeFun(toEqualWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
         TestData(0.001f, 0.001f, listOf(0.002f, 0.0f, -0.0f, 0.00001f), listOf(0.0021f, -0.0000001f)),
         TestData(9.999f, 0.001f, listOf(9.998f, 9.9989f, 9.9988f), listOf(1.1f, 1.001f, 1.001f, 9.997f, /* due to precision */ 10.0f)),
         //should give out scientific notation
         TestData(0.000_000_01f, 0.000_000_002f, listOf(0.000_000_011f, 0.000_000_009f), listOf(0.000_000_013f, 0.000_000_007f, /* due to precision */ 0.000_000_012f, 0.000_000_008f))
     ))
-    describeFun(toBeWithErrorToleranceDouble, true, { a, b -> (a - b).absoluteValue }, listOf(
+    describeFun(toEqualWithErrorToleranceDouble, true, { a, b -> (a - b).absoluteValue }, listOf(
         TestData(1.0, 0.01, listOf(1.009), listOf(0.98, 1.02, 1.011, /* due to precision */ 1.01, 0.99)),
         TestData(0.001, 0.001, listOf(0.002, 0.0, -0.0, 0.00001), listOf(0.0021, -0.0000001)),
         TestData(9.99999, 0.00001, listOf(10.0, 9.99998), listOf(1.1, 1.001, 1.001, 9.99997)),
@@ -60,22 +60,22 @@ fun <T : Number> Root.checkFloatingPoint(
     absDiff: (T, T) -> T,
     testData: List<FloatingPointWithErrorToleranceExpectationsSpec.TestData<T>>
 ) {
-    val (name, toBeWithErrorTolerance) = pair
+    val (name, toEqualWithErrorTolerance) = pair
 
     describe("$describePrefix $name") {
         testData.forEach { (subject, tolerance, holding, failing) ->
             context("tolerance is $tolerance and subject is $subject ...") {
                 it("... compare to $subject does not throw") {
-                    expect(subject).toBeWithErrorTolerance(subject, tolerance)
+                    expect(subject).toEqualWithErrorTolerance(subject, tolerance)
                 }
 
                 holding.forEach { num ->
                     it("... compare to $num does not throw") {
-                        expect(subject).toBeWithErrorTolerance(num, tolerance)
+                        expect(subject).toEqualWithErrorTolerance(num, tolerance)
                     }
                 }
 
-                val toBeInclErrorTolerance =
+                val toEqualInclErrorToleranceDescr =
                     String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
                 val failureNotice = String.format(
                     DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(),
@@ -84,7 +84,7 @@ fun <T : Number> Root.checkFloatingPoint(
                 failing.forEach { num ->
                     it("... compare to $num throws AssertionError") {
                         expect {
-                            expect(subject).toBeWithErrorTolerance(num, tolerance)
+                            expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
                             message {
                                 @Suppress("DEPRECATION")
@@ -97,7 +97,7 @@ fun <T : Number> Root.checkFloatingPoint(
                                 )
                                 toContain(
                                     subject,
-                                    "$toBeInclErrorTolerance: $num",
+                                    "$toEqualInclErrorToleranceDescr: $num",
                                     exactCheck
                                 )
                                 if (withFailureNotice) {
