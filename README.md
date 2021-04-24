@@ -1830,7 +1830,7 @@ Let us have a look at another example.
 <exs-add-info-2>
 
 ```kotlin
-expect(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
+expect(9.99f).toEqualWithErrorTolerance(10.0f, 0.01f)
 ```
 </exs-add-info-2>
 

@@ -76,7 +76,7 @@ fun <T : Number> Root.checkFloatingPoint(
                 }
 
                 val toEqualInclErrorToleranceDescr =
-                    String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
+                    String.format(DescriptionFloatingPointAssertion.TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
                 val failureNotice = String.format(
                     DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(),
                     subject::class.fullName

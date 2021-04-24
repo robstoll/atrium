@@ -84,5 +84,5 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
             .withAssertions(explanatoryAssertionCreator(subject))
             .build()
     }
-    .withDescriptionAndRepresentation(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)
+    .withDescriptionAndRepresentation(TranslatableWithArgs(TO_EQUAL_WITH_ERROR_TOLERANCE, tolerance), expected)
     .build()
