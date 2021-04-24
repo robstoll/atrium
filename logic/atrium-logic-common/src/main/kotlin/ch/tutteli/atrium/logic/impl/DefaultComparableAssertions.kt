@@ -18,18 +18,31 @@ class DefaultComparableAssertions : ComparableAssertions {
         expected: T2
     ): Assertion = container.createDescriptiveAssertion(IS_LESS_THAN_OR_EQUAL, expected) { it <= expected }
 
-    override fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(
+    override fun <T1 : Comparable<T2>, T2 : Any?> isNotGreaterThan(
         container: AssertionContainer<T1>,
         expected: T2
-    ): Assertion = container.createDescriptiveAssertion(IS_GREATER_THAN, expected) { it > expected }
+    ): Assertion = container.createDescriptiveAssertion(IS_NOT_GREATER_THAN, expected) { it <= expected }
+
+    override fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
+        container: AssertionContainer<T1>,
+        expected: T2
+    ): Assertion = container.createDescriptiveAssertion(IS_EQUAL, expected) { it.compareTo(expected) == 0 }
+
 
     override fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThanOrEqual(
         container: AssertionContainer<T1>,
         expected: T2
     ): Assertion = container.createDescriptiveAssertion(IS_GREATER_THAN_OR_EQUAL, expected) { it >= expected }
 
-    override fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
+    override fun <T1 : Comparable<T2>, T2 : Any?> isNotLessThan(
         container: AssertionContainer<T1>,
         expected: T2
-    ): Assertion = container.createDescriptiveAssertion(IS_EQUAL, expected) { it.compareTo(expected) == 0 }
+    ): Assertion = container.createDescriptiveAssertion(IS_NOT_LESS_THAN, expected) { it >= expected }
+
+
+    override fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(
+        container: AssertionContainer<T1>,
+        expected: T2
+    ): Assertion = container.createDescriptiveAssertion(IS_GREATER_THAN, expected) { it > expected }
+
 }

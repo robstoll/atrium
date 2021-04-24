@@ -16,11 +16,15 @@ fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isLessThan(expected:
 
 fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isLessThanOrEqual(expected: T2): Assertion = impl.isLessThanOrEqual(this, expected)
 
-fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isGreaterThan(expected: T2): Assertion = impl.isGreaterThan(this, expected)
+fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isNotGreaterThan(expected: T2): Assertion = impl.isNotGreaterThan(this, expected)
+
+fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isEqualComparingTo(expected: T2): Assertion = impl.isEqualComparingTo(this, expected)
 
 fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isGreaterThanOrEqual(expected: T2): Assertion = impl.isGreaterThanOrEqual(this, expected)
 
-fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isEqualComparingTo(expected: T2): Assertion = impl.isEqualComparingTo(this, expected)
+fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isNotLessThan(expected: T2): Assertion = impl.isNotLessThan(this, expected)
+
+fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isGreaterThan(expected: T2): Assertion = impl.isGreaterThan(this, expected)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

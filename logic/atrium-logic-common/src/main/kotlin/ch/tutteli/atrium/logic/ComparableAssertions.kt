@@ -11,15 +11,19 @@ interface ComparableAssertions {
 
     fun <T1 : Comparable<T2>, T2 : Any?> isLessThanOrEqual(container: AssertionContainer<T1>, expected: T2): Assertion
 
-    fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(container: AssertionContainer<T1>, expected: T2): Assertion
+    fun <T1 : Comparable<T2>, T2 : Any?> isNotGreaterThan(container: AssertionContainer<T1>, expected: T2): Assertion
+
+    fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
+        container: AssertionContainer<T1>,
+        expected: T2
+    ): Assertion
 
     fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThanOrEqual(
         container: AssertionContainer<T1>,
         expected: T2
     ): Assertion
 
-    fun <T1 : Comparable<T2>, T2 : Any?> isEqualComparingTo(
-        container: AssertionContainer<T1>,
-        expected: T2
-    ): Assertion
+    fun <T1 : Comparable<T2>, T2 : Any?> isNotLessThan(container: AssertionContainer<T1>, expected: T2): Assertion
+
+    fun <T1 : Comparable<T2>, T2 : Any?> isGreaterThan(container: AssertionContainer<T1>, expected: T2): Assertion
 }
