@@ -23,6 +23,7 @@ import kotlin.jvm.JvmName
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceFloat
  */
+@Deprecated("Use toEqualWithErrorTolerance; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqualWithErrorTolerance<T>(expected, tolerance)"))
 fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Expect<Float> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
 
@@ -40,5 +41,6 @@ fun Expect<Float>.toBeWithErrorTolerance(expected: Float, tolerance: Float): Exp
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.FloatingPointAssertionSamples.toBeWithErrorToleranceDouble
  */
+@Deprecated("Use toEqualWithErrorTolerance; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqualWithErrorTolerance<T>(expected, tolerance)"))
 fun Expect<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double): Expect<Double> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

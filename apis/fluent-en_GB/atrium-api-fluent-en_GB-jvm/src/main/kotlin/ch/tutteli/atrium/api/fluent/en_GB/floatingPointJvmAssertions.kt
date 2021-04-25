@@ -23,5 +23,8 @@ import java.math.BigDecimal
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Suppress("DeprecatedCallableAddReplaceWith")
+//TODO remove with 0.18.0 - search also for other "will be removed.*0.18.0"
+@Deprecated("Will be removed without replacement with 0.18.0 - there shouldn't be a need for this function as BigDecimal takes care of the problems float/double have.")
 fun <T : BigDecimal> Expect<T>.toBeWithErrorTolerance(expected: BigDecimal, tolerance: BigDecimal): Expect<T> =
     _logicAppend { toBeWithErrorTolerance(expected, tolerance) }

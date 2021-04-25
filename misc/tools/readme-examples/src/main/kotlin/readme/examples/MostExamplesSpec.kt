@@ -232,7 +232,7 @@ class MostExamplesSpec : Spek({
         expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
     }
     test("exs-add-info-2") {
-        expect(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
+        expect(9.99f).toEqualWithErrorTolerance(10.0f, 0.01f)
     }
     test("ex-add-info-3") {
         expect {
