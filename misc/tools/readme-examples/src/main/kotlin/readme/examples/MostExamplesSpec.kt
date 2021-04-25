@@ -26,12 +26,39 @@ class MostExamplesSpec : Spek({
         expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
     }
 
+    fun codeSingleNotExecutedHenceDoesNotFail() {
+        //snippet-code-single-start
+        expect(4 + 6).toBeLessThan(5)
+        expect(4 + 6).toBeGreaterThan(10)
+        //snippet-code-single-end
+    }
+
+    test("code-single-explained"){
+        //snippet-code-single-insert
+    }
+
     test("ex-group") {
         // assertion group with two assertions, both evaluated
         expect(4 + 6) {
             toBeLessThan(5)
             toBeGreaterThan(10)
         }
+    }
+
+    fun codeAndNotExecutedHenceDoesNotFail() {
+        //snippet-code-and-start
+        expect(5) {
+            // ...
+        } and { // if the previous block fails, then this one is not evaluated
+            // ...
+        }
+        //snippet-code-and-end
+    }
+
+    test("code-and"){
+        expect(5).toBeGreaterThan(2).and.toBeLessThan(10)
+
+        //snippet-code-and-insert
     }
 
     test("ex-toThrow1") {
