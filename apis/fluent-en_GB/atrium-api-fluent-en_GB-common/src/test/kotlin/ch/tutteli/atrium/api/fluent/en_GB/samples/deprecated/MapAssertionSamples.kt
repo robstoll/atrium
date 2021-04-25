@@ -6,6 +6,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.samples.fails
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 class MapAssertionSamples {
@@ -158,9 +159,11 @@ class MapAssertionSamples {
 
     @Test
     fun keysFeature() {
+        // subject inside this block is of type Int
         expect(mapOf(1 to "a"))
             .keys   //subject is of type Set<Int> (actually <1>)
-            .contains { // subject inside this block is of type Int
+            .toContain {
+                // subject inside this block is of type Int
                 toBe(1)
             }
 
@@ -190,16 +193,22 @@ class MapAssertionSamples {
 
     @Test
     fun valuesFeature() {
+        // subject inside this block is of type String
         expect(mapOf(1 to "a"))
             .values //subject is of type Collection<String> (actually <"a">)
-            .contains { // subject inside this block is of type String
+            .toContain {
+                // subject inside this block is of type String
                 toBe("a")
             }
 
         fails {
-            expect(mapOf(1 to "a"))
+            // subject inside this block is of type String
+            expect(   // fails because "a" is not equal to "b"
+                mapOf(1 to "a")
+            )
                 .values //subject is of type Collection<String> (actually <"a">)
-                .contains { // subject inside this block is of type String
+                .toContain {
+                    // subject inside this block is of type String
                     toBe("b")   // fails because "a" is not equal to "b"
                 }
         }
@@ -222,14 +231,22 @@ class MapAssertionSamples {
 
     @Test
     fun asEntriesFeature() {
+        // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
         expect(mapOf(1 to "a")).asEntries()
-            .contains {  // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+            .toContain {
+                // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
                 toBe(mapOf(1 to "a").entries.first())
             }
 
         fails {
-            expect(mapOf(1 to "a")).asEntries()
-                .contains {  // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+            // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+            expect(
+                mapOf(
+                    1 to "a"
+                )   // fails because <1,"a"> is not equal to <1,"b">
+            ).asEntries()
+                .toContain {
+                    // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
                     toBe(mapOf(1 to "b").entries.first())   // fails because <1,"a"> is not equal to <1,"b">
                 }
         }

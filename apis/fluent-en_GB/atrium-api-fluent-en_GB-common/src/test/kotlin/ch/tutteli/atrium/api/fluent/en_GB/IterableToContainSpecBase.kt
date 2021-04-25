@@ -10,9 +10,9 @@ import kotlin.reflect.KFunction4
 import kotlin.reflect.KProperty
 
 abstract class IterableToContainSpecBase {
-    private val toContainProp: KProperty<*> = Expect<Iterable<*>>::contains
+    private val toContainProp: KProperty<*> = Expect<Iterable<*>>::toContain
     protected val toContain = toContainProp.name
-    private val notToContainProp: KProperty<*> = Expect<Iterable<*>>::containsNot
+    private val notToContainProp: KProperty<*> = Expect<Iterable<*>>::notToContain
     protected val notToContain = notToContainProp.name
     protected val value = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::value.name
     protected val values = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::values.name

@@ -10,6 +10,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import kotlin.reflect.KFunction2
 
 internal object StaticNames {
+    //TODO rename with 0.18.0 notToContain
     val containsNotValuesFun = run {
         val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerStep<Double, Iterable<Double>, NotSearchBehaviour>> =
             Expect<Iterable<Double>>::containsNot

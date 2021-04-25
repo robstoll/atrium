@@ -17,10 +17,10 @@ object IoResultSpec : Spek({
 
         it("creates a Success if the block completes normally") {
             val result = testPath.runCatchingIo { "testString" }
-            expect(result).toBeAnInstanceOf(fun Expect<Success<String>>.() {
+            expect(result).toBeAnInstanceOf<Success<String>> {
                 feature(IoResult<*>::path).toEqual(testPath)
                 feature(Success<*>::value).toEqual("testString")
-            })
+            }
         }
 
         it("creates a Failure if the block thrown an IOException") {

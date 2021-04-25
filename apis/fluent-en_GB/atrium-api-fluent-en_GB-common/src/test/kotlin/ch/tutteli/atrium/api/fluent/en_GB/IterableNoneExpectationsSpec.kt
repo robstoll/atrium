@@ -12,27 +12,27 @@ class IterableNoneExpectationsSpec : Spek({
     include(BuilderSpec)
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::none),
-        fun1(Expect<Iterable<Double?>>::none).withNullableSuffix(),
+        fun1(Expect<Iterable<Double>>::toHaveNextAndNone),
+        fun1(Expect<Iterable<Double?>>::toHaveNextAndNone).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
     // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for contains and none
     // that's fine and we can simply remove this test here
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
-        functionDescription to C::containsNotFun,
-        (functionDescription to C::containsNotNullableFun).withNullableSuffix(),
+        functionDescription to C::notToContainFun,
+        (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
     companion object : IterableToContainSpecBase() {
         val functionDescription = "$notToContain.$entry"
 
-        private fun containsNotFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect.containsNot.entry(a)
+        private fun notToContainFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            expect.notToContain.entry(a)
 
-        private fun containsNotNullableFun(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            expect.containsNot.entry(a)
+        private fun notToContainNullableFun(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            expect.notToContain.entry(a)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -42,9 +42,9 @@ class IterableNoneExpectationsSpec : Spek({
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.none{}
-        nList = nList.none{}
-        subList = subList.none{}
-        star = star.none{}
+        list = list.toHaveNextAndNone {}
+        nList = nList.toHaveNextAndNone {}
+        subList = subList.toHaveNextAndNone {}
+        star = star.toHaveNextAndNone {}
     }
 }

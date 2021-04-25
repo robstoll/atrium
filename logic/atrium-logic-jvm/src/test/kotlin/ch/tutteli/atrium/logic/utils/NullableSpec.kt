@@ -73,22 +73,22 @@ object NullableSpec : Spek({
     describeFun(nullableContainerFun.name) {
         context("(Mutable)List<String!>!") {
             it("can be applied to it") {
-                expect(nullableContainer(testee.strings)).contains(null)
+                expect(nullableContainer(testee.strings)).toContain(null)
             }
             it("can be combined with ${nullableFun.name}") {
                 expect(nullable(nullableContainer(testee.strings))).notToEqualNull {
-                    contains(null, "hello")
+                    toContain(null, "hello")
                 }
             }
         }
 
         context("Array<out String!>!") {
             it("can be applied to it") {
-                expect(nullableContainer(testee.stringArray)).asList().contains(null)
+                expect(nullableContainer(testee.stringArray)).asList().toContain(null)
             }
             it("can be combined with ${nullableFun.name}") {
                 expect(nullable(nullableContainer(testee.stringArray))).notToEqualNull {
-                    asList().contains(null, "hello")
+                    asList().toContain(null, "hello")
                 }
             }
         }

@@ -57,8 +57,8 @@ abstract class MapExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        keys.forAssertionCreatorSpec("$toBeDescr: a") { containsExactly({ toEqual("a") }, { toEqual("b") }) },
-        values.forAssertionCreatorSpec("$toBeDescr: 1") { containsExactly({ toEqual(1) }, { toEqual(2) }) },
+        keys.forAssertionCreatorSpec("$toBeDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
+        values.forAssertionCreatorSpec("$toBeDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
         getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toEqual(2) }
     ) {})
 

@@ -3,6 +3,7 @@ package readme.examples
 import ch.tutteli.atrium.api.fluent.en_GB.asIterable
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import org.spekframework.spek2.Spek
 import readme.examples.utils.expect
 
@@ -22,9 +23,9 @@ import readme.examples.utils.expect
  */
 object FaqSpec : Spek({
     test("code-faq-1") {
-        expect(sequenceOf(1, 2, 3)).asIterable().contains(2)
+        expect(sequenceOf(1, 2, 3)).asIterable().toContain(2)
     }
     test("code-faq-2") {
-        expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.contains(2)
+        expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.toContain(2)
     }
 })

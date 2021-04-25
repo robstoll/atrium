@@ -79,7 +79,9 @@ object OwnExpectationFunctionsSpec : Spek({
     //snippet-own-compose-4-start
     fun Expect<Person>.hasAdultChildren(): Expect<Person> =
         feature(Person::children) {
-            all { feature(Person::age).toBeGreaterThanOrEqualTo(18) }
+            toHaveNextAndAll {
+                feature(Person::age).toBeGreaterThanOrEqualTo(18)
+            }
         }
 
     //snippet-own-compose-4-end
@@ -99,13 +101,19 @@ object OwnExpectationFunctionsSpec : Spek({
     test("ex-own-compose-5"){
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
             .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
-                none { feature { f(it::firstName) }.toStartWith("Ro") }
-                all { feature { f(it::lastName) }.toEqual("Whitley") }
+                toHaveNextAndNone {
+                    feature { f(it::firstName) }.toStartWith("Ro")
+                }
+                toHaveNextAndAll {
+                    feature { f(it::lastName) }.toEqual("Whitley")
+                }
             } // subject is still Person here
             .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
                     .toHaveSize(2)
-                    .any { feature { f(it::age) }.toBeGreaterThan(18) }
+                    .toHaveNextAndAny {
+                        feature { f(it::age) }.toBeGreaterThan(18)
+                    }
             } // subject is still Person here due to the `apply`
             .children // using the val -> subsequent assertions are about children and fail fast
             .toHaveSize(2)
@@ -118,7 +126,7 @@ object OwnExpectationFunctionsSpec : Spek({
         person: Person, vararg otherPersons: Person
     ): Expect<T> {
         val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
-        return contains.inAnyOrder.only.values(pair, *otherPairs)
+        return toContain.inAnyOrder.only.values(pair, *otherPairs)
     }
     //snippet-own-compose-6-end
 
@@ -135,7 +143,7 @@ object OwnExpectationFunctionsSpec : Spek({
                 first.toStartWith(it.firstName[0].toString())
                 second.toStartWith(it.lastName[0].toString())
             }
-            return contains.inOrder.only.entries(first, *others)
+            return toContain.inOrder.only.entries(first, *others)
         }
     }
 })

@@ -10,7 +10,7 @@ object IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableEx
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::max),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
-    fun0(Expect<Iterable<Int>>::containsNoDuplicates)
+    fun0(Expect<Iterable<Int>>::notToContainDuplicates)
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -24,7 +24,7 @@ object IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableEx
         a1 = a1.notToContainDuplicates()
 
         a1b = a1b.toHaveNext()
-        a1b = a1b.hasNotNext()
+        a1b = a1b.notToHaveNext()
         a1b = a1b.notToContainDuplicates()
 
         star = star.toHaveNext()

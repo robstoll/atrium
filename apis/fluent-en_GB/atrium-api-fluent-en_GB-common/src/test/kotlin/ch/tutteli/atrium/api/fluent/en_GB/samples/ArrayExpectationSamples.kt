@@ -26,8 +26,8 @@ class ArrayExpectationSamples {
 
             expect(arrayOf("A", "B"))
                 .asList {
-                    contains("C")  // fails
-                    contains("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain("C")  // fails
+                    toContain("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -45,8 +45,8 @@ class ArrayExpectationSamples {
 
             expect<Array<out String>>(arrayOf("A", "B"))
                 .asList {
-                    contains("C")  // fails
-                    contains("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain("C")  // fails
+                    toContain("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -71,8 +71,8 @@ class ArrayExpectationSamples {
 
             expect(byteArrayOf(1, 2, 3))
                 .asList {
-                    contains(98)  // fails
-                    contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98)  // fails
+                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -97,8 +97,8 @@ class ArrayExpectationSamples {
 
             expect(charArrayOf('A', 'B', 'C'))
                 .asList {
-                    contains('X')  // fails
-                    contains('Y')  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain('X')  // fails
+                    toContain('Y')  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -123,8 +123,8 @@ class ArrayExpectationSamples {
 
             expect(shortArrayOf(1, 2, 3))
                 .asList {
-                    contains(98)  // fails
-                    contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98)  // fails
+                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -149,8 +149,8 @@ class ArrayExpectationSamples {
 
             expect(intArrayOf(1, 2, 3))
                 .asList {
-                    contains(98)  // fails
-                    contains(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98)  // fails
+                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -175,8 +175,8 @@ class ArrayExpectationSamples {
 
             expect(longArrayOf(1L, 2L, 3L))
                 .asList {
-                    contains(98L)  // fails
-                    contains(99L)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98L)  // fails
+                    toContain(99L)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -201,8 +201,8 @@ class ArrayExpectationSamples {
 
             expect(floatArrayOf(1f, 2f, 3f))
                 .asList {
-                    contains(98f)  // fails
-                    contains(99f)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98f)  // fails
+                    toContain(99f)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -227,8 +227,8 @@ class ArrayExpectationSamples {
 
             expect(doubleArrayOf(1.1, 2.2, 3.3))
                 .asList {
-                    contains(98.1)  // fails
-                    contains(99.2)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(98.1)  // fails
+                    toContain(99.2)  // still evaluated, use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -254,10 +254,10 @@ class ArrayExpectationSamples {
             expect(booleanArrayOf(true, true))
                 .asList {
                     // fails
-                    contains(false)
+                    toContain(false)
 
                     // still evaluated, use `.asList().` if you want a fail fast behaviour
-                    contains.inAnyOrder.atLeast(3).value(true)
+                    toContain.inAnyOrder.atLeast(3).value(true)
                 }
         }
     }

@@ -2,6 +2,7 @@ package readme.examples
 
 import readme.examples.utils.expect
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
 
@@ -33,7 +34,7 @@ class MostExamplesSpec : Spek({
         //snippet-code-single-end
     }
 
-    test("code-single-explained"){
+    test("code-single-explained") {
         //snippet-code-single-insert
     }
 
@@ -55,7 +56,7 @@ class MostExamplesSpec : Spek({
         //snippet-code-and-end
     }
 
-    test("code-and"){
+    test("code-and") {
         expect(5).toBeGreaterThan(2).and.toBeLessThan(10)
 
         //snippet-code-and-insert
@@ -122,40 +123,46 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-collection-short-1") {
-        expect(listOf(1, 2, 2, 4)).contains(2, 3)
+        expect(listOf(1, 2, 2, 4)).toContain(2, 3)
     }
 
     test("ex-collection-short-2") {
-        expect(listOf(1, 2, 2, 4)).contains(
+        expect(listOf(1, 2, 2, 4)).toContain(
             { toBeLessThan(0) },
             { toBeGreaterThan(2).toBeLessThan(4) }
         )
     }
 
     test("ex-collection-any") {
-        expect(listOf(1, 2, 3, 4)).any { toBeLessThan(0) }
+        expect(listOf(1, 2, 3, 4)).toHaveNextAndAny {
+            toBeLessThan(0)
+        }
     }
     test("ex-collection-none") {
-        expect(listOf(1, 2, 3, 4)).none { toBeGreaterThan(2) }
+        expect(listOf(1, 2, 3, 4)).toHaveNextAndNone {
+            toBeGreaterThan(2)
+        }
     }
     test("ex-collection-all") {
-        expect(listOf(1, 2, 3, 4)).all { toBeGreaterThan(2) }
+        expect(listOf(1, 2, 3, 4)).toHaveNextAndAll {
+            toBeGreaterThan(2)
+        }
     }
 
     test("ex-collection-builder-1") {
-        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ toBeLessThan(3) }, { toBeLessThan(2) })
+        expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, { toBeLessThan(2) })
     }
     test("ex-collection-builder-2") {
-        expect(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
+        expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
     }
     test("ex-collection-builder-3") {
-        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ toBeLessThan(3) })
+        expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.atLeast(1).butAtMost(2).entries({ toBeLessThan(3) })
     }
     test("ex-collection-builder-4") {
-        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
+        expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(1, 2, 3, 4)
     }
     test("ex-collection-builder-5") {
-        expect(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
+        expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(4, 3, 2, 2, 1)
     }
 
     test("ex-map-1") {
@@ -207,12 +214,12 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-4") {
         expect(mapOf("a" to 1, "b" to 2)) {
-            keys { all { toStartWith("a") } }
-            values { none { toBeGreaterThan(1) } }
+            keys { toHaveNextAndAll { toStartWith("a") } }
+            values { toHaveNextAndNone { toBeGreaterThan(1) } }
         }
     }
     test("ex-map-5") {
-        expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
+        expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entries(
             { isKeyValue("a", 1) },
             {
                 key.toStartWith("a")
@@ -229,7 +236,7 @@ class MostExamplesSpec : Spek({
     }
 
     test("exs-add-info-1") {
-        expect(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
+        expect(listOf(1, 2, 3)).toContain.inOrder.only.values(1, 3)
     }
     test("exs-add-info-2") {
         expect(9.99f).toEqualWithErrorTolerance(10.0f, 0.01f)
