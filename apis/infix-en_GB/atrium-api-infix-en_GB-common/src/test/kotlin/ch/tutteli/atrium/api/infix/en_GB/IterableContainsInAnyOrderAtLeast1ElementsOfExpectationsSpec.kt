@@ -4,76 +4,76 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
+class IterableToContainInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderIterableLikeToIterableSpec)
     include(ShortcutIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
-        getContainsPair(),
-        getContainsNullablePair(),
+        getToContainPair(),
+        getToContainNullablePair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
-        getContainsShortcutPair(),
-        getContainsNullableShortcutPair(),
+        getToContainShortcutPair(),
+        getToContainNullableShortcutPair(),
         "[Atrium][Shortcut] "
     )
 
     object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        "contains o inAny order atLeast 1 elementsOf",
+        "toContain o inAny order atLeast 1 elementsOf",
         listOf(1, 2),
-        { input -> it contains o inAny order atLeast 1 elementsOf input }
+        { input -> it toContain o inAny order atLeast 1 elementsOf input }
     )
 
     object ShortcutIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        "containsElementsOf",
+        "toContainElementsOf",
         listOf(1, 2),
-        { input -> it containsElementsOf input }
+        { input -> it toContainElementsOf input }
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$contains $filler $inAnyOrder $atLeast 1 $inAnyOrderElementsOf" to Companion::containsValues
+        fun getToContainPair() =
+            "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderElementsOf" to Companion::toContainValues
 
-        private fun containsValues(
+        private fun toContainValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect contains o inAny order atLeast 1 elementsOf listOf(a, *aX)
+        ): Expect<Iterable<Double>> = expect toContain o inAny order atLeast 1 elementsOf listOf(a, *aX)
 
-        fun getContainsNullablePair() =
-            "$contains $filler $inAnyOrder $atLeast 1 $inAnyOrderElementsOf" to Companion::containsNullableValues
+        fun getToContainNullablePair() =
+            "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderElementsOf" to Companion::toContainNullableValues
 
-        private fun containsNullableValues(
+        private fun toContainNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect contains o inAny order atLeast 1 elementsOf sequenceOf(a, *aX)
+        ): Expect<Iterable<Double?>> = expect toContain o inAny order atLeast 1 elementsOf sequenceOf(a, *aX)
 
-        private val containsElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
-            Expect<Iterable<Double>>::containsElementsOf
+        private val toContainElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::toContainElementsOf
 
-        private fun getContainsShortcutPair() = containsElementsOfShortcutFun.name to Companion::containsInAnyOrderShortcut
+        private fun getToContainShortcutPair() = toContainElementsOfShortcutFun.name to Companion::toContainInAnyOrderShortcut
 
-        private fun containsInAnyOrderShortcut(
+        private fun toContainInAnyOrderShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect containsElementsOf arrayOf(a, *aX)
+        ): Expect<Iterable<Double>> = expect toContainElementsOf arrayOf(a, *aX)
 
-        private val containsElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
-            Expect<Iterable<Double?>>::containsElementsOf
+        private val toContainElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
+            Expect<Iterable<Double?>>::toContainElementsOf
 
-        private fun getContainsNullableShortcutPair() = containsElementsOfNullableShortcutFun.name to Companion::containsInAnyOrderNullableShortcut;
+        private fun getToContainNullableShortcutPair() = toContainElementsOfNullableShortcutFun.name to Companion::toContainInAnyOrderNullableShortcut;
 
-        private fun containsInAnyOrderNullableShortcut(
+        private fun toContainInAnyOrderNullableShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect containsElementsOf sequenceOf(a, *aX).asIterable()
+        ): Expect<Iterable<Double?>> = expect toContainElementsOf sequenceOf(a, *aX).asIterable()
 
     }
 }

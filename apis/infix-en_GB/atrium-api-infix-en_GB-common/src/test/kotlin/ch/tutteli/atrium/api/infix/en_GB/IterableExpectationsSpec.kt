@@ -11,7 +11,7 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
-    getContainsNoDuplicatesPair()
+    getToContainNoDuplicatesPair()
 ) {
     companion object {
         private val has: KFunction2<Expect<Iterable<Int>>, next, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::has
@@ -30,13 +30,13 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
         private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::maxFeature
         private fun maxFeature(expect: Expect<Iterable<Int>>) = expect max o
 
-        private val containsDuplicates: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
-            Expect<Iterable<Int>>::contains
+        private val notToContainDuplicates: KFunction2<Expect<Iterable<Int>>, duplicates, Expect<Iterable<Int>>> =
+            Expect<Iterable<Int>>::notToContain
 
-        private fun getContainsNoDuplicatesPair() =
-            "${containsDuplicates.name} ${noDuplicates::class.simpleName}" to Companion::containsNoDuplicates
+        private fun getToContainNoDuplicatesPair() =
+            "${notToContainDuplicates.name} ${duplicates::class.simpleName}" to Companion::toContainNoDuplicates
 
-        private fun containsNoDuplicates(expect: Expect<Iterable<Int>>) = expect contains noDuplicates
+        private fun toContainNoDuplicates(expect: Expect<Iterable<Int>>) = expect notToContain duplicates
 
     }
 
@@ -48,15 +48,15 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         a1 = a1 has next
         a1 = a1 hasNot next
-        a1 = a1 contains noDuplicates
+        a1 = a1 toContain noDuplicates
 
         a1b = a1b has next
         a1b = a1b hasNot next
-        a1b = a1b contains noDuplicates
+        a1b = a1b toContain noDuplicates
 
         star = star has next
         star = star hasNot next
-        star = star contains noDuplicates
+        star = star toContain noDuplicates
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>

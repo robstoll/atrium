@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-object IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableAllExpectationsSpec(
+object IterableToHaveNextAndAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAllExpectationsSpec(
     fun1(Expect<Iterable<Double>>::toHaveNextAndAll),
     fun1(Expect<Iterable<Double?>>::toHaveNextAndAll).withNullableSuffix()
 ) {

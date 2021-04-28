@@ -7,21 +7,21 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableAnyExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveNextAndAnyExpectationsSpec.Companion as C
 
-class IterableAnyExpectationsSpec : Spek({
+class IterableToHaveNextAndAnyExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
     include(ShortcutSpec)
     include(SequenceSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
         fun1(Expect<Iterable<Double>>::toHaveNextAndAny),
         fun1(Expect<Iterable<Double?>>::toHaveNextAndAny).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
         functionDescription to C::toContainEntry,
         (functionDescription to C::toContainNullableEntry).withNullableSuffix(),
         "[Atrium][Builder] "
@@ -29,14 +29,14 @@ class IterableAnyExpectationsSpec : Spek({
 
     // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for toContain and none
     // that's fine and we can simply remove this test here
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
         shortcutDescription to C::toContainEntryShortcut,
         (shortcutDescription to C::toContainNullableEntryShortcut).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
     // TODO move to own SequenceSpec if we really need this (maybe we can also just delete it?)
-    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
+    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
         getToContainSequencePair(),
         getToContainNullableSequencePair().withNullableSuffix(),
         "[Atrium][Sequence] "

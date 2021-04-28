@@ -5,13 +5,13 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableNoneExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveNextAndNoneExpectationsSpec.Companion as C
 
-class IterableNoneExpectationsSpec : Spek({
+class IterableToHaveNextAndNoneExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::toHaveNextAndNone),
         fun1(Expect<Iterable<Double?>>::toHaveNextAndNone).withNullableSuffix(),
         "[Atrium][Predicate] "
@@ -19,7 +19,7 @@ class IterableNoneExpectationsSpec : Spek({
 
     // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for contains and none
     // that's fine and we can simply remove this test here
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNoneExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
         functionDescription to C::notToContainFun,
         (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
         "[Atrium][Builder] "

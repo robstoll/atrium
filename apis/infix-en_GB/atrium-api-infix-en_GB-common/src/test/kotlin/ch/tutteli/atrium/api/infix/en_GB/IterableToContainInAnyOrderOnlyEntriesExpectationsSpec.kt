@@ -10,27 +10,27 @@ class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec :
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains $filler $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyEntries
+            "$toContain $filler $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::toContainInAnyOrderOnlyEntries
 
-        private fun containsInAnyOrderOnlyEntries(
+        private fun toContainInAnyOrderOnlyEntries(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect contains o inAny order but only entry a
-            else expect contains o inAny order but only the entries(a, *aX)
+            if (aX.isEmpty()) expect toContain o inAny order but only entry a
+            else expect toContain o inAny order but only the entries(a, *aX)
 
 
         fun getContainsNullablePair() =
-            "$contains $filler $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntries
+            "$toContain $filler $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::toContainInAnyOrderOnlyNullableEntries
 
-        private fun containsInAnyOrderOnlyNullableEntries(
+        private fun toContainInAnyOrderOnlyNullableEntries(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect contains o inAny order but only entry a
-            else expect contains o inAny order but only the entries(a, *aX)
+            if (aX.isEmpty()) expect toContain o inAny order but only entry a
+            else expect toContain o inAny order but only the entries(a, *aX)
 
     }
 }

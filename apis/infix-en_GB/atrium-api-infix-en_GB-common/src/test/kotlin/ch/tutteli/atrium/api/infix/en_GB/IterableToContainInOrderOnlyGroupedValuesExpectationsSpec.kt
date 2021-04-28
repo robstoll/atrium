@@ -13,15 +13,15 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
     ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderValues
+            "$toContain $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::toContainInOrderOnlyGroupedInAnyOrderValues
 
-        private fun containsInOrderOnlyGroupedInAnyOrderValues(
+        private fun toContainInOrderOnlyGroupedInAnyOrderValues(
             expect: Expect<Iterable<Double>>,
             a1: Group<Double>,
             a2: Group<Double>,
             aX: Array<out Group<Double>>
         ): Expect<Iterable<Double>> =
-            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
+            expect toContain o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
             when (groups.size) {
@@ -34,15 +34,15 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
 
 
         fun getContainsNullablePair() =
-            "$contains $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
+            "$toContain $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::toContainInOrderOnlyGroupedInAnyOrderNullableValues
 
-        private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
+        private fun toContainInOrderOnlyGroupedInAnyOrderNullableValues(
             expect: Expect<Iterable<Double?>>,
             a1: Group<Double?>,
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
         ): Expect<Iterable<Double?>> =
-            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
+            expect toContain o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
             when (groups.size) {

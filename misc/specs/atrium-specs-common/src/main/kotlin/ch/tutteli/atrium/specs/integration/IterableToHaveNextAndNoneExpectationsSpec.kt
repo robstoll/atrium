@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableNoneExpectationsSpec(
+abstract class IterableToHaveNextAndNoneExpectationsSpec(
     notToBeEmptyAndNone: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     notToBeEmptyAndNoneNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "

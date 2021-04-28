@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableContainsNotValuesExpectationsSpec : Spek({
+class IterableNotToContainValuesExpectationsSpec : Spek({
 
     include(BuilderSpecToContain)
     include(ShortcutSpecToContain)
@@ -12,46 +12,46 @@ class IterableContainsNotValuesExpectationsSpec : Spek({
 }) {
 
     object BuilderSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
-        getContainsNotPair(),
-        getContainsNotNullablePair(),
+        getNotToContainPair(),
+        getNotToContainNullablePair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
-        getContainsNotShortcutPair(),
-        getContainsNotNullablePair(),
+        getNotToContainShortcutPair(),
+        getNotToContainNullablePair(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getContainsNotPair() = containsNot to Companion::containsNotFun
+        private fun getNotToContainPair() = notToContain to Companion::notToContainFun
 
-        private fun containsNotFun(
+        private fun notToContainFun(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the values(a, *aX)
+            if (aX.isEmpty()) expect notToContain o value a
+            else expect notToContain o the values(a, *aX)
 
-        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
+        private fun getNotToContainNullablePair() = notToContain to Companion::notToContainNullableFun
 
-        private fun containsNotNullableFun(
+        private fun notToContainNullableFun(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect containsNot o value a
-            else expect containsNot o the values(a, *aX)
+            if (aX.isEmpty()) expect notToContain o value a
+            else expect notToContain o the values(a, *aX)
 
-        private val containsNotShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
-            Expect<Iterable<Double>>::containsNot
+        private val notToContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::notToContain
 
-        private fun getContainsNotShortcutPair() = containsNotShortcutFun.name to Companion::containsNotShortcut
+        private fun getNotToContainShortcutPair() = notToContainShortcutFun.name to Companion::notToContainShortcut
 
-        private fun containsNotShortcut(expect: Expect<Iterable<Double>>, a: Double, aX: Array<out Double>) =
-            if (aX.isEmpty()) expect containsNot a
-            else expect containsNot values(a, *aX)
+        private fun notToContainShortcut(expect: Expect<Iterable<Double>>, a: Double, aX: Array<out Double>) =
+            if (aX.isEmpty()) expect notToContain a
+            else expect notToContain values(a, *aX)
     }
 }

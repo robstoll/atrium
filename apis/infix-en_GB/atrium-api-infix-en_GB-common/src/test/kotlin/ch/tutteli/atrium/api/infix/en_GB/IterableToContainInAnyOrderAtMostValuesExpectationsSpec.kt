@@ -5,24 +5,24 @@ import ch.tutteli.atrium.creating.Expect
 class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
         getAtMostTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair()
     ) {
 
     companion object : IterableContainsSpecBase() {
 
         private fun getAtMostTriple() =
-            { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains $filler $inAnyOrder $atMost" to Companion::containsAtMost)
+            { what: String, times: String -> "$toContain $what $atMost $times" } to
+                ("$toContain $filler $inAnyOrder $atMost" to Companion::toContainAtMost)
 
-        private fun containsAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
-            if(aX.isEmpty()) expect contains o inAny order atMost atMost value a
-            else expect contains o inAny order atMost atMost the values(a, *aX)
+        private fun toContainAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
+            if(aX.isEmpty()) expect toContain o inAny order atMost atMost value a
+            else expect toContain o inAny order atMost atMost the values(a, *aX)
 
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use `$containsNot` instead of `$atMost $times`"
+        private fun getErrorMsgNotToContain(times: Int) = "use `$notToContain` instead of `$atMost $times`"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 

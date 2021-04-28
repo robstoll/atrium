@@ -7,7 +7,7 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableAllExpectationsSpec(
+abstract class IterableToHaveNextAndAllExpectationsSpec(
     notToBeEmptyAndAll: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     notToBeEmptyAndAllNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "

@@ -11,15 +11,15 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
     ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderEntries
+            "$toContain $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::toContainInOrderOnlyGroupedInAnyOrderEntries
 
-        private fun containsInOrderOnlyGroupedInAnyOrderEntries(
+        private fun toContainInOrderOnlyGroupedInAnyOrderEntries(
             expect: Expect<Iterable<Double?>>,
             a1: Group<(Expect<Double>.() -> Unit)?>,
             a2: Group<(Expect<Double>.() -> Unit)?>,
             aX: Array<out Group<(Expect<Double>.() -> Unit)?>>
         ): Expect<Iterable<Double?>> =
-            expect contains o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
+            expect toContain o inGiven order and only grouped entries within group inAny order(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {

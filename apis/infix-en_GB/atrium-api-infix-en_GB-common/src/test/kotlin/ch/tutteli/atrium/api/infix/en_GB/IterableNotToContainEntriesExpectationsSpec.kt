@@ -5,31 +5,31 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 
 class IterableNotToContainEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
-        getContainsNotPair(),
-        getContainsNotNullablePair().withNullableSuffix(),
+        getNotToContainPair(),
+        getNotToContainNullablePair().withNullableSuffix(),
         "[Atrium][Builder] "
     ) {
 
     companion object : IterableContainsSpecBase() {
 
-        private fun getContainsNotPair() = containsNot to Companion::containsNotFun
+        private fun getNotToContainPair() = notToContain to Companion::notToContainFun
 
-        private fun containsNotFun(
+        private fun notToContainFun(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect containsNot o entry a
-            else expect containsNot o the entries(a, *aX)
+            if (aX.isEmpty()) expect notToContain o entry a
+            else expect notToContain o the entries(a, *aX)
 
-        private fun getContainsNotNullablePair() = containsNot to Companion::containsNotNullableFun
+        private fun getNotToContainNullablePair() = notToContain to Companion::notToContainNullableFun
 
-        private fun containsNotNullableFun(
+        private fun notToContainNullableFun(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect containsNot o entry a
-            else expect containsNot o the entries(a, *aX)
+            if (aX.isEmpty()) expect notToContain o entry a
+            else expect notToContain o the entries(a, *aX)
     }
 }
