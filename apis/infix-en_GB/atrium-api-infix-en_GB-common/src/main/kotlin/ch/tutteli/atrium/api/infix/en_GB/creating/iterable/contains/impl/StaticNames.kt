@@ -13,7 +13,7 @@ internal object StaticNames {
     //TODO rename with 0.18.0 notToContain
     val containsNotValuesFun = run {
         val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerStep<Double, Iterable<Double>, NotSearchBehaviour>> =
-            Expect<Iterable<Double>>::containsNot
+            Expect<Iterable<Double>>::notToContain
         //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)
 //        val values : KFunction2<Int, Array<out Int>, Values<Int>> = ::values
 //        "`${f.name} ${o::class.simpleName} ${fThe.name} ${values.name}`"

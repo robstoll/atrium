@@ -20,8 +20,8 @@ class IterableToContainInAnyOrderExactlyValuesExpectationsSpec :
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect contains o inAny order exactly exactly value a
-            else expect contains o inAny order exactly exactly the values(a, *aX)
+            if (aX.isEmpty()) expect toContain o inAny order exactly exactly value a
+            else expect toContain o inAny order exactly exactly the values(a, *aX)
 
         private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 

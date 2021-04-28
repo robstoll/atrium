@@ -3,6 +3,7 @@ package ch.tutteli.atrium.infix.en_GB
 import ch.tutteli.atrium.api.infix.en_GB.asEntries
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 /**
@@ -18,8 +19,8 @@ class JsNameAmbiguityTest {
 
     @Test
     fun isKeyValueNullable() {
-        expect(mapOf(1 to null as Int?)).asEntries(o).containsExactly {
+        expect(mapOf(1 to null as Int?)).asEntries(o).toContainExactly(fun Expect<Map.Entry<Int, Int?>>.() {
             it isKeyValue (1 to null)
-        }
+        })
     }
 }
