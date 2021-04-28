@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 
-class IterableContainsInAnyOrderAtLeastValuesExpectationsSpec :
+class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
         getAtLeastTriple(),
         getAtLeastButAtMostTriple(),

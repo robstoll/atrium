@@ -5,9 +5,9 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec.Companion as C
 
-class IterableContainsInAnyOrderAtLeast1EntriesExpectationsSpec : Spek({
+class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsInAnyOrderOnlyValuesExpectationsSpec :
+class IterableToContainInAnyOrderOnlyValuesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
         functionDescription to Companion::toContainInAnyOrderOnlyValues,
         (functionDescription to Companion::toContainInAnyOrderOnlyNullableValues).withNullableSuffix()
