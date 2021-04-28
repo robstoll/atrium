@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -36,7 +36,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  *
@@ -63,7 +63,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerSte
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -85,7 +85,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
@@ -109,7 +109,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */

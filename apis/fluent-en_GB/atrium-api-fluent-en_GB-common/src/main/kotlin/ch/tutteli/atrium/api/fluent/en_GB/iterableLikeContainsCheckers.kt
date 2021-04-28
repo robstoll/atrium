@@ -20,7 +20,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -40,7 +40,7 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.Ent
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  *
@@ -68,7 +68,7 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerStep<E, T,
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -90,7 +90,7 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.Ent
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
@@ -114,7 +114,7 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.Ent
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [notToContain] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
