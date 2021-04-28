@@ -11,7 +11,7 @@ class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
         Companion::getErrorMsgAtLeastButAtMost
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         internal fun getAtLeastTriple() =
             { what: String, times: String -> "$toContain $what in any order $atLeast $times" } to

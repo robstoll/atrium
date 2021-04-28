@@ -8,7 +8,7 @@ class IterableToContainInAnyOrderExactlyValuesExpectationsSpec :
         getNotToContainPair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getExactlyTriple() =
             { what: String, times: String -> "$toContain $what $exactly $times" } to

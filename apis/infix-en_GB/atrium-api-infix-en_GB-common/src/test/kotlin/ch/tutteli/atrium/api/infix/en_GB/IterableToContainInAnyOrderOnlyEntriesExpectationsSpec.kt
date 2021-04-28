@@ -8,7 +8,7 @@ class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec :
         getContainsNullablePair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getContainsPair() =
             "$toContain $filler $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::toContainInAnyOrderOnlyEntries
 

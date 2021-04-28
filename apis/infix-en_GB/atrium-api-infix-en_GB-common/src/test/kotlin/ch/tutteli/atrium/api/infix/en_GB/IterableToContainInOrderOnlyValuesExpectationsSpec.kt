@@ -22,7 +22,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getToContainPair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::toContainInOrderOnlyValues
 

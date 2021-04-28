@@ -9,7 +9,7 @@ class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
         getExactlyPair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getAtMostTriple() =
             { what: String, times: String -> "$toContain $what $atMost $times" } to

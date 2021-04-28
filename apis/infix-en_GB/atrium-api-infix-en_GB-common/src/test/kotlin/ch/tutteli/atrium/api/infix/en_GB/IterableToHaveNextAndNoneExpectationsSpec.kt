@@ -24,7 +24,7 @@ class IterableToHaveNextAndNoneExpectationsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getNotToContainPair() = notToContain to Companion::notToContainFun
 

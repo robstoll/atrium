@@ -19,7 +19,7 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
             { input -> it toContain o inAny order but only elementsOf input }
         )
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getToContainPair() =
             "$toContain $filler $inAnyOrder $butOnly $inAnyOrderOnlyElementsOf" to Companion::getToContainValues
 

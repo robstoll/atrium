@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction2
 
-abstract class IterableContainsSpecBase {
+abstract class IterableToContainSpecBase {
     private val Values = "values"
     private val Entries = "entries"
 

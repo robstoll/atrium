@@ -9,7 +9,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         Companion::groupFactory,
         "[Atrium][Builder] "
     ) {
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getContainsPair() =
             "$toContain $filler $inOrder $andOnly $grouped $within $withinInAnyOrder" to Companion::toContainInOrderOnlyGroupedInAnyOrderEntries
 

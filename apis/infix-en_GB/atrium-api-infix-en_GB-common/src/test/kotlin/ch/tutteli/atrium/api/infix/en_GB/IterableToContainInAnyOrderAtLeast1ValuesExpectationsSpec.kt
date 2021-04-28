@@ -20,7 +20,7 @@ class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getToContainPair() =
             "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderValues" to Companion::toContainValues
 

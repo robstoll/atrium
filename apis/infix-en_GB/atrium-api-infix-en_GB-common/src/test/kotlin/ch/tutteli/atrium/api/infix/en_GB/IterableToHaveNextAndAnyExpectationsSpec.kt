@@ -39,7 +39,7 @@ class IterableAnyExpectationsSpec : Spek({
         "[Atrium][Sequence] "
     )
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
         fun getToContainPair() =
             "$toContain $filler $inAnyOrder $atLeast 1 entry" to Companion::toContainInAnyOrderEntry
 

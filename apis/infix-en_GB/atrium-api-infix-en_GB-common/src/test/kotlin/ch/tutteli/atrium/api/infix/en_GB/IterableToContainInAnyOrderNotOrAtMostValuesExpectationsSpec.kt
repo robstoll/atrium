@@ -8,7 +8,7 @@ class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec :
         getNotToContainPair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getNotOrAtMostTriple() =
             { what: String, times: String -> "$toContain $what $notOrAtMost $times" } to
