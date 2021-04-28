@@ -7,45 +7,45 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 
 abstract class IterableAnyExpectationsSpec(
-    any: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
-    anyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
+    notToBeEmptyAndAny: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    notToBeEmptyAndAnyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase({
+) : IterableToContainEntriesSpecBase({
 
     val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        any.forSubjectLess { toEqual(2.5) }
+        notToBeEmptyAndAny.forSubjectLess { toEqual(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        anyNullable.forSubjectLess(null)
+        notToBeEmptyAndAnyNullable.forSubjectLess(null)
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        any.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToBeEmptyAndAny.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        anyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToBeEmptyAndAnyNullable.forAssertionCreatorSpec("$isGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
     nonNullableCases(
         describePrefix,
-        any,
-        anyNullable
-    ) { anyFun ->
+        notToBeEmptyAndAny,
+        notToBeEmptyAndAnyNullable
+    ) { notToBeEmptyAndAnyFun ->
 
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).anyFun { toBeLessThan(1.0) }
+                    expect(fluentEmpty()).notToBeEmptyAndAnyFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$rootBulletPoint$containsInAnyOrder: $separator",
+                        "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhich: $separator",
-                        "$isLessThanDescr: 1.0",
+                        "$toBeLessThanDescr: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeastDescr: 1"
                     )
@@ -55,16 +55,16 @@ abstract class IterableAnyExpectationsSpec(
         }
 
         context("iterable ${oneToSeven().toList()}") {
-            context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
+            context("search for entry which $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).anyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
+                        expect(oneToSeven()).notToBeEmptyAndAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$isGreaterThanDescr: 1.0",
-                            "$isLessThanDescr: 2.0",
+                            "$toBeLessThanDescr: 2.0",
                             "$numberOfOccurrences: 0",
                             "$atLeastDescr: 1"
                         )
@@ -72,9 +72,9 @@ abstract class IterableAnyExpectationsSpec(
                 }
             }
 
-            context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
+            context("search for entry which $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).anyFun { toBeGreaterThan(1.0); toBeLessThan(2.1) }
+                    expect(oneToSeven()).notToBeEmptyAndAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.1) }
                 }
             }
         }
@@ -82,27 +82,27 @@ abstract class IterableAnyExpectationsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(anyNullable) {
-            val anyNullableFun = anyNullable.lambda
+        describeFun(notToBeEmptyAndAnyNullable) {
+            val notToBeEmptyAndAnyFun = notToBeEmptyAndAnyNullable.lambda
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
-                    it("$toBeFun(1.0)") {
-                        expect(oneToSevenNullable()).anyNullableFun { toEqual(1.0) }
+                    it("$toEqualFun(1.0)") {
+                        expect(oneToSevenNullable()).notToBeEmptyAndAnyFun { toEqual(1.0) }
                     }
                     it("null") {
-                        expect(oneToSevenNullable()).anyNullableFun(null)
+                        expect(oneToSevenNullable()).notToBeEmptyAndAnyFun(null)
                     }
                 }
 
                 context("failing cases") {
-                    it("$toBeFun(2.0)") {
+                    it("$toEqualFun(2.0)") {
                         expect {
-                            expect(oneToSevenNullable()).anyNullableFun { toEqual(2.0) }
+                            expect(oneToSevenNullable()).notToBeEmptyAndAnyFun { toEqual(2.0) }
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrder: $separator",
+                                    "$rootBulletPoint$toContainInAnyOrder: $separator",
                                     "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
                                     "$numberOfOccurrences: 0",
@@ -117,11 +117,11 @@ abstract class IterableAnyExpectationsSpec(
             context("iterable ${oneToSeven().toList()}") {
                 it("null, throws an AssertionError") {
                     expect {
-                        expect(oneToSeven() as Iterable<Double?>).anyNullableFun(null)
+                        expect(oneToSeven() as Iterable<Double?>).notToBeEmptyAndAnyFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$isDescr: null",
                                 "$numberOfOccurrences: 0",

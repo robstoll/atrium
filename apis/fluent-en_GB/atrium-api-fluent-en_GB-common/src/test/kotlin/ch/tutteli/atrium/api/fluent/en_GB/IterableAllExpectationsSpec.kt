@@ -6,8 +6,8 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
 object IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableAllExpectationsSpec(
-    fun1(Expect<Iterable<Double>>::all),
-    fun1(Expect<Iterable<Double?>>::all).withNullableSuffix()
+    fun1(Expect<Iterable<Double>>::toHaveNextAndAll),
+    fun1(Expect<Iterable<Double?>>::toHaveNextAndAll).withNullableSuffix()
 ) {
 
 
@@ -18,10 +18,10 @@ object IterableAllExpectationsSpec : ch.tutteli.atrium.specs.integration.Iterabl
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.all {}
-        nList = nList.all {}
-        subList = subList.all {}
-        star = star.all {}
+        list = list.toHaveNextAndAll {}
+        nList = nList.toHaveNextAndAll {}
+        subList = subList.toHaveNextAndAll {}
+        star = star.toHaveNextAndAll {}
     }
 }
 

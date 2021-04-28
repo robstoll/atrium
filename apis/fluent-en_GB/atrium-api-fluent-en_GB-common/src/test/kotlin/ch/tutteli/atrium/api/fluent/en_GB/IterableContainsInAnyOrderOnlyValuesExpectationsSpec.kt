@@ -5,28 +5,28 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
 class IterableContainsInAnyOrderOnlyValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
-        functionDescription to Companion::containsInAnyOrderOnlyValues,
-        (functionDescription to Companion::containsInAnyOrderOnlyNullableValues).withNullableSuffix()
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+        functionDescription to Companion::toContainInAnyOrderOnlyValues,
+        (functionDescription to Companion::toContainInAnyOrderOnlyNullableValues).withNullableSuffix()
     ) {
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inAnyOrder.$only.$value/$values"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inAnyOrder.$only.$value/$values"
 
-        private fun containsInAnyOrderOnlyValues(
+        private fun toContainInAnyOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.only.value(a)
-            else expect.contains.inAnyOrder.only.values(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.only.value(a)
+            else expect.toContain.inAnyOrder.only.values(a, *aX)
 
-        private fun containsInAnyOrderOnlyNullableValues(
+        private fun toContainInAnyOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.only.value(a)
-            else expect.contains.inAnyOrder.only.values(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.only.value(a)
+            else expect.toContain.inAnyOrder.only.values(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -36,14 +36,14 @@ class IterableContainsInAnyOrderOnlyValuesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.only.value(1)
-        nList = nList.contains.inAnyOrder.only.value(1)
-        subList = subList.contains.inAnyOrder.only.value(1)
-        star = star.contains.inAnyOrder.only.value(1)
+        list = list.toContain.inAnyOrder.only.value(1)
+        nList = nList.toContain.inAnyOrder.only.value(1)
+        subList = subList.toContain.inAnyOrder.only.value(1)
+        star = star.toContain.inAnyOrder.only.value(1)
 
-        list = list.contains.inAnyOrder.only.values(1, 1.2)
-        nList = nList.contains.inAnyOrder.only.values(1, 1.2)
-        subList = subList.contains.inAnyOrder.only.values(1, 2.2)
-        star = star.contains.inAnyOrder.only.values(1, 1.2, "asdf")
+        list = list.toContain.inAnyOrder.only.values(1, 1.2)
+        nList = nList.toContain.inAnyOrder.only.values(1, 1.2)
+        subList = subList.toContain.inAnyOrder.only.values(1, 2.2)
+        star = star.toContain.inAnyOrder.only.values(1, 1.2, "asdf")
     }
 }

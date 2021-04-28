@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-class CharSequenceContainsRegexExpectationsSpec : Spek({
+class CharSequenceToContainRegexExpectationsSpec : Spek({
     include(StringSpec)
     include(RegexSpec)
 

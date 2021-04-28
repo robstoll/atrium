@@ -10,31 +10,31 @@ class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyValuesExpectationsSpec(
-        functionDescription to C::containsElementsOf,
-        (functionDescription to C::containsElementsOfNullable).withNullableSuffix()
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+        functionDescription to C::toContainElementsOf,
+        (functionDescription to C::toContainElementsOfNullable).withNullableSuffix()
     )
 
     object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         functionDescription,
         listOf(1, 2),
-        { input -> contains.inAnyOrder.only.elementsOf(input) }
+        { input -> toContain.inAnyOrder.only.elementsOf(input) }
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inAnyOrder.$only.$elementsOf"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inAnyOrder.$only.$elementsOf"
 
-        private fun containsElementsOf(
+        private fun toContainElementsOf(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.contains.inAnyOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX))
 
-        private fun containsElementsOfNullable(
+        private fun toContainElementsOfNullable(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.only.elementsOf(sequenceOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.toContain.inAnyOrder.only.elementsOf(sequenceOf(a, *aX))
     }
 
 
@@ -45,9 +45,9 @@ class IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.only.elementsOf(listOf<Int>())
-        nList = nList.contains.inAnyOrder.only.elementsOf(listOf<Int>())
-        subList = subList.contains.inAnyOrder.only.elementsOf(listOf<Int>())
-        star = star.contains.inAnyOrder.only.elementsOf(listOf<Int>())
+        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
+        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
+        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
+        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
     }
 }

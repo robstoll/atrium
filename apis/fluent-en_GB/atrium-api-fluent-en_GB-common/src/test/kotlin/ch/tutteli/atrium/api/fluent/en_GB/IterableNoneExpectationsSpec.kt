@@ -25,8 +25,8 @@ class IterableNoneExpectationsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$containsNot.$entry"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$notToContain.$entry"
 
         private fun containsNotFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
             expect.containsNot.entry(a)

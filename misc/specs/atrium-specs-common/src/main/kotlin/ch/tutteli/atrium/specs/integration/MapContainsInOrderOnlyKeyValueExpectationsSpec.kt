@@ -59,7 +59,7 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    fun entry(index: Int) = IterableContainsSpecBase.elementWithIndex(index)
+    fun entry(index: Int) = IterableToContainSpecBase.elementWithIndex(index)
 
     fun Expect<String>.element(
         successFailureBulletPoint: String,
@@ -108,7 +108,7 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
     ): Expect<String> = element(
         failingBulletPoint,
         index,
-        IterableContainsSpecBase.sizeExceeded,
+        IterableToContainSpecBase.sizeExceeded,
         expectedKey,
         expectedValue,
         explaining = true
@@ -117,12 +117,12 @@ abstract class MapContainsInOrderOnlyKeyValueExpectationsSpec(
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
         and {
             val additionalEntries =
-                "\\Q${warningBulletPoint}${IterableContainsSpecBase.additionalElements}\\E: $separator"
+                "\\Q${warningBulletPoint}${IterableToContainSpecBase.additionalElements}\\E: $separator"
             toContain.exactly(1).regex(additionalEntries)
             pairs.forEach { (index, entry) ->
                 toContain.exactly(1).regex(
                     additionalEntries + "(.|$separator)+${listBulletPoint}${
-                        IterableContainsSpecBase.elementWithIndex(index) + ": " + entry
+                        IterableToContainSpecBase.elementWithIndex(index) + ": " + entry
                     }"
                 )
             }

@@ -5,23 +5,23 @@ import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedValuesExpectationsSpec(
-        functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderValues,
+class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
+        functionDescription to Companion::toContainInOrderOnlyGroupedInAnyOrderValues,
         Companion::groupFactory,
-        (functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues).withNullableSuffix(),
+        (functionDescription to Companion::toContainInOrderOnlyGroupedInAnyOrderNullableValues).withNullableSuffix(),
         Companion::nullableGroupFactory,
         "[Atrium][Builder] "
     ) {
-    companion object : IterableContainsSpecBase() {
-        val functionDescription =  "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription =  "$toContain.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
 
-        private fun containsInOrderOnlyGroupedInAnyOrderValues(
+        private fun toContainInOrderOnlyGroupedInAnyOrderValues(
             expect: Expect<Iterable<Double>>,
             a1: Group<Double>,
             a2: Group<Double>,
             aX: Array<out Group<Double>>
-        ): Expect<Iterable<Double>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+        ): Expect<Iterable<Double>> = expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
             when (groups.size) {
@@ -32,12 +32,12 @@ class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
             }
 
-        private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
+        private fun toContainInOrderOnlyGroupedInAnyOrderNullableValues(
             expect: Expect<Iterable<Double?>>,
             a1: Group<Double?>,
             a2: Group<Double?>,
             aX: Array<out Group<Double?>>
-        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+        ): Expect<Iterable<Double?>> = expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
             when (groups.size) {
@@ -56,12 +56,12 @@ class IterableContainsInOrderOnlyGroupedValuesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        subList = subList.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        star = star.contains.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
 
-        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null))
-        star = star.contains.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2))
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null))
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2))
     }
 }

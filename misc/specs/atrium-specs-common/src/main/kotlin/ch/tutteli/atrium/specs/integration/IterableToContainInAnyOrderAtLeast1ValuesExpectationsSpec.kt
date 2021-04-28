@@ -6,40 +6,40 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
-    containsInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
-    containsInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
+abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+    toContainInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
+    toContainInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsSpecBase({
+) : IterableToContainSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsInAnyOrderValues.forSubjectLess(1.2, arrayOf())
+        toContainInAnyOrderValues.forSubjectLess(1.2, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        containsInAnyOrderNullableValues.forSubjectLess(null, arrayOf())
+        toContainInAnyOrderNullableValues.forSubjectLess(null, arrayOf())
     ) {})
 
-    fun Expect<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
-        containsInAnyOrderNullableValues(this, t, tX)
+    fun Expect<Iterable<Double?>>.toContainInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
+        toContainInAnyOrderNullableValues(this, t, tX)
 
     nonNullableCases(
         describePrefix,
-        containsInAnyOrderValues,
-        containsInAnyOrderNullableValues
-    ) { containsValuesFunArr ->
-        fun Expect<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
-            containsValuesFunArr(t, tX.toTypedArray())
+        toContainInAnyOrderValues,
+        toContainInAnyOrderNullableValues
+    ) { toContainValuesFunArr ->
+        fun Expect<Iterable<Double>>.toContainFun(t: Double, vararg tX: Double) =
+            toContainValuesFunArr(t, tX.toTypedArray())
 
 
         context("empty collection") {
             it("1.0 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsFun(1.0)
+                    expect(fluentEmpty()).toContainFun(1.0)
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$rootBulletPoint$containsInAnyOrder: $separator",
+                        "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeastDescr: 1"
@@ -54,24 +54,24 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                 (1..7).forEach {
                     val d = it.toDouble()
                     it("$d does not throw") {
-                        expect(oneToSeven()).containsFun(d)
+                        expect(oneToSeven()).toContainFun(d)
                     }
                 }
                 it("1.0 and 4.0 does not throw") {
-                    expect(oneToSeven()).containsFun(1.0, 4.0)
+                    expect(oneToSeven()).toContainFun(1.0, 4.0)
                 }
                 it("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
-                    expect(oneToSeven()).containsFun(1.0, 1.0)
+                    expect(oneToSeven()).toContainFun(1.0, 1.0)
                 }
             }
 
             context("error cases") {
                 it("9.5 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsFun(9.5)
+                        expect(oneToSeven()).toContainFun(9.5)
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
                             "$atLeastDescr: 1"
@@ -80,7 +80,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                 }
                 it("9.5 and 7.1 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsFun(9.5, 7.1)
+                        expect(oneToSeven()).toContainFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
@@ -88,7 +88,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                                 "$atLeastDescr: 1"
                             )
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichIs: 9.5",
                                 "$anElementWhichIs: 7.1"
                             )
@@ -97,11 +97,11 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                 }
                 it("1.0 and 9.5 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsFun(1.0, 9.5)
+                        expect(oneToSeven()).toContainFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            toContainRegex("$containsInAnyOrder: $separator.*$anElementWhichIs: 9.5")
-                            notToContain.regex("$containsInAnyOrder: $separator.*$anElementWhichIs: 1.0")
+                            toContainRegex("$toContainInAnyOrder: $separator.*$anElementWhichIs: 9.5")
+                            notToContain.regex("$toContainInAnyOrder: $separator.*$anElementWhichIs: 1.0")
                         }
                     }
                 }
@@ -112,7 +112,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(containsInAnyOrderNullableValues) {
+        describeFun(toContainInAnyOrderNullableValues) {
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 listOf(
@@ -127,7 +127,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
 
                     context("search for $first$restText") {
                         it("$first$restText does not throw") {
-                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(first, *rest)
+                            expect(oneToSevenNullable()).toContainInAnyOrderNullableValuesFun(first, *rest)
                         }
                     }
 
@@ -136,7 +136,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
                 context("search for 2.5") {
                     it("2.5 throws AssertionError") {
                         expect {
-                            expect(oneToSevenNullable()).containsInAnyOrderNullableValuesFun(2.5)
+                            expect(oneToSevenNullable()).toContainInAnyOrderNullableValuesFun(2.5)
                         }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CONTAINS.getDefault()) }
                     }
                 }

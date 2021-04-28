@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 
-class IterableContainsInAnyOrderAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
+class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
         getAtMostTriple(),
         getContainsNotPair(),
         getExactlyPair()

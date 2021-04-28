@@ -13,7 +13,7 @@ import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
 import org.spekframework.spek2.style.specification.describe
 
-abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
+abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         val oneToFour = { sequenceOf(1.0, 2.0, 3.0, 4.0, 4.0).constrainOnce().asIterable() }
@@ -21,19 +21,19 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val oneToSevenNullable =
             { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
-        val containsInAnyOrder = String.format(
+        val toContainInAnyOrder = String.format(
             DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(),
             DescriptionIterableAssertion.CONTAINS.getDefault()
         )
-        val containsInAnyOrderOnly = String.format(
+        val toContainInAnyOrderOnly = String.format(
             DescriptionIterableAssertion.IN_ANY_ORDER_ONLY.getDefault(),
             DescriptionIterableAssertion.CONTAINS.getDefault()
         )
-        val containsInOrderOnly = String.format(
+        val toContainInOrderOnly = String.format(
             DescriptionIterableAssertion.IN_ORDER_ONLY.getDefault(),
             DescriptionIterableAssertion.CONTAINS.getDefault()
         )
-        val containsInOrderOnlyGrouped = String.format(
+        val toContainInOrderOnlyGrouped = String.format(
             DescriptionIterableAssertion.IN_ORDER_ONLY_GROUPED.getDefault(),
             DescriptionIterableAssertion.CONTAINS.getDefault()
         )
@@ -52,7 +52,7 @@ abstract class IterableContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeparator
 
-        fun Expect<String>.containsSize(actual: Int, expected: Int) =
+        fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1).regex("${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected")
 
         fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)

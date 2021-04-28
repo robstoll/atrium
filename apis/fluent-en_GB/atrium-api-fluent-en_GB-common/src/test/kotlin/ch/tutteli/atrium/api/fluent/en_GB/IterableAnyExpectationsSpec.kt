@@ -16,67 +16,67 @@ class IterableAnyExpectationsSpec : Spek({
     include(SequenceSpec)
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::any),
-        fun1(Expect<Iterable<Double?>>::any).withNullableSuffix(),
+        fun1(Expect<Iterable<Double>>::toHaveNextAndAny),
+        fun1(Expect<Iterable<Double?>>::toHaveNextAndAny).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
-        functionDescription to C::containsEntry,
-        (functionDescription to C::containsNullableEntry).withNullableSuffix(),
+        functionDescription to C::toContainEntry,
+        (functionDescription to C::toContainNullableEntry).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for contains and none
+    // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for toContain and none
     // that's fine and we can simply remove this test here
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
-        shortcutDescription to C::containsEntryShortcut,
-        (shortcutDescription to C::containsNullableEntryShortcut).withNullableSuffix(),
+        shortcutDescription to C::toContainEntryShortcut,
+        (shortcutDescription to C::toContainNullableEntryShortcut).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
     // TODO move to own SequenceSpec if we really need this (maybe we can also just delete it?)
     object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableAnyExpectationsSpec(
-        getContainsSequencePair(),
-        getContainsNullableSequencePair().withNullableSuffix(),
+        getToContainSequencePair(),
+        getToContainNullableSequencePair().withNullableSuffix(),
         "[Atrium][Sequence] "
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inAnyOrder.$atLeast(1).$entry"
-        val shortcutDescription = "$contains"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inAnyOrder.$atLeast(1).$entry"
+        val shortcutDescription = toContain
 
-        private fun containsEntry(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect.contains.inAnyOrder.atLeast(1).entry(a)
+        private fun toContainEntry(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            expect.toContain.inAnyOrder.atLeast(1).entry(a)
 
-        private fun containsNullableEntry(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            expect.contains.inAnyOrder.atLeast(1).entry(a)
-
-
-        private fun containsEntryShortcut(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect.contains(a)
+        private fun toContainNullableEntry(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
+            expect.toContain.inAnyOrder.atLeast(1).entry(a)
 
 
-        private fun containsNullableEntryShortcut(
+        private fun toContainEntryShortcut(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            expect.toContain(a)
+
+
+        private fun toContainNullableEntryShortcut(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect.contains(a)
+        ) = expect.toContain(a)
 
 
         //TODO move to an own spec
-        private fun getContainsSequencePair() =
-            "asSequence().${Sequence<*>::asIterable.name}().$contains" to Companion::containsInAnyOrderEntrySequence
+        private fun getToContainSequencePair() =
+            "asSequence().${Sequence<*>::asIterable.name}().$toContain" to Companion::toContainInAnyOrderEntrySequence
 
-        private fun containsInAnyOrderEntrySequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect._logic.changeSubject.unreported { it.asSequence() }.asIterable().contains(a)
+        private fun toContainInAnyOrderEntrySequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            expect._logic.changeSubject.unreported { it.asSequence() }.asIterable().toContain(a)
 
-        fun getContainsNullableSequencePair() =
-            "asSequence().${Sequence<*>::asIterable.name}().$contains" to Companion::containsNullableEntrySequence
+        fun getToContainNullableSequencePair() =
+            "asSequence().${Sequence<*>::asIterable.name}().$toContain" to Companion::toContainNullableEntrySequence
 
-        private fun containsNullableEntrySequence(
+        private fun toContainNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable { contains(a) }.asIterable()
+        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable { toContain(a) }.asIterable()
     }
 
 
@@ -87,9 +87,9 @@ class IterableAnyExpectationsSpec : Spek({
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.any {}
-        nList = nList.any {}
-        subList = subList.any {}
-        star = star.any {}
+        list = list.toHaveNextAndAny {}
+        nList = nList.toHaveNextAndAny {}
+        subList = subList.toHaveNextAndAny {}
+        star = star.toHaveNextAndAny {}
     }
 }

@@ -6,18 +6,18 @@ import kotlin.reflect.KFunction2
 
 class IterableContainsNotValuesExpectationsSpec : Spek({
 
-    include(BuilderSpec)
-    include(ShortcutSpec)
+    include(BuilderSpecToContain)
+    include(ShortcutSpecToContain)
 
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
+    object BuilderSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsNotValuesExpectationsSpec(
+    object ShortcutSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
         getContainsNotShortcutPair(),
         getContainsNotNullablePair(),
         "[Atrium][Shortcut] "

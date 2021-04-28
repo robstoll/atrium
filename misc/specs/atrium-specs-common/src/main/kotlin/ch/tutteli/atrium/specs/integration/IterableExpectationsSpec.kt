@@ -11,19 +11,19 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableExpectationsSpec(
-    hasNext: Fun0<Iterable<Int>>,
-    hasNotNext: Fun0<Iterable<Int>>,
+    toHaveANextElement: Fun0<Iterable<Int>>,
+    notToHaveANextElement: Fun0<Iterable<Int>>,
     minFeature: Feature0<Iterable<Int>, Int>,
     min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     maxFeature: Feature0<Iterable<Int>, Int>,
     max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
-    containsNoDuplicates: Fun0<Iterable<Int>>,
+    notToContainDuplicates: Fun0<Iterable<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Iterable<Int>>(
         describePrefix,
-        hasNext.forSubjectLess(),
+        toHaveANextElement.forSubjectLess(),
         minFeature.forSubjectLess(),
         min.forSubjectLess { toBeGreaterThan(-100) },
         maxFeature.forSubjectLess(),
@@ -44,30 +44,30 @@ abstract class IterableExpectationsSpec(
     val nextElementDescr = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
-    describeFun(hasNext) {
-        val hasNextFun = hasNext.lambda
+    describeFun(toHaveANextElement) {
+        val toHaveANextElementFun = toHaveANextElement.lambda
 
         it("does not throw if an iterable has next") {
-            expect(listOf(1, 2) as Iterable<Int>).hasNextFun()
+            expect(listOf(1, 2) as Iterable<Int>).toHaveANextElementFun()
         }
 
         it("throws an AssertionError if an iterable does not have next") {
             expect {
-                expect(listOf<Int>() as Iterable<Int>).hasNextFun()
+                expect(listOf<Int>() as Iterable<Int>).toHaveANextElementFun()
             }.toThrow<AssertionError> { messageContains("$hasDescr: $nextElementDescr") }
         }
     }
 
-    describeFun(hasNotNext) {
-        val hasNotNextFun = hasNotNext.lambda
+    describeFun(notToHaveANextElement) {
+        val notToHaveANextElementFun = notToHaveANextElement.lambda
 
         it("does not throw if an iterable has not next") {
-            expect(listOf<Int>() as Iterable<Int>).hasNotNextFun()
+            expect(listOf<Int>() as Iterable<Int>).notToHaveANextElementFun()
         }
 
         it("throws an AssertionError if an iterable has next element") {
             expect {
-                expect(listOf(1, 2) as Iterable<Int>).hasNotNextFun()
+                expect(listOf(1, 2) as Iterable<Int>).notToHaveANextElementFun()
             }.toThrow<AssertionError> { messageContains("$hasNotDescr: $nextElementDescr") }
         }
     }
@@ -129,11 +129,11 @@ abstract class IterableExpectationsSpec(
         }
     }
 
-    describeFun(containsNoDuplicates) {
-        val containsNoDuplicatesFun = containsNoDuplicates.lambda
+    describeFun(notToContainDuplicates) {
+        val notToContainDuplicatesFun = notToContainDuplicates.lambda
 
         it("list without duplicates") {
-            expect(listOf(1, 2) as Iterable<Int>).containsNoDuplicatesFun()
+            expect(listOf(1, 2) as Iterable<Int>).notToContainDuplicatesFun()
         }
 
         it("list with duplicates") {
@@ -141,7 +141,7 @@ abstract class IterableExpectationsSpec(
 
             val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
             expect {
-                expect(input).containsNoDuplicatesFun()
+                expect(input).notToContainDuplicatesFun()
             }.toThrow<AssertionError> {
                 message {
                     toContain("$hasNotDescr: $duplicateElements")

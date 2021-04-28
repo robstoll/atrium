@@ -13,36 +13,36 @@ class IterableContainsInOrderOnlyEntriesExpectationsSpec : Spek({
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesExpectationsSpec(
-        functionDescription to C::containsInOrderOnly,
-        (functionDescription to C::containsInOrderOnlyNullable).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyEntriesExpectationsSpec(
+        functionDescription to C::toContainInOrderOnly,
+        (functionDescription to C::toContainInOrderOnlyNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyEntriesExpectationsSpec(
-        fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::containsExactly),
-        fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::containsExactly).withNullableSuffix(),
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyEntriesExpectationsSpec(
+        fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::toContainExactly),
+        fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::toContainExactly).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inOrder.$only.$entry/$entries"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inOrder.$only.$entry/$entries"
 
-        private fun containsInOrderOnly(
+        private fun toContainInOrderOnly(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.contains.inOrder.only.entry(a)
-            else expect.contains.inOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
+            else expect.toContain.inOrder.only.entries(a, *aX)
 
-        private fun containsInOrderOnlyNullable(
+        private fun toContainInOrderOnlyNullable(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.contains.inOrder.only.entry(a)
-            else expect.contains.inOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
+            else expect.toContain.inOrder.only.entries(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -52,36 +52,36 @@ class IterableContainsInOrderOnlyEntriesExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inOrder.only.entry {}
-        nList = nList.contains.inOrder.only.entry {}
-        subList = subList.contains.inOrder.only.entry {}
-        star = star.contains.inOrder.only.entry {}
+        list = list.toContain.inOrder.only.entry {}
+        nList = nList.toContain.inOrder.only.entry {}
+        subList = subList.toContain.inOrder.only.entry {}
+        star = star.toContain.inOrder.only.entry {}
 
-        nList = nList.contains.inOrder.only.entry(null)
-        star = star.contains.inOrder.only.entry(null)
+        nList = nList.toContain.inOrder.only.entry(null)
+        star = star.toContain.inOrder.only.entry(null)
 
-        list = list.contains.inOrder.only.entries({}, {})
-        nList = nList.contains.inOrder.only.entries({}, {})
-        subList = subList.contains.inOrder.only.entries({}, {})
-        star = star.contains.inOrder.only.entries({}, {})
+        list = list.toContain.inOrder.only.entries({}, {})
+        nList = nList.toContain.inOrder.only.entries({}, {})
+        subList = subList.toContain.inOrder.only.entries({}, {})
+        star = star.toContain.inOrder.only.entries({}, {})
 
-        nList = nList.contains.inOrder.only.entries(null, {}, null)
-        star = star.contains.inOrder.only.entries(null, {}, null)
+        nList = nList.toContain.inOrder.only.entries(null, {}, null)
+        star = star.toContain.inOrder.only.entries(null, {}, null)
 
-        list = list.containsExactly {}
-        nList = nList.containsExactly {}
-        subList = subList.containsExactly {}
-        star = star.containsExactly {}
+        list = list.toContainExactly {}
+        nList = nList.toContainExactly {}
+        subList = subList.toContainExactly {}
+        star = star.toContainExactly {}
 
-        nList = nList.containsExactly(null)
-        star = star.containsExactly(null)
+        nList = nList.toContainExactly(null)
+        star = star.toContainExactly(null)
 
-        list = list.containsExactly({}, {})
-        nList = nList.containsExactly({}, {})
-        subList = subList.containsExactly({}, {})
-        star = star.containsExactly({}, {})
+        list = list.toContainExactly({}, {})
+        nList = nList.toContainExactly({}, {})
+        subList = subList.toContainExactly({}, {})
+        star = star.toContainExactly({}, {})
 
-        nList = nList.containsExactly(null, {}, null)
-        star = star.containsExactly(null, {}, null)
+        nList = nList.toContainExactly(null, {}, null)
+        star = star.toContainExactly(null, {}, null)
     }
 }

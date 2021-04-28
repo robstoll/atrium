@@ -4,21 +4,21 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec(
-        functionDescription to Companion::containsInOrderOnlyGroupedInAnyOrderEntries,
+class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
+        functionDescription to Companion::toContainInOrderOnlyGroupedInAnyOrderEntries,
         Companion::groupFactory,
         "[Atrium][Builder] "
     ) {
-    companion object : IterableContainsSpecBase() {
-        val functionDescription =  "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription =  "$toContain.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
 
-        private fun containsInOrderOnlyGroupedInAnyOrderEntries(
+        private fun toContainInOrderOnlyGroupedInAnyOrderEntries(
             expect: Expect<Iterable<Double?>>,
             a1: Group<(Expect<Double>.() -> Unit)?>,
             a2: Group<(Expect<Double>.() -> Unit)?>,
             aX: Array<out Group<(Expect<Double>.() -> Unit)?>>
-        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+        ): Expect<Iterable<Double?>> = expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
 
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {
@@ -37,14 +37,14 @@ class IterableContainsInOrderOnlyGroupedEntriesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         //var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inOrder.only.grouped.within.inAnyOrder(Entry{}, Entries({}, {}))
-        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-        subList = subList.contains.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry{}, Entries({}, {}))
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
         // TODO 1.0.0: not supported, but OK for this rare case, maybe supported with Kotlin 1.4
-        //star = star.contains.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
+        //star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
 
-        nList = nList.contains.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
         // TODO 1.0.0: not supported, but OK for this rare case, maybe supported with Kotlin 1.4
-        //star = star.contains.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries(null, {}))
+        //star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries(null, {}))
     }
 }

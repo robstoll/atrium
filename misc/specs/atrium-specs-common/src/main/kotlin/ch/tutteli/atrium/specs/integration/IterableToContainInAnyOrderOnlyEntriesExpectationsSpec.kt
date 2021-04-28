@@ -6,39 +6,39 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
-    containsInAnyOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
-    containsInAnyOrderOnlyNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
+abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
+    toContainInAnyOrderOnlyEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
+    toContainInAnyOrderOnlyNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase({
+) : IterableToContainEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsInAnyOrderOnlyEntries.forSubjectLess({ toEqual(2.5) }, arrayOf())
+        toContainInAnyOrderOnlyEntries.forSubjectLess({ toEqual(2.5) }, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        containsInAnyOrderOnlyNullableEntries.forSubjectLess(null, arrayOf())
+        toContainInAnyOrderOnlyNullableEntries.forSubjectLess(null, arrayOf())
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.0),
-        *containsInAnyOrderOnlyEntries.forAssertionCreatorSpec(
+        *toContainInAnyOrderOnlyEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
-        *containsInAnyOrderOnlyNullableEntries.forAssertionCreatorSpec(
+        *toContainInAnyOrderOnlyNullableEntries.forAssertionCreatorSpec(
             "$toBeDescr: 1.2", "$toBeDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
 
-    fun Expect<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(
+    fun Expect<Iterable<Double?>>.toContainInAnyOrderOnlyNullableEntriesFun(
         t: (Expect<Double>.() -> Unit)?,
         vararg tX: (Expect<Double>.() -> Unit)?
-    ) = containsInAnyOrderOnlyNullableEntries(this, t, tX)
+    ) = toContainInAnyOrderOnlyNullableEntries(this, t, tX)
 
 
     //@formatter:off
@@ -48,41 +48,41 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
 
     nonNullableCases(
         describePrefix,
-        containsInAnyOrderOnlyEntries,
-        containsInAnyOrderOnlyNullableEntries
-    ) { containsEntriesFunArr ->
-        fun Expect<Iterable<Double>>.containsEntriesFun(
+        toContainInAnyOrderOnlyEntries,
+        toContainInAnyOrderOnlyNullableEntries
+    ) { toContainEntriesFunArr ->
+        fun Expect<Iterable<Double>>.toContainEntriesFun(
             t: Expect<Double>.() -> Unit,
             vararg tX: Expect<Double>.() -> Unit
-        ) = containsEntriesFunArr(t, tX)
+        ) = toContainEntriesFunArr(t, tX)
 
         context("empty collection") {
-            it("$isLessThanFun(1.0) throws AssertionError") {
+            it("$toBeLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) })
+                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
-                            "$rootBulletPoint$containsInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
+                            "$rootBulletPoint$toContainInAnyOrderOnly:",
+                            "$failingBulletPoint$anEntryAfterFailing$toBeLessThanDescr: 1.0"
                         )
                         notToContain(additionalElements)
-                        containsSize(0, 1)
+                        toContainSize(0, 1)
                     }
                 }
             }
-            it("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
+            it("$toBeLessThanFun(1.0) and $toBeGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(4.0) })
+                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
-                            "$rootBulletPoint$containsInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0",
-                            "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
+                            "$rootBulletPoint$toContainInAnyOrderOnly:",
+                            "$failingBulletPoint$anEntryAfterFailing$toBeLessThanDescr: 1.0",
+                            "$failingBulletPoint$anEntryAfterFailing$toBeGreaterThanDescr: 4.0"
                         )
                         notToContain(additionalElements)
-                        containsSize(0, 2)
+                        toContainSize(0, 2)
                     }
                 }
             }
@@ -100,32 +100,32 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                     arrayOf(2.0, 4.0, 1.0, 4.0, 3.0),
                     arrayOf(4.0, 4.0, 3.0, 2.0, 1.0)
                 ).forEach {
-                    it("${it.joinToString()} with matcher $toBeFun") {
-                        expect(oneToFour()).containsEntriesFun(
+                    it("${it.joinToString()} with matcher $toEqualFun") {
+                        expect(oneToFour()).toContainEntriesFun(
                             { toEqual(it.first()) },
                             *(it.drop(1).map { val f: Expect<Double>.() -> Unit = { toEqual(it) }; f }).toTypedArray()
                         )
                     }
                 }
 
-                it("1.0, 2.0, 3.0, 4.0 and $isGreaterThanFun(0.0)") {
-                    expect(oneToFour()).containsEntriesFun(
+                it("1.0, 2.0, 3.0, 4.0 and $toBeGreaterThanFun(0.0)") {
+                    expect(oneToFour()).toContainEntriesFun(
                         { toEqual(1.0) },
                         { toEqual(2.0) },
                         { toEqual(3.0) },
                         { toEqual(4.0) },
                         { toBeGreaterThan(0.0) })
                 }
-                it(" $isLessThanFun(3.0), 2.0, 3.0, 4.0 and 4.0") {
-                    expect(oneToFour()).containsEntriesFun(
+                it(" $toBeLessThanFun(3.0), 2.0, 3.0, 4.0 and 4.0") {
+                    expect(oneToFour()).toContainEntriesFun(
                         { toBeLessThan(3.0) },
                         { toEqual(2.0) },
                         { toEqual(3.0) },
                         { toEqual(4.0) },
                         { toEqual(4.0) })
                 }
-                it("2.0, $isLessThanFun(5.0), 3.0, 4.0 and 4.0") {
-                    expect(oneToFour()).containsEntriesFun(
+                it("2.0, $toBeLessThanFun(5.0), 3.0, 4.0 and 4.0") {
+                    expect(oneToFour()).toContainEntriesFun(
                         { toEqual(2.0) },
                         { toBeLessThan(5.0) },
                         { toEqual(3.0) },
@@ -139,7 +139,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                 context("additional entries") {
                     it("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun(
+                            expect(oneToFour()).toContainEntriesFun(
                                 { toEqual(1.0) },
                                 { toEqual(2.0) },
                                 { toEqual(3.0) },
@@ -147,7 +147,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
@@ -155,35 +155,35 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}4.0"
                                 )
-                                containsSize(5, 4)
+                                toContainSize(5, 4)
                             }
                         }
                     }
 
-                    it("$isLessThanFun(3.0), isGreaterThan(3.0) -- 2.0, 3.0 and 4.0 was missing") {
+                    it("$toBeLessThanFun(3.0), isGreaterThan(3.0) -- 2.0, 3.0 and 4.0 was missing") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun({ toBeLessThan(3.0) }, { toBeGreaterThan(3.0) })
+                            expect(oneToFour()).toContainEntriesFun({ toBeLessThan(3.0) }, { toBeGreaterThan(3.0) })
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isLessThanDescr: 3.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isGreaterThanDescr: 3.0",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 3.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                                containsSize(5, 2)
+                                toContainSize(5, 2)
                             }
                         }
                     }
                 }
 
                 context("mismatches") {
-                    it("first wins: $isLessThanFun(5.0), 1.0, 2.0, 3.0, 4.0") {
+                    it("first wins: $toBeLessThanFun(5.0), 1.0, 2.0, 3.0, 4.0") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun(
+                            expect(oneToFour()).toContainEntriesFun(
                                 { toBeLessThan(5.0) },
                                 { toEqual(1.0) },
                                 { toEqual(2.0) },
@@ -192,8 +192,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isLessThanDescr: 5.0",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 5.0",
                                     "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
@@ -208,25 +208,25 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                 }
 
                 context("mismatches and additional entries") {
-                    it("1.0, $isGreaterThanFun(3.0), $isGreaterThanFun(4.0) -- $isGreaterThanFun(4.0) is wrong and 2.0, 3.0 and 4.0 are missing") {
+                    it("1.0, $toBeGreaterThanFun(3.0), $toBeGreaterThanFun(4.0) -- $toBeGreaterThanFun(4.0) is wrong and 2.0, 3.0 and 4.0 are missing") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun(
+                            expect(oneToFour()).toContainEntriesFun(
                                 { toEqual(1.0) },
                                 { toBeGreaterThan(3.0) },
                                 { toBeGreaterThan(4.0) })
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isGreaterThanDescr: 3.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
+                                    "$failingBulletPoint$anEntryAfterFailing$toBeGreaterThanDescr: 4.0",
                                     "$warningBulletPoint$mismatchesAdditionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
                                 )
-                                containsSize(5, 3)
+                                toContainSize(5, 3)
                             }
                         }
                     }
@@ -235,7 +235,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                 context("too many matcher") {
                     it("1.0, 2.0, 3.0, 4.0, 4.0, 5.0 -- 5.0 was too much") {
                         expect {
-                            expect(oneToFour()).containsEntriesFun(
+                            expect(oneToFour()).toContainEntriesFun(
                                 { toEqual(1.0) },
                                 { toEqual(2.0) },
                                 { toEqual(3.0) },
@@ -245,7 +245,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
@@ -253,7 +253,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                                 )
                                 toContain.exactly(2)
                                     .value("$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0")
-                                containsSize(5, 6)
+                                toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
                         }
@@ -265,57 +265,57 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(containsInAnyOrderOnlyNullableEntries) {
+        describeFun(toContainInAnyOrderOnlyNullableEntries) {
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
-                    it("null, $toBeFun(1.0), null, $toBeFun(3.0)") {
-                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                    it("null, $toEqualFun(1.0), null, $toEqualFun(3.0)") {
+                        expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                             null, { toEqual(1.0) }, null, { toEqual(3.0) }
                         )
                     }
-                    it("$toBeFun(1.0), null, null, $toBeFun(3.0)") {
-                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                    it("$toEqualFun(1.0), null, null, $toEqualFun(3.0)") {
+                        expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                             { toEqual(1.0) }, null, null, { toEqual(3.0) }
                         )
                     }
-                    it("$toBeFun(1.0), null, $toBeFun(3.0), null") {
-                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                    it("$toEqualFun(1.0), null, $toEqualFun(3.0), null") {
+                        expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                             { toEqual(1.0) }, null, { toEqual(3.0) }, null
                         )
                     }
-                    it("$toBeFun(1.0), $toBeFun(3.0), null, null") {
-                        expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                    it("$toEqualFun(1.0), $toEqualFun(3.0), null, null") {
+                        expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                             { toEqual(1.0) }, { toEqual(3.0) }, null, null
                         )
                     }
                 }
 
                 context("failing cases") {
-                    it("null, $toBeFun(1.0), $toBeFun(3.0) -- second null was missing") {
+                    it("null, $toEqualFun(1.0), $toEqualFun(3.0) -- second null was missing") {
                         expect {
-                            expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                                 null, { toEqual(1.0) }, { toEqual(3.0) }
                             )
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}null"
                                 )
-                                containsSize(4, 3)
+                                toContainSize(4, 3)
                             }
                         }
                     }
 
-                    it("first wins: $isLessThanFun(4.0), null, null, $toBeDescr(1.0)") {
+                    it("first wins: $toBeLessThanFun(4.0), null, null, $toBeDescr(1.0)") {
                         expect {
-                            expect(null1null3()).containsInAnyOrderOnlyNullableEntriesFun(
+                            expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                                 { toBeLessThan(4.0) },
                                 null,
                                 null,
@@ -327,8 +327,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
                                     "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null"
                                 )
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$containsInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isLessThanDescr: 4.0",
+                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 4.0",
                                     "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"

@@ -4,30 +4,30 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsNotEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesExpectationsSpec(
-        functionDescription to Companion::containsNotFun,
-        (functionDescription to Companion::containsNotNullableFun).withNullableSuffix(),
+class IterableNotToContainEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
+        functionDescription to Companion::notToContainFun,
+        (functionDescription to Companion::notToContainNullableFun).withNullableSuffix(),
         "[Atrium][Builder] "
     ) {
-    companion object : IterableContainsSpecBase() {
-        private val functionDescription = "$containsNot.$entry/$entries"
+    companion object : IterableToContainSpecBase() {
+        private val functionDescription = "$notToContain.$entry/$entries"
 
-        private fun containsNotFun(
+        private fun notToContainFun(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.containsNot.entry(a)
-            else expect.containsNot.entries(a, *aX)
+            if (aX.isEmpty()) expect.notToContain.entry(a)
+            else expect.notToContain.entries(a, *aX)
 
-        private fun containsNotNullableFun(
+        private fun notToContainNullableFun(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.containsNot.entry(a)
-            else expect.containsNot.entries(a, *aX)
+            if (aX.isEmpty()) expect.notToContain.entry(a)
+            else expect.notToContain.entries(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -38,20 +38,20 @@ class IterableContainsNotEntriesExpectationsSpec :
         var star: Expect<Collection<*>> = notImplemented()
 
 
-        list = list.containsNot.entry {}
-        nList = nList.containsNot.entry {}
-        subList = subList.containsNot.entry {}
-        star = star.containsNot.entry {}
+        list = list.notToContain.entry {}
+        nList = nList.notToContain.entry {}
+        subList = subList.notToContain.entry {}
+        star = star.notToContain.entry {}
 
-        nList = nList.containsNot.entry(null)
-        star = star.containsNot.entry(null)
+        nList = nList.notToContain.entry(null)
+        star = star.notToContain.entry(null)
 
-        list = list.containsNot.entries({}, {})
-        nList = nList.containsNot.entries({}, {})
-        subList = subList.containsNot.entries({}, {})
-        star = star.containsNot.entries({}, {})
+        list = list.notToContain.entries({}, {})
+        nList = nList.notToContain.entries({}, {})
+        subList = subList.notToContain.entries({}, {})
+        star = star.notToContain.entries({}, {})
 
-        nList = nList.containsNot.entries(null, {}, null)
-        star = star.containsNot.entries(null, {}, null)
+        nList = nList.notToContain.entries(null, {}, null)
+        star = star.notToContain.entries(null, {}, null)
     }
 }

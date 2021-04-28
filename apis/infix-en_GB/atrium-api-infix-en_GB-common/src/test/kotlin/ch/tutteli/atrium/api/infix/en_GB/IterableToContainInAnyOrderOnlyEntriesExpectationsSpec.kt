@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 
-class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
+class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair()
     ) {

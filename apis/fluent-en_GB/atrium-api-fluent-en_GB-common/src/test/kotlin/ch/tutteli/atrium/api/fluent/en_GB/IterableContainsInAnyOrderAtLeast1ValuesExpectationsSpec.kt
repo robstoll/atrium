@@ -11,36 +11,36 @@ class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
-        functionDescription to C::containsValues,
-        (functionDescription to C::containsNullableValues).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+        functionDescription to C::toContainValues,
+        (functionDescription to C::toContainNullableValues).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
-        fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::contains),
-        fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::contains),
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+        fun2<Iterable<Double>, Double, Array<out Double>>(Expect<Iterable<Double>>::toContain),
+        fun2<Iterable<Double?>, Double?, Array<out Double?>>(Expect<Iterable<Double?>>::toContain),
         "[Atrium][Shortcut] "
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription =  "$contains.$inAnyOrder.$atLeast(1).$value/$values"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription =  "$toContain.$inAnyOrder.$atLeast(1).$value/$values"
 
-        private fun containsValues(
+        private fun toContainValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.atLeast(1).value(a)
-            else expect.contains.inAnyOrder.atLeast(1).values(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.atLeast(1).value(a)
+            else expect.toContain.inAnyOrder.atLeast(1).values(a, *aX)
 
-        private fun containsNullableValues(
+        private fun toContainNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.atLeast(1).value(a)
-            else expect.contains.inAnyOrder.atLeast(1).values(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.atLeast(1).value(a)
+            else expect.toContain.inAnyOrder.atLeast(1).values(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -50,26 +50,26 @@ class IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.atLeast(1).value(1)
-        nList = nList.contains.inAnyOrder.atLeast(1).value(1)
-        subList = subList.contains.inAnyOrder.atLeast(1).value(1)
-        star = star.contains.inAnyOrder.atLeast(1).value(1)
+        list = list.toContain.inAnyOrder.atLeast(1).value(1)
+        nList = nList.toContain.inAnyOrder.atLeast(1).value(1)
+        subList = subList.toContain.inAnyOrder.atLeast(1).value(1)
+        star = star.toContain.inAnyOrder.atLeast(1).value(1)
 
-        list = list.contains.inAnyOrder.atLeast(1).values(1, 1.2)
-        nList = nList.contains.inAnyOrder.atLeast(1).values(1, 1.2)
-        subList = subList.contains.inAnyOrder.atLeast(1).values(1, 2.2)
-        star = star.contains.inAnyOrder.atLeast(1).values(1, 1.2, "asdf")
+        list = list.toContain.inAnyOrder.atLeast(1).values(1, 1.2)
+        nList = nList.toContain.inAnyOrder.atLeast(1).values(1, 1.2)
+        subList = subList.toContain.inAnyOrder.atLeast(1).values(1, 2.2)
+        star = star.toContain.inAnyOrder.atLeast(1).values(1, 1.2, "asdf")
 
-        list = list.contains(1)
-        nList = nList.contains(1)
-        subList = subList.contains(1)
-        star = star.contains(1)
+        list = list.toContain(1)
+        nList = nList.toContain(1)
+        subList = subList.toContain(1)
+        star = star.toContain(1)
 
-        list = list.contains(1, 1.2)
-        nList = nList.contains(1, 1.2)
-        subList = subList.contains(1, 2.2)
+        list = list.toContain(1, 1.2)
+        nList = nList.toContain(1, 1.2)
+        subList = subList.toContain(1, 2.2)
         // TODO would wish this does not work, maybe @OnlyInputTypes would help?
-        subList = subList.contains("asdf")
-        star = star.contains(1, 1.2, "asdf")
+        subList = subList.toContain("asdf")
+        star = star.toContain(1, 1.2, "asdf")
     }
 }

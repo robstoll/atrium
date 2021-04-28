@@ -5,28 +5,28 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
 class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderOnlyEntriesExpectationsSpec(
-        functionDescription to Companion::containsInAnyOrderOnlyEntries,
-        (functionDescription to Companion::containsInAnyOrderOnlyNullableEntries).withNullableSuffix()
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
+        functionDescription to Companion::toContainInAnyOrderOnlyEntries,
+        (functionDescription to Companion::toContainInAnyOrderOnlyNullableEntries).withNullableSuffix()
     ) {
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inAnyOrder.$only.$entry/$entries"
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inAnyOrder.$only.$entry/$entries"
 
-        private fun containsInAnyOrderOnlyEntries(
+        private fun toContainInAnyOrderOnlyEntries(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.only.entry(a)
-            else expect.contains.inAnyOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.only.entry(a)
+            else expect.toContain.inAnyOrder.only.entries(a, *aX)
 
-        private fun containsInAnyOrderOnlyNullableEntries(
+        private fun toContainInAnyOrderOnlyNullableEntries(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.contains.inAnyOrder.only.entry(a)
-            else expect.contains.inAnyOrder.only.entries(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.only.entry(a)
+            else expect.toContain.inAnyOrder.only.entries(a, *aX)
     }
 
 
@@ -37,20 +37,20 @@ class IterableContainsInAnyOrderOnlyEntriesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.only.entry {}
-        nList = nList.contains.inAnyOrder.only.entry {}
-        subList = subList.contains.inAnyOrder.only.entry {}
-        star = star.contains.inAnyOrder.only.entry {}
+        list = list.toContain.inAnyOrder.only.entry {}
+        nList = nList.toContain.inAnyOrder.only.entry {}
+        subList = subList.toContain.inAnyOrder.only.entry {}
+        star = star.toContain.inAnyOrder.only.entry {}
 
-        nList = nList.contains.inAnyOrder.only.entry(null)
-        star = star.contains.inAnyOrder.only.entry(null)
+        nList = nList.toContain.inAnyOrder.only.entry(null)
+        star = star.toContain.inAnyOrder.only.entry(null)
 
-        list = list.contains.inAnyOrder.only.entries({}, {})
-        nList = nList.contains.inAnyOrder.only.entries({}, {})
-        subList = subList.contains.inAnyOrder.only.entries({}, {})
-        star = star.contains.inAnyOrder.only.entries({}, {})
+        list = list.toContain.inAnyOrder.only.entries({}, {})
+        nList = nList.toContain.inAnyOrder.only.entries({}, {})
+        subList = subList.toContain.inAnyOrder.only.entries({}, {})
+        star = star.toContain.inAnyOrder.only.entries({}, {})
 
-        nList = nList.contains.inAnyOrder.only.entries(null, {}, null)
-        star = star.contains.inAnyOrder.only.entries(null, {}, null)
+        nList = nList.toContain.inAnyOrder.only.entries(null, {}, null)
+        star = star.toContain.inAnyOrder.only.entries(null, {}, null)
     }
 }

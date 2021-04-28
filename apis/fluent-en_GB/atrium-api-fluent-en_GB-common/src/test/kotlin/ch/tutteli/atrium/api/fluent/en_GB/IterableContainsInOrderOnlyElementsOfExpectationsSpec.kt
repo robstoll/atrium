@@ -12,15 +12,15 @@ class IterableContainsInOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderIterableLikeToIterableSpec)
     include(ShortcutIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
-        functionDescription to C::containsInOrderOnlyValues,
-        (functionDescription to C::containsInOrderOnlyNullableValues).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyValuesExpectationsSpec(
+        functionDescription to C::toContainInOrderOnlyValues,
+        (functionDescription to C::toContainInOrderOnlyNullableValues).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInOrderOnlyValuesExpectationsSpec(
-        shortcutDescription to C::containsExactlyElementsOfShortcut,
-        (shortcutDescription to C::containsExactlyElementsOfNullableShortcut).withNullableSuffix(),
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyValuesExpectationsSpec(
+        shortcutDescription to C::toContainExactlyElementsOfShortcut,
+        (shortcutDescription to C::toContainExactlyElementsOfNullableShortcut).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
@@ -28,43 +28,43 @@ class IterableContainsInOrderOnlyElementsOfExpectationsSpec : Spek({
         ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
             functionDescription,
             listOf(1, 2),
-            { input -> contains.inOrder.only.elementsOf(input) }
+            { input -> toContain.inOrder.only.elementsOf(input) }
         )
 
     object ShortcutIterableLikeToIterableSpec :
         ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
             shortcutDescription,
             listOf(1, 2),
-            { input -> containsExactlyElementsOf(input) }
+            { input -> toContainExactlyElementsOf(input) }
         )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription = "$contains.$inOrder.$only.$elementsOf"
-        val shortcutDescription = Expect<Iterable<Int>>::containsExactlyElementsOf.name
+    companion object : IterableToContainSpecBase() {
+        val functionDescription = "$toContain.$inOrder.$only.$elementsOf"
+        val shortcutDescription = Expect<Iterable<Int>>::toContainExactlyElementsOf.name
 
-        fun containsInOrderOnlyValues(
+        fun toContainInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.contains.inOrder.only.elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.toContain.inOrder.only.elementsOf(listOf(a, *aX))
 
-        private fun containsInOrderOnlyNullableValues(
+        private fun toContainInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.contains.inOrder.only.elementsOf(sequenceOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.toContain.inOrder.only.elementsOf(sequenceOf(a, *aX))
 
-        private fun containsExactlyElementsOfShortcut(
+        private fun toContainExactlyElementsOfShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.containsExactlyElementsOf(arrayOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.toContainExactlyElementsOf(arrayOf(a, *aX))
 
-        private fun containsExactlyElementsOfNullableShortcut(
+        private fun toContainExactlyElementsOfNullableShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.containsExactlyElementsOf(sequenceOf(a, *aX).asIterable())
+        ): Expect<Iterable<Double?>> = expect.toContainExactlyElementsOf(sequenceOf(a, *aX).asIterable())
     }
 
 
@@ -75,21 +75,21 @@ class IterableContainsInOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inOrder.only.elementsOf(listOf<Int>())
-        nList = nList.contains.inOrder.only.elementsOf(listOf<Int>())
-        subList = subList.contains.inOrder.only.elementsOf(listOf<Int>())
-        star = star.contains.inOrder.only.elementsOf(listOf<Int>())
+        list = list.toContain.inOrder.only.elementsOf(listOf<Int>())
+        nList = nList.toContain.inOrder.only.elementsOf(listOf<Int>())
+        subList = subList.toContain.inOrder.only.elementsOf(listOf<Int>())
+        star = star.toContain.inOrder.only.elementsOf(listOf<Int>())
 
-        list = list.containsExactlyElementsOf(1)
-        nList = nList.containsExactlyElementsOf(1)
-        subList = subList.containsExactlyElementsOf(1)
-        star = star.containsExactlyElementsOf(1)
+        list = list.toContainExactlyElementsOf(1)
+        nList = nList.toContainExactlyElementsOf(1)
+        subList = subList.toContainExactlyElementsOf(1)
+        star = star.toContainExactlyElementsOf(1)
 
-        list = list.containsExactlyElementsOf(listOf(1, 1.2))
-        nList = nList.containsExactlyElementsOf(listOf(1, 1.2))
-        subList = subList.containsExactlyElementsOf(listOf(1, 2.2))
-        subList = subList.containsExactlyElementsOf(listOf(1))
-        star = star.containsExactlyElementsOf(listOf(1, 1.2, "asdf"))
+        list = list.toContainExactlyElementsOf(listOf(1, 1.2))
+        nList = nList.toContainExactlyElementsOf(listOf(1, 1.2))
+        subList = subList.toContainExactlyElementsOf(listOf(1, 2.2))
+        subList = subList.toContainExactlyElementsOf(listOf(1))
+        star = star.toContainExactlyElementsOf(listOf(1, 1.2, "asdf"))
     }
 }
 

@@ -7,22 +7,22 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.dsl.Root
 
-abstract class IterableContainsEntriesSpecBase(
+abstract class IterableToContainEntriesSpecBase(
     spec: Root.() -> Unit
-) : IterableContainsSpecBase(spec) {
+) : IterableToContainSpecBase(spec) {
     init {
-        isLessThanFun = Expect<Double>::toBeLessThan.name
-        isGreaterThanFun = Expect<Double>::toBeGreaterThan.name
-        toBeFun = fun1<Double, Double>(Expect<Double>::toEqual).name
+        toBeLessThanFun = Expect<Double>::toBeLessThan.name
+        toBeGreaterThanFun = Expect<Double>::toBeGreaterThan.name
+        toEqualFun = fun1<Double, Double>(Expect<Double>::toEqual).name
     }
 
     companion object {
-        var isLessThanFun = ""
-        var isGreaterThanFun = ""
-        var toBeFun = ""
+        var toBeLessThanFun = ""
+        var toBeGreaterThanFun = ""
+        var toEqualFun = ""
         val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH.getDefault()
-        val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-        val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
+        val toBeLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+        val toBeGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
 
         //@formatter:off

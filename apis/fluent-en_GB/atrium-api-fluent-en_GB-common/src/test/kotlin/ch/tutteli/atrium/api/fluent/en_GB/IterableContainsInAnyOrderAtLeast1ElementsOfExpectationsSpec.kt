@@ -12,57 +12,57 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
     include(BuilderIterableLikeToIterableSpec)
     include(ShortcutIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
-        functionDescription to C::containsValues,
-        (functionDescription to C::containsNullableValues).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+        functionDescription to C::toContainValues,
+        (functionDescription to C::toContainNullableValues).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtLeast1ValuesExpectationsSpec(
-        shortcutDescription to C::containsInAnyOrderShortcut,
-        (shortcutDescription to C::containsInAnyOrderNullableShortcut).withNullableSuffix(),
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+        shortcutDescription to C::toContainInAnyOrderShortcut,
+        (shortcutDescription to C::toContainInAnyOrderNullableShortcut).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
     object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         functionDescription,
         listOf(1, 2),
-        { input -> contains.inAnyOrder.atLeast(1).elementsOf(input) }
+        { input -> toContain.inAnyOrder.atLeast(1).elementsOf(input) }
     )
 
     object ShortcutIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
         shortcutDescription,
         listOf(1, 2),
-        { input -> containsElementsOf(input) }
+        { input -> toContainElementsOf(input) }
     )
 
-    companion object : IterableContainsSpecBase() {
-        val functionDescription =  "$contains.$inAnyOrder.$atLeast(1).$elementsOf"
-        val shortcutDescription = Expect<Iterable<Double>>::containsElementsOf.name
+    companion object : IterableToContainSpecBase() {
+        val functionDescription =  "$toContain.$inAnyOrder.$atLeast(1).$elementsOf"
+        val shortcutDescription = Expect<Iterable<Double>>::toContainElementsOf.name
 
-        private fun containsValues(
+        private fun toContainValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.contains.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.toContain.inAnyOrder.atLeast(1).elementsOf(listOf(a, *aX))
 
-        private fun containsNullableValues(
+        private fun toContainNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.contains.inAnyOrder.atLeast(1).elementsOf(sequenceOf(a, *aX))
+        ): Expect<Iterable<Double?>> = expect.toContain.inAnyOrder.atLeast(1).elementsOf(sequenceOf(a, *aX))
 
-        private fun containsInAnyOrderShortcut(
+        private fun toContainInAnyOrderShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
             aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.containsElementsOf(arrayOf(a, *aX))
+        ): Expect<Iterable<Double>> = expect.toContainElementsOf(arrayOf(a, *aX))
 
-        private fun containsInAnyOrderNullableShortcut(
+        private fun toContainInAnyOrderNullableShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
             aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.containsElementsOf(sequenceOf(a, *aX).asIterable())
+        ): Expect<Iterable<Double?>> = expect.toContainElementsOf(sequenceOf(a, *aX).asIterable())
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -72,20 +72,20 @@ class IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1))
-        nList = nList.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1))
-        subList = subList.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1))
-        star = star.contains.inAnyOrder.atLeast(1).elementsOf(listOf(1))
+        list = list.toContain.inAnyOrder.atLeast(1).elementsOf(listOf(1))
+        nList = nList.toContain.inAnyOrder.atLeast(1).elementsOf(listOf(1))
+        subList = subList.toContain.inAnyOrder.atLeast(1).elementsOf(listOf(1))
+        star = star.toContain.inAnyOrder.atLeast(1).elementsOf(listOf(1))
 
-        list = list.containsElementsOf(listOf(1))
-        nList = nList.containsElementsOf(listOf(1))
-        subList = subList.containsElementsOf(listOf(1))
-        star = star.containsElementsOf(listOf(1))
+        list = list.toContainElementsOf(listOf(1))
+        nList = nList.toContainElementsOf(listOf(1))
+        subList = subList.toContainElementsOf(listOf(1))
+        star = star.toContainElementsOf(listOf(1))
 
-        list = list.containsElementsOf(listOf(1, 1.2))
-        nList = nList.containsElementsOf(listOf(1, 1.2))
-        subList = subList.containsElementsOf(listOf(1, 2.2))
-        subList = subList.containsElementsOf(listOf(1))
-        star = star.containsElementsOf(listOf(1, 1.2, "asdf"))
+        list = list.toContainElementsOf(listOf(1, 1.2))
+        nList = nList.toContainElementsOf(listOf(1, 1.2))
+        subList = subList.toContainElementsOf(listOf(1, 2.2))
+        subList = subList.toContainElementsOf(listOf(1))
+        star = star.toContainElementsOf(listOf(1, 1.2, "asdf"))
     }
 }

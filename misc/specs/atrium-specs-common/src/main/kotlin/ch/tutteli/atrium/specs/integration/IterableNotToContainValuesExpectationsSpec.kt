@@ -6,47 +6,47 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableContainsNotValuesExpectationsSpec(
-    containsNotValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
-    containsNotNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
+abstract class IterableNotToContainValuesExpectationsSpec(
+    notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
+    notToContainNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase({
+) : IterableToContainEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsNotValues.forSubjectLess(2.3, arrayOf())
+        notToContainValues.forSubjectLess(2.3, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        containsNotNullableValues.forSubjectLess(2.3, arrayOf())
+        notToContainNullableValues.forSubjectLess(2.3, arrayOf())
     ) {})
 
-    fun Expect<Iterable<Double?>>.containsNotNullableFun(a: Double?, vararg aX: Double?) =
-        containsNotNullableValues(this, a, aX)
+    fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
+        notToContainNullableValues(this, a, aX)
 
-    val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
+    val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
 
     nonNullableCases(
         describePrefix,
-        containsNotValues,
-        containsNotNullableValues
-    ) { containsNotFunArr ->
+        notToContainValues,
+        notToContainNullableValues
+    ) { notToContainFunArr ->
 
-        fun Expect<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double) =
-            containsNotFunArr(a, aX.toTypedArray())
+        fun Expect<Iterable<Double>>.notToContainFun(a: Double, vararg aX: Double) =
+            notToContainFunArr(a, aX.toTypedArray())
 
         context("empty collection") {
 
             it("4.0 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).containsNotFun(4.0)
+                    expect(fluentEmpty()).notToContainFun(4.0)
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(
-                            "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                 "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                 "$featureSuccess$numberOfOccurrences: 0$separator" +
                                 "$isAfterSuccess: 0.*$separator" +
@@ -62,24 +62,24 @@ abstract class IterableContainsNotValuesExpectationsSpec(
 
             context("happy case") {
                 it("1.1 does not throw") {
-                    expect(oneToSeven()).containsNotFun(1.1)
+                    expect(oneToSeven()).notToContainFun(1.1)
                 }
                 it("1.1, 2.2, 3.3 does not throw") {
-                    expect(oneToSeven()).containsNotFun(1.1, 2.2, 3.3)
+                    expect(oneToSeven()).notToContainFun(1.1, 2.2, 3.3)
                 }
                 it("3.3, 1.1, 2.2 does not throw") {
-                    expect(oneToSeven()).containsNotFun(3.3, 1.1, 2.2)
+                    expect(oneToSeven()).notToContainFun(3.3, 1.1, 2.2)
                 }
             }
 
             context("failing cases; search string at different positions") {
                 it("4.0 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsNotFun(4.0)
+                        expect(oneToSeven()).notToContainFun(4.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -91,11 +91,11 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                 }
                 it("1.0, 4.0 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsNotFun(1.0, 4.0)
+                        expect(oneToSeven()).notToContainFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -112,11 +112,11 @@ abstract class IterableContainsNotValuesExpectationsSpec(
                 }
                 it("4.0, 1.1 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsNotFun(4.0, 1.0)
+                        expect(oneToSeven()).notToContainFun(4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 3$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -137,20 +137,20 @@ abstract class IterableContainsNotValuesExpectationsSpec(
     }
 
     nullableCases(describePrefix) {
-        describeFun(containsNotNullableValues) {
+        describeFun(notToContainNullableValues) {
             context("iterable ${oneToSeven().toList()}") {
                 it("null does not throw") {
-                    expect(oneToSeven() as Iterable<Double?>).containsNotNullableFun(null)
+                    expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
                 }
             }
             context("iterable ${oneToSevenNullable().toList()}") {
                 it("null throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable()).containsNotNullableFun(null)
+                        expect(oneToSevenNullable()).notToContainNullableFun(null)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
@@ -163,18 +163,18 @@ abstract class IterableContainsNotValuesExpectationsSpec(
 
                 it("1.1, null throws AssertionError mentioning only null") {
                     expect {
-                        expect(oneToSevenNullable()).containsNotNullableFun(1.1, null)
+                        expect(oneToSevenNullable()).notToContainNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
                                     "$featureFailing$numberOfOccurrences: 2$separator" +
                                     "$isAfterFailing: 0.*$separator" +
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
-                            notToContain("$containsNotDescr: 1.1")
+                            notToContain("$notToContainDescr: 1.1")
                         }
                     }
                 }

@@ -4,27 +4,27 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
 class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec(
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
         getNotOrAtMostTriple(),
-        getContainsNotPair()
+        getNotToContainPair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getNotOrAtMostTriple() =
-            { what: String, times: String -> "$contains $what $notOrAtMost $times" } to
-                ("$contains.$notOrAtMost" to Companion::containsNotOrAtMost)
+            { what: String, times: String -> "$toContain $what $notOrAtMost $times" } to
+                ("$toContain.$notOrAtMost" to Companion::toContainNotOrAtMost)
 
-        private fun containsNotOrAtMost(
+        private fun toContainNotOrAtMost(
             expect: Expect<Iterable<Double>>,
             atMost: Int,
             a: Double,
             aX: Array<out Double>
-        ) = expect.contains.inAnyOrder.notOrAtMost(atMost).values(a, *aX)
+        ) = expect.toContain.inAnyOrder.notOrAtMost(atMost).values(a, *aX)
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $notOrAtMost($times)"
+        private fun getErrorMsgNotToContain(times: Int) = "use $notToContain instead of $notOrAtMost($times)"
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -34,14 +34,14 @@ class IterableContainsInAnyOrderNotOrAtMostValuesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.notOrAtMost(1).value(1)
-        nList = nList.contains.inAnyOrder.notOrAtMost(1).value(1)
-        subList = subList.contains.inAnyOrder.notOrAtMost(1).value(1)
-        star = star.contains.inAnyOrder.notOrAtMost(1).value(1)
+        list = list.toContain.inAnyOrder.notOrAtMost(1).value(1)
+        nList = nList.toContain.inAnyOrder.notOrAtMost(1).value(1)
+        subList = subList.toContain.inAnyOrder.notOrAtMost(1).value(1)
+        star = star.toContain.inAnyOrder.notOrAtMost(1).value(1)
 
-        list = list.contains.inAnyOrder.notOrAtMost(1).values(1, 1.2)
-        nList = nList.contains.inAnyOrder.notOrAtMost(1).values(1, 1.2)
-        subList = subList.contains.inAnyOrder.notOrAtMost(1).values(1, 2.2)
-        star = star.contains.inAnyOrder.notOrAtMost(1).values(1, 1.2, "asdf")
+        list = list.toContain.inAnyOrder.notOrAtMost(1).values(1, 1.2)
+        nList = nList.toContain.inAnyOrder.notOrAtMost(1).values(1, 1.2)
+        subList = subList.toContain.inAnyOrder.notOrAtMost(1).values(1, 2.2)
+        star = star.toContain.inAnyOrder.notOrAtMost(1).values(1, 1.2, "asdf")
     }
 }

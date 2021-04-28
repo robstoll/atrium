@@ -6,71 +6,71 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
-    containsAtMostPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
-    containsNotPair: Pair<String, (Int) -> String>,
+abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
+    toContainAtMostPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
+    notToContainPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsSpecBase({
+) : IterableToContainSpecBase({
 
-    val containsAtMost = containsAtMostPair.second
+    val toContainAtMost = toContainAtMostPair.second
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        containsAtMost.forSubjectLess(2, 2.3, arrayOf())
+        toContainAtMost.forSubjectLess(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    fun Expect<Iterable<Double>>.containsAtMostFun(atLeast: Int, a: Double, vararg aX: Double) =
-        containsAtMost(this, atLeast, a, aX.toTypedArray())
+    fun Expect<Iterable<Double>>.toContainAtMostFun(atLeast: Int, a: Double, vararg aX: Double) =
+        toContainAtMost(this, atLeast, a, aX.toTypedArray())
 
-    val (containsNot, errorMsgContainsNot) = containsNotPair
+    val (notToContain, errorMsgContainsNot) = notToContainPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describeFun(containsAtMost) {
+    describeFun(toContainAtMost) {
 
         context("throws an $illegalArgumentException") {
             it("for at most -1 -- only positive numbers") {
                 expect {
-                    expect(oneToSeven()).containsAtMostFun(-1, 0.0)
+                    expect(oneToSeven()).toContainAtMostFun(-1, 0.0)
                 }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
-            it("for at most 0 -- points to $containsNot") {
+            it("for at most 0 -- points to $notToContain") {
                 expect {
-                    expect(oneToSeven()).containsAtMostFun(0, 0.0)
+                    expect(oneToSeven()).toContainAtMostFun(0, 0.0)
                 }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("for at most 1 -- points to $exactly") {
                 expect {
-                    expect(oneToSeven()).containsAtMostFun(1, 0.0)
+                    expect(oneToSeven()).toContainAtMostFun(1, 0.0)
                 }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
             }
         }
 
         context("iterable ${oneToSeven().toList()}") {
-            context("happy case with $containsAtMost twice") {
-                it("${containsAtMostPair.first("1.0", "once")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(2, 1.0)
+            context("happy case with $toContainAtMost twice") {
+                it("${toContainAtMostPair.first("1.0", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(2, 1.0)
                 }
-                it("${containsAtMostPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(2, 1.0, 2.0, 3.0)
+                it("${toContainAtMostPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(2, 1.0, 2.0, 3.0)
                 }
-                it("${containsAtMostPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(2, 3.0, 1.0, 2.0)
+                it("${toContainAtMostPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(2, 3.0, 1.0, 2.0)
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("${containsAtMostPair.first("4.0", "twice")} throws AssertionError") {
+                it("${toContainAtMostPair.first("4.0", "twice")} throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 4.0)
+                        expect(oneToSeven()).toContainAtMostFun(2, 4.0)
                     }.toThrow<AssertionError> { messageContains("$atMostDescr: 2", "$anElementWhichIs: 4.0") }
                 }
-                it("${containsAtMostPair.first("1.0, 4.0", "twice")} throws AssertionError mentioning only 4.0") {
+                it("${toContainAtMostPair.first("1.0, 4.0", "twice")} throws AssertionError mentioning only 4.0") {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 1.0, 4.0)
+                        expect(oneToSeven()).toContainAtMostFun(2, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("$atMostDescr: 2", "$anElementWhichIs: 4.0")
@@ -78,9 +78,9 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
                         }
                     }
                 }
-                it("${containsAtMostPair.first("4.0, 1.0", "twice")} once throws AssertionError mentioning only 4.0") {
+                it("${toContainAtMostPair.first("4.0, 1.0", "twice")} once throws AssertionError mentioning only 4.0") {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 4.0, 1.0)
+                        expect(oneToSeven()).toContainAtMostFun(2, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("$atMostDescr: 2", "$anElementWhichIs: 4.0")
@@ -88,13 +88,13 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
                         }
                     }
                 }
-                it("${containsAtMostPair.first("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
+                it("${toContainAtMostPair.first("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
+                        expect(oneToSeven()).toContainAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichIs: 3.1",
                                 "$numberOfOccurrences: 0",
                                 "$atLeastDescr: 1",
@@ -105,9 +105,9 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
                         }
                     }
                 }
-                it("${containsAtMostPair.first("21.1 and 34.0 and 11.23", "twice")} throws AssertionError") {
+                it("${toContainAtMostPair.first("21.1 and 34.0 and 11.23", "twice")} throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 21.1, 34.0, 11.23)
+                        expect(oneToSeven()).toContainAtMostFun(2, 21.1, 34.0, 11.23)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(3).values(
@@ -115,7 +115,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
                                 "$atLeastDescr: 1"
                             )
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichIs: 21.1",
                                 "$anElementWhichIs: 34.0",
                                 "$anElementWhichIs: 11.23"
@@ -127,25 +127,25 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
 
             context("multiple occurrences of the search string") {
 
-                it("${containsAtMostPair.first("5.0", "twice")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(2, 5.0)
+                it("${toContainAtMostPair.first("5.0", "twice")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(2, 5.0)
                 }
 
-                it("${containsAtMostPair.first("5.0", "3 times")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(3, 5.0)
+                it("${toContainAtMostPair.first("5.0", "3 times")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(3, 5.0)
                 }
                 it(
-                    "${containsAtMostPair.first(
+                    "${toContainAtMostPair.first(
                         "5.0 and 4.0",
                         "twice"
-                    )} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 4.0 (3)"
+                    )} throws AssertionError and message toContain both, how many times we expected (2) and how many times it actually contained 4.0 (3)"
                 ) {
                     expect {
-                        expect(oneToSeven()).containsAtMostFun(2, 5.0, 4.0)
+                        expect(oneToSeven()).toContainAtMostFun(2, 5.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
@@ -154,11 +154,11 @@ abstract class IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
                         }
                     }
                 }
-                it("${containsAtMostPair.first("4.0", "3 times")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(3, 4.0)
+                it("${toContainAtMostPair.first("4.0", "3 times")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(3, 4.0)
                 }
-                it("${containsAtMostPair.first("5.0 and 4.0", "3 times")} does not throw") {
-                    expect(oneToSeven()).containsAtMostFun(3, 5.0, 4.0)
+                it("${toContainAtMostPair.first("5.0 and 4.0", "3 times")} does not throw") {
+                    expect(oneToSeven()).toContainAtMostFun(3, 5.0, 4.0)
                 }
 
             }

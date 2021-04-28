@@ -4,25 +4,25 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
 class IterableContainsInAnyOrderAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsInAnyOrderAtMostValuesExpectationsSpec(
+    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
         getAtMostTriple(),
-        getContainsNotPair(),
+        getNotToContainPair(),
         getExactlyPair()
     ) {
 
-    companion object : IterableContainsSpecBase() {
+    companion object : IterableToContainSpecBase() {
 
         private fun getAtMostTriple() =
-            { what: String, times: String -> "$contains $what $atMost $times" } to
-                ("$contains.$inAnyOrder.$atMost" to Companion::containsAtMost)
+            { what: String, times: String -> "$toContain $what $atMost $times" } to
+                ("$toContain.$inAnyOrder.$atMost" to Companion::toContainAtMost)
 
-        private fun containsAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
-            expect.contains.inAnyOrder.atMost(atMost).values(a, *aX)
+        private fun toContainAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
+            expect.toContain.inAnyOrder.atMost(atMost).values(a, *aX)
 
 
-        private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
+        private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgContainsNot(times: Int) = "use $containsNot instead of $atMost($times)"
+        private fun getErrorMsgNotToContain(times: Int) = "use $notToContain instead of $atMost($times)"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 
@@ -37,14 +37,14 @@ class IterableContainsInAnyOrderAtMostValuesExpectationsSpec :
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.contains.inAnyOrder.atMost(2).value(1)
-        nList = nList.contains.inAnyOrder.atMost(2).value(1)
-        subList = subList.contains.inAnyOrder.atMost(2).value(1)
-        star = star.contains.inAnyOrder.atMost(2).value(1)
+        list = list.toContain.inAnyOrder.atMost(2).value(1)
+        nList = nList.toContain.inAnyOrder.atMost(2).value(1)
+        subList = subList.toContain.inAnyOrder.atMost(2).value(1)
+        star = star.toContain.inAnyOrder.atMost(2).value(1)
 
-        list = list.contains.inAnyOrder.atMost(2).values(1, 1.2)
-        nList = nList.contains.inAnyOrder.atMost(2).values(1, 1.2)
-        subList = subList.contains.inAnyOrder.atMost(2).values(1, 2.2)
-        star = star.contains.inAnyOrder.atMost(2).values(1, 1.2, "asdf")
+        list = list.toContain.inAnyOrder.atMost(2).values(1, 1.2)
+        nList = nList.toContain.inAnyOrder.atMost(2).values(1, 1.2)
+        subList = subList.toContain.inAnyOrder.atMost(2).values(1, 2.2)
+        star = star.toContain.inAnyOrder.atMost(2).values(1, 1.2, "asdf")
     }
 }

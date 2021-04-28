@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.isEmpty
 import ch.tutteli.atrium.logic.isNotEmpty
-import ch.tutteli.atrium.logic.size
 import ch.tutteli.kbox.identity
 
 /**

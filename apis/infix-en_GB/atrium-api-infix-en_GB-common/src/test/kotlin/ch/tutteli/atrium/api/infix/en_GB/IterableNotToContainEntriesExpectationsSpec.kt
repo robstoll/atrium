@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableContainsNotEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableContainsNotEntriesExpectationsSpec(
+class IterableNotToContainEntriesExpectationsSpec :
+    ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
         getContainsNotPair(),
         getContainsNotNullablePair().withNullableSuffix(),
         "[Atrium][Builder] "
