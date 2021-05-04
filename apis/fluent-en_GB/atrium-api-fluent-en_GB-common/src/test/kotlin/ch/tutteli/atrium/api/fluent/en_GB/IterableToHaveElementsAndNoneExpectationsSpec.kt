@@ -5,21 +5,21 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveNextAndNoneExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveElementsAndNoneExpectationsSpec.Companion as C
 
-class IterableToHaveNextAndNoneExpectationsSpec : Spek({
+class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::toHaveNextAndNone),
-        fun1(Expect<Iterable<Double?>>::toHaveNextAndNone).withNullableSuffix(),
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
+        fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
+        fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
     // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for contains and none
     // that's fine and we can simply remove this test here
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         functionDescription to C::notToContainFun,
         (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
         "[Atrium][Builder] "
@@ -42,9 +42,9 @@ class IterableToHaveNextAndNoneExpectationsSpec : Spek({
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.toHaveNextAndNone {}
-        nList = nList.toHaveNextAndNone {}
-        subList = subList.toHaveNextAndNone {}
-        star = star.toHaveNextAndNone {}
+        list = list.toHaveElementsAndNone {}
+        nList = nList.toHaveElementsAndNone {}
+        subList = subList.toHaveElementsAndNone {}
+        star = star.toHaveElementsAndNone {}
     }
 }

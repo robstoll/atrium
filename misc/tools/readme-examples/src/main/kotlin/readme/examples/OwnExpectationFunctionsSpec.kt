@@ -79,7 +79,7 @@ object OwnExpectationFunctionsSpec : Spek({
     //snippet-own-compose-4-start
     fun Expect<Person>.hasAdultChildren(): Expect<Person> =
         feature(Person::children) {
-            toHaveNextAndAll {
+            toHaveElementsAndAll {
                 feature(Person::age).toBeGreaterThanOrEqualTo(18)
             }
         }
@@ -101,17 +101,17 @@ object OwnExpectationFunctionsSpec : Spek({
     test("ex-own-compose-5"){
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
             .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
-                toHaveNextAndNone {
+                toHaveElementsAndNone {
                     feature { f(it::firstName) }.toStartWith("Ro")
                 }
-                toHaveNextAndAll {
+                toHaveElementsAndAll {
                     feature { f(it::lastName) }.toEqual("Whitley")
                 }
             } // subject is still Person here
             .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
                     .toHaveSize(2)
-                    .toHaveNextAndAny {
+                    .toHaveElementsAndAny {
                         feature { f(it::age) }.toBeGreaterThan(18)
                     }
             } // subject is still Person here due to the `apply`

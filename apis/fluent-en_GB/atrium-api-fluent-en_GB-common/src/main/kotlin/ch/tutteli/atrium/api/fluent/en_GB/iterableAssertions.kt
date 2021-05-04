@@ -299,8 +299,8 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndAny; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndAny<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndAny; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAny<E, T>(assertionCreatorOrNull)")
 )
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     toContain.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
@@ -315,8 +315,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndNone; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndNone<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndNone; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndNone<E, T>(assertionCreatorOrNull)")
 )
 fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     notToContain.entry(assertionCreatorOrNull)
@@ -329,8 +329,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndAll; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndAll<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndAll; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAll<E, T>(assertionCreatorOrNull)")
 )
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
@@ -344,8 +344,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  * @since 0.9.0
  */
 @Deprecated(
-    "Use toHaveNext; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNext<E, T>()")
+    "Use toHaveElements; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElements<E, T>()")
 )
 fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext(::identity) }
@@ -358,8 +358,8 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
  * @since 0.9.0
  */
 @Deprecated(
-    "Use notToHaveNext; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.notToHaveNext<E, T>()")
+    "Use notToHaveElements; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToHaveElements<E, T>()")
 )
 fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext(::identity) }

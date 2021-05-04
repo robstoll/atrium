@@ -7,29 +7,29 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-abstract class IterableToHaveNextAndAllExpectationsSpec(
-    notToBeEmptyAndAll: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
-    notToBeEmptyAndAllNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
+abstract class IterableToHaveElementsAndAllExpectationsSpec(
+    toHaveElementsAndAll: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
+    toHaveElementsAndAllNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        notToBeEmptyAndAll.first to expectLambda { notToBeEmptyAndAll.second(this) { toEqual(2.5) } }
+        toHaveElementsAndAll.first to expectLambda { toHaveElementsAndAll.second(this) { toEqual(2.5) } }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${notToBeEmptyAndAllNullable.first} for nullable" to expectLambda { notToBeEmptyAndAllNullable.second(this, null) }
+        "${toHaveElementsAndAllNullable.first} for nullable" to expectLambda { toHaveElementsAndAllNullable.second(this, null) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToBeEmptyAndAll.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        toHaveElementsAndAll.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToBeEmptyAndAllNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        toHaveElementsAndAllNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
-    val notToBeEmptyAndAllDescr = DescriptionIterableAssertion.ALL.getDefault()
+    val toHaveElementsAndAllDescr = DescriptionIterableAssertion.ALL.getDefault()
     val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
@@ -38,14 +38,14 @@ abstract class IterableToHaveNextAndAllExpectationsSpec(
 
     nonNullableCases(
         describePrefix,
-        notToBeEmptyAndAll,
-        notToBeEmptyAndAllNullable
-    ) { notToBeEmptyAndAllFun ->
+        toHaveElementsAndAll,
+        toHaveElementsAndAllNullable
+    ) { toHaveElementsAndAllFun ->
 
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).notToBeEmptyAndAllFun { toBeLessThan(1.0) }
+                    expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator" +
@@ -59,11 +59,11 @@ abstract class IterableToHaveNextAndAllExpectationsSpec(
             context("all are $toBeGreaterThanFun(2.5) and $toBeLessThanFun(7.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).notToBeEmptyAndAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
+                        expect(oneToSeven()).toHaveElementsAndAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$notToBeEmptyAndAllDescr: $separator",
+                                "$rootBulletPoint$toHaveElementsAndAllDescr: $separator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
                                 "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
                                 "$warningBulletPoint$mismatches:",
@@ -78,7 +78,7 @@ abstract class IterableToHaveNextAndAllExpectationsSpec(
 
             context("all are $toBeGreaterThanFun(0.5) and $toBeLessThanFun(7.5)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).notToBeEmptyAndAllFun { toBeGreaterThan(0.5); toBeLessThan(7.5) }
+                    expect(oneToSeven()).toHaveElementsAndAllFun { toBeGreaterThan(0.5); toBeLessThan(7.5) }
                 }
             }
         }
@@ -86,24 +86,24 @@ abstract class IterableToHaveNextAndAllExpectationsSpec(
 
     nullableCases(describePrefix) {
 
-        describeFun(notToBeEmptyAndAllNullable) {
-            val notToBeEmptyAndAllNullableFun = notToBeEmptyAndAllNullable.lambda
+        describeFun(toHaveElementsAndAllNullable) {
+            val toHaveElementsAndAllNullableFun = toHaveElementsAndAllNullable.lambda
 
             val iterableOfNulls = { sequenceOf<Double?>(null, null).constrainOnce().asIterable() }
             context("iterable ${iterableOfNulls()}") {
                 it("all are `null` does not throw") {
-                    expect(iterableOfNulls()).notToBeEmptyAndAllNullableFun(null)
+                    expect(iterableOfNulls()).toHaveElementsAndAllNullableFun(null)
                 }
             }
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 it("$toBeGreaterThanDescr(0.5) throws because two are `null`") {
                     expect {
-                        expect(oneToSevenNullable()).notToBeEmptyAndAllNullableFun { toBeGreaterThan(0.5) }
+                        expect(oneToSevenNullable()).toHaveElementsAndAllNullableFun { toBeGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$notToBeEmptyAndAllDescr: $separator",
+                                "$rootBulletPoint$toHaveElementsAndAllDescr: $separator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 0.5",
                                 "$warningBulletPoint$mismatches:",
                                 "${index(1)}: null",

@@ -5,9 +5,9 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableToHaveNextAndAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAllExpectationsSpec(
-    fun1(Expect<Iterable<Double>>::toHaveNextAndAll),
-    fun1(Expect<Iterable<Double?>>::toHaveNextAndAll).withNullableSuffix()
+class IterableToHaveElementsAndAllExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAllExpectationsSpec(
+    fun1(Expect<Iterable<Double>>::toHaveElementsAndAll),
+    fun1(Expect<Iterable<Double?>>::toHaveElementsAndAll).withNullableSuffix()
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -17,11 +17,11 @@ class IterableToHaveNextAndAllExpectationsSpec : ch.tutteli.atrium.specs.integra
 
         var star: Expect<Iterable<*>> = notImplemented()
 
-        a1 = a1 toHaveNextAndAll {}
+        a1 = a1 toHaveElementsAndAll {}
 
-        a1b = a1b toHaveNextAndAll {}
-        a1b = a1b toHaveNextAndAll null
+        a1b = a1b toHaveElementsAndAll {}
+        a1b = a1b toHaveElementsAndAll null
 
-        star = star toHaveNextAndAll {}
+        star = star toHaveElementsAndAll {}
     }
 }

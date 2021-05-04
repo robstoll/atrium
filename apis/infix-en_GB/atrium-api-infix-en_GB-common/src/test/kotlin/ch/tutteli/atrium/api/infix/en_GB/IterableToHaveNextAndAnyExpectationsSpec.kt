@@ -9,31 +9,31 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableAnyExpectationsSpec : Spek({
+class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
     include(ShortcutSpec)
     include(SequenceSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::toHaveNextAndAny),
-        fun1(Expect<Iterable<Double?>>::toHaveNextAndAny).withNullableSuffix(),
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
+        fun1(Expect<Iterable<Double>>::toHaveElementsAndAny),
+        fun1(Expect<Iterable<Double?>>::toHaveElementsAndAny).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         getToContainPair(),
         getToContainNullablePair().withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         getToContainShortcutPair(),
         getToContainNullableShortcutPair().withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
-    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         getToContainSequencePair(),
         getToContainNullableSequencePair().withNullableSuffix(),
         "[Atrium][Sequence] "
@@ -94,15 +94,15 @@ class IterableAnyExpectationsSpec : Spek({
 
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1 toHaveNextAndAny {}
+        a1 = a1 toHaveElementsAndAny {}
         a1 = a1 toContain {}
 
-        a1b = a1b toHaveNextAndAny {}
-        a1b = a1b toHaveNextAndAny null
+        a1b = a1b toHaveElementsAndAny {}
+        a1b = a1b toHaveElementsAndAny null
         a1b = a1b toContain {}
         a1b = a1b toContain (null as Double?)
 
-        star = star toHaveNextAndAny {}
+        star = star toHaveElementsAndAny {}
         star = star toContain {}
     }
 }

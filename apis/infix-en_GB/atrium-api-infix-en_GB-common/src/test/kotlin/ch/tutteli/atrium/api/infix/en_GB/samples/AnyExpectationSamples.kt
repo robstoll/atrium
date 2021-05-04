@@ -203,7 +203,7 @@ class AnyExpectationSamples {
             it notToContain "?"
         }
 
-        expect(customers) toHaveNextAndAll (fun Expect<Person>.() {
+        expect(customers) toHaveElementsAndAll (fun Expect<Person>.() {
             it because of("the legal age of maturity in Switzerland is 18") {
                 feature { f(it::age) } toBeGreaterThanOrEqualTo 18
             }

@@ -271,7 +271,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(values: Values<E>): Expect
  *
  * @since 0.17.0
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     it toContain o inAny order atLeast 1 entry assertionCreatorOrNull
 
 
@@ -286,7 +286,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAny(assertionCreato
  *
  * @since 0.17.0
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     it notToContain o entry assertionCreatorOrNull
 
 /**
@@ -298,7 +298,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndNone(assertionCreat
  *
  * @since 0.17.0
  */
-infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
 
 
@@ -309,7 +309,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAll(assertionCreato
  *
  * @since 0.17.0
  */
-infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
     _logicAppend { hasNext(::identity) }
 
 /**
@@ -319,7 +319,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") ne
  *
  * @since 0.17.0
  */
-infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
     _logicAppend { hasNotNext(::identity) }
 
 /**

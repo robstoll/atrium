@@ -223,7 +223,7 @@ fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E, vararg otherExpecte
  *
  * @since 0.17.0
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     toContain.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
@@ -237,7 +237,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAny(assertionCreatorOrNul
  *
  * @since 0.17.0
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     notToContain.entry(assertionCreatorOrNull)
 
 /**
@@ -249,7 +249,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndNone(assertionCreatorOrNu
  *
  * @since 0.17.0
  */
-fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
 
 
@@ -260,7 +260,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveNextAndAll(assertionCreatorOrNul
  *
  * @since 0.17.0
  */
-fun <E, T : Iterable<E>> Expect<T>.toHaveNext(): Expect<T> =
+fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
     _logicAppend { hasNext(::identity) }
 
 /**
@@ -270,7 +270,7 @@ fun <E, T : Iterable<E>> Expect<T>.toHaveNext(): Expect<T> =
  *
  * @since 0.17.0
  */
-fun <E, T : Iterable<E>> Expect<T>.notToHaveNext(): Expect<T> =
+fun <E, T : Iterable<E>> Expect<T>.notToHaveElements(): Expect<T> =
     _logicAppend { hasNotNext(::identity) }
 
 /**

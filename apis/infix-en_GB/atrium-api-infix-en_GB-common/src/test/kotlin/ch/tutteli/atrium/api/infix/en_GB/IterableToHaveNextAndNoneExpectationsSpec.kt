@@ -12,13 +12,13 @@ class IterableToHaveNextAndNoneExpectationsSpec : Spek({
     include(BuilderSpec)
 
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::toHaveNextAndNone),
-        fun1(Expect<Iterable<Double?>>::toHaveNextAndNone).withNullableSuffix(),
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
+        fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
+        fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndNoneExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         getNotToContainPair(),
         getNotToContainNullablePair().withNullableSuffix(),
         "[Atrium][Builder] "
@@ -44,15 +44,15 @@ class IterableToHaveNextAndNoneExpectationsSpec : Spek({
 
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1.toHaveNextAndNone {}
+        a1 = a1.toHaveElementsAndNone {}
         a1 = a1 notToContain o entry {}
 
-        a1b = a1b toHaveNextAndNone {}
-        a1b = a1b toHaveNextAndNone null
+        a1b = a1b toHaveElementsAndNone {}
+        a1b = a1b toHaveElementsAndNone null
         a1b = a1b notToContain o entry {}
         a1b = a1b notToContain o entry null
 
-        star = star.toHaveNextAndNone {}
+        star = star.toHaveElementsAndNone {}
         star = star notToContain o entry {}
     }
 }

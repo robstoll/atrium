@@ -2,7 +2,6 @@ package readme.examples
 
 import readme.examples.utils.expect
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.math.BigDecimal
 
@@ -134,17 +133,17 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-collection-any") {
-        expect(listOf(1, 2, 3, 4)).toHaveNextAndAny {
+        expect(listOf(1, 2, 3, 4)).toHaveElementsAndAny {
             toBeLessThan(0)
         }
     }
     test("ex-collection-none") {
-        expect(listOf(1, 2, 3, 4)).toHaveNextAndNone {
+        expect(listOf(1, 2, 3, 4)).toHaveElementsAndNone {
             toBeGreaterThan(2)
         }
     }
     test("ex-collection-all") {
-        expect(listOf(1, 2, 3, 4)).toHaveNextAndAll {
+        expect(listOf(1, 2, 3, 4)).toHaveElementsAndAll {
             toBeGreaterThan(2)
         }
     }
@@ -214,8 +213,8 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-4") {
         expect(mapOf("a" to 1, "b" to 2)) {
-            keys { toHaveNextAndAll { toStartWith("a") } }
-            values { toHaveNextAndNone { toBeGreaterThan(1) } }
+            keys { toHaveElementsAndAll { toStartWith("a") } }
+            values { toHaveElementsAndNone { toBeGreaterThan(1) } }
         }
     }
     test("ex-map-5") {

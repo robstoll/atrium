@@ -345,8 +345,8 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: E
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndAny; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndAny<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndAny; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAny<E, T>(assertionCreatorOrNull)")
 )
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     it toContain o inAny order atLeast 1 entry assertionCreatorOrNull
@@ -362,8 +362,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Exp
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndNone; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndNone<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndNone; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndNone<E, T>(assertionCreatorOrNull)")
 )
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     it notToContain o entry assertionCreatorOrNull
@@ -376,8 +376,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Ex
  * @return an [Expect] for the subject of `this` expectation.
  */
 @Deprecated(
-    "Use toHaveNextAndAll; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNextAndAll<E, T>(assertionCreatorOrNull)")
+    "Use toHaveElementsAndAll; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAll<E, T>(assertionCreatorOrNull)")
 )
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
@@ -392,7 +392,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Exp
  */
 @Deprecated(
     "Use toHaveNext; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toHaveNext<E, T>()")
+    ReplaceWith("this.toHaveNext<E, T>(elements)", "ch.tutteli.atrium.api.infix.en_GB.elements")
 )
 infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNext(::identity) }
@@ -406,7 +406,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.has(@Suppress("UNUSED_PARAMETER") next:
  */
 @Deprecated(
     "Use notToHaveNext; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.notToHaveNext<E, T>()")
+    ReplaceWith("this.notToHaveNext<E, T>(elements)", "ch.tutteli.atrium.api.infix.en_GB.elements")
 )
 infix fun <E, T : Iterable<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNotNext(::identity) }

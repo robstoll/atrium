@@ -7,21 +7,21 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveNextAndAnyExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveElementsAndAnyExpectationsSpec.Companion as C
 
-class IterableToHaveNextAndAnyExpectationsSpec : Spek({
+class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
     include(ShortcutSpec)
     include(SequenceSpec)
 }) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
-        fun1(Expect<Iterable<Double>>::toHaveNextAndAny),
-        fun1(Expect<Iterable<Double?>>::toHaveNextAndAny).withNullableSuffix(),
+    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
+        fun1(Expect<Iterable<Double>>::toHaveElementsAndAny),
+        fun1(Expect<Iterable<Double?>>::toHaveElementsAndAny).withNullableSuffix(),
         "[Atrium][Predicate] "
     )
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         functionDescription to C::toContainEntry,
         (functionDescription to C::toContainNullableEntry).withNullableSuffix(),
         "[Atrium][Builder] "
@@ -29,14 +29,14 @@ class IterableToHaveNextAndAnyExpectationsSpec : Spek({
 
     // TODO 0.19.0 #722 this will differ once we don't implement the same behaviour for toContain and none
     // that's fine and we can simply remove this test here
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         shortcutDescription to C::toContainEntryShortcut,
         (shortcutDescription to C::toContainNullableEntryShortcut).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
     // TODO move to own SequenceSpec if we really need this (maybe we can also just delete it?)
-    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableToHaveNextAndAnyExpectationsSpec(
+    object SequenceSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         getToContainSequencePair(),
         getToContainNullableSequencePair().withNullableSuffix(),
         "[Atrium][Sequence] "
@@ -87,9 +87,9 @@ class IterableToHaveNextAndAnyExpectationsSpec : Spek({
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.toHaveNextAndAny {}
-        nList = nList.toHaveNextAndAny {}
-        subList = subList.toHaveNextAndAny {}
-        star = star.toHaveNextAndAny {}
+        list = list.toHaveElementsAndAny {}
+        nList = nList.toHaveElementsAndAny {}
+        subList = subList.toHaveElementsAndAny {}
+        star = star.toHaveElementsAndAny {}
     }
 }

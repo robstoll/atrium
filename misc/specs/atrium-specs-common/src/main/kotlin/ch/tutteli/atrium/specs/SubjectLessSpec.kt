@@ -2,7 +2,7 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.fluent.en_GB.toHaveNextAndAll
+import ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -63,7 +63,7 @@ abstract class SubjectLessSpec<T>(
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
-                expect(assertions).toHaveNextAndAll {
+                expect(assertions).toHaveElementsAndAll {
                     feature(Assertion::holds).toEqual(false)
                 }
             }
