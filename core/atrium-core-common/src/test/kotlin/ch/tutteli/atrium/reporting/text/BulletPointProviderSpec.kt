@@ -48,10 +48,10 @@ class BulletPointProviderSpec : Spek({
                     expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixSuccessfulSummaryAssertion::class to ("(/) " to { p ->
-                    expectWitNewBulletPoint(p, listOf(1)) containsExactly values(1, 2)
+                    expectWitNewBulletPoint(p, listOf(1)) toContainExactly values(1, 2)
                 }),
                 PrefixFailingSummaryAssertion::class to ("(x) " to { p ->
-                    expectWitNewBulletPoint(p, listOf(1)) containsExactly 2
+                    expectWitNewBulletPoint(p, listOf(1)) toContainExactly 2
                 }),
                 ExplanatoryAssertionGroupType::class to (">> " to { p ->
                     expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {

@@ -210,7 +210,7 @@ class AnyExpectationSamples {
                 notToContain("?")
             }
 
-        expect(customers).all {
+        expect(customers).toHaveElementsAndAll {
             because("the legal age of maturity in Switzerland is 18") {
                 feature { f(it::age) }.toBeGreaterThanOrEqualTo(18)
             }

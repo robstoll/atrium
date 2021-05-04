@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -50,9 +51,9 @@ abstract class LocaleOrderDeciderSpec(
             context("primary locale is $localeDe") {
                 it("returns $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDe, fallbackLocales).asIterable()
-                    expect(result).containsExactly(
-                        localeDe
-                        , *additionalLocaleCandidates
+                    expect(result).toContainExactly(
+                        localeDe,
+                        *additionalLocaleCandidates
                     )
                 }
             }
@@ -60,10 +61,10 @@ abstract class LocaleOrderDeciderSpec(
             context("primary locale is $localeDeCh") {
                 it("returns $localeDeCh, $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDeCh, fallbackLocales).asIterable()
-                    expect(result).containsExactly(
-                        localeDeCh
-                        , localeDe
-                        , *additionalLocaleCandidates
+                    expect(result).toContainExactly(
+                        localeDeCh,
+                        localeDe,
+                        *additionalLocaleCandidates
                     )
                 }
             }
@@ -77,11 +78,11 @@ abstract class LocaleOrderDeciderSpec(
                         + andAdditional
                 ) {
                     val result = testee.determineOrder(localeDeChVariantA, fallbackLocales).asIterable()
-                    expect(result).containsExactly(
-                        localeDeChVariantA
-                        , localeDeCh
-                        , localeDe
-                        , *additionalLocaleCandidates
+                    expect(result).toContainExactly(
+                        localeDeChVariantA,
+                        localeDeCh,
+                        localeDe,
+                        *additionalLocaleCandidates
                     )
                 }
             }
@@ -96,12 +97,12 @@ abstract class LocaleOrderDeciderSpec(
                         + andAdditional
                 ) {
                     val result = testee.determineOrder(localeDeChVariantAVariantB, fallbackLocales).asIterable()
-                    expect(result).containsExactly(
-                        localeDeChVariantAVariantB
-                        , localeDeChVariantA
-                        , localeDeCh
-                        , localeDe
-                        , *additionalLocaleCandidates
+                    expect(result).toContainExactly(
+                        localeDeChVariantAVariantB,
+                        localeDeChVariantA,
+                        localeDeCh,
+                        localeDe,
+                        *additionalLocaleCandidates
                     )
                 }
             }
@@ -118,14 +119,14 @@ abstract class LocaleOrderDeciderSpec(
                         + andAdditional
                 ) {
                     val result = testee.determineOrder(localeDeScriptLatnChVariantA, fallbackLocales).asIterable()
-                    expect(result).containsExactly(
-                        localeDeScriptLatnChVariantA
-                        , localeDeScriptLatnCh
-                        , localeDeScriptLatn
-                        , localeDeChVariantA
-                        , localeDeCh
-                        , localeDe
-                        , *additionalLocaleCandidates
+                    expect(result).toContainExactly(
+                        localeDeScriptLatnChVariantA,
+                        localeDeScriptLatnCh,
+                        localeDeScriptLatn,
+                        localeDeChVariantA,
+                        localeDeCh,
+                        localeDe,
+                        *additionalLocaleCandidates
                     )
                 }
             }

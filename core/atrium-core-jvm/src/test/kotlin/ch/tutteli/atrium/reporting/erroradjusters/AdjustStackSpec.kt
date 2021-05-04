@@ -28,7 +28,7 @@ class AdjustStackSpec : Spek({
             expect {
                 assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
-                feature { f(it::stackBacktrace) } contains entries(
+                feature { f(it::stackBacktrace) } toContain entries(
                     { it toStartWith "org.spekframework.spek2" },
                     { it toStartWith "ch.tutteli.atrium.creating" },
                     { it toStartWith "ch.tutteli.atrium.reporting" }
@@ -63,8 +63,8 @@ class AdjustStackSpec : Spek({
                     createExpect(1, factory) toEqual 2
                 }.toThrow<AssertionError> {
                     feature { f(it::stackBacktrace) } and {
-                        it containsNot o the entries(containsNotFirst, *containsNotRest)
-                        it contains entries(containsFirst, *containsRest)
+                        it notToContain o the entries(containsNotFirst, *containsNotRest)
+                        it toContain entries(containsFirst, *containsRest)
                     }
                 }
             }
@@ -75,8 +75,8 @@ class AdjustStackSpec : Spek({
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
                 expect(throwable.cause!!.stackBacktrace) {
-                    it containsNot o the entries(containsNotFirst, *containsNotRest)
-                    it contains entries(containsFirst, *containsRest)
+                    it notToContain o the entries(containsNotFirst, *containsNotRest)
+                    it toContain entries(containsFirst, *containsRest)
                 }
             }
 
@@ -88,8 +88,8 @@ class AdjustStackSpec : Spek({
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
                 expect(throwable.cause!!.cause!!.stackBacktrace) {
-                    it containsNot o the entries(containsNotFirst, *containsNotRest)
-                    it contains entries(containsFirst, *containsRest)
+                    it notToContain o the entries(containsNotFirst, *containsNotRest)
+                    it toContain entries(containsFirst, *containsRest)
                 }
             }
 
@@ -101,12 +101,12 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed) asList o all {
+                (expect(throwable.suppressed) asList o).toHaveElementsAndAll(fun Expect<Throwable>.() {
                     feature { f(it::stackBacktrace) } and {
-                        it containsNot o the entries(containsNotFirst, *containsNotRest)
-                        it contains entries(containsFirst, *containsRest)
+                        it notToContain o the entries(containsNotFirst, *containsNotRest)
+                        it toContain entries(containsFirst, *containsRest)
                     }
-                }
+                })
             }
 
             it("does not contain $containsNot in stackBacktrace of cause of suppressed exception, but $contains") {
@@ -117,14 +117,14 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed) asList o all {
+                (expect(throwable.suppressed) asList o).toHaveElementsAndAll(fun Expect<Throwable>.() {
                     cause<UnsupportedOperationException> {
                         feature { f(it::stackBacktrace) } and {
-                            it containsNot o the entries(containsNotFirst, *containsNotRest)
-                            it contains entries(containsFirst, *containsRest)
+                            it notToContain o the entries(containsNotFirst, *containsNotRest)
+                            it toContain entries(containsFirst, *containsRest)
                         }
                     }
-                }
+                })
             }
         }
     }
@@ -191,9 +191,9 @@ class AdjustStackSpec : Spek({
                 throwable.addSuppressed(throwable2)
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
-                expect(throwable.suppressed) asList o all {
+                (expect(throwable.suppressed) asList o).toHaveElementsAndAll(fun Expect<Throwable>.() {
                     it feature { f(it::stackBacktrace) } toBe empty
-                }
+                })
             }
         }
     }

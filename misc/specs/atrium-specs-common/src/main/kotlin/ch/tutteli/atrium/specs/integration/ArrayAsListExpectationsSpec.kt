@@ -2,6 +2,8 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
+import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
@@ -36,39 +38,39 @@ abstract class ArrayAsListExpectationsSpec(
     val asListWithCreator = "$asListFunName with Creator"
     include(object : SubjectLessSpec<Array<Int>>("$describePrefix[arr] ",
         asListFunName to expectLambda { arr(this) },
-        asListWithCreator to expectLambda { arrWithCreator(this) { contains(1) } }
+        asListWithCreator to expectLambda { arrWithCreator(this) { toContain(1) } }
     ) {})
     include(object : SubjectLessSpec<ByteArray>("$describePrefix[arrByte] ",
         asListFunName to expectLambda { arrByte(this) },
-        asListWithCreator to expectLambda { arrByteWithCreator(this) { contains(1) } }
+        asListWithCreator to expectLambda { arrByteWithCreator(this) { toContain(1) } }
     ) {})
     include(object : SubjectLessSpec<CharArray>("$describePrefix[arrChar] ",
         asListFunName to expectLambda { arrChar(this) },
-        asListWithCreator to expectLambda { arrCharWithCreator(this) { contains('a') } }
+        asListWithCreator to expectLambda { arrCharWithCreator(this) { toContain('a') } }
     ) {})
     include(object : SubjectLessSpec<ShortArray>("$describePrefix[arrShort] ",
         asListFunName to expectLambda { arrShort(this) },
-        asListWithCreator to expectLambda { arrShortWithCreator(this) { contains(1.toShort()) } }
+        asListWithCreator to expectLambda { arrShortWithCreator(this) { toContain(1.toShort()) } }
     ) {})
     include(object : SubjectLessSpec<IntArray>("$describePrefix[arrInt] ",
         asListFunName to expectLambda { arrInt(this) },
-        asListWithCreator to expectLambda { arrIntWithCreator(this) { contains(1) } }
+        asListWithCreator to expectLambda { arrIntWithCreator(this) { toContain(1) } }
     ) {})
     include(object : SubjectLessSpec<LongArray>("$describePrefix[arrLong] ",
         asListFunName to expectLambda { arrLong(this) },
-        asListWithCreator to expectLambda { arrLongWithCreator(this) { contains(1L) } }
+        asListWithCreator to expectLambda { arrLongWithCreator(this) { toContain(1L) } }
     ) {})
     include(object : SubjectLessSpec<FloatArray>("$describePrefix[arrFloat] ",
         asListFunName to expectLambda { arrFloat(this) },
-        asListWithCreator to expectLambda { arrFloatWithCreator(this) { contains(1f) } }
+        asListWithCreator to expectLambda { arrFloatWithCreator(this) { toContain(1f) } }
     ) {})
     include(object : SubjectLessSpec<DoubleArray>("$describePrefix[arrDouble] ",
         asListFunName to expectLambda { arrDouble(this) },
-        asListWithCreator to expectLambda { arrDoubleWithCreator(this) { contains(1.0) } }
+        asListWithCreator to expectLambda { arrDoubleWithCreator(this) { toContain(1.0) } }
     ) {})
     include(object : SubjectLessSpec<BooleanArray>("$describePrefix[arrBoolean] ",
         asListFunName to expectLambda { arrBoolean(this) },
-        asListWithCreator to expectLambda { arrBooleanWithCreator(this) { contains(true) } }
+        asListWithCreator to expectLambda { arrBooleanWithCreator(this) { toContain(true) } }
     ) {})
 
     fun bytes(vararg bytes: Byte) = bytes
@@ -86,7 +88,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrWithCreator.invoke(this) { contains(1) } },
+            { arrWithCreator.invoke(this) { toContain(1) } },
             { arrWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<ByteArray>(
@@ -94,7 +96,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrByteWithCreator.invoke(this) { contains(1) } },
+            { arrByteWithCreator.invoke(this) { toContain(1) } },
             { arrByteWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<CharArray>(
@@ -102,7 +104,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrCharWithCreator.invoke(this) { contains('a') } },
+            { arrCharWithCreator.invoke(this) { toContain('a') } },
             { arrCharWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<ShortArray>(
@@ -110,7 +112,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrShortWithCreator.invoke(this) { contains(1) } },
+            { arrShortWithCreator.invoke(this) { toContain(1) } },
             { arrShortWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<IntArray>(
@@ -118,7 +120,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrIntWithCreator.invoke(this) { contains(1) } },
+            { arrIntWithCreator.invoke(this) { toContain(1) } },
             { arrIntWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<LongArray>(
@@ -126,7 +128,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrLongWithCreator.invoke(this) { contains(1) } },
+            { arrLongWithCreator.invoke(this) { toContain(1) } },
             { arrLongWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<FloatArray>(
@@ -134,7 +136,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrFloatWithCreator.invoke(this) { contains(1.0f) } },
+            { arrFloatWithCreator.invoke(this) { toContain(1.0f) } },
             { arrFloatWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<DoubleArray>(
@@ -142,7 +144,7 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrDoubleWithCreator.invoke(this) { contains(1.0) } },
+            { arrDoubleWithCreator.invoke(this) { toContain(1.0) } },
             { arrDoubleWithCreator.invoke(this) {} })
     ) {})
     include(object : AssertionCreatorSpec<BooleanArray>(
@@ -150,81 +152,81 @@ abstract class ArrayAsListExpectationsSpec(
         assertionCreatorSpecTriple(
             asListFunName,
             anElementWhich,
-            { arrBooleanWithCreator.invoke(this) { contains(true) } },
+            { arrBooleanWithCreator.invoke(this) { toContain(true) } },
             { arrBooleanWithCreator.invoke(this) {} })
     ) {})
 
     describe("$asListFunName arr") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(arrayOf(1, 2)).arr().containsExactly(1, 2)
+            expect(arrayOf(1, 2)).arr().toContainExactly(1, 2)
         }
         it("transformation can be applied and a sub-assertion made") {
-            expect(arrayOf(1, 2)).arrWithCreator { containsExactly(1, 2) }
+            expect(arrayOf(1, 2)).arrWithCreator { toContainExactly(1, 2) }
         }
     }
 
     describe("$asListFunName arrByte") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(bytes(1.toByte(), 2.toByte())).arrByte().containsExactly(1.toByte(), 2.toByte())
+            expect(bytes(1.toByte(), 2.toByte())).arrByte().toContainExactly(1.toByte(), 2.toByte())
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { containsExactly(1.toByte(), 2.toByte()) }
+            expect(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { toContainExactly(1.toByte(), 2.toByte()) }
         }
     }
     describe("$asListFunName arrChar") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(chars(1.toChar(), 2.toChar())).arrChar().containsExactly(1.toChar(), 2.toChar())
+            expect(chars(1.toChar(), 2.toChar())).arrChar().toContainExactly(1.toChar(), 2.toChar())
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(chars(1.toChar(), 2.toChar())).arrCharWithCreator { containsExactly(1.toChar(), 2.toChar()) }
+            expect(chars(1.toChar(), 2.toChar())).arrCharWithCreator { toContainExactly(1.toChar(), 2.toChar()) }
         }
     }
     describe("$asListFunName arrShort") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(shorts(1, 2)).arrShort().containsExactly(1.toShort(), 2.toShort())
+            expect(shorts(1, 2)).arrShort().toContainExactly(1.toShort(), 2.toShort())
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(shorts(1, 2)).arrShortWithCreator { containsExactly(1.toShort(), 2.toShort()) }
+            expect(shorts(1, 2)).arrShortWithCreator { toContainExactly(1.toShort(), 2.toShort()) }
         }
     }
     describe("$asListFunName arrInt") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(ints(1, 2)).arrInt().containsExactly(1, 2)
+            expect(ints(1, 2)).arrInt().toContainExactly(1, 2)
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(ints(1, 2)).arrIntWithCreator { containsExactly(1, 2) }
+            expect(ints(1, 2)).arrIntWithCreator { toContainExactly(1, 2) }
         }
     }
     describe("$asListFunName arrLong") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(longs(1, 2)).arrLong().containsExactly(1L, 2L)
+            expect(longs(1, 2)).arrLong().toContainExactly(1L, 2L)
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(longs(1, 2)).arrLongWithCreator { containsExactly(1L, 2L) }
+            expect(longs(1, 2)).arrLongWithCreator { toContainExactly(1L, 2L) }
         }
     }
     describe("$asListFunName arrFloat") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(floats(1f, 2f)).arrFloat().containsExactly(1f, 2f)
+            expect(floats(1f, 2f)).arrFloat().toContainExactly(1f, 2f)
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(floats(1f, 2f)).arrFloatWithCreator { containsExactly(1f, 2f) }
+            expect(floats(1f, 2f)).arrFloatWithCreator { toContainExactly(1f, 2f) }
         }
     }
     describe("$asListFunName arrDouble") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(doubles(1.0, 2.0)).arrDouble().containsExactly(1.0, 2.0)
+            expect(doubles(1.0, 2.0)).arrDouble().toContainExactly(1.0, 2.0)
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(doubles(1.0, 2.0)).arrDoubleWithCreator { containsExactly(1.0, 2.0) }
+            expect(doubles(1.0, 2.0)).arrDoubleWithCreator { toContainExactly(1.0, 2.0) }
         }
     }
     describe("$asListFunName arrBoolean") {
         it("transformation can be applied and a subsequent assertion made") {
-            expect(booleans(true, false)).arrBoolean().containsExactly(true, false)
+            expect(booleans(true, false)).arrBoolean().toContainExactly(true, false)
         }
         it("transformation can be applied and a sub assertion made") {
-            expect(booleans(true, false)).arrBooleanWithCreator { containsExactly(true, false) }
+            expect(booleans(true, false)).arrBooleanWithCreator { toContainExactly(true, false) }
         }
     }
 })

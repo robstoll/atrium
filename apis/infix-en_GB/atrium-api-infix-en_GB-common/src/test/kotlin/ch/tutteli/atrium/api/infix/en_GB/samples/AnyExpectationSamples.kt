@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 class AnyExpectationSamples {
@@ -202,10 +203,10 @@ class AnyExpectationSamples {
             it notToContain "?"
         }
 
-        expect(customers) all {
+        expect(customers) toHaveElementsAndAll (fun Expect<Person>.() {
             it because of("the legal age of maturity in Switzerland is 18") {
                 feature { f(it::age) } toBeGreaterThanOrEqualTo 18
             }
-        }
+        })
     }
 }

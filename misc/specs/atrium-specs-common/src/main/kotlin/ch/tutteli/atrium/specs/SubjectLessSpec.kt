@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.specs
 
-import ch.tutteli.atrium.api.fluent.en_GB.all
 import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -55,7 +55,7 @@ abstract class SubjectLessSpec<T>(
         }
     }
 
-    describe("${groupPrefix}assertion function does not hold if there is no subject") {
+    describe("${groupPrefix}expectation function does not hold if there is no subject") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
                 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -63,7 +63,9 @@ abstract class SubjectLessSpec<T>(
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
-                expect(assertions).all { feature(Assertion::holds).toEqual(false) }
+                expect(assertions).toHaveElementsAndAll {
+                    feature(Assertion::holds).toEqual(false)
+                }
             }
         }
     }

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ComponentFactoryContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic._logic
@@ -20,7 +21,7 @@ class AdjustStackTest {
         expect {
             assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
-            feature(AssertionError::stackBacktrace) contains entries(
+            feature(AssertionError::stackBacktrace) toContain entries(
                 { toContain("mocha") },
                 { toContain("atrium-core-js.js") }
             )
@@ -33,8 +34,10 @@ class AdjustStackTest {
             assertRemoveRunner(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
-                it containsNot o entry { it toContain "mocha" }
-                it contains { it toContain "atrium-core-js.js" }
+                it notToContain o entry { it toContain "mocha" }
+                it toContain (fun Expect<String>.() {
+                    it toContain "atrium-core-js.js"
+                })
             }
         }
     }
@@ -47,8 +50,10 @@ class AdjustStackTest {
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
-            it containsNot o entry { it toContain "mocha" }
-            it contains { it toContain "atrium-core-js" }
+            it notToContain o entry { it toContain "mocha" }
+            it toContain (fun Expect<String>.() {
+                it toContain "atrium-core-js"
+            })
         }
     }
 
@@ -58,8 +63,10 @@ class AdjustStackTest {
             assertRemoveAtrium(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
-                it contains { it toContain "mocha" }
-                it containsNot o entry { it toContain "atrium-core-js.js" }
+                it toContain (fun Expect<String>.() {
+                    it toContain "mocha"
+                })
+                it notToContain o entry { it toContain "atrium-core-js.js" }
             }
         }
     }
@@ -72,8 +79,10 @@ class AdjustStackTest {
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
-            it contains { it toContain "mocha" }
-            it containsNot o entry { it toContain "atrium-core-js" }
+            it toContain (fun Expect<String>.() {
+                it toContain "mocha"
+            })
+            it notToContain o entry { it toContain "atrium-core-js" }
         }
     }
 

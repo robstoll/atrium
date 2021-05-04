@@ -10,8 +10,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *
  * @param times The number which the check uses to compare against the actual number of times an expected object is
  *   found in the [Iterable].
- * @param nameContainsNotFun The function which should be used instead of `atLeastCall` when [times] equals to zero.
- * @param atLeastCall The function which was used and should not be used if [times] equals to zero.
+ * @param nameContainsNotFun The function which should be used instead of `atLeastCall` when [times] is zero.
+ * @param atLeastCall The function which was used and should not be used if [times] is zero.
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
 class DefaultAtLeastChecker(

@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally
- * suggest to use a different function if [times] equals to zero.
+ * suggest to use a different function if [times] is zero.
  *
  * @property times The number which the check uses to compare against the actual number of times an expected object is
  *   found in the input of the search.
@@ -20,8 +20,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   in the input of the search, against how many [times] the check expect it to be contained.
  * @param times The number which the check uses to compare against the actual number of times an expected object is
  *   found in the input of the search.
- * @param correctCall The function which should be used instead of `wrongCall` when [times] equals to zero.
- * @param wrongCall The function call which was used and should not be used if [times] equals to zero.
+ * @param correctCall The function which should be used instead of `wrongCall` when [times] is zero.
+ * @param wrongCall The function call which was used and should not be used if [times] is zero.
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */

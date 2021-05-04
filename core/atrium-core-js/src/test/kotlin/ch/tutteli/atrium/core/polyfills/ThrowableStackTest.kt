@@ -11,8 +11,12 @@ class ThrowableStackTest {
         val stack = IllegalStateException("test").stackBacktrace
         expect(stack.first()) toStartWith "${ThrowableStackTest::class.simpleName}.illegalStateException"
         expect(stack) {
-            none { this toContain "init" }
-            any { this toContain "mocha" }
+            toHaveElementsAndNone {
+                this toContain "init"
+            }
+            toHaveElementsAndAny {
+                this toContain "mocha"
+            }
         }
     }
 
@@ -21,8 +25,12 @@ class ThrowableStackTest {
         val stack = AssertionError("test").stackBacktrace
         expect(stack.first()) toStartWith "${ThrowableStackTest::class.simpleName}.assertionError"
         expect(stack) {
-            none { this toContain "init" }
-            any { this toContain "mocha" }
+            toHaveElementsAndNone {
+                this toContain "init"
+            }
+            toHaveElementsAndAny {
+                this toContain "mocha"
+            }
         }
     }
 }

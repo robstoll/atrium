@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.reflect.KFunction3
 
 abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
     keyValuePairs: MFun2<String, Int, Int>,
@@ -26,7 +25,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    fun entry(index: Int) = IterableContainsSpecBase.elementWithIndex(index)
+    fun entry(index: Int) = IterableToContainSpecBase.elementWithIndex(index)
 
     fun Expect<String>.element(
         successFailureBulletPoint: String,
@@ -75,7 +74,7 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
     ): Expect<String> = element(
         failingBulletPoint,
         index,
-        IterableContainsSpecBase.sizeExceeded,
+        IterableToContainSpecBase.sizeExceeded,
         expectedKey,
         expectedValue,
         explaining = true
@@ -84,12 +83,12 @@ abstract class MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
         and {
             val additionalEntries =
-                "\\Q${warningBulletPoint}${IterableContainsSpecBase.additionalElements}\\E: $separator"
+                "\\Q${warningBulletPoint}${IterableToContainSpecBase.additionalElements}\\E: $separator"
             toContain.exactly(1).regex(additionalEntries)
             pairs.forEach { (index, entry) ->
                 toContain.exactly(1).regex(
                     additionalEntries + "(.|$separator)+${listBulletPoint}${
-                        IterableContainsSpecBase.elementWithIndex(index) + ": " + entry
+                        IterableToContainSpecBase.elementWithIndex(index) + ": " + entry
                     }"
                 )
             }
