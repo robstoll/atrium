@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @since 0.17.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+infix fun <T : Iterator<*>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNext() }
 
 /**
@@ -26,5 +26,5 @@ infix fun <E, T : Iterator<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") ne
  *
  * @since 0.17.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
+infix fun <T : Iterator<*>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
     _logicAppend { hasNotNext() }

@@ -9,14 +9,14 @@ class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExp
     getNotToHaveNextPair()
 ) {
     companion object {
-        private val has: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> = Expect<Iterator<Int>>::has
-        private fun getToHaveNextPair() = "${has.name} ${next::class.simpleName}" to Companion::toHaveNext
+        private val toHave: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> = Expect<Iterator<Int>>::toHave
+        private fun getToHaveNextPair() = "${toHave.name} ${next::class.simpleName}" to Companion::toHaveNext
         private fun toHaveNext(expect: Expect<Iterator<Int>>) = expect toHave next
 
-        private val hasNot: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> =
-            Expect<Iterator<Int>>::hasNot
+        private val notToHave: KFunction2<Expect<Iterator<Int>>, next, Expect<Iterator<Int>>> =
+            Expect<Iterator<Int>>::notToHave
 
-        private fun getNotToHaveNextPair() = "${hasNot.name} ${next::class.simpleName}" to Companion::notToHaveNext
+        private fun getNotToHaveNextPair() = "${notToHave.name} ${next::class.simpleName}" to Companion::notToHaveNext
 
         private fun notToHaveNext(expect: Expect<Iterator<Int>>) = expect notToHave next
     }
