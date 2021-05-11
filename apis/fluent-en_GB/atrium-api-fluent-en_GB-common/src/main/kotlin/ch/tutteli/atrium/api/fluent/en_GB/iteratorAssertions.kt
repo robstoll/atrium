@@ -14,6 +14,7 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @since 0.13.0
  */
+@Deprecated("Use toHaveNext; will be removed with 1.0.0 at the latest", ReplaceWith("this.toHaveNext<T>(expected)"))
 fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext() }
 
@@ -26,5 +27,6 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
  *
  * @since 0.13.0
  */
+@Deprecated("Use notToHaveNext; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToHaveNext<T>(expected)"))
 fun <E, T : Iterator<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext() }

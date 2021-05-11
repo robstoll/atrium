@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @since 0.17.0
  */
-fun <E, T : Iterator<E>> Expect<T>.toHaveNext(): Expect<T> =
+fun <T : Iterator<*>> Expect<T>.toHaveNext(): Expect<T> =
     _logicAppend { hasNext() }
 
 /**
@@ -26,5 +26,5 @@ fun <E, T : Iterator<E>> Expect<T>.toHaveNext(): Expect<T> =
  *
  * @since 0.17.0
  */
-fun <E, T : Iterator<E>> Expect<T>.notToHaveNext(): Expect<T> =
+fun <T : Iterator<*>> Expect<T>.notToHaveNext(): Expect<T> =
     _logicAppend { hasNotNext() }
