@@ -87,7 +87,7 @@ object existing : Keyword
 object group : Keyword
 
 /**
- * Represents the pseudo keyword `next` as in [has] `next`.
+ * Represents the pseudo keyword `next` as in [toHave] `next`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.12.0

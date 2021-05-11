@@ -254,7 +254,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorO
 
 
 /**
- * Expects that the subject of `this` expectation (an [Iterable]) has a next element ([hasNext] returns true).
+ * Expects that the subject of `this` expectation (an [Iterable]) has a next element ([Iterator.hasNext] returns true).
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -264,7 +264,8 @@ fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
     _logicAppend { hasNext(::identity) }
 
 /**
- * Expects that the subject of `this` expectation (an [Iterable]) does not have a next element ([hasNext] returns false).
+ * Expects that the subject of `this` expectation (an [Iterable]) does not have a next element
+ * ([Iterator.hasNext] returns false).
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

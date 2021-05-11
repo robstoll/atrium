@@ -10,7 +10,7 @@ class CollectionExpectationSamples {
     private val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
 
     @Test
-    fun toBeEmpty() {
+    fun toBe_empty() {
         expect(listOf<Int>()) toBe empty
 
         fails {
@@ -19,7 +19,7 @@ class CollectionExpectationSamples {
     }
 
     @Test
-    fun notToBeEmpty() {
+    fun notToBe_empty() {
         expect(listOf(1, 2, 3)) notToBe empty
 
         fails {
