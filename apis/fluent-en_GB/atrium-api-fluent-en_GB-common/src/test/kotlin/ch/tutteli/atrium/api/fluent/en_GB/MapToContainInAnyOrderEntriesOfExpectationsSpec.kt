@@ -7,24 +7,24 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInAnyOrderEntriesOfExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.MapToContainInAnyOrderEntriesOfExpectationsSpec.Companion as C
 
-class MapContainsInAnyOrderEntriesOfExpectationsSpec : Spek({
+class MapToContainInAnyOrderEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
     include(BuilderMapLikeToIterablePairSpec)
     include(ShortcutMapLikeToIterablePairSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
-        functionDescription to C::containsKeyValuePairs,
-        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
+        functionDescription to C::toContainKeyValuePairs,
+        (functionDescription to C::toContainKeyValuePairsNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
-        mfun2<String, Int, Int>(C::containsEntriesOf),
-        mfun2<String?, Int?, Int?>(C::containsEntriesOf).withNullableSuffix(),
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
+        mfun2<String, Int, Int>(C::toContainEntriesOf),
+        mfun2<String?, Int?, Int?>(C::toContainEntriesOf).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
@@ -32,20 +32,20 @@ class MapContainsInAnyOrderEntriesOfExpectationsSpec : Spek({
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
             functionDescription,
             mapOf("a" to 1),
-            { input -> contains.inAnyOrder.entriesOf(input) }
+            { input -> toContain.inAnyOrder.entriesOf(input) }
         )
 
     object ShortcutMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            containsEntriesOf,
+            toContainEntriesOf,
             mapOf("a" to 1),
-            { input -> containsEntriesOf(input)  }
+            { input -> toContainEntriesOf(input)  }
         )
 
-    companion object : MapContainsSpecBase() {
-        val functionDescription = "$contains.$inAnyOrder.$entriesOf"
+    companion object : MapToContainSpecBase() {
+        val functionDescription = "$toContain.$inAnyOrder.$entriesOf"
 
-        private fun containsKeyValuePairs(
+        private fun toContainKeyValuePairs(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
@@ -55,30 +55,30 @@ class MapContainsInAnyOrderEntriesOfExpectationsSpec : Spek({
             } else {
                 mapOf(a, *aX)
             }
-            return expect.contains.inAnyOrder.entriesOf(mapLike)
+            return expect.toContain.inAnyOrder.entriesOf(mapLike)
         }
 
-        private fun containsKeyValuePairsNullable(
+        private fun toContainKeyValuePairsNullable(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            expect.contains.inAnyOrder.entriesOf(listOf(a, *aX))
+            expect.toContain.inAnyOrder.entriesOf(listOf(a, *aX))
 
-        private fun containsEntriesOf(
+        private fun toContainEntriesOf(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
         ): Expect<Map<out String, Int>> =
-            expect.containsEntriesOf(sequenceOf(a, *aX))
+            expect.toContainEntriesOf(sequenceOf(a, *aX))
 
-        @JvmName("containsNullable")
-        private fun containsEntriesOf(
+        @JvmName("toContainNullable")
+        private fun toContainEntriesOf(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            expect.containsEntriesOf(arrayOf(a, *aX))
+            expect.toContainEntriesOf(arrayOf(a, *aX))
     }
 
 
@@ -92,20 +92,20 @@ class MapContainsInAnyOrderEntriesOfExpectationsSpec : Spek({
         var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map = map.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        subMap = subMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        nKeyMap = nKeyMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        nValueMap = nValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        nKeyValueMap = nKeyValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        ronKeyValueMap = ronKeyValueMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
-        starMap = starMap.contains.inAnyOrder.entriesOf(listOf(1 to "a"))
+        map = map.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        subMap = subMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
+        starMap = starMap.toContain.inAnyOrder.entriesOf(listOf(1 to "a"))
 
-        map = map.containsEntriesOf(listOf(1 to "a"))
-        subMap = subMap.containsEntriesOf(listOf(1 to "a"))
-        nKeyMap = nKeyMap.containsEntriesOf(listOf(1 to "a"))
-        nValueMap = nValueMap.containsEntriesOf(listOf(1 to "a"))
-        nKeyValueMap = nKeyValueMap.containsEntriesOf(listOf(1 to "a"))
-        ronKeyValueMap = ronKeyValueMap.containsEntriesOf(listOf(1 to "a"))
-        starMap = starMap.containsEntriesOf(listOf(1 to "a"))
+        map = map.toContainEntriesOf(listOf(1 to "a"))
+        subMap = subMap.toContainEntriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.toContainEntriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.toContainEntriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.toContainEntriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.toContainEntriesOf(listOf(1 to "a"))
+        starMap = starMap.toContainEntriesOf(listOf(1 to "a"))
     }
 }

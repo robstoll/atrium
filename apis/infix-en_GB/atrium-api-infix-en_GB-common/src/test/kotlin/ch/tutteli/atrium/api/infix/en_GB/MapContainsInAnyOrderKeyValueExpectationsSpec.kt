@@ -12,13 +12,13 @@ class MapContainsInAnyOrderKeyValueExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValueExpectationsSpec(
         containsKeyValue_s to C::containsKeyValues,
         (containsKeyValue_s to C::containsKeyValuesNullable).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapContainsInAnyOrderKeyValueExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValueExpectationsSpec(
         mfun2<String, Int, Expect<Int>.() -> Unit>(C::contains),
         mfun2<String?, Int?, (Expect<Int>.() -> Unit)?>(C::contains).withNullableSuffix(),
         "[Atrium][Shortcut] "

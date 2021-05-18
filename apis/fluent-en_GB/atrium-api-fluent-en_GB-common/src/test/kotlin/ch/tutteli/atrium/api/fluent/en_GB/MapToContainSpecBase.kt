@@ -7,11 +7,11 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
 
-abstract class MapContainsSpecBase {
-    private val containsProp: KProperty<*> = Expect<Map<*, *>>::contains
-    protected val contains = containsProp.name
-    protected val containsEntriesOf = Expect<Map<*, *>>::containsEntriesOf.name
-    protected val containsOnlyEntriesOf = Expect<Map<*, *>>::containsOnlyEntriesOf.name
+abstract class MapToContainSpecBase {
+    private val toContainProp: KProperty<*> = Expect<Map<*, *>>::toContain
+    protected val toContain = toContainProp.name
+    protected val toContainEntriesOf = Expect<Map<*, *>>::toContainEntriesOf.name
+    protected val toContainOnlyEntriesOf = Expect<Map<*, *>>::toContainOnlyEntriesOf.name
 
     //@formatter:off
     protected val inAnyOrder = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, NoOpSearchBehaviour>::inAnyOrder.name

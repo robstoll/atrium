@@ -141,6 +141,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
  * creates an [Expect] for the corresponding value and returns the newly created assertion container,
@@ -153,6 +154,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
@@ -164,6 +166,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -175,6 +178,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -187,6 +191,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -198,6 +203,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.()
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -210,6 +216,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
 fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
  *
@@ -223,6 +230,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collecti
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
     _logic.changeSubject.unreported { it.entries }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
  * [assertionCreator] creates for it.

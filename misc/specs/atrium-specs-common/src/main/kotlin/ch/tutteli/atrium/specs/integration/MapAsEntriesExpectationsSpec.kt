@@ -31,7 +31,7 @@ abstract class MapAsEntriesExpectationsSpec(
                     toContain.inAnyOrder.only.entries(
                         { isKeyValue("b", 2) },
                         {
-                            key { toStartWith("a") }
+                            key.toStartWith("a")
                             value.toBeGreaterThanOrEqualTo(1)
                         }
                     )

@@ -17,11 +17,11 @@ fun <K, V, T> mfun2(
     f: KFunction3<Expect<Map<out K, V>>, Pair<K, T>, Array<out Pair<K, T>>, Expect<Map<out K, V>>>
 ) = fun2(f)
 
-abstract class MapLikeContainsSpecBase(spec: Root.() -> Unit) : Spek(spec) {
+abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
-        val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+        val toBeLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
 
         val separator = lineSeparator
 

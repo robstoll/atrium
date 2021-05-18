@@ -5,15 +5,15 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.MapContainsInOrderOnlyEntriesOfExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.fluent.en_GB.MapToContainInOrderOnlyEntriesOfExpectationsSpec.Companion as C
 
-class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
+class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
-        functionDescription to C::containsKeyValuePairs,
-        (functionDescription to C::containsKeyValuePairsNullable).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
+        functionDescription to C::toContainKeyValuePairs,
+        (functionDescription to C::toContainKeyValuePairsNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
@@ -21,13 +21,13 @@ class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
             functionDescription,
             mapOf("a" to 1),
-            { input -> contains.inOrder.only.entriesOf(input) }
+            { input -> toContain.inOrder.only.entriesOf(input) }
         )
 
-    companion object : MapContainsSpecBase() {
-        val functionDescription = "$contains.$inOrder.$only.$entriesOf"
+    companion object : MapToContainSpecBase() {
+        val functionDescription = "$toContain.$inOrder.$only.$entriesOf"
 
-        private fun containsKeyValuePairs(
+        private fun toContainKeyValuePairs(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
@@ -37,15 +37,15 @@ class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
             } else {
                 mapOf(a, *aX)
             }
-            return expect.contains.inOrder.only.entriesOf(mapLike)
+            return expect.toContain.inOrder.only.entriesOf(mapLike)
         }
 
-        private fun containsKeyValuePairsNullable(
+        private fun toContainKeyValuePairsNullable(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            expect.contains.inOrder.only.entriesOf(arrayOf(a, *aX))
+            expect.toContain.inOrder.only.entriesOf(arrayOf(a, *aX))
     }
 
 
@@ -60,12 +60,12 @@ class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
         var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map = map.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        subMap = subMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        nKeyMap = nKeyMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        nValueMap = nValueMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        nKeyValueMap = nKeyValueMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        ronKeyValueMap = ronKeyValueMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
-        starMap = starMap.contains.inOrder.only.entriesOf(listOf(1 to "a"))
+        map = map.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        subMap = subMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        nKeyMap = nKeyMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        nValueMap = nValueMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        nKeyValueMap = nKeyValueMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        ronKeyValueMap = ronKeyValueMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
+        starMap = starMap.toContain.inOrder.only.entriesOf(listOf(1 to "a"))
     }
 }
