@@ -10,12 +10,12 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InOrde
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.NoOpSearchBehaviour
 import kotlin.reflect.KFunction2
 
-abstract class MapContainsSpecBase {
-    private val containsProp: KFunction2<Expect<Map<*, *>>, o, *> = Expect<Map<*, *>>::contains
-    protected val contains = containsProp.name
+abstract class MapToContainSpecBase {
+    private val toContainProp: KFunction2<Expect<Map<*, *>>, o, *> = Expect<Map<*, *>>::toContain
+    protected val toContain = toContainProp.name
     protected val filler = o::class.simpleName
-    protected val containsEntriesOf =  Expect<Map<*, *>>::containsEntriesOf.name
-    protected val containsOnlyEntriesOf =  Expect<Map<*, *>>::containsOnlyEntriesOf.name
+    protected val toContainEntriesOf =  Expect<Map<*, *>>::toContainEntriesOf.name
+    protected val toContainOnlyEntriesOf =  Expect<Map<*, *>>::toContainOnlyEntriesOf.name
 
     //@formatter:off
     protected val inAnyOrder = "${MapLikeContains.EntryPointStep<String, Int, List<Int>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
