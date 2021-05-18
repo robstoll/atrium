@@ -237,19 +237,19 @@ class MapExpectationSamples {
 
     @Test
     fun toBeEmpty() {
-        expect(emptyMap<Int, String>()).isEmpty()
+        expect(emptyMap<Int, String>()).toBeEmpty()
 
         fails { // because the map is not empty
-            expect(mapOf(1 to "a")).isEmpty()
+            expect(mapOf(1 to "a")).toBeEmpty()
         }
     }
 
     @Test
     fun notToBeEmpty() {
-        expect(mapOf(1 to "a")).isNotEmpty()
+        expect(mapOf(1 to "a")).notToBeEmpty()
 
         fails { // because the map is empty
-            expect(emptyMap<Int, String>()).isNotEmpty()
+            expect(emptyMap<Int, String>()).notToBeEmpty()
         }
     }
 }

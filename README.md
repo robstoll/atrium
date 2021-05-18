@@ -1285,7 +1285,7 @@ and more [Sophisticated Assertion Builder](#sophisticated-assertion-builders-1) 
 <ex-map-1>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
+expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L167)</sub> ↓ <sub>[Output](#ex-map-1)</sub>
 <a name="ex-map-1"></a>
@@ -1305,7 +1305,7 @@ the help of the parameter object `KeyValue`:
 <ex-map-2>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).contains(
+expect(mapOf("a" to 1, "b" to 2)).toContain(
     KeyValue("c") { toEqual(2) },
     KeyValue("a") { toBeGreaterThan(2) },
     KeyValue("b") { toBeLessThan(2) }
@@ -1331,7 +1331,7 @@ Again both overloads are provided, one for key-value `Pair`s:
 <ex-map-only-1>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).containsOnly("b" to 2)
+expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L178)</sub> ↓ <sub>[Output](#ex-map-only-1)</sub>
 <a name="ex-map-only-1"></a>
@@ -1352,7 +1352,7 @@ And the other overload which expects a `KeyValue` and allows defining sub aserti
 <ex-map-only-2>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).containsOnly(
+expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
     KeyValue("c") { toEqual(2) },
     KeyValue("a") { toBeLessThan(2) },
     KeyValue("b") { toBeLessThan(2) }
@@ -1384,7 +1384,7 @@ again provide two overloads, one expecting key-value `Pair`s:
 <ex-map-builder-1>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries("b" to 2, "a" to 1)
+expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries("b" to 2, "a" to 1)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L189)</sub> ↓ <sub>[Output](#ex-map-builder-1)</sub>
 <a name="ex-map-builder-1"></a>
@@ -1409,7 +1409,7 @@ And the other expecting `KeyValue`s which allow specifying sub assertions for th
 <ex-map-builder-2>
 
 ```kotlin
-expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries(
+expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries(
     KeyValue("a") { toBeLessThan(2) },
     KeyValue("b") { toBeLessThan(2) })
 ```
