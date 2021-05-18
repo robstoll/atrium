@@ -110,7 +110,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnl
     it toContain o inAny order but only entry keyValue
 
 /**
- * Expects that the subject of `this` expectation (a [Map]) contains for each [KeyWithValueCreator] in [allKeyValues],
+ * Expects that the subject of `this` expectation (a [Map]) contains for each [KeyWithValueCreator] in [keyValues],
  * a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
  * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs
  * to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
@@ -118,18 +118,18 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnl
  * Delegates to `it toContain o inAny order the keyValues`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and
- * one [KeyWithValueCreator] in [allKeyValues] is defined as `Key('a') { isGreaterThan(0) }` and
+ * one [KeyWithValueCreator] in [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and
  * another one is defined as `Key('a') { isLessThan(2) }`, then both match, even though they match the same entry.
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
-    allKeyValues: KeyValues<K, V>
-): Expect<T> = it toContain o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
+    keyValues: KeyValues<K, V>
+): Expect<T> = it toContain o inAny order the keyValues(keyValues.expected, *keyValues.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) for each [KeyWithValueCreator]
- * in [allKeyValues], a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
+ * in [keyValues], a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
  * assertions [KeyWithValueCreator]'s [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs
  * to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *
@@ -138,8 +138,8 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
  * @return an [Expect] for the subject of `this` expectation.
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(
-    allKeyValues: KeyValues<K, V>
-): Expect<T> = it toContain o inAny order but only the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
+    keyValues: KeyValues<K, V>
+): Expect<T> = it toContain o inAny order but only the keyValues(keyValues.expected, *keyValues.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the key-value pairs of the given [mapLike].

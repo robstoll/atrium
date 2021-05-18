@@ -24,7 +24,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
-@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<T>(o)"))
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<E, T>(o)"))
 infix fun <E, T : Iterable<E>> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
 ): IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour> = _logic.builderContainsInIterableLike(::identity)
@@ -37,7 +37,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.contains(
  *
  * @return The newly created builder.
  */
-@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<T>(o)"))
+@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<E, T>(o)"))
 infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
     @Suppress("UNUSED_PARAMETER") o: o
 ): NotCheckerStep<E, T, NotSearchBehaviour> = _logic.builderContainsNotInIterableLike(::identity)
@@ -49,7 +49,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
-@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<T>(expected)"))
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<E, T>(expected)"))
 infix fun <E, T : Iterable<E>> Expect<T>.contains(expected: E): Expect<T> =
     it toContain o inAny order atLeast 1 value expected
 
@@ -73,7 +73,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.contains(expected: E): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
-@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<T>(values)"))
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<E, T>(values)"))
 infix fun <E, T : Iterable<E>> Expect<T>.contains(values: Values<E>): Expect<T> =
     it toContain o inAny order atLeast 1 the values
 
@@ -260,7 +260,7 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
-@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<T>(expected)"))
+@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<E, T>(expected)"))
 infix fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E): Expect<T> =
     it notToContain o value expected
 
@@ -275,7 +275,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
-@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<T>(values)"))
+@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain<E, T>(values)"))
 infix fun <E, T : Iterable<E>> Expect<T>.containsNot(values: Values<E>): Expect<T> =
     it notToContain o the values
 
