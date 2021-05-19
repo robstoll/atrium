@@ -20,7 +20,7 @@ class JsNameAmbiguityTest {
     @Test
     fun isKeyValueNullable() {
         expect(mapOf(1 to null as Int?)).asEntries(o).toContainExactly(fun Expect<Map.Entry<Int, Int?>>.() {
-            it isKeyValue (1 to null)
+            it toEqualKeyValue (1 to null)
         })
     }
 }

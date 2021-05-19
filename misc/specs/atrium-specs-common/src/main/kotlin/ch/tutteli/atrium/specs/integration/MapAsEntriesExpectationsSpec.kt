@@ -29,7 +29,7 @@ abstract class MapAsEntriesExpectationsSpec(
             it("$name - transformation can be applied and an assertion made") {
                 expect(mapOf("a" to 1, "b" to 2)).asEntriesFun {
                     toContain.inAnyOrder.only.entries(
-                        { isKeyValue("b", 2) },
+                        { toEqualKeyValue("b", 2) },
                         {
                             key.toStartWith("a")
                             value.toBeGreaterThanOrEqualTo(1)

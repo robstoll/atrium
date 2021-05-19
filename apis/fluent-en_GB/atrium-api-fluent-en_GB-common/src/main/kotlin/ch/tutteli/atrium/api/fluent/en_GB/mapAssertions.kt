@@ -182,7 +182,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.getExistingFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.getExistingFeature
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
@@ -194,7 +194,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.getExisting
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.getExisting
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
@@ -206,7 +206,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.keysFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.keysFeature
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
@@ -219,7 +219,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.keys
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.keys
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
@@ -231,7 +231,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.()
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.valuesFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.valuesFeature
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
@@ -244,7 +244,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.values
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.values
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
@@ -258,7 +258,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collecti
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.asEntriesFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.asEntriesFeature
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
     _logic.changeSubject.unreported { it.entries }
@@ -273,7 +273,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.asEntries
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.asEntries
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
