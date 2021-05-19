@@ -24,16 +24,16 @@ object MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryEx
 
         var star: Expect<Map.Entry<*, *>> = notImplemented()
 
-        a1.isKeyValue("a", 1)
-        a2.isKeyValue("a", 1)
-        a3.isKeyValue("a", 1)
-        a4.isKeyValue("a", 1)
-        star.isKeyValue("a", 1)
+        a1.toEqualKeyValue("a", 1)
+        a2.toEqualKeyValue("a", 1)
+        a3.toEqualKeyValue("a", 1)
+        a4.toEqualKeyValue("a", 1)
+        star.toEqualKeyValue("a", 1)
 
-        a2.isKeyValue(null, 1)
-        a3.isKeyValue("a", null)
-        a4.isKeyValue(null, null)
-        star.isKeyValue(null, null)
+        a2.toEqualKeyValue(null, 1)
+        a3.toEqualKeyValue("a", null)
+        a4.toEqualKeyValue(null, null)
+        star.toEqualKeyValue(null, null)
 
         a1.key
         a2.key

@@ -12,10 +12,10 @@ class MapEntryAssertionSamples {
 
     @Test
     fun isKeyValue() {
-        expect(mapOf(1 to "a").entries.first()).isKeyValue(1, "a")
+        expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "a")
 
         fails {
-            expect(mapOf(1 to "a").entries.first()).isKeyValue(1, "b")
+            expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "b")
         }
     }
 

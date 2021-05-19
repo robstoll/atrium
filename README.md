@@ -1501,7 +1501,7 @@ then it will come in handy:
 
 ```kotlin
 expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entries(
-    { isKeyValue("a", 1) },
+    { toEqualKeyValue("a", 1) },
     {
         key.toStartWith("a")
         value.toBeGreaterThan(2)
@@ -1526,7 +1526,7 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ```
 </ex-map-5>
 
-`isKeyValue` as well as `key` and `value` are assertion functions defined for `Map.Entry<K, V>`.
+`toEqualKeyValue` as well as `key` and `value` are assertion functions defined for `Map.Entry<K, V>`.
 
 There are more assertion functions, a full list can be found in 
 [KDoc of atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html).

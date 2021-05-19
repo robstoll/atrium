@@ -219,7 +219,7 @@ class MostExamplesSpec : Spek({
     }
     test("ex-map-5") {
         expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entries(
-            { isKeyValue("a", 1) },
+            { toEqualKeyValue("a", 1) },
             {
                 key.toStartWith("a")
                 value.toBeGreaterThan(2)

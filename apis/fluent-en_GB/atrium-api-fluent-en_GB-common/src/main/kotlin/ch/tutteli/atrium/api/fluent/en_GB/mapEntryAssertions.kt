@@ -15,6 +15,7 @@ import ch.tutteli.atrium.logic.*
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.isKeyValue
  */
+@Deprecated("Use toEqualKeyValue; will be removed with 1.0.0 at the latest", ReplaceWith("toEqualKeyValue(key, value)"))
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: V): Expect<T> =
     _logicAppend { isKeyValue(key, value) }
 
