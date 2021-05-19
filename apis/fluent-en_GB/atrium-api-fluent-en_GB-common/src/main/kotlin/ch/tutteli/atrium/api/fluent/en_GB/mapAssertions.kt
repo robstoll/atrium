@@ -14,6 +14,7 @@ import ch.tutteli.kbox.identity
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsBuilder
  */
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain"))
 val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour>
     get() = _logic.builderContainsInMapLike(::identity)
 
@@ -33,10 +34,14 @@ val <K, V, T : Map<out K, V>> Expect<T>.contains: MapLikeContains.EntryPointStep
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsPair
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(keyValuePair, *otherPairs)")
+)
 fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>
-): Expect<T> = contains.inAnyOrder.entries(keyValuePair, *otherPairs)
+): Expect<T> = toContain.inAnyOrder.entries(keyValuePair, *otherPairs)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) a key as defined by
@@ -47,12 +52,16 @@ fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnly
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnlyPair
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(keyValuePair, *otherPairs)")
+)
 fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>
-): Expect<T> = contains.inAnyOrder.only.entries(keyValuePair, *otherPairs)
+): Expect<T> = toContain.inAnyOrder.only.entries(keyValuePair, *otherPairs)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -71,10 +80,14 @@ fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsKeyValue
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(keyValue, *otherKeyValues)")
+)
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
-): Expect<T> = contains.inAnyOrder.entries(keyValue, *otherKeyValues)
+): Expect<T> = toContain.inAnyOrder.entries(keyValue, *otherKeyValues)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) a key as defined by
@@ -89,10 +102,14 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnlyKeyValue
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(keyValue, *otherKeyValues)")
+)
 inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
-): Expect<T> = contains.inAnyOrder.only.entries(keyValue, *otherKeyValues)
+): Expect<T> = toContain.inAnyOrder.only.entries(keyValue, *otherKeyValues)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the key-value pairs of the given [mapLike].
@@ -103,9 +120,13 @@ inline fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsEntriesOf
  */
+@Deprecated(
+    "Use toContainEntriesOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainEntriesOf<K, V, T>(mapLike)")
+)
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
     mapLike: MapLike
-): Expect<T> = contains.inAnyOrder.entriesOf(mapLike)
+): Expect<T> = toContain.inAnyOrder.entriesOf(mapLike)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) the key-value pairs of
@@ -117,9 +138,13 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsOnlyEntriesOf
  */
+@Deprecated(
+    "Use toContainOnlyEntriesOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnlyEntriesOf<K, V, T>(mapLike)")
+)
 fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
     mapLike: MapLike
-): Expect<T> = contains.inAnyOrder.only.entriesOf(mapLike)
+): Expect<T> = toContain.inAnyOrder.only.entriesOf(mapLike)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key].
@@ -128,6 +153,10 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsKey
  */
+@Deprecated(
+    "Use toContainKey; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainKey<K, T>(key)")
+)
 fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
     _logicAppend { containsKey(::identity, key) }
 
@@ -138,9 +167,14 @@ fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.containsNotKey
  */
+@Deprecated(
+    "Use notToContainKey; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToContainKey<K, T>(key)")
+)
 fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
  * creates an [Expect] for the corresponding value and returns the newly created assertion container,
@@ -153,6 +187,7 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [assertionCreator] creates for it.
@@ -164,6 +199,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
 fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -175,6 +211,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Ex
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -187,6 +224,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
 fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -198,6 +236,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.()
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -210,6 +249,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
 fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
  *
@@ -223,6 +263,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collecti
 fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
     _logic.changeSubject.unreported { it.entries }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
  * [assertionCreator] creates for it.
@@ -245,6 +286,7 @@ fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.isEmpty
  */
+@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeEmpty<T>()"))
 fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
 
@@ -255,6 +297,7 @@ fun <T : Map<*, *>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapAssertionSamples.isNotEmpty
  */
+@Deprecated("Use notToBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToBeEmpty<T>()"))
 fun <T : Map<*, *>> Expect<T>.isNotEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
 

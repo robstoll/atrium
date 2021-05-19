@@ -165,10 +165,10 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-map-1") {
-        expect(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
+        expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
     }
     test("ex-map-2") {
-        expect(mapOf("a" to 1, "b" to 2)).contains(
+        expect(mapOf("a" to 1, "b" to 2)).toContain(
             KeyValue("c") { toEqual(2) },
             KeyValue("a") { toBeGreaterThan(2) },
             KeyValue("b") { toBeLessThan(2) }
@@ -176,10 +176,10 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-map-only-1") {
-        expect(mapOf("a" to 1, "b" to 2)).containsOnly("b" to 2)
+        expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
     }
     test("ex-map-only-2") {
-        expect(mapOf("a" to 1, "b" to 2)).containsOnly(
+        expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
             KeyValue("c") { toEqual(2) },
             KeyValue("a") { toBeLessThan(2) },
             KeyValue("b") { toBeLessThan(2) }
@@ -187,10 +187,10 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-map-builder-1") {
-        expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries("b" to 2, "a" to 1)
+        expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries("b" to 2, "a" to 1)
     }
     test("ex-map-builder-2") {
-        expect(mapOf("a" to 1, "b" to 2)).contains.inOrder.only.entries(
+        expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries(
             KeyValue("a") { toBeLessThan(2) },
             KeyValue("b") { toBeLessThan(2) })
     }

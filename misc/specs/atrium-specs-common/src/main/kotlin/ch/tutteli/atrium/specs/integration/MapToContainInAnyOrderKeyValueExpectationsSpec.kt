@@ -14,11 +14,11 @@ fun keyNullableValue(
     assertionCreator: (Expect<Int>.() -> Unit)?
 ): Pair<String?, (Expect<Int>.() -> Unit)?> = key to assertionCreator
 
-abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
+abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
     keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "
-) : MapLikeContainsSpecBase({
+) : MapLikeToContainSpecBase({
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
@@ -56,14 +56,14 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     describeFun(keyWithValueAssertions, keyWithNullableValueAssertions) {
-        val containsKeyWithValueAssertionsFunctions = uncheckedToNonNullable(
+        val toContainKeyWithValueAssertionsFunctions = uncheckedToNonNullable(
             keyWithValueAssertions,
             keyWithNullableValueAssertions
         )
         val fluent = expect(map)
 
         context("map $map") {
-            containsKeyWithValueAssertionsFunctions.forEach { (name, containsKeyWithValueAssertionsFun) ->
+            toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainKeyWithValueAssertionsFun) ->
                 listOf(
                     "a { toBe(1) }" to listOf(keyValue("a") { toEqual(1) }),
                     "b { toBe(2) }" to listOf(keyValue("b") { toEqual(2) }),
@@ -71,12 +71,12 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                     "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toEqual(2) }, keyValue("a") { toEqual(1) })
                 ).forEach { (description, keyValues) ->
                     it("$name - $description does not throw") {
-                        fluent.containsKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+                        fluent.toContainKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
                     }
                 }
 
                 it("$name - a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
-                    fluent.containsKeyWithValueAssertionsFun(
+                    fluent.toContainKeyWithValueAssertionsFun(
                         keyValue("a") { toBeLessThan(2) },
                         arrayOf(keyValue("a") { toBeGreaterThan(0) })
                     )
@@ -84,7 +84,7 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
 
                 it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                     expect {
-                        fluent.containsKeyWithValueAssertionsFun(
+                        fluent.toContainKeyWithValueAssertionsFun(
                             keyValue("a") { toBeLessThan(3) },
                             arrayOf(keyValue("b") { toBeLessThan(2) }, keyValue("c") { toBeLessThan(1) })
                         )
@@ -92,9 +92,9 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                         message {
                             toContain(
                                 entry("b", 2),
-                                "$lessThanDescr: 2",
+                                "$toBeLessThanDescr: 2",
                                 entry("c", keyDoesNotExist),
-                                "$lessThanDescr: 1"
+                                "$toBeLessThanDescr: 1"
                             )
                             notToContain(entry("a"))
                         }
@@ -105,7 +105,7 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
     }
 
     describeFun(keyWithNullableValueAssertions) {
-        val containsFun = keyWithNullableValueAssertions.lambda
+        val toContainFun = keyWithNullableValueAssertions.lambda
         val nullableFluent = expect(nullableMap)
 
         context("map $nullableMap") {
@@ -135,13 +135,13 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                     )
             ).forEach { (description, keyValues) ->
                 it("$description does not throw") {
-                    nullableFluent.containsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+                    nullableFluent.toContainFun(keyValues.first(), keyValues.drop(1).toTypedArray())
                 }
             }
 
             it("(a, null), b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
-                    nullableFluent.containsFun(
+                    nullableFluent.toContainFun(
                         keyNullableValue("a", null), arrayOf(
                             keyNullableValue("b") { toBeLessThan(2) },
                             keyNullableValue("c") { toBeLessThan(1) }
@@ -151,9 +151,9 @@ abstract class MapContainsInAnyOrderKeyValueExpectationsSpec(
                     message {
                         toContain(
                             entry("b", 2),
-                            "$lessThanDescr: 2",
+                            "$toBeLessThanDescr: 2",
                             entry("c", keyDoesNotExist),
-                            "$lessThanDescr: 1"
+                            "$toBeLessThanDescr: 1"
                         )
                         notToContain(entry("a"))
                     }

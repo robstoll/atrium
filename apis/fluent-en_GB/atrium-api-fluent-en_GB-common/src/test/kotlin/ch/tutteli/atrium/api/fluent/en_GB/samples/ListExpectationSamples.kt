@@ -59,7 +59,7 @@ class ListExpectationSamples {
                 .get(0) {
                     toBeGreaterThan(2) // fails
                     toBeLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails,
-                    //                    use the `.get(index).` if you want a fail fast behaviour
+                    //                    use `.get(index).` if you want a fail fast behaviour
                 }
         }.messageContains(
             "is greater than: 2",

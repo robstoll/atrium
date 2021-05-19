@@ -9,18 +9,18 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.dsl.Root
 
-abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeContainsSpecBase(spec) {
+abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeToContainSpecBase(spec) {
 
     companion object {
         val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
 
-        fun Expect<String>.containsSize(actual: Int, expected: Int) =
+        fun Expect<String>.toContainsSize(actual: Int, expected: Int) =
             toContain.exactly(1)
                 .regex("\\Q$rootBulletPoint$featureArrow$sizeDescr\\E: $actual[^:]+${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
 
 
-        fun Expect<String>.containsInAnyOrderOnlyDescr() =
+        fun Expect<String>.toContainInAnyOrderOnlyDescr() =
             toContain.exactly(1).value(
                 "$rootBulletPoint${
                     DescriptionMapLikeAssertion.IN_ANY_ORDER_ONLY.getDefault()
@@ -29,7 +29,7 @@ abstract class MapLikeContainsFormatSpecBase(spec: Root.() -> Unit) : MapLikeCon
             )
 
 
-        fun Expect<String>.containsInOrderOnlyDescr() =
+        fun Expect<String>.toContainInOrderOnlyDescr() =
             toContain.exactly(1).value(
                 "$rootBulletPoint${
                     DescriptionMapLikeAssertion.IN_ORDER_ONLY.getDefault()

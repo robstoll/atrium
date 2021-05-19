@@ -2,17 +2,15 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
-import kotlin.reflect.KFunction3
 
 
-abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
+abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
     keyValuePairs: MFun2<String, Int, Int>,
     keyValuePairsNullable: MFun2<String?, Int?, Int?>,
     describePrefix: String = "[Atrium] "
-) : MapLikeContainsSpecBase({
+) : MapLikeToContainSpecBase({
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
@@ -31,10 +29,10 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
     val nullableFluent = expect(nullableMap)
 
     describeFun(keyValuePairs, keyValuePairsNullable) {
-        val containsFunctions = uncheckedToNonNullable(keyValuePairs, keyValuePairsNullable)
+        val toContainFunctions = uncheckedToNonNullable(keyValuePairs, keyValuePairsNullable)
 
         context("map $map") {
-            containsFunctions.forEach { (name, containsFun) ->
+            toContainFunctions.forEach { (name, toContainFun) ->
                 listOf(
                     listOf("a" to 1),
                     listOf("b" to 2),
@@ -42,17 +40,17 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
                     listOf("b" to 2, "a" to 1)
                 ).forEach {
                     it("$name - $it does not throw") {
-                        fluent.containsFun(it.first(), it.drop(1).toTypedArray())
+                        fluent.toContainFun(it.first(), it.drop(1).toTypedArray())
                     }
                 }
 
                 it("$name - a to 1 and a to 1 does not throw (no unique match)") {
-                    fluent.containsFun("a" to 1, arrayOf("a" to 1))
+                    fluent.toContainFun("a" to 1, arrayOf("a" to 1))
                 }
 
                 it("$name - {a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
                     expect {
-                        fluent.containsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
+                        fluent.toContainFun("a" to 1, arrayOf("b" to 3, "c" to 4))
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -70,7 +68,7 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
     }
 
     describeFun(keyValuePairsNullable) {
-        val containsNullableFun = keyValuePairsNullable.lambda
+        val toContainNullableFun = keyValuePairsNullable.lambda
         context("map $nullableMap") {
             listOf(
                 listOf("a" to null),
@@ -83,17 +81,17 @@ abstract class MapContainsInAnyOrderKeyValuePairsExpectationsSpec(
                 listOf("b" to 2, null to 1, "a" to null)
             ).forEach {
                 it("$it does not throw") {
-                    nullableFluent.containsNullableFun(it.first(), it.drop(1).toTypedArray())
+                    nullableFluent.toContainNullableFun(it.first(), it.drop(1).toTypedArray())
                 }
             }
 
             it("a to null and a to null does not throw (no unique match)") {
-                nullableFluent.containsNullableFun("a" to null, arrayOf("a" to null))
+                nullableFluent.toContainNullableFun("a" to null, arrayOf("a" to null))
             }
 
             it("{a to null, null to 2, b to 3, c to 4} throws AssertionError, reports a, null, b and c") {
                 expect {
-                    nullableFluent.containsNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
+                    nullableFluent.toContainNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
                 }.toThrow<AssertionError> {
                     message {
                         toContain(

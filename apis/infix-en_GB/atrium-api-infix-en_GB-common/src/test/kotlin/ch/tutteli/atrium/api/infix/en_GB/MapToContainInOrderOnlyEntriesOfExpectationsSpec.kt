@@ -5,29 +5,29 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.infix.en_GB.MapContainsInOrderOnlyEntriesOfExpectationsSpec.Companion as C
+import ch.tutteli.atrium.api.infix.en_GB.MapToContainInOrderOnlyEntriesOfExpectationsSpec.Companion as C
 
-class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
+class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapContainsInOrderOnlyKeyValuePairsExpectationsSpec(
-        containsKeyValuePair_s to C::containsKeyValuePairs,
-        (containsKeyValuePair_s to C::containsKeyValuePairsNullable).withNullableSuffix(),
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
+        toContainKeyValuePair_s to C::toContainKeyValuePairs,
+        (toContainKeyValuePair_s to C::toContainKeyValuePairsNullable).withNullableSuffix(),
         "[Atrium][Builder] "
     )
 
     object BuilderMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
-            "$contains $filler $inOrder $entriesOf",
+            "$toContain $filler $inOrder $entriesOf",
             mapOf("a" to 1),
-            { input -> it contains o inGiven order and only entriesOf input }
+            { input -> it toContain o inGiven order and only entriesOf input }
         )
 
-    companion object : MapContainsSpecBase() {
-        val containsKeyValuePair_s = "$contains $filler $inOrder $andOnly $entriesOf"
+    companion object : MapToContainSpecBase() {
+        val toContainKeyValuePair_s = "$toContain $filler $inOrder $andOnly $entriesOf"
 
-        private fun containsKeyValuePairs(
+        private fun toContainKeyValuePairs(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
             aX: Array<out Pair<String, Int>>
@@ -37,15 +37,15 @@ class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
             } else {
                 mapOf(a, *aX)
             }
-            return expect contains o inGiven order and only entriesOf mapLike
+            return expect toContain o inGiven order and only entriesOf mapLike
         }
 
-        private fun containsKeyValuePairsNullable(
+        private fun toContainKeyValuePairsNullable(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
             aX: Array<out Pair<String?, Int?>>
         ): Expect<Map<out String?, Int?>> =
-            expect contains o inGiven order and only entriesOf listOf(a, *aX)
+            expect toContain o inGiven order and only entriesOf listOf(a, *aX)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -58,12 +58,12 @@ class MapContainsInOrderOnlyEntriesOfExpectationsSpec : Spek({
         var ronKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map = map contains o inGiven order and only entriesOf listOf(1 to "a")
-        subMap = subMap contains o inGiven order and only entriesOf listOf(1 to "a")
-        nKeyMap = nKeyMap contains o inGiven order and only entriesOf listOf(1 to "a")
-        nValueMap = nValueMap contains o inGiven order and only entriesOf listOf(1 to "a")
-        nKeyValueMap = nKeyValueMap contains o inGiven order and only entriesOf listOf(1 to "a")
-        ronKeyValueMap = ronKeyValueMap contains o inGiven order and only entriesOf listOf(1 to "a")
-        starMap = starMap contains o inGiven order and only entriesOf listOf(1 to "a")
+        map = map toContain o inGiven order and only entriesOf listOf(1 to "a")
+        subMap = subMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+        nKeyMap = nKeyMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+        nValueMap = nValueMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+        starMap = starMap toContain o inGiven order and only entriesOf listOf(1 to "a")
     }
 }

@@ -17,6 +17,7 @@ import ch.tutteli.kbox.identity
  *
  * @return The newly created builder.
  */
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain<K, V, T>(o)"))
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(
     @Suppress("UNUSED_PARAMETER") o: o
 ): MapLikeContains.EntryPointStep<K, V, T, NoOpSearchBehaviour> = _logic.builderContainsInMapLike(::identity)
@@ -29,8 +30,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(keyValuePair)")
+)
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>): Expect<T> =
-    it contains o inAny order entry keyValuePair
+    it toContain o inAny order entry keyValuePair
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only one entry with a key as defined by
@@ -40,8 +45,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePair: Pair<K, V>)
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(keyValuePair)")
+)
 infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePair: Pair<K, V>): Expect<T> =
-    it contains o inAny order but only entry keyValuePair
+    it toContain o inAny order but only entry keyValuePair
 
 /**
  * Expects the subject of `this` expectation (a [Map]) contains for each entry in [keyValuePairs],
@@ -58,8 +67,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePair: Pair<K,
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(keyValuePairs)")
+)
 infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V>): Expect<T> =
-    it contains o inAny order the keyValuePairs
+    it toContain o inAny order the keyValuePairs
 
 /**
  * Expects the subject of `this` expectation (a [Map]) contains only (in any order) for each entry in [keyValuePairs],
@@ -72,8 +85,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.contains(keyValuePairs: Pairs<K, V
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(keyValuePairs)")
+)
 infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePairs: Pairs<K, V>): Expect<T> =
-    it contains o inAny order but only the keyValuePairs
+    it toContain o inAny order but only the keyValuePairs
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
@@ -90,8 +107,12 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.containsOnly(keyValuePairs: Pairs<
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(keyValue)")
+)
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
-    it contains o inAny order entry keyValue
+    it toContain o inAny order entry keyValue
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only one entry with a key as defined by
@@ -108,9 +129,14 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(key
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(keyValue)")
+)
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
-    it contains o inAny order but only entry keyValue
+    it toContain o inAny order but only entry keyValue
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
  * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
@@ -132,21 +158,25 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<K, V, T>(allKeyValues)")
+)
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     allKeyValues: KeyValues<K, V>
-): Expect<T> = it contains o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
+): Expect<T> = it toContain o inAny order the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
 @Deprecated(
-    "Use `contains keyValues` instead; will be removed with 1.0.0 at the latest",
+    "Use `toContain keyValues` instead; will be removed with 1.0.0 at the latest",
     ReplaceWith(
-        "this contains keyValues(all.expected, *all.otherExpected)",
-        "ch.tutteli.atrium.api.infix.en_GB.contains",
+        "this toContain keyValues(all.expected, *all.otherExpected)",
+        "ch.tutteli.atrium.api.infix.en_GB.toContain",
         "ch.tutteli.atrium.api.infix.en_GB.keyValues"
     )
 )
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
     all: All<KeyWithValueCreator<K, V>>
-): Expect<T> = it contains keyValues(all.expected, *all.otherExpected)
+): Expect<T> = it toContain keyValues(all.expected, *all.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) for each [KeyWithValueCreator]
@@ -158,9 +188,13 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.contains(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainOnly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnly<K, V, T>(allKeyValues)")
+)
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly(
     allKeyValues: KeyValues<K, V>
-): Expect<T> = it contains o inAny order but only the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
+): Expect<T> = it toContain o inAny order but only the keyValues(allKeyValues.expected, *allKeyValues.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the key-value pairs of the given [mapLike].
@@ -169,9 +203,13 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainEntriesOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainEntriesOf<K, V, T>(mapLike)")
+)
 infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
     mapLike: MapLike
-): Expect<T> = it contains o inAny order entriesOf mapLike
+): Expect<T> = it toContain o inAny order entriesOf mapLike
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) the key-value pairs of
@@ -181,9 +219,13 @@ infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsEntriesOf(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainOnlyEntriesOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainOnlyEntriesOf<K, V, T>(mapLike)")
+)
 infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
     mapLike: MapLike
-): Expect<T> = it contains o inAny order but only entriesOf mapLike
+): Expect<T> = it toContain o inAny order but only entriesOf mapLike
 
 
 /**
@@ -191,6 +233,10 @@ infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.containsOnlyEntriesOf(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainKey; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainKey<K, T>(key)")
+)
 infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
     _logicAppend { containsKey(::identity, key) }
 
@@ -199,9 +245,14 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsKey(key: K): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use notToContainKey; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToContainKey<K, T>(key)")
+)
 infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
  * creates an [Expect] for the corresponding value and returns the newly created assertion container,
@@ -212,6 +263,7 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key] and that
  * the corresponding value holds all assertions the given [KeyWithCreator.assertionCreator] creates for it.
@@ -224,6 +276,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
     _logic.getExisting(::identity, key.key).collectAndAppend(key.assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
  */
@@ -231,6 +284,7 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K
     KeyWithCreator(key, assertionCreator)
 
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -240,6 +294,7 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -250,6 +305,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.values] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -259,6 +315,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the property [Map.keys] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -269,6 +326,7 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
 infix fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
  *
@@ -281,6 +339,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     @Suppress("UNUSED_PARAMETER") o: o
 ): Expect<Set<Map.Entry<K, V>>> = _logic.changeSubject.unreported { it.entries }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
  * [assertionCreator] creates for it.
@@ -294,6 +353,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
 ): Expect<T> = apply { asEntries(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
  *
@@ -304,6 +364,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
 
+//TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
  *
