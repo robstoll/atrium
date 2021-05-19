@@ -18,17 +18,20 @@ import ch.tutteli.atrium.logic.*
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(key: K, value: V): Expect<T> =
     _logicAppend { isKeyValue(key, value) }
 
+
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.Entry.key] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.keyFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryExpectationSamples.keyFeature
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
     get() = _logic.key().transform()
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Expects that the property [Map.Entry.key] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -36,22 +39,24 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.key
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryExpectationSamples.key
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.Entry.value] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.valueFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryExpectationSamples.valueFeature
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
     get() = _logic.value().transform()
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Expects that the property [Map.Entry.value] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -59,7 +64,7 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.MapEntryAssertionSamples.value
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapEntryExpectationSamples.value
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)

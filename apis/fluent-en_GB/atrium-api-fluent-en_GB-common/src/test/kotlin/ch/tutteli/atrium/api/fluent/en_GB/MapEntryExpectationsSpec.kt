@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
 object MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExpectationsSpec(
-    fun2(Expect<Map.Entry<String, Int>>::isKeyValue),
-    fun2(Expect<Map.Entry<String?, Int?>>::isKeyValue).withNullableSuffix(),
+    fun2(Expect<Map.Entry<String, Int>>::toEqualKeyValue),
+    fun2(Expect<Map.Entry<String?, Int?>>::toEqualKeyValue).withNullableSuffix(),
     property<Map.Entry<String, Int>, String>(Expect<Map.Entry<String, Int>>::key),
     fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>(Expect<Map.Entry<String, Int>>::key),
     property<Map.Entry<String, Int>, Int>(Expect<Map.Entry<String, Int>>::value),

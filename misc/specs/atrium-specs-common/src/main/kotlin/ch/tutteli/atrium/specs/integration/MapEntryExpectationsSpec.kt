@@ -8,8 +8,8 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapEntryExpectationsSpec(
-    isKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
-    isKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
+    toEqualKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
+    toEqualKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
     keyFeature: Feature0<Map.Entry<String, Int>, String>,
     key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
     valueFeature: Feature0<Map.Entry<String, Int>, Int>,
@@ -23,12 +23,12 @@ abstract class MapEntryExpectationsSpec(
 
     include(object : SubjectLessSpec<Map.Entry<String, Int>>(
         describePrefix,
-        isKeyValue.forSubjectLess("key", 1)
+        toEqualKeyValue.forSubjectLess("key", 1)
     ) {})
 
     include(object : SubjectLessSpec<Map.Entry<String?, Int?>>(
         "$describePrefix[nullable] ",
-        isKeyValueNullable.forSubjectLess("key", 1)
+        toEqualKeyValueNullable.forSubjectLess("key", 1)
     ) {})
 
     include(object : KeyValueLikeExpectationsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
@@ -53,18 +53,18 @@ abstract class MapEntryExpectationsSpec(
     val mapEntry = mapEntry("hello", 1)
     val fluent = expect(mapEntry)
 
-    describeFun(isKeyValue, isKeyValueNullable) {
-        val isKeyValueFunctions = uncheckedToNonNullable(isKeyValue, isKeyValueNullable)
+    describeFun(toEqualKeyValue, toEqualKeyValueNullable) {
+        val toEqualKeyValueFunctions = uncheckedToNonNullable(toEqualKeyValue, toEqualKeyValueNullable)
 
         context("map $mapEntry") {
-            isKeyValueFunctions.forEach { (name, isKeyValueFun) ->
+            toEqualKeyValueFunctions.forEach { (name, toEqualKeyValueFun) ->
                 it("$name - hello to 1 does not throw") {
-                    fluent.isKeyValueFun("hello", 1)
+                    fluent.toEqualKeyValueFun("hello", 1)
                 }
 
                 it("$name - hello to 2 throws AssertionError") {
                     expect {
-                        fluent.isKeyValueFun("hello", 2)
+                        fluent.toEqualKeyValueFun("hello", 2)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("value: 1", "$toBeDescr: 2")
@@ -74,7 +74,7 @@ abstract class MapEntryExpectationsSpec(
                 }
                 it("$name - b to 1 throws AssertionError") {
                     expect {
-                        fluent.isKeyValueFun("b", 1)
+                        fluent.toEqualKeyValueFun("b", 1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("key: \"hello\"", "$toBeDescr: \"b\"")
@@ -86,19 +86,19 @@ abstract class MapEntryExpectationsSpec(
         }
     }
 
-    describeFun(isKeyValueNullable) {
-        val isKeyValueFun = isKeyValueNullable.lambda
+    describeFun(toEqualKeyValueNullable) {
+        val toEqualKeyValueFun = toEqualKeyValueNullable.lambda
         val mapEntryNullable2 = mapEntry(null as String?, null as Int?)
         val fluentNullable = expect(mapEntryNullable2)
 
         context("map $mapEntryNullable2") {
             it("null to null does not throw") {
-                fluentNullable.isKeyValueFun(null, null)
+                fluentNullable.toEqualKeyValueFun(null, null)
             }
 
             it("null to 2 throws AssertionError") {
                 expect {
-                    fluentNullable.isKeyValueFun(null, 2)
+                    fluentNullable.toEqualKeyValueFun(null, 2)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("value: null", "$toBeDescr: 2")
@@ -108,7 +108,7 @@ abstract class MapEntryExpectationsSpec(
             }
             it("b to null throws AssertionError") {
                 expect {
-                    fluentNullable.isKeyValueFun("b", null)
+                    fluentNullable.toEqualKeyValueFun("b", null)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("key: null", "$toBeDescr: \"b\"")
