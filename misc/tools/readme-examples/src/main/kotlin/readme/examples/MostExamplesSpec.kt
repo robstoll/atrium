@@ -247,7 +247,7 @@ class MostExamplesSpec : Spek({
             } catch (t: Throwable) {
                 throw IllegalArgumentException("no no no...", t)
             }
-        }.toThrow<IllegalStateException> { messageContains("no no no") }
+        }.toThrow<IllegalStateException> { messageToContain("no no no") }
     }
 
     test("ex-pitfall-1") {

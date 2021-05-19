@@ -72,7 +72,7 @@ class CollectionExpectationSamples {
                     toBeGreaterThan(4) // still evaluated even though `isLessThan(1)` already fails,
                     //                    use `.size.` if you want a fail fast behaviour
                 }
-        }.messageContains(
+        }.messageToContain(
             "is less than: 1",
             "is greater than: 4"
         )

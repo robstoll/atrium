@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
@@ -93,27 +93,27 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("${isBefore.name} throws a DateTimeParseException") {
                     expect {
                         now.isBeforeFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isBeforeOrEqual.name} throws a DateTimeParseException") {
                     expect {
                         now.isBeforeOrEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isAfter.name} throws a DateTimeParseException") {
                     expect {
                         now.isAfterFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("isAfterOrEqual throws a DateTimeParseException") {
                     expect {
                         now.isAfterOrEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isEqual.name} throws a DateTimeParseException") {
                     expect {
                         now.isEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
             }
         }
@@ -135,12 +135,12 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$chronoLocalDateTime ${isBefore.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(chronoLocalDateTime).isBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
                 }
                 it("$after ${isBefore.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(after).isBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_BEFORE.getDefault()}: $localDateTimeAsString") }
                 }
 
                 it("$before ${isBeforeOrEqual.name} $localDateTimeAsString does not throw") {
@@ -153,19 +153,19 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                     expect {
                         expect(after).isBeforeOrEqualFun(localDateTimeAsString)
                     }.toThrow<AssertionError> {
-                        messageContains("${IS_BEFORE_OR_EQUAL.getDefault()}: $localDateTimeAsString")
+                        messageToContain("${IS_BEFORE_OR_EQUAL.getDefault()}: $localDateTimeAsString")
                     }
                 }
 
                 it("$before ${isAfter.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).isAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
                 }
                 it("$chronoLocalDateTime ${isAfter.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(chronoLocalDateTime).isAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_AFTER.getDefault()}: $localDateTimeAsString") }
                 }
                 it("$after ${isAfter.name} $localDateTimeAsString does not throw") {
                     expect(after).isAfterFun(localDateTimeAsString)
@@ -174,7 +174,7 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$before ${isAfterOrEqual.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).isAfterOrEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_AFTER_OR_EQUAL.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_AFTER_OR_EQUAL.getDefault()}: $localDateTimeAsString") }
                 }
                 it("$chronoLocalDateTime ${isAfterOrEqual.name} $localDateTimeAsString does not throw") {
                     expect(chronoLocalDateTime).isAfterOrEqualFun(localDateTimeAsString)
@@ -186,7 +186,7 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$before ${isEqual.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).isEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
                 }
                 it("$chronoLocalDateTime ${isEqual.name} $localDateTimeAsString does not throw") {
                     expect(chronoLocalDateTime).isEqualFun(localDateTimeAsString)
@@ -194,7 +194,7 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$after ${isEqual.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(after).isEqualFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageContains("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> { messageToContain("${IS_EQUAL_TO.getDefault()}: $localDateTimeAsString") }
                 }
             }
         }

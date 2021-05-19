@@ -78,7 +78,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         fluent.keyFun { toEndWith("h") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$keyName: \"hello\"",
                             DescriptionCharSequenceAssertion.ENDS_WITH.getDefault() + ": \"h\""
                         )
@@ -94,7 +94,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         fluent.valueFun { toBeGreaterThan(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$valueName: 1",
                             DescriptionComparableAssertion.IS_GREATER_THAN.getDefault() + ": 1"
                         )
@@ -118,7 +118,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         nullableFluent.nullableKeyFun { toEqual(null) }
                     }.toThrow<AssertionError> {
-                        messageContains("$keyName: \"hello\"")
+                        messageToContain("$keyName: \"hello\"")
                     }
                 }
             }
@@ -130,7 +130,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         nullableFluent.nullableValueFun { toEqual(null) }
                     }.toThrow<AssertionError> {
-                        messageContains("$valueName: 1")
+                        messageToContain("$valueName: 1")
                     }
                 }
             }
@@ -144,7 +144,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         nullFluent.nullableKeyFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        messageContains("$keyName: null", "$toBeDescr: \"hello\"")
+                        messageToContain("$keyName: null", "$toBeDescr: \"hello\"")
                     }
                 }
             }
@@ -156,7 +156,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         nullFluent.nullableValueFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("$valueName: null")
+                        messageToContain("$valueName: null")
                     }
                 }
             }

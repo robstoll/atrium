@@ -1879,7 +1879,7 @@ expect {
     } catch (t: Throwable) {
         throw IllegalArgumentException("no no no...", t)
     }
-}.toThrow<IllegalStateException> { messageContains("no no no") }
+}.toThrow<IllegalStateException> { messageToContain("no no no") }
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L243)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
 <a name="ex-add-info-3"></a>

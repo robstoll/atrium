@@ -31,7 +31,7 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
 
         a1.message
         a1 = a1.message {}
-        a1 = a1.messageContains("asdf")
+        a1 = a1.messageToContain("asdf")
 
         a1.cause<ClassCastException>()
         a1.cause<ClassCastException> { }

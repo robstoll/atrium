@@ -3,17 +3,8 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.containsNot
-import ch.tutteli.atrium.api.fluent.en_GB.hasSize
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThan
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.isNotEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.samples.fails
-import ch.tutteli.atrium.api.fluent.en_GB.size
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
@@ -58,7 +49,7 @@ class CollectionAssertionSamples {
                 .size
                 .isLessThan(1)    // fails
                 .isGreaterThan(4) // not reported because `isLessThan(1)` already fails
-                                  // use `size { ... }` if you want that all assertions are evaluated
+            // use `size { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is less than: 1")
             containsNot("is greater than: 4")
@@ -83,9 +74,9 @@ class CollectionAssertionSamples {
                 .size {
                     isLessThan(1)    // fails
                     isGreaterThan(4) // still evaluated even though `isLessThan(1)` already fails,
-                                     // use `.size.` if you want a fail fast behaviour
+                    // use `.size.` if you want a fail fast behaviour
                 }
-        }.messageContains(
+        }.messageToContain(
             "is less than: 1",
             "is greater than: 4"
         )

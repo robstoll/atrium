@@ -24,7 +24,7 @@ class PairAssertionSamples {
                 .first
                 .isGreaterThan(2) // fails
                 .isLessThan(0)    // not reported because `isGreaterThan(2)` already fails
-                                  // use `first { ... }` if you want that all assertions are evaluated
+            // use `first { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is greater than: 2")
             containsNot("is less than: 0")
@@ -51,9 +51,9 @@ class PairAssertionSamples {
                 .first {
                     isGreaterThan(2) // fails
                     isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails
-                                     // use `.first.` if you want a fail fast behaviour
+                    // use `.first.` if you want a fail fast behaviour
                 }
-        }.messageContains(
+        }.messageToContain(
             "is greater than: 2",
             "is less than: 0"
         )
@@ -73,7 +73,7 @@ class PairAssertionSamples {
                 .second
                 .isGreaterThan(2)    // fails
                 .isLessThan(0)       // not reported because `isGreaterThan(2)` already fails
-                                     // use `second { ... }` if you want that all assertions are evaluated
+            // use `second { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is greater than: 2")
             containsNot("is less than: 0")
@@ -100,9 +100,9 @@ class PairAssertionSamples {
                 .second {
                     isGreaterThan(2) // fails
                     isLessThan(0)    // still evaluated even though `isGreaterThan(2)` already fails,
-                                     // use `.second.` if you want a fail fast behaviour
+                    // use `.second.` if you want a fail fast behaviour
                 }
-        }.messageContains(
+        }.messageToContain(
             "is greater than: 2",
             "is less than: 0"
         )

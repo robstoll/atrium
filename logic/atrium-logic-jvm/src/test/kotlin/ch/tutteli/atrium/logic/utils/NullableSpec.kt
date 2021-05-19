@@ -103,7 +103,7 @@ object NullableSpec : Spek({
         it("throws if the value was actually null") {
             expect {
                 expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toEqual("a")
-            }.toThrow<AssertionError> { messageContains("get(1): null", "equals: \"a\"") }
+            }.toThrow<AssertionError> { messageToContain("get(1): null", "equals: \"a\"") }
         }
         it("can pass `null` as key") {
             expect(nullableKeyMap(testee.numbersWithString)[null]).toEqual("tada")
@@ -122,7 +122,7 @@ object NullableSpec : Spek({
             expect {
                 expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toEqual("test")
             }.toThrow<AssertionError> {
-                messageContains(
+                messageToContain(
                     "get(1): null",
                     "$toBeDescr: \"test\""
                 )
@@ -142,7 +142,7 @@ object NullableSpec : Spek({
             expect {
                 expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toEqual("hello")
             }.toThrow<AssertionError> {
-                messageContains(
+                messageToContain(
                     "get(1): null",
                     "$toBeDescr: \"hello\""
                 )

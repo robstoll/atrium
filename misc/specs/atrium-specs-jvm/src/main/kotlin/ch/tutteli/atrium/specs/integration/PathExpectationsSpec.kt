@@ -225,7 +225,7 @@ abstract class PathExpectationsSpec(
             expect {
                 block(a)
             }.toThrow<AssertionError> {
-                messageContains(String.format(FAILURE_DUE_TO_LINK_LOOP.getDefault(), "$a -> $b -> $a"))
+                messageToContain(String.format(FAILURE_DUE_TO_LINK_LOOP.getDefault(), "$a -> $b -> $a"))
             }
         }
 
@@ -339,7 +339,7 @@ abstract class PathExpectationsSpec(
                             expect {
                                 expectPath.startsNotWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageContains("${STARTS_NOT_WITH.getDefault()}:")
+                                messageToContain("${STARTS_NOT_WITH.getDefault()}:")
                             }
                         }
                     } else {
@@ -347,7 +347,7 @@ abstract class PathExpectationsSpec(
                             expect {
                                 expectPath.startsWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageContains("${STARTS_WITH.getDefault()}:")
+                                messageToContain("${STARTS_WITH.getDefault()}:")
                             }
                         }
                         it("${startsNotWith.name} - does not throw") {
@@ -390,7 +390,7 @@ abstract class PathExpectationsSpec(
                             expect {
                                 expectPath.endsNotWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageContains("${ENDS_NOT_WITH.getDefault()}:")
+                                messageToContain("${ENDS_NOT_WITH.getDefault()}:")
                             }
                         }
                     } else {
@@ -398,7 +398,7 @@ abstract class PathExpectationsSpec(
                             expect {
                                 expectPath.endsWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageContains("${ENDS_WITH.getDefault()}:")
+                                messageToContain("${ENDS_WITH.getDefault()}:")
                             }
                         }
                         it("${endsNotWith.name} - does not throw") {
@@ -925,7 +925,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).isAbsoluteFun()
             }.toThrow<AssertionError> {
-                messageContains("$isDescr: ${ABSOLUTE_PATH.getDefault()}")
+                messageToContain("$isDescr: ${ABSOLUTE_PATH.getDefault()}")
             }
         }
 
@@ -943,7 +943,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).isRelativeFun()
             }.toThrow<AssertionError> {
-                messageContains("$isDescr: ${RELATIVE_PATH.getDefault()}")
+                messageToContain("$isDescr: ${RELATIVE_PATH.getDefault()}")
             }
         }
 
@@ -1386,8 +1386,8 @@ abstract class PathExpectationsSpec(
                         val rootFolder = tempFolder.tmpDir.root
                         expect(rootFolder).parentFun { toEqual(Paths.get("non-existing")) }
                     }.toThrow<AssertionError> {
-                        messageContains(DOES_NOT_HAVE_PARENT.getDefault())
-                        if (hasExtraHint) messageContains("non-existing")
+                        messageToContain(DOES_NOT_HAVE_PARENT.getDefault())
+                        if (hasExtraHint) messageToContain("non-existing")
                     }
                 }
             }
@@ -1415,8 +1415,8 @@ abstract class PathExpectationsSpec(
                         val rootFolder = resolvedFolder.parent
                         expect(rootFolder).resolveFun("non-existing") { toEqual(resolvedFolder) }
                     }.toThrow<AssertionError> {
-                        messageContains("non-existing")
-                        if (hasExtraHint) messageContains("child")
+                        messageToContain("non-existing")
+                        if (hasExtraHint) messageToContain("child")
                     }
                 }
             }
@@ -1435,7 +1435,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my")).fileNameFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageContains("$fileNameDescr: \"my\"")
+                        messageToContain("$fileNameDescr: \"my\"")
                     }
                 }
             }
@@ -1455,7 +1455,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
                     }
                 }
             }
@@ -1471,7 +1471,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageContains("$fileNameWithoutExtensionDescr: \"my\"")
+                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
                     }
                 }
             }
@@ -1486,7 +1486,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my") }
                     }.toThrow<AssertionError> {
-                        messageContains("$fileNameWithoutExtensionDescr: \"my.tar\"")
+                        messageToContain("$fileNameWithoutExtensionDescr: \"my.tar\"")
                     }
                 }
             }

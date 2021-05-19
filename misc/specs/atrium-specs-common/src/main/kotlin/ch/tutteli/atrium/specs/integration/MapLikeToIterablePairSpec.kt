@@ -23,7 +23,7 @@ abstract class MapLikeToIterablePairSpec<T>(
                     expect {
                         expect(subject).funMapLike(input)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains("MapLike without entries are not allowed")
+                        messageToContain("MapLike without entries are not allowed")
                     }
                 }
             }
@@ -32,12 +32,12 @@ abstract class MapLikeToIterablePairSpec<T>(
                     expect {
                         expect(subject).funMapLike(input)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains(
+                        messageToContain(
                             "MapLikeToIterablePairTransformer accepts arguments of types:",
                             "Map as well as IterableLike with an element type `Pair<*, *>` and `Map.Entry<*, *>`"
                         )
                         cause<IllegalArgumentException> {
-                            messageContains("element of Iterable is neither a Pair nor a Map.Entry")
+                            messageToContain("element of Iterable is neither a Pair nor a Map.Entry")
                         }
                     }
                 }
@@ -46,12 +46,12 @@ abstract class MapLikeToIterablePairSpec<T>(
                 expect {
                     expect(subject).funMapLike("test")
                 }.toThrow<IllegalArgumentException> {
-                    messageContains(
+                    messageToContain(
                         "MapLikeToIterablePairTransformer accepts arguments of types:",
                         "Map as well as IterableLike with an element type `Pair<*, *>` and `Map.Entry<*, *>`"
                     )
                     cause<IllegalArgumentException> {
-                        messageContains("IterableLikeToIterableTransformer accepts arguments of types:")
+                        messageToContain("IterableLikeToIterableTransformer accepts arguments of types:")
                     }
                 }
             }

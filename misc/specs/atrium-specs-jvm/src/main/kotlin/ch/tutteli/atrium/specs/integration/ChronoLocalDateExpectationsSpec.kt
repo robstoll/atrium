@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
@@ -53,12 +53,12 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         fluent.isBeforeFun(december22)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $december22") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $december22") }
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
                         fluent.isBeforeFun(december23)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $december23") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $december23") }
                 }
                 it("... $december24 does not throw") {
                     fluent.isBeforeFun(december24)
@@ -70,7 +70,7 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         fluent.isBeforeOrEqualFun(december22)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $december22") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeOrEqualDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
                     fluent.isBeforeOrEqualFun(december23)
@@ -88,12 +88,12 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december23 throws an AssertionError") {
                     expect {
                         fluent.isAfterFun(december23)
-                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december23") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $december23") }
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
                         fluent.isAfterFun(december24)
-                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $december24") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $december24") }
                 }
             }
             describe("${isAfterOrEqual.name} ...") {
@@ -108,7 +108,7 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december24 throws an AssertionError") {
                     expect {
                         fluent.isAfterOrEqualFun(december24)
-                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $december24") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterOrEqualDescr: $december24") }
                 }
             }
             describe("${isEqual.name} ...") {
@@ -117,7 +117,7 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         fluent.isEqualFun(december22)
-                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $december22") }
+                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
                     fluent.isEqualFun(december23)
@@ -125,7 +125,7 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december24 throws an AssertionError") {
                     expect {
                         fluent.isEqualFun(december24)
-                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $december24") }
+                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $december24") }
                 }
             }
         }

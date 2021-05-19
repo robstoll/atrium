@@ -157,7 +157,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         expect {
                             expect(oneToSevenNullable()).toContainInAnyOrderNullableEntriesFun({ toEqual(2.0) })
                         }.toThrow<AssertionError> {
-                            messageContains(
+                            messageToContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$toBeDescr: 2.0",
@@ -196,7 +196,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                     expect {
                         expect(oneToSeven() as Iterable<Double?>).toContainInAnyOrderNullableEntriesFun(null)
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$isDescr: null",

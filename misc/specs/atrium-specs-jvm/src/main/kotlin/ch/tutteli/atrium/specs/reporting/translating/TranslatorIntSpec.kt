@@ -145,7 +145,7 @@ abstract class TranslatorIntSpec(
                 it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).toEqual(2)
-                    }.toThrow<AssertionError> { messageContains("ist: 2") }
+                    }.toThrow<AssertionError> { messageToContain("ist: 2") }
                 }
             }
 
@@ -154,7 +154,7 @@ abstract class TranslatorIntSpec(
                 it("a failing assertion contains '$text' instead of 'not to be' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).notToEqual(1)
-                    }.toThrow<AssertionError> { messageContains("$text: 1") }
+                    }.toThrow<AssertionError> { messageToContain("$text: 1") }
                 }
             }
 
@@ -163,7 +163,7 @@ abstract class TranslatorIntSpec(
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).notToBeTheInstance(1)
-                    }.toThrow<AssertionError> { messageContains("$text: 1") }
+                    }.toThrow<AssertionError> { messageToContain("$text: 1") }
                 }
             }
         }
@@ -174,7 +174,7 @@ abstract class TranslatorIntSpec(
                 it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     expect {
                         assertWithDeCh_Fr(1).toEqual(2)
-                    }.toThrow<AssertionError> { messageContains("$text: 1") }
+                    }.toThrow<AssertionError> { messageToContain("$text: 1") }
                 }
             }
 
@@ -182,7 +182,7 @@ abstract class TranslatorIntSpec(
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {
                         assertWithDeCh_Fr(1).toBeLessThan(1)
-                    }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
+                    }.toThrow<AssertionError> { messageToContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }
 
@@ -198,7 +198,7 @@ abstract class TranslatorIntSpec(
                                 firstOfFeb2017
                             ), 1
                         ) { false })
-                    }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
+                    }.toThrow<AssertionError> { messageToContain("02/01/17 était Mittwoch!!") }
                 }
             }
 
@@ -212,7 +212,7 @@ abstract class TranslatorIntSpec(
                                 firstOfFeb2017
                             ), 1
                         ) { false })
-                    }.toThrow<AssertionError> { messageContains("only Mittwoch") }
+                    }.toThrow<AssertionError> { messageToContain("only Mittwoch") }
                 }
             }
 
@@ -232,7 +232,7 @@ abstract class TranslatorIntSpec(
                                 toBe
                             ), 1
                         ) { false })
-                    }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
+                    }.toThrow<AssertionError> { messageToContain("Caractère de remplacement ist") }
                 }
             }
         }
@@ -244,7 +244,7 @@ abstract class TranslatorIntSpec(
                 it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     expect {
                         assertWithDeCh_FrCh_ItCh(1).toBeLessThan(1)
-                    }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
+                    }.toThrow<AssertionError> { messageToContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr' and 'it'") {
@@ -258,7 +258,7 @@ abstract class TranslatorIntSpec(
                                 firstOfFeb2017
                             ), 1
                         ) { false })
-                    }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
+                    }.toThrow<AssertionError> { messageToContain("02/01/17 était Mittwoch!!") }
                 }
             }
 
@@ -272,7 +272,7 @@ abstract class TranslatorIntSpec(
                                 firstOfFeb2017
                             ), 1
                         ) { false })
-                    }.toThrow<AssertionError> { messageContains("solo Mittwoch!!") }
+                    }.toThrow<AssertionError> { messageToContain("solo Mittwoch!!") }
                 }
             }
         }
@@ -302,14 +302,14 @@ abstract class TranslatorIntSpec(
                         it("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
                             expect {
                                 assert.toEqual(2)
-                            }.toThrow<AssertionError> { messageContains("$toBe ${zhWithScript}_$country: 2") }
+                            }.toThrow<AssertionError> { messageToContain("$toBe ${zhWithScript}_$country: 2") }
                         }
                     }
                     describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'zh_$country' and for $zhWithScript") {
                         it("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
                             expect {
                                 assert.notToEqual(1)
-                            }.toThrow<AssertionError> { messageContains("$notToBe $zhWithScript: 1") }
+                            }.toThrow<AssertionError> { messageToContain("$notToBe $zhWithScript: 1") }
                         }
                     }
                 }
@@ -317,14 +317,14 @@ abstract class TranslatorIntSpec(
                     it("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
                         expect {
                             assert.notToBeTheInstance(1)
-                        }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
+                        }.toThrow<AssertionError> { messageToContain("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
                     it("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
                         expect {
                             assert.toBeTheInstance(2)
-                        }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }
+                        }.toThrow<AssertionError> { messageToContain("$isSame zh: 2") }
                     }
                 }
             }

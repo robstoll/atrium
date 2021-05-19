@@ -28,7 +28,7 @@ abstract class Fun0ExpectationsSpec(
     include(object : SubjectLessSpec<() -> Any?>(
         "$describePrefix[toThrow] ",
         toThrowFeature.forSubjectLess().adjustName { "$it feature" },
-        toThrow.forSubjectLess { messageContains("bla") }
+        toThrow.forSubjectLess { messageToContain("bla") }
     ) {})
 
     include(object : SubjectLessSpec<() -> Int>(describePrefix,
@@ -41,7 +41,7 @@ abstract class Fun0ExpectationsSpec(
         assertionCreatorSpecTriple(
             toThrow.name,
             "bla",
-            { apply { toThrow.invoke(this) { messageContains("bla") } } },
+            { apply { toThrow.invoke(this) { messageToContain("bla") } } },
             { apply { toThrow.invoke(this) {} } }
         )
     ) {})
@@ -109,7 +109,7 @@ abstract class Fun0ExpectationsSpec(
                     expect {
                         expect { 123456789 }.notToThrowFun { toEqual(1) }
                     }.toThrow<AssertionError>() {
-                        messageContains("123456789")
+                        messageToContain("123456789")
                     }
                 }
             }
@@ -199,7 +199,7 @@ abstract class Fun0ExpectationsSpec(
                             }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -212,7 +212,7 @@ abstract class Fun0ExpectationsSpec(
                             }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                            if (hasExtraHint) messageToContain("$toBeDescr: 2")
                         }
                     }
                 }
@@ -244,7 +244,7 @@ abstract class Fun0ExpectationsSpec(
                                 }.toThrowFun { message.toEqual("hello") }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                                if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                             }
                         }
                     }
@@ -257,7 +257,7 @@ abstract class Fun0ExpectationsSpec(
                                 }.notToThrowFun { toEqual(2) }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageContains("$toBeDescr: 2")
+                                if (hasExtraHint) messageToContain("$toBeDescr: 2")
                             }
                         }
                     }

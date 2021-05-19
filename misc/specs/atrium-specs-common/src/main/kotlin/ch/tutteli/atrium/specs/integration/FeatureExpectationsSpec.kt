@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.get
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.ErrorMessages
@@ -158,9 +158,9 @@ abstract class FeatureExpectationsSpec(
                     expect {
                         act(assertion)
                     }.toThrow<AssertionError> {
-                        messageContains(stringInExceptionMessage)
+                        messageToContain(stringInExceptionMessage)
                         if (additionalContentInException != null) {
-                            messageContains(additionalContentInException)
+                            messageToContain(additionalContentInException)
                         }
                     }
                 }
@@ -180,9 +180,9 @@ abstract class FeatureExpectationsSpec(
                         act(assertion)
                     }.toThrow<AssertionError> {
                         if (isAbleToEvaluateDescription) {
-                            messageContains(stringInExceptionMessage)
+                            messageToContain(stringInExceptionMessage)
                         } else {
-                            messageContains(ch.tutteli.atrium.translations.ErrorMessages.DESCRIPTION_BASED_ON_SUBJECT.getDefault())
+                            messageToContain(ch.tutteli.atrium.translations.ErrorMessages.DESCRIPTION_BASED_ON_SUBJECT.getDefault())
                         }
                     }
                 }
@@ -230,7 +230,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
-                    messageContains("$lazyWithNestedImmediateFeatureInfo: 37", "$toBeDescr: 12")
+                    messageToContain("$lazyWithNestedImmediateFeatureInfo: 37", "$toBeDescr: 12")
                 }
             }
         }
@@ -242,7 +242,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
-                    messageContains("$lazyWithNestedLazyFeatureInfo: 37", "$toBeDescr: 12")
+                    messageToContain("$lazyWithNestedLazyFeatureInfo: 37", "$toBeDescr: 12")
                 }
             }
         }
@@ -264,7 +264,7 @@ abstract class FeatureExpectationsSpec(
                     expect {
                         expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
                             ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
                             ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()

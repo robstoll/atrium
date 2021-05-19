@@ -52,11 +52,11 @@ abstract class ThrowableExpectationsSpec(
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             DescriptionAnyAssertion.IS_A.getDefault(),
                             String::class.fullName
                         )
-                        if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                        if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                     }
                 }
             }
@@ -66,7 +66,7 @@ abstract class ThrowableExpectationsSpec(
                 expect {
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         DescriptionAnyAssertion.IS_A.getDefault(), String::class.fullName,
                         CONTAINS.getDefault(),
                         VALUE.getDefault() + ": 1",
@@ -84,7 +84,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -94,7 +94,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageContains(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
             }
             it("${messageToContain.name} - throws IllegalArgumentException if empty string is passed") {
                 expect {
@@ -109,7 +109,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -119,7 +119,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageContains(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(" ", arrayOf())
@@ -133,7 +133,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageContains("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -144,7 +144,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageContains(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
@@ -174,9 +174,9 @@ abstract class ThrowableExpectationsSpec(
 
                 it("$name - throws an AssertionError") {
                     expect {
-                        expect(throwable).causeFun { messageContains("WRONG message") }
+                        expect(throwable).causeFun { messageToContain("WRONG message") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
                             VALUE.getDefault() + ": \"WRONG message\""
                         )
@@ -190,9 +190,9 @@ abstract class ThrowableExpectationsSpec(
                             UnsupportedOperationException("Cause exception: UNSUPPORTED OPERATION")
                         )
                     expect {
-                        expect(throwableWithDifferentCauseType).causeFun { messageContains("Cause exception") }
+                        expect(throwableWithDifferentCauseType).causeFun { messageToContain("Cause exception") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             String.format(
                                 DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES.getDefault(),
                                 UnsupportedOperationException::class.simpleName!!
@@ -209,9 +209,9 @@ abstract class ThrowableExpectationsSpec(
             causeFunctions.forEach { (name, causeFun) ->
                 it("$name - throws an AssertionError") {
                     expect {
-                        expect(throwable).causeFun { messageContains("Hello") }
+                        expect(throwable).causeFun { messageToContain("Hello") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             DescriptionThrowableAssertion.NOT_CAUSED.getDefault(),
                             IllegalArgumentException::class.fullName
                         )

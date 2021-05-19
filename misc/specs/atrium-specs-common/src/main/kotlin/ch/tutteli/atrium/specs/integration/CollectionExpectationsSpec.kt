@@ -50,7 +50,7 @@ abstract class CollectionExpectationsSpec(
             it("${isNotEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isNotDescr: $empty") }
             }
         }
 
@@ -58,7 +58,7 @@ abstract class CollectionExpectationsSpec(
             it("${isEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isDescr: $empty") }
             }
             it("${isNotEmpty.name} - does not throw") {
                 expect(listOf(1) as Collection<Int>).isNotEmptyFun()
@@ -78,7 +78,7 @@ abstract class CollectionExpectationsSpec(
                     expect {
                         fluent.sizeFun { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("$sizeDescr: 2")
+                        messageToContain("$sizeDescr: 2")
                     }
                 }
             }

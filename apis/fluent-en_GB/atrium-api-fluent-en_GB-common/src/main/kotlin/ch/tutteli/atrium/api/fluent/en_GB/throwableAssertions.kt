@@ -42,6 +42,13 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use messageToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.messageToContain<T>(expected, *otherExpected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.messageToContain"
+    )
+)
 fun <T : Throwable> Expect<T>.messageContains(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar

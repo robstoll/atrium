@@ -42,7 +42,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndNoneFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
-                    messageContains("$featureArrow$hasElement: false")
+                    messageToContain("$featureArrow$hasElement: false")
                 }
             }
         }

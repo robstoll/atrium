@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -62,8 +62,8 @@ abstract class ListExpectationsSpec(
                     expect {
                         fluent.getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageContains("get(4): $indexOutOfBounds")
-                        if (hasExtraHint) messageContains("$toBeDescr: 3")
+                        messageToContain("get(4): $indexOutOfBounds")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 3")
                     }
                 }
             }

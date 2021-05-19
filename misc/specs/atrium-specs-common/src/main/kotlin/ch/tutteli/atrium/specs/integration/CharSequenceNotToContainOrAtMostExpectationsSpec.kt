@@ -45,7 +45,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
             it("for not at all or at most -1 -- only positive numbers") {
                 expect {
                     fluent.notToContainOrAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
+                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for not at all or at most 0 -- points to $notToContain") {
                 expect {
@@ -55,12 +55,12 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
             it("if an object is passed as first expected") {
                 expect {
                     fluent.notToContainOrAtMostFun(1, fluent)
-                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
                     fluent.notToContainOrAtMostFun(1, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
         }
 
@@ -87,7 +87,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                 it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.notToContainOrAtMostFun(1, 'l')
-                    }.toThrow<AssertionError> { messageContains("$atMost: 1", "$valueWithIndent: 'l'") }
+                    }.toThrow<AssertionError> { messageToContain("$atMost: 1", "$valueWithIndent: 'l'") }
                 }
                 it("${notToContainOrAtMostPair.first("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
                     expect {
@@ -151,7 +151,7 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                 it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.notToContainOrAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError> { messageContains(AT_MOST.getDefault()) }
+                    }.toThrow<AssertionError> { messageToContain(AT_MOST.getDefault()) }
                 }
 
                 it("${notToContainOrAtMostPair.first("'o'", "3 times")} does not throw") {

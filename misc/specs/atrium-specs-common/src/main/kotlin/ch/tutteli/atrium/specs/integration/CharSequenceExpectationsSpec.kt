@@ -117,13 +117,13 @@ abstract class CharSequenceExpectationsSpec(
             it("${startsNotWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.startsNotWithFun("Hello")
-                }.toThrow<AssertionError> { messageContains(STARTS_NOT_WITH.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(STARTS_NOT_WITH.getDefault()) }
             }
 
             it("${startsWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     fluent.startsWithFun("goodbye")
-                }.toThrow<AssertionError> { messageContains(STARTS_WITH.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(STARTS_WITH.getDefault()) }
             }
             it("${startsNotWith.name} 'Robert' does not throw") {
                 fluent.startsNotWithFun("goodbye")
@@ -139,7 +139,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${endsWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.endsWithFun("Hello")
-                }.toThrow<AssertionError> { messageContains(ENDS_WITH.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(ENDS_WITH.getDefault()) }
             }
             it("${endsNotWith.name} 'Hello' does not throw") {
                 fluent.endsNotWithFun("Hello")
@@ -151,7 +151,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${endsNotWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     fluent.endsNotWithFun("Robert")
-                }.toThrow<AssertionError> { messageContains(ENDS_NOT_WITH.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(ENDS_NOT_WITH.getDefault()) }
             }
         }
     }
@@ -167,7 +167,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${matches.name} 'Hello' throws an AssertionError") {
                 expect {
                     fluent.matchesFun(Regex("Hello"))
-                }.toThrow<AssertionError> { messageContains(MATCHES.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(MATCHES.getDefault()) }
             }
         }
     }
@@ -183,7 +183,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${mismatches.name} 'Hello my name is Robert' throws an AssertionError"){
                 expect {
                     fluent.mismatchesFun(Regex("Hello my name is Robert"))
-                }.toThrow<AssertionError> { messageContains(MISMATCHES.getDefault()) }
+                }.toThrow<AssertionError> { messageToContain(MISMATCHES.getDefault()) }
             }
         }
     }
