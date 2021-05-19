@@ -13,9 +13,11 @@ import ch.tutteli.atrium.logic.*
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated("Use toEqualKeyValue; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqualKeyValue<K, V, T>(keyValuePair)"))
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
     _logicAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.Entry.key] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -25,6 +27,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
     get() = _logic.key().transform()
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Expects that the property [Map.Entry.key] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -35,6 +38,7 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Creates an [Expect] for the property [Map.Entry.value] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -44,6 +48,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
     get() = _logic.value().transform()
 
+//TODO move to mapEntryExpectations with 0.18.0
 /**
  * Expects that the property [Map.Entry.value] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
