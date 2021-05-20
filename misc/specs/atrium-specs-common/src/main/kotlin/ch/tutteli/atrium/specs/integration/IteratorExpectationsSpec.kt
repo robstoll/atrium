@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
@@ -37,7 +37,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).toHaveNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$hasDescriptionBasic: $nextElement") }
         }
     }
 
@@ -53,7 +53,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).notToHaveNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$hasNotDescriptionBasic: $nextElement") }
         }
     }
 })

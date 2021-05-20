@@ -42,7 +42,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndAnyFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhich: $separator",
                         "$toBeLessThanDescr: 1.0",
@@ -60,7 +60,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                     expect {
                         expect(oneToSeven()).toHaveElementsAndAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$isGreaterThanDescr: 1.0",

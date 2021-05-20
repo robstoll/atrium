@@ -46,7 +46,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
             it("for at most -1 -- only positive numbers") {
                 expect {
                     fluent.toContainAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
+                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for at most 0 -- points to $notToContain") {
                 expect {
@@ -61,12 +61,12 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
             it("if an object is passed as first expected") {
                 expect {
                     fluent.toContainAtMostFun(2, fluent)
-                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
                     fluent.toContainAtMostFun(2, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
         }
 
@@ -87,7 +87,7 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                 it("${toContainAtMostPair.first("'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainAtMostFun(2, 'l')
-                    }.toThrow<AssertionError> { messageContains("$atMost: 2", "$valueWithIndent: 'l'") }
+                    }.toThrow<AssertionError> { messageToContain("$atMost: 2", "$valueWithIndent: 'l'") }
                 }
                 it("${toContainAtMostPair.first("'H', 'l'", "twice")} throws AssertionError mentioning only 'l'") {
                     expect {

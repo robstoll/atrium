@@ -62,7 +62,7 @@ abstract class LocalDateTimeExpectationsSpec(
                     expect {
                         fluent.yearFun { toBeLessThan(2009) }
                     }.toThrow<AssertionError> {
-                        messageContains("$yearDescr: 2009")
+                        messageToContain("$yearDescr: 2009")
                     }
                 }
             }
@@ -81,7 +81,7 @@ abstract class LocalDateTimeExpectationsSpec(
                     expect {
                         fluent.monthFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
-                        messageContains("$monthDescr: 5")
+                        messageToContain("$monthDescr: 5")
                     }
                 }
             }
@@ -100,7 +100,7 @@ abstract class LocalDateTimeExpectationsSpec(
                     expect {
                         fluent.dayFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
-                        messageContains("$dayDescr: 15")
+                        messageToContain("$dayDescr: 15")
                     }
                 }
             }
@@ -119,7 +119,7 @@ abstract class LocalDateTimeExpectationsSpec(
                     expect {
                         fluent.dayOfWeekFun { toBeLessThan(DayOfWeek.FRIDAY) }
                     }.toThrow<AssertionError> {
-                        messageContains("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
+                        messageToContain("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
                     }
                 }
             }

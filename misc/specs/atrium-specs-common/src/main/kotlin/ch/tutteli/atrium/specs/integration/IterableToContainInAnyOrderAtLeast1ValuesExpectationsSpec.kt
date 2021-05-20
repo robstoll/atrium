@@ -38,7 +38,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toContainFun(1.0)
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
@@ -70,7 +70,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     expect {
                         expect(oneToSeven()).toContainFun(9.5)
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
@@ -137,7 +137,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     it("2.5 throws AssertionError") {
                         expect {
                             expect(oneToSevenNullable()).toContainInAnyOrderNullableValuesFun(2.5)
-                        }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CONTAINS.getDefault()) }
+                        }.toThrow<AssertionError> { messageToContain(DescriptionIterableAssertion.CONTAINS.getDefault()) }
                     }
                 }
             }

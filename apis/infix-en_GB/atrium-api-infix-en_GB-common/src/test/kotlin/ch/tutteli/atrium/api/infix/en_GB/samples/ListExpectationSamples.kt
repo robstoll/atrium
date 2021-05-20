@@ -64,7 +64,7 @@ class ListExpectationSamples {
                 it toBeLessThan 0       // still evaluated even though `isGreaterThan(2)` already fails,
                 //                         use `get index` if you want a fail fast behaviour
             }
-        } messageContains values(
+        } messageToContain values(
             "${toBeGreaterThanDescr}: 2",
             "${toBeLessThanDescr}: 0"
         )

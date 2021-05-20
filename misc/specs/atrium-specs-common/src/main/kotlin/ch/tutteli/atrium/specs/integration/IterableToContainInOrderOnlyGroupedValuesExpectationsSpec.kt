@@ -137,22 +137,22 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
             it("if an empty group is given as first parameter") {
                 expect {
                     expect(oneToFour()).toContainFun(context(), context(-1.2))
-                }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
             }
             it("if an empty group is given as second parameter") {
                 expect {
                     expect(oneToFour()).toContainFun(context(1.2), context())
-                }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
             }
             it("if an empty group is given as third parameter") {
                 expect {
                     expect(oneToFour()).toContainFun(context(1.2), context(4.3), context())
-                }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
             }
             it("if an empty group is given as fourth parameter") {
                 expect {
                     expect(oneToFour()).toContainFun(context(1.2), context(4.3), context(5.7), context())
-                }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
             }
         }
 

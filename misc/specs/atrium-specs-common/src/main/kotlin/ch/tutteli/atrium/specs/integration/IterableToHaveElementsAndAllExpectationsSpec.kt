@@ -47,7 +47,7 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator" +
                             "$indentRootBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
                     )

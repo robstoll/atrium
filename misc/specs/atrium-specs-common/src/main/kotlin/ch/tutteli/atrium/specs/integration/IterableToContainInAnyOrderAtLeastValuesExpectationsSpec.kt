@@ -41,7 +41,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
             it("for at least -1 -- only positive numbers") {
                 expect {
                     expect(oneToSeven()).toContainAtLeastFun(-1, 9.0)
-                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
+                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for at least 0 -- points to $notToContain") {
                 expect {
@@ -90,7 +90,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                 it("${toContainAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageContains("$atLeastDescr: 1", "$anElementWhichIs: 1.1") }
+                    }.toThrow<AssertionError> { messageToContain("$atLeastDescr: 1", "$anElementWhichIs: 1.1") }
                 }
                 it("${toContainAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {

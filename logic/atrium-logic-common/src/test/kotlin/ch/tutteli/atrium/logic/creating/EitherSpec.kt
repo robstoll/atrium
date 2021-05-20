@@ -29,7 +29,7 @@ object EitherSpec : Spek({
             expect {
                 expect(either).isRight { toBeLessThan(2) }
             }.toThrow<AssertionError> {
-                messageContains(
+                messageToContain(
                     "value of Right: ❗❗ is not a Right",
                     "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
                 )
@@ -44,7 +44,7 @@ object EitherSpec : Spek({
             expect {
                 expect(either).isLeft { toStartWith("h") }
             }.toThrow<AssertionError> {
-                messageContains(
+                messageToContain(
                     "value of Left: ❗❗ is not a Left",
                     "${DescriptionCharSequenceAssertion.STARTS_WITH.getDefault()}: \"h\""
                 )

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
@@ -55,12 +55,12 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         fluent.isBeforeFun(ten)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $ten") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $ten") }
                 }
                 it("$eleven does not throw") {
                     expect {
                         fluent.isBeforeFun(eleven)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeDescr: $eleven") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $eleven") }
                 }
                 it("$twelve does not throw") {
                     fluent.isBeforeFun(twelve)
@@ -72,7 +72,7 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         fluent.isBeforeOrEqualFun(ten)
-                    }.toThrow<AssertionError> { messageContains("$isBeforeOrEqualDescr: $ten") }
+                    }.toThrow<AssertionError> { messageToContain("$isBeforeOrEqualDescr: $ten") }
                 }
                 it("$eleven does not throw") {
                     fluent.isBeforeOrEqualFun(eleven)
@@ -90,12 +90,12 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$eleven throws an AssertionError") {
                     expect {
                         fluent.isAfterFun(eleven)
-                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $eleven") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $eleven") }
                 }
                 it("$twelve throws an AssertionError") {
                     expect {
                         fluent.isAfterFun(twelve)
-                    }.toThrow<AssertionError> { messageContains("$isAfterDescr: $twelve") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $twelve") }
                 }
             }
             describe("${isAfterOrEqual.name} ...") {
@@ -110,7 +110,7 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$twelve throws an AssertionError") {
                     expect {
                         fluent.isAfterOrEqualFun(twelve)
-                    }.toThrow<AssertionError> { messageContains("$isAfterOrEqualDescr: $twelve") }
+                    }.toThrow<AssertionError> { messageToContain("$isAfterOrEqualDescr: $twelve") }
                 }
             }
             describe("${isEqual.name} ...") {
@@ -119,7 +119,7 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         fluent.isEqualFun(ten)
-                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $ten") }
+                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $ten") }
                 }
                 it("$eleven does not throw") {
                     fluent.isEqualFun(eleven)
@@ -127,7 +127,7 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$twelve throws an AssertionError") {
                     expect {
                         fluent.isEqualFun(twelve)
-                    }.toThrow<AssertionError> { messageContains("$isEqualDescr: $twelve") }
+                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $twelve") }
                 }
             }
         }

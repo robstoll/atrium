@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
@@ -84,27 +84,27 @@ abstract class ChronoLocalDateAsStringExpectationsSpec(
                 it("${isBefore.name} throws a DateTimeParseException") {
                     expect {
                         now.isBeforeFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isBeforeOrEqual.name} throws a DateTimeParseException") {
                     expect {
                         now.isBeforeOrEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isAfter.name} throws a DateTimeParseException") {
                     expect {
                         now.isAfterFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("isAfterOrEqual throws a DateTimeParseException") {
                     expect {
                         now.isAfterOrEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
                 it("${isEqual.name} throws a DateTimeParseException") {
                     expect {
                         now.isEqualFun(value)
-                    }.toThrow<DateTimeParseException> { messageContains("could not be parsed") }
+                    }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
             }
         }

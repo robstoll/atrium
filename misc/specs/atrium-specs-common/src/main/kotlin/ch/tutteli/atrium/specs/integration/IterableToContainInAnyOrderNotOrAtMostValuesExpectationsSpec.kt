@@ -33,7 +33,7 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
             it("for not at all or at most -1 -- only positive numbers") {
                 expect {
                     expect(oneToSeven()).notToContainOrAtMostFun(-1, 0.0)
-                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
+                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for not at all or at most 0 -- points to $notToContain") {
                 expect {
@@ -62,7 +62,7 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                 it("${notToContainOrAtMostPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageContains("$atMostDescr: 1", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 1", "$anElementWhichIs: 4.0") }
                 }
                 it("${notToContainOrAtMostPair.first("1.0, 4.0", "once")} throws AssertionError mentioning only 4.0") {
                     expect {

@@ -42,7 +42,7 @@ class SmokeTest {
                 (assert(2).toEqual(1))
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.ASSERT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -59,7 +59,7 @@ class SmokeTest {
                 assertThat(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -75,7 +75,7 @@ class SmokeTest {
                 expect(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.EXPECT.getDefault()}: 1",
                 "${AssertionVerb.EXPECT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -95,7 +95,7 @@ class SmokeTest {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            messageContains("hello")
+            messageToContain("hello")
         }
     }
 

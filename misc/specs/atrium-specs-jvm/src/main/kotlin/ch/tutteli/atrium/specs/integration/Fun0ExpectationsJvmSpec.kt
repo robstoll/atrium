@@ -71,7 +71,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                        if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                     }
                 }
             }
@@ -84,7 +84,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 2")
                     }
                 }
             }
@@ -115,7 +115,7 @@ abstract class Fun0ExpectationsJvmSpec(
                             }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -128,7 +128,7 @@ abstract class Fun0ExpectationsJvmSpec(
                             }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                            if (hasExtraHint) messageToContain("$toBeDescr: 2")
                         }
                     }
                 }

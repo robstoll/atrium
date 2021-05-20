@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -28,7 +28,7 @@ abstract class ResultExpectationsSpec(
         isSuccessFeature.forSubjectLess(),
         isSuccess.forSubjectLess { toEqual(1) },
         isFailureFeature.forSubjectLess(),
-        isFailure.forSubjectLess { messageContains("message") }
+        isFailure.forSubjectLess { messageToContain("message") }
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         "$describePrefix[nullable] ",
@@ -50,7 +50,7 @@ abstract class ResultExpectationsSpec(
         assertionCreatorSpecTriple(
             isFailure.name,
             "${VALUE.getDefault()}: \"oh no...\"",
-            { apply { isFailure.invoke(this) { messageContains("oh no...") } } },
+            { apply { isFailure.invoke(this) { messageToContain("oh no...") } } },
             { apply { isFailure.invoke(this) {} } }
         )
     ) {})
@@ -83,7 +83,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultSuccess).isSuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageContains("value: 1", "$toBeDescr: 2")
+                        messageToContain("value: 1", "$toBeDescr: 2")
                     }
                 }
             }
@@ -91,14 +91,14 @@ abstract class ResultExpectationsSpec(
             failureFunctions.forEach { (name, isFailureFun, hasExtraHint) ->
                 it("$name - throws AssertionError showing the expected type" + if (hasExtraHint) " and the expected message" else "") {
                     expect {
-                        expect(resultSuccess).isFailureFun { messageContains("oh yes...") }
+                        expect(resultSuccess).isFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "exception: $isNotFailureDescr",
                             "$isADescr: ${IllegalArgumentException::class.simpleName}"
                         )
                         if (hasExtraHint) {
-                            messageContains(
+                            messageToContain(
                                 CONTAINS.getDefault(),
                                 "${VALUE.getDefault()}: \"oh yes...\""
                             )
@@ -114,21 +114,21 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultFailure).isSuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("value: $isNotSuccessDescr")
-                        if (hasExtraHint) messageContains("$toBeDescr: 1")
+                        messageToContain("value: $isNotSuccessDescr")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 1")
                     }
                 }
             }
 
             failureFunctions.forEach { (name, isFailureFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultFailure).isFailureFun { messageContains("oh no...") }
+                    expect(resultFailure).isFailureFun { messageToContain("oh no...") }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultFailure).isFailureFun { messageContains("oh yes...") }
+                        expect(resultFailure).isFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
                             CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\""
                         )
@@ -150,7 +150,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullSuccess).isSuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageContains("value: null", "$toBeDescr: 2")
+                        messageToContain("value: null", "$toBeDescr: 2")
                     }
                 }
             }
@@ -160,8 +160,8 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullableFailure).isSuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("value: $isNotSuccessDescr")
-                        if (hasExtraHint) messageContains("$toBeDescr: 1")
+                        messageToContain("value: $isNotSuccessDescr")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 1")
                     }
                 }
             }

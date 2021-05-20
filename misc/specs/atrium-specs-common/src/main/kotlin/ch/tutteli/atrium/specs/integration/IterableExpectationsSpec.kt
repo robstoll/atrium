@@ -54,7 +54,7 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable does not have next") {
             expect {
                 expect(listOf<Int>() as Iterable<Int>).toHaveANextElementFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescr: $nextElementDescr") }
+            }.toThrow<AssertionError> { messageToContain("$hasDescr: $nextElementDescr") }
         }
     }
 
@@ -68,7 +68,7 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable has next element") {
             expect {
                 expect(listOf(1, 2) as Iterable<Int>).notToHaveANextElementFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescr: $nextElementDescr") }
+            }.toThrow<AssertionError> { messageToContain("$hasNotDescr: $nextElementDescr") }
         }
     }
 
@@ -86,7 +86,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         fluent.minFun { toBeLessThan(2) }
                     }.toThrow<AssertionError> {
-                        messageContains("min(): 3")
+                        messageToContain("min(): 3")
                     }
                 }
             }
@@ -98,7 +98,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         fluent.maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageContains("max(): 4")
+                        messageToContain("max(): 4")
                     }
                 }
             }
@@ -113,7 +113,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         emptyIterable.minFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(noElementsDescr)
+                        messageToContain(noElementsDescr)
                     }
                 }
             }
@@ -122,7 +122,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         emptyIterable.maxFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(noElementsDescr)
+                        messageToContain(noElementsDescr)
                     }
                 }
             }

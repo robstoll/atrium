@@ -74,7 +74,7 @@ class CollectionExpectationSamples {
                 it toBeGreaterThan 4  // isLessThan 1 fails, but isGreaterThan 4 still evaluated
                 //                       use `.size.` if you want a fail fast behaviour
             }
-        } messageContains values(
+        } messageToContain values(
             "${isLessThanDescr}: 1",
             "${isGreaterThanDescr}: 4"
         )

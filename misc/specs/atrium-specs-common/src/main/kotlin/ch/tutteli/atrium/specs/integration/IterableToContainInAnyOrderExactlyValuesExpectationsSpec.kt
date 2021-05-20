@@ -35,7 +35,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
             it("for exactly -1 -- only positive numbers") {
                 expect {
                     expect(oneToSeven()).toContainExactlyFun(-1, 0.0)
-                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
+                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for exactly 0 -- points to $notToContain") {
                 expect {
@@ -62,7 +62,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                 it("${toContainExactlyPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainExactlyFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageToContain("$exactly: 1", "$anElementWhichIs: 4.0") }
                 }
 
                 it("${toContainExactlyPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
@@ -111,7 +111,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                 it("${toContainExactlyPair.first("5.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainExactlyFun(1, 5.0)
-                    }.toThrow<AssertionError> { messageContains(EXACTLY.getDefault()) }
+                    }.toThrow<AssertionError> { messageToContain(EXACTLY.getDefault()) }
                 }
                 it("${toContainExactlyPair.first("5.0", "twice")} does not throw") {
                     expect(oneToSeven()).toContainExactlyFun(2, 5.0)

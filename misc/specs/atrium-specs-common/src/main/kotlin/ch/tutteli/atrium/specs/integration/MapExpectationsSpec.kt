@@ -95,7 +95,7 @@ abstract class MapExpectationsSpec(
                 it("$name - throws an AssertionError if the map does not contain the key") {
                     expect {
                         fluent2.toContainKeyFun("c")
-                    }.toThrow<AssertionError> { messageContains("$toContainKeyDescr: \"c\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toContainKeyDescr: \"c\"") }
                 }
 
                 it("$name - does not throw if null is passed and the map toContain null as key") {
@@ -111,7 +111,7 @@ abstract class MapExpectationsSpec(
                 it("$name - throws an AssertionError if the map toContain the key") {
                     expect {
                         fluent2.notToContainKeyFun("a")
-                    }.toThrow<AssertionError> { messageContains("$notToContainKeyDescr: \"a\"") }
+                    }.toThrow<AssertionError> { messageToContain("$notToContainKeyDescr: \"a\"") }
                 }
             }
         }
@@ -130,7 +130,7 @@ abstract class MapExpectationsSpec(
             it("${notToContainKeyNullable.name} - throws an AssertionError if the map toContain the key") {
                 expect {
                     expect(map2).notToContainNullableKeyFun(null)
-                }.toThrow<AssertionError> { messageContains("$notToContainKeyDescr: null") }
+                }.toThrow<AssertionError> { messageToContain("$notToContainKeyDescr: null") }
             }
         }
 
@@ -139,7 +139,7 @@ abstract class MapExpectationsSpec(
             it("${toContainKeyNullable.name} - throws an AssertionError if the map does not contain the key") {
                 expect {
                     expect(map3).toContainNullableKeyFun(null)
-                }.toThrow<AssertionError> { messageContains("$toContainKeyDescr: null") }
+                }.toThrow<AssertionError> { messageToContain("$toContainKeyDescr: null") }
             }
 
             it("${notToContainKeyNullable.name} - does not throw if the map does not contain the key") {
@@ -161,14 +161,14 @@ abstract class MapExpectationsSpec(
             it("${notToBeEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(map2).notToBeEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isNotDescr: $empty") }
             }
         }
         context("$map") {
             it("${toBeEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(map as Map<*, *>).toBeEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isDescr: $empty") }
             }
             it("${notToBeEmpty.name} - does not throw") {
                 expect(map as Map<*, *>).notToBeEmptyFun()
@@ -189,7 +189,7 @@ abstract class MapExpectationsSpec(
                     expect {
                         fluent.keysFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("keys: [a, b]")
+                        messageToContain("keys: [a, b]")
                     }
                 }
             }
@@ -201,7 +201,7 @@ abstract class MapExpectationsSpec(
                     expect {
                         fluent.valuesFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("values: [1, 2]")
+                        messageToContain("values: [1, 2]")
                     }
                 }
             }
@@ -220,8 +220,8 @@ abstract class MapExpectationsSpec(
                     expect {
                         fluent.getExistingFun("c") { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageContains("get(\"c\"): $keyDoesNotExist")
-                        if (hasExtraHint) messageContains("$toBeDescr: 3")
+                        messageToContain("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 3")
                     }
                 }
             }
@@ -246,8 +246,8 @@ abstract class MapExpectationsSpec(
                     expect {
                         nullableFluent.getExistingFun("c") { toEqual(null) }
                     }.toThrow<AssertionError> {
-                        messageContains("get(\"c\"): $keyDoesNotExist")
-                        if (hasExtraHint) messageContains("$toBeDescr: null")
+                        messageToContain("get(\"c\"): $keyDoesNotExist")
+                        if (hasExtraHint) messageToContain("$toBeDescr: null")
                     }
                 }
             }

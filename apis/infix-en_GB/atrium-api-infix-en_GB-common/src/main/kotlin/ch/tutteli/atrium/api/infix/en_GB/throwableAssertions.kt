@@ -8,6 +8,7 @@ import ch.tutteli.atrium.logic.causeIsA
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
 
+//TODO move to throwableExpectations.kt with 0.18.0
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null,
  * creates an [Expect] for it and returns it.
@@ -17,6 +18,7 @@ import kotlin.reflect.KClass
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = it feature Throwable::message notToEqualNull o
 
+//TODO move to throwableExpectations.kt with 0.18.0
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and
  * holds all assertions the given [assertionCreator] creates for it and
@@ -37,8 +39,15 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use messageToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.messageToContain<T>(expected)",
+        "ch.tutteli.atrium.api.infix.en_GB.messageToContain"
+    )
+)
 infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumberOrChar): Expect<T> =
-    this messageContains values(expected)
+    this messageToContain values(expected)
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
@@ -52,9 +61,17 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use messageToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.messageToContain<T>(values)",
+        "ch.tutteli.atrium.api.infix.en_GB.messageToContain"
+    )
+)
 infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect<T> =
     message { toContain(values) }
 
+//TODO move to throwableExpectations.kt with 0.18.0
 /**
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),
  * creates an [Expect] of the [TExpected] type for it and returns it.
@@ -66,12 +83,14 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
     causeIsA(TExpected::class).transform()
 
+//TODO move to throwableExpectations.kt with 0.18.0 and rename to causeIsInstanceOf
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
     kClass: KClass<TExpected>
 ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = _logic.causeIsA(kClass)
 
 
+//TODO move to throwableExpectations.kt with 0.18.0
 /**
  *
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type) and

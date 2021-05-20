@@ -112,11 +112,10 @@ abstract class VerbSpec(
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
                     @Suppress("DEPRECATION")
-                    messageContains(
+                    (messageToContain(
                         DescriptionAnyAssertion.IS_A.getDefault(),
-                        "Int",
-                        "$toBeDescr: 1"
-                    )
+                        "Int", "$toBeDescr: 1"
+                    ))
                 }
             }
         }
@@ -142,7 +141,7 @@ abstract class VerbSpec(
                         throw IllegalArgumentException()
                     }.toThrow<UnsupportedOperationException> {}
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         DescriptionAnyAssertion.IS_A.getDefault(),
                         IllegalArgumentException::class.fullName,
                         UnsupportedOperationException::class.fullName

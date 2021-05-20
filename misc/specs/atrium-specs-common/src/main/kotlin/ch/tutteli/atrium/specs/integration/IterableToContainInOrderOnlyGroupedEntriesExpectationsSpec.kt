@@ -153,7 +153,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             context(),
                             context({ toEqual(-1.2) })
                         )
-                    }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                    }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as second parameter") {
                     expect {
@@ -161,7 +161,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             context({ toEqual(1.2) }),
                             context()
                         )
-                    }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                    }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as third parameter") {
                     expect {
@@ -170,7 +170,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             context({ toEqual(4.3) }),
                             context()
                         )
-                    }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                    }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
                 }
                 it("if an empty group is given as fourth parameter") {
                     expect {
@@ -180,7 +180,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             context({ toEqual(5.7) }),
                             context()
                         )
-                    }.toThrow<IllegalArgumentException> { messageContains("a group of values cannot be empty") }
+                    }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
                 }
             }
 

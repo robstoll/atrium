@@ -13,7 +13,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(HELLO, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
@@ -22,7 +22,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(HELLO, "one")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 1",
                         "placeholders = 0"
@@ -35,7 +35,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_1_ARG, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
@@ -48,7 +48,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_1_ARG, "one", "two")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 2",
                         "placeholders = 1"
@@ -61,7 +61,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_2_ARGS, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
@@ -70,7 +70,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_2_ARGS, "one")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 1",
                         "placeholders = 2"

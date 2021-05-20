@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -46,8 +46,8 @@ abstract class OptionalExpectationsSpec(
                     expect {
                         expect(emptyValue).isPresentFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageContains(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
-                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        messageToContain(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
+                        if (hasExtraHint) messageToContain("$toBeDescr: 2")
                     }
                 }
             }
@@ -59,7 +59,7 @@ abstract class OptionalExpectationsSpec(
                 expect {
                     expect(presentValue).isEmptyFun()
                 }.toThrow<AssertionError> {
-                    messageContains("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
+                    messageToContain("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
                 }
             }
 

@@ -39,7 +39,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 expect {
                     fluentEmptyString.toContainFun("Hello")
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         "$rootBulletPoint$toContainDescr: $separator" +
                             "$valueWithIndent: \"Hello\"",
                         "$numberOfOccurrences: 0",
@@ -61,7 +61,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 it("${notToContain.name} 'Hello' throws AssertionError") {
                     expect {
                         fluent.notToContainFun("Hello")
-                    }.toThrow<AssertionError> { messageContains(notToContainDescr, "$valueWithIndent: \"Hello\"") }
+                    }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
                 }
 
                 it("${toContain.name} 'Hello' and 'Robert' does not throw") {
@@ -71,7 +71,11 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     expect {
                         fluent.notToContainFun("Hello", "Robert")
                     }.toThrow<AssertionError> {
-                        messageContains(notToContainDescr, "$valueWithIndent: \"Hello\"", "$valueWithIndent: \"Robert\"")
+                        messageToContain(
+                            notToContainDescr,
+                            "$valueWithIndent: \"Hello\"",
+                            "$valueWithIndent: \"Robert\""
+                        )
                     }
                 }
             }
@@ -81,7 +85,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     expect {
                         fluent.toContainFun("notInThere", "neitherInThere")
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             toContainDescr,
                             "$valueWithIndent: \"notInThere\"",
                             "$valueWithIndent: \"neitherInThere\""
@@ -120,7 +124,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 it("${toContain.name} 'notInThere' throws AssertionError") {
                     expect {
                         fluent.toContainFun("notInThere")
-                    }.toThrow<AssertionError> { messageContains(toContainDescr, "$valueWithIndent: \"notInThere\"") }
+                    }.toThrow<AssertionError> { messageToContain(toContainDescr, "$valueWithIndent: \"notInThere\"") }
                 }
                 it("${notToContain.name} 'notInThere' does not throw") {
                     fluent.notToContainFun("notInThere")

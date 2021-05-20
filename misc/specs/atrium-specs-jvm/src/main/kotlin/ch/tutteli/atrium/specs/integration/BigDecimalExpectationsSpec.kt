@@ -60,7 +60,7 @@ abstract class BigDecimalExpectationsSpec(
                     expect {
                         expect(subject).isNotNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             subject,
                             "${DescriptionBigDecimalAssertion.IS_NOT_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
                         )
@@ -78,7 +78,7 @@ abstract class BigDecimalExpectationsSpec(
                     expect {
                         expect(subject).isNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             subject,
                             "${DescriptionBigDecimalAssertion.IS_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
                         )
@@ -195,7 +195,7 @@ abstract class BigDecimalExpectationsSpec(
                     expect {
                         assertTen.isEqualIncludingScaleFun(expected)
                     }.toThrow<AssertionError> {
-                        messageContains(
+                        messageToContain(
                             BigDecimal.TEN,
                             "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected",
                             failureHintNumerically

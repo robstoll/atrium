@@ -113,7 +113,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException") {
             expect {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
+            }.toThrow<UnsupportedOperationException> { messageToContain(supportedAssertionGroupTypeClass.fullName) }
             expect(sb).toBeEmpty()
         }
     }
@@ -124,7 +124,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             expect {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
+            }.toThrow<UnsupportedOperationException> { messageToContain(supportedAssertionGroupTypeClass.fullName) }
             expect(sb).toBeEmpty()
         }
 
