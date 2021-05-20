@@ -51,7 +51,8 @@ infix fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing =
  * Expects that the subject of `this` expectation (a [BigDecimal]) is `null`.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.BigDecimalAssertionSamples.toBe
  */
 @JvmName("toBeNull")
 infix fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =

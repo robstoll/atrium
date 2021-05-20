@@ -17,6 +17,8 @@ import kotlin.reflect.KClass
  * so that you can mix [String] and [Int] for instance.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.17.0
  */
 infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNumberOrChar): Expect<T> =
     this messageToContain values(expected)
@@ -32,6 +34,8 @@ infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNum
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.17.0
  */
 infix fun <T : Throwable> Expect<T>.messageToContain(values: Values<Any>): Expect<T> =
     message { toContain(values) }
