@@ -114,7 +114,6 @@ infix fun <T : BigDecimal> Expect<T>.notToEqual(expected: T): Nothing =
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.17.0
-
  */
 infix fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
     _logicAppend { isNumericallyEqualTo(expected) }
