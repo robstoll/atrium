@@ -22,9 +22,9 @@ class BigDecimalExpectationsSpec : Spek({
         Expect<BigDecimal>::notToEqualIncludingScale.name to Expect<BigDecimal>::notToEqualIncludingScale
     ) {})
 
-    describe("fun toBe for BigDecimal? and subject is null") {
+    describe("fun toEqual for BigDecimal? and subject is null") {
         it("chooses the correct overload if `null` is passed, does not throw") {
-            expect(null as BigDecimal?).toBe(null)
+            expect(null as BigDecimal?).toEqual(null)
         }
     }
 })

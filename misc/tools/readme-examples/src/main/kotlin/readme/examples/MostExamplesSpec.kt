@@ -251,7 +251,7 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-pitfall-1") {
-        expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
+        expect(BigDecimal.TEN).toEqualIncludingScale(BigDecimal("10.0"))
     }
     test("ex-pitfall-2") {
         expect(listOf(1)).get(0) {}

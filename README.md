@@ -1922,14 +1922,14 @@ then Atrium reminds us of the possible pitfall. For instance:
 <ex-pitfall-1>
 
 ```kotlin
-expect(BigDecimal.TEN).isEqualIncludingScale(BigDecimal("10.0"))
+expect(BigDecimal.TEN).toEqualIncludingScale(BigDecimal("10.0"))
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L253)</sub> ↓ <sub>[Output](#ex-pitfall-1)</sub>
 <a name="ex-pitfall-1"></a>
 ```text
 expected that subject: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
-    ℹ notice, if you used isNumericallyEqualTo then the assertion would have hold.
+    ℹ notice, if you used toEqualNumerically then the assertion would have hold.
 ```
 </ex-pitfall-1>
 
