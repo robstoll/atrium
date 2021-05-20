@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNumberOrChar): Expect<T> =
-    this messageContains values(expected)
+    this messageToContain values(expected)
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains

@@ -41,7 +41,7 @@ class SmokeTest {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            it messageContains "hello"
+            it messageToContain "hello"
         }
     }
 

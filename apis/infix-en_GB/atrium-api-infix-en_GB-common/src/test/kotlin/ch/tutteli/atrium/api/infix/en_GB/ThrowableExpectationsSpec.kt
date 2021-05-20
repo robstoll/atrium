@@ -18,8 +18,8 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
             expected: Any,
             vararg otherExpected: Any
         ): Expect<Throwable> =
-            if (otherExpected.isEmpty()) expect messageContains expected
-            else expect messageContains values(
+            if (otherExpected.isEmpty()) expect messageToContain expected
+            else expect messageToContain values(
                 expected,
                 *otherExpected
             )
@@ -41,9 +41,9 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
 
         a1.message
         a1 = a1 message {}
-        a1 = a1 messageContains "a"
-        a1 = a1 messageContains 'a'
-        a1 = a1 messageContains values(
+        a1 = a1 messageToContain "a"
+        a1 = a1 messageToContain 'a'
+        a1 = a1 messageToContain values(
             "a",
             1,
             'b'

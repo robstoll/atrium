@@ -39,8 +39,15 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use messageToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.messageToContain<T>(expected)",
+        "ch.tutteli.atrium.api.infix.en_GB.messageToContain"
+    )
+)
 infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumberOrChar): Expect<T> =
-    this messageContains values(expected)
+    this messageToContain values(expected)
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
@@ -54,6 +61,13 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use messageToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.messageToContain<T>(values)",
+        "ch.tutteli.atrium.api.infix.en_GB.messageToContain"
+    )
+)
 infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect<T> =
     message { toContain(values) }
 
