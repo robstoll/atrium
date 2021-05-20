@@ -1,4 +1,4 @@
-//TODO rename file to fun0Expecations.kt with 0.18.0
+//TODO rename file to fun0Expectations.kt with 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect

@@ -10,16 +10,16 @@ import java.math.BigDecimal
 
 class BigDecimalExpectationsSpec : Spek({
     include(object : ch.tutteli.atrium.specs.integration.BigDecimalExpectationsSpec(
-        @Suppress("DEPRECATION") fun1<BigDecimal, BigDecimal>(Expect<BigDecimal>::toBe),
-        @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),
-        fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toBe).withNullableSuffix(),
+        @Suppress("DEPRECATION") fun1<BigDecimal, BigDecimal>(Expect<BigDecimal>::toEqual),
+        @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toEqual).withNullableSuffix(),
+        fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toEqual).withNullableSuffix(),
         Expect<Any>::toEqual,
-        @Suppress("DEPRECATION") Expect<BigDecimal>::notToBe.name to @Suppress("DEPRECATION") Expect<BigDecimal>::notToBe,
+        @Suppress("DEPRECATION") Expect<BigDecimal>::notToEqual.name to @Suppress("DEPRECATION") Expect<BigDecimal>::notToEqual,
         Expect<Any>::notToEqual,
-        Expect<BigDecimal>::isNumericallyEqualTo.name to Expect<BigDecimal>::isNumericallyEqualTo,
-        Expect<BigDecimal>::isNotNumericallyEqualTo.name to Expect<BigDecimal>::isNotNumericallyEqualTo,
-        Expect<BigDecimal>::isEqualIncludingScale.name to Expect<BigDecimal>::isEqualIncludingScale,
-        Expect<BigDecimal>::isNotEqualIncludingScale.name to Expect<BigDecimal>::isNotEqualIncludingScale
+        Expect<BigDecimal>::toEqualNumerically.name to Expect<BigDecimal>::toEqualNumerically,
+        Expect<BigDecimal>::notToEqualNumerically.name to Expect<BigDecimal>::notToEqualNumerically,
+        Expect<BigDecimal>::toEqualIncludingScale.name to Expect<BigDecimal>::toEqualIncludingScale,
+        Expect<BigDecimal>::notToEqualIncludingScale.name to Expect<BigDecimal>::notToEqualIncludingScale
     ) {})
 
     describe("fun toBe for BigDecimal? and subject is null") {
