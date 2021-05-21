@@ -25,7 +25,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: ChronoLocalDate): Expec
  * is before the [expected] [java.time.LocalDate] given as [String].
  *
  * @return an [Expect] for the subject of `this` expectation.
- * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ * @throws [java.time.DateTimeException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
  * @since 0.17.0
  */
@@ -49,7 +49,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: C
  * is before or equal the [expected] [java.time.LocalDate] given as [String].
  *
  * @return an [Expect] for the subject of `this` expectation.
- * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ * @throws [java.time.DateTimeException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
  * @since 0.17.0
  */
@@ -73,7 +73,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: ChronoLoc
  * is equal to the [expected] [java.time.LocalDate] given as [String].
  *
  * @return an [Expect] for the subject of `this` expectation.
- * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ * @throws [java.time.DateTimeException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
  * @since 0.17.0
  */
@@ -96,7 +96,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: Ch
  * is after or equal the [expected] [java.time.LocalDate] given as [String].
  *
  * @return an [Expect] for the subject of `this` expectation.
- * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ * @throws [java.time.DateTimeException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
  * @since 0.17.0
  */
@@ -120,7 +120,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: ChronoLocalDate): Expect
  * is after the [expected] [java.time.LocalDate] given as [String].
  *
  * @return an [Expect] for the subject of `this` expectation.
- * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ * @throws [java.time.DateTimeException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
  * @since 0.17.0
  */

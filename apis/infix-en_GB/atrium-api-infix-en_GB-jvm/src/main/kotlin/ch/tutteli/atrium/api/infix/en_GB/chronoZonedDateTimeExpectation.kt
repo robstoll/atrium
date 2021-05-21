@@ -16,15 +16,47 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeBefore; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeBefore<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isBefore(expected) }
+
+
+/**
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
+ * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @since 0.17.0
+ */
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
+    expected: String
+): Expect<T> = _logicAppend { isBefore(expected) }
+
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
@@ -32,47 +64,46 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
- * is after the [expected] [ChronoZonedDateTime].
+ * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeAfter; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeAfter<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
-    expected: ChronoZonedDateTime<*>
-): Expect<T> = _logicAppend { isAfter(expected) }
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
+    expected: String
+): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
 
-/**
- * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
- * is after or equal the [expected] [ChronoZonedDateTime].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.12.0
- */
-@Deprecated(
-    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
-    expected: ChronoZonedDateTime<*>
-): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
@@ -80,13 +111,9 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInTimeAs(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isEqual(expected) }
 
@@ -116,126 +143,25 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  * - 2020-01-02+01:30
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeBefore; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeBefore<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInTimeAs(
     expected: String
-): Expect<T> = _logicAppend { isBefore(expected) }
+): Expect<T> = _logicAppend { isEqual(expected) }
+
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
- * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- *
- * The format is composed of {DateTime}{ZoneDesignator}.
- *
- * DateTime:
- * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
- * - yyyy-mm-ddThh:mm:ss
- * - yyyy-mm-ddThh:mm
- * - yyyy-mm-dd
- *
- * And for ZoneDesignator:
- * - Z
- * - +hh
- * - +hh:mm
- * - -hh
- * - -hh:mm
- *
- * Here are some examples on how it can look combined
- * - 2020-01-02T03:04:05Z
- * - 2020-01-02T03:04Z
- * - 2020-01-02Z
- * - 2020-01-02+01:30
+ * is after or equal the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
-    expected: String
-): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
-
-/**
- * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
- * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- *
- * The format is composed of {DateTime}{ZoneDesignator}.
- *
- * DateTime:
- * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
- * - yyyy-mm-ddThh:mm:ss
- * - yyyy-mm-ddThh:mm
- * - yyyy-mm-dd
- *
- * And for ZoneDesignator:
- * - Z
- * - +hh
- * - +hh:mm
- * - -hh
- * - -hh:mm
- *
- * Here are some examples on how it can look combined
- * - 2020-01-02T03:04:05Z
- * - 2020-01-02T03:04Z
- * - 2020-01-02Z
- * - 2020-01-02+01:30
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.14.0
- */
-@Deprecated(
-    "Use toBeAfter; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeAfter<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
-    expected: String
-): Expect<T> = _logicAppend { isAfter(expected) }
-
-/**
- * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
- * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
- *
- * The format is composed of {DateTime}{ZoneDesignator}.
- *
- * DateTime:
- * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
- * - yyyy-mm-ddThh:mm:ss
- * - yyyy-mm-ddThh:mm
- * - yyyy-mm-dd
- *
- * And for ZoneDesignator:
- * - Z
- * - +hh
- * - +hh:mm
- * - -hh
- * - -hh:mm
- *
- * Here are some examples on how it can look combined
- * - 2020-01-02T03:04:05Z
- * - 2020-01-02T03:04Z
- * - 2020-01-02Z
- * - 2020-01-02+01:30
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.14.0
- */
-@Deprecated(
-    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
-    expected: String
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
+    expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
 
 /**
@@ -264,13 +190,57 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  * - 2020-01-02+01:30
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
-)
-infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
     expected: String
-): Expect<T> = _logicAppend { isEqual(expected) }
+): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
+
+
+/**
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
+ * is after the [expected] [ChronoZonedDateTime].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.17.0
+ */
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
+    expected: ChronoZonedDateTime<*>
+): Expect<T> = _logicAppend { isAfter(expected) }
+
+/**
+ * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
+ * is before or equals the [expected] [ChronoZonedDateTime] given as [String].
+ *
+ * The format is composed of {DateTime}{ZoneDesignator}.
+ *
+ * DateTime:
+ * - yyyy-mm-ddThh:mm:ss.SSS (up to 9 digits for nanoseconds)
+ * - yyyy-mm-ddThh:mm:ss
+ * - yyyy-mm-ddThh:mm
+ * - yyyy-mm-dd
+ *
+ * And for ZoneDesignator:
+ * - Z
+ * - +hh
+ * - +hh:mm
+ * - -hh
+ * - -hh:mm
+ *
+ * Here are some examples on how it can look combined
+ * - 2020-01-02T03:04:05Z
+ * - 2020-01-02T03:04Z
+ * - 2020-01-02Z
+ * - 2020-01-02+01:30
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @since 0.17.0
+ */
+infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
+    expected: String
+): Expect<T> = _logicAppend { isAfter(expected) }
