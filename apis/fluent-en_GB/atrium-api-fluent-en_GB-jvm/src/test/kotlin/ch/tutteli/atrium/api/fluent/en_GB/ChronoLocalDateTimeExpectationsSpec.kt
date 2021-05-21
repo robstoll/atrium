@@ -87,19 +87,15 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
         a4 = a4.toBeTheSamePointInTimeAs(chronoLocalDateTime)
 
         a1 = a1.toBeBefore("also not ambiguous if string is passed")
-        a1 =
-            a1.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a1 = a1.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
         a1 = a1.toBeAfter("also not ambiguous if string is passed")
-        a1 =
-            a1.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a1 = a1.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
         a1 = a1.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
 
         a2 = a2.toBeBefore("also not ambiguous if string is passed")
-        a2 =
-            a2.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a2 = a2.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
         a2 = a2.toBeAfter("also not ambiguous if string is passed")
-        a2 =
-            a2.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a2 = a2.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
         a2 = a2.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
 
         a3 = a3.toBeBefore("also not ambiguous if string is passed")

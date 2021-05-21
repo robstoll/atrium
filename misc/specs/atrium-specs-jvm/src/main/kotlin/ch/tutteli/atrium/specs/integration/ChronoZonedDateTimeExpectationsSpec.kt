@@ -7,7 +7,6 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.chrono.ChronoZonedDateTime
