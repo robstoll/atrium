@@ -6,9 +6,9 @@ import ch.tutteli.atrium.specs.integration.OptionalExpectationsSpec
 import java.util.*
 
 class OptionalExpectationsSpec : OptionalExpectationsSpec(
-    isEmpty = fun0(Expect<Optional<Int>>::isEmpty),
-    isPresentFeature = feature0<Optional<Int>, Int>(Expect<Optional<Int>>::isPresent),
-    isPresent = fun1<Optional<Int>, Expect<Int>.() -> Unit>(Expect<Optional<Int>>::isPresent)
+    fun0(Expect<Optional<Int>>::toBeEmpty),
+    feature0<Optional<Int>, Int>(Expect<Optional<Int>>::toBePresent),
+    fun1<Optional<Int>, Expect<Int>.() -> Unit>(Expect<Optional<Int>>::toBePresent)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
