@@ -11,43 +11,43 @@ import java.math.BigDecimal
 
 class BigDecimalAssertionsSpec : Spek({
     include(object : BigDecimalExpectationsSpec(
-        fun1(Companion::toBeBigDecimal),
-        fun1(Companion::toBeNullable).withNullableSuffix(),
-        fun1(Companion::toBeNull).withNullableSuffix(),
+        fun1(Companion::toEqualBigDecimal),
+        fun1(Companion::toEqualNullable).withNullableSuffix(),
+        fun1(Companion::toEqualNull).withNullableSuffix(),
         Expect<Any>::toEqual,
-        fun1(Companion::notToBe),
+        fun1(Companion::notToEqual),
         Expect<Any>::notToEqual,
-        fun1(Companion::isNumericallyEqualTo),
-        fun1(Companion::isNotNumericallyEqualTo),
-        fun1(Companion::isEqualIncludingScale),
-        fun1(Companion::isNotEqualIncludingScale)
+        fun1(Companion::toEqualNumerically),
+        fun1(Companion::notToEqualNumerically),
+        fun1(Companion::toEqualIncludingScale),
+        fun1(Companion::notToEqualIncludingScale)
     ) {})
 
-    describe("fun toBe for BigDecimal? and subject is null") {
+    describe("fun toEqual for BigDecimal? and subject is null") {
         it("chooses the correct overload if `null` is passed, does not throw") {
-            expect(null as BigDecimal?) toBe null
+            expect(null as BigDecimal?) toEqual null
         }
     }
 }) {
 
     companion object {
         @Suppress("DEPRECATION")
-        fun toBeBigDecimal(expect: Expect<BigDecimal>, a: BigDecimal): Nothing = expect toBe a
+        fun toEqualBigDecimal(expect: Expect<BigDecimal>, a: BigDecimal): Nothing = expect toEqual a
 
         @Suppress("DEPRECATION")
-        fun toBeNullable(expect: Expect<BigDecimal?>, a: BigDecimal?): Nothing = expect toBe a
+        fun toEqualNullable(expect: Expect<BigDecimal?>, a: BigDecimal?): Nothing = expect toEqual a
 
-        fun toBeNull(expect: Expect<BigDecimal?>, nothing: Nothing?) = expect toBe nothing
+        fun toEqualNull(expect: Expect<BigDecimal?>, nothing: Nothing?) = expect toEqual nothing
 
         @Suppress("DEPRECATION")
-        fun notToBe(expect: Expect<BigDecimal>, a: BigDecimal): Nothing = expect notToBe a
+        fun notToEqual(expect: Expect<BigDecimal>, a: BigDecimal): Nothing = expect notToEqual a
 
-        fun isNumericallyEqualTo(expect: Expect<BigDecimal>, a: BigDecimal) = expect isNumericallyEqualTo a
+        fun toEqualNumerically(expect: Expect<BigDecimal>, a: BigDecimal) = expect toEqualNumerically a
 
-        fun isNotNumericallyEqualTo(expect: Expect<BigDecimal>, a: BigDecimal) = expect isNotNumericallyEqualTo a
+        fun notToEqualNumerically(expect: Expect<BigDecimal>, a: BigDecimal) = expect notToEqualNumerically a
 
-        fun isEqualIncludingScale(expect: Expect<BigDecimal>, a: BigDecimal) = expect isEqualIncludingScale a
+        fun toEqualIncludingScale(expect: Expect<BigDecimal>, a: BigDecimal) = expect toEqualIncludingScale a
 
-        fun isNotEqualIncludingScale(expect: Expect<BigDecimal>, a: BigDecimal) = expect isNotEqualIncludingScale a
+        fun notToEqualIncludingScale(expect: Expect<BigDecimal>, a: BigDecimal) = expect notToEqualIncludingScale a
     }
 }
