@@ -14,20 +14,20 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
     include(ChronoLocalDateTimeAsStringSpec)
 }) {
     object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeExpectationsSpec(
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBefore),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfter),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::isEqual)
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeBefore),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeAfter),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
     )
 
     object ChronoLocalDateTimeAsStringSpec :
         ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAsStringExpectationsSpec(
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBefore),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isBeforeOrEqual),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isAfter),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isAfterOrEqual),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::isEqual)
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeBefore),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeAfter),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
+            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
         )
 
     @Suppress("unused", "UNUSED_VALUE")
