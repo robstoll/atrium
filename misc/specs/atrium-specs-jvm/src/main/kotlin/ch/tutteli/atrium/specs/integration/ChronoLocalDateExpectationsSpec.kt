@@ -12,11 +12,11 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.JapaneseDate
 
 abstract class ChronoLocalDateExpectationsSpec(
-    isBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isBeforeOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isAfterOrEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
-    isEqual: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    toBeBefore: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    toBeBeforeOrTheSamePointInTimeAs: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    toBeAfter: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    toBeAfterOrTheSamePointInTimeAs: Fun1<ChronoLocalDate, ChronoLocalDate>,
+    toBeTheSamePointInTimeAs: Fun1<ChronoLocalDate, ChronoLocalDate>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -26,18 +26,18 @@ abstract class ChronoLocalDateExpectationsSpec(
 
     include(object : SubjectLessSpec<ChronoLocalDate>(
         describePrefix,
-        isBefore.forSubjectLess(december23),
-        isBeforeOrEqual.forSubjectLess(december23),
-        isAfter.forSubjectLess(december23),
-        isAfterOrEqual.forSubjectLess(december23),
-        isEqual.forSubjectLess(december23)
+        toBeBefore.forSubjectLess(december23),
+        toBeBeforeOrTheSamePointInTimeAs.forSubjectLess(december23),
+        toBeAfter.forSubjectLess(december23),
+        toBeAfterOrTheSamePointInTimeAs.forSubjectLess(december23),
+        toBeTheSamePointInTimeAs.forSubjectLess(december23)
     ) {})
 
-    val isBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
-    val isBeforeOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
-    val isAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
-    val isAfterOrEqualDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
-    val isEqualDescr = DescriptionDateTimeLikeAssertion.SAME_DAY.getDefault()
+    val toBeBeforeDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE.getDefault()
+    val toBeBeforeOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeAssertion.IS_BEFORE_OR_EQUAL.getDefault()
+    val toBeAfterDescr = DescriptionDateTimeLikeAssertion.IS_AFTER.getDefault()
+    val toBeAfterOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeAssertion.IS_AFTER_OR_EQUAL.getDefault()
+    val toBeTheSamePointInTimeAsDescr = DescriptionDateTimeLikeAssertion.SAME_DAY.getDefault()
 
 
     listOf<ChronoLocalDate>(
@@ -47,85 +47,85 @@ abstract class ChronoLocalDateExpectationsSpec(
         val fluent = expect(subject)
 
         describe("$describePrefix subject is $subject") {
-            describe("${isBefore.name} ...") {
-                val isBeforeFun = isBefore.lambda
+            describe("${toBeBefore.name} ...") {
+                val toBeBeforeFun = toBeBefore.lambda
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $december22") }
+                        fluent.toBeBeforeFun(december22)
+                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december22") }
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeFun(december23)
-                    }.toThrow<AssertionError> { messageToContain("$isBeforeDescr: $december23") }
+                        fluent.toBeBeforeFun(december23)
+                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december23") }
                 }
                 it("... $december24 does not throw") {
-                    fluent.isBeforeFun(december24)
+                    fluent.toBeBeforeFun(december24)
                 }
             }
-            describe("${isBeforeOrEqual.name} ...") {
-                val isBeforeOrEqualFun = isBeforeOrEqual.lambda
+            describe("${toBeBeforeOrTheSamePointInTimeAs.name} ...") {
+                val toBeBeforeOrTheSamePointInTimeAsFun = toBeBeforeOrTheSamePointInTimeAs.lambda
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isBeforeOrEqualFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$isBeforeOrEqualDescr: $december22") }
+                        fluent.toBeBeforeOrTheSamePointInTimeAsFun(december22)
+                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.isBeforeOrEqualFun(december23)
+                    fluent.toBeBeforeOrTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 does not throw") {
-                    fluent.isBeforeOrEqualFun(december24)
+                    fluent.toBeBeforeOrTheSamePointInTimeAsFun(december24)
                 }
             }
-            describe("${isAfter.name} ...") {
-                val isAfterFun = isAfter.lambda
+            describe("${toBeAfter.name} ...") {
+                val toBeAfterFun = toBeAfter.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.isAfterFun(december22)
+                    fluent.toBeAfterFun(december22)
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
-                        fluent.isAfterFun(december23)
-                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $december23") }
+                        fluent.toBeAfterFun(december23)
+                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december23") }
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.isAfterFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$isAfterDescr: $december24") }
+                        fluent.toBeAfterFun(december24)
+                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december24") }
                 }
             }
-            describe("${isAfterOrEqual.name} ...") {
-                val isAfterOrEqualFun = isAfterOrEqual.lambda
+            describe("${toBeAfterOrTheSamePointInTimeAs.name} ...") {
+                val toBeAfterOrTheSamePointInTimeAsFun = toBeAfterOrTheSamePointInTimeAs.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.isAfterOrEqualFun(december22)
+                    fluent.toBeAfterOrTheSamePointInTimeAsFun(december22)
                 }
                 it("... $december23 does not throw") {
-                    fluent.isAfterOrEqualFun(december23)
+                    fluent.toBeAfterOrTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.isAfterOrEqualFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$isAfterOrEqualDescr: $december24") }
+                        fluent.toBeAfterOrTheSamePointInTimeAsFun(december24)
+                    }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $december24") }
                 }
             }
-            describe("${isEqual.name} ...") {
-                val isEqualFun = isEqual.lambda
+            describe("${toBeTheSamePointInTimeAs.name} ...") {
+                val toBeTheSamePointInTimeAsFun = toBeTheSamePointInTimeAs.lambda
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.isEqualFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $december22") }
+                        fluent.toBeTheSamePointInTimeAsFun(december22)
+                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.isEqualFun(december23)
+                    fluent.toBeTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.isEqualFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$isEqualDescr: $december24") }
+                        fluent.toBeTheSamePointInTimeAsFun(december24)
+                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december24") }
                 }
             }
         }
