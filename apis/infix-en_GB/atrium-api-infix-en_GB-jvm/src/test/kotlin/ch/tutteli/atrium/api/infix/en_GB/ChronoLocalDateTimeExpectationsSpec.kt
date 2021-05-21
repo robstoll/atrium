@@ -38,52 +38,64 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
         var a3: Expect<ChronoLocalDateTime<*>> = notImplemented()
         var a4: Expect<LocalDateTime> = notImplemented()
 
-        a1 = a1 isBefore LocalDateTime.now()
-        a1 = a1 isBeforeOrEqual LocalDateTime.now()
-        a1 = a1 isAfter LocalDateTime.now()
-        a1 = a1 isAfterOrEqual LocalDateTime.now()
-        a1 = a1 isEqual LocalDateTime.now()
+        a1 = a1 toBeBefore LocalDateTime.now()
+        a1 = a1 toBeBeforeOrTheSamePointInTimeAs LocalDateTime.now()
+        a1 = a1 toBeAfter LocalDateTime.now()
+        a1 = a1 toBeAfterOrTheSamePointInTimeAs LocalDateTime.now()
+        a1 = a1 toBeTheSamePointInTimeAs LocalDateTime.now()
 
-        a2 = a2 isBefore LocalDateTime.now()
-        a2 = a2 isBeforeOrEqual LocalDateTime.now()
-        a2 = a2 isAfter LocalDateTime.now()
-        a2 = a2 isAfterOrEqual LocalDateTime.now()
-        a2 = a2 isEqual LocalDateTime.now()
+        a2 = a2 toBeBefore LocalDateTime.now()
+        a2 = a2 toBeBeforeOrTheSamePointInTimeAs LocalDateTime.now()
+        a2 = a2 toBeAfter LocalDateTime.now()
+        a2 = a2 toBeAfterOrTheSamePointInTimeAs LocalDateTime.now()
+        a2 = a2 toBeTheSamePointInTimeAs LocalDateTime.now()
 
-        a3 = a3 isBefore LocalDateTime.now()
-        a3 = a3 isBeforeOrEqual LocalDateTime.now()
-        a3 = a3 isAfter LocalDateTime.now()
-        a3 = a3 isAfterOrEqual LocalDateTime.now()
-        a3 = a3 isEqual LocalDateTime.now()
+        a3 = a3 toBeBefore LocalDateTime.now()
+        a3 = a3 toBeBeforeOrTheSamePointInTimeAs LocalDateTime.now()
+        a3 = a3 toBeAfter LocalDateTime.now()
+        a3 = a3 toBeAfterOrTheSamePointInTimeAs LocalDateTime.now()
+        a3 = a3 toBeTheSamePointInTimeAs LocalDateTime.now()
 
-        a4 = a4 isBefore LocalDateTime.now()
-        a4 = a4 isBeforeOrEqual LocalDateTime.now()
-        a4 = a4 isAfter LocalDateTime.now()
-        a4 = a4 isAfterOrEqual LocalDateTime.now()
-        a4 = a4 isEqual LocalDateTime.now()
+        a4 = a4 toBeBefore LocalDateTime.now()
+        a4 = a4 toBeBeforeOrTheSamePointInTimeAs LocalDateTime.now()
+        a4 = a4 toBeAfter LocalDateTime.now()
+        a4 = a4 toBeAfterOrTheSamePointInTimeAs LocalDateTime.now()
+        a4 = a4 toBeTheSamePointInTimeAs LocalDateTime.now()
 
-        a1 = a1 isBefore chronoLocalDateTime
-        a1 = a1 isBeforeOrEqual chronoLocalDateTime
-        a1 = a1 isAfter chronoLocalDateTime
-        a1 = a1 isAfterOrEqual chronoLocalDateTime
-        a1 = a1 isEqual chronoLocalDateTime
+        a1 = a1 toBeBefore chronoLocalDateTime
+        a1 = a1 toBeBeforeOrTheSamePointInTimeAs chronoLocalDateTime
+        a1 = a1 toBeAfter chronoLocalDateTime
+        a1 = a1 toBeAfterOrTheSamePointInTimeAs chronoLocalDateTime
+        a1 = a1 toBeTheSamePointInTimeAs chronoLocalDateTime
 
-        a2 = a2 isBefore chronoLocalDateTime
-        a2 = a2 isBeforeOrEqual chronoLocalDateTime
-        a2 = a2 isAfter chronoLocalDateTime
-        a2 = a2 isAfterOrEqual chronoLocalDateTime
-        a2 = a2 isEqual chronoLocalDateTime
+        a2 = a2 toBeBefore chronoLocalDateTime
+        a2 = a2 toBeBeforeOrTheSamePointInTimeAs chronoLocalDateTime
+        a2 = a2 toBeAfter chronoLocalDateTime
+        a2 = a2 toBeAfterOrTheSamePointInTimeAs chronoLocalDateTime
+        a2 = a2 toBeTheSamePointInTimeAs chronoLocalDateTime
 
-        a3 = a3 isBefore chronoLocalDateTime
-        a3 = a3 isBeforeOrEqual chronoLocalDateTime
-        a3 = a3 isAfter chronoLocalDateTime
-        a3 = a3 isAfterOrEqual chronoLocalDateTime
-        a3 = a3 isEqual chronoLocalDateTime
+        a3 = a3 toBeBefore chronoLocalDateTime
+        a3 = a3 toBeBeforeOrTheSamePointInTimeAs chronoLocalDateTime
+        a3 = a3 toBeAfter chronoLocalDateTime
+        a3 = a3 toBeAfterOrTheSamePointInTimeAs chronoLocalDateTime
+        a3 = a3 toBeTheSamePointInTimeAs chronoLocalDateTime
 
-        a4 = a4 isBefore chronoLocalDateTime
-        a4 = a4 isBeforeOrEqual chronoLocalDateTime
-        a4 = a4 isAfter chronoLocalDateTime
-        a4 = a4 isAfterOrEqual chronoLocalDateTime
-        a4 = a4 isEqual chronoLocalDateTime
+        a4 = a4 toBeBefore chronoLocalDateTime
+        a4 = a4 toBeBeforeOrTheSamePointInTimeAs chronoLocalDateTime
+        a4 = a4 toBeAfter chronoLocalDateTime
+        a4 = a4 toBeAfterOrTheSamePointInTimeAs chronoLocalDateTime
+        a4 = a4 toBeTheSamePointInTimeAs chronoLocalDateTime
+
+        a1 = a1 toBeBefore "also not ambiguous if string is passed"
+        a1 = a1 toBeBeforeOrTheSamePointInTimeAs "also not ambiguous if string is passed"
+        a1 = a1 toBeAfter "also not ambiguous if string is passed"
+        a1 = a1 toBeAfterOrTheSamePointInTimeAs "also not ambiguous if string is passed"
+        a1 = a1 toBeTheSamePointInTimeAs "also not ambiguous if string is passed"
+
+        a2 = a2 toBeBefore "also not ambiguous if string is passed"
+        a2 = a2 toBeBeforeOrTheSamePointInTimeAs "also not ambiguous if string is passed"
+        a2 = a2 toBeAfter "also not ambiguous if string is passed"
+        a2 = a2 toBeAfterOrTheSamePointInTimeAs "also not ambiguous if string is passed"
+        a2 = a2 toBeTheSamePointInTimeAs "also not ambiguous if string is passed"
     }
 }
