@@ -13,19 +13,19 @@ class ChronoLocalDateExpectationsSpec : Spek({
     include(ChronoLocalDateAsStringSpec)
 }) {
     object ChronoLocalDateSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateExpectationsSpec(
-        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBefore),
-        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isBeforeOrEqual),
-        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isAfter),
-        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isAfterOrEqual),
-        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::isEqual)
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::toBeBefore),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::toBeBeforeOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::toBeAfter),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::toBeAfterOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDate, ChronoLocalDate>(Expect<ChronoLocalDate>::toBeTheSamePointInTimeAs)
     )
 
     object ChronoLocalDateAsStringSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateAsStringExpectationsSpec(
-        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBefore),
-        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isBeforeOrEqual),
-        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isAfter),
-        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isAfterOrEqual),
-        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::isEqual)
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeBefore),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeBeforeOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeAfter),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeAfterOrTheSamePointInTimeAs),
+        fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeTheSamePointInTimeAs)
     )
 
     @Suppress("unused", "UNUSED_VALUE")

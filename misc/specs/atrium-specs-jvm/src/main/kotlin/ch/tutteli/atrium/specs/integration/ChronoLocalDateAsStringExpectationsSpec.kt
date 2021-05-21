@@ -16,58 +16,58 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 abstract class ChronoLocalDateAsStringExpectationsSpec(
-    isBefore: Fun1<ChronoLocalDate, String>,
-    isBeforeOrEqual: Fun1<ChronoLocalDate, String>,
-    isAfter: Fun1<ChronoLocalDate, String>,
-    isAfterOrEqual: Fun1<ChronoLocalDate, String>,
-    isEqual: Fun1<ChronoLocalDate, String>,
+    toBeBefore: Fun1<ChronoLocalDate, String>,
+    toBeBeforeOrTheSamePointInTimeAs: Fun1<ChronoLocalDate, String>,
+    toBeAfter: Fun1<ChronoLocalDate, String>,
+    toBeAfterOrTheSamePointInTimeAs: Fun1<ChronoLocalDate, String>,
+    toBeTheSamePointInTimeAs: Fun1<ChronoLocalDate, String>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun isBefore(
+    fun toBeBefore(
         expect: Expect<ChronoLocalDate>,
         expected: ChronoLocalDate
     ): Expect<ChronoLocalDate> =
-        expect.(isBefore.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        expect.(toBeBefore.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
-    fun isBeforeOrEqual(
+    fun toBeBeforeOrTheSamePointInTimeAs(
         expect: Expect<ChronoLocalDate>,
         expected: ChronoLocalDate
     ): Expect<ChronoLocalDate> =
-        expect.(isBeforeOrEqual.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        expect.(toBeBeforeOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
-    fun isAfter(
+    fun toBeAfter(
         expect: Expect<ChronoLocalDate>,
         expected: ChronoLocalDate
     ): Expect<ChronoLocalDate> =
-        expect.(isAfter.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        expect.(toBeAfter.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
-    fun isAfterOrEqual(
+    fun toBeAfterOrTheSamePointInTimeAs(
         expect: Expect<ChronoLocalDate>,
         expected: ChronoLocalDate
     ): Expect<ChronoLocalDate> =
-        expect.(isAfterOrEqual.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        expect.(toBeAfterOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
-    fun isEqual(
+    fun toBeTheSamePointInTimeAs(
         expect: Expect<ChronoLocalDate>,
         expected: ChronoLocalDate
     ): Expect<ChronoLocalDate> =
-        expect.(isEqual.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        expect.(toBeTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
 
     include(object : ChronoLocalDateExpectationsSpec(
-        fun1(::isBefore),
-        fun1(::isBeforeOrEqual),
-        fun1(::isAfter),
-        fun1(::isAfterOrEqual),
-        fun1(::isEqual),
+        fun1(::toBeBefore),
+        fun1(::toBeBeforeOrTheSamePointInTimeAs),
+        fun1(::toBeAfter),
+        fun1(::toBeAfterOrTheSamePointInTimeAs),
+        fun1(::toBeTheSamePointInTimeAs),
         describePrefix
     ) {})
 
-    val isBeforeFun = isBefore.lambda
-    val isBeforeOrEqualFun = isBeforeOrEqual.lambda
-    val isAfterFun = isAfter.lambda
-    val isAfterOrEqualFun = isAfterOrEqual.lambda
-    val isEqualFun = isEqual.lambda
+    val toBeBeforeFun = toBeBefore.lambda
+    val toBeBeforeOrTheSamePointInTimeAsFun = toBeBeforeOrTheSamePointInTimeAs.lambda
+    val toBeAfterFun = toBeAfter.lambda
+    val toBeAfterOrTheSamePointInTimeAsFun = toBeAfterOrTheSamePointInTimeAs.lambda
+    val toBeTheSamePointInTimeAsFun = toBeTheSamePointInTimeAs.lambda
 
     val subject = LocalDate.now() as ChronoLocalDate
     val now = expect(subject)
@@ -81,29 +81,29 @@ abstract class ChronoLocalDateAsStringExpectationsSpec(
             "2020-09-03T07:14"
         ).forEach { value ->
             context(value) {
-                it("${isBefore.name} throws a DateTimeParseException") {
+                it("${toBeBefore.name} throws a DateTimeParseException") {
                     expect {
-                        now.isBeforeFun(value)
+                        now.toBeBeforeFun(value)
                     }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
-                it("${isBeforeOrEqual.name} throws a DateTimeParseException") {
+                it("${toBeBeforeOrTheSamePointInTimeAs.name} throws a DateTimeParseException") {
                     expect {
-                        now.isBeforeOrEqualFun(value)
+                        now.toBeBeforeOrTheSamePointInTimeAsFun(value)
                     }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
-                it("${isAfter.name} throws a DateTimeParseException") {
+                it("${toBeAfter.name} throws a DateTimeParseException") {
                     expect {
-                        now.isAfterFun(value)
+                        now.toBeAfterFun(value)
                     }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
-                it("isAfterOrEqual throws a DateTimeParseException") {
+                it("toBeAfterOrTheSamePointInTimeAs throws a DateTimeParseException") {
                     expect {
-                        now.isAfterOrEqualFun(value)
+                        now.toBeAfterOrTheSamePointInTimeAsFun(value)
                     }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
-                it("${isEqual.name} throws a DateTimeParseException") {
+                it("${toBeTheSamePointInTimeAs.name} throws a DateTimeParseException") {
                     expect {
-                        now.isEqualFun(value)
+                        now.toBeTheSamePointInTimeAsFun(value)
                     }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
                 }
             }
