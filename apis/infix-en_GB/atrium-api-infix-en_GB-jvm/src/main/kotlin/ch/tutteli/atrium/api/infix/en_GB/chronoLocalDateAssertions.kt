@@ -17,6 +17,10 @@ import java.time.chrono.ChronoLocalDate
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isBefore(expected) }
 
@@ -28,6 +32,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: ChronoLocalDate): E
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isBeforeOrEqual(expected) }
 
@@ -39,6 +47,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: ChronoLocalD
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isAfter(expected) }
 
@@ -50,6 +62,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: ChronoLocalDate): Ex
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isAfterOrEqual(expected) }
 
@@ -61,6 +77,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: ChronoLocalDa
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Expect<T> =
     _logicAppend { isEqual(expected) }
 
@@ -73,6 +93,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: ChronoLocalDate): Ex
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: String): Expect<T> =
     _logicAppend { isBefore(expected) }
 
@@ -85,6 +109,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBefore(expected: String): Expect<T> 
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: String): Expect<T> =
     _logicAppend { isBeforeOrEqual(expected) }
 
@@ -97,6 +125,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isBeforeOrEqual(expected: String): Exp
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: String): Expect<T> =
     _logicAppend { isAfter(expected) }
 
@@ -109,6 +141,10 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfter(expected: String): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: String): Expect<T> =
     _logicAppend { isAfterOrEqual(expected) }
 
@@ -121,5 +157,9 @@ infix fun <T : ChronoLocalDate> Expect<T>.isAfterOrEqual(expected: String): Expe
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDate> Expect<T>.isEqual(expected: String): Expect<T> =
     _logicAppend { isEqual(expected) }
