@@ -17,16 +17,16 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
 
         var star: Expect<Optional<*>> = notImplemented()
 
-        o1 = o1.isEmpty()
-        o1b = o1b.isEmpty()
-        star = star.isEmpty()
-        o1.isPresent()
-        o1b.isPresent()
-        // following is not supported on purpose as we don't know what type the element is in this case
-        // star.isPresent()
-        o1.isPresent {}
-        o1b.isPresent {}
-        // following is not supported on purpose as we don't know what type the element is in this case
-        // star.isPresent {}
+        o1 = o1.toBeEmpty()
+        o1b = o1b.toBeEmpty()
+        star = star.toBeEmpty()
+        o1.toBePresent()
+        o1b.toBePresent()
+        // the following is not supported on purpose as we don't know what type of the element is in such a case
+        // star.toBePresent()
+        o1.toBePresent {}
+        o1b.toBePresent {}
+        // the following is not supported on purpose as we don't know what type of the element is in such a case
+        // star.toBePresent {}
     }
 }

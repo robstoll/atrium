@@ -22,6 +22,7 @@ import java.util.*
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeEmpty<T>()"))
 fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
 
@@ -36,6 +37,7 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBePresent<T>()"))
 fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
     _logic.isPresent().transform()
 
@@ -47,5 +49,9 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeEmpty; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBePresent<T>(assertionCreator)")
+)
 fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.isPresent().collectAndAppend(assertionCreator)
