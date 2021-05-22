@@ -24,7 +24,7 @@ import java.util.*
  */
 object Between1Spec : Spek({
     test("code-own-compose-1") {
-        fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+        fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
             toBeGreaterThanOrEqualTo(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
     }
 })

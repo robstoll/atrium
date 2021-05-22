@@ -37,9 +37,9 @@ object I18nSpec : Spek({
     test("code-i18n-1") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logic.run {
+        fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
             appendAssertion(
-                createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+                createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
             )
         }
 
@@ -49,7 +49,7 @@ object I18nSpec : Spek({
     test("code-i18n-2") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.isEven(): Expect<Int> = _logic.run {
+        fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
             appendAssertion(
                 createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
             )
@@ -59,8 +59,8 @@ object I18nSpec : Spek({
     }
 
     //snippet-i18n-3a-start
-    fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
-        createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+    fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
+        createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
     //snippet-i18n-3a-end
 
     test("code-i18n-3a") {
@@ -71,20 +71,20 @@ object I18nSpec : Spek({
     test("code-i18n-3b") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
-            _logicAppend { isMultipleOf(base) }
+        fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
+            _logicAppend { toBeAMultipleOf(base) }
     }
     test("code-i18n-3c") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
-            _logicAppend { isMultipleOf(base) }
+        fun Expect<Int>.istEinVielfachesVon(base: Int): Expect<Int> =
+            _logicAppend { toBeAMultipleOf(base) }
     }
 })
 
 //snippet-DescriptionIntAssertion-start
 enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
-    IS_MULTIPLE_OF("is multiple of")
+    TO_BE_A_MULTIPLE_OF("to be a multiple of")
 }
 //snippet-DescriptionIntAssertion-end
 

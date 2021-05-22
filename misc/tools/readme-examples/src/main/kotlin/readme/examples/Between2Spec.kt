@@ -29,7 +29,7 @@ object Between2Spec : Spek({
     test("code-own-compose-2") {
         //snippet-own-compose-import-insert
 
-        fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+        fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
             _logic.appendAssertionsCreatedBy {
                 toBeGreaterThanOrEqualTo(lowerBoundInclusive)
                 toBeLessThan(upperBoundExclusive)

@@ -33,7 +33,7 @@ import readme.examples.utils.expect
 object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-1-start
-    fun Expect<Int>.isMultipleOf(base: Int) =
+    fun Expect<Int>.toBeAMultipleOf(base: Int) =
         _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
     test("code-own-boolean-1") {
@@ -42,11 +42,11 @@ object OwnExpectationFunctionsSpec : Spek({
         //snippet-own-boolean-1-insert
     }
     test("ex-own-boolean-1") {
-        expect(12).isMultipleOf(5)
+        expect(12).toBeAMultipleOf(5)
     }
 
     //snippet-own-boolean-2-start
-    fun Expect<Int>.isEven() =
+    fun Expect<Int>.toBeEven() =
         _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     test("code-own-boolean-2") {
@@ -55,7 +55,7 @@ object OwnExpectationFunctionsSpec : Spek({
         //snippet-own-boolean-2-insert
     }
     test("ex-own-boolean-2") {
-        expect(13).isEven()
+        expect(13).toBeEven()
     }
 
     test("code-own-compose-3a") {
@@ -63,7 +63,7 @@ object OwnExpectationFunctionsSpec : Spek({
     }
 
     //snippet-own-compose-3b-start
-    fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> =
+    fun Expect<Person>.toHaveNumberOfChildren(number: Int): Expect<Person> =
         feature(Person::children) { toHaveSize(number) }
 
     //snippet-own-compose-3b-end
@@ -73,11 +73,11 @@ object OwnExpectationFunctionsSpec : Spek({
 
     test("ex-own-compose-3") {
         expect(Person("Susanne", "Whitley", 43, listOf()))
-            .hasNumberOfChildren(2)
+            .toHaveNumberOfChildren(2)
     }
 
     //snippet-own-compose-4-start
-    fun Expect<Person>.hasAdultChildren(): Expect<Person> =
+    fun Expect<Person>.toHaveAdultChildren(): Expect<Person> =
         feature(Person::children) {
             toHaveElementsAndAll {
                 feature(Person::age).toBeGreaterThanOrEqualTo(18)
@@ -90,7 +90,7 @@ object OwnExpectationFunctionsSpec : Spek({
     }
     test("ex-own-compose-4") {
         expect(Person("Susanne", "Whitley", 43, listOf()))
-            .hasAdultChildren()
+            .toHaveAdultChildren()
     }
 
 
