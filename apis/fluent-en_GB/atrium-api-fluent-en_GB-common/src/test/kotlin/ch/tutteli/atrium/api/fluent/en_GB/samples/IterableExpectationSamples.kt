@@ -18,7 +18,7 @@ class IterableExpectationSamples {
                 .toContain
                 .inAnyOrder // order specifier
                 .atMost(2)
-                .entry { // assertion group about the entries
+                .entry { // assertion group about the entry
                     toBeGreaterThan(2)
                 }
         }
