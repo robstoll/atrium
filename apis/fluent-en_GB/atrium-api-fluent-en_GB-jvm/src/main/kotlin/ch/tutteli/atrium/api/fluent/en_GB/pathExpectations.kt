@@ -16,9 +16,9 @@ import java.nio.file.Path
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
+fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
     _logicAppend { startsWith(expected) }
 
 /**
@@ -26,9 +26,9 @@ fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
+fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
     _logicAppend { startsNotWith(expected) }
 
 /**
@@ -36,9 +36,9 @@ fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
+fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
     _logicAppend { endsWith(expected) }
 
 /**
@@ -47,9 +47,9 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  * @param expected The [Path] provided to the assertion
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
+fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
     _logicAppend { endsNotWith(expected) }
 
 /**
@@ -61,9 +61,9 @@ fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.exists(): Expect<T> =
+fun <T : Path> Expect<T>.toExist(): Expect<T> =
     _logicAppend { exists() }
 
 /**
@@ -75,139 +75,11 @@ fun <T : Path> Expect<T>.exists(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.existsNot(): Expect<T> =
+fun <T : Path> Expect<T>.notToExist(): Expect<T> =
     _logicAppend { existsNot() }
 
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-val <T : Path> Expect<T>.extension: Expect<String>
-    get() = _logic.extension().transform()
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that the property [Path.extension][ch.tutteli.niok.extension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.extension().collectAndAppend(assertionCreator)
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-val <T : Path> Expect<T>.fileName: Expect<String>
-    get() = _logic.fileName().transform()
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileName().collectAndAppend(assertionCreator)
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
- * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
-    get() = _logic.fileNameWithoutExtension().transform()
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
- * (provided via [niok](https://github.com/robstoll/niok))
- * of the subject of `this` expectation holds all assertions the given [assertionCreator] creates for it
- * and returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
-    _logic.fileNameWithoutExtension().collectAndAppend(assertionCreator)
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that this [Path] has a [parent][Path.getParent] and creates an [Expect] for it,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-val <T : Path> Expect<T>.parent: Expect<Path>
-    get() = _logic.parent().transform()
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
- * given [assertionCreator] creates for it and returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    _logic.parent().collectAndAppend(assertionCreator)
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.10.0
- */
-fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
-    _logic.resolve(other).transform()
-
-//TODO move to pathExpectations.kt with 0.18.0
-/**
- * Expects that [other] resolves against this [Path], that the resolved [Path] holds all assertions the
- * given [assertionCreator] creates for it and returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.10.0
- */
-fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    _logic.resolve(other).collectAndAppend(assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is readable;
@@ -224,9 +96,9 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isReadable(): Expect<T> =
+fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
     _logicAppend { isReadable() }
 
 /**
@@ -240,9 +112,9 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isWritable(): Expect<T> =
+fun <T : Path> Expect<T>.toBeWritable(): Expect<T> =
     _logicAppend { isWritable() }
 
 
@@ -261,9 +133,9 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isExecutable(): Expect<T> =
+fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
     _logicAppend { isExecutable() }
 
 /**
@@ -280,9 +152,9 @@ fun <T : Path> Expect<T>.isExecutable(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isRegularFile(): Expect<T> =
+fun <T : Path> Expect<T>.toBeARegularFile(): Expect<T> =
     _logicAppend { isRegularFile() }
 
 /**
@@ -299,10 +171,24 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
+fun <T : Path> Expect<T>.toBeADirectory(): Expect<T> =
     _logicAppend { isDirectory() }
+
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
+ * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeAnEmptyDirectory
+ *
+ * @since 0.17.0
+ */
+fun <T : Path> Expect<T>.toBeAnEmptyDirectory(): Expect<T> =
+    _logicAppend { isEmptyDirectory() }
+
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a symbolic link;
@@ -314,11 +200,11 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isASymbolicLink
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeASymbolicLink
  *
- * @since 0.16.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
+fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
     _logicAppend { isSymbolicLink() }
 
 /**
@@ -327,9 +213,9 @@ fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isAbsolute(): Expect<T> =
+fun <T : Path> Expect<T>.toBeAbsolute(): Expect<T> =
     _logicAppend { isAbsolute() }
 
 /**
@@ -338,23 +224,10 @@ fun <T : Path> Expect<T>.isAbsolute(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.isRelative(): Expect<T> =
+fun <T : Path> Expect<T>.toBeRelative(): Expect<T> =
     _logicAppend { isRelative() }
-
-/**
- * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
- * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PathAssertionSamples.isEmptyDirectory
- *
- * @since 0.16.0
- */
-fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
-    _logicAppend { isEmptyDirectory() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
@@ -372,9 +245,9 @@ fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String, vararg otherEntries: String): Expect<T> =
+fun <T : Path> Expect<T>.toHaveTheDirectoryEntries(entry: String, vararg otherEntries: String): Expect<T> =
     _logicAppend { hasDirectoryEntry(entry glue otherEntries) }
 
 
@@ -387,9 +260,9 @@ fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String, vararg otherEntries: S
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.hasSameTextualContentAs(
+fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
     targetPath: Path,
     sourceCharset: Charset = Charsets.UTF_8,
     targetCharset: Charset = Charsets.UTF_8
@@ -401,7 +274,7 @@ fun <T : Path> Expect<T>.hasSameTextualContentAs(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.12.0
+ * @since 0.17.0
  */
-fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
+fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
