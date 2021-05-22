@@ -9,10 +9,10 @@ import java.nio.file.Paths
 class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectationsSpec(
     "toBe ${existing::class.simpleName}" to Companion::exists,
     "notToBe ${existing::class.simpleName}" to Companion::existsNot,
-    fun1(Expect<Path>::startsWith),
-    fun1(Expect<Path>::startsNotWith),
-    fun1(Expect<Path>::endsWith),
-    fun1(Expect<Path>::endsNotWith),
+    fun1(Expect<Path>::toStartWith),
+    fun1(Expect<Path>::notToStartWith),
+    fun1(Expect<Path>::toEndWith),
+    fun1(Expect<Path>::notToEndWith),
     "toBe ${readable::class.simpleName}" to Companion::isReadable,
     "toBe ${writable::class.simpleName}" to Companion::isWritable,
     "toBe ${executable::class.simpleName}" to Companion::isExecutable,
@@ -64,7 +64,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
             targetPath: Path,
             sourceCharset: Charset,
             targetCharset: Charset
-        ): Expect<Path> = expect toHaveTheSameTextualContentAs  withEncoding(targetPath, sourceCharset, targetCharset)
+        ): Expect<Path> = expect toHaveTheSameTextualContentAs withEncoding(targetPath, sourceCharset, targetCharset)
 
         private fun toHaveTheSameTextualContentAsDefaultArgs(
             expect: Expect<Path>,
@@ -84,21 +84,22 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 
         a1 toBe existing
         a1 notToBe existing
-        a1 startsWith Paths.get("a")
-        a1 startsNotWith Paths.get("a")
-        a1 endsWith Paths.get("a")
-        a1 endsNotWith Paths.get("a")
+        a1 toStartWith Paths.get("a")
+        a1 notToStartWith Paths.get("a")
+        a1 toEndWith Paths.get("a")
+        a1 notToEndWith Paths.get("a")
         a1 toBe readable
         a1 toBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
         a1 toBe absolute
         a1 toBe relative
-        a1 hasSameTextualContentAs withEncoding(Paths.get("a"))
-        a1 hasSameTextualContentAs Paths.get("a")
+        a1 toHaveTheSameTextualContentAs withEncoding(Paths.get("a"))
+        a1 toHaveTheSameTextualContentAs Paths.get("a")
+        a1 toHaveTheSameBinaryContentAs  Paths.get("a")
         a1 resolve "a"
-        a1 hasDirectoryEntry "a"
-        a1 has directoryEntries("a", "b", "c")
+        a1 toHave directoryEntries("a")
+        a1 toHave directoryEntries("a", "b", "c")
 
         a1.fileName
         a1 fileName {}

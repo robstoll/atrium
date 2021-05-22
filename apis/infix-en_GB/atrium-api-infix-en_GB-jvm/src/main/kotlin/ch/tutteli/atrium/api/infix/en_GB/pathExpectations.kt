@@ -85,7 +85,7 @@ infix fun <T : Path> Expect<T>.toHave(directoryEntries: DirectoryEntries) =
  */
 infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
     targetPath: Path
-): Expect<T> = hasSameTextualContentAs(withEncoding(targetPath))
+): Expect<T> = toHaveTheSameTextualContentAs(withEncoding(targetPath))
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) has the same textual content

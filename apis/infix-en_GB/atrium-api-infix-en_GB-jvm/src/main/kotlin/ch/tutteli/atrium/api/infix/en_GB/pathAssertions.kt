@@ -20,6 +20,10 @@ import java.nio.file.Path
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toStartWith which expects a String; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toStartWith<T>(expected)")
+)
 infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
     _logicAppend { startsWith(expected) }
 
@@ -30,6 +34,10 @@ infix fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use notToStartWith; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToStartWith<T>(expected)")
+)
 infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
     _logicAppend { startsNotWith(expected) }
 
@@ -40,6 +48,7 @@ infix fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.12.0
  */
+@Deprecated("Use toEndWith; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEndWith<T>(expected)"))
 infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     _logicAppend { endsWith(expected) }
 
@@ -51,6 +60,7 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  *
  * @since 0.12.0
  */
+@Deprecated("Use notToEndWith; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEndWith<T>(expected)"))
 infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     _logicAppend { endsNotWith(expected) }
 
@@ -384,6 +394,13 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") relative: rela
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use `toHave directoryEntries(...)`; will be removed with 1.0.0 at the latest",
+    ReplaceWith(
+        "this.toHave<T>(directoryEntries(entry))",
+        "ch.tutteli.atrium.api.infix.en_GB.PathAssertionsKt.directoryEntries"
+    )
+)
 infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
     _logicAppend { hasDirectoryEntry(listOf(entry)) }
 
@@ -407,6 +424,10 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use `toHave`; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHave<T>(directoryEntries)")
+)
 infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
     _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
 
@@ -440,10 +461,15 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirecto
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toHaveTheSameTextualContentAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheSameTextualContentAs<T>(targetPath)")
+)
 infix fun <T : Path> Expect<T>.hasSameTextualContentAs(
     targetPath: Path
-): Expect<T> = hasSameTextualContentAs(withEncoding(targetPath))
+): Expect<T> = toHaveTheSameTextualContentAs(withEncoding(targetPath))
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Helper function to create a [PathWithEncoding] based on the given [path] and the [sourceCharset] and [targetCharset]
  * where UTF-8 is used as default if one encoding is missing.
@@ -469,6 +495,10 @@ fun withEncoding(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toHaveTheSameTextualContentAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheSameTextualContentAs<T>(pathWithEncoding)")
+)
 infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWithEncoding): Expect<T> =
     _logicAppend {
         hasSameTextualContentAs(pathWithEncoding.path, pathWithEncoding.sourceCharset, pathWithEncoding.targetCharset)
@@ -482,5 +512,9 @@ infix fun <T : Path> Expect<T>.hasSameTextualContentAs(pathWithEncoding: PathWit
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toHaveTheSameBinaryContentAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheSameBinaryContentAs<T>(targetPath)")
+)
 infix fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
