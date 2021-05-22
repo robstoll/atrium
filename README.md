@@ -1539,7 +1539,7 @@ For example, `exists` will explain which entry was the first one missing:
 <ex-path-exists>
 
 ```kotlin
-expect(Paths.get("/usr/bin/noprogram")).exists()
+expect(Paths.get("/usr/bin/noprogram")).toExist()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L37)</sub> ↓ <sub>[Output](#ex-path-exists)</sub>
 <a name="ex-path-exists"></a>
@@ -1555,7 +1555,7 @@ Atrium will give details about why something cannot be accessed, for example whe
 <ex-path-writable>
 
 ```kotlin
-expect(Paths.get("/root/.ssh/config")).isWritable()
+expect(Paths.get("/root/.ssh/config")).toBeWritable()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-path-writable)</sub>
 <a name="ex-path-writable"></a>
@@ -1578,7 +1578,7 @@ val directory = Files.createDirectory(tmpdir.resolve("atrium-path"))
 val file = Files.createFile(directory.resolve("file"))
 val filePointer = Files.createSymbolicLink(directory.resolve("directory"), file)
 
-expect(filePointer.resolve("subfolder/file")).isRegularFile()
+expect(filePointer.resolve("subfolder/file")).toBeARegularFile()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L46)</sub> ↓ <sub>[Output](#ex-path-symlink-and-parent-not-folder)</sub>
 <a name="ex-path-symlink-and-parent-not-folder"></a>
