@@ -20,10 +20,9 @@ import java.util.*
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeEmpty<T>()"))
-fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
+fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
     _logicAppend { isEmpty() }
 
 /**
@@ -35,10 +34,9 @@ fun <T : Optional<*>> Expect<T>.isEmpty(): Expect<T> =
  *
  * @return The newly created [Expect] for the inner type [E].
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-@Deprecated("Use toBeEmpty; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBePresent<T>()"))
-fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
+fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
     _logic.isPresent().transform()
 
 /**
@@ -47,11 +45,7 @@ fun <E, T : Optional<E>> Expect<T>.isPresent(): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.9.0
+ * @since 0.17.0
  */
-@Deprecated(
-    "Use toBeEmpty; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.toBePresent<T>(assertionCreator)")
-)
-fun <E, T : Optional<E>> Expect<T>.isPresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+fun <E, T : Optional<E>> Expect<T>.toBePresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.isPresent().collectAndAppend(assertionCreator)
