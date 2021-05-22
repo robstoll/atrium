@@ -138,14 +138,18 @@ abstract class IterableExpectationsSpec(
 
         it("list with duplicates") {
             fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
+            fun duplicatedBy(vararg elements: Int) =
+                DescriptionIterableAssertion.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
 
             val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
+
             expect {
                 expect(input).notToContainDuplicatesFun()
             }.toThrow<AssertionError> {
                 message {
                     toContain("$hasNotDescr: $duplicateElements")
-                    toContain(index(2, 1), index(3, 2), index(6, 4), index(7, 4))
+                    toContain(index(0, 1), index(1, 2), index(5, 4))
+                    toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
                 }
             }
         }
