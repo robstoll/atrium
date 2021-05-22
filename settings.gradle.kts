@@ -152,6 +152,7 @@ buildscript {
                 // we renamed containsNot to notToContain with 0.17.0
                 "CharSequenceContains.*Spec.*points to containsNot",
                 "IterableContains.*Spec.*points to containsNot",
+                // we improved reporting for containsNoDuplicates
                 "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`"
             ) + ".*)").let { commonPatterns ->
                 Pair(
