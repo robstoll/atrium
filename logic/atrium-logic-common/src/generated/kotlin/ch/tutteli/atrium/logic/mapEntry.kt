@@ -15,6 +15,10 @@ import ch.tutteli.atrium.logic.impl.DefaultMapEntryAssertions
 
 fun <K, V, T : Map.Entry<K, V>> AssertionContainer<T>.isKeyValue(key: K, value: V): Assertion =
     impl.isKeyValue(this, key, value)
+
+fun <K, T : Map.Entry<K, *>> AssertionContainer<T>.isKey(key: K): Assertion = impl.isKey(this, key)
+fun <V, T : Map.Entry<*, V>> AssertionContainer<T>.isValue(value: V): Assertion = impl.isValue(this, value)
+
 fun <K, T : Map.Entry<K, *>> AssertionContainer<T>.key(): FeatureExtractorBuilder.ExecutionStep<T, K> = impl.key(this)
 fun <V, T : Map.Entry<*, V>> AssertionContainer<T>.value(): FeatureExtractorBuilder.ExecutionStep<T, V> = impl.value(this)
 

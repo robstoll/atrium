@@ -9,6 +9,8 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
  */
 interface MapEntryAssertions {
     fun <K, V, T : Map.Entry<K, V>> isKeyValue(container: AssertionContainer<T>, key: K, value: V): Assertion
+    fun <K, T : Map.Entry<K, *>> isKey(container: AssertionContainer<T>, key: K): Assertion
+    fun <V, T : Map.Entry<*, V>> isValue(container: AssertionContainer<T>, value: V): Assertion
     fun <K, T : Map.Entry<K, *>> key(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, K>
     fun <V, T : Map.Entry<*, V>> value(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, V>
 }

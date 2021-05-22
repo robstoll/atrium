@@ -13,3 +13,9 @@ import ch.tutteli.atrium.logic.*
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.toEqualKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
     _logicAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }
+
+infix fun <K, T : Map.Entry<K, *>> Expect<T>.toEqualKey(key: K): Expect<T> =
+    _logicAppend { isKey(key) }
+
+infix fun <V, T : Map.Entry<*, V>> Expect<T>.toEqualValue(value: V): Expect<T> =
+    _logicAppend { isValue(value) }

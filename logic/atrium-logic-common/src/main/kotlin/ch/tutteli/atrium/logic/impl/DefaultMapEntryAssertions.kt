@@ -13,6 +13,16 @@ class DefaultMapEntryAssertions : MapEntryAssertions {
             _logic.value().collectAndLogicAppend { toBe(value) }
         }
 
+    override fun <K, T : Map.Entry<K, *>> isKey(container: AssertionContainer<T>, key: K): Assertion =
+        container.collect {
+            _logic.key().collectAndLogicAppend { toBe(key) }
+        }
+
+    override fun <V, T : Map.Entry<*, V>> isValue(container: AssertionContainer<T>, value: V): Assertion =
+        container.collect {
+            _logic.value().collectAndLogicAppend { toBe(value) }
+        }
+
     override fun <K, T : Map.Entry<K, *>> key(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, K> =
         container.property(Map.Entry<K, *>::key)
 
