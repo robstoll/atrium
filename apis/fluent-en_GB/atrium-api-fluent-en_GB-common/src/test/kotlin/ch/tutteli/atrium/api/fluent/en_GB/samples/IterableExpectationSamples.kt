@@ -18,9 +18,9 @@ class IterableExpectationSamples {
                 .toContain
                 .inAnyOrder // order specifier
                 .atMost(2)
-                .entries({ // assertion group about the entries
+                .entry { // assertion group about the entries
                     toBeGreaterThan(2)
-                })
+                }
         }
     }
 
@@ -33,15 +33,15 @@ class IterableExpectationSamples {
         fails {
             expect(listOf(1, 8, 5))
                 .notToContain
-                .entries({
+                .entry { // assertion group about the entries
                     toBeGreaterThan(6)
-                })
+                }
         }
     }
 
     @Test
     fun toContainValues() {
-        expect(listOf("A", "B", "C")).toContain("B")
+        expect(listOf("A", "B", "C")).toContain("B", "C")
 
         fails {
             expect(setOf(4, 2, 1)).toContain(3)
@@ -61,7 +61,7 @@ class IterableExpectationSamples {
     @Test
     fun toContainAssertions() {
         expect(listOf(1, 2, 2, 4))
-            .toContain(
+            .toContain( // multiple assertion group entries are evaluated independently
                 { toBeLessThan(2) },
                 { toBeGreaterThan(3) }
             )
@@ -70,7 +70,7 @@ class IterableExpectationSamples {
             expect(listOf(1, 2, 2, 4))
                 .toContain(
                     { toEqual(3) }, // fails because no element in the list equals 3
-                    { toEqual(2) } // this assertion is not checked
+                    { toEqual(5) }  // still evaluated and also fails
                 )
         }
     }
@@ -104,7 +104,7 @@ class IterableExpectationSamples {
         }
 
         fails {
-            expect(listOf("A", "B")).toContainExactly(null)
+            expect(listOf(null, "B")).toContainExactly(null)
         }
     }
 
@@ -158,7 +158,7 @@ class IterableExpectationSamples {
         expect(listOf("A", "B", "C")).notToContain("D", "E")
 
         fails {
-            expect(listOf("A", "B", "C")).notToContain("A", "B")
+            expect(listOf("A", "B", "C")).notToContain("A", "D")
         }
     }
 
@@ -226,7 +226,7 @@ class IterableExpectationSamples {
         expect(setOf<String>()).notToHaveElements()
 
         fails {
-            expect(listOf("A", 1, 3f)).notToHaveElements()
+            expect(listOf("A", "B")).notToHaveElements()
         }
     }
 
