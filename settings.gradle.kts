@@ -106,7 +106,7 @@ buildscript {
                 ) + ".*)"
             ).let { commonPatterns ->
                 Pair(
-                    //bc
+                    // bc
                     or(
                         commonPatterns,
                         "(ch/tutteli/atrium/api/infix/en_GB/" +
@@ -118,6 +118,7 @@ buildscript {
                                 "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec.*"
                             ) + ".*)"
                     ),
+                    // bbc
                     true to or(
                         commonPatterns,
                         "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
@@ -150,9 +151,15 @@ buildscript {
             ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" + or(
                 // we renamed containsNot to notToContain with 0.17.0
                 "CharSequenceContains.*Spec.*points to containsNot",
-                "IterableContains.*Spec.*points to containsNot"
+                "IterableContains.*Spec.*points to containsNot",
+                "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`"
             ) + ".*)").let { commonPatterns ->
-                Pair(commonPatterns, true to commonPatterns)
+                Pair(
+                    // bc
+                    commonPatterns,
+                    // bbc
+                    true to commonPatterns
+                )
             }
         )
     )
