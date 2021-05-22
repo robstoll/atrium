@@ -33,7 +33,7 @@ class IterableExpectationSamples {
         fails {
             expect(listOf(1, 8, 5))
                 .notToContain
-                .entry { // assertion group about the entries
+                .entry { // assertion group about the entry
                     toBeGreaterThan(6)
                 }
         }
