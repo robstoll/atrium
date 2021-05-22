@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -176,10 +174,47 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     ): Assertion = LazyThreadUnsafeAssertionGroup {
         val list = transformToList(container, converter)
 
-        val lookupHashSet = HashSet<E>()
-        val duplicates = createIndexAssertions(list) { (_, element) ->
-            !lookupHashSet.add(element)
-        }
+        val lookupHashMap = HashMap<E, Int>()
+        val duplicateIndices = HashMap<Int, Pair<E, MutableList<Int>>>()
+
+        list.asSequence()
+            .mapWithIndex()
+            .forEach { (index, element) ->
+                lookupHashMap[element]?.let {
+                    duplicateIndices.getOrPut(it) {
+                        Pair(element, mutableListOf<Int>())
+                    }.second.add(index)
+                } ?: let {
+                    lookupHashMap[element] = index
+                }
+            }
+
+        val duplicates = duplicateIndices.asSequence()
+            .map { (index, pair) ->
+                pair.let { (element, duplicateIndices) ->
+                    assertionBuilder.descriptive
+                        .failing
+                        .withFailureHint {
+                            assertionBuilder.explanatoryGroup
+                                .withDefaultType
+                                .withExplanatoryAssertion(
+                                    TranslatableWithArgs(
+                                        DescriptionIterableAssertion.DUPLICATED_BY,
+                                        duplicateIndices.joinToString(", ")
+                                    )
+                                )
+                                .build()
+                        }
+                        .showForAnyFailure
+                        .withDescriptionAndRepresentation(
+                            TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+                            element
+                        )
+                        .build()
+                }
+            }
+            .toList()
+
         createHasElementPlusFixedClaimGroup(
             list,
             DescriptionBasic.HAS_NOT, DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
