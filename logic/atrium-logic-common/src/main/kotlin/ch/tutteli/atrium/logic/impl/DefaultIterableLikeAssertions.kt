@@ -189,7 +189,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                 }
             }
 
-        val duplicates = duplicateIndices.asSequence()
+        val duplicates = duplicateIndices
             .map { (index, pair) ->
                 pair.let { (element, duplicateIndices) ->
                     assertionBuilder.descriptive
@@ -213,7 +213,6 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                         .build()
                 }
             }
-            .toList()
 
         createHasElementPlusFixedClaimGroup(
             list,
