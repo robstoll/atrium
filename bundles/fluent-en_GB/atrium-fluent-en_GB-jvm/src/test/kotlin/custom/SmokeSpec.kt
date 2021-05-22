@@ -1,6 +1,6 @@
 package custom
 
-import ch.tutteli.atrium.api.fluent.en_GB.existsNot
+import ch.tutteli.atrium.api.fluent.en_GB.notToExist
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -21,7 +21,7 @@ object SmokeSpec : Spek({
     }
 
     test("see if `Path.existsNot` can be used") {
-        expect(Paths.get("nonExisting")).existsNot()
+        expect(Paths.get("nonExisting")).notToExist()
     }
 
     test("see if own expectation function without i18n can be used") {

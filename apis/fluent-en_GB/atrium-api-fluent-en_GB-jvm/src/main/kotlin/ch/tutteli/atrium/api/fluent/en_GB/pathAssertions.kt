@@ -18,6 +18,7 @@ import java.nio.file.Path
  *
  * @since 0.9.0
  */
+@Deprecated("Use toStartWith; will be removed with 1.0.0 at the latest", ReplaceWith("this.toStartWith<T>(expected)"))
 fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
     _logicAppend { startsWith(expected) }
 
@@ -28,6 +29,10 @@ fun <T : Path> Expect<T>.startsWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use notToStartWith; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToStartWith<T>(expected)")
+)
 fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
     _logicAppend { startsNotWith(expected) }
 
@@ -38,6 +43,7 @@ fun <T : Path> Expect<T>.startsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toEndWith; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEndWith<T>(expected)"))
 fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
     _logicAppend { endsWith(expected) }
 
@@ -49,6 +55,7 @@ fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use notToEndWith; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEndWith<T>(expected)"))
 fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     _logicAppend { endsNotWith(expected) }
 
@@ -63,6 +70,7 @@ fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toExist; will be removed with 1.0.0 at the latest", ReplaceWith("this.toExist<T>()"))
 fun <T : Path> Expect<T>.exists(): Expect<T> =
     _logicAppend { exists() }
 
@@ -77,6 +85,7 @@ fun <T : Path> Expect<T>.exists(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use notToExist; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToExist<T>()"))
 fun <T : Path> Expect<T>.existsNot(): Expect<T> =
     _logicAppend { existsNot() }
 
@@ -226,6 +235,7 @@ fun <T : Path> Expect<T>.resolve(other: String, assertionCreator: Expect<Path>.(
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeReadable; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeReadable<T>()"))
 fun <T : Path> Expect<T>.isReadable(): Expect<T> =
     _logicAppend { isReadable() }
 
@@ -242,6 +252,7 @@ fun <T : Path> Expect<T>.isReadable(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeWritable; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeWritable<T>()"))
 fun <T : Path> Expect<T>.isWritable(): Expect<T> =
     _logicAppend { isWritable() }
 
@@ -263,6 +274,7 @@ fun <T : Path> Expect<T>.isWritable(): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated("Use toBeExecutable; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeExecutable<T>()"))
 fun <T : Path> Expect<T>.isExecutable(): Expect<T> =
     _logicAppend { isExecutable() }
 
@@ -282,6 +294,7 @@ fun <T : Path> Expect<T>.isExecutable(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeARegularFile; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeARegularFile<T>()"))
 fun <T : Path> Expect<T>.isRegularFile(): Expect<T> =
     _logicAppend { isRegularFile() }
 
@@ -301,6 +314,7 @@ fun <T : Path> Expect<T>.isRegularFile(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeADirectory; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeADirectory<T>()"))
 fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
     _logicAppend { isDirectory() }
 
@@ -318,6 +332,10 @@ fun <T : Path> Expect<T>.isDirectory(): Expect<T> =
  *
  * @since 0.16.0
  */
+@Deprecated(
+    "Use toBeASymbolicLink; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeASymbolicLink<T>()")
+)
 fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
     _logicAppend { isSymbolicLink() }
 
@@ -329,6 +347,7 @@ fun <T : Path> Expect<T>.isSymbolicLink(): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated("Use toBeAbsolute; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAbsolute<T>()"))
 fun <T : Path> Expect<T>.isAbsolute(): Expect<T> =
     _logicAppend { isAbsolute() }
 
@@ -340,6 +359,7 @@ fun <T : Path> Expect<T>.isAbsolute(): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated("Use toBeRelative; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeRelative<T>()"))
 fun <T : Path> Expect<T>.isRelative(): Expect<T> =
     _logicAppend { isRelative() }
 
@@ -353,6 +373,10 @@ fun <T : Path> Expect<T>.isRelative(): Expect<T> =
  *
  * @since 0.16.0
  */
+@Deprecated(
+    "Use toBeAnEmptyDirectory; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAnEmptyDirectory<T>()")
+)
 fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
     _logicAppend { isEmptyDirectory() }
 
@@ -374,6 +398,10 @@ fun <T : Path> Expect<T>.isEmptyDirectory(): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toHaveTheDirectoryEntries; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheDirectoryEntries<T>(entry, *otherEntries)")
+)
 fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String, vararg otherEntries: String): Expect<T> =
     _logicAppend { hasDirectoryEntry(entry glue otherEntries) }
 
@@ -389,6 +417,10 @@ fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String, vararg otherEntries: S
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toHaveTheSameTextualContentAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheSameTextualContentAs<T>(targetPath, sourceCharset, targetCharset)")
+)
 fun <T : Path> Expect<T>.hasSameTextualContentAs(
     targetPath: Path,
     sourceCharset: Charset = Charsets.UTF_8,
@@ -403,5 +435,9 @@ fun <T : Path> Expect<T>.hasSameTextualContentAs(
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toHaveTheSameBinaryContentAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveTheSameBinaryContentAs<T>(targetPath)")
+)
 fun <T : Path> Expect<T>.hasSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }

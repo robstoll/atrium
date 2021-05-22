@@ -1,8 +1,8 @@
 package readme.examples
 
-import ch.tutteli.atrium.api.fluent.en_GB.exists
-import ch.tutteli.atrium.api.fluent.en_GB.isRegularFile
-import ch.tutteli.atrium.api.fluent.en_GB.isWritable
+import ch.tutteli.atrium.api.fluent.en_GB.toBeARegularFile
+import ch.tutteli.atrium.api.fluent.en_GB.toBeWritable
+import ch.tutteli.atrium.api.fluent.en_GB.toExist
 import ch.tutteli.niok.deleteRecursively
 import org.spekframework.spek2.Spek
 import readme.examples.utils.expect
@@ -35,11 +35,11 @@ object PathSpec : Spek({
     }
 
     test("ex-path-exists") {
-        expect(Paths.get("/usr/bin/noprogram")).exists()
+        expect(Paths.get("/usr/bin/noprogram")).toExist()
     }
 
     test("ex-path-writable") {
-        expect(Paths.get("/root/.ssh/config")).isWritable()
+        expect(Paths.get("/root/.ssh/config")).toBeWritable()
     }
 
     val tmpdir = Paths.get(System.getProperty("java.io.tmpdir"))
@@ -48,7 +48,7 @@ object PathSpec : Spek({
         val file = Files.createFile(directory.resolve("file"))
         val filePointer = Files.createSymbolicLink(directory.resolve("directory"), file)
 
-        expect(filePointer.resolve("subfolder/file")).isRegularFile()
+        expect(filePointer.resolve("subfolder/file")).toBeARegularFile()
     }
     toDelete.add(tmpdir.resolve("atrium-path"))
 })

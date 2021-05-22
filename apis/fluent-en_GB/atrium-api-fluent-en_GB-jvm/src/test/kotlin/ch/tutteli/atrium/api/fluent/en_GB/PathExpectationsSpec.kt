@@ -21,7 +21,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun0(Expect<Path>::toBeAbsolute),
     fun0(Expect<Path>::toBeRelative),
     fun0(Expect<Path>::toBeAnEmptyDirectory),
-    Expect<Path>::hasDirectoryEntry.name to Companion::toHaveTheDirectoryEntry,
+    Expect<Path>::toHaveTheDirectoryEntries.name to Companion::toHaveTheDirectoryEntry,
     fun2<Path, String, Array<out String>>(Expect<Path>::toHaveTheDirectoryEntries),
     fun1(Expect<Path>::toHaveTheSameBinaryContentAs),
     fun3(Expect<Path>::toHaveTheSameTextualContentAs),
@@ -40,28 +40,29 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 
     companion object {
         private fun toHaveTheSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
-            expect.hasSameTextualContentAs(targetPath)
+            expect.toHaveTheSameTextualContentAs(targetPath)
 
-        private fun toHaveTheDirectoryEntry(expect: Expect<Path>, entry: String) = expect.hasDirectoryEntry(entry)
+        private fun toHaveTheDirectoryEntry(expect: Expect<Path>, entry: String) =
+            expect.toHaveTheDirectoryEntries(entry)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<DummyPath> = notImplemented()
 
-        a1.exists()
-        a1.existsNot()
-        a1.startsWith(Paths.get("a"))
-        a1.startsNotWith(Paths.get("a"))
-        a1.endsWith(Paths.get("a"))
-        a1.endsNotWith(Paths.get("a"))
-        a1.isReadable()
-        a1.isWritable()
-        a1.isRegularFile()
-        a1.isDirectory()
-        a1.isSymbolicLink()
-        a1.hasSameBinaryContentAs(Paths.get("a"))
-        a1.hasSameTextualContentAs(Paths.get("a"))
+        a1.toExist()
+        a1.notToExist()
+        a1.toStartWith(Paths.get("a"))
+        a1.notToStartWith(Paths.get("a"))
+        a1.toEndWith(Paths.get("a"))
+        a1.notToEndWith(Paths.get("a"))
+        a1.toBeReadable()
+        a1.toBeWritable()
+        a1.toBeARegularFile()
+        a1.toBeADirectory()
+        a1.toBeASymbolicLink()
+        a1.toHaveTheSameBinaryContentAs(Paths.get("a"))
+        a1.toHaveTheSameTextualContentAs(Paths.get("a"))
 
         a1.parent
         a1 = a1.parent { }
