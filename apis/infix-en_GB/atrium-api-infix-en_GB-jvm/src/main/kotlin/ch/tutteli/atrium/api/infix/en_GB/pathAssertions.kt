@@ -54,6 +54,7 @@ infix fun <T : Path> Expect<T>.endsWith(expected: Path): Expect<T> =
 infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
     _logicAppend { endsNotWith(expected) }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) exists;
  * meaning that there is a file system entry at the location the [Path] points to.
@@ -68,6 +69,7 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
     _logicAppend { exists() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not exist;
  * meaning that there is no file system entry at the location the [Path] points to.
@@ -82,6 +84,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
     _logicAppend { existsNot() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
@@ -94,6 +97,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
 val <T : Path> Expect<T>.extension: Expect<String>
     get() = _logic.extension().transform()
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the property [Path.extension][ch.tutteli.niok.extension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
@@ -107,6 +111,7 @@ val <T : Path> Expect<T>.extension: Expect<String>
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     _logic.extension().collectAndAppend(assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
@@ -119,6 +124,7 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
 val <T : Path> Expect<T>.fileName: Expect<String>
     get() = _logic.fileName().transform()
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the property [Path.fileNameAsString][ch.tutteli.niok.fileNameAsString]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation
@@ -132,6 +138,7 @@ val <T : Path> Expect<T>.fileName: Expect<String>
 infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     _logic.fileName().collectAndAppend(assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Creates an [Expect] for the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok)) of the subject of `this` expectation,
@@ -144,6 +151,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
 val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
     get() = _logic.fileNameWithoutExtension().transform()
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the property [Path.fileNameWithoutExtension][ch.tutteli.niok.fileNameWithoutExtension]
  * (provided via [niok](https://github.com/robstoll/niok))
@@ -157,6 +165,7 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
 infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     _logic.fileNameWithoutExtension().collectAndAppend(assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that this [Path] has a [parent][Path.getParent] and creates an [Expect] for it,
  * so that further fluent calls are assertions about it.
@@ -168,6 +177,7 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
 val <T : Path> Expect<T>.parent: Expect<Path>
     get() = _logic.parent().transform()
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that this [Path] has a [parent][Path.getParent], that the parent holds all assertions the
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of `this` expectation.
@@ -179,6 +189,7 @@ val <T : Path> Expect<T>.parent: Expect<Path>
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
     _logic.parent().collectAndAppend(assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that [other] resolves against this [Path] and creates an [Expect] for the resolved [Path]
  * so that further fluent calls are assertions about it.
@@ -190,6 +201,7 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
 infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
     _logic.resolve(other).transform()
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that [PathWithCreator.path] resolves against this [Path], that the resolved [Path] holds all assertions the
  * given [PathWithCreator.assertionCreator] creates for it and
@@ -204,12 +216,14 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
 infix fun <T : Path> Expect<T>.resolve(path: PathWithCreator<Path>): Expect<T> =
     _logic.resolve(path.path).collectAndAppend(path.assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Helper function to create a [PathWithCreator] based on the given [path] and [assertionCreator].
  */
 fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCreator<E> =
     PathWithCreator(path, assertionCreator)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is readable;
  * meaning that there is a file system entry at the location the [Path] points to and
@@ -230,6 +244,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
     _logicAppend { isReadable() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is writable;
  * meaning that there is a file system entry at the location the [Path] points to and
@@ -246,6 +261,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
     _logicAppend { isWritable() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is executable;
  * meaning that there is a file system entry at the location the [Path] points to and
@@ -266,6 +282,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: executable): Expect<T> =
     _logicAppend { isExecutable() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a file;
  * meaning that there is a file system entry at the location the [Path] points to and that is a regular file.
@@ -285,6 +302,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: aRegularFile): Expect<T> =
     _logicAppend { isRegularFile() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory;
  * meaning that there is a file system entry at the location the [Path] points to and that is a directory.
@@ -304,6 +322,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
     _logicAppend { isDirectory() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a symbolic link;
  * meaning that there is a file system entry at the location the [Path] points to and that is a symbolic link.
@@ -321,6 +340,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink: aSymbolicLink): Expect<T> =
     _logicAppend { isSymbolicLink() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
  * meaning that the [Path] specified in this instance starts at the file system root.
@@ -332,6 +352,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink:
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: absolute): Expect<T> =
     _logicAppend { isAbsolute() }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a relative path;
  * meaning that the [Path] specified in this instance does not start at the file system root.
@@ -389,6 +410,7 @@ infix fun <T : Path> Expect<T>.hasDirectoryEntry(entry: String) =
 infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
     _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
  *
@@ -396,6 +418,7 @@ infix fun <T : Path> Expect<T>.has(directoryEntries: DirectoryEntries) =
  */
 fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntries(entry, otherEntries)
 
+//TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
  * meaning that there is a file system entry at the location the [Path] points to and that is an empty directory.
