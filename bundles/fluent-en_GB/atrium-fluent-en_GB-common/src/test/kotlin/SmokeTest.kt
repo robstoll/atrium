@@ -29,7 +29,7 @@ class SmokeTest {
 
     @Test
     fun expectationFunctionWithI18nCanBeUsed() {
-        expect(4).toBeMultipleOf(2)
+        expect(4).toBeAMultipleOf(2)
     }
 
 
@@ -113,9 +113,9 @@ fun Expect<Int>.toBeEven() =
 fun Expect<Int>.toBeOdd() =
     _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.toBeMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 
-private fun AssertionContainer<Int>.toBeMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {

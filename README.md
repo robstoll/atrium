@@ -267,7 +267,7 @@ expected that subject: 10        (kotlin.Int <1234789>)
 ```
 </ex-first>
 
-The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `isSameAs`). 
+The statement can be read as "I expect, x to be nine" where an equality check is used (for an identity check, you have to use `toBeTheSameInstace`). 
 Since this is false, an `AssertionError` is thrown with a corresponding message as shown in the Output
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 In this sense the report can be read as `I expected that the subject of the assertion, which is 10, equals 9` 
@@ -682,7 +682,7 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
 
 `f` supports methods with up to 5 arguments.
 
-Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.isPresent` or `Result.isSuccess` 
+Atrium provides shortcuts for commonly used methods, e.g. `List.get`, `Map.getExisting`, `Optional.toBePresent` or `Result.toBeSuccess` 
 where all of them include some additional checking (index bound, existence of the key within the map etc.)
 Please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]) 
 in case you miss a shortcut. 
@@ -1915,8 +1915,8 @@ For instance, an overload of `toEqual` and of `notToEqual` for `BigDecimal` was 
 The reason behind it?
 It is very likely that a user actually wants to compare that a certain `BigDecimal` is numerically (not) equal to another `BigDecimal` 
 rather than including `BigDecimal.scale` in the comparison.
-Accordingly, the deprecation message of `toEqual` (`notToEqual` alike) explains the problem and suggests to either use `isNumericallyEqualTo` or `isEqualIncludingScale`.
-And if the user should decide to use `isEqualIncludingScale` and at some point an assertion fails only due to the comparison of `BigDecimal.scale`
+Accordingly, the deprecation message of `toEqual` (`notToEqual` alike) explains the problem and suggests to either use `toEqualNumerically` or `toEqualIncludingScale`.
+And if the user should decide to use `toEqualIncludingScale` and at some point an assertion fails only due to the comparison of `BigDecimal.scale`
 then Atrium reminds us of the possible pitfall. For instance:
 
 <ex-pitfall-1>
@@ -2009,7 +2009,7 @@ This is kind of the simplest way of defining assertion functions. Following an e
 ```kotlin
 import ch.tutteli.atrium.logic._logic
 
-fun Expect<Int>.isMultipleOf(base: Int) =
+fun Expect<Int>.toBeAMultipleOf(base: Int) =
     _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
 ```
 </code-own-boolean-1>
@@ -2019,7 +2019,7 @@ and its usage:
 <ex-own-boolean-1>
 
 ```kotlin
-expect(12).isMultipleOf(5)
+expect(12).toBeAMultipleOf(5)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L44)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
@@ -2029,9 +2029,9 @@ expected that subject: 12        (kotlin.Int <1234789>)
 ```
 </ex-own-boolean-1>
 
-Let us see how we actually defined `isMultipleOf`. 
+Let us see how we actually defined `toBeAMultipleOf`. 
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
-    Hence we define `isMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
+    Hence we define `toBeAMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
 
 2. *Use the method `createAndAddAssertion`* (provided by `Expect`)  which creates and adds 
     the assertion to itself (creating alone is not enough, it needs to be added in order that it is evaluated). 
@@ -2059,7 +2059,7 @@ Consider the following assertion function:
 ```kotlin
 import ch.tutteli.atrium.logic._logic
 
-fun Expect<Int>.isEven() =
+fun Expect<Int>.toBeEven() =
     _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
 ```
 </code-own-boolean-2>
@@ -2071,7 +2071,7 @@ Its usage looks then as follows:
 <ex-own-boolean-2>
 
 ```kotlin
-expect(13).isEven()
+expect(13).toBeEven()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L57)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
@@ -2087,17 +2087,17 @@ So far, we core contributors ran quickly into the situation where we wanted to c
 reuse existing functions but with different arguments. 
 We will show both use cases here, starting off by composing functions. 
 
-Say you want to build a `isBetween` assertion function for `java.util.Date`, you could write it as follows:
+Say you want to build a `toBeBetween` assertion function for `java.util.Date`, you could write it as follows:
 
 <code-own-compose-1>
 
 ```kotlin
-fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     toBeGreaterThanOrEqualTo(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
 ```
 </code-own-compose-1>
 
-Pretty simply isn't it?
+Pretty simple, isn't it?
 Notice though, that this function fails fast, which means, the upper bound is not evaluated 
 if the assertion about the lower bound already fails. 
 You need to use an [assertion group block](#define-single-assertions-or-assertion-groups) 
@@ -2108,7 +2108,7 @@ if you want that both are evaluated:
 ```kotlin
 import ch.tutteli.atrium.logic._logic
 
-fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
     _logic.appendAssertionsCreatedBy {
         toBeGreaterThanOrEqualTo(lowerBoundInclusive)
         toBeLessThan(upperBoundExclusive)
@@ -2156,7 +2156,7 @@ Say you want to make an assertion about the number of children a person has:
 <code-own-compose-3b>
 
 ```kotlin
-fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> =
+fun Expect<Person>.toHaveNumberOfChildren(number: Int): Expect<Person> =
     feature(Person::children) { toHaveSize(number) }
 
 ```
@@ -2172,7 +2172,7 @@ Its usage is then as follows:
 
 ```kotlin
 expect(Person("Susanne", "Whitley", 43, listOf()))
-    .hasNumberOfChildren(2)
+    .toHaveNumberOfChildren(2)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L74)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
@@ -2189,7 +2189,7 @@ Another example: assert the person has children which are all adults (assuming 1
 <code-own-compose-4>
 
 ```kotlin
-fun Expect<Person>.hasAdultChildren(): Expect<Person> =
+fun Expect<Person>.toHaveAdultChildren(): Expect<Person> =
     feature(Person::children) {
         toHaveElementsAndAll {
             feature(Person::age).toBeGreaterThanOrEqualTo(18)
@@ -2208,7 +2208,7 @@ but we do not have to, as `all` already checks that there is at least one elemen
 
 ```kotlin
 expect(Person("Susanne", "Whitley", 43, listOf()))
-    .hasAdultChildren()
+    .toHaveAdultChildren()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/master/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L91)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
@@ -2469,7 +2469,7 @@ You might want to generate the [Report](#report) in a different language or/and 
 
 ## Report
 Following on the example in [Write own Assertion Functions](#write-own-assertion-functions)
-we show here how you need to write the `isMultipleOf` function, so that it supports i18n. 
+we show here how you need to write the `toBeAMultipleOf` function, so that it supports i18n. 
 This way the report could be generated in another language.
 
 The difference lies in the first argument passed to `createAndAddAssertion`; 
@@ -2480,19 +2480,19 @@ we do no longer use a `String` but a proper `Translatable`.
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logic.run {
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
     appendAssertion(
-        createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+        createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
     )
 }
 
 enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
-    IS_MULTIPLE_OF("is multiple of")
+    TO_BE_A_MULTIPLE_OF("to be a multiple of")
 }
 ```
 </code-i18n-1>
 
-Typically you would put `DescriptionIntAssertion` into an own module (jar) 
+Typically, you would put `DescriptionIntAssertion` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
 [atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/master/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
@@ -2524,7 +2524,7 @@ However, Atrium is designed to support this use case -- if you need this feature
 <hr/>
 </details><br/>
 
-Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
+Let us rewrite the `toBeEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
 as second example:
 
 <code-i18n-2>
@@ -2532,7 +2532,7 @@ as second example:
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.isEven(): Expect<Int> = _logic.run {
+fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
     appendAssertion(
         createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
     )
@@ -2550,7 +2550,7 @@ Notice also, that we are reusing a `Translatable` from `DescriptionBasic`.
 ## API in a different Language
 
 Following on the example in the previous section, 
-we want to write `isMultipleOf` in such a way that one cannot only generate a report in a different language
+we want to write `toBeAMultipleOf` in such a way that one cannot only generate a report in a different language
 but also that one can use the function itself in a different language. 
 Or in other words, provide our API in a different language (the same applies if you want to provide another API style).
 
@@ -2566,14 +2566,14 @@ In the logic module we define and extension method for [AssertionContainer](http
 ```kotlin
 import ch.tutteli.atrium.creating.AssertionContainer
 
-fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
-    createDescriptiveAssertion(DescriptionIntAssertion.IS_MULTIPLE_OF, base) { it % base == 0 }
+fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
+    createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
 ```
 </code-i18n-3a>
 
 In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
 with the help of `createDescriptiveAssertion` defined on AssertionContainer.
-We pass in a description (`IS_MULTIPLE_OF`), use `base` as representation of the assertion 
+We pass in a description (`TO_BE_A_MULTIPLE_OF`), use `base` as representation of the assertion 
 and defined a lambda which implements a test to define whether the assertion holds or not.
 
 In the API module we define the extension function and append the assertion to the current `Expect`
@@ -2584,8 +2584,8 @@ by using `logicAppend` and calling the extension function from the logic module 
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> =
-    _logicAppend { isMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
+    _logicAppend { toBeAMultipleOf(base) }
 ```
 </code-i18n-3b>
 
@@ -2599,8 +2599,8 @@ You are ready to go, creating an API in a different language -- e.g. in German -
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.istVielfachesVon(base: Int): Expect<Int> =
-    _logicAppend { isMultipleOf(base) }
+fun Expect<Int>.istEinVielfachesVon(base: Int): Expect<Int> =
+    _logicAppend { toBeAMultipleOf(base) }
 ```
 </code-i18n-3c>
 
@@ -2632,7 +2632,7 @@ are turned into a non-nullable version per default (if possible).
 
 Yet, that might not be what you want, especially if you know that certain functions return potentially `null` 
 or in other words, the return type of those functions should be treated as nullable in Kotlin. 
-Therefore you want to turn the platform type into the nullable version. 
+Therefore, you want to turn the platform type into the nullable version. 
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
