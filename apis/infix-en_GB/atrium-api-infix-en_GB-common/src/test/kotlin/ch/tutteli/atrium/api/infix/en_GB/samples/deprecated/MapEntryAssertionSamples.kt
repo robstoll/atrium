@@ -18,42 +18,38 @@ class MapEntryAssertionSamples {
 
     @Test
     fun keyFeature() {
-        expect(mapOf(1 to "a").entries.first()) toEqualKey 1
+        expect(mapOf(1 to "a").entries.first()).key toEqual 1
 
         fails {
-            expect(mapOf(1 to "a").entries.first()) toEqualKey 2
+            expect(mapOf(1 to "a").entries.first()).key toEqual 2
         }
     }
 
     @Test
     fun key() {
-        expect(mapOf(1 to "a").entries.first()) toEqualKey 1
+        expect(mapOf(1 to "a").entries.first()) key { it toEqual 1 }
 
         fails {
-            expect(mapOf(1 to "a").entries.first()) key {
-                this toEqual 2
-            }
+            expect(mapOf(1 to "a").entries.first()) key { it toEqual 2 }
         }
     }
 
     @Test
     fun valueFeature() {
-        expect(mapOf(1 to "a").entries.first()) toEqualValue "a"
+        expect(mapOf(1 to "a").entries.first()).value toEqual "a"
 
         fails {
-            expect(mapOf(1 to "a").entries.first()) toEqualValue "b"
+            expect(mapOf(1 to "a").entries.first()).value toEqual "b"
         }
     }
 
     @Test
     fun value() {
-        expect(mapOf(1 to "a").entries.first()) toEqualValue "a"
+        expect(mapOf(1 to "a").entries.first()) value { it toEqual "a" }
 
 
         fails {
-            expect(mapOf(1 to "a").entries.first()) value {
-                this toEqual "b"
-            }
+            expect(mapOf(1 to "a").entries.first()) value { it toEqual "b" }
         }
     }
 
