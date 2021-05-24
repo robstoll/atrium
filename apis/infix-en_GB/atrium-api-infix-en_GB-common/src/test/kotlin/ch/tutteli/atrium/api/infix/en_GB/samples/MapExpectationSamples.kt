@@ -144,17 +144,13 @@ class MapExpectationSamples {
     @Test
     fun keysFeature() {
         // subject is now of type Set<Int> (containing 1)
-        expect(mapOf(1 to "a")) keys {
-            this toContain 1
-        }
+        expect(mapOf(1 to "a")).keys toContain 1
 
         fails {
             // subject is now of type Set<Int> (containing 1)
             // fails because 1 is not equal to 2
 
-            expect(mapOf(1 to "a")) keys {
-                this toContain 2
-            }
+            expect(mapOf(1 to "a")).keys toContain 2
         }
     }
 
@@ -179,16 +175,12 @@ class MapExpectationSamples {
     @Test
     fun valuesFeature() {
         // subject is now of type Collection<String> (containing "a")
-        expect(mapOf(1 to "a")) values {
-            this toContain "a"
-        }
+        expect(mapOf(1 to "a")).values toContain "a"
 
         fails {
             // subject is now of type Collection<String> (containing "a")
             // fails because "a" is not equal to "b"
-            expect(mapOf(1 to "a")) values {
-                this toContain "b"
-            }
+            expect(mapOf(1 to "a")).values toContain "b"
         }
     }
 
