@@ -40,10 +40,11 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
         val count = search(multiConsumableContainer, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
-        return assertionBuilder.customType(getAssertionGroupType())
+        val inAnyOrderAssertion =  assertionBuilder.list
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-            .withAssertions(decorateAssertion(multiConsumableContainer, featureAssertion))
+            .withAssertion(featureAssertion)
             .build()
+        return decorateInAnyOrderAssertion(inAnyOrderAssertion, multiConsumableContainer)
     }
 
     /**
@@ -55,11 +56,6 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      * Provides the translation for [AssertionGroup.description]
      */
     protected abstract val groupDescription: Translatable
-
-    /**
-     * Provides the [AssertionGroupType] for the resulting [AssertionGroup].
-     */
-    protected abstract fun getAssertionGroupType(): AssertionGroupType
 
 
     /**
@@ -73,9 +69,4 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      * @return The number of times the [searchCriterion] matched in the subject of this expectation.
      */
     protected abstract fun search(multiConsumableContainer: AssertionContainer<TT>, searchCriterion: SC): Int
-
-    /**
-     * Either return the given [featureAssertion] as [List] or add further assertions.
-     */
-    abstract fun decorateAssertion(container: AssertionContainer<TT>, featureAssertion: Assertion): List<Assertion>
 }

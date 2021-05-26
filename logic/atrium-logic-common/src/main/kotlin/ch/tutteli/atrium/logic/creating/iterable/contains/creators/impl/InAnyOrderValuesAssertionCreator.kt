@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
@@ -38,31 +40,26 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
     override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
 
-    override fun getAssertionGroupType(): AssertionGroupType {
-        return if (searchBehaviour is NotSearchBehaviour) {
-            DefaultSummaryAssertionGroupType
-        } else {
-            DefaultListAssertionGroupType
-        }
-    }
-
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
         turnSubjectToList(container, converter)
 
     override fun search(multiConsumableContainer: AssertionContainer<List<SC>>, searchCriterion: SC): Int =
         multiConsumableContainer.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
-    override fun decorateAssertion(
-        container: AssertionContainer<List<SC>>,
-        featureAssertion: Assertion
-    ): List<Assertion> {
+    /**
+     * Override in a subclass if you want to decorate the assertion.
+     */
+    override fun decorateInAnyOrderAssertion(
+        inAnyOrderAssertion: AssertionGroup,
+        multiConsumableContainer: AssertionContainer<List<SC>>
+    ): AssertionGroup {
         return if (searchBehaviour is NotSearchBehaviour) {
-            listOf(
-                featureAssertion,
-                createHasElementAssertion(container.maybeSubject.getOrElse { emptyList() })
-            )
+            assertionBuilder.invisibleGroup.withAssertions(
+                createHasElementAssertion(multiConsumableContainer.maybeSubject.getOrElse { emptyList() }),
+                inAnyOrderAssertion
+            ).build()
         } else {
-            listOf(featureAssertion)
+            inAnyOrderAssertion
         }
     }
 }

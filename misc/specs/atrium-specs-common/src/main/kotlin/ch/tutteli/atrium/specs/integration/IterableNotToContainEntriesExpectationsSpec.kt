@@ -68,13 +68,10 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                     message {
                         toContainRegex(
                             "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                "$afterExplanatory$toBeDescr: 4.0.*$separator" +
-                                "$featureSuccess$numberOfOccurrences: 0$separator" +
-                                "$isAfterSuccess: 0.*$separator" +
-                                "$featureFailing$hasElement: false$separator" +
-                                "$isAfterFailing: true"
+                                "$indentRootBulletPoint$hasElement: false$separator" +
+                                "$isDescr: true"
                         )
+                        notToContain(anElementWhich)
                     }
                 }
             }

@@ -2,9 +2,8 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -55,6 +54,23 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<E?>> =
         turnSubjectToList(container, converter)
 
+    override fun decorateInAnyOrderAssertion(
+        inAnyOrderAssertion: AssertionGroup,
+        multiConsumableContainer: AssertionContainer<List<E?>>
+    ): AssertionGroup {
+        val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
+        return if (searchBehaviour is NotSearchBehaviour) {
+            assertionBuilder.invisibleGroup
+                .withAssertions(
+                    createHasElementAssertion(list),
+                    inAnyOrderAssertion
+                )
+                .build()
+        } else {
+            inAnyOrderAssertion
+        }
+    }
+
     override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<List<E?>>,
         searchCriterion: (Expect<E>.() -> Unit)?,
@@ -69,14 +85,10 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
 
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         val assertions = mutableListOf<Assertion>(explanatoryGroup, featureAssertion)
-        val groupType = if (searchBehaviour is NotSearchBehaviour) {
-            assertions.add(createHasElementAssertion(list))
+        if (searchBehaviour is NotSearchBehaviour) {
             addEmptyAssertionCreatorLambdaIfNecessary(multiConsumableContainer, assertions, searchCriterion, count)
-            DefaultSummaryAssertionGroupType
-        } else {
-            DefaultListAssertionGroupType
         }
-        return assertionBuilder.customType(groupType)
+        return assertionBuilder.list
             .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
             .withAssertions(assertions)
             .build()
