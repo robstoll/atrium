@@ -14,44 +14,44 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ResultExpectationsSpec(
-    isSuccessFeature: Feature0<Result<Int>, Int>,
-    isSuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
-    isSuccessFeatureNullable: Feature0<Result<Int?>, Int?>,
-    isSuccessNullable: Fun1<Result<Int?>, Expect<Int?>.() -> Unit>,
-    isFailureFeature: Feature0<Result<Int>, IllegalArgumentException>,
-    isFailure: Feature1<Result<Int>, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
+    toBeASuccessFeature: Feature0<Result<Int>, Int>,
+    toBeASuccess: Fun1<Result<Int>, Expect<Int>.() -> Unit>,
+    toBeASuccessFeatureNullable: Feature0<Result<Int?>, Int?>,
+    toBeASuccessNullable: Fun1<Result<Int?>, Expect<Int?>.() -> Unit>,
+    toBeAFailureFeature: Feature0<Result<Int>, IllegalArgumentException>,
+    toBeAFailure: Feature1<Result<Int>, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Result<Int>>(
         describePrefix,
-        isSuccessFeature.forSubjectLess(),
-        isSuccess.forSubjectLess { toEqual(1) },
-        isFailureFeature.forSubjectLess(),
-        isFailure.forSubjectLess { messageToContain("message") }
+        toBeASuccessFeature.forSubjectLess(),
+        toBeASuccess.forSubjectLess { toEqual(1) },
+        toBeAFailureFeature.forSubjectLess(),
+        toBeAFailure.forSubjectLess { messageToContain("message") }
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         "$describePrefix[nullable] ",
-        isSuccessFeatureNullable.forSubjectLess(),
-        isSuccessNullable.forSubjectLess { toEqual(1) }
+        toBeASuccessFeatureNullable.forSubjectLess(),
+        toBeASuccessNullable.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, Result.success(2),
-        isSuccess.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
+        toBeASuccess.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<Result<Int?>>(
         "$describePrefix[nullable] ", Result.success(2),
-        isSuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
+        toBeASuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
         assertionCreatorSpecTriple(
-            isFailure.name,
+            toBeAFailure.name,
             "${VALUE.getDefault()}: \"oh no...\"",
-            { apply { isFailure.invoke(this) { messageToContain("oh no...") } } },
-            { apply { isFailure.invoke(this) {} } }
+            { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
+            { apply { toBeAFailure.invoke(this) {} } }
         )
     ) {})
 
@@ -67,31 +67,31 @@ abstract class ResultExpectationsSpec(
     val isNotFailureDescr = DescriptionResultAssertion.IS_NOT_FAILURE.getDefault()
     val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
 
-    describeFun(isSuccessFeature, isSuccess, isSuccessFeatureNullable, isSuccessNullable, isFailureFeature, isFailure) {
+    describeFun(toBeASuccessFeature, toBeASuccess, toBeASuccessFeatureNullable, toBeASuccessNullable, toBeAFailureFeature, toBeAFailure) {
         val successFunctions = uncheckedToNonNullable(
-            unifySignatures(isSuccessFeature, isSuccess),
-            unifySignatures(isSuccessFeatureNullable, isSuccessNullable)
+            unifySignatures(toBeASuccessFeature, toBeASuccess),
+            unifySignatures(toBeASuccessFeatureNullable, toBeASuccessNullable)
         )
-        val failureFunctions = unifySignatures(isFailureFeature, isFailure)
+        val failureFunctions = unifySignatures(toBeAFailureFeature, toBeAFailure)
 
         context("subject is $resultSuccess") {
-            successFunctions.forEach { (name, isSuccessFun, _) ->
+            successFunctions.forEach { (name, toBeASuccessFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultSuccess).isSuccessFun { toEqual(1) }
+                    expect(resultSuccess).toBeASuccessFun { toEqual(1) }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultSuccess).isSuccessFun { toEqual(2) }
+                        expect(resultSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: 1", "$toBeDescr: 2")
                     }
                 }
             }
 
-            failureFunctions.forEach { (name, isFailureFun, hasExtraHint) ->
+            failureFunctions.forEach { (name, toBeAFailureFun, hasExtraHint) ->
                 it("$name - throws AssertionError showing the expected type" + if (hasExtraHint) " and the expected message" else "") {
                     expect {
-                        expect(resultSuccess).isFailureFun { messageToContain("oh yes...") }
+                        expect(resultSuccess).toBeAFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "exception: $isNotFailureDescr",
@@ -109,10 +109,10 @@ abstract class ResultExpectationsSpec(
         }
 
         context("subject is $resultFailure") {
-            successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
+            successFunctions.forEach { (name, toBeASuccessFun, hasExtraHint) ->
                 it("$name throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(resultFailure).isSuccessFun { toEqual(1) }
+                        expect(resultFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: $isNotSuccessDescr")
                         if (hasExtraHint) messageToContain("$toBeDescr: 1")
@@ -120,13 +120,13 @@ abstract class ResultExpectationsSpec(
                 }
             }
 
-            failureFunctions.forEach { (name, isFailureFun, _) ->
+            failureFunctions.forEach { (name, toBeAFailureFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultFailure).isFailureFun { messageToContain("oh no...") }
+                    expect(resultFailure).toBeAFailureFun { messageToContain("oh no...") }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultFailure).isFailureFun { messageToContain("oh yes...") }
+                        expect(resultFailure).toBeAFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
@@ -138,17 +138,17 @@ abstract class ResultExpectationsSpec(
         }
     }
 
-    describeFun(isSuccessFeatureNullable, isSuccessNullable) {
-        val successFunctions = unifySignatures(isSuccessFeatureNullable, isSuccessNullable)
+    describeFun(toBeASuccessFeatureNullable, toBeASuccessNullable) {
+        val successFunctions = unifySignatures(toBeASuccessFeatureNullable, toBeASuccessNullable)
 
-        successFunctions.forEach { (name, isSuccessFun, hasExtraHint) ->
+        successFunctions.forEach { (name, toBeASuccessFun, hasExtraHint) ->
             context("subject is $resultNullSuccess") {
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultNullSuccess).isSuccessFun { toEqual(null) }
+                    expect(resultNullSuccess).toBeASuccessFun { toEqual(null) }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
-                        expect(resultNullSuccess).isSuccessFun { toEqual(2) }
+                        expect(resultNullSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: null", "$toBeDescr: 2")
                     }
@@ -156,9 +156,9 @@ abstract class ResultExpectationsSpec(
             }
 
             context("subject is $resultNullableFailure") {
-                it("${isSuccessFeature.name} throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("${toBeASuccessFeature.name} throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(resultNullableFailure).isSuccessFun { toEqual(1) }
+                        expect(resultNullableFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: $isNotSuccessDescr")
                         if (hasExtraHint) messageToContain("$toBeDescr: 1")

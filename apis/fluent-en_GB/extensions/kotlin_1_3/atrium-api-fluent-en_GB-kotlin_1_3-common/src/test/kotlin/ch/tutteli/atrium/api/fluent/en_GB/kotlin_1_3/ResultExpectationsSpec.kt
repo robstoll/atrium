@@ -4,17 +4,17 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
 class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpectationsSpec(
-    feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
-    fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
-    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
-    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
-    ("isFailure" to Companion::isFailureFeature).withFeatureSuffix(),
-    "isFailure" to Companion::isFailure
+    feature0<Result<Int>, Int>(Expect<Result<Int>>::toBeASuccess),
+    fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::toBeASuccess),
+    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
+    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
+    ("isFailure" to Companion::toBeAFailureFeature).withFeatureSuffix(),
+    "isFailure" to Companion::toBeAFailure
 ) {
     companion object {
-        private fun isFailureFeature(expect: Expect<Result<Int>>) = expect.isFailure<IllegalArgumentException>()
+        private fun toBeAFailureFeature(expect: Expect<Result<Int>>) = expect.isFailure<IllegalArgumentException>()
 
-        private fun isFailure(
+        private fun toBeAFailure(
             expect: Expect<out Result<*>>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.isFailure<IllegalArgumentException> { assertionCreator() }
