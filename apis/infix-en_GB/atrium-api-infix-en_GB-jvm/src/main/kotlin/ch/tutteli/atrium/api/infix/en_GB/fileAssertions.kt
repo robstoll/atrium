@@ -37,4 +37,4 @@ infix fun <T : File> Expect<T>.asPath(@Suppress("UNUSED_PARAMETER") o: o): Expec
  * @since 0.12.0
  */
 infix fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    apply { asPath(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asPath(o)._logic.appendAsGroup(assertionCreator) }

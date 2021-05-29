@@ -27,7 +27,7 @@ infix fun <E, T : Sequence<E>> Expect<T>.asIterable(
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
-    apply { asIterable(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asIterable(o)._logic.appendAsGroup(assertionCreator) }
 
 /**
  * Turns `Expect<E, T : Sequence<E>>` into `Expect<List<E>`.
@@ -55,4 +55,4 @@ infix fun <E, T : Sequence<E>> Expect<T>.asList(
  * @since 0.14.0
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }

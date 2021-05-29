@@ -38,7 +38,7 @@ object I18nSpec : Spek({
         //snippet-import-logic-insert
 
         fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
-            appendAssertion(
+            append(
                 createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
             )
         }
@@ -50,7 +50,7 @@ object I18nSpec : Spek({
         //snippet-import-logic-insert
 
         fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
-            appendAssertion(
+            append(
                 createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
             )
         }

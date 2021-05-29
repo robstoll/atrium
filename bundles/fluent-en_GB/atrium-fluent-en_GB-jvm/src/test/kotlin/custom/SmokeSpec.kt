@@ -35,10 +35,10 @@ object SmokeSpec : Spek({
 })
 
 fun Expect<Int>.toBeEven() =
-    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.toBeOdd() =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
+    _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
 
 fun Expect<Int>.toBeAMultipleOf(base: Int) = _logicAppend { toBeAMultipleOf(base) }
 

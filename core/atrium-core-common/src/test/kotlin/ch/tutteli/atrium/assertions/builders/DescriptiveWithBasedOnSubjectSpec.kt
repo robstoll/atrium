@@ -11,7 +11,7 @@ import org.spekframework.spek2.Spek
 class DescriptiveWithBasedOnSubjectSpec : Spek({
 
     fun addDescriptive(f: (Expect<Int>, Descriptive.HoldsOption) -> Assertion) = expectLambda<Int> {
-        _logic.appendAssertion(f(this, assertionBuilder.descriptive))
+        _logic.append(f(this, assertionBuilder.descriptive))
     }
 
     include(object : SubjectLessSpec<Int>("",

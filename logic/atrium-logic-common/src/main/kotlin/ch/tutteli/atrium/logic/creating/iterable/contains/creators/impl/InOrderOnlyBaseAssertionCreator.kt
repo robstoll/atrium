@@ -46,7 +46,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     { emptyList() }
                 )
                 if (list.size > index) {
-                    _logic.appendAssertion(
+                    _logic.append(
                         createAdditionalElementsAssertion(
                             container,
                             index,
@@ -81,7 +81,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         itr: Iterator<E?>
     ): Assertion {
         return container.collectBasedOnSubject(Some(iterableAsList)) {
-            _logic.appendAssertion(LazyThreadUnsafeAssertionGroup {
+            _logic.append(LazyThreadUnsafeAssertionGroup {
                 val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                     val description = TranslatableWithArgs(
                         DescriptionIterableAssertion.ELEMENT_WITH_INDEX,

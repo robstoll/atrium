@@ -351,7 +351,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
-): Expect<T> = apply { asEntries(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+): Expect<T> = apply { asEntries(o)._logic.appendAsGroup(assertionCreator) }
 
 //TODO move to mapExpectations.kt with 0.18.0
 /**

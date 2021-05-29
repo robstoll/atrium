@@ -33,8 +33,8 @@ class BulletPointProviderSpec : Spek({
                     expectWitNewBulletPoint(p, "a") toEqual "b"
                 }),
                 ListAssertionGroupType::class to ("- " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.list
                                 .withDescriptionAndEmptyRepresentation("hello")
                                 .withAssertion(_logic.toBe("b")).build()
@@ -54,8 +54,8 @@ class BulletPointProviderSpec : Spek({
                     expectWitNewBulletPoint(p, listOf(1)) toContainExactly 2
                 }),
                 ExplanatoryAssertionGroupType::class to (">> " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withDefaultType
                                 .withAssertion(_logic.toBe("b"))
@@ -65,8 +65,8 @@ class BulletPointProviderSpec : Spek({
                     }
                 }),
                 WarningAssertionGroupType::class to ("(!) " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withWarningType
                                 .withAssertion(_logic.toBe("b"))
@@ -76,8 +76,8 @@ class BulletPointProviderSpec : Spek({
                     }
                 }),
                 InformationAssertionGroupType::class to ("(i) " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withInformationType(false)
                                 .withAssertion(_logic.toBe("b"))

@@ -191,7 +191,7 @@ abstract class TranslatorIntSpec(
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     expect {
                         val assertwithdechFr = assertWithDeCh_Fr(1)
-                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
+                        assertwithdechFr._logic.append(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
                                 firstOfFeb2017,
@@ -206,7 +206,7 @@ abstract class TranslatorIntSpec(
                 it("uses default translation but the primary Locale to format the date") {
                     expect {
                         val assertwithdechFr = assertWithDeCh_Fr(1)
-                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
+                        assertwithdechFr._logic.append(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_UNKNOWN,
                                 firstOfFeb2017
@@ -226,7 +226,7 @@ abstract class TranslatorIntSpec(
                 ) {
                     expect {
                         val assertwithdechFr = assertWithDeCh_Fr(1)
-                        assertwithdechFr._logic.appendAssertion(assertwithdechFr._logic.createDescriptiveAssertion(
+                        assertwithdechFr._logic.append(assertwithdechFr._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.PLACEHOLDER,
                                 toBe
@@ -251,7 +251,7 @@ abstract class TranslatorIntSpec(
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     expect {
                         val assertwithdechFrchItch = assertWithDeCh_FrCh_ItCh(1)
-                        assertwithdechFrchItch._logic.appendAssertion(assertwithdechFrchItch._logic.createDescriptiveAssertion(
+                        assertwithdechFrchItch._logic.append(assertwithdechFrchItch._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_KNOWN,
                                 firstOfFeb2017,
@@ -266,7 +266,7 @@ abstract class TranslatorIntSpec(
                 it("uses 'it' but the primary Locale to format the date") {
                     expect {
                         val assertwithdechFrchItch = assertWithDeCh_FrCh_ItCh(1)
-                        assertwithdechFrchItch._logic.appendAssertion(assertwithdechFrchItch._logic.createDescriptiveAssertion(
+                        assertwithdechFrchItch._logic.append(assertwithdechFrchItch._logic.createDescriptiveAssertion(
                             TranslatableWithArgs(
                                 TestTranslatable.DATE_UNKNOWN,
                                 firstOfFeb2017

@@ -404,4 +404,4 @@ fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * @since 0.14.0
  */
 fun <E, T : Iterable<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList()._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList()._logic.appendAsGroup(assertionCreator) }

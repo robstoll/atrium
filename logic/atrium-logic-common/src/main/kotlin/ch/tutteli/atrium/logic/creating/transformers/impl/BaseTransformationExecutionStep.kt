@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.collect
 import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
-import ch.tutteli.atrium.logic.toExpect
 
 /**
  * Step which has all necessary information to perform a subject transformation (subject change/feature extraction etc.)
@@ -37,7 +36,7 @@ abstract class BaseTransformationExecutionStep<T, R, E : Expect<R>>(
      * @return an [Expect] for the subject of this expectation.
      */
     final override fun collectAndAppend(assertionCreator: Expect<R>.() -> Unit): Expect<T> =
-        container.appendAssertion(collect(assertionCreator))
+        container.append(collect(assertionCreator))
 
     /**
      * Finishes the transformation process by collecting the assertions the given [assertionCreator] creates

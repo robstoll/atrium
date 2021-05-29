@@ -37,4 +37,4 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
-    apply { asPath()._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asPath()._logic.appendAsGroup(assertionCreator) }

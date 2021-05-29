@@ -16,15 +16,15 @@ internal class CollectingExpectImpl<T>(
 
     override fun getAssertions(): List<Assertion> = assertions.toList()
 
-    override fun addAssertion(assertion: Assertion): Expect<T> = appendAssertion(assertion)
+    override fun addAssertion(assertion: Assertion): Expect<T> = append(assertion)
 
-    override fun appendAssertion(assertion: Assertion): Expect<T> =
+    override fun append(assertion: Assertion): Expect<T> =
         apply { assertions.add(assertion) }
 
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> =
-        appendAssertionsCreatedBy(assertionCreator)
+        appendAsGroup(assertionCreator)
 
-    override fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
+    override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
         // in case we run into performance problems, the code below is certainly not ideal
         val allAssertions = mutableListOf<Assertion>()
         allAssertions.addAll(getAssertions())
@@ -56,7 +56,7 @@ internal class CollectingExpectImpl<T>(
                 .build()
             )
         }
-        allAssertions.forEach { appendAssertion(it) }
+        allAssertions.forEach { append(it) }
         return this
     }
 

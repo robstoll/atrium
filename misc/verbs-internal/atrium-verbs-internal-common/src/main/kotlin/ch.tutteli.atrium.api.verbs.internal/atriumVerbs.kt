@@ -41,7 +41,7 @@ fun <T> expect(subject: T): RootExpect<T> =
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(subject)._logic.appendAssertionsCreatedBy(assertionCreator)
+    expect(subject)._logic.appendAsGroup(assertionCreator)
 
 /**
  * Defines the translation used for the assertion verbs used for internal purposes.
