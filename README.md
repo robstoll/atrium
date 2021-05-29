@@ -2010,7 +2010,7 @@ This is kind of the simplest way of defining assertion functions. Following an e
 import ch.tutteli.atrium.logic._logic
 
 fun Expect<Int>.toBeAMultipleOf(base: Int) =
-    _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
+    _logic.createAndAppend("is multiple of", base) { it % base == 0 }
 ```
 </code-own-boolean-1>
 
@@ -2060,7 +2060,7 @@ Consider the following assertion function:
 import ch.tutteli.atrium.logic._logic
 
 fun Expect<Int>.toBeEven() =
-    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 ```
 </code-own-boolean-2>
 
@@ -2109,7 +2109,7 @@ if you want that both are evaluated:
 import ch.tutteli.atrium.logic._logic
 
 fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    _logic.appendAssertionsCreatedBy {
+    _logic.appendAsGroup {
         toBeGreaterThanOrEqualTo(lowerBoundInclusive)
         toBeLessThan(upperBoundExclusive)
     }
@@ -2481,7 +2481,7 @@ we do no longer use a `String` but a proper `Translatable`.
 import ch.tutteli.atrium.logic.*
 
 fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
-    appendAssertion(
+    append(
         createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
     )
 }
@@ -2533,7 +2533,7 @@ as second example:
 import ch.tutteli.atrium.logic.*
 
 fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
-    appendAssertion(
+    append(
         createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
     )
 }

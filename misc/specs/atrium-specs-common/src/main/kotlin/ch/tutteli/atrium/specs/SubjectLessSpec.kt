@@ -50,7 +50,7 @@ abstract class SubjectLessSpec<T>(
                     .withDefaultType
                     .withAssertions(assertions)
                     .build()
-                expect._logic.appendAssertion(explanatoryGroup)
+                expect._logic.append(explanatoryGroup)
             }
         }
     }

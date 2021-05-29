@@ -170,7 +170,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${toContain.name} 'treboR' and 'llotS' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAssertionsCreatedBy {
+                        expect(person)._logic.appendAsGroup {
                             feature(Person::name).toContainFun("treboR", "llotS")
                         }
                     }.toThrow<AssertionError> {
@@ -179,7 +179,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 }
                 it("${notToContain.name} 'Robert' and 'Stoll' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAssertionsCreatedBy {
+                        expect(person)._logic.appendAsGroup {
                             feature(Person::name).notToContainFun("Robert", "Stoll")
                         }
                     }.toThrow<AssertionError> {

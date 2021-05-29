@@ -35,7 +35,7 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
  * @since 0.12.0
  */
 infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<E>> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 /**
  * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
@@ -52,7 +52,7 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
  */
 @JvmName("asListEOut")
 infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<Array<out E>> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 /**
  * Turns `Expect<CharArray>` into `Expect<List<Byte>>`.
@@ -85,7 +85,7 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  */
 @JvmName("byteArrAsList")
 infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): Expect<ByteArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -119,7 +119,7 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  */
 @JvmName("charArrAsList")
 infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): Expect<CharArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -153,7 +153,7 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  */
 @JvmName("shortArrAsList")
 infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit): Expect<ShortArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -187,7 +187,7 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
  */
 @JvmName("intArrAsList")
 infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Expect<IntArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -221,7 +221,7 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  */
 @JvmName("longArrAsList")
 infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): Expect<LongArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -255,7 +255,7 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  */
 @JvmName("floatArrAsList")
 infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit): Expect<FloatArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -289,7 +289,7 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
  */
 @JvmName("doubleArrAsList")
 infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit): Expect<DoubleArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }
 
 
 /**
@@ -323,4 +323,4 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
  */
 @JvmName("boolArrAsList")
 infix fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Unit): Expect<BooleanArray> =
-    apply { asList(o)._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList(o)._logic.appendAsGroup(assertionCreator) }

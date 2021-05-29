@@ -17,7 +17,7 @@ fun <T> expect(t: T): Expect<T> =
     }
 
 fun <T> expect(t: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(t)._logic.appendAssertionsCreatedBy(assertionCreator)
+    expect(t)._logic.appendAsGroup(assertionCreator)
 
 class ReadmeObjectFormatter(translator: Translator) : AbstractTextObjectFormatter(translator) {
 

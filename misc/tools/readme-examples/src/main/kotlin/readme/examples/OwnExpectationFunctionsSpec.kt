@@ -34,7 +34,7 @@ object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-1-start
     fun Expect<Int>.toBeAMultipleOf(base: Int) =
-        _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
+        _logic.createAndAppend("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
     test("code-own-boolean-1") {
         //snippet-own-boolean-import-insert
@@ -47,7 +47,7 @@ object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-2-start
     fun Expect<Int>.toBeEven() =
-        _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+        _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     test("code-own-boolean-2") {
         //snippet-own-boolean-import-insert

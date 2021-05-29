@@ -44,7 +44,7 @@ fun <T> assertThat(subject: T): RootExpect<T> =
     ReplaceWith("expect<T>(subject, assertionCreator)", "ch.tutteli.atrium.api.verbs.expect")
 )
 fun <T> assertThat(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    assertThat(subject)._logic.appendAssertionsCreatedBy(assertionCreator)
+    assertThat(subject)._logic.appendAsGroup(assertionCreator)
 
 @Deprecated(
     "`assertThat` should not be nested, use `feature` instead.",

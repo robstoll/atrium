@@ -43,21 +43,21 @@ abstract class BaseExpectImpl<T>(
 
     //TODO remove with 0.18.0
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-        appendAssertionsCreatedBy(assertionCreator)
+        appendAsGroup(assertionCreator)
 
-    override fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
+    override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T> {
         val assertions = CollectingExpect(maybeSubject, components)
-            .appendAssertionsCreatedBy(assertionCreator)
+            .appendAsGroup(assertionCreator)
             .getAssertions()
-        return addAssertions(assertions)
+        return appendAsGroup(assertions)
     }
 
 
-    protected fun addAssertions(assertions: List<Assertion>): Expect<T> {
+    protected fun appendAsGroup(assertions: List<Assertion>): Expect<T> {
         return when (assertions.size) {
             0 -> this
-            1 -> appendAssertion(assertions.first())
-            else -> appendAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
+            1 -> append(assertions.first())
+            else -> append(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
         }
     }
 

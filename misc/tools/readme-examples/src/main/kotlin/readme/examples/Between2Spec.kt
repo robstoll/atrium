@@ -30,7 +30,7 @@ object Between2Spec : Spek({
         //snippet-own-compose-import-insert
 
         fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-            _logic.appendAssertionsCreatedBy {
+            _logic.appendAsGroup {
                 toBeGreaterThanOrEqualTo(lowerBoundInclusive)
                 toBeLessThan(upperBoundExclusive)
             }

@@ -216,7 +216,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAssertionsCreatedBy(assertionCreator)
+    _logic.appendAsGroup(assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) [expected] and [otherValues].

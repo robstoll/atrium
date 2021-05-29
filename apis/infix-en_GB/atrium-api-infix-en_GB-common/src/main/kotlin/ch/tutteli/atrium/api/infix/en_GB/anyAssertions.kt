@@ -246,7 +246,7 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAssertionsCreatedBy(assertionCreator)
+    _logic.appendAsGroup(assertionCreator)
 
 //TODO 0.17.0 deprecate?
 /**

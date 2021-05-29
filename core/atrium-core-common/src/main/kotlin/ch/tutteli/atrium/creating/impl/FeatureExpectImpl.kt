@@ -49,7 +49,7 @@ internal class FeatureExpectImpl<T, R>(
     private val assertions: MutableList<Assertion> = mutableListOf()
 
     init {
-        addAssertions(assertions)
+        appendAsGroup(assertions)
     }
 
     override val components: ComponentFactoryContainer
@@ -58,9 +58,9 @@ internal class FeatureExpectImpl<T, R>(
 
 
     override fun addAssertion(assertion: Assertion): Expect<R> =
-        appendAssertion(assertion)
+        append(assertion)
 
-    override fun appendAssertion(assertion: Assertion): Expect<R> {
+    override fun append(assertion: Assertion): Expect<R> {
         assertions.add(assertion)
         //Would be nice if we don't have to add it immediately to the previousExpect but only:
         //if (!assertion.holds()) {
@@ -76,7 +76,7 @@ internal class FeatureExpectImpl<T, R>(
         //
         //However, for this to work we would need to know when no more assertion is defined. This would be possible
         //for CollectingExpectImpl
-        (previousExpect as AssertionContainer<*>).appendAssertion(
+        (previousExpect as AssertionContainer<*>).append(
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(description, representation)
                 .withAssertions(ArrayList(assertions))

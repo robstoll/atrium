@@ -33,6 +33,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      * Might be we completely remove it without prior notice.
      */
     //TODO 0.18.0/0.19.0 maybe it would be better to have proofFactories as val like we have components?
+    //TODO 0.18.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 
@@ -55,8 +56,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
-    //TODO 0.17.0 rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
-    fun appendAssertion(assertion: Assertion): Expect<T>
+    fun append(assertion: Assertion): Expect<T>
 
     /**
      * Appends the [Assertion]s the given [assertionCreator] creates to this container and
@@ -72,12 +72,11 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
-    //TODO 0.17.0  rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
-    fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
+    fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
-     * and [appends][appendAssertion] it to the container.
+     * and [append]s it to the container.
      *
      * @param description The description of the assertion, e.g., `is less than`.
      * @param expected The expected value, e.g., `5`
@@ -86,8 +85,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      * @return an [Expect] for the subject of `this` expectation.
      */
     //TODO remove SUPPRESS with 0.18.0
-    //TODO 0.17.0  rename to append - this way we can use it also on ProofContainer and users won't notice anything as long as they recompile
     @Suppress("UNCHECKED_CAST", "DEPRECATION")
-    fun createAndAppendAssertion(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
-        appendAssertion(assertionBuilder.createDescriptive(this as Expect<T>, Untranslatable(description),expected, test))
+    fun createAndAppend(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
+        append(assertionBuilder.createDescriptive(this as Expect<T>, Untranslatable(description),expected, test))
 }

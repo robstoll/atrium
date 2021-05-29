@@ -59,10 +59,10 @@ object even
 object odd
 
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
 
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
 
 infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 
