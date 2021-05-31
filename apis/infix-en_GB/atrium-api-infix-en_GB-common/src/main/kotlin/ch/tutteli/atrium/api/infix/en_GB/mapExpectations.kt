@@ -14,6 +14,9 @@ import ch.tutteli.kbox.identity
  * Starts a sophisticated `toContain` assertion building process based on this [Expect].
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainBuilder
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -61,6 +64,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePair: Pair<K
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainPairs
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(keyValuePairs: Pairs<K, V>): Expect<T> =
     it toContain o inAny order the keyValuePairs
@@ -75,6 +81,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(keyValuePairs: Pairs<K, 
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyPairs
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePairs: Pairs<K, V>): Expect<T> =
     it toContain o inAny order but only the keyValuePairs
@@ -93,6 +102,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePairs: Pairs
  *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
+ *
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it toContain o inAny order entry keyValue
@@ -111,6 +123,9 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(ke
  *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyKeyValue
+ *
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it toContain o inAny order but only entry keyValue
@@ -129,7 +144,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnl
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValues
  *
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
@@ -146,7 +161,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyKeyValue
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyKeyValues
  *
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(
@@ -160,7 +175,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnl
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainEntriesOf
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainEntriesOf
  *
  */
 infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.toContainEntriesOf(
@@ -200,7 +215,6 @@ infix fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.notToContainKey
- *
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }

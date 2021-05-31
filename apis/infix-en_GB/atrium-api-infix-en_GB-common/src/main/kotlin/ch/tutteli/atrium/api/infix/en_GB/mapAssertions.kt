@@ -140,6 +140,9 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly
 /**
  * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
  * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
+ *
  */
 fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?): KeyWithValueCreator<K, V> =
     KeyWithValueCreator(key, valueAssertionCreatorOrNull)
@@ -388,7 +391,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.notToBeEmpty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toBeEmpty
  *
  */
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =

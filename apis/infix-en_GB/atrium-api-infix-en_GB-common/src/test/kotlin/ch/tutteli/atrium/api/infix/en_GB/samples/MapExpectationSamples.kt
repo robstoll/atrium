@@ -8,10 +8,10 @@ class MapExpectationSamples {
 
     @Test
     fun toContainBuilder() {
-        expect(mapOf(1 to "a")) toContain (1 to "a")
+        expect(mapOf(1 to "a")) toContain o inAny order entry (1 to "a")
 
         fails { // because the map does not contain key 1 with value "b"
-            expect(mapOf(1 to "a")) toContain (1 to "b")
+            expect(mapOf(1 to "a")) toContain o inAny order entry (1 to "b")
         }
     }
 
@@ -34,27 +34,87 @@ class MapExpectationSamples {
     }
 
     @Test
+    fun toContainPairs() {
+        expect(mapOf(1 to "a", 2 to "b")) toContain pairs(1 to "a", 2 to "b")
+
+        fails { // because the map contains key 2 with value "b" and not key 1 with value "b"
+            expect(mapOf(1 to "a", 2 to "b")) toContain pairs(1 to "a", 1 to "b")
+        }
+    }
+
+    @Test
+    fun toContainOnlyPairs() {
+        expect(mapOf(1 to "a", 2 to "b")) toContainOnly pairs(1 to "a", 2 to "b")
+
+        fails { // because the map contains key 2 with value "b" in addition
+            expect(mapOf(1 to "a", 2 to "b")) toContainOnly pairs(1 to "a")
+        }
+    }
+
+    @Test
     fun toContainKeyValue() {
-        // subject inside this block is of type String (actually "a")
-        expect(mapOf(1 to "a")) toContain keyValues(keyValue(1) { this toEqual "a" })
+        expect(mapOf(1 to "a")) toContain keyValue(1) { // subject inside this block is of type String (actually "a")
+            this toEqual "a"
+        }
 
         fails {
-            // subject inside this block is of type String (actually "a")
-            // fails because "a" is not equal to "b"
-            expect(mapOf(1 to "a")) toContain keyValues(keyValue(1) { this toEqual "b" })
+            expect(mapOf(1 to "a")) toContain keyValue(1) {  // subject inside this block is of type String (actually "a")
+                this toEqual "b"          // fails because "a" is not equal to "b"
+            }
         }
     }
 
     @Test
     fun toContainOnlyKeyValue() {
-        // subject inside this block is of type String (actually "a")
-        expect(mapOf(1 to "a")) toContainOnly keyValues(keyValue(1) { this toEqual "a" })
+        expect(mapOf(1 to "a")) toContainOnly keyValue(1) { // subject inside this block is of type String (actually "a")
+            this toEqual "a"
+        }
+
+        fails { // fails because the map contains key 2 with value "b" in addition
+            expect(
+                mapOf(1 to "a", 2 to "b")
+            ) toContainOnly keyValue(1) {  // subject inside this block is of type String (actually "a")
+                this toEqual "a"
+            }
+        }
+    }
+
+    @Test
+    fun toContainKeyValues() {
+        expect(mapOf(1 to "a")) toContain keyValues(
+            keyValue(1) { // subject inside this block is of type String (actually "a")
+                this toEqual "a"
+            }
+        )
 
         fails {
-            // subject inside this block is of type String (actually "a")
-            // fails because the map contains key 2 with value "b" in addition
-            expect(mapOf(1 to "a", 2 to "b")) toContainOnly keyValues(keyValue(1) { this toEqual "a" })
+            expect(mapOf(1 to "a")) toContain keyValues(
+                keyValue(1) { // subject inside this block is of type String (actually "b")
+                    this toEqual "b"
+                }
+            )
         }
+    }
+
+    @Test
+    fun toContainOnlyKeyValues() {
+        expect(mapOf(1 to "a", 2 to "b")) toContainOnly keyValues(
+            keyValue(1) { // subject inside this block is of type String (actually "a")
+                this toEqual "a"
+            },
+            keyValue(2) { // subject inside this block is of type String (actually "b")
+                this toEqual "b"
+            }
+        )
+
+        fails {
+            expect(mapOf(1 to "a", 2 to "b")) toContainOnly keyValues(
+                keyValue(1) { // subject inside this block is of type String (actually "a")
+                    this toEqual "a"
+                }
+            )
+        }
+
     }
 
     @Test
@@ -95,35 +155,31 @@ class MapExpectationSamples {
 
     @Test
     fun getExistingFeature() {
-        // subject is of type String (actually "a")
         expect(mapOf(1 to "a")) getExisting 1 toEqual "a"
+        //                      | subject is of type String (actually "a")
 
         fails {
-            // subject is of type String (actually "a")
             // fails because "a" is not equal to "b"
             expect(mapOf(1 to "a")) getExisting 1 toEqual "b"
+            //                      | subject is of type String (actually "a")
         }
 
         fails {
             // expectation fails because key 2 does not exist
-            // not reported, use `getExisting(key) { ... }`
+            expect(mapOf(1 to "a")) getExisting 2 toEqual "a" // not reported, use `getExisting(key) { ... }`
             // if you want that all expectations are evaluated
-            expect(mapOf(1 to "a")) getExisting 2 toEqual "a"
         }
     }
 
     @Test
     fun getExisting() {
-        // subject inside this block is of type String (actually "a")
-        expect(mapOf(1 to "a")) getExisting key(1) {
+        expect(mapOf(1 to "a")) getExisting key(1) {   // subject inside this block is of type String (actually "a")
             this toEqual "a"
         }
 
         fails {
-            // subject inside this block is of type String (actually "a")
-            // fails because "a" is not equal to "b"
-            expect(mapOf(1 to "a")) getExisting key(1) {
-                this toEqual "b"
+            expect(mapOf(1 to "a")) getExisting key(1) {  // subject inside this block is of type String (actually "a")
+                this toEqual "b"   // fails because "a" is not equal to "b"
             }
         }
 
@@ -131,26 +187,22 @@ class MapExpectationSamples {
             // all expectations are evaluated inside an expectation group block; for more details:
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
 
-            // fails because key 2 does not exist
-            // still evaluated because we use an expectation group block
-            // use `.getExisting(key).` if you want a fail fast behaviour
-
-            expect(mapOf(1 to "a")) getExisting key(2) {
-                this toEqual "a"
+            expect(mapOf(1 to "a")) getExisting key(2) {   // fails because key 2 does not exist
+                this toEqual "a"    // still evaluated because we use an expectation group block
+                // use `.getExisting(key).` if you want a fail fast behaviour
             }
         }
     }
 
     @Test
     fun keysFeature() {
-        // subject is now of type Set<Int> (containing 1)
         expect(mapOf(1 to "a")).keys toContain 1
+        //                     | subject is now of type Set<Int> (containing 1)
 
         fails {
-            // subject is now of type Set<Int> (containing 1)
             // fails because 1 is not equal to 2
-
             expect(mapOf(1 to "a")).keys toContain 2
+            //                     | subject is now of type Set<Int> (containing 1)
         }
     }
 
@@ -165,8 +217,8 @@ class MapExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
 
             expect(mapOf(1 to "a")) keys { // subject inside this block is of type Set<Int> (containing 1)
-                toEqual(setOf(2))          // fails because 1 is not equal to 2
-                toHaveSize(3)      // still evaluated because we use an expectation group block
+                this toEqual setOf(2)      // fails because 1 is not equal to 2
+                this toHaveSize 3          // still evaluated because we use an expectation group block
                 // use `.keys.` if you want a fail fast behaviour
             }
         }
@@ -174,20 +226,19 @@ class MapExpectationSamples {
 
     @Test
     fun valuesFeature() {
-        // subject is now of type Collection<String> (containing "a")
         expect(mapOf(1 to "a")).values toContain "a"
+        //                     | subject is now of type Collection<String> (containing "a")
 
         fails {
-            // subject is now of type Collection<String> (containing "a")
             // fails because "a" is not equal to "b"
             expect(mapOf(1 to "a")).values toContain "b"
+            //                     | subject is now of type Collection<String> (containing "a")
         }
     }
 
     @Test
     fun values() {
-        // subject inside this block is of type Collection<String> (containing "a")
-        expect(mapOf(1 to "a")) values {
+        expect(mapOf(1 to "a")) values {   // subject inside this block is of type Collection<String> (containing "a")
             this toEqual setOf("a")
         }
 
@@ -195,21 +246,20 @@ class MapExpectationSamples {
             // all expectations are evaluated inside an expectation group block; for more details:
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
 
-            // subject inside this block is of type Collection<String> (containing <"a">)
-            // fails because "a" is not equal to "b"
-            // use `.values.` if you want a fail fast behaviour
-            expect(mapOf(1 to "a")) values {
-                this toEqual setOf("b")
+            expect(mapOf(1 to "a")) values { // subject inside this block is of type Collection<String> (containing <"a">)
+                this toEqual setOf("b")      // fails because "a" is not equal to "b"
+                // use `.values.` if you want a fail fast behaviour
             }
         }
     }
 
     @Test
     fun asEntriesFeature() {
-        expect(mapOf(1 to "a")) asEntries o toEqual (mapOf(1 to "a").entries)
+        expect(mapOf(1 to "a")) asEntries o toEqual mapOf(1 to "a").entries
 
-        fails { // because <1,"a"> is not equal to <1,"b">
-            expect(mapOf(1 to "a")) asEntries o toEqual (mapOf(1 to "b").entries)
+        fails {
+            // because <1,"a"> is not equal to <1,"b">
+            expect(mapOf(1 to "a")) asEntries o toEqual mapOf(1 to "b").entries
         }
     }
 
