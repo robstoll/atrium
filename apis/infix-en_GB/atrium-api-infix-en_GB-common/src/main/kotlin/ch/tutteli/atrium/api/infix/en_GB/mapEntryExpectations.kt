@@ -10,6 +10,7 @@ import ch.tutteli.atrium.logic.*
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.toEqualKeyValue
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.isKeyValue
  *
  * @since 0.17.0
  */

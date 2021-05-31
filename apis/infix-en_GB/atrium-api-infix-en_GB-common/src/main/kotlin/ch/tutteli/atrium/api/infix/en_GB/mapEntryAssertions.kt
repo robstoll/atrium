@@ -22,6 +22,9 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
  * Creates an [Expect] for the property [Map.Entry.key] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.keyFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.keyFeature
+ *
  * @return The newly created [Expect] for the extracted feature.
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
@@ -33,6 +36,9 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * holds all assertions the given [assertionCreator] creates for it and
  * returns an [Expect] for the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.key
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.key
+ *
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
@@ -42,6 +48,9 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
 /**
  * Creates an [Expect] for the property [Map.Entry.value] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.valueFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.valueFeature
  *
  * @return The newly created [Expect] for the extracted feature.
  */
@@ -53,6 +62,9 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * Expects that the property [Map.Entry.value] of the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
  * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.value
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.value
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
