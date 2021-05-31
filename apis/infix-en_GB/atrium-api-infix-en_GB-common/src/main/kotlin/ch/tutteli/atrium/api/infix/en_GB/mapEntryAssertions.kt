@@ -63,7 +63,6 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.value
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.value
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
