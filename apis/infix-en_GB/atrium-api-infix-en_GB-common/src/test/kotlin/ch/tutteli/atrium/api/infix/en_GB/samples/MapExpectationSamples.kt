@@ -89,7 +89,7 @@ class MapExpectationSamples {
 
         fails {
             expect(mapOf(1 to "a")) toContain keyValues(
-                keyValue(1) { // subject inside this block is of type String (actually "b")
+                keyValue(1) { // subject inside this block is of type String (actually "a")
                     this toEqual "b"
                 }
             )
