@@ -48,7 +48,6 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
  * so that further fluent calls are assertions about it.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.valueFeature
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.valueFeature
  *
  * @return The newly created [Expect] for the extracted feature.
  */
