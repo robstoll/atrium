@@ -36,7 +36,6 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.key
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.key
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
