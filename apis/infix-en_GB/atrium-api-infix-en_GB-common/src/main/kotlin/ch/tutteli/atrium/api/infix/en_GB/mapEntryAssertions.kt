@@ -12,6 +12,8 @@ import ch.tutteli.atrium.logic.*
  * reporting etc.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.isKeyValue
  */
 @Deprecated("Use toEqualKeyValue; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqualKeyValue<K, V, T>(keyValuePair)"))
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
@@ -23,6 +25,8 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.keyFeature
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
     get() = _logic.key().transform()
@@ -34,6 +38,8 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.key
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
@@ -44,6 +50,8 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.valueFeature
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
     get() = _logic.value().transform()
@@ -55,6 +63,8 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.value
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)
