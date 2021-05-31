@@ -23,7 +23,6 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.isKeyValue(keyValuePair: Pair<K,
  * so that further fluent calls are assertions about it.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.keyFeature
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.MapEntryAssertionSamples.keyFeature
  *
  * @return The newly created [Expect] for the extracted feature.
  */
