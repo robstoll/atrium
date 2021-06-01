@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.getOrElse
@@ -16,12 +17,15 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.impl.allCreatedAssertionsHold
 import ch.tutteli.atrium.logic.impl.createExplanatoryAssertionGroup
-import ch.tutteli.atrium.logic.impl.createHasElementAssertion
+import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
+import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WHICH
+import ch.tutteli.kbox.identity
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -62,7 +66,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         return if (searchBehaviour is NotSearchBehaviour) {
             assertionBuilder.invisibleGroup
                 .withAssertions(
-                    createHasElementAssertion(list),
+                    multiConsumableContainer.hasNext(::identity),
                     inAnyOrderAssertion
                 )
                 .build()
@@ -84,14 +88,26 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         )
 
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        val assertions = mutableListOf<Assertion>(explanatoryGroup, featureAssertion)
+        val assertions = mutableListOf<Assertion>(explanatoryGroup)
         if (searchBehaviour is NotSearchBehaviour) {
-            addEmptyAssertionCreatorLambdaIfNecessary(multiConsumableContainer, assertions, searchCriterion, count)
+            val emptyAssertionHint = createEmptyAssertionHintIfNecessary(multiConsumableContainer, searchCriterion, count)
+                ?.also { assertions.add(it) }
+            val mismatches = createIndexAssertions(list) { (_, element) ->
+                allCreatedAssertionsHold(multiConsumableContainer, element, searchCriterion)
+            }
+            assertions.add(createExplanatoryGroupForMismatches(mismatches))
+            return assertionBuilder.fixedClaimGroup
+                .withListType
+                .withClaim(mismatches.isEmpty() && emptyAssertionHint == null)
+                .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
+                .withAssertions(assertions)
+                .build()
+        } else {
+            return assertionBuilder.list
+                .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
+                .withAssertions(explanatoryGroup, featureAssertion)
+                .build()
         }
-        return assertionBuilder.list
-            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
-            .withAssertions(assertions)
-            .build()
     }
 
     private fun createExplanatoryAssertionsAndMatchingCount(
@@ -104,17 +120,36 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         return group to count
     }
 
-    //TODO 0.18.0 check if this is still state of the art to add a hint that no assertion was created
-    // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
-    // maybe it would be enough to collect
+//    //TODO 0.18.0 check if this is still state of the art to add a hint that no assertion was created
+//    // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
+//    // maybe it would be enough to collect
+//    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+//    @UseExperimental(ExperimentalComponentFactoryContainer::class)
+//    private fun addEmptyAssertionCreatorLambdaIfNecessary(
+//        container: AssertionContainer<*>,
+//        assertions: MutableList<Assertion>,
+//        searchCriterion: (Expect<E>.() -> Unit)?,
+//        count: Int
+//    ) {
+//        if (searchCriterion != null && count == 0) {
+//            val collectingExpect = CollectingExpect<E>(None, container.components)
+//            // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
+//            collectingExpect.searchCriterion()
+//            val collectedAssertions = collectingExpect.getAssertions()
+//            if (collectedAssertions.isEmpty()) {
+//                // no assertion created in the lambda, so lets add the failing assertion containing the hint
+//                assertions.add(container.collectBasedOnSubject(None, searchCriterion))
+//            }
+//        }
+//    }
+
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalComponentFactoryContainer::class)
-    private fun addEmptyAssertionCreatorLambdaIfNecessary(
+    private fun createEmptyAssertionHintIfNecessary(
         container: AssertionContainer<*>,
-        assertions: MutableList<Assertion>,
         searchCriterion: (Expect<E>.() -> Unit)?,
         count: Int
-    ) {
+    ): Assertion? {
         if (searchCriterion != null && count == 0) {
             val collectingExpect = CollectingExpect<E>(None, container.components)
             // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
@@ -122,8 +157,9 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
             val collectedAssertions = collectingExpect.getAssertions()
             if (collectedAssertions.isEmpty()) {
                 // no assertion created in the lambda, so lets add the failing assertion containing the hint
-                assertions.add(container.collectBasedOnSubject(None, searchCriterion))
+                return container.collectBasedOnSubject(None, searchCriterion)
             }
         }
+        return null
     }
 }
