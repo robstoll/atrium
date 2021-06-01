@@ -62,7 +62,6 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         inAnyOrderAssertion: AssertionGroup,
         multiConsumableContainer: AssertionContainer<List<E?>>
     ): AssertionGroup {
-        val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
         return if (searchBehaviour is NotSearchBehaviour) {
             assertionBuilder.invisibleGroup
                 .withAssertions(
@@ -119,29 +118,6 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         val count = list.count { allCreatedAssertionsHold(container, it, assertionCreatorOrNull) }
         return group to count
     }
-
-//    //TODO 0.18.0 check if this is still state of the art to add a hint that no assertion was created
-//    // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
-//    // maybe it would be enough to collect
-//    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-//    @UseExperimental(ExperimentalComponentFactoryContainer::class)
-//    private fun addEmptyAssertionCreatorLambdaIfNecessary(
-//        container: AssertionContainer<*>,
-//        assertions: MutableList<Assertion>,
-//        searchCriterion: (Expect<E>.() -> Unit)?,
-//        count: Int
-//    ) {
-//        if (searchCriterion != null && count == 0) {
-//            val collectingExpect = CollectingExpect<E>(None, container.components)
-//            // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
-//            collectingExpect.searchCriterion()
-//            val collectedAssertions = collectingExpect.getAssertions()
-//            if (collectedAssertions.isEmpty()) {
-//                // no assertion created in the lambda, so lets add the failing assertion containing the hint
-//                assertions.add(container.collectBasedOnSubject(None, searchCriterion))
-//            }
-//        }
-//    }
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalComponentFactoryContainer::class)

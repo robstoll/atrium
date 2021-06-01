@@ -45,7 +45,6 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
     ) = notToContainNullableEntries(this, a, aX)
 
     val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
-    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     nonNullableCases(
         describePrefix,
