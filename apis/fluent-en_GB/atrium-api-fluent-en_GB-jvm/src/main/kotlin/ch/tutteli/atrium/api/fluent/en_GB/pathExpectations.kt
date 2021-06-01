@@ -16,6 +16,8 @@ import java.nio.file.Path
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toStartWith
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
@@ -25,6 +27,8 @@ fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
  * Expects that the subject of `this` expectation (a [Path]) does not start with the [expected] [Path].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.notToStartWith
  *
  * @since 0.17.0
  */
@@ -36,6 +40,8 @@ fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toEndWith
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
@@ -46,6 +52,8 @@ fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
  *
  * @param expected The [Path] provided to the assertion
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.notToEndWith
  *
  * @since 0.17.0
  */
@@ -61,6 +69,8 @@ fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toExist
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toExist(): Expect<T> =
@@ -74,6 +84,8 @@ fun <T : Path> Expect<T>.toExist(): Expect<T> =
  * then the search will continue at that location.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.notToExist
  *
  * @since 0.17.0
  */
@@ -96,6 +108,8 @@ fun <T : Path> Expect<T>.notToExist(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeReadable
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
@@ -111,6 +125,8 @@ fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
  * at the location the link points at.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeWritable
  *
  * @since 0.17.0
  */
@@ -133,6 +149,8 @@ fun <T : Path> Expect<T>.toBeWritable(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeExecutable
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
@@ -152,6 +170,8 @@ fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeARegularFile
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeARegularFile(): Expect<T> =
@@ -170,6 +190,8 @@ fun <T : Path> Expect<T>.toBeARegularFile(): Expect<T> =
  * take place.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeADirectory
  *
  * @since 0.17.0
  */
@@ -213,6 +235,8 @@ fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeAbsolute
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeAbsolute(): Expect<T> =
@@ -223,6 +247,8 @@ fun <T : Path> Expect<T>.toBeAbsolute(): Expect<T> =
  * meaning that the [Path] specified in this instance does not start at the file system root.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toBeRelative
  *
  * @since 0.17.0
  */
@@ -245,6 +271,8 @@ fun <T : Path> Expect<T>.toBeRelative(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toHaveTheDirectoryEntries
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toHaveTheDirectoryEntries(entry: String, vararg otherEntries: String): Expect<T> =
@@ -260,6 +288,8 @@ fun <T : Path> Expect<T>.toHaveTheDirectoryEntries(entry: String, vararg otherEn
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toHaveTheSameTextualContentAs
+ *
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
@@ -274,7 +304,10 @@ fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.toHaveTheSameBinaryContentAs
+ *
  * @since 0.17.0
+ *
  */
 fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
