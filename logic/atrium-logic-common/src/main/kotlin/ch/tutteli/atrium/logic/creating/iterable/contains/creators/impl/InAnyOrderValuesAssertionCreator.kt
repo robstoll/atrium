@@ -2,7 +2,9 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
@@ -10,9 +12,13 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.hasNext
+import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
 import ch.tutteli.atrium.logic.impl.createHasElementAssertion
+import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.kbox.identity
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -46,6 +52,32 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override fun search(multiConsumableContainer: AssertionContainer<List<SC>>, searchCriterion: SC): Int =
         multiConsumableContainer.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
+    override fun searchAndCreateAssertion(
+        multiConsumableContainer: AssertionContainer<List<SC>>,
+        searchCriterion: SC,
+        featureFactory: (Int, Translatable) -> AssertionGroup
+    ): AssertionGroup {
+        if (searchBehaviour is NotSearchBehaviour) {
+            val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
+            val mismatches = createIndexAssertions(list) { (_, element) -> element == searchCriterion }
+            return if (multiConsumableContainer.hasNext(::identity).holds()) {
+                assertionBuilder.fixedClaimGroup
+                    .withListType
+                    .withClaim(mismatches.isEmpty())
+                    .withDescriptionAndRepresentation(groupDescription, searchCriterion)
+                    .withAssertion(createExplanatoryGroupForMismatches(mismatches))
+                    .build()
+            } else {
+                assertionBuilder.invisibleGroup
+                    .withAssertion(
+                        assertionBuilder.createDescriptive(groupDescription, searchCriterion, falseProvider)
+                    ).build()
+            }
+        } else {
+            return super.searchAndCreateAssertion(multiConsumableContainer, searchCriterion, featureFactory)
+        }
+    }
+
     /**
      * Override in a subclass if you want to decorate the assertion.
      */
@@ -55,7 +87,7 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     ): AssertionGroup {
         return if (searchBehaviour is NotSearchBehaviour) {
             assertionBuilder.invisibleGroup.withAssertions(
-                createHasElementAssertion(multiConsumableContainer.maybeSubject.getOrElse { emptyList() }),
+                multiConsumableContainer.hasNext(::identity),
                 inAnyOrderAssertion
             ).build()
         } else {

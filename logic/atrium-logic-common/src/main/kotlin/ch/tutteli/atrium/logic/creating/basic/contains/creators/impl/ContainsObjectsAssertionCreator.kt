@@ -2,10 +2,10 @@ package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -32,7 +32,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
     checkers: List<C>
 ) : ContainsAssertionCreator<T, TT, SC, C>(searchBehaviour, checkers) {
 
-    final override fun searchAndCreateAssertion(
+    override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<TT>,
         searchCriterion: SC,
         featureFactory: (Int, Translatable) -> AssertionGroup
@@ -40,11 +40,10 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
         val count = search(multiConsumableContainer, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
-        val inAnyOrderAssertion =  assertionBuilder.list
+        return assertionBuilder.list
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
             .withAssertion(featureAssertion)
             .build()
-        return decorateInAnyOrderAssertion(inAnyOrderAssertion, multiConsumableContainer)
     }
 
     /**
