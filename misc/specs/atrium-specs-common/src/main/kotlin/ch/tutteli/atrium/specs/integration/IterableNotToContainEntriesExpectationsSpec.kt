@@ -65,8 +65,12 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                     fluent.notToContainFun({ toEqual(4.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        toContainRegex(hasANextElement)
-                        notToContain(anElementWhich)
+                        toContainRegex(
+                            "$hasANextElement$separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                "$afterExplanatory$toBeDescr: 4.0.*"
+                        )
                     }
                 }
             }

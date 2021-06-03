@@ -95,11 +95,15 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
                 allCreatedAssertionsHold(multiConsumableContainer, element, searchCriterion)
             }
             assertions.add(createExplanatoryGroupForMismatches(mismatches))
+            val hasNext = multiConsumableContainer.hasNext(::identity).holds()
             return assertionBuilder.fixedClaimGroup
                 .withListType
-                .withClaim(mismatches.isEmpty() && emptyAssertionHint == null)
+                .withClaim(mismatches.isEmpty() && hasNext && emptyAssertionHint == null)
                 .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
-                .withAssertions(assertions)
+                .let {
+                    if (hasNext) it.withAssertions(assertions)
+                    else it.withAssertion(explanatoryGroup)
+                }
                 .build()
         } else {
             return assertionBuilder.list
