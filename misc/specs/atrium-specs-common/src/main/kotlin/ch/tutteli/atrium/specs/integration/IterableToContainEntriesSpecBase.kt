@@ -28,8 +28,8 @@ abstract class IterableToContainEntriesSpecBase(
         val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
         val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()
         fun <T> mismatchedIndex(index: Int, value: T) : String {
-            val index = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
-            return "$index: ${value.toString()}"
+            val indexDescr = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+            return "$indexDescr: ${value.toString()}"
         }
 
         fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)

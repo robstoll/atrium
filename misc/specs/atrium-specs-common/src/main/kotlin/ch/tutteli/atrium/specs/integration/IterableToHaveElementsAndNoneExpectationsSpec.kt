@@ -42,7 +42,14 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndNoneFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
-                    messageToContain("$featureArrow$hasElement: false")
+                    message {
+                        toContainRegex(
+                            "$hasANextElement$separator" +
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                "$afterExplanatory$toBeLessThanDescr: 1.0.*"
+                        )
+                    }
                 }
             }
         }
@@ -66,10 +73,10 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
                     }
@@ -96,10 +103,9 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
-                                    "$featureFailing$numberOfOccurrences: 2$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
                         }
                     }
@@ -114,10 +120,8 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 1$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
                             )
                         }
                     }
