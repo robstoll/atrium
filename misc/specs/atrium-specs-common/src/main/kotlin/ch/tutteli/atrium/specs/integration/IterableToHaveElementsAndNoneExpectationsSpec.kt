@@ -29,7 +29,6 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
     ) {})
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
-    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     nonNullableCases(
         describePrefix,
