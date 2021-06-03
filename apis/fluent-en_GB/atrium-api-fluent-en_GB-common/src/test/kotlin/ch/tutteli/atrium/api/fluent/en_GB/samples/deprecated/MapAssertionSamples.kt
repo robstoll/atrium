@@ -45,17 +45,17 @@ class MapAssertionSamples {
     fun containsKeyValue() {
         expect(mapOf(1 to "a"))
             .contains(
-                KeyValue(1, { // subject inside this block is of type String (actually "a")
+                KeyValue(1) { // subject inside this block is of type String (actually "a")
                     toBe("a")
-                })
+                }
             )
 
         fails {
             expect(mapOf(1 to "a"))
                 .contains(
-                    KeyValue(1, {   // subject inside this block is of type String (actually "a")
+                    KeyValue(1) {   // subject inside this block is of type String (actually "a")
                         toBe("b")   // fails because "a" is not equal to "b"
-                    })
+                    }
                 )
         }
     }
@@ -64,17 +64,17 @@ class MapAssertionSamples {
     fun containsOnlyKeyValue() {
         expect(mapOf(1 to "a"))
             .containsOnly(
-                KeyValue(1, {   // subject inside this block is of type String (actually "a")
+                KeyValue(1) {   // subject inside this block is of type String (actually "a")
                     toBe("a")
-                })
+                }
             )
 
         fails {
             expect(mapOf(1 to "a", 1 to "b"))
                 .containsOnly(
-                    KeyValue(1, {   // subject inside this block is of type String (actually "a")
+                    KeyValue(1) {   // subject inside this block is of type String (actually "a")
                         toBe("a")   // fails because the map also contains Pair<1,"b">
-                    })
+                    }
                 )
         }
     }
@@ -138,22 +138,22 @@ class MapAssertionSamples {
     @Test
     fun getExisting() {
         expect(mapOf(1 to "a"))
-            .getExisting(1, {   // subject inside this block is of type String (actually "a")
+            .getExisting(1) {   // subject inside this block is of type String (actually "a")
                 toBe("a")
-            })
+            }
 
         fails {
             expect(mapOf(1 to "a"))
-                .getExisting(1, {   // subject inside this block is of type String (actually "a")
+                .getExisting(1) {   // subject inside this block is of type String (actually "a")
                     toBe("b")   // fails because "a" is not equal to "b"
-                })
+                }
         }
 
         fails {
             expect(mapOf(1 to "a"))
-                .getExisting(2, {   // subject is of type String, but assertion fails because key 2 does not exist
+                .getExisting(2) {   // subject is of type String, but assertion fails because key 2 does not exist
                     toBe("a")
-                })
+                }
         }
     }
 

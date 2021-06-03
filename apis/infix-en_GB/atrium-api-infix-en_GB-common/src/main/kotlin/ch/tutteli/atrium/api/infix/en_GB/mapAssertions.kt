@@ -140,6 +140,9 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.containsOnly
 /**
  * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
  * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
+ *
  */
 fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?): KeyWithValueCreator<K, V> =
     KeyWithValueCreator(key, valueAssertionCreatorOrNull)
@@ -259,6 +262,9 @@ infix fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExistingFeature
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
@@ -272,6 +278,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *  to the key and the second is the `assertionCreator`-lambda
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExisting
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
     _logic.getExisting(::identity, key.key).collectAndAppend(key.assertionCreator)
@@ -279,6 +288,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K,
 //TODO move to mapExpectations.kt with 0.18.0
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExisting
+ *
  */
 fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K, V> =
     KeyWithCreator(key, assertionCreator)
@@ -290,6 +302,9 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.keysFeature
+ *
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
@@ -301,6 +316,9 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.keys
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
@@ -311,6 +329,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.valuesFeature
+ *
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
@@ -322,6 +343,9 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.values
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
@@ -334,6 +358,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Co
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.asEntriesFeature
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -348,6 +375,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.asEntries
+ *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
     assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
@@ -360,6 +390,9 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toBeEmpty
+ *
  */
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::toEntries) }
@@ -371,6 +404,9 @@ infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: em
  * @param empty Use the pseudo-keyword `empty`.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.notToBeEmpty
+ *
  */
 infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
