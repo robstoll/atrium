@@ -100,7 +100,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeLessThanDescr: 4.0.*$separator" +
-                                    "$afterExplanatoryIndent$warningBulletPoint$mismatches: $separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(1, "2.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "3.0")}.*"
@@ -117,11 +117,11 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 1.0.*$separator" +
-                                    "$afterExplanatoryIndent$warningBulletPoint$mismatches: $separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$toBeDescr: 4.0.*$separator" +
-                                    "$afterExplanatoryIndent$warningBulletPoint$mismatches: $separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
@@ -161,7 +161,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
-                                    "$afterExplanatoryIndent$warningBulletPoint$mismatches: $separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
@@ -178,7 +178,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
                                     "$afterExplanatory$isDescr: null$separator" +
-                                    "$afterExplanatoryIndent$warningBulletPoint$mismatches: $separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${index(1)}: null.*$separator" +
                                     "$afterMismatchedWarning${index(5)}: null.*"
                             )
