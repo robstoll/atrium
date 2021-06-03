@@ -240,7 +240,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun pathExtensionFeature() {
+    fun extensionFeature() {
         val extension = "txt"
         val dir = tempDir.newFile("test_file.$extension")
 
@@ -253,7 +253,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun pathExtension() {
+    fun extension() {
         val extension = "txt"
         val dir = tempDir.newDirectory("test.$extension")
 
