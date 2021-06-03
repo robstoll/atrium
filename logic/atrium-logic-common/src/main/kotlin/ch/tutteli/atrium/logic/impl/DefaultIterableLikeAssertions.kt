@@ -3,7 +3,6 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.IterableLikeAssertions
@@ -27,7 +26,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
-import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -101,17 +99,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val mismatches = createIndexAssertions(list) { (_, element) ->
             !allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
         }
-        assertions.add(
-            assertionBuilder.explanatoryGroup
-                .withWarningType
-                .withAssertion(
-                    assertionBuilder.list
-                        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_MISMATCHES)
-                        .withAssertions(mismatches)
-                        .build()
-                )
-                .build()
-        )
+        assertions.add(createExplanatoryGroupForMismatches(mismatches))
 
         createHasElementPlusFixedClaimGroup(
             list,
@@ -133,22 +121,6 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                 else -> iterable.toList()
             }
         }
-
-    private fun <E> createIndexAssertions(
-        list: List<E>,
-        predicate: (WithIndex<E>) -> Boolean
-    ) = list
-        .asSequence()
-        .mapWithIndex()
-        .filter { predicate(it) }
-        .map { (index, element) ->
-            assertionBuilder.createDescriptive(
-                TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
-                element,
-                falseProvider
-            )
-        }
-        .toList()
 
     private fun <E> createHasElementPlusFixedClaimGroup(
         list: List<E>,

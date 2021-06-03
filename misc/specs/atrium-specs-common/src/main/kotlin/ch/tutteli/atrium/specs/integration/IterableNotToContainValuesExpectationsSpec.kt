@@ -25,7 +25,6 @@ abstract class IterableNotToContainValuesExpectationsSpec(
         notToContainNullableValues(this, a, aX)
 
     val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
-    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
 
