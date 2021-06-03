@@ -55,10 +55,10 @@ class PathExpectationSamples {
     fun notToStartWith() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir.last()).notToStartWith(Paths.get("invalid_dir"))
+        expect(dir).notToStartWith(Paths.get("invalid_dir"))
 
         fails {
-            expect(dir.last()).notToStartWith(Paths.get("test_dir"))
+            expect(dir).notToStartWith(dir.parent)
         }
     }
 
