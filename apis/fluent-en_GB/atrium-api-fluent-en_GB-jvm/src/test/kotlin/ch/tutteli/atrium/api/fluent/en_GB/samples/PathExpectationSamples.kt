@@ -3,8 +3,11 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.niok.*
+import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Paths
+import javax.swing.filechooser.FileSystemView
+import kotlin.test.AfterTest
 import kotlin.test.Test
 
 class PathExpectationSamples {
@@ -28,10 +31,10 @@ class PathExpectationSamples {
 
     @Test
     fun toBeAnEmptyDirectory() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
         expect(dir).toBeAnEmptyDirectory()
 
-        dir.newFile("$TEST_FILE.txt")
+        dir.newFile("test_file.txt")
         fails {
             expect(dir).toBeAnEmptyDirectory()
         }
@@ -39,64 +42,64 @@ class PathExpectationSamples {
 
     @Test
     fun toStartWith() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir.last()).toStartWith(Paths.get(TEST_DIR))
+        expect(dir).toStartWith(dir.parent)
 
         fails {
-            expect(dir.last()).toStartWith(Paths.get(INVALID_DIR))
+            expect(dir).toStartWith(Paths.get("invalid_dir"))
         }
     }
 
     @Test
     fun notToStartWith() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir.last()).notToStartWith(Paths.get(INVALID_DIR))
+        expect(dir.last()).notToStartWith(Paths.get("invalid_dir"))
 
         fails {
-            expect(dir.last()).notToStartWith(Paths.get(TEST_DIR))
+            expect(dir.last()).notToStartWith(Paths.get("test_dir"))
         }
     }
 
     @Test
     fun toEndWith() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).toEndWith(Paths.get(TEST_DIR))
+        expect(dir).toEndWith(Paths.get("test_dir"))
 
         fails {
-            expect(dir).toEndWith(Paths.get(INVALID_DIR))
+            expect(dir).toEndWith(Paths.get("invalid_dir"))
         }
     }
 
     @Test
     fun notToEndWith() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).notToEndWith(Paths.get(INVALID_DIR))
+        expect(dir).notToEndWith(Paths.get("invalid_dir"))
 
         fails {
-            expect(dir).notToEndWith(Paths.get(TEST_DIR))
+            expect(dir).notToEndWith(Paths.get("test_dir"))
         }
     }
 
     @Test
     fun toExist() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).toExist()
 
         fails {
-            expect(Paths.get(INVALID_DIR)).toExist()
+            expect(Paths.get("invalid_dir")).toExist()
         }
     }
 
     @Test
     fun notToExist() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(Paths.get(INVALID_DIR)).notToExist()
+        expect(Paths.get("invalid_dir")).notToExist()
 
         fails {
             expect(dir).notToExist()
@@ -106,41 +109,41 @@ class PathExpectationSamples {
 
     @Test
     fun toBeReadable() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).toBeReadable()
 
         fails {
-            expect(Paths.get(INVALID_DIR)).toBeReadable()
+            expect(Paths.get("invalid_dir")).toBeReadable()
         }
     }
 
     @Test
     fun toBeWritable() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).toBeWritable()
 
         fails {
-            expect(Paths.get(INVALID_DIR)).toBeWritable()
+            expect(Paths.get("invalid_dir")).toBeWritable()
         }
     }
 
     @Test
     fun toBeExecutable() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).toBeExecutable()
 
         fails {
-            expect(Paths.get(INVALID_DIR)).toBeExecutable()
+            expect(Paths.get("invalid_dir")).toBeExecutable()
         }
     }
 
     @Test
     fun toBeARegularFile() {
-        val file = tempDir.newFile(TEST_FILE)
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val file = tempDir.newFile("test_file")
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(file).toBeARegularFile()
 
@@ -152,8 +155,8 @@ class PathExpectationSamples {
 
     @Test
     fun toBeADirectory() {
-        val file = tempDir.newFile(TEST_FILE)
-        val dir = tempDir.newDirectory(TEST_DIR)
+        val file = tempDir.newFile("test_file")
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).toBeADirectory()
 
@@ -164,35 +167,38 @@ class PathExpectationSamples {
 
     @Test
     fun toBeAbsolute() {
-        val dir = tempDir.newDirectory(ABSOLUTE_DIR)
-
-        expect(dir).toBeAbsolute()
+        val fooAbsolutePath = FileSystemView.getFileSystemView().homeDirectory.toPath().resolve("foo")
+        expect(fooAbsolutePath).toBeAbsolute()
 
         fails {
-            expect(Paths.get(RELATIVE_DIR)).toBeAbsolute()
+            expect(Paths.get("relative/path")).toBeAbsolute()
         }
     }
 
     @Test
     fun toBeRelative() {
-        expect(Paths.get(RELATIVE_DIR)).toBeRelative()
+        expect(Paths.get("relative/path")).toBeRelative()
 
         fails {
-            expect(tempDir.newDirectory(ABSOLUTE_DIR)).toBeRelative()
+            val fooAbsolutePath = FileSystemView.getFileSystemView().homeDirectory.toPath().resolve("foo")
+            expect(fooAbsolutePath).toBeRelative()
         }
     }
 
     @Test
     fun toHaveTheDirectoryEntries() {
-        val dir = tempDir.newDirectory(TEST_DIR)
-        val file = dir.newFile(TEST_FILE)
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).toHaveTheDirectoryEntries(TEST_FILE)
+        val file1 = dir.newFile("test_file1")
+        val file2 = dir.newFile("test_file2")
 
-        file.delete()
+        expect(dir).toHaveTheDirectoryEntries("test_file1", "test_file2")
+
+        file1.delete()
+        file2.delete()
 
         fails {
-            expect(dir).toHaveTheDirectoryEntries(TEST_FILE)
+            expect(dir).toHaveTheDirectoryEntries("test_file1", "test_file2")
         }
 
     }
@@ -201,13 +207,13 @@ class PathExpectationSamples {
     fun toHaveTheSameTextualContentAs() {
         val writtenTextInFile = "test_test"
 
-        val notEmptyFilePath = tempDir.newFile("${TEST_FILE}_1")
-        notEmptyFilePath.toFile().writeText(writtenTextInFile)
+        val notEmptyFilePath = tempDir.newFile("${"test_file"}_1")
+        notEmptyFilePath.writeText(writtenTextInFile)
 
-        val expectedFilePath = tempDir.newFile("${TEST_FILE}_2")
-        expectedFilePath.toFile().writeText(writtenTextInFile)
+        val expectedFilePath = tempDir.newFile("${"test_file"}_2")
+        expectedFilePath.writeText(writtenTextInFile)
 
-        val emptyFilePath = tempDir.newFile("${TEST_FILE}_3")
+        val emptyFilePath = tempDir.newFile("${"test_file"}_3")
 
         expect(notEmptyFilePath).toHaveTheSameTextualContentAs(expectedFilePath)
 
@@ -218,13 +224,13 @@ class PathExpectationSamples {
 
     @Test
     fun toHaveTheSameBinaryContentAs() {
-        val notEmptyFilePath = tempDir.newFile("${TEST_FILE}_1")
-        notEmptyFilePath.toFile().writeBytes(byteArrayOf(1, 2, 3))
+        val notEmptyFilePath = tempDir.newFile("${"test_file"}_1")
+        notEmptyFilePath.writeBytes(byteArrayOf(1, 2, 3))
 
-        val expectedFilePath = tempDir.newFile("${TEST_FILE}_2")
-        expectedFilePath.toFile().writeBytes(byteArrayOf(1, 2, 3))
+        val expectedFilePath = tempDir.newFile("${"test_file"}_2")
+        expectedFilePath.writeBytes(byteArrayOf(1, 2, 3))
 
-        val emptyFilePath = tempDir.newFile("${TEST_FILE}_3")
+        val emptyFilePath = tempDir.newFile("${"test_file"}_3")
 
         expect(notEmptyFilePath).toHaveTheSameBinaryContentAs(expectedFilePath)
 
@@ -234,9 +240,9 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun testPathExtensionFeature() {
+    fun pathExtensionFeature() {
         val extension = "txt"
-        val dir = tempDir.newFile("$TEST_FILE.$extension")
+        val dir = tempDir.newFile("test_file.$extension")
 
         expect(dir).extension.notToBeEmpty().toEqual(extension)
 
@@ -247,7 +253,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun testPathExtension() {
+    fun pathExtension() {
         val extension = "txt"
         val dir = tempDir.newDirectory("test.$extension")
 
@@ -264,78 +270,78 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun testFileNameFeature() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+    fun fileNameFeature() {
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).fileName.toEndWith(TEST_DIR).notToStartWith(INVALID_DIR).notToBeBlank()
+        expect(dir).fileName.toEndWith("test_dir").notToStartWith("invalid_dir").notToBeBlank()
 
         fails {
-            expect(dir).fileName.toEndWith(INVALID_DIR).toStartWith(TEST_DIR)
+            expect(dir).fileName.toEndWith("invalid_dir").toStartWith("test_dir")
         }
     }
 
     @Test
-    fun testFileName() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+    fun fileName() {
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).fileName {
-            toEndWith(TEST_DIR)
-            notToStartWith(INVALID_DIR)
+            toEndWith("test_dir")
+            notToStartWith("invalid_dir")
             notToBeBlank()
         }
 
         fails {
             expect(dir).fileName {
-                toEndWith(INVALID_DIR)
-                toStartWith(TEST_DIR)
+                toEndWith("invalid_dir")
+                toStartWith("test_dir")
             }
         }
     }
 
     @Test
-    fun testFileNameWithoutExtensionFeature() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+    fun fileNameWithoutExtensionFeature() {
+        val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).fileNameWithoutExtension.notToBeEmpty().toEqual(TEST_DIR)
+        expect(dir).fileNameWithoutExtension.notToBeEmpty().toEqual("test_dir")
 
         fails {
-            expect(dir).fileNameWithoutExtension.toBeEmpty().notToEqual(TEST_DIR)
+            expect(dir).fileNameWithoutExtension.toBeEmpty().notToEqual("test_dir")
         }
     }
 
     @Test
-    fun testFileNameWithoutExtension() {
-        val dir = tempDir.newDirectory(TEST_DIR)
+    fun fileNameWithoutExtension() {
+        val dir = tempDir.newDirectory("test_dir")
 
         expect(dir).fileNameWithoutExtension {
             notToBeEmpty()
-            toEqual(TEST_DIR)
+            toEqual("test_dir")
         }
 
         fails {
             expect(dir).fileNameWithoutExtension {
                 toBeEmpty()
-                notToEqual(TEST_DIR)
+                notToEqual("test_dir")
             }
         }
     }
 
     @Test
-    fun testParentFeature() {
-        val dir = tempDir.newDirectory("${TEST_DIR}_1")
-        val dir2 = tempDir.newDirectory("${TEST_DIR}_2")
+    fun parentFeature() {
+        val dir = tempDir.newDirectory("${"test_dir"}_1")
+        val dir2 = tempDir.newDirectory("${"test_dir"}_2")
 
         expect(dir).parent.toEqual(dir2.parent)
 
         fails {
-            expect(dir).parent.toEqual(dir2.newDirectory(TEST_DIR))
+            expect(dir).parent.toEqual(dir2.newDirectory("test_dir"))
         }
     }
 
     @Test
-    fun testParent() {
-        val dir = tempDir.newDirectory("${TEST_DIR}_1")
-        val dir2 = tempDir.newDirectory("${TEST_DIR}_2")
+    fun parent() {
+        val dir = tempDir.newDirectory("${"test_dir"}_1")
+        val dir2 = tempDir.newDirectory("${"test_dir"}_2")
 
         expect(dir).parent {
             toEqual(dir2.parent)
@@ -343,47 +349,38 @@ class PathExpectationSamples {
 
         fails {
             expect(dir).parent {
-                toEqual(dir2.newDirectory(TEST_DIR))
+                toEqual(dir2.newDirectory("test_dir"))
             }
         }
     }
 
     @Test
-    fun testResolveFeature() {
-        val dir = tempDir.newDirectory(TEST_DIR)
-        val fileInDir = dir.newFile("$TEST_FILE.txt")
+    fun resolveFeature() {
+        val dir = tempDir.newDirectory("test_dir")
+        val fileInDir = dir.newFile("test_file.txt")
 
-        expect(dir).resolve("$TEST_FILE.txt").toEqual(fileInDir)
+        expect(dir).resolve("test_file.txt").toEqual(fileInDir)
 
         fails {
-            expect(dir).resolve("$TEST_FILE.ttt").toEqual(fileInDir)
+            expect(dir).resolve("test_file.ttt").toEqual(fileInDir)
         }
     }
 
     @Test
-    fun testResolve() {
-        val dir = tempDir.newDirectory(TEST_DIR)
-        val fileInDir = dir.newFile("$TEST_FILE.txt")
+    fun resolve() {
+        val dir = tempDir.newDirectory("test_dir")
+        val fileInDir = dir.newFile("test_file.txt")
 
-        expect(dir).resolve("$TEST_FILE.txt") {
+        expect(dir).resolve("test_file.txt") {
             toEqual(fileInDir)
             toExist()
         }
 
         fails {
-            expect(dir).resolve("$TEST_FILE.ttt") {
+            expect(dir).resolve("test_file.ttt") {
                 toEqual(fileInDir)
             }
         }
-    }
-
-    private companion object {
-        private const val TEST_DIR = "test_dir"
-        private const val TEST_FILE = "test_file"
-        private const val INVALID_DIR = "invalid_dir"
-
-        private const val RELATIVE_DIR = "relative_dir"
-        private const val ABSOLUTE_DIR = "absolute_dir"
     }
 
 }
