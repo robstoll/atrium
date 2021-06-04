@@ -97,6 +97,8 @@ fun <T : Path> Expect<T>.existsNot(): Expect<T> =
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.pathExtensionFeature
+ *
  * @since 0.9.0
  */
 val <T : Path> Expect<T>.extension: Expect<String>
@@ -111,6 +113,8 @@ val <T : Path> Expect<T>.extension: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.pathExtension
+ *
  * @since 0.9.0
  */
 fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -123,6 +127,8 @@ fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit):
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.fileNameFeature
  *
  * @since 0.9.0
  */
@@ -138,6 +144,8 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.fileName
+ *
  * @since 0.9.0
  */
 fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -150,6 +158,8 @@ fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): 
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.fileNameWithoutExtensionFeature
  *
  * @since 0.9.0
  */
@@ -165,6 +175,8 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.fileNameWithoutExtension
+ *
  * @since 0.9.0
  */
 fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -176,6 +188,8 @@ fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect<Strin
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.parentFeature
  *
  * @since 0.9.0
  */
@@ -189,6 +203,8 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.parent
+ *
  * @since 0.9.0
  */
 fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
@@ -201,6 +217,8 @@ fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expe
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.resolveFeature
+ *
  * @since 0.10.0
  */
 fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
@@ -212,6 +230,8 @@ fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  * given [assertionCreator] creates for it and returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.resolve
  *
  * @since 0.10.0
  */
