@@ -252,10 +252,10 @@ class PathExpectationSamples {
             .notToEndWith("jpg")
 
         fails {
-            expect(dir).extension         // subject is now of type String (actually "txt")
+            expect(dir).extension // subject is now of type String (actually "txt")
                 .toEqual("txtt")  // fails because it doesn't equal to "txtt"
                 .toEndWith("jpg") // not reported
-            //                               use `.extension` if you want that all expectations are evaluated
+            //                       use `.extension` if you want that all expectations are evaluated
         }
     }
 
@@ -271,10 +271,10 @@ class PathExpectationSamples {
         }
 
         fails {
-            expect(dir).extension {      // subject is now of type String (actually "txt")
-                toEqual("txtt")  // fails because it doesn't equal to "txtt"
-                toEndWith("jpg") // fails because it doesn't end with "jpg"
-                //                          use `.extension` if you want fail fast behaviour
+            expect(dir).extension { // subject is now of type String (actually "txt")
+                toEqual("txtt")     // fails because it doesn't equal to "txtt"
+                toEndWith("jpg")    // fails because it doesn't end with "jpg"
+                //                     use `.extension` if you want fail fast behaviour
             }
         }
     }
@@ -289,10 +289,10 @@ class PathExpectationSamples {
             .notToBeBlank()
 
         fails {
-            expect(dir).fileName                // subject is now of type String (actually "test_dir")
+            expect(dir).fileName        // subject is now of type String (actually "test_dir")
                 .toEndWith("foo")       // fails because it does not end with "foo"
                 .toStartWith("invalid") // not reported
-            //                                     use `fileName {...}` if you want that all expectations are evaluated
+            //                             use `fileName {...}` if you want that all expectations are evaluated
         }
     }
 
@@ -307,10 +307,10 @@ class PathExpectationSamples {
         }
 
         fails {
-            expect(dir).fileName {              // subject is now of type String (actually "test_dir")
+            expect(dir).fileName {      // subject is now of type String (actually "test_dir")
                 toEndWith("foo")        // fails because it does not end with "foo"
                 toStartWith("invalid")  // still evaluated even though `toEndWith("foo")` already fails
-                //                                 use `.fileName` if you want fail fast behaviour
+                //                         use `.fileName` if you want fail fast behaviour
             }
         }
     }
@@ -324,7 +324,7 @@ class PathExpectationSamples {
         fails {
             expect(dir).fileNameWithoutExtension // subject is now of type String (actually "test_dir")
                 .toBeEmpty()                     // fails because string is not empty
-                .notToEqual("test_dir")  // not reported toBeEmpty already fails
+                .notToEqual("test_dir")          // not reported toBeEmpty already fails
             //                                      use `.fileNameWithoutExtension { ... }` if you want that all expectations are evaluated
         }
     }
@@ -341,7 +341,7 @@ class PathExpectationSamples {
         fails {                                     // because fileNameWithoutExtension equals `test_dir`
             expect(dir).fileNameWithoutExtension {  // subject is now of type String (actually "test_dir")
                 toBeEmpty()                         // fails because string is not empty
-                notToEqual("test_dir")      // still evaluated even though `toBeEmpty()` already fails
+                notToEqual("test_dir")              // still evaluated even though `toBeEmpty()` already fails
                 //                                     use `.fileNameWithoutExtension` if you want a fail fast behaviour
             }
         }
@@ -394,9 +394,9 @@ class PathExpectationSamples {
 
         fails {
             expect(dir).resolve("test_file.ttt")
-                .toEqual(fileInDir)               //fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
+                .toEqual(fileInDir)          // fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
                 .toEndWith(Paths.get("ttt")) // not reported `toEqual(fileInDir)` already fails
-            //                                      use `.resolve(other) { ... }` if you want that all expectations are evaluated
+            //                                  use `.resolve(other) { ... }` if you want that all expectations are evaluated
         }
     }
 
