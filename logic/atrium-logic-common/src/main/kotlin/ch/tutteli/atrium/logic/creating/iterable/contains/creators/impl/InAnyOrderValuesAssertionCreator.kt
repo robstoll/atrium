@@ -15,6 +15,7 @@ import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.identity
 
@@ -43,6 +44,7 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
     override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
+    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ITEM_NOT_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
         turnSubjectToList(container, converter)

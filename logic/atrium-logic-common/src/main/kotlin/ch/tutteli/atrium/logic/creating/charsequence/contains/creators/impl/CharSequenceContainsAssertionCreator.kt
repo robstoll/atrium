@@ -37,6 +37,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
 
     override val descriptionContains: Translatable = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
+    override val descriptionNotFound: Translatable = DescriptionCharSequenceAssertion.NOT_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<String> =
         container.changeSubject.unreported { it.toString() }.toAssertionContainer()

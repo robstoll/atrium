@@ -53,6 +53,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
+    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ENTRY_NOT_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<E?>> =
         turnSubjectToList(container, converter)
