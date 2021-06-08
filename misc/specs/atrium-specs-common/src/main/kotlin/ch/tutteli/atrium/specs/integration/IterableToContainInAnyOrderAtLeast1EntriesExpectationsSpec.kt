@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 
-// TODO ED: update specs for drop number of occurrences
 abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
     toContainInAnyOrderEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     toContainInAnyOrderNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
@@ -63,8 +62,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$toBeLessThanDescr: 1.0",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            noSuchEntryDescr
+//                            "$numberOfOccurrences: 0",
+//                            "$atLeastDescr: 1"
                         )
                     }
                 }
@@ -76,8 +76,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                     message {
                         toContain.exactly(2).values(
                             "$anElementWhich: $separator",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            noSuchEntryDescr
+//                            "$numberOfOccurrences: 0",
+//                            "$atLeastDescr: 1"
                         )
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -101,8 +102,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                                 "$anElementWhich: $separator",
                                 "$toBeGreaterThanDescr: 1.0",
                                 "$toBeLessThanDescr: 2.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                noSuchEntryDescr
+//                                "$numberOfOccurrences: 0",
+//                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -162,8 +164,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$toBeDescr: 2.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                noSuchEntryDescr
+//                                "$numberOfOccurrences: 0",
+//                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -178,8 +181,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             message {
                                 toContain.exactly(2).values(
                                     "$anElementWhich: $separator",
-                                    "$numberOfOccurrences: 0",
-                                    "$atLeastDescr: 1"
+                                    noSuchEntryDescr
+//                                    "$numberOfOccurrences: 0",
+//                                    "$atLeastDescr: 1"
                                 )
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -201,8 +205,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
                             "$isDescr: null",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            noSuchEntryDescr
+//                            "$numberOfOccurrences: 0",
+//                            "$atLeastDescr: 1"
                         )
                     }
                 }

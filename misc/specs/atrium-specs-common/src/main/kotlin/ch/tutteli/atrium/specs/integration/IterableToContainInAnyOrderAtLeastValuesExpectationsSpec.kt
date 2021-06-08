@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-// TODO ED: update specs for drop number of occurrences
 abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
     toContainAtLeastPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     toContainAtLeastButAtMostPair: Pair<(String, String, String) -> String, Fun4<Iterable<Double>, Int, Int, Double, Array<out Double>>>,
@@ -91,14 +90,14 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                 it("${toContainAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageToContain("$atLeastDescr: 1", "$anElementWhichIs: 1.1") }
+                    }.toThrow<AssertionError> { messageToContain(valueNotFoundDescr, "$anElementWhichIs: 1.1") }
                 }
                 it("${toContainAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atLeastDescr: 1", "$anElementWhichIs: 2.3")
+                            toContain(valueNotFoundDescr, "$anElementWhichIs: 2.3")
                             notToContain("$anElementWhichIs: 1.0")
                         }
                     }
@@ -108,7 +107,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                         expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atLeastDescr: 1", "$anElementWhichIs: 2.3")
+                            toContain(valueNotFoundDescr, "$anElementWhichIs: 2.3")
                             notToContain("$anElementWhichIs: 1.0")
                         }
                     }
@@ -119,8 +118,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                valueNotFoundDescr
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",

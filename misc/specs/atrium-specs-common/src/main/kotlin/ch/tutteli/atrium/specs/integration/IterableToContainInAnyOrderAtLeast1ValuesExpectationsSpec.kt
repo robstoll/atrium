@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
-// TODO ED: update specs for drop number of occurrences
 abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
     toContainInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     toContainInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
@@ -42,8 +41,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhichIs: 1.0",
-                        "$numberOfOccurrences: 0",
-                        "$atLeastDescr: 1"
+                        valueNotFoundDescr
                     )
                 }
             }
@@ -74,8 +72,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhichIs: 9.5",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            valueNotFoundDescr
                         )
                     }
                 }
@@ -85,8 +82,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                valueNotFoundDescr
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",

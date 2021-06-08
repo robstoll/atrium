@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 
-// TODO ED: change specs for no such entry
 abstract class IterableToHaveElementsAndAnyExpectationsSpec(
     toHaveElementsAndAny: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     toHaveElementsAndAnyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
@@ -47,8 +46,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhich: $separator",
                         "$toBeLessThanDescr: 1.0",
-                        "$numberOfOccurrences: 0",
-                        "$atLeastDescr: 1"
+                        noSuchEntryDescr
                     )
 
                 }
@@ -66,8 +64,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                             "$anElementWhich: $separator",
                             "$isGreaterThanDescr: 1.0",
                             "$toBeLessThanDescr: 2.0",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            noSuchEntryDescr
                         )
                     }
                 }
@@ -106,8 +103,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                                     "$rootBulletPoint$toContainInAnyOrder: $separator",
                                     "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
-                                    "$numberOfOccurrences: 0",
-                                    "$atLeastDescr: 1"
+                                    noSuchEntryDescr
                                 )
                             }
                         }
@@ -125,8 +121,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$isDescr: null",
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                noSuchEntryDescr
                             )
                         }
                     }
