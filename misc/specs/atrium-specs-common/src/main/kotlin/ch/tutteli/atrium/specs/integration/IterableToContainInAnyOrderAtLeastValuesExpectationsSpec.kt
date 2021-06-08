@@ -90,14 +90,14 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                 it("${toContainAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageToContain(valueNotFoundDescr, "$anElementWhichIs: 1.1") }
+                    }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichIs: 1.1") }
                 }
                 it("${toContainAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(valueNotFoundDescr, "$anElementWhichIs: 2.3")
+                            toContain(noSuchValueDescr, "$anElementWhichIs: 2.3")
                             notToContain("$anElementWhichIs: 1.0")
                         }
                     }
@@ -107,7 +107,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                         expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(valueNotFoundDescr, "$anElementWhichIs: 2.3")
+                            toContain(noSuchValueDescr, "$anElementWhichIs: 2.3")
                             notToContain("$anElementWhichIs: 1.0")
                         }
                     }
@@ -118,7 +118,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
-                                valueNotFoundDescr
+                                noSuchValueDescr
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",

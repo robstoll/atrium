@@ -48,6 +48,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
         val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
         val valueNotFoundDescr = DescriptionIterableAssertion.VALUE_NOT_FOUND.getDefault()
+        val noSuchValueDescr = DescriptionIterableAssertion.VALUE_NOT_FOUND.getDefault()
 
         val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val atLeastDescr = DescriptionIterableAssertion.AT_LEAST.getDefault()

@@ -41,7 +41,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhichIs: 1.0",
-                        valueNotFoundDescr
+                        noSuchValueDescr
                     )
                 }
             }
@@ -72,7 +72,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhichIs: 9.5",
-                            valueNotFoundDescr
+                            noSuchValueDescr
                         )
                     }
                 }
@@ -82,7 +82,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
-                                valueNotFoundDescr
+                                noSuchValueDescr
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",

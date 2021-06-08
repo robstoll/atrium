@@ -142,7 +142,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("${toContainAtLeastPair.first("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainAtLeastFun(1, 'h')
-                    }.toThrow<AssertionError> { messageToContain(noSuchItemFoundDescr, "$valueWithIndent: 'h'") }
+                    }.toThrow<AssertionError> { messageToContain(noSuchItemDescr, "$valueWithIndent: 'h'") }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'h'", "once")} does not throw") {
                     fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'h')
@@ -151,7 +151,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("${toContainAtLeastPair.first("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainAtLeastFun(1, 'H', 'E')
-                    }.toThrow<AssertionError> { messageToContain(noSuchItemFoundDescr, 'E') }
+                    }.toThrow<AssertionError> { messageToContain(noSuchItemDescr, 'E') }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'H', 'E'", "once")} does not throw") {
                     fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'H', 'E')
@@ -162,7 +162,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noSuchItemFoundDescr, "$valueWithIndent: 'E'")
+                            toContain(noSuchItemDescr, "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -181,7 +181,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         fluentHelloWorld.toContainAtLeastFun(1, 'H', 'E', 'w', 'r')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noSuchItemFoundDescr, "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
+                            toContain(noSuchItemDescr, "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
                             notToContain("$valueWithIndent: 'H'", "$valueWithIndent: 'r'")
                         }
                     }

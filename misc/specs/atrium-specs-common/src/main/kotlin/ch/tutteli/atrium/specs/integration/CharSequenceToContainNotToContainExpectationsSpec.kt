@@ -42,7 +42,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     messageToContain(
                         "$rootBulletPoint$toContainDescr: $separator" +
                             "$valueWithIndent: \"Hello\"",
-                            noSuchItemFoundDescr
+                            noSuchItemDescr
                     )
                 }
             }
@@ -103,7 +103,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             this.toContain.exactly(2).value(
-                                noSuchItemFoundDescr
+                                noSuchItemDescr
                             )
                             this.toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainDescr: $separator",

@@ -20,7 +20,7 @@ abstract class CharSequenceToContainSpecBase(spec: Root.() -> Unit) : Spek(spec)
         val numberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault()
         val value = DescriptionCharSequenceAssertion.VALUE.getDefault()
         val stringMatchingRegex = DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX.getDefault()
-        val noSuchItemFoundDescr = DescriptionCharSequenceAssertion.NOT_FOUND.getDefault()
+        val noSuchItemDescr = DescriptionCharSequenceAssertion.NOT_FOUND.getDefault()
 
         val atLeast = DescriptionCharSequenceAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionCharSequenceAssertion.AT_MOST.getDefault()
