@@ -44,9 +44,9 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                     message {
                         toContainRegex(
                             "$hasANextElement$separator" +
-                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                "$afterExplanatory$toBeLessThanDescr: 1.0.*"
+                                "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$containsNotDescr: $separator" +
+                                "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                "$indentListBulletPoint$afterExplanatory$toBeLessThanDescr: 1.0.*"
                         )
                     }
                 }
