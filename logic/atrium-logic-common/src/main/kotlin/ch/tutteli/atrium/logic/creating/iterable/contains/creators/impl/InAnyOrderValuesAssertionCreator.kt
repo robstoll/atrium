@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
@@ -14,7 +13,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSe
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
-import ch.tutteli.atrium.logic.impl.createHasElementAssertion
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -57,24 +55,17 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         searchCriterion: SC,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
-        if (searchBehaviour is NotSearchBehaviour) {
+        return if (searchBehaviour is NotSearchBehaviour) {
             val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
             val mismatches = createIndexAssertions(list) { (_, element) -> element == searchCriterion }
-            return if (multiConsumableContainer.hasNext(::identity).holds()) {
-                assertionBuilder.fixedClaimGroup
-                    .withListType
-                    .withClaim(mismatches.isEmpty())
-                    .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-                    .withAssertion(createExplanatoryGroupForMismatches(mismatches))
-                    .build()
-            } else {
-                assertionBuilder.invisibleGroup
-                    .withAssertion(
-                        assertionBuilder.createDescriptive(groupDescription, searchCriterion, falseProvider)
-                    ).build()
-            }
+            val assertions = mutableListOf<Assertion>()
+            if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
+            assertionBuilder.list
+                .withDescriptionAndRepresentation(groupDescription, searchCriterion)
+                .withAssertions(assertions)
+                .build()
         } else {
-            return super.searchAndCreateAssertion(multiConsumableContainer, searchCriterion, featureFactory)
+            super.searchAndCreateAssertion(multiConsumableContainer, searchCriterion, featureFactory)
         }
     }
 
@@ -85,10 +76,14 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         inAnyOrderAssertion: AssertionGroup,
         multiConsumableContainer: AssertionContainer<List<SC>>
     ): AssertionGroup {
-        return if (searchBehaviour is NotSearchBehaviour) {
+        val hasNext = multiConsumableContainer.hasNext(::identity)
+        return if (searchBehaviour is NotSearchBehaviour && !hasNext.holds()) {
             assertionBuilder.invisibleGroup.withAssertions(
-                multiConsumableContainer.hasNext(::identity),
-                inAnyOrderAssertion
+                hasNext,
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withAssertion(inAnyOrderAssertion)
+                    .build()
             ).build()
         } else {
             inAnyOrderAssertion

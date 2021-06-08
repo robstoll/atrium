@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableNotToContainValuesExpectationsSpec(
     notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -23,8 +22,6 @@ abstract class IterableNotToContainValuesExpectationsSpec(
 
     fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
         notToContainNullableValues(this, a, aX)
-
-    val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
 
@@ -46,8 +43,8 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     message {
                         toContainRegex(
                             "$hasANextElement$separator" +
-                                    "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*"
+                                    "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                                    "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*"
                         )
                     }
                 }

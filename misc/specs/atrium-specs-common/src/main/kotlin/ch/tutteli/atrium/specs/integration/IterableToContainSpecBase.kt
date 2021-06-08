@@ -6,6 +6,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
@@ -43,6 +44,9 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val mismatchesAdditionalElements = DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
         val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
         val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
+        val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
+        val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
+        val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
 
         val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val atLeastDescr = DescriptionIterableAssertion.AT_LEAST.getDefault()

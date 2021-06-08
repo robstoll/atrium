@@ -85,5 +85,6 @@ internal fun createExplanatoryGroupForMismatches(
                 .withAssertions(mismatches)
                 .build()
         )
+        .failing
         .build()
 }
