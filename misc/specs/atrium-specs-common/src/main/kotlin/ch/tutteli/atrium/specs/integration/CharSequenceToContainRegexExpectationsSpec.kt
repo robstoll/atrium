@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -134,8 +136,7 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                         toContain(
                             "$rootBulletPoint$toContainDescr: $separator" +
                                 "$regexWithIndent: ${roberto.toLowerCase()}",
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
+                            noSuchItemFoundDescr
                         )
                     }
                 }
