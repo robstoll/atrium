@@ -6,10 +6,8 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.AtLeastChecker
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.DefaultIterableLikeContainsAssertions
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.

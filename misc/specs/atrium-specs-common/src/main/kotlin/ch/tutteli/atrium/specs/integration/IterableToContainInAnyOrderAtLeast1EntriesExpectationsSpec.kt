@@ -63,8 +63,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             "$anElementWhich: $separator",
                             "$toBeLessThanDescr: 1.0",
                             noSuchEntryDescr
-//                            "$numberOfOccurrences: 0",
-//                            "$atLeastDescr: 1"
                         )
                     }
                 }
@@ -77,8 +75,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         toContain.exactly(2).values(
                             "$anElementWhich: $separator",
                             noSuchEntryDescr
-//                            "$numberOfOccurrences: 0",
-//                            "$atLeastDescr: 1"
                         )
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -103,8 +99,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                                 "$toBeGreaterThanDescr: 1.0",
                                 "$toBeLessThanDescr: 2.0",
                                 noSuchEntryDescr
-//                                "$numberOfOccurrences: 0",
-//                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -165,8 +159,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                                 "$anElementWhich: $separator",
                                 "$toBeDescr: 2.0",
                                 noSuchEntryDescr
-//                                "$numberOfOccurrences: 0",
-//                                "$atLeastDescr: 1"
                             )
                         }
                     }
@@ -182,8 +174,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                                 toContain.exactly(2).values(
                                     "$anElementWhich: $separator",
                                     noSuchEntryDescr
-//                                    "$numberOfOccurrences: 0",
-//                                    "$atLeastDescr: 1"
                                 )
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -206,8 +196,6 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             "$anElementWhich: $separator",
                             "$isDescr: null",
                             noSuchEntryDescr
-//                            "$numberOfOccurrences: 0",
-//                            "$atLeastDescr: 1"
                         )
                     }
                 }

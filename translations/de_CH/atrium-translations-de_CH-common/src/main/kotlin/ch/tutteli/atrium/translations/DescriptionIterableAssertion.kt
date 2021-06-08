@@ -46,7 +46,10 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     NEXT_ELEMENT("ein nächstes Element"),
     NO_ELEMENTS("❗❗ kann nicht eruiert werden, leeres Iterable"),
     DUPLICATE_ELEMENTS("doppelte Elemente"),
-    DUPLICATED_BY("(dupliziert von Index: %s")
+    DUPLICATED_BY("(dupliziert von Index: %s"),
+    // TODO translate the following lines
+    ENTRY_NOT_FOUND("but no such entry was found."),
+    VALUE_NOT_FOUND("but no such item was found.")
 }
 
 internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS =

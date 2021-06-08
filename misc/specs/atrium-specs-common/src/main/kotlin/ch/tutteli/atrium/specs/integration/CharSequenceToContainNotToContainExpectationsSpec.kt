@@ -102,7 +102,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                         fluent.toContainFun("hello", "robert")
                     }.toThrow<AssertionError> {
                         message {
-                            this.toContain.exactly(2).values(
+                            this.toContain.exactly(2).value(
                                 noSuchItemFoundDescr
                             )
                             this.toContain.exactly(1).values(
