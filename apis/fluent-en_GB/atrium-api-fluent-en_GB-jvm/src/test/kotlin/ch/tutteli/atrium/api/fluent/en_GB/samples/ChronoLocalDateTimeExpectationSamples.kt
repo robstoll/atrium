@@ -10,7 +10,7 @@ import kotlin.test.Test
 class ChronoLocalDateTimeExpectationSamples {
 
     @Test
-    fun toBeBeforeChronoLocalDate() {
+    fun toBeBeforeChronoLocalDateTime() {
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBefore(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0))
     }
 
@@ -26,7 +26,7 @@ class ChronoLocalDateTimeExpectationSamples {
     }
 
     @Test
-    fun toBeBeforeOrTheSamePointInTimeAsChronoLocalDate() {
+    fun toBeBeforeOrTheSamePointInTimeAsChronoLocalDateTime() {
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0))
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103))
     }
@@ -46,7 +46,7 @@ class ChronoLocalDateTimeExpectationSamples {
     }
 
     @Test
-    fun toBeTheSamePointInTimeAsChronoLocalDate() {
+    fun toBeTheSamePointInTimeAsChronoLocalDateTime() {
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeTheSamePointInTimeAs(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103))
     }
 
@@ -62,7 +62,7 @@ class ChronoLocalDateTimeExpectationSamples {
     }
 
     @Test
-    fun toBeAfterOrTheSamePointInTimeAsChronoLocalDate() {
+    fun toBeAfterOrTheSamePointInTimeAsChronoLocalDateTime() {
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfterOrTheSamePointInTimeAs(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103))
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeAfterOrTheSamePointInTimeAs(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103))
     }
@@ -82,7 +82,7 @@ class ChronoLocalDateTimeExpectationSamples {
     }
 
     @Test
-    fun toBeAfterChronoLocalDate() {
+    fun toBeAfterChronoLocalDateTime() {
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfter(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103))
     }
 
