@@ -160,7 +160,7 @@ buildscript {
                 "IterableContains.*Spec.*points to containsNot",
                 // we improved reporting for containsNoDuplicates
                 "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`",
-                // we improved reporting for notToContain
+                // we improved reporting for notToContain with 0.17.0
                 "IterableContainsNot(Entries|Values)ExpectationsSpec.*`containsNot.*`.*throws AssertionError",
                 "IterableNoneExpectationsSpec.*`(none|containsNot).*`.*throws AssertionError"
             ) + ".*)").let { commonPatterns ->
