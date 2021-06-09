@@ -33,7 +33,7 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
     protected abstract val descriptionContains: Translatable
 
     /**
-     * Provides the translation for `but no such item was found`.
+     * Provides the translation for when an item is not found in a `contains.atLeast(1)` check.
      */
     protected abstract val descriptionNotFound: Translatable
 
@@ -101,9 +101,11 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
                     if (checker.createAssertion(count).holds()) it
                     else it.failing
                 }.build()
-        } else assertionBuilder.feature
-            .withDescriptionAndRepresentation(numberOfOccurrences, Text(count.toString()))
-            .withAssertions(assertions)
-            .build()
+        } else {
+            assertionBuilder.feature
+                .withDescriptionAndRepresentation(numberOfOccurrences, Text(count.toString()))
+                .withAssertions(assertions)
+                .build()
+        }
     }
 }

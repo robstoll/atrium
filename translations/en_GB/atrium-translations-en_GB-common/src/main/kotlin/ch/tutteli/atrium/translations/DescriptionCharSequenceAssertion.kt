@@ -19,7 +19,7 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     IGNORING_CASE("%s, ignoring case"),
     MATCHES("matches entirely"),
     MISMATCHES("does not match entirely"),
-    NOT_FOUND("but no such item was found."),
+    NOT_FOUND("but no match was found"),
     NUMBER_OF_OCCURRENCES("number of matches"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),

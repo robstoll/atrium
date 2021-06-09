@@ -20,7 +20,7 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     MATCHES("stimmt vollständig überein mit"),
     MISMATCHES("stimmt nicht vollständig überein mit"),
     // TODO Translate the following translatable
-    NOT_FOUND("but no such item was found."),
+    NOT_FOUND("(TRANSLATE) but no match was found"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     STARTS_WITH("beginnt mit"),
     STARTS_NOT_WITH("beginnt nicht mit"),
