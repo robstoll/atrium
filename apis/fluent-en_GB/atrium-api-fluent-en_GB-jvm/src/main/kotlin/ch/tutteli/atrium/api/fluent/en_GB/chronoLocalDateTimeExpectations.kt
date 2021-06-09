@@ -17,6 +17,8 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
@@ -36,6 +38,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeString
  *
  * @since 0.17.0
  */
@@ -50,6 +54,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -70,6 +76,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSame
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -82,6 +90,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSame
  * is equal to the [expected] [ChronoLocalDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeTheSamePointInTimeAsChronoLocalDateTime
  *
  * @since 0.17.0
  */
@@ -102,6 +112,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInT
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeTheSamePointInTimeAsString
  *
  * @since 0.17.0
  */
@@ -116,6 +128,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInT
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -136,6 +150,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSameP
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -148,6 +164,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSameP
  * is after the [expected] [ChronoLocalDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterChronoLocalDateTime
  *
  * @since 0.17.0
  */
@@ -168,6 +186,8 @@ fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterString
  *
  * @since 0.17.0
  */
