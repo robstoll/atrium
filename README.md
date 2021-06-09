@@ -1104,10 +1104,9 @@ expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>
 ◆ does not contain: 
   ⚬ an element which: 
       » is greater than: 2        (kotlin.Int <1234789>)
-    ✘ ▶ number of such entries: 2
-        ◾ is: 0        (kotlin.Int <1234789>)
-    ✔ ▶ has at least one element: true
-        ◾ is: true
+      ❗❗ following elements were mismatched: 
+         ⚬ index 2: 3        (kotlin.Int <1234789>)
+         ⚬ index 3: 4        (kotlin.Int <1234789>)
 ```
 </ex-collection-none>
 <hr/>
@@ -1483,10 +1482,8 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
     ◾ does not contain: 
       ⚬ an element which: 
           » is greater than: 1        (kotlin.Int <1234789>)
-        ✘ ▶ number of such entries: 1
-            ◾ is: 0        (kotlin.Int <1234789>)
-        ✔ ▶ has at least one element: true
-            ◾ is: true
+          ❗❗ following elements were mismatched: 
+             ⚬ index 1: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-4>
 
