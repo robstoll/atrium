@@ -23,6 +23,9 @@ class ChronoLocalDateTimeExpectationSamples {
 
         // format yyyy-MM-ddThh:mm can be used, in which case 00.000000000 is used for the omitted part
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBefore("2021-06-06T12:10")
+
+        // format yyyy-MM-dd can be used, in which case 00:00:00.000000000 is used for the omitted part
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBefore("2021-06-07")
     }
 
     @Test
@@ -43,6 +46,10 @@ class ChronoLocalDateTimeExpectationSamples {
         // format yyyy-MM-ddThh:mm can be used, in which case 00.000000000 is used for the omitted part
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBeforeOrTheSamePointInTimeAs("2021-06-06T12:10")
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 0, 0)).toBeBeforeOrTheSamePointInTimeAs("2021-06-06T10:05")
+
+        // format yyyy-MM-dd can be used, in which case 00:00:00.000000000 is used for the omitted part
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 35, 103)).toBeBeforeOrTheSamePointInTimeAs("2021-06-07")
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 0, 0, 0, 0)).toBeBeforeOrTheSamePointInTimeAs("2021-06-06")
     }
 
     @Test
@@ -59,6 +66,9 @@ class ChronoLocalDateTimeExpectationSamples {
 
         // format yyyy-MM-ddThh:mm can be used, in which case 00.000000000 is used for the omitted part
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 0, 0)).toBeTheSamePointInTimeAs("2021-06-06T10:05")
+
+        // format yyyy-MM-dd can be used, in which case 00:00:00.000000000 is used for the omitted part
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 0, 0, 0, 0)).toBeTheSamePointInTimeAs("2021-06-06")
     }
 
     @Test
@@ -79,6 +89,10 @@ class ChronoLocalDateTimeExpectationSamples {
         // format yyyy-MM-ddThh:mm can be used, in which case 00.000000000 is used for the omitted part
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfterOrTheSamePointInTimeAs("2021-06-06T10:05")
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 10, 5, 0, 0)).toBeAfterOrTheSamePointInTimeAs("2021-06-06T10:05")
+
+        // format yyyy-MM-dd can be used, in which case 00:00:00.000000000 is used for the omitted part
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfterOrTheSamePointInTimeAs("2021-06-06")
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 0, 0, 0, 0)).toBeAfterOrTheSamePointInTimeAs("2021-06-06")
     }
 
     @Test
@@ -95,5 +109,8 @@ class ChronoLocalDateTimeExpectationSamples {
 
         // format yyyy-MM-ddThh:mm can be used, in which case 00.000000000 is used for the omitted part
         expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfter("2021-06-06T10:05")
+
+        // format yyyy-MM-dd can be used, in which case 00:00:00.000000000 is used for the omitted part
+        expect(LocalDateTime.of(2021, Month.JUNE, 6, 12, 10, 0, 0)).toBeAfter("2021-06-06")
     }
 }
