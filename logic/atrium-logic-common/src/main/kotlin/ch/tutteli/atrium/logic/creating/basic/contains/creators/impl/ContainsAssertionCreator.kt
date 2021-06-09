@@ -42,11 +42,20 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
             }
         }
         val description = searchBehaviour.decorateDescription(descriptionContains)
-        return assertionBuilder.list
+        val inAnyOrderAssertion = assertionBuilder.list
             .withDescriptionAndEmptyRepresentation(description)
             .withAssertions(assertions)
             .build()
+        return decorateInAnyOrderAssertion(inAnyOrderAssertion, multiConsumableContainer)
     }
+
+    /**
+     * Override in a subclass if you want to decorate the assertion.
+     */
+    protected open fun decorateInAnyOrderAssertion(
+        inAnyOrderAssertion: AssertionGroup,
+        multiConsumableContainer: AssertionContainer<TT>
+    ): AssertionGroup = inAnyOrderAssertion
 
     /**
      * Make the underlying subject multiple times consumable.

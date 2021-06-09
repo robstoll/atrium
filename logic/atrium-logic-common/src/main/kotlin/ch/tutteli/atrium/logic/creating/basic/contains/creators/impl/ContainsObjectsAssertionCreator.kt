@@ -2,7 +2,6 @@ package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
@@ -32,7 +31,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
     checkers: List<C>
 ) : ContainsAssertionCreator<T, TT, SC, C>(searchBehaviour, checkers) {
 
-    final override fun searchAndCreateAssertion(
+    override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<TT>,
         searchCriterion: SC,
         featureFactory: (Int, Translatable) -> AssertionGroup
@@ -40,9 +39,9 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
         val count = search(multiConsumableContainer, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
 
-        return assertionBuilder.customType(getAssertionGroupType())
+        return assertionBuilder.list
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-            .withAssertions(decorateAssertion(multiConsumableContainer, featureAssertion))
+            .withAssertion(featureAssertion)
             .build()
     }
 
@@ -56,11 +55,6 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      */
     protected abstract val groupDescription: Translatable
 
-    /**
-     * Provides the [AssertionGroupType] for the resulting [AssertionGroup].
-     */
-    protected abstract fun getAssertionGroupType(): AssertionGroupType
-
 
     /**
      * Searches for something matching the given [searchCriterion] in the subject of the given
@@ -73,9 +67,4 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      * @return The number of times the [searchCriterion] matched in the subject of this expectation.
      */
     protected abstract fun search(multiConsumableContainer: AssertionContainer<TT>, searchCriterion: SC): Int
-
-    /**
-     * Either return the given [featureAssertion] as [List] or add further assertions.
-     */
-    abstract fun decorateAssertion(container: AssertionContainer<TT>, featureAssertion: Assertion): List<Assertion>
 }

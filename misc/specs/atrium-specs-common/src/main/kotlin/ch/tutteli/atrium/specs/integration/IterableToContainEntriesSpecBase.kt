@@ -23,14 +23,18 @@ abstract class IterableToContainEntriesSpecBase(
         val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH.getDefault()
         val toBeLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
         val toBeGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
+        fun <T> mismatchedIndex(index: Int, value: T) : String {
+            val indexDescr = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+            return "$indexDescr: ${value.toString()}"
+        }
 
+        fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
         //@formatter:off
-        val featureSuccess = "$indentRootBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
-        val featureFailing = "$indentRootBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
-        val isAfterFailing = "$indentRootBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
-        val isAfterSuccess = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
         val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
+        val afterExplanatoryIndent = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint"
+        val afterMismatchedWarning = "$afterExplanatoryIndent$indentWarningBulletPoint\\Q$listBulletPoint\\E"
+        val hasANextElement = "\\Q$rootBulletPoint\\E$hasDescriptionBasic: $nextElement"
         //@formatter:on
 
     }

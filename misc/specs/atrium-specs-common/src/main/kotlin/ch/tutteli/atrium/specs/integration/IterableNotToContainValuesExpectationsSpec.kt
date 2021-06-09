@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class IterableNotToContainValuesExpectationsSpec(
     notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -23,9 +22,6 @@ abstract class IterableNotToContainValuesExpectationsSpec(
 
     fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
         notToContainNullableValues(this, a, aX)
-
-    val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
-    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
 
@@ -46,12 +42,9 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(
-                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                "$featureSuccess$numberOfOccurrences: 0$separator" +
-                                "$isAfterSuccess: 0.*$separator" +
-                                "$featureFailing$hasElement: false$separator" +
-                                "$isAfterFailing: true"
+                            "$hasANextElement$separator" +
+                                    "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                                    "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*"
                         )
                     }
                 }
@@ -81,10 +74,10 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
                     }
@@ -97,15 +90,13 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 1.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 1$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
                     }
@@ -118,15 +109,13 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 3$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*$separator" +
                                     "$anElementWhichIsWithIndent: 1.0.*$separator" +
-                                    "$featureFailing$numberOfOccurrences: 1$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
                             )
                         }
                     }
@@ -152,10 +141,9 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
-                                    "$featureFailing$numberOfOccurrences: 2$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
                         }
                     }
@@ -169,10 +157,9 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$anElementWhichIsWithIndent: null$separator" +
-                                    "$featureFailing$numberOfOccurrences: 2$separator" +
-                                    "$isAfterFailing: 0.*$separator" +
-                                    "$featureSuccess$hasElement: true$separator" +
-                                    "$isAfterSuccess: true"
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
                             notToContain("$notToContainDescr: 1.1")
                         }

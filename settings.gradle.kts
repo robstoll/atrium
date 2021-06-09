@@ -32,7 +32,10 @@ buildscript {
                         "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException",
                         // we renamed containsNot to notToContain with 0.17.0
                         "CharSequenceContains.*Spec.*points to containsNot",
-                        "IterableContains.*Spec.*points to containsNot"
+                        "IterableContains.*Spec.*points to containsNot",
+                        // we improved reporting for notToContain with 0.17.0
+                        "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot( nullable)?`.*throws AssertionError",
+                        "IterableNoneAssertionsSpec.*`(none|containsNot)( nullable)?`.*throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -92,7 +95,10 @@ buildscript {
                         "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*",
                         // we renamed containsNot to notToContain with 0.17.0
                         "CharSequenceContains.*Spec.*points to containsNot",
-                        "IterableContains.*Spec.*points to containsNot"
+                        "IterableContains.*Spec.*points to containsNot",
+                        // we improved reporting for notToContain with 0.17.0
+                        "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot.*`.*throws AssertionError",
+                        "IterableNoneAssertionsSpec.*`(none|containsNot).*`.*throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -153,7 +159,10 @@ buildscript {
                 "CharSequenceContains.*Spec.*points to containsNot",
                 "IterableContains.*Spec.*points to containsNot",
                 // we improved reporting for containsNoDuplicates
-                "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`"
+                "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`",
+                // we improved reporting for notToContain with 0.17.0
+                "IterableContainsNot(Entries|Values)ExpectationsSpec.*`containsNot.*`.*throws AssertionError",
+                "IterableNoneExpectationsSpec.*`(none|containsNot).*`.*throws AssertionError"
             ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc
