@@ -134,7 +134,7 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                         toContain(
                             "$rootBulletPoint$toContainDescr: $separator" +
                                 "$regexWithIndent: ${roberto.toLowerCase()}",
-                            noSuchItemDescr
+                            noMatchFoundDescr
                         )
                     }
                 }
