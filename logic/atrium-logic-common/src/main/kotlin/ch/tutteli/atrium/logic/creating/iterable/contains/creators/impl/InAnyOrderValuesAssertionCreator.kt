@@ -51,23 +51,16 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override fun search(multiConsumableContainer: AssertionContainer<List<SC>>, searchCriterion: SC): Int =
         multiConsumableContainer.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
-    override fun searchAndCreateAssertion(
+    /**
+     * Override in any subclass that wants to report mismatched elements individually when the [searchBehaviour]
+     * is [NotSearchBehaviour]
+     */
+    override fun mismatchesForNotSearchBehaviour(
         multiConsumableContainer: AssertionContainer<List<SC>>,
-        searchCriterion: SC,
-        featureFactory: (Int, Translatable) -> AssertionGroup
-    ): AssertionGroup {
-        return if (searchBehaviour is NotSearchBehaviour) {
-            val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
-            val mismatches = createIndexAssertions(list) { (_, element) -> element == searchCriterion }
-            val assertions = mutableListOf<Assertion>()
-            if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
-            assertionBuilder.list
-                .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-                .withAssertions(assertions)
-                .build()
-        } else {
-            super.searchAndCreateAssertion(multiConsumableContainer, searchCriterion, featureFactory)
-        }
+        searchCriterion: SC
+    ): List<Assertion> {
+        val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
+        return createIndexAssertions(list) { (_, element) -> element == searchCriterion }
     }
 
     /**

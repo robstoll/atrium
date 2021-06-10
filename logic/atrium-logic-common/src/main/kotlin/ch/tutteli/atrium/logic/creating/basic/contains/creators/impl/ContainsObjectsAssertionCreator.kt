@@ -3,8 +3,12 @@ package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -36,12 +40,24 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
         searchCriterion: SC,
         featureFactory: (Int, Translatable) -> AssertionGroup
     ): AssertionGroup {
-        val count = search(multiConsumableContainer, searchCriterion)
-        val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
+        val assertions = mutableListOf<Assertion>()
+        if (searchBehaviour is NotSearchBehaviour) {
+            val mismatches = mismatchesForNotSearchBehaviour(multiConsumableContainer, searchCriterion)
+            if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
+        } else {
+            val count = search(multiConsumableContainer, searchCriterion)
+            val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
+            assertions.add(featureAssertion)
+        }
 
-        return assertionBuilder.list
+        return if (assertions.isEmpty()) {
+            assertionBuilder.invisibleGroup
+                .withAssertion(
+                    assertionBuilder.createDescriptive(groupDescription, searchCriterion, trueProvider)
+                ).build()
+        } else assertionBuilder.list
             .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-            .withAssertion(featureAssertion)
+            .withAssertions(assertions)
             .build()
     }
 
@@ -67,4 +83,19 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
      * @return The number of times the [searchCriterion] matched in the subject of this expectation.
      */
     protected abstract fun search(multiConsumableContainer: AssertionContainer<TT>, searchCriterion: SC): Int
+
+    /**
+     * Finds the mismatched indices and values when the [searchBehaviour] is `NotSearchBehaviour` in the subject of the
+     * given [multiConsumableContainer] and creates a list of assertions about the mismatched indexed values
+     *
+     * @param multiConsumableContainer The provider of the subject of this expectation in which we shall look for something
+     *   not matching the given [searchCriterion].
+     * @param searchCriterion The search criterion used to determine whether something matches or not.
+     *
+     * @return A list of [Assertion]s that describe the indexed values that did not match the [searchCriterion]
+     */
+    protected open fun mismatchesForNotSearchBehaviour(
+        multiConsumableContainer: AssertionContainer<TT>,
+        searchCriterion: SC
+    ): List<Assertion> = emptyList()
 }
