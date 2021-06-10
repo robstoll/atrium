@@ -27,7 +27,7 @@ abstract class IterableToContainEntriesSpecBase(
             val indexDescr = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
             return "$indexDescr: ${value.toString()}"
         }
-        val noSuchEntryDescr = DescriptionIterableAssertion.ENTRY_NOT_FOUND.getDefault()
+        val noSuchEntryDescr = DescriptionIterableAssertion.ELEMENT_NOT_FOUND.getDefault()
 
         fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 

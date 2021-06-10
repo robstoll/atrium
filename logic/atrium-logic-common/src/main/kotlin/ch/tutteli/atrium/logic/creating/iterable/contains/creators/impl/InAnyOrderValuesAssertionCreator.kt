@@ -43,7 +43,8 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
     override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
-    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.VALUE_NOT_FOUND
+    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ELEMENT_NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable = DescriptionIterableAssertion.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
         turnSubjectToList(container, converter)

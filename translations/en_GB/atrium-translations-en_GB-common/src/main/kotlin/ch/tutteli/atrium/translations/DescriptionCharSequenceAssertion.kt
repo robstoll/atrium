@@ -20,6 +20,7 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     MATCHES("matches entirely"),
     MISMATCHES("does not match entirely"),
     NOT_FOUND("but no match was found"),
+    NUMBER_OF_MATCHES_FOUND("and %s matches were found"),
     NUMBER_OF_OCCURRENCES("number of matches"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),
