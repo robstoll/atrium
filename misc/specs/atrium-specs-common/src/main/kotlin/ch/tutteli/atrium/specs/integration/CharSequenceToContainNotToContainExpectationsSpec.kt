@@ -42,8 +42,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     messageToContain(
                         "$rootBulletPoint$toContainDescr: $separator" +
                             "$valueWithIndent: \"Hello\"",
-                        "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
+                            noMatchFoundDescr
                     )
                 }
             }
@@ -103,9 +102,8 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                         fluent.toContainFun("hello", "robert")
                     }.toThrow<AssertionError> {
                         message {
-                            this.toContain.exactly(2).values(
-                                "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
+                            this.toContain.exactly(2).value(
+                                noMatchFoundDescr
                             )
                             this.toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainDescr: $separator",

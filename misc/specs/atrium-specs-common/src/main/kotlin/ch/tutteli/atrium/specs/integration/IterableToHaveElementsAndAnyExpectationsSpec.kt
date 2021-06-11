@@ -46,8 +46,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
                         "$anElementWhich: $separator",
                         "$toBeLessThanDescr: 1.0",
-                        "$numberOfOccurrences: 0",
-                        "$atLeastDescr: 1"
+                        noSuchEntryDescr
                     )
 
                 }
@@ -65,8 +64,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                             "$anElementWhich: $separator",
                             "$isGreaterThanDescr: 1.0",
                             "$toBeLessThanDescr: 2.0",
-                            "$numberOfOccurrences: 0",
-                            "$atLeastDescr: 1"
+                            noSuchEntryDescr
                         )
                     }
                 }
@@ -105,8 +103,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                                     "$rootBulletPoint$toContainInAnyOrder: $separator",
                                     "$anElementWhich: $separator",
                                     "$toBeDescr: 2.0",
-                                    "$numberOfOccurrences: 0",
-                                    "$atLeastDescr: 1"
+                                    noSuchEntryDescr
                                 )
                             }
                         }
@@ -124,8 +121,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
                                 "$isDescr: null",
-                                "$numberOfOccurrences: 0",
-                                "$atLeastDescr: 1"
+                                noSuchEntryDescr
                             )
                         }
                     }

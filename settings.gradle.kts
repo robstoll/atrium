@@ -35,7 +35,12 @@ buildscript {
                         "IterableContains.*Spec.*points to containsNot",
                         // we improved reporting for notToContain with 0.17.0
                         "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot( nullable)?`.*throws AssertionError",
-                        "IterableNoneAssertionsSpec.*`(none|containsNot)( nullable)?`.*throws AssertionError"
+                        "IterableNoneAssertionsSpec.*`(none|containsNot)( nullable)?`.*throws AssertionError",
+                        // changed reporting for contains.atLeast(1) with 0.17.0
+                        or(
+                            "(CharSequence|Iterable)Contains.*Spec",
+                            "IterableAnyAssertionsSpec"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -98,7 +103,12 @@ buildscript {
                         "IterableContains.*Spec.*points to containsNot",
                         // we improved reporting for notToContain with 0.17.0
                         "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot.*`.*throws AssertionError",
-                        "IterableNoneAssertionsSpec.*`(none|containsNot).*`.*throws AssertionError"
+                        "IterableNoneAssertionsSpec.*`(none|containsNot).*`.*throws AssertionError",
+                        // changed reporting for contains.atLeast(1) with 0.17.0
+                        or(
+                            "(CharSequence|Iterable)Contains.*Spec",
+                            "IterableAnyAssertionsSpec"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -162,7 +172,12 @@ buildscript {
                 "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`",
                 // we improved reporting for notToContain with 0.17.0
                 "IterableContainsNot(Entries|Values)ExpectationsSpec.*`containsNot.*`.*throws AssertionError",
-                "IterableNoneExpectationsSpec.*`(none|containsNot).*`.*throws AssertionError"
+                "IterableNoneExpectationsSpec.*`(none|containsNot).*`.*throws AssertionError",
+                // changed reporting for contains.atLeast(1) with 0.17.0
+                or(
+                    "(CharSequence|Iterable)Contains.*Spec",
+                    "IterableAnyExpectationsSpec"
+                ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
             ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc

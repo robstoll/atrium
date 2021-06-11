@@ -999,8 +999,7 @@ expect(listOf(1, 2, 2, 4)).toContain(2, 3)
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which equals: 3        (kotlin.Int <1234789>)
-    ⚬ ▶ number of such entries: 0
-        ◾ is at least: 1
+      » but no such element was found
 ```
 </ex-collection-short-1>
  
@@ -1039,13 +1038,11 @@ expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>
 ◆ contains, in any order: 
   ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
-    ⚬ ▶ number of such entries: 0
-        ◾ is at least: 1
+      » but no such element was found
   ⚬ an element which: 
       » is greater than: 2        (kotlin.Int <1234789>)
       » is less than: 4        (kotlin.Int <1234789>)
-    ⚬ ▶ number of such entries: 0
-        ◾ is at least: 1
+      » but no such element was found
 ```
 </ex-collection-short-2>
 
@@ -1085,8 +1082,7 @@ expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>
 ◆ contains, in any order: 
   ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
-    ⚬ ▶ number of such entries: 0
-        ◾ is at least: 1
+      » but no such element was found
 ```
 </ex-collection-any>
 <hr/>
@@ -1739,8 +1735,7 @@ expected that subject: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
       » contains: 
         ⚬ value: "min"        <1234789>
-          ⚬ ▶ number of matches: 
-              ◾ is at least: 1
+            » but no match was found
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
     ◾ equals: "max"        <1234789>
 ```
@@ -1888,8 +1883,7 @@ expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamples
           ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
           ◾ contains: 
             ⚬ value: "no no no"        <1234789>
-              ⚬ ▶ number of matches: 
-                  ◾ is at least: 1
+                » but no match was found
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "no no no..."        <1234789>
       » stacktrace: 

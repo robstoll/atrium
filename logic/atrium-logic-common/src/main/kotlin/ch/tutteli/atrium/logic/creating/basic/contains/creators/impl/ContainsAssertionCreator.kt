@@ -2,11 +2,14 @@ package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.creating.basic.contains.checkers.AtLeastChecker
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
@@ -30,6 +33,17 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
      * Provides the translation for `contains`.
      */
     protected abstract val descriptionContains: Translatable
+
+    /**
+     * Provides the translation for when an item is not found in a `contains.atLeast(1)` check.
+     */
+    protected abstract val descriptionNotFound: Translatable
+
+    /**
+     * Provides the translation for `and N such elements were found` when an item is not found in a
+     * `contains.atLeast(1)` check.
+     */
+    protected abstract val descriptionNumberOfElementsFound: Translatable
 
     final override fun createAssertionGroup(
         container: AssertionContainer<T>,
@@ -83,9 +97,27 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
 
     private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return assertionBuilder.feature
-            .withDescriptionAndRepresentation(numberOfOccurrences, Text(count.toString()))
-            .withAssertions(assertions)
-            .build()
+        val checker = checkers.firstOrNull()
+        return if (checkers.size == 1 && checker is AtLeastChecker && checker.times == 1) {
+            if (checker.createAssertion(count).holds()) {
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withExplanatoryAssertion(
+                        TranslatableWithArgs(descriptionNumberOfElementsFound, count.toString())
+                    )
+                    .build()
+            } else {
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withExplanatoryAssertion(descriptionNotFound)
+                    .failing
+                    .build()
+            }
+        } else {
+            assertionBuilder.feature
+                .withDescriptionAndRepresentation(numberOfOccurrences, Text(count.toString()))
+                .withAssertions(assertions)
+                .build()
+        }
     }
 }
