@@ -2,8 +2,6 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
@@ -11,12 +9,10 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.hasNext
-import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
+import ch.tutteli.atrium.logic.impl.decorateAssertionWithHasNext
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.kbox.identity
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -71,17 +67,8 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         inAnyOrderAssertion: AssertionGroup,
         multiConsumableContainer: AssertionContainer<List<SC>>
     ): AssertionGroup {
-        val hasNext = multiConsumableContainer.hasNext(::identity)
-        return if (searchBehaviour is NotSearchBehaviour && !hasNext.holds()) {
-            assertionBuilder.invisibleGroup.withAssertions(
-                hasNext,
-                assertionBuilder.explanatoryGroup
-                    .withDefaultType
-                    .withAssertion(inAnyOrderAssertion)
-                    .build()
-            ).build()
-        } else {
-            inAnyOrderAssertion
-        }
+        return if (searchBehaviour is NotSearchBehaviour)
+            decorateAssertionWithHasNext(inAnyOrderAssertion, multiConsumableContainer)
+        else inAnyOrderAssertion
     }
 }

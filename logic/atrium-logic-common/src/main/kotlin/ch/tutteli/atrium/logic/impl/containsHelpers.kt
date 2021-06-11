@@ -12,12 +12,14 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
+import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.WithIndex
+import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.mapWithIndex
 
 internal fun <E : Any> allCreatedAssertionsHold(
@@ -69,7 +71,7 @@ internal fun <E> createIndexAssertions(
 
 internal fun createExplanatoryGroupForMismatches(
     mismatches: List<Assertion>
-) : AssertionGroup {
+): AssertionGroup {
     return assertionBuilder.explanatoryGroup
         .withWarningType
         .withAssertion(
@@ -86,7 +88,7 @@ internal fun createAssertionGroupFromListOfAssertions(
     description: Translatable,
     representation: Any?,
     assertions: List<Assertion>
-) : AssertionGroup =
+): AssertionGroup =
     if (assertions.isEmpty())
         assertionBuilder.invisibleGroup
             .withAssertion(
@@ -96,3 +98,24 @@ internal fun createAssertionGroupFromListOfAssertions(
         .withDescriptionAndRepresentation(description, representation)
         .withAssertions(assertions)
         .build()
+
+internal fun <E> decorateAssertionWithHasNext(
+    assertion: AssertionGroup,
+    listAssertionContainer: AssertionContainer<List<E>>
+): AssertionGroup {
+    val hasNext = listAssertionContainer.hasNext(::identity)
+    return if (hasNext.holds()) {
+        assertion
+    } else {
+        assertionBuilder.invisibleGroup
+            .withAssertions(
+                hasNext,
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withAssertion(assertion)
+                    .build()
+            )
+            .build()
+    }
+}
+

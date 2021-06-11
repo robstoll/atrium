@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
@@ -24,7 +23,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
-import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -101,32 +99,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
 
         decorateAssertionWithHasNext(
-            listAssertionContainer,
             assertionBuilder.list
                 .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.ALL)
                 .withAssertions(assertions)
-                .build()
+                .build(),
+            listAssertionContainer
         )
-    }
-
-    private fun <E> decorateAssertionWithHasNext(
-        listAssertionContainer: AssertionContainer<List<E>>,
-        assertion: AssertionGroup
-    ): AssertionGroup {
-        val hasNext = listAssertionContainer.hasNext(::identity)
-        return if (hasNext.holds()) {
-            assertion
-        } else {
-            assertionBuilder.invisibleGroup
-                .withAssertions(
-                    hasNext,
-                    assertionBuilder.explanatoryGroup
-                        .withDefaultType
-                        .withAssertion(assertion)
-                        .build()
-                )
-                .build()
-        }
     }
 
     override fun <T : IterableLike, E> containsNoDuplicates(
@@ -176,12 +154,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             }
 
         decorateAssertionWithHasNext(
-            listAssertionContainer,
             createAssertionGroupFromListOfAssertions(
                 DescriptionBasic.HAS_NOT,
                 DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
                 duplicates
-            )
+            ),
+            listAssertionContainer
         )
     }
 }
