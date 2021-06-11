@@ -2206,8 +2206,11 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 ```text
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
-    ◾ ▶ has at least one element: false
-        ◾ is: true
+    ◾ has: a next element
+      » all entries: 
+          » ▶ age: 
+          » ▶ age: 
+              ◾ is greater than or equal to: 18        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-4>
 
