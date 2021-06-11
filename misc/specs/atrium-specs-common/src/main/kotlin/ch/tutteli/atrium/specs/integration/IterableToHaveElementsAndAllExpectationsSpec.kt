@@ -30,7 +30,6 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
     ) {})
 
     val toHaveElementsAndAllDescr = DescriptionIterableAssertion.ALL.getDefault()
-    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
 
     val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
@@ -47,9 +46,10 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
-                    messageToContain(
-                        "$rootBulletPoint$featureArrow$hasElement: false$separator" +
-                            "$indentRootBulletPoint$indentFeatureArrow$featureBulletPoint$isDescr: true"
+                    message.toContainRegex(
+                        "$hasANextElement",
+                        "$explanatoryBulletPoint$toHaveElementsAndAllDescr: ",
+                        "$explanatoryPointWithIndent$toBeLessThanDescr: 1.0"
                     )
                 }
             }
