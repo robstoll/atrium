@@ -3,6 +3,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
@@ -12,20 +13,12 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.mapWithIndex
-
-internal fun createHasElementAssertion(list: List<*>): Assertion {
-    return assertionBuilder.feature
-        .withDescriptionAndRepresentation(DescriptionIterableAssertion.HAS_ELEMENT, Text(list.isNotEmpty().toString()))
-        .withAssertion(
-            assertionBuilder.createDescriptive(DescriptionBasic.IS, Text(true.toString())) { list.isNotEmpty() }
-        )
-        .build()
-}
 
 internal fun <E : Any> allCreatedAssertionsHold(
     container: AssertionContainer<*>,
@@ -88,3 +81,18 @@ internal fun createExplanatoryGroupForMismatches(
         .failing
         .build()
 }
+
+internal fun createAssertionGroupFromListOfAssertions(
+    description: Translatable,
+    representation: Any?,
+    assertions: List<Assertion>
+) : AssertionGroup =
+    if (assertions.isEmpty())
+        assertionBuilder.invisibleGroup
+            .withAssertion(
+                assertionBuilder.createDescriptive(description, representation, trueProvider)
+            ).build()
+    else assertionBuilder.list
+        .withDescriptionAndRepresentation(description, representation)
+        .withAssertions(assertions)
+        .build()
