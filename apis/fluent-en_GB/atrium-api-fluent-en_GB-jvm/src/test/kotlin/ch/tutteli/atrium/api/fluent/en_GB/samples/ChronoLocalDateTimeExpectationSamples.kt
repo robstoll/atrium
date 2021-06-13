@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
 import kotlin.test.Test
