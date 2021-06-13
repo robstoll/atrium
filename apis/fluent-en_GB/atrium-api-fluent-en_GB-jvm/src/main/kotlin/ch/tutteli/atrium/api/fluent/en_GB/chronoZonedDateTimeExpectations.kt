@@ -16,6 +16,8 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeChronoZonedDateTime
+ *
  * @since 0.17.0
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
@@ -50,6 +52,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
@@ -62,6 +66,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  * is before or equals the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsChronoZonedDateTime
  *
  * @since 0.17.0
  */
@@ -98,6 +104,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSame
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -109,6 +117,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSame
  * is equal to the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeTheSamePointInTimeAsChronoZonedDateTime
  *
  * @since 0.17.0
  */
@@ -144,6 +154,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInT
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInTimeAs(
@@ -156,6 +168,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInT
  * is after or equal the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsChronoZonedDateTime
  *
  * @since 0.17.0
  */
@@ -191,6 +205,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSameP
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -203,6 +219,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSameP
  * is after the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterChronoZonedDateTime
  *
  * @since 0.17.0
  */
@@ -237,6 +255,8 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterString
  *
  * @since 0.17.0
  */
