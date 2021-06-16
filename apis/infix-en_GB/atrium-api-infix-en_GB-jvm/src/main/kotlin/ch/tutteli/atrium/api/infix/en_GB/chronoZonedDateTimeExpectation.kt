@@ -16,6 +16,8 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeChronoZonedDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
@@ -50,6 +52,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeString
  *
  * @since 0.17.0
  */
@@ -64,6 +68,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsChronoZonedDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -97,6 +103,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrT
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsString
  *
  * @since 0.17.0
  */
@@ -111,6 +119,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrT
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeTheSamePointInTimeAsChronoZonedDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePointInTimeAs(
@@ -144,6 +154,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePo
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeTheSamePointInTimeAsString
  *
  * @since 0.17.0
  */
@@ -158,6 +170,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePo
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsChronoZonedDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -192,6 +206,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTh
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -204,6 +220,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTh
  * is after the [expected] [ChronoZonedDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterChronoZonedDateTime
  *
  * @since 0.17.0
  */
@@ -238,6 +256,8 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoZonedDateTimeExpectationSamples.toBeAfterString
  *
  * @since 0.17.0
  */

@@ -17,6 +17,8 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
@@ -36,6 +38,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeString
  *
  * @since 0.17.0
  */
@@ -50,6 +54,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeBeforeOrTheSamePointInTimeAsChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -71,6 +77,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrT
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(
@@ -83,6 +91,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeBeforeOrT
  * is equal to the [expected] [ChronoLocalDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeTheSamePointInTimeAsChronoLocalDateTime
  *
  * @since 0.17.0
  */
@@ -103,6 +113,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePo
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeTheSamePointInTimeAsString
  *
  * @since 0.17.0
  */
@@ -117,6 +129,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeTheSamePo
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsChronoLocalDateTime
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -138,6 +152,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTh
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTheSamePointInTimeAs(
@@ -150,6 +166,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfterOrTh
  * is after the [expected] [ChronoLocalDateTime].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterChronoLocalDateTime
  *
  * @since 0.17.0
  */
@@ -171,6 +189,8 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [java.time.DateTimeException] in case an unsupported format is given.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateTimeExpectationSamples.toBeAfterString
  *
  * @since 0.17.0
  */

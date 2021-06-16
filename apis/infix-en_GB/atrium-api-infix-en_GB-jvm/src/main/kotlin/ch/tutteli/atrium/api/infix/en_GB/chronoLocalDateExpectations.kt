@@ -15,6 +15,8 @@ import java.time.chrono.ChronoLocalDate
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeBeforeChronoLocalDate
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: ChronoLocalDate): Expect<T> =
@@ -27,6 +29,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: ChronoLocalDate):
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeBeforeString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: String): Expect<T> =
@@ -38,6 +42,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: String): Expect<T
  * is before or equal the [expected] [ChronoLocalDate].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeBeforeOrTheSamePointInTimeAsChronoLocalDate
  *
  * @since 0.17.0
  */
@@ -52,6 +58,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expec
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeBeforeOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: String): Expect<T> =
@@ -63,6 +71,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expec
  * is equal to the [expected] [ChronoLocalDate].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeTheSamePointInTimeAsChronoLocalDate
  *
  * @since 0.17.0
  */
@@ -76,6 +86,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: Chr
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: String): Expect<T> =
@@ -87,6 +99,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: Str
  * is after or equal the [expected] [ChronoLocalDate].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeAfterOrTheSamePointInTimeAsChronoLocalDate
  *
  * @since 0.17.0
  */
@@ -100,6 +114,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expect
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeAfterOrTheSamePointInTimeAsString
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: String): Expect<T> =
@@ -112,6 +128,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expect
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeAfterChronoLocalDate
+ *
  * @since 0.17.0
  */
 infix fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: ChronoLocalDate): Expect<T> =
@@ -123,6 +141,8 @@ infix fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: ChronoLocalDate): 
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws [IllegalArgumentException] in case [expected] is not in the form of **yyyy-mm-dd**
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ChronoLocalDateExpectationSamples.toBeAfterString
  *
  * @since 0.17.0
  */
