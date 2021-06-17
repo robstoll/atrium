@@ -20,17 +20,17 @@ Following the things you need to do:
 
 *logic*
 - [ ] extend XyAssertions with a function `foo` (see YzAssertions as a guideline)
-- [ ] implement _foo in DefaultXyAssertions.kt by using the `ExpectImpl.feature.extractor...`
+- [ ] implement foo in DefaultXyAssertions.kt by using the `ExpectImpl.feature.extractor...`
 
 *api-fluent*
-- [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
-- [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
+- [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
+- [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
 - [ ] add `@since 0.17.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs-common (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent-en_GB-common/src/test
 
 *api-infix*
-- [ ] provide a val which returns `Expect<T>` (see yzAssertions.kt as a guideline)
-- [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` (see yzAssertions.kt as a guideline)
+- [ ] provide a val which returns `Expect<T>` in xYExpectations.kt(see yzExpectations.kt as a guideline)
+- [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
 - [ ] add `@since 0.17.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs-common (see for instance YzExpectationsSpec) and extend it in atrium-api-infix-en_GB-common/src/test
 
