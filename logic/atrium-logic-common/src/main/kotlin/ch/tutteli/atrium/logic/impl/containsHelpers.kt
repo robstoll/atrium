@@ -8,9 +8,7 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.reporting.Text
@@ -38,8 +36,6 @@ internal fun <E : Any> allCreatedAssertionsHold(
     else -> assertionCreator != null && container.collectBasedOnSubject(Some(subject), assertionCreator).holds()
 }
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
 internal fun <E : Any> createExplanatoryAssertionGroup(
     container: AssertionContainer<*>,
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -50,14 +46,7 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
             //TODO 0.18.0 looks a lot like toBeNullIfNullGiven
             if (assertionCreatorOrNull != null) {
                 // we don't use a subject, we will not show it anyway
-                val collectingExpect = CollectingExpect<E>(None, container.components)
-                // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
-                collectingExpect.assertionCreatorOrNull()
-                if(collectingExpect.getAssertions().isEmpty()) {
-                    it.collectAssertions(container, None, assertionCreatorOrNull).failing
-                } else {
-                    it.collectAssertions(container, None, assertionCreatorOrNull)
-                }
+                it.collectAssertions(container, None, assertionCreatorOrNull)
             } else {
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
