@@ -16,6 +16,8 @@ import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
  *
  * //TODO 0.18.0 in case we somehow incorporate the current container in AssertionsOptions, then remove container as parameter
+ *
+ * TODO 1.0.0 at the latest: use type ExplanatoryGroup.FinalStep when ExplanatoryAssertionGroupFinalStep is removed
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalComponentFactoryContainer::class)
