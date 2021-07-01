@@ -1,3 +1,6 @@
+// TODO 1.0.0 at the latest: use type ExplanatoryGroup.FinalStep when ExplanatoryAssertionGroupFinalStep is removed
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.collectors
 
 import ch.tutteli.atrium.assertions.AssertionGroup
