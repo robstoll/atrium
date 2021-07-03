@@ -29,6 +29,8 @@ fun <T, G : ExplanatoryAssertionGroupType, R: ExplanatoryAssertionGroupFinalStep
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): ExplanatoryAssertionGroupFinalStep {
+    //TODO 0.18.0 simplify with new ProofContainer where we intend to return a flag for collectForCompositionBasedOnSubject which indicates whether
+    // no proof was created or not, this way we don't have to collect twice.
     val collectingExpect = CollectingExpect<T>(None, container.components)
     // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
     collectingExpect.assertionCreator()
