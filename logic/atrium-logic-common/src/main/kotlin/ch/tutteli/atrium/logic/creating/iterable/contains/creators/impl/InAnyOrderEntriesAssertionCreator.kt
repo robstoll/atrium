@@ -94,8 +94,6 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         val assertions = mutableListOf<Assertion>(explanatoryGroup)
         if (searchBehaviour is NotSearchBehaviour) {
-            createEmptyAssertionHintIfNecessary(multiConsumableContainer, searchCriterion, count)
-                ?.let { assertions.add(it) }
             val mismatches = createIndexAssertions(list) { (_, element) ->
                 allCreatedAssertionsHold(multiConsumableContainer, element, searchCriterion)
             }
@@ -117,28 +115,5 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         val group = createExplanatoryAssertionGroup(container, assertionCreatorOrNull)
         val count = list.count { allCreatedAssertionsHold(container, it, assertionCreatorOrNull) }
         return group to count
-    }
-
-    //TODO 0.18.0 check if this is still state of the art to add a hint that no assertion was created
-    // in the assertionCreator-lambda, maybe it is a special case and needs to be handled like this,
-    // maybe it would be enough to collect
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalComponentFactoryContainer::class)
-    private fun createEmptyAssertionHintIfNecessary(
-        container: AssertionContainer<*>,
-        searchCriterion: (Expect<E>.() -> Unit)?,
-        count: Int
-    ): Assertion? {
-        if (searchCriterion != null && count == 0) {
-            val collectingExpect = CollectingExpect<E>(None, container.components)
-            // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion
-            collectingExpect.searchCriterion()
-            val collectedAssertions = collectingExpect.getAssertions()
-            if (collectedAssertions.isEmpty()) {
-                // no assertion created in the lambda, so return the failing assertion containing the hint
-                return container.collectBasedOnSubject(None, searchCriterion)
-            }
-        }
-        return null
     }
 }
