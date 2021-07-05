@@ -131,12 +131,24 @@ object present : Keyword
 object readable : Keyword
 
 /**
- * Represents the pseudo keyword `success` as in [toEqual] `success.
+ * Represents the pseudo keyword `success` as in [toEqual] `success`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use aSuccess; will be removed with 1.0.0 at the latest",
+    ReplaceWith("aSuccess", "ch.tutteli.atrium.api.infix.en_GB.aSuccess")
+)
 object success : Keyword
+
+/**
+ * A helper construct to allow expressing expectations about a something being a success.
+ * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.17.0
+ */
+object aSuccess : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being writable.
@@ -173,4 +185,4 @@ object duplicates : Keyword
  *
  * @since 0.17.0
  */
-object elements: Keyword
+object elements : Keyword

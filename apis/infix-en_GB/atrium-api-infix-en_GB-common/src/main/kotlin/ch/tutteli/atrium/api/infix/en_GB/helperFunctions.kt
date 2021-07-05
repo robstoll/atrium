@@ -56,7 +56,16 @@ fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns 
 /**
  * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
  */
+@Deprecated("Use aSuccess; will be removed with 1.0.0 at the latest", ReplaceWith("aSuccess<E>(assertionCreator)"))
 fun <E> success(assertionCreator: Expect<E>.() -> Unit): SuccessWithCreator<E> =
+    SuccessWithCreator(assertionCreator)
+
+/**
+ * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
+ *
+ * @since 0.17.0
+ */
+fun <E> aSuccess(assertionCreator: Expect<E>.() -> Unit): SuccessWithCreator<E> =
     SuccessWithCreator(assertionCreator)
 
 /**
@@ -69,4 +78,3 @@ fun <T> value(value: T): Value<T> = Value(value)
  * -- allows to express `T, vararg T`.
  */
 fun <T> values(value: T, vararg otherValues: T): Values<T> = Values(value, otherValues)
-
