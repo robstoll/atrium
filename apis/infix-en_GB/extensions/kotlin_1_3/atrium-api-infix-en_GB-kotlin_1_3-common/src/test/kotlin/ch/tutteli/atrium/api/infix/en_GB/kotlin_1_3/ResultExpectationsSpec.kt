@@ -45,23 +45,23 @@ class ResultExpectationsSpec : ResultExpectationsSpec(
 
             var star: Expect<Result<*>> = notImplemented()
 
-            a1 toBe success
-            a1 = a1 toBe success { }
+            a1 toBe aSuccess
+            a1 = a1 toBe aSuccess { }
 
-            a1.isFailure<IllegalArgumentException>()
-            val r1: Expect<IllegalArgumentException> = a1.isFailure<IllegalArgumentException> { }
+            a1.toBeAFailure<IllegalArgumentException>()
+            val r1: Expect<IllegalArgumentException> = a1.toBeAFailure<IllegalArgumentException> { }
 
-            a1b toBe success
-            a1b = a1b toBe success { }
+            a1b toBe aSuccess
+            a1b = a1b toBe aSuccess { }
 
-            a1b.isFailure<IllegalArgumentException>()
-            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> { }
+            a1b.toBeAFailure<IllegalArgumentException>()
+            val r1b: Expect<IllegalArgumentException> = a1b.toBeAFailure<IllegalArgumentException> { }
 
-            star toBe success
-            star = star toBe success { }
+            star toBe aSuccess
+            star = star toBe aSuccess { }
 
-            star.isFailure<IllegalArgumentException>()
-            val r3: Expect<IllegalArgumentException> = star.isFailure<IllegalArgumentException> { }
+            star.toBeAFailure<IllegalArgumentException>()
+            val r3: Expect<IllegalArgumentException> = star.toBeAFailure<IllegalArgumentException> { }
         }
     }
 }

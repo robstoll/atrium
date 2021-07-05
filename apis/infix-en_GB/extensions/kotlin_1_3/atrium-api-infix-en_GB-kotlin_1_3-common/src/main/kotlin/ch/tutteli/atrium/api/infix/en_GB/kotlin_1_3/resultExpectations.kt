@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.api.infix.en_GB.aSuccess
-import ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator
-import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.kotlin_1_3.isFailureOfType
