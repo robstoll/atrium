@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator
-import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.kotlin_1_3.isFailureOfType
@@ -15,14 +14,20 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  *
  * @since 0.12.0
  */
-infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") success: success): Expect<E> =
+@Suppress("DEPRECATION")
+@Deprecated(
+    "Use toBe ASuccess; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBe<E, T>(aSuccess)", "ch.tutteli.atrium.api.infix.en_GB.aSuccess")
+)
+infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") success: ch.tutteli.atrium.api.infix.en_GB.success): Expect<E> =
     _logic.isSuccess().transform()
 
+//TODO move to resultExpectations with 0.18.0
 /**
- * Expects that the subject of `this` expectation (a [Result]]) is a Success and
+ * Expects that the subject of `this` expectation (a [Result]) is a success ([Result.isSuccess]) and
  * that it holds all assertions the given [SuccessWithCreator.assertionCreator] creates.
  *
- * Use the function `success { ... }` to create a [SuccessWithCreator].
+ * Use the function `aSuccess { ... }` to create a [SuccessWithCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -39,6 +44,7 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Exp
  *
  * @since 0.12.0
  */
+@Deprecated("Use toBeAFailure; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAFailure<TExpected>()"))
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
 
@@ -51,6 +57,10 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeAFailure; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAFailure<TExpected>(assertionCreator)")
+)
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)

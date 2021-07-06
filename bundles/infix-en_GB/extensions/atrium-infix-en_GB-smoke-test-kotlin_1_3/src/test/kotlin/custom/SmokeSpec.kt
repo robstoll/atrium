@@ -6,7 +6,7 @@
 package custom
 
 import ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.toBe
-import ch.tutteli.atrium.api.infix.en_GB.success
+import ch.tutteli.atrium.api.infix.en_GB.aSuccess
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -26,7 +26,7 @@ object SmokeSpec : Spek({
     }
 
     test("see if `Result.isSuccess` can be used") {
-        expect(Result.success(1)) toBe success
+        expect(Result.success(1)) toBe aSuccess
     }
 
     test("see if own expectation function without i18n can be used") {
