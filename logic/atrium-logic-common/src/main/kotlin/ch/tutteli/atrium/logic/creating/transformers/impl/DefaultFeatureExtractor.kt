@@ -69,14 +69,25 @@ class DefaultFeatureExtractor : FeatureExtractor {
                         )
                     })
                 }
-                container.addAssertion(
-                    assertionBuilder.fixedClaimGroup
-                        .withFeatureType
-                        .failing
-                        .withDescriptionAndRepresentation(description, repForFailure)
-                        .withAssertions(failureHintAssertions + subAssertions)
-                        .build()
-                )
+                val featureAssertions = failureHintAssertions + subAssertions
+                val fixedClaimGroup = assertionBuilder.fixedClaimGroup
+                    .withFeatureType
+                    .failing
+                    .withDescriptionAndRepresentation(description, repForFailure)
+                    .withAssertions(featureAssertions)
+                    .build()
+                container.maybeSubject.fold({
+                    // If the feature extraction fails because the subject is already None, then we don't need/want to
+                    // show the fixedClaimGroup in case it is empty because the feature as such will already be shown
+                    // via explanatory assertion group
+                    if (featureAssertions.isNotEmpty()) {
+                        container.addAssertion(fixedClaimGroup)
+                    }
+                }, {
+                    // on the other hand, if the subject is defined, then we need the fixedClaimGroup which inter alia
+                    // shows why the extraction went wrong (e.g. index out of bound)
+                    container.addAssertion(fixedClaimGroup)
+                })
                 createFeatureExpect(None, listOf())
             },
             { subject ->

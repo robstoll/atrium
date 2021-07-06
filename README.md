@@ -2192,8 +2192,8 @@ fun Expect<Person>.toHaveAdultChildren(): Expect<Person> =
 
 We once again use `feature` with an [assertion group block](#define-single-assertions-or-assertion-groups) 
 for the same reason as above.
-We might be tempted to add a size check -- because a Person with 0 children does not have adult children --
-but we do not have to, as `all` already checks that there is at least one element. 
+Note how `toHaveElementsAndAll` already checks that there is at least one element. 
+I.e. it fails for a `Person` with 0 children, because such a person does not have adult children. 
 
 <ex-own-compose-4>
 
@@ -2208,7 +2208,6 @@ expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, child
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ has: a next element
       » all entries: 
-          » ▶ age: 
           » ▶ age: 
               ◾ is greater than or equal to: 18        (kotlin.Int <1234789>)
 ```

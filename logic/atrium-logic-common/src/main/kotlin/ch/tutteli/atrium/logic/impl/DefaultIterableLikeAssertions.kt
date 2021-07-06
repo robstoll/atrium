@@ -91,8 +91,8 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val listAssertionContainer = turnSubjectToList(container, converter)
         val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
-        val explanatoryGroup = createExplanatoryAssertionGroup(container, assertionCreatorOrNull)
-        val assertions = mutableListOf<Assertion>(explanatoryGroup)
+        val assertions = ArrayList<Assertion>(2)
+        assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
         val mismatches = createIndexAssertions(list) { (_, element) ->
             !allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
         }
