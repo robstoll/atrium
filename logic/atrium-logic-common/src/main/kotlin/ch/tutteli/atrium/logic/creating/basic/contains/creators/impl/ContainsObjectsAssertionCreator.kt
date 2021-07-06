@@ -2,12 +2,10 @@ package ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.logic.impl.createAssertionGroupFromListOfAssertions
 import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -50,15 +48,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
             assertions.add(featureAssertion)
         }
 
-        return if (assertions.isEmpty()) {
-            assertionBuilder.invisibleGroup
-                .withAssertion(
-                    assertionBuilder.createDescriptive(groupDescription, searchCriterion, trueProvider)
-                ).build()
-        } else assertionBuilder.list
-            .withDescriptionAndRepresentation(groupDescription, searchCriterion)
-            .withAssertions(assertions)
-            .build()
+        return createAssertionGroupFromListOfAssertions(groupDescription, searchCriterion, assertions)
     }
 
     /**

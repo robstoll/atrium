@@ -40,7 +40,9 @@ buildscript {
                         or(
                             "(CharSequence|Iterable)Contains.*Spec",
                             "IterableAnyAssertionsSpec"
-                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                        // changed reporting for Iterable.all empty collection cases with 0.17.0
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -108,7 +110,9 @@ buildscript {
                         or(
                             "(CharSequence|Iterable)Contains.*Spec",
                             "IterableAnyAssertionsSpec"
-                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                        // changed reporting for Iterable.all empty collection cases with 0.17.0
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -177,7 +181,9 @@ buildscript {
                 or(
                     "(CharSequence|Iterable)Contains.*Spec",
                     "IterableAnyExpectationsSpec"
-                ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)"
+                ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                // changed reporting for Iterable.all empty collection cases with 0.17.0
+                "IterableAllExpectationsSpec.*" + "empty collection.*" + "throws AssertionError"
             ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc

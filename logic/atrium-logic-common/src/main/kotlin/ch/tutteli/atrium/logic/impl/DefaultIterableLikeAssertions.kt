@@ -3,13 +3,13 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.IterableLikeAssertions
-import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.turnSubjectToList
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NoOpSearchBehaviourImpl
@@ -19,9 +19,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointS
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -91,60 +88,31 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Assertion = LazyThreadUnsafeAssertionGroup {
-        val list = transformToList(container, converter)
+        val listAssertionContainer = turnSubjectToList(container, converter)
+        val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
-        val assertions = ArrayList<Assertion>(2)
-        assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
-
+        val explanatoryGroup = createExplanatoryAssertionGroup(container, assertionCreatorOrNull)
+        val assertions = mutableListOf<Assertion>(explanatoryGroup)
         val mismatches = createIndexAssertions(list) { (_, element) ->
             !allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
         }
-        assertions.add(createExplanatoryGroupForMismatches(mismatches))
+        if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
 
-        createHasElementPlusFixedClaimGroup(
-            list,
-            DescriptionIterableAssertion.ALL,
-            Text.EMPTY,
-            mismatches.isEmpty(),
-            assertions
+        decorateAssertionWithHasNext(
+            assertionBuilder.list
+                .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.ALL)
+                .withAssertions(assertions)
+                .build(),
+            listAssertionContainer
         )
     }
-
-    private fun <T : IterableLike, E> transformToList(
-        container: AssertionContainer<T>,
-        converter: (T) -> Iterable<E>
-    ): List<E> =
-        container.maybeSubject.fold({ emptyList() }) { subject ->
-            val iterable = converter(subject)
-            when (iterable) {
-                is List<E> -> iterable
-                else -> iterable.toList()
-            }
-        }
-
-    private fun <E> createHasElementPlusFixedClaimGroup(
-        list: List<E>,
-        description: Translatable,
-        representation: IterableLike,
-        claim: Boolean,
-        assertions: List<Assertion>
-    ) = assertionBuilder.invisibleGroup
-        .withAssertions(
-            createHasElementAssertion(list),
-            assertionBuilder.fixedClaimGroup
-                .withListType
-                .withClaim(claim)
-                .withDescriptionAndRepresentation(description, representation)
-                .withAssertions(assertions)
-                .build()
-        )
-        .build()
 
     override fun <T : IterableLike, E> containsNoDuplicates(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion = LazyThreadUnsafeAssertionGroup {
-        val list = transformToList(container, converter)
+        val listAssertionContainer = turnSubjectToList(container, converter)
+        val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
         val lookupHashMap = HashMap<E, Int>()
         val duplicateIndices = HashMap<Int, Pair<E, MutableList<Int>>>()
@@ -163,34 +131,35 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
         val duplicates = duplicateIndices
             .map { (index, pair) ->
-                pair.let { (element, duplicateIndices) ->
-                    assertionBuilder.descriptive
-                        .failing
-                        .withFailureHint {
-                            assertionBuilder.explanatoryGroup
-                                .withDefaultType
-                                .withExplanatoryAssertion(
-                                    TranslatableWithArgs(
-                                        DescriptionIterableAssertion.DUPLICATED_BY,
-                                        duplicateIndices.joinToString(", ")
-                                    )
+                val (element, indices) = pair
+                assertionBuilder.descriptive
+                    .failing
+                    .withFailureHint {
+                        assertionBuilder.explanatoryGroup
+                            .withDefaultType
+                            .withExplanatoryAssertion(
+                                TranslatableWithArgs(
+                                    DescriptionIterableAssertion.DUPLICATED_BY,
+                                    indices.joinToString(", ")
                                 )
-                                .build()
-                        }
-                        .showForAnyFailure
-                        .withDescriptionAndRepresentation(
-                            TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
-                            element
-                        )
-                        .build()
-                }
+                            )
+                            .build()
+                    }
+                    .showForAnyFailure
+                    .withDescriptionAndRepresentation(
+                        TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+                        element
+                    )
+                    .build()
             }
 
-        createHasElementPlusFixedClaimGroup(
-            list,
-            DescriptionBasic.HAS_NOT, DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
-            duplicates.isEmpty(),
-            duplicates
+        decorateAssertionWithHasNext(
+            createAssertionGroupFromListOfAssertions(
+                DescriptionBasic.HAS_NOT,
+                DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
+                duplicates
+            ),
+            listAssertionContainer
         )
     }
 }

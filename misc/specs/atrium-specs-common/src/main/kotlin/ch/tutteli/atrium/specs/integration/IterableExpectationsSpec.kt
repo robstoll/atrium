@@ -44,6 +44,8 @@ abstract class IterableExpectationsSpec(
     val nextElementDescr = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
+    val hasANextElement = "$hasDescr: $nextElementDescr"
+
     describeFun(toHaveANextElement) {
         val toHaveANextElementFun = toHaveANextElement.lambda
 
@@ -54,7 +56,7 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable does not have next") {
             expect {
                 expect(listOf<Int>() as Iterable<Int>).toHaveANextElementFun()
-            }.toThrow<AssertionError> { messageToContain("$hasDescr: $nextElementDescr") }
+            }.toThrow<AssertionError> { messageToContain(hasANextElement) }
         }
     }
 
@@ -132,24 +134,43 @@ abstract class IterableExpectationsSpec(
     describeFun(notToContainDuplicates) {
         val notToContainDuplicatesFun = notToContainDuplicates.lambda
 
-        it("list without duplicates") {
-            expect(listOf(1, 2) as Iterable<Int>).notToContainDuplicatesFun()
+        describe("empty collection") {
+            it("throws AssertionError as there needs to be at least one element") {
+                expect {
+                    expect(listOf<Int>() as Iterable<Int>).notToContainDuplicatesFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "$hasANextElement",
+                            "$hasNotDescr: $duplicateElements"
+                        )
+                    }
+                }
+            }
         }
 
-        it("list with duplicates") {
-            fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
-            fun duplicatedBy(vararg elements: Int) =
-                DescriptionIterableAssertion.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
+        describe("list without duplicates") {
+            it("happy case") {
+                expect(listOf(1, 2) as Iterable<Int>).notToContainDuplicatesFun()
+            }
+        }
 
-            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
+        describe("list with duplicates") {
+            it("throws AssertionError with details of duplicate indices") {
+                fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
+                fun duplicatedBy(vararg elements: Int) =
+                    DescriptionIterableAssertion.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
 
-            expect {
-                expect(input).notToContainDuplicatesFun()
-            }.toThrow<AssertionError> {
-                message {
-                    toContain("$hasNotDescr: $duplicateElements")
-                    toContain(index(0, 1), index(1, 2), index(5, 4))
-                    toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
+                val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
+
+                expect {
+                    expect(input).notToContainDuplicatesFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("$hasNotDescr: $duplicateElements")
+                        toContain(index(0, 1), index(1, 2), index(5, 4))
+                        toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
+                    }
                 }
             }
         }
