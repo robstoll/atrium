@@ -5,7 +5,7 @@
 
 package custom
 
-import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.isSuccess
+import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -25,7 +25,7 @@ object SmokeSpec : Spek({
     }
 
     test("see if `Result.isSuccess` can be used") {
-        expect(Result.success(1)).isSuccess { toEqual(1) }
+        expect(Result.success(1)).toBeASuccess { toEqual(1) }
     }
 
     test("see if own assertion function without i18n can be used") {

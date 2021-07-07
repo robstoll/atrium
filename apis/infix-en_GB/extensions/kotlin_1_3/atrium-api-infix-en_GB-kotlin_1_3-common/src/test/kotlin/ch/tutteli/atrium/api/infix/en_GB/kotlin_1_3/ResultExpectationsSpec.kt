@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.api.infix.en_GB.aSuccess
-import ch.tutteli.atrium.api.infix.en_GB.success
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.ResultExpectationsSpec
 import ch.tutteli.atrium.specs.notImplemented
