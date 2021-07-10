@@ -235,6 +235,31 @@ fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E, vararg otherExpecte
     notToContain.values(expected, *otherExpected)
 
 /**
+ * Expects that the subject of `this` expectation (an [Iterable]) has a next element ([Iterator.hasNext] returns true).
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.toHaveElements
+ *
+ * @since 0.17.0
+ */
+fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
+    _logicAppend { hasNext(::identity) }
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) does not have a next element
+ * ([Iterator.hasNext] returns false).
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElements
+ *
+ * @since 0.17.0
+ */
+fun <E, T : Iterable<E>> Expect<T>.notToHaveElements(): Expect<T> =
+    _logicAppend { hasNotNext(::identity) }
+
+/**
  * Expects that the subject of `this` expectation (an [Iterable]) has next element(s) and
  * - that any of them holds the expectations the [assertionCreatorOrNull] creates or
  * - that any of them is `null` in case [assertionCreatorOrNull] is defined as `null`.
@@ -282,38 +307,14 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorO
 
 
 /**
- * Expects that the subject of `this` expectation (an [Iterable]) has a next element ([Iterator.hasNext] returns true).
+ * Expects that the subject of `this` expectation (an [Iterable]) has next element(s) and
+ * that it does not have duplicate elements.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.toHaveElements
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.toHaveElementsAndNoDuplicates
  *
  * @since 0.17.0
  */
-fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
-    _logicAppend { hasNext(::identity) }
-
-/**
- * Expects that the subject of `this` expectation (an [Iterable]) does not have a next element
- * ([Iterator.hasNext] returns false).
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElements
- *
- * @since 0.17.0
- */
-fun <E, T : Iterable<E>> Expect<T>.notToHaveElements(): Expect<T> =
-    _logicAppend { hasNotNext(::identity) }
-
-/**
- * Expects that the subject of `this` expectation (an [Iterable]) does not have duplicate elements.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToContainDuplicates
- *
- * @since 0.17.0
- */
-fun <E, T : Iterable<E>> Expect<T>.notToContainDuplicates(): Expect<T> =
+fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAndNoDuplicates(): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
