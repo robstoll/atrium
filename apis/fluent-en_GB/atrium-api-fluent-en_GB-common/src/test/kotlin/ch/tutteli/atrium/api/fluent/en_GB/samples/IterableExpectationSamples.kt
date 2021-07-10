@@ -163,6 +163,25 @@ class IterableExpectationSamples {
     }
 
     @Test
+    fun toHaveElements() {
+        expect(listOf("A", 1, 3f)).toHaveElements()
+
+        fails {
+            expect(emptyList<Int>()).toHaveElements()
+        }
+    }
+
+    @Test
+    fun notToHaveElements() {
+        expect(setOf<String>()).notToHaveElements()
+
+        fails {
+            expect(listOf("A", "B")).notToHaveElements()
+        }
+    }
+
+
+    @Test
     fun toHaveElementsAndAny() {
         expect(listOf(1, 2, 2, 4)).toHaveElementsAndAny {
             toBeGreaterThan(1)
@@ -212,30 +231,13 @@ class IterableExpectationSamples {
         }
     }
 
-    @Test
-    fun toHaveElements() {
-        expect(listOf("A", 1, 3f)).toHaveElements()
-
-        fails {
-            expect(emptyList<Int>()).toHaveElements()
-        }
-    }
 
     @Test
-    fun notToHaveElements() {
-        expect(setOf<String>()).notToHaveElements()
+    fun toHaveElementsAndNoDuplicates() {
+        expect(listOf("A", "B")).toHaveElementsAndNoDuplicates()
 
         fails {
-            expect(listOf("A", "B")).notToHaveElements()
-        }
-    }
-
-    @Test
-    fun notToContainDuplicates() {
-        expect(listOf("A", "B")).notToContainDuplicates()
-
-        fails {
-            expect(listOf("A", "B", "C", "A")).notToContainDuplicates()
+            expect(listOf("A", "B", "C", "A")).toHaveElementsAndNoDuplicates()
         }
     }
 }

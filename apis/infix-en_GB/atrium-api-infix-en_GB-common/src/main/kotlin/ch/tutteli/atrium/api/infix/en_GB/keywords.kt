@@ -168,16 +168,7 @@ object executable : Keyword
  *
  * @since 0.14.0
  */
-@Deprecated("Will be removed with 1.0.0 at the latest without replacement")
 object noDuplicates : Keyword
-
-/**
- * A helper construct to allow expressing expectations about duplicates as in `expect(iterable) notToContain duplicates`.
- * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
- *
- * @since 0.17.0
- */
-object duplicates : Keyword
 
 /**
  * A helper construct to allow expressing expectations about elements as in `expect(iterable) toHave elements`.

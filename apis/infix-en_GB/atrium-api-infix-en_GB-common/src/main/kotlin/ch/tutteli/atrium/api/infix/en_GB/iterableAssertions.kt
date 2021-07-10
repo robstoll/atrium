@@ -419,8 +419,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.hasNot(@Suppress("UNUSED_PARAMETER") ne
  * @since 0.14.0
  */
 @Deprecated(
-    "Use notToContainDuplicates; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.notToContain<E, T>(duplicates)", "ch.tutteli.atrium.api.infix.en_GB.duplicates")
+    "Use toHaveElementsAnd noDuplicates; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAnd<E, T>(noDuplicates)")
 )
 @Suppress("DEPRECATION")
 infix fun <E, T : Iterable<E>> Expect<T>.contains(@Suppress("UNUSED_PARAMETER") noDuplicates: noDuplicates): Expect<T> =

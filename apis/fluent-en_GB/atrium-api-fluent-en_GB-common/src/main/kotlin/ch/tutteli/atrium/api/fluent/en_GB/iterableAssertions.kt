@@ -372,8 +372,8 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
  * @since 0.14.0
  */
 @Deprecated(
-    "Use notToContainDuplicates; will be removed with 1.0.0 at the latest",
-    ReplaceWith("this.notToContainDuplicates<E, T>()")
+    "Use toHaveElementsAndNoDuplicates; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndNoDuplicates<E, T>()")
 )
 fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }

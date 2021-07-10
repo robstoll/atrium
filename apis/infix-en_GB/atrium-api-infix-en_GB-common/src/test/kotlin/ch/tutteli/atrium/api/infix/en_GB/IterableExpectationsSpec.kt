@@ -6,22 +6,22 @@ import kotlin.reflect.KFunction2
 
 class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExpectationsSpec(
     getToHaveElementsPair(),
-    getNotToHaveElementstPair(),
+    getNotToHaveElementsPair(),
     minFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
-    getToContainNoDuplicatesPair()
+    getToHaveElementsAndNoDuplicatesPair()
 ) {
     companion object {
         private val toHave: KFunction2<Expect<Iterable<Int>>, elements, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::toHave
-        private fun getToHaveElementsPair() = "${toHave.name} ${next::class.simpleName}" to Companion::toHaveElements
+        private fun getToHaveElementsPair() = "${toHave.name} ${elements::class.simpleName}" to Companion::toHaveElements
         private fun toHaveElements(expect: Expect<Iterable<Int>>) = expect toHave elements
 
         private val notToHave: KFunction2<Expect<Iterable<Int>>, elements, Expect<Iterable<Int>>> =
             Expect<Iterable<Int>>::notToHave
 
-        private fun getNotToHaveElementstPair() = "${notToHave.name} ${next::class.simpleName}" to Companion::notToHaveElements
+        private fun getNotToHaveElementsPair() = "${notToHave.name} ${elements::class.simpleName}" to Companion::notToHaveElements
         private fun notToHaveElements(expect: Expect<Iterable<Int>>) = expect notToHave elements
 
         private fun minFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::minFeature
@@ -30,13 +30,13 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
         private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::maxFeature
         private fun maxFeature(expect: Expect<Iterable<Int>>) = expect max o
 
-        private val notToContainDuplicates: KFunction2<Expect<Iterable<Int>>, duplicates, Expect<Iterable<Int>>> =
-            Expect<Iterable<Int>>::notToContain
+        private val toHaveElementsAnd: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
+            Expect<Iterable<Int>>::toHaveElementsAnd
 
-        private fun getToContainNoDuplicatesPair() =
-            "${notToContainDuplicates.name} ${duplicates::class.simpleName}" to Companion::toContainNoDuplicates
+        private fun getToHaveElementsAndNoDuplicatesPair() =
+            "${toHaveElementsAnd.name} ${noDuplicates::class.simpleName}" to Companion::toHaveElementsAndNoDuplicates
 
-        private fun toContainNoDuplicates(expect: Expect<Iterable<Int>>) = expect notToContain duplicates
+        private fun toHaveElementsAndNoDuplicates(expect: Expect<Iterable<Int>>) = expect toHaveElementsAnd noDuplicates
 
     }
 
@@ -48,15 +48,15 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         a1 = a1 toHave elements
         a1 = a1 notToHave elements
-        a1 = a1 notToContain duplicates
+        a1 = a1 toHaveElementsAnd noDuplicates
 
         a1b = a1b toHave elements
         a1b = a1b notToHave elements
-        a1b = a1b notToContain duplicates
+        a1b = a1b toHaveElementsAnd noDuplicates
 
         star = star toHave elements
         star = star notToHave elements
-        star = star notToContain duplicates
+        star = star toHaveElementsAnd noDuplicates
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>

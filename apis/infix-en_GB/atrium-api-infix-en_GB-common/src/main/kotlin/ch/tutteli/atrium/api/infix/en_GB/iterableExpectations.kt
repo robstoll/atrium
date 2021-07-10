@@ -259,6 +259,26 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E): Expect<T> =
 infix fun <E, T : Iterable<E>> Expect<T>.notToContain(values: Values<E>): Expect<T> =
     it notToContain o the values
 
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) has at least one element.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.17.0
+ */
+infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
+    _logicAppend { hasNext(::identity) }
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) does not have next element.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.17.0
+ */
+infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
+    _logicAppend { hasNotNext(::identity) }
+
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding
@@ -303,32 +323,12 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCr
 
 
 /**
- * Expects that the subject of `this` expectation (an [Iterable]) has at least one element.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.17.0
- */
-infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
-    _logicAppend { hasNext(::identity) }
-
-/**
- * Expects that the subject of `this` expectation (an [Iterable]) does not have next element.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.17.0
- */
-infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
-    _logicAppend { hasNotNext(::identity) }
-
-/**
  * Expects that the subject of `this` expectation (an [Iterable]) does not have duplicate elements.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.17.0
  */
-infix fun <E, T : Iterable<E>> Expect<T>.notToContain(@Suppress("UNUSED_PARAMETER") duplicates: duplicates): Expect<T> =
+infix fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAnd(@Suppress("UNUSED_PARAMETER") noDuplicates: noDuplicates): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
 
