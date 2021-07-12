@@ -11,6 +11,7 @@ package ch.tutteli.atrium.logic.creating.maplike.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -33,10 +34,15 @@ fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, 
     impl.keyWithValueAssertionsInAnyOrderOnly(this, valueType, keyValues)
 
 
-fun <K, V, T : MapLike> MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>.keyValuePairsInOrderOnly(keyValuePairs: List<Pair<K, V>>): Assertion = impl.keyValuePairsInOrderOnly(this, keyValuePairs)
+fun <K, V, T : MapLike> MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>.keyValuePairsInOrderOnly(keyValuePairs: List<Pair<K, V>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.keyValuePairsInOrderOnly(this, keyValuePairs, reportingOptions)
 
+    //TODO remove with 0.18.0 only here for backward compatiblity with specs
 fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>.keyWithValueAssertionsInOrderOnly(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>): Assertion =
     impl.keyWithValueAssertionsInOrderOnly(this, valueType, keyValues)
+
+fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>.keyWithValueAssertionsInOrderOnly(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.keyWithValueAssertionsInOrderOnly(this, valueType, keyValues, reportingOptions)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)

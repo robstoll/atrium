@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.regex
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
@@ -56,6 +57,8 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeparator
+
+        val emptyInOrderOnlyReportOptions : InOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1).regex("${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected")

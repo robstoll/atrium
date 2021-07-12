@@ -5,6 +5,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
@@ -29,22 +30,26 @@ interface IterableLikeContainsAssertions {
 
     fun <E, T : IterableLike> valuesInOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlySearchBehaviour>,
-        expected: List<E>
+        expected: List<E>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
     fun <E : Any, T : IterableLike> entriesInOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlySearchBehaviour>,
-        assertionCreators: List<(Expect<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
 
     fun <E, T : IterableLike> valuesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlyGroupedSearchBehaviour>,
-        groups: List<List<E>>
+        groups: List<List<E>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
     fun <E : Any, T : IterableLike> entriesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>,
-        groups: List<List<(Expect<E>.() -> Unit)?>>
+        groups: List<List<(Expect<E>.() -> Unit)?>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 }

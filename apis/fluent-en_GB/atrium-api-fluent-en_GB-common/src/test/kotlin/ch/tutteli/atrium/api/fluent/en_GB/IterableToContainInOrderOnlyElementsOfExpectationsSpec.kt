@@ -1,6 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
@@ -45,26 +49,36 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         fun toContainInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.toContain.inOrder.only.elementsOf(listOf(a, *aX))
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) expect.toContain.inOrder.only.elementsOf(listOf(a, *aX))
+            else expect.toContain.inOrder.only._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
         private fun toContainInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.toContain.inOrder.only.elementsOf(sequenceOf(a, *aX))
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit = {}
+        ): Expect<Iterable<Double?>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) expect.toContain.inOrder.only.elementsOf(sequenceOf(a, *aX))
+            else expect.toContain.inOrder.only._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
         private fun toContainExactlyElementsOfShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.toContainExactlyElementsOf(arrayOf(a, *aX))
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit = {}
+        ): Expect<Iterable<Double>> = expect.toContainExactlyElementsOf(arrayOf(a, *aX), report)
 
         private fun toContainExactlyElementsOfNullableShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.toContainExactlyElementsOf(sequenceOf(a, *aX).asIterable())
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit = {}
+        ): Expect<Iterable<Double?>> = expect.toContainExactlyElementsOf(sequenceOf(a, *aX).asIterable(), report)
     }
 
 
@@ -79,17 +93,22 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         nList = nList.toContain.inOrder.only.elementsOf(listOf<Int>())
         subList = subList.toContain.inOrder.only.elementsOf(listOf<Int>())
         star = star.toContain.inOrder.only.elementsOf(listOf<Int>())
+        //TODO use the following with 0.18.0
+//        list = list.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { showAlwaysSummary() })
+//        nList = nList.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { showOnlyFailing() })
+//        subList = subList.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { })
+//        star = star.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { })
 
-        list = list.toContainExactlyElementsOf(1)
-        nList = nList.toContainExactlyElementsOf(1)
-        subList = subList.toContainExactlyElementsOf(1)
-        star = star.toContainExactlyElementsOf(1)
+        list = list.toContainExactlyElementsOf(1, report = { })
+        nList = nList.toContainExactlyElementsOf(1, report = { })
+        subList = subList.toContainExactlyElementsOf(1, report = { })
+        star = star.toContainExactlyElementsOf(1, report = { })
 
-        list = list.toContainExactlyElementsOf(listOf(1, 1.2))
-        nList = nList.toContainExactlyElementsOf(listOf(1, 1.2))
-        subList = subList.toContainExactlyElementsOf(listOf(1, 2.2))
-        subList = subList.toContainExactlyElementsOf(listOf(1))
-        star = star.toContainExactlyElementsOf(listOf(1, 1.2, "asdf"))
+        list = list.toContainExactlyElementsOf(listOf(1, 1.2), report = { })
+        nList = nList.toContainExactlyElementsOf(listOf(1, 1.2), report = { })
+        subList = subList.toContainExactlyElementsOf(listOf(1, 2.2), report = { })
+        subList = subList.toContainExactlyElementsOf(listOf(1), report = { })
+        star = star.toContainExactlyElementsOf(listOf(1, 1.2, "asdf"), report = { })
     }
 }
 

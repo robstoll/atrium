@@ -30,11 +30,15 @@ import kotlin.jvm.JvmName
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
+fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>
-): Expect<T> = _logicAppend { valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups)) }
+    //TODO 0.18.0 add the following
+    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend {
+    valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), {})
+}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [firstGroup] as well as
@@ -56,8 +60,12 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeha
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 @JvmName("inAnyOrderEntries")
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
+fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>
-): Expect<T> = _logicAppend { entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups)) }
+    //TODO 0.18.0 add the following
+    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend {
+    entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), {})
+}

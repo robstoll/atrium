@@ -1062,9 +1062,7 @@ This makes of course only sense if your `Iterable` contains nullable elements.
 Atrium provides also a `notToContain` shortcut function. 
 Furthermore, it provides aliases for `toContain` and `notToContain` named `toHaveNextAndAny` and `toHaveNextAndNone`,  
 which might be a better choice if you think in terms of: expect a predicate holds. 
-These two are completed with an `toHaveNextAndAll` assertion function. 
-
-<!-- TODO 0.17.0 add text about notToHaveNextOrAll -->
+These two are completed with an `toHaveNextAndAll` assertion function.
 
 Following each in action:
 

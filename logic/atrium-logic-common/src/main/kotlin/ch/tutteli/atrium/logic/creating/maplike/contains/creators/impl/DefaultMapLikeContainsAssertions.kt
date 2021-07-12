@@ -11,6 +11,7 @@ import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.andOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.inOrder
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
@@ -204,18 +205,26 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
 
     override fun <K, V, T : MapLike> keyValuePairsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>,
-        keyValuePairs: List<Pair<K, V>>
+        keyValuePairs: List<Pair<K, V>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion =
         entryPointStepLogic.container
             .builderContainsInIterableLike { convertToMap(entryPointStepLogic).entries }
             ._logic.inOrder._logic.andOnly._logic.entriesInOrderOnly(keyValuePairs.map { (key, value) ->
                 expectLambda<Map.Entry<K, V>> { _logicAppend { isKeyValue(key, value) } }
-            })
+            }, reportingOptions)
 
     override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
         valueType: KClass<V>,
         keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
+    ): Assertion = keyWithValueAssertionsInOrderOnly(entryPointStepLogic, valueType, keyValues, reportingOptions = {})
+
+    override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
+        entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
+        valueType: KClass<V>,
+        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion =
         entryPointStepLogic.container
             .builderContainsInIterableLike { convertToMap(entryPointStepLogic).entries }
@@ -224,5 +233,5 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
                     _logic.key().collectAndLogicAppend { toBe(key) }
                     _logic.value().collectAndLogicAppend { toBeNullIfNullGivenElse(nullableAssertionCreator) }
                 }
-            })
+            }, reportingOptions)
 }

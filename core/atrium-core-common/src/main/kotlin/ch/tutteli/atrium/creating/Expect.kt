@@ -41,7 +41,7 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T> {
  * @param T The type of the subject of `this` expectation.
  */
 @Suppress("DEPRECATION")
-@ExpectMarker
+//@ExpectMarker
 interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
 
     @Deprecated(

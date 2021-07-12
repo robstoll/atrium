@@ -31,7 +31,6 @@ import kotlin.reflect.KClass
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     this the pairs(keyValuePair)
 
-// TODO 0.17.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePairs] in the specified order.
@@ -42,7 +41,13 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.the(
     keyValuePairs: Pairs<K, V>
-): Expect<T> = _logicAppend { keyValuePairsInOrderOnly(keyValuePairs.toList()) }
+): Expect<T> = _logicAppend {
+    keyValuePairsInOrderOnly(
+        keyValuePairs.toList(),
+        //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+        {}
+    )
+}
 
 
 /**
@@ -62,7 +67,6 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
     keyValue: KeyWithValueCreator<K, V>
 ): Expect<T> = this the keyValues(keyValue)
 
-// TODO 0.17.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValues] in the specified order -- an entry
@@ -84,10 +88,14 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
     kClass: KClass<V>,
     keyValues: List<KeyWithValueCreator<K, V>>
 ): Expect<T> = _logicAppend {
-    keyWithValueAssertionsInOrderOnly(kClass, keyValues.map { it.toPair() })
+    keyWithValueAssertionsInOrderOnly(
+        kClass,
+        keyValues.map { it.toPair() },
+        //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+        {}
+    )
 }
 
-// TODO 0.17.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only and all entries of the given [expectedMapLike] in the specified order.
@@ -106,6 +114,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  *
  * @since 0.15.0
  */
+//TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
 ): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) ->

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
+//TODO 0.18.0 include InOrderReportOptions
 abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
     keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,

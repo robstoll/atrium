@@ -1,6 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
@@ -29,10 +33,16 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         private fun toContainInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect toContain o inGiven order and only value a
-            else expect toContain o inGiven order and only the values(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect toContain o inGiven order and only value a
+                else expect toContain o inGiven order and only the values(a, *aX)
+            } else (expect toContain o inGiven order and only)._logicAppend {
+                valuesInOrderOnly(listOf(a, *aX), report)
+            }
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::toContainInOrderOnlyNullableValues
@@ -40,10 +50,16 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         private fun toContainInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect toContain o inGiven order and only value a
-            else expect toContain o inGiven order and only the values(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect toContain o inGiven order and only value a
+                else expect toContain o inGiven order and only the values(a, *aX)
+            } else (expect toContain o inGiven order and only)._logicAppend {
+                valuesInOrderOnly(listOf(a, *aX), report)
+            }
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactly
@@ -53,10 +69,16 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         private fun toContainInOrderOnlyValuesShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect toContainExactly a
-            else expect toContainExactly values(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect toContainExactly a
+                else expect toContainExactly values(a, *aX)
+            } else (expect toContain o inGiven order and only)._logicAppend {
+                valuesInOrderOnly(listOf(a, *aX), report)
+            }
 
         private val toContainNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Double?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactly
@@ -67,10 +89,16 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         private fun toContainInOrderOnlyNullableValuesShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect toContainExactly a
-            else expect toContainExactly values(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect toContainExactly a
+                else expect toContainExactly values(a, *aX)
+            } else (expect toContain o inGiven order and only)._logicAppend {
+                valuesInOrderOnly(listOf(a, *aX), report)
+            }
     }
 }
 

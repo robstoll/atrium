@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.extractFeature
@@ -13,8 +14,9 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     converter: (T) -> Iterable<E>,
-    searchBehaviour: InOrderOnlyGroupedSearchBehaviour
-) : InOrderOnlyBaseAssertionCreator<E, T, List<SC>>(converter, searchBehaviour),
+    searchBehaviour: InOrderOnlyGroupedSearchBehaviour,
+    reportingOptions: InOrderOnlyReportingOptions.() -> Unit
+) : InOrderOnlyBaseAssertionCreator<E, T, List<SC>>(converter, searchBehaviour, reportingOptions),
     //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 
