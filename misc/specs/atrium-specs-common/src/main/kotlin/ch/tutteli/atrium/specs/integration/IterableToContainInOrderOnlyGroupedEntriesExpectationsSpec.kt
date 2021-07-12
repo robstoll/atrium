@@ -8,6 +8,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.spekframework.spek2.style.specification.Suite
 
+//TODO 0.18.0 include InOrderReportOptions
 abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
     toContainInOrderOnlyGroupedEntries: Fun3<Iterable<Double?>, Group<(Expect<Double>.() -> Unit)?>, Group<(Expect<Double>.() -> Unit)?>, Array<out Group<(Expect<Double>.() -> Unit)?>>>,
     groupFactory: (Array<out (Expect<Double>.() -> Unit)?>) -> Group<(Expect<Double>.() -> Unit)?>,

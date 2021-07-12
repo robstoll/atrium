@@ -11,6 +11,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.impl.InOrderOnlyReportingOptionsImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -19,7 +21,8 @@ import ch.tutteli.kbox.mapRemainingWithCounter
 
 abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
     private val converter: (T) -> Iterable<E>,
-    private val searchBehaviour: IterableLikeContains.SearchBehaviour
+    private val searchBehaviour: IterableLikeContains.SearchBehaviour,
+    private val reportingOptions: InOrderOnlyReportingOptions.() -> Unit
 ) : IterableLikeContains.Creator<T, SC> {
 
     final override fun createAssertionGroup(
@@ -56,7 +59,15 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     )
                 }
             }
+
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+            val options = InOrderOnlyReportingOptionsImpl().apply(reportingOptions)
+            val assertionGroup = (if (list.size <= options.numberOfElementsInSummary) {
+                assertionBuilder.summary.withDescription(description)
+            } else {
+                assertionBuilder.list.withDescriptionAndEmptyRepresentation(description)
+            }).withAssertion(assertion).build()
+
             assertionBuilder.invisibleGroup
                 .withAssertions(
                     container.collectBasedOnSubject(Some(list)) {
@@ -64,10 +75,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                             .size { it }
                             .collectAndLogicAppend { toBe(index) }
                     },
-                    assertionBuilder.summary
-                        .withDescription(description)
-                        .withAssertion(assertion)
-                        .build()
+                    assertionGroup
                 )
                 .build()
         }

@@ -1,11 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInOrderOnlyEntriesExpectationsSpec.Companion as C
+import kotlin.reflect.KFunction4
 
 class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
 
@@ -20,29 +24,54 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
     )
 
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyEntriesExpectationsSpec(
-        fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::toContainExactly),
-        fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::toContainExactly).withNullableSuffix(),
+        shortcutFunctionDescription to C::toContainExactly,
+        (shortcutFunctionDescription to C::toContainExactlyNullable).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableToContainSpecBase() {
         val functionDescription = "$toContain.$inOrder.$only.$entry/$entries"
+        private val toContainExactlyFun: KFunction4<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, InOrderOnlyReportingOptions.() -> Unit, Expect<Iterable<Double>>> =
+            Expect<Iterable<Double>>::toContainExactly
+        val shortcutFunctionDescription = toContainExactlyFun.name
 
         private fun toContainInOrderOnly(
             expect: Expect<Iterable<Double>>,
             a: Expect<Double>.() -> Unit,
-            aX: Array<out Expect<Double>.() -> Unit>
+            aX: Array<out Expect<Double>.() -> Unit>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
-            else expect.toContain.inOrder.only.entries(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
+                else expect.toContain.inOrder.only.entries(a, *aX)
+            } else expect.toContain.inOrder.only._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
 
         private fun toContainInOrderOnlyNullable(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?,
-            aX: Array<out (Expect<Double>.() -> Unit)?>
+            aX: Array<out (Expect<Double>.() -> Unit)?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
-            else expect.toContain.inOrder.only.entries(a, *aX)
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) {
+                if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
+                else expect.toContain.inOrder.only.entries(a, *aX)
+            } else expect.toContain.inOrder.only._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+
+        private fun toContainExactly(
+            expect: Expect<Iterable<Double>>,
+            a: Expect<Double>.() -> Unit,
+            aX: Array<out Expect<Double>.() -> Unit>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> = expect.toContainExactly(a, *aX, report = report)
+
+        private fun toContainExactlyNullable(
+            expect: Expect<Iterable<Double?>>,
+            a: (Expect<Double>.() -> Unit)?,
+            aX: Array<out (Expect<Double>.() -> Unit)?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> = expect.toContainExactly(a, *aX, report = report)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -68,6 +97,15 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
         nList = nList.toContain.inOrder.only.entries(null, {}, null)
         star = star.toContain.inOrder.only.entries(null, {}, null)
 
+        //TODO use the following with 0.18.0
+//        list = list.toContain.inOrder.only.entries({}, {}, report = { })
+//        nList = nList.toContain.inOrder.only.entries({}, {}, report = { })
+//        subList = subList.toContain.inOrder.only.entries({}, {}, report = { })
+//        star = star.toContain.inOrder.only.entries({}, {}, report = { })
+//
+//        nList = nList.toContain.inOrder.only.entries(null, {}, null, report = { })
+//        star = star.toContain.inOrder.only.entries(null, {}, null, report = { })
+
         list = list.toContainExactly {}
         nList = nList.toContainExactly {}
         subList = subList.toContainExactly {}
@@ -81,7 +119,15 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
         subList = subList.toContainExactly({}, {})
         star = star.toContainExactly({}, {})
 
+        list = list.toContainExactly({}, {}, report = { showOnlyFailingIfMoreElementsThan(20) })
+        nList = nList.toContainExactly({}, {}, report = { showOnlyFailing() })
+        subList = subList.toContainExactly({}, {}, report = { showAlwaysSummary() })
+        star = star.toContainExactly({}, {}, report = { })
+
         nList = nList.toContainExactly(null, {}, null)
         star = star.toContainExactly(null, {}, null)
+
+        nList = nList.toContainExactly(null, {}, null, report = {})
+        star = star.toContainExactly(null, {}, null, report = {})
     }
 }

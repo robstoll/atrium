@@ -12,14 +12,6 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 
-//TODO 0.17.0 reconsider if `toContain o` is good or if we should try to come up with another form which does not use
-//the filler. E.g. we could skip one step (thought I guess the api will be misleading as it is no longer based on two levels:
-// expect("hello") toContainAtLeast 1 value "hello"
-//
-// another idea is `expect("hello") to contain` but an infix `to` caused already problems in conjunction with pairs
-// but maybe this ambiguity problem was solved in the new inference algorithm?
-// the drawback of this, the shortcut has no longer the same prefix as the builder. But I guess that's fine if other
-// builders do not follow this rule in the infix API
 /**
  * Starts a sophisticated `toContain` assertion building process based on this [Expect].
  *

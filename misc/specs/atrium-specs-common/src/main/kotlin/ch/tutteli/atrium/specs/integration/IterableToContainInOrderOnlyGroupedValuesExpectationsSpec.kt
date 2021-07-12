@@ -7,6 +7,7 @@ import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 
+//TODO 0.18.0 include InOrderReportOptions
 abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     toContainInOrderOnlyGroupedValues: Fun3<Iterable<Double>, Group<Double>, Group<Double>, Array<out Group<Double>>>,
     groupFactory: (Array<out Double>) -> Group<Double>,

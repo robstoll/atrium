@@ -51,7 +51,9 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
 fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected) }
+    //TODO use the following with 0.18.0
+    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected, {}) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -100,7 +102,9 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
 fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
+    //TODO 0.18.0 add the following
+    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, {}) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -127,4 +131,6 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  */
 inline fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
+    //TODO 0.18.0 add the following
+    //noinline report: InOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest) }

@@ -1,6 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
@@ -43,8 +47,12 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun toContainInOrderOnlyValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect toContain o inGiven order and only elementsOf listOf(a, *aX)
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf listOf(a, *aX)
+            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderElementsOf" to Companion::toContainInOrderOnlyNullableValues
@@ -52,8 +60,12 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun toContainInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect toContain o inGiven order and only elementsOf sequenceOf(a, *aX)
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf sequenceOf(a, *aX)
+            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
         private val toContainExactlyElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactlyElementsOf
@@ -64,8 +76,12 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun toContainExactlyElementsOfShortcut(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect toContainExactlyElementsOf arrayOf(a, *aX)
+            aX: Array<out Double>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions)  expect toContainExactlyElementsOf arrayOf(a, *aX)
+            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
         private val toContainExactlyElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactlyElementsOf
@@ -76,8 +92,12 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun toContainExactlyElementsOfNullableShortcut(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect toContainExactlyElementsOf sequenceOf(a, *aX).asIterable()
+            aX: Array<out Double?>,
+            report: InOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> =
+            //TODO 0.18.0 remove if once implemented
+            if (report === emptyInOrderOnlyReportOptions) expect toContainExactlyElementsOf sequenceOf(a, *aX).asIterable()
+            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
 
     }
 }

@@ -1,12 +1,17 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.utils.toVarArg
+import ch.tutteli.kbox.glue
 import ch.tutteli.kbox.identity
 
 /**
@@ -119,8 +124,16 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContain(
  *
  * @since 0.17.0
  */
-fun <E, T : Iterable<E>> Expect<T>.toContainExactly(expected: E, vararg otherExpected: E): Expect<T> =
-    toContain.inOrder.only.values(expected, *otherExpected)
+fun <E, T : Iterable<E>> Expect<T>.toContainExactly(
+    expected: E,
+    vararg otherExpected: E,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> =
+    //TODO 0.18.0 use the following
+    //toContain.inOrder.only.values(expected, *otherExpected, report = report)
+    toContain.inOrder.only._logicAppend {
+        valuesInOrderOnly(expected glue otherExpected, report)
+    }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
@@ -172,8 +185,16 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(assertionCreatorOrNul
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = toContain.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> =
+    //TODO 0.18.0 use the following
+    //toContain.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls, report = report)
+    toContain.inOrder.only._logicAppend {
+        entriesInOrderOnly(
+            assertionCreatorOrNull glue otherAssertionCreatorsOrNulls,
+            report)
+    }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only elements of [expectedIterableLike]
@@ -195,8 +216,13 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
  * @since 0.17.0
  */
 inline fun <reified E, T : Iterable<E>> Expect<T>.toContainExactlyElementsOf(
-    expectedIterableLike: IterableLike
-): Expect<T> = toContain.inOrder.only.elementsOf(expectedIterableLike)
+    expectedIterableLike: IterableLike,
+    noinline report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> =
+//TODO 0.18.0 use the following
+//    toContain.inOrder.only.elementsOf(expectedIterableLike)
+    toContain.inOrder.only._logic.toVarArg<E>(expectedIterableLike)
+        .let { (first, rest) -> toContain.inOrder.only._logicAppend { valuesInOrderOnly(first glue rest, report) } }
 
 /** Expects that the subject of `this` expectation (an [Iterable]) contains all elements of [expectedIterableLike].
  *

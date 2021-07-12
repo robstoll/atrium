@@ -25,9 +25,16 @@ import kotlin.jvm.JvmName
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
+
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, Group<E>>
-): Expect<T> = _logicAppend { valuesInOrderOnlyGrouped(order.toList()) }
+): Expect<T> = _logicAppend {
+    valuesInOrderOnlyGrouped(
+        order.toList(),
+        //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+        {}
+    )
+}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
@@ -54,7 +61,13 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Expect<E>.() -> Unit)?, Group<(Expect<E>.() -> Unit)?>>
-): Expect<T> = _logicAppend { entriesInOrderOnlyGrouped(order.toList()) }
+): Expect<T> = _logicAppend {
+    entriesInOrderOnlyGrouped(
+        order.toList(),
+        //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+        {}
+    )
+}
 
 /**
  * Helper function to create an [Order] based on the given [firstGroup], [secondGroup] and [otherExpectedGroups].

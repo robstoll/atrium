@@ -49,7 +49,13 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): Expect<T> =
-    _logicAppend { valuesInOrderOnly(values.toList()) }
+    _logicAppend {
+        valuesInOrderOnly(
+            values.toList(),
+            //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+            {}
+        )
+    }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -92,9 +98,16 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
+
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.the(
     entries: Entries<E>
-): Expect<T> = _logicAppend { entriesInOrderOnly(entries.toList()) }
+): Expect<T> = _logicAppend {
+    entriesInOrderOnly(
+        entries.toList(),
+        //TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
+        {}
+    )
+}
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -120,6 +133,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  *
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
+//TODO 0.18.0 add: report: InOrderOnlyReportingOptions.() -> Unit = {}
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> this the values(first, *rest) }
