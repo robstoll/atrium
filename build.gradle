@@ -31,6 +31,9 @@ buildscript {
         node_plugin_version = '2.2.0'
         d8_version = '1.6.84'
 
+        // release
+        gradle_nexus_publish_plugin_version = '1.1.0'
+
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
             !it.name.endsWith("-js") &&
@@ -98,6 +101,7 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
         classpath "com.github.node-gradle:gradle-node-plugin:$node_plugin_version"
+        classpath "io.github.gradle-nexus:publish-plugin:$gradle_nexus_publish_plugin_version"
     }
 }
 
@@ -407,6 +411,13 @@ gradle.taskGraph.whenReady { graph ->
     }
 }
 
+apply plugin: "io.github.gradle-nexus.publish-plugin"
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
+
 /*
 Release & deploy a commit
 --------------------------------
@@ -479,11 +490,12 @@ alternatively the manual steps:
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 
-3. deploy to bintray:
+3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToBintray
-    b) Log in to bintray, check that there are 960 artifacts and publish them
-    c) synchronise to maven central
+    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) gr closeAndReleaseSonatypeStagingRepository
 
 4. publish release on github
     1) Log in to github and publish draft
