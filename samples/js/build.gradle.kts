@@ -34,6 +34,9 @@ kotlin {
             testTask {
                 testLogging {
                     exceptionFormat = TestExceptionFormat.FULL // Show full exception when an assertion fails
+                    showExceptions = true                      // defaults to true
+                    showCauses = true                          // defaults to true
+                    showStackTraces = true                     // defaults to true
                 }
             }
         }
