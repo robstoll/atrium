@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.17.0-RC1'
+    rootProject.version = '0.17.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -59,7 +59,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.17.0-RC1"
+        dokka_sourceMapping = "tree/master"
 
 
         toolProjects = toolProjectsFun
@@ -427,7 +427,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=0.17.0-RC1
-export ATRIUM_VERSION=0.17.0-RC1
+export ATRIUM_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/master@tree/v$ATRIUM_VERSION@g;" \
