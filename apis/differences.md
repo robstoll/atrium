@@ -67,8 +67,8 @@ is so similar, we will not list it here (ok, we did now, but I guess you get the
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).isEmpty()
-expect(x).isNotEmpty()
+expect(x).toBeEmpty()
+expect(x).notToBeEmpty()
 ```
 
 *atrium-api-infix-en_GB*
@@ -82,13 +82,13 @@ expect(x) notToBe empty
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).isGreaterThan(1).and.isLessThan(10)
+expect(x).toBeGreaterThan(1).and.toBeLessThan(10)
 expect(x) { /*...*/ } and { /*...*/ }
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) isGreaterThan 1 and o isLessThan 10
+expect(x) toBeGreaterThan 1 and o toBeLessThan 10
 expect(x) { /*...*/ } and { /*...*/ }
 ```
 
@@ -99,13 +99,13 @@ a method with one parameter and thus make it available as infix method.
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).contains("hello", "world")
-expect(x).contains.atLeast(1).butAtMost(2).value("hello")
-expect(x).contains.exactly(1).values("hello", "robert")
-expect(x).contains.atMost(2).regex("h(e|a)llo")
-expect(x).contains.atMost(2).regex(Regex("h(e|a)llo"))
-expect(x).contains.ignoringCase.regex("h(e|a)llo", "[Rr]obert")
-expect(x).contains.ignoringCase.notOrAtMost(1).elementsOf(anIterable)
+expect(x).toContain("hello", "world")
+expect(x).toContain.atLeast(1).butAtMost(2).value("hello")
+expect(x).toContain.exactly(1).values("hello", "robert")
+expect(x).toContain.atMost(2).regex("h(e|a)llo")
+expect(x).toContain.atMost(2).regex(Regex("h(e|a)llo"))
+expect(x).toContain.ignoringCase.regex("h(e|a)llo", "[Rr]obert")
+expect(x).toContain.ignoringCase.notOrAtMost(1).elementsOf(anIterable)
 ```
 Notice that the final steps
 `value`, `values` and `regex` 
@@ -116,13 +116,13 @@ are applicable to all shown examples
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) contains values("hello", "world")
-expect(x) contains o atLeast 1 butAtMost 2 value "hello"
-expect(x) contains o exactly 1 the values("hello", "robert")
-expect(x) contains o atMost 2 regex "h(e|a)llo"
-expect(x) contains o atMost 2 matchFor Regex("h(e|a)llo")
-expect(x) contains o ignoring case notOrAtMost 1 the regexPatterns("h(e|a)llo", "[Rr]obert")
-expect(x) contains o ignoring case notOrAtMost 1 elementsOf anIterable
+expect(x) toContain values("hello", "world")
+expect(x) toContain o atLeast 1 butAtMost 2 value "hello"
+expect(x) toContain o exactly 1 the values("hello", "robert")
+expect(x) toContain o atMost 2 regex "h(e|a)llo"
+expect(x) toContain o atMost 2 matchFor Regex("h(e|a)llo")
+expect(x) toContain o ignoring case notOrAtMost 1 the regexPatterns("h(e|a)llo", "[Rr]obert")
+expect(x) toContain o ignoring case notOrAtMost 1 elementsOf anIterable
 ```
 Notice that the final steps 
 `value`, `values(...)`, `regex` and `regexPatterns(..)` 
@@ -136,19 +136,19 @@ are applicable to all shown examples
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).contains(1.2)
-expect(x).contains(1.2, 5.7)
-expect(x).contains { isLessThan(2) }
-expect(x).contains({ isLessThan(2) }, { isGreaterThan(5) })
+expect(x).toContain(1.2)
+expect(x).toContain(1.2, 5.7)
+expect(x).toContain { toBeLessThan(2) }
+expect(x).toContain({ toBeLessThan(2) }, { toBeGreaterThan(5) })
 
-expect(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
-expect(x).contains.inAnyOrder.exactly(1).values("hello", "robert")
-expect(x).contains.inAnyOrder.atMost(2).entry { isLessOrEquals(2) }
-expect(x).contains.inAnyOrder.notOrAtMost(2).entries({ notToEqual(3) }, { isGreaterOrEquals(2) })
-expect(x).contains.inAnyOrder.only.value("hello")
-expect(x).contains.inAnyOrder.only.values(personA, personB)
-expect(x).contains.inAnyOrder.only.entry { isLessThan(2) }
-expect(x).contains.inAnyOrder.only.entries({ toEqual(3) }, { isLessThan(2) })
+expect(x).toContain.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
+expect(x).toContain.inAnyOrder.exactly(1).values("hello", "robert")
+expect(x).toContain.inAnyOrder.atMost(2).entry { toBeLessOrEquals(2) }
+expect(x).toContain.inAnyOrder.notOrAtMost(2).entries({ notToEqual(3) }, { toBeGreaterOrEquals(2) })
+expect(x).toContain.inAnyOrder.only.value("hello")
+expect(x).toContain.inAnyOrder.only.values(personA, personB)
+expect(x).toContain.inAnyOrder.only.entry { toBeLessThan(2) }
+expect(x).toContain.inAnyOrder.only.entries({ toEqual(3) }, { toBeLessThan(2) })
 ```
 Notice that the final steps 
 `value`, `values`, `entry` and `entries` 
@@ -158,19 +158,19 @@ are applicable to all shown examples
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) contains 1.2
-expect(x) contains values(1.2, 5.7) // or Objects as alternative
-expect(x) contains { it isLessThan 2 }
-expect(x) contains entries({ it isLessThan 2 }, { it isGreaterThan 5 })
+expect(x) toContain 1.2
+expect(x) toContain values(1.2, 5.7) // or Objects as alternative
+expect(x) toContain { it toBeLessThan 2 }
+expect(x) toContain entries({ it toBeLessThan 2 }, { it toBeGreaterThan 5 })
 
-expect(x) contains o inAny order atLeast 1 butAtMost 2 value 3.2
-expect(x) contains o inAny order exactly 1 the values("hello", "robert")
-expect(x) contains o inAny order atMost 2 entry { it isLessOrEquals 2 }
-expect(x) contains o inAny order notOrAtMost 2 the entries({ it notToEqual 3 }, { it isGreaterOrEquals 2 })
-expect(x) contains o inAny order but only value "hello"
-expect(x) contains o inAny order but only the values(personA, personB)
-expect(x) contains o inAny order but only entry { it isLessThan 2 } 
-expect(x) contains o inAny order but only the entries({ it toBe 3 }, { it isLessThan 2 })
+expect(x) toContain o inAny order atLeast 1 butAtMost 2 value 3.2
+expect(x) toContain o inAny order exactly 1 the values("hello", "robert")
+expect(x) toContain o inAny order atMost 2 entry { it toBeLessOrEquals 2 }
+expect(x) toContain o inAny order notOrAtMost 2 the entries({ it notToEqual 3 }, { it toBeGreaterOrEquals 2 })
+expect(x) toContain o inAny order but only value "hello"
+expect(x) toContain o inAny order but only the values(personA, personB)
+expect(x) toContain o inAny order but only entry { it toBeLessThan 2 } 
+expect(x) toContain o inAny order but only the entries({ it toEqual 3 }, { it toBeLessThan 2 })
 ```
 Note that `o` is a filler object which is only there so that we can turn extension methods without parameters into 
 a method with one parameter and thus make it available as infix method.
@@ -184,47 +184,47 @@ are applicable to all shown examples
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).containsExactly(1.2)
-expect(x).containsExactly(1.2, 5.7)
-expect(x).containsExactly({ isLessThan(2) })
-expect(x).containsExactly({ isLessThan(2) }, { isGreaterThan 5 })
+expect(x).toContainExactly(1.2)
+expect(x).toContainExactly(1.2, 5.7)
+expect(x).toContainExactly({ toBeLessThan(2) })
+expect(x).toContainExactly({ toBeLessThan(2) }, { toBeGreaterThan 5 })
 
-expect(x).contains.inOrder.only.value("hello")
-expect(x).contains.inOrder.only.values("hello", "world")
-expect(x).contains.inOrder.only.entry { isLessThan(2) }
-expect(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
-expect(x).contains.inOrder.only.grouped.within.inAnyOrder(
+expect(x).toContain.inOrder.only.value("hello")
+expect(x).toContain.inOrder.only.values("hello", "world")
+expect(x).toContain.inOrder.only.entry { toBeLessThan(2) }
+expect(x).toContain.inOrder.only.entries({ toBe(3) }, { toBeLessThan(2) })
+expect(x).toContain.inOrder.only.grouped.within.inAnyOrder(
     value(1), 
     values(1, 2), 
     values(3, 4)
 )
-expect(x).contains.inOrder.only.grouped.within.inAnyOrder(
-    entry { toBe(1) }, 
-    entries({ isLessThan(2) },{ isGreaterThan(2) }), 
-    entries({ toBe(3) }, { toBe(4) })
+expect(x).toContain.inOrder.only.grouped.within.inAnyOrder(
+    entry { toEqual(1) }, 
+    entries({ toBeLessThan(2) },{ toBeGreaterThan(2) }), 
+    entries({ toEqual(3) }, { toEqual(4) })
 )
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) containsExactly 1.2
-expect(x) containsExactly values(1.2, 5.7) // or Objects as alternative
-expect(x) containsExactly { it isLessThan 2 }
-expect(x) containsExactly entries({ it isLessThan 2 }, { it isGreaterThan 5 })
+expect(x) toContainExactly 1.2
+expect(x) toContainExactly values(1.2, 5.7) // or Objects as alternative
+expect(x) toContainExactly { it toBeLessThan 2 }
+expect(x) toContainExactly entries({ it isLessThan 2 }, { it toBeGreaterThan 5 })
 
-expect(x) contains o inGiven order and only value "hello"
-expect(x) contains o inGiven order and only the values("hello", "world")
-expect(x) contains o inGiven order and only entry { it isLessThan 2 }
-expect(x) contains o inGiven order and only the entries({ it toBe 3 }, { it isLessThan 2 })
-expect(x) contains o inGiven order and only grouped entries within group inAny Order(
+expect(x) toContain o inGiven order and only value "hello"
+expect(x) toContain o inGiven order and only the values("hello", "world")
+expect(x) toContain o inGiven order and only entry { it toBeLessThan 2 }
+expect(x) toContain o inGiven order and only the entries({ it toBe 3 }, { it toBeLessThan 2 })
+expect(x) toContain o inGiven order and only grouped entries within group inAny Order(
     value(1), 
     values(1, 2), 
     values(3, 4)
 )
-expect(x) contains o inGiven order and only grouped entries within group inAny Order(
-    entry { it toBe 1 }, 
-    entries({ it isLessThan 2 },{ it isGreaterThan 2 }), 
-    entries({ it toBe 3 }, { it toBe 4 })
+expect(x) toContain o inGiven order and only grouped entries within group inAny Order(
+    entry { it toEqual 1 }, 
+    entries({ it toBeLessThan 2 },{ it toBeGreaterThan 2 }), 
+    entries({ it toEqual 3 }, { it toEqual 4 })
 )
 ```
 
@@ -235,24 +235,24 @@ a method with one parameter and thus make it available as infix method.
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).containsNot(1.2)
-expect(x).containsNot(1.2, 5.7)
+expect(x).notToContain(1.2)
+expect(x).notToContain(1.2, 5.7)
 
-expect(x).containsNot.value(null)
-expect(x).containsNot.values(null, 1)
-expect(x).containsNot.entry { isLessThan(2) }
-expect(x).containsNot.entries(null, { isLessThan(2) }, { isGreaterThan 5 })
+expect(x).notToContain.value(null)
+expect(x).notToContain.values(null, 1)
+expect(x).notToContain.entry { toBeLessThan(2) }
+expect(x).notToContain.entries(null, { toBeLessThan(2) }, { toBeGreaterThan 5 })
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) containsNot 1.2
-expect(x) containsNot values(1.2, 5.7)
+expect(x) notToContain 1.2
+expect(x) notToContain values(1.2, 5.7)
 
-expect(x) containsNot o value null
-expect(x) containsNot o the values(null, 1)
-expect(x) containsNot o entry { it isLessThan 2 }
-expect(x) containsNot o the entries(null, { it isLessThan 2 }, { it isGreaterThan 5 })
+expect(x) notToContain o value null
+expect(x) notToContain o the values(null, 1)
+expect(x) notToContain o entry { it toBeLessThan 2 }
+expect(x) notToContain o the entries(null, { it toBeLessThan 2 }, { it toBeGreaterThan 5 })
 ```
 
 # Iterable predicate-like expectations
@@ -261,98 +261,98 @@ For more sophisticated expectations such as "there should be two matches", use t
 
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).any { startsWith("hello") }
-expect(x).none { endsWith(".") }
-expect(x).all { isNumericallyEqualTo(12.2) }
+expect(x).toHaveElementsAndAny { toStartWith("hello") }
+expect(x).toHaveElementsAndNone { toEndWith(".") }
+expect(x).toHaveElementsAndAll { toEqualNumerically(12.2) }
 
-expect(x).any(null)
-expect(x).none(null)
-expect(x).all(null)
+expect(x).toHaveElementsAndAny(null)
+expect(x).toHaveElementsAndNone(null)
+expect(x).toHaveElementsAndAll(null)
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) any { it startsWith "hello" }
-expect(x) none { it endsWith "." }
-expect(x) all { it isNumericallyEqualTo 12.2 }
+expect(x) toHaveElementsAndAny { it toStartWith "hello" }
+expect(x) toHaveElementsAndNone { it toEndWith "." }
+expect(x) toHaveElementsAndAll { it toEqualNumerically 12.2 }
 
-expect(x) any null
-expect(x) none null
-expect(x) all null
+expect(x) toHaveElementsAndAny null
+expect(x) toHaveElementsAndNone null
+expect(x) toHaveElementsAndAll null
 ```
 
 # List get
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).get(0).isLessThan(1)
-expect(x).get(0) { isGreaterThan(1) }
+expect(x).get(0).toBesLessThan(1)
+expect(x).get(0) { toBeGreaterThan(1) }
 
 //in case of a nullable element type
-expect(x).get(0).toBe(null)
+expect(x).get(0).toEqual(null)
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) get 0 isLessThan 1
-expect(x) get index(0) { it isGreaterThan 1 }
+expect(x) get 0 toBeLessThan 1
+expect(x) get index(0) { it toBeGreaterThan 1 }
 
 //in case of a nullable element type
-expect(x) get 0 toBe null
+expect(x) get 0 toEqual null
 ```
 
 # Map getExisting
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).getExisting("a").isLessThan(1)
-expect(x).getExisting("a") { isGreaterThan(1) }
+expect(x).getExisting("a").toBeLessThan(1)
+expect(x).getExisting("a") { toBeGreaterThan(1) }
 
 //in case of a nullable value type
-expect(x).getExisting("a").notToBeNull { isGreaterThan(1) }
+expect(x).getExisting("a").notToBeNull { toBeGreaterThan(1) }
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) getExisting "a" isLessThan 1
-expect(x) getExisting key("a") { it isGreaterThan 1 }
+expect(x) getExisting "a" toBeLessThan 1
+expect(x) getExisting key("a") { it toBeGreaterThan 1 }
 
 //in case of a nullable value type
-expect(x) getExisting "a" notToBeNull { it isGreaterThan 1 }
+expect(x) getExisting "a" notToBeNull { it toBeGreaterThan 1 }
 ```
 
 # Map contains
 *atrium-api-fluent-en_GB*
 ```kotlin
-expect(x).contains("a" to 1)
-expect(x).contains("a" to 1, "b" to 2)
-expect(x).contains(KeyValue("a") { isGreaterThan(3).and.isLessThan(10) })
-expect(x).contains(KeyValue("a") { toBe(2) }, KeyValue("b") { isLessThan(3) })
+expect(x).toContain("a" to 1)
+expect(x).toContain("a" to 1, "b" to 2)
+expect(x).toContain(KeyValue("a") { toBeGreaterThan(3).and.toBeLessThan(10) })
+expect(x).toContain(KeyValue("a") { toEqual(2) }, KeyValue("b") { toBeLessThan(3) })
 
 //in case of a nullable value type
-expect(x).contains("a" to null)
-expect(x).contains("a" to null, "b" to 2)
-expect(x).contains(KeyValue("a", null))
-expect(x).contains(
+expect(x).toContain("a" to null)
+expect(x).toContain("a" to null, "b" to 2)
+expect(x).toContain(KeyValue("a", null))
+expect(x).toContain(
   KeyValue("a", null) 
-  KeyValue("b") { isLessThan(2) }
+  KeyValue("b") { toBeLessThan(2) }
 )
 ```
 
 *atrium-api-infix-en_GB*
 ```kotlin
-expect(x) contains ("a" to 1)
-expect(x) contains pairs("a" to 1, "b" to 2)
-expect(x) contains keyValue("a") { 
-  it isGreaterThan 3
-  it isLessThan 10 
+expect(x) toContain ("a" to 1)
+expect(x) toContain pairs("a" to 1, "b" to 2)
+expect(x) ctoCntain keyValue("a") { 
+  it toBeGreaterThan 3
+  it toBeLessThan 10 
 }
-expect(x) contains all(keyValue("a") { it toBe 2 }, keyValue("b") { it isLessThan 3 })
+expect(x) toContain keyValues(keyValue("a") { it toEqual 2 }, keyValue("b") { it toBeLessThan 3 })
 
 //in case of a nullable value type
-expect(x) contains ("a" to null)
-expect(x) contains pairs("a" to null, "b" to 2)
-expect(x) contains keyValue("a", null)
-expect(x) contains all(
+expect(x) toContain ("a" to null)
+expect(x) toContain pairs("a" to null, "b" to 2)
+expect(x) toContain keyValue("a", null)
+expect(x) toContain keyValues(
   keyValue("a", null), 
-  keyValue("b") { it isLessThan 2 }
+  keyValue("b") { it toBeLessThan 2 }
 )
 ```
