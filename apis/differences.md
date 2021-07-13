@@ -12,13 +12,13 @@ These modules bundle:
 Following a list of the available bundle-modules. 
 The links point to the KDoc of their included API where you find an overview of all available expectation functions of the API.
 
-- [atrium-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-fluent-en_GB](https://docs.atriumlib.org/0.17.0-RC1/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-infix-en_GB](https://docs.atriumlib.org/0.17.0-RC1/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 ----
 
 Following an excerpt of a build.gradle file which uses twit APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/master/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/v0.17.0-RC1/README.md#installation)
 for the rest):
 ```
 dependencies {
