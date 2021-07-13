@@ -62,7 +62,6 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
     keyValue: KeyValue<K, V>
 ): Expect<T> = entries(keyValue)
 
-// TODO 0.17.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file7
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValue] as well as the [otherKeyValues] in the specified order -- an entry
@@ -78,6 +77,8 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
+    //TODO 0.18.0 add the following
+    //report: InOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = entries(V::class, keyValue glue otherKeyValues)
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function

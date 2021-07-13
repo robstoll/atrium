@@ -151,6 +151,14 @@ class MostExamplesSpec : Spek({
     test("ex-collection-builder-1") {
         expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, { toBeLessThan(2) })
     }
+    test("ex-collection-reportOptions-1") {
+        expect(listOf(1, 2, 2, 4)).toContainExactly(
+            { toBeLessThan(3) },
+            { toBeLessThan(2) },
+            { toBeGreaterThan(1) },
+            report = { showOnlyFailingIfMoreElementsThan(3) }
+        )
+    }
     test("ex-collection-builder-2") {
         expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
     }
