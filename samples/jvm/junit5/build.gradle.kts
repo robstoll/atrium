@@ -3,6 +3,9 @@
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
+val atriumVersion = "0.16.0"
+val junitVersion = "5.7.2"
+
 plugins {
     kotlin("jvm") version "1.5.20"
 }
@@ -15,18 +18,16 @@ repositories {
 }
 
 dependencies {
-    val atrium_version = "0.16.0"
-    val junit_version = "5.7.2"
     // junit5 requires jdk8, define dependency to stdlib-jdk at least in test
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // setup for Atrium:
     // for infix-api -> change artifact-id to 'atrium-infix-en_GB'
-    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version")
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion")
 
     // setup for junit5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 tasks.test {
