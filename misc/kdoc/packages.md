@@ -226,6 +226,9 @@ Contains steps for sophisticated `IterableLike.contains` expectation builders.
 # ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.steps].
 
+# ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting
+Reporting related interfaces for `IterableLike.contains`.
+
 
 # ch.tutteli.atrium.logic.creating.maplike.contains
 Contains the contract for sophisticated `MapLike.contains` expectation builders:
