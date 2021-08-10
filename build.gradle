@@ -191,7 +191,7 @@ configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
     dokka {
-        logging.setLevel(LogLevel.QUIET)
+//        logging.setLevel(LogLevel.QUIET)
         samples = findSamples([subproject])
     }
     compileKotlin {
