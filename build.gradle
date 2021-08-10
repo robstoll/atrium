@@ -9,7 +9,7 @@ buildscript {
         // main
         kbox_version = '0.15.1'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
-        niokVersion = '1.4.1'
+        niokVersion = '1.4.3'
         niok = { "ch.tutteli.niok:niok:$niokVersion" }
         kotlin_version = '1.3.72'
 
