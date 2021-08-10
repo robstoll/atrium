@@ -87,20 +87,16 @@ For instance, the [README of v0.17.0-RC1](https://github.com/robstoll/atrium/tre
 # Installation
 
 ## JVM
-Atrium is linked to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium), 
-[jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
-but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
+Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium). 
 
 *gradle*: 
 ```
-buildscript {
-    ext { atrium_version='0.17.0-RC1' }
-}
 repositories {
     mavenCentral()
 }
+val atriumVersion by extra("0.17.0-RC1")
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion")
 }
 ```
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
@@ -115,7 +111,7 @@ We currently provide the following extensions for the JVM platform:
 You can enable them as follows:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:$atriumVersion")
 }
 ```
 
@@ -125,21 +121,19 @@ Also take a look at [Third-party Extensions](#third-party-extensions) which migh
 <summary>click to see how the setup for the infix API looks like</summary>
 
 ```
-buildscript {
-    ext { atrium_version='0.17.0-RC1' }
-}
 repositories {
     mavenCentral()
 }
+val atriumVersion by extra("0.17.0-RC1")
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-infix-en_GB:$atriumVersion")
 }
 ```
 
 And for the aforementioned extensions:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atriumVersion")
 }
 ```
 
@@ -157,14 +151,12 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 ## JS
 
 ```
-buildscript {
-    ext { atrium_version='0.17.0-RC1' }
-}
 repositories {
     mavenCentral()
 }
+val atriumVersion by extra("0.17.0-RC1")
 dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:$atrium_version")
+    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:$atriumVersion")
 }
 ```
 
@@ -191,7 +183,7 @@ We currently provide the following extensions for the JS platform:
 You can enable them as follows:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:$atriumVersion")
 }
 ```
 
@@ -199,21 +191,19 @@ dependencies {
 <summary>click to see how the setup for the infix API looks like</summary>
 
 ```
-buildscript {
-    ext { atrium_version='0.17.0-RC1' }
-}
 repositories {
     mavenCentral()
 }
+val atriumVersion by extra("0.17.0-RC1")
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-infix-en_GB-js:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-infix-en_GB-js:$atriumVersion")
 }
 ```
 
 and for the aforementioned extensions:
 ```
 dependencies {
-    testImplementation "ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3-js:$atrium_version"
+    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3-js:$atriumVersion")
 }
 ```
 <hr/>
@@ -2396,7 +2386,7 @@ In order to create an own expectation verb it is sufficient to:
     Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
     ```gradle
     dependencies {
-        testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atrium_version") {
+        testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:$atriumVersion") {
             exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
         }
     }

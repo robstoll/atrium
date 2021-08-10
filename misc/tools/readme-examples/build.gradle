@@ -1,9 +1,5 @@
 description = 'Runs examples, includes the code and the output in README.md'
 
-repositories {
-    maven { url "https://dl.bintray.com/jetbrains/spek" }
-}
-
 apply plugin: 'kotlin'
 dependencies {
     implementation "org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion"
