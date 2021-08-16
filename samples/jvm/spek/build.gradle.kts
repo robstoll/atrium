@@ -4,7 +4,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 val atriumVersion = "0.16.0"
-val spekVersion = "2.0.15"
+val spekVersion = "2.0.17"
 
 plugins {
     kotlin("jvm") version "1.5.21"
