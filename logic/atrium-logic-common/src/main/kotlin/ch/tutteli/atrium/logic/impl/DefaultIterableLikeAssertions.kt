@@ -134,7 +134,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                 val (element, indices) = pair
                 assertionBuilder.descriptive
                     .failing
-                    .withFailureHint {
+                    .withHelpOnFailure {
                         assertionBuilder.explanatoryGroup
                             .withDefaultType
                             .withExplanatoryAssertion(

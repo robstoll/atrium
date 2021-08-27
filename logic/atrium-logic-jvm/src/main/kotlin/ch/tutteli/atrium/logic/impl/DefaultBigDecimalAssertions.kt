@@ -8,7 +8,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.assertions.builders.withFailureHint
+import ch.tutteli.atrium.assertions.builders.withHelpOnFailure
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.BigDecimalAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
@@ -37,7 +37,7 @@ class DefaultBigDecimalAssertions : BigDecimalAssertions {
     ): Assertion =
         assertionBuilder.descriptive
             .withTest(container.toExpect()) { it == expected }
-            .withFailureHint {
+            .withHelpOnFailure {
                 assertionBuilder.explanatoryGroup
                     .withInformationType(withIndent = true)
                     .withExplanatoryAssertion(

@@ -20,17 +20,17 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
         },
-        "withFailureHintBasedOnDefinedSubject" to addDescriptive { expect, builder ->
+        "withHelpOnFailureBasedOnDefinedSubject" to addDescriptive { expect, builder ->
             builder.failing
-                .withFailureHintBasedOnDefinedSubject(expect) {
+                .withHelpOnFailureBasedOnDefinedSubject(expect) {
                     assertionBuilder.explanatory.withExplanation("asdf").build()
                 }
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
         },
-        "withFailureHintBasedOnSubject" to addDescriptive { expect, builder ->
+        "withHelpOnFailureBasedOnSubject" to addDescriptive { expect, builder ->
             builder.failing
-                .withFailureHintBasedOnSubject(expect) {
+                .withHelpOnFailureBasedOnSubject(expect) {
                     ifDefined {
                         assertionBuilder.explanatory.withExplanation("asdf").build()
                     } ifAbsent {
@@ -43,7 +43,7 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
         },
         "showOnlyIf" to addDescriptive { expect, builder ->
             builder.failing
-                .withFailureHint { assertionBuilder.explanatory.withExplanation("any hint").build() }
+                .withHelpOnFailure { assertionBuilder.explanatory.withExplanation("any hint").build() }
                 .showBasedOnSubjectOnlyIf(expect) {
                     ifDefined {
                         it < 3
@@ -54,14 +54,14 @@ class DescriptiveWithBasedOnSubjectSpec : Spek({
         },
         "showOnlyIfSubjectDefined" to addDescriptive { expect, builder ->
             builder.failing
-                .withFailureHint { assertionBuilder.explanatory.withExplanation("any hint").build() }
+                .withHelpOnFailure { assertionBuilder.explanatory.withExplanation("any hint").build() }
                 .showOnlyIfSubjectDefined(expect)
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
         },
         "showBasedOnDefinedSubjectOnlyIf" to addDescriptive { expect, builder ->
             builder.failing
-                .withFailureHint { assertionBuilder.explanatory.withExplanation("any hint").build() }
+                .withHelpOnFailure { assertionBuilder.explanatory.withExplanation("any hint").build() }
                 .showBasedOnDefinedSubjectOnlyIf(expect) { it < 3 }
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
