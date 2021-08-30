@@ -40,7 +40,7 @@ internal class CollectingExpectImpl<T>(
         } else {
             allAssertions.add(assertionBuilder.descriptive
                 .failing
-                .withFailureHint {
+                .withHelpOnFailure {
                     assertionBuilder.explanatoryGroup
                         .withDefaultType
                         .withAssertions(

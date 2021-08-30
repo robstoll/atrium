@@ -22,21 +22,46 @@ import java.nio.file.Path
 import java.nio.file.attribute.*
 import java.util.*
 
-inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withIOExceptionFailureHint(
+inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnIOExceptionFailure(
     expect: Expect<IoResult<T>>,
     crossinline f: (Path, IOException) -> Assertion?
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
-    withFailureHintBasedOnDefinedSubject(expect) { result ->
+    withHelpOnFailureBasedOnDefinedSubject(expect) { result ->
         explainForResolvedLink(result.path) { realPath ->
             val exception = (result as Failure).exception
             f(realPath, exception) ?: hintForIoException(realPath, exception)
         }
     }
 
+@Deprecated("Use withHelpOnIOExceptionFailure; will be removed with 1.0.0")
+inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withIOExceptionFailureHint(
+    expect: Expect<IoResult<T>>,
+    crossinline f: (Path, IOException) -> Assertion?
+): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
+    withHelpOnFailureBasedOnDefinedSubject(expect) { result ->
+        explainForResolvedLink(result.path) { realPath ->
+            val exception = (result as Failure).exception
+            f(realPath, exception) ?: hintForIoException(realPath, exception)
+        }
+    }
+
+fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFileAttributesFailure(
+    expect: Expect<IoResult<BasicFileAttributes>>
+): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
+    withHelpOnFailureBasedOnDefinedSubject(expect) { result ->
+        explainForResolvedLink(result.path) { realPath ->
+            when (result) {
+                is Success -> describeWas(result.value.fileType)
+                is Failure -> hintForIoException(realPath, result.exception)
+            }
+        }
+    }
+
+@Deprecated("Use withHelpOnFileAttributesFailure; will be removed with 1.0.0")
 fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFileAttributesFailureHint(
     expect: Expect<IoResult<BasicFileAttributes>>
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
-    withFailureHintBasedOnDefinedSubject(expect) { result ->
+    withHelpOnFailureBasedOnDefinedSubject(expect) { result ->
         explainForResolvedLink(result.path) { realPath ->
             when (result) {
                 is Success -> describeWas(result.value.fileType)

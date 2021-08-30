@@ -14,9 +14,22 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint which might be shown if the
  * [Descriptive.DescriptionOption.test] fails.
  *
- * You can use [withFailureHintBasedOnSubject] or [withFailureHintBasedOnDefinedSubject]
+ * You can use [withHelpOnFailureBasedOnSubject] or [withHelpOnFailureBasedOnDefinedSubject]
  * in case your [DescriptiveAssertion] is based on the subject.
  */
+fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
+    failureHintFactory: () -> Assertion
+): DescriptiveAssertionWithFailureHint.ShowOption =
+    DescriptiveAssertionWithFailureHint.ShowOption.create(test, failureHintFactory)
+
+/**
+ * Option to create a [DescriptiveAssertion] like assertion with an additional hint which might be shown if the
+ * [Descriptive.DescriptionOption.test] fails.
+ *
+ * You can use [withHelpOnFailureBasedOnSubject] or [withHelpOnFailureBasedOnDefinedSubject]
+ * in case your [DescriptiveAssertion] is based on the subject.
+ */
+@Deprecated("Use withHelpOnFailure; will be removed with 1.0.0")
 fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
     failureHintFactory: () -> Assertion
 ): DescriptiveAssertionWithFailureHint.ShowOption =
@@ -27,20 +40,50 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * which is based on the subject of the expectation and
  * which is only shown the subject is defined.
  *
- * You can use [withFailureHintBasedOnSubject] in case you want to:
+ * You can use [withHelpOnFailureBasedOnSubject] in case you want to:
  * - provide a hint also if the subject is absent.
  * - do not show the hint in certain cases even if the subject is defined
  *
- * Or use [withFailureHint] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * Or use [withHelpOnFailure] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
 // then move to logic and expect ProofContainer with 0.18.0
+fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnDefinedSubject(
+    expect: Expect<T>,
+    failureHintFactory: (T) -> Assertion
+): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
+    return withHelpOnFailureBasedOnSubject(expect) {
+        ifDefined(failureHintFactory)
+            .ifAbsent {
+                assertionBuilder.explanatoryGroup
+                    .withWarningType
+                    .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
+                    .build()
+            }
+    }.showOnlyIfSubjectDefined(expect)
+}
+
+/**
+ * Option to create a [DescriptiveAssertion] like assertion with an additional hint
+ * which is based on the subject of the expectation and
+ * which is only shown the subject is defined.
+ *
+ * You can use [withHelpOnFailureBasedOnSubject] in case you want to:
+ * - provide a hint also if the subject is absent.
+ * - do not show the hint in certain cases even if the subject is defined
+ *
+ * Or use [withHelpOnFailure] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * on the subject of the expectation.
+ */
+//TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
+// then move to logic and expect ProofContainer with 0.18.0
+@Deprecated("Use withHelpOnFailureBasedOnDefinedSubject; will be removed with 1.0.0")
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
     expect: Expect<T>,
     failureHintFactory: (T) -> Assertion
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
-    return withFailureHintBasedOnSubject(expect) {
+    return withHelpOnFailureBasedOnSubject(expect) {
         ifDefined(failureHintFactory)
             .ifAbsent {
                 assertionBuilder.explanatoryGroup
@@ -56,13 +99,33 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
  * (which is based on the subject of the expectation)
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  *
- * You can use [withFailureHint] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
+ * You can use [withHelpOnFailure] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
+fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnSubject(
+    expect: Expect<T>,
+    failureHintSubStep: DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption<T>.() -> Pair<() -> Assertion, (T) -> Assertion>
+): DescriptiveAssertionWithFailureHint.ShowOption = withHelpOnFailure {
+    SubjectBasedOption(
+        expect,
+        failureHintSubStep,
+        DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption.Companion::create
+    )
+}
+
+/**
+ * Option to create a [DescriptiveAssertion] like assertion with an additional hint
+ * (which is based on the subject of the expectation)
+ * which might be shown if the [Descriptive.DescriptionOption.test] fails.
+ *
+ * You can use [withHelpOnFailure] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
+ * on the subject of the expectation.
+ */
+@Deprecated("Use withHelpOnFailureBasedOnSubject; will be removed with 1.0.0")
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnSubject(
     expect: Expect<T>,
     failureHintSubStep: DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption<T>.() -> Pair<() -> Assertion, (T) -> Assertion>
-): DescriptiveAssertionWithFailureHint.ShowOption = withFailureHint {
+): DescriptiveAssertionWithFailureHint.ShowOption = withHelpOnFailure {
     SubjectBasedOption(
         expect,
         failureHintSubStep,
