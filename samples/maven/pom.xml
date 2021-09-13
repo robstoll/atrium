@@ -14,7 +14,7 @@
         <atrium.version>0.16.0</atrium.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
-        <junit.version>5.7.2</junit.version>
+        <junit.version>5.8.0</junit.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>1.5.21</kotlin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
