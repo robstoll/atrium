@@ -7,7 +7,7 @@ val atriumVersion = "0.16.0"
 val spekVersion = "2.0.17"
 
 plugins {
-    kotlin("jvm") version "1.5.21"
+    kotlin("jvm") version "1.5.31"
 }
 
 group = "org.atriumlib.samples"
