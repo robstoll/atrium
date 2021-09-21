@@ -59,7 +59,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/master"
+        dokka_sourceMapping = "tree/main"
 
 
         toolProjects = toolProjectsFun
@@ -422,7 +422,7 @@ nexusPublishing {
 Release & deploy a commit
 --------------------------------
 
-1. update master:
+1. update main:
 
 Either use the following commands or the manual steps below
 
@@ -430,15 +430,15 @@ export ATRIUM_PREVIOUS_VERSION=0.17.0-RC1
 export ATRIUM_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
-   -pe "s@tree/master@tree/v$ATRIUM_VERSION@g;" \
+   -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
    -pe "s@latest#/doc@$ATRIUM_VERSION/doc@g;"
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
-  -pe "s@dokka_sourceMapping = \"tree/master\"@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@;" \
+  -pe "s@dokka_sourceMapping = \"tree/main\"@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@;" \
   -pe "s/rootProject.version = '$ATRIUM_VERSION-SNAPSHOT'/rootProject.version = '$ATRIUM_VERSION'/;" \
   ./build.gradle
 perl -0777 -i \
-  -pe 's/(<!-- for master -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# <img)/$1<!--\n$2-->$3\n$4\n$5/;' \
+  -pe 's/(<!-- for main -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# <img)/$1<!--\n$2-->$3\n$4\n$5/;' \
   -pe 's/(---\n❗ You are taking[^-]*?---)/<!$1>/;' \
   ./README.md
 git commit -a -m "v$ATRIUM_VERSION"
@@ -450,10 +450,10 @@ alternatively the manual steps:
 
     a) change rootProject.version in build.gradle to X.Y.Z
     b) search for old version in README.md and replace with new
-    c) search for `tree/master` in all .md files and replace it with `tree/vX.Y.Z`
-    d) adjust dokka_sourceMapping from `tree/master` to tree/vX.Y.Z
+    c) search for `tree/main` in all .md files and replace it with `tree/vX.Y.Z`
+    d) adjust dokka_sourceMapping from `tree/main` to tree/vX.Y.Z
     e) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
-    f) use the release badges in README (comment out the ones for master and uncomment the ones for the release)
+    f) use the release badges in README (comment out the ones for main and uncomment the ones for the release)
     g) comment out the warning in README.md about taking a sneak peak
     h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
@@ -502,25 +502,25 @@ alternatively the manual steps:
 
 Prepare next dev cycle
 -----------------------
-    1. update master:
+    1. update main:
 
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.17.0-RC1
 export ATRIUM_NEXT_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
-   -pe "s@tree/v$ATRIUM_VERSION@tree/master@g;" \
+   -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
    -pe "s/add \\\`\@since $ATRIUM_VERSION\\\` \(adapt to current/add \\\`\@since $ATRIUM_NEXT_VERSION\\\` \(adapt to current/g;"
 perl -0777 -i \
-  -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/master\"@;" \
+  -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/main\"@;" \
   -pe "s/rootProject.version = '$ATRIUM_VERSION'/rootProject.version = '$ATRIUM_NEXT_VERSION-SNAPSHOT'/;" \
   -pe "s/ATRIUM_VERSION=$ATRIUM_VERSION/ATRIUM_VERSION=$ATRIUM_NEXT_VERSION/;" \
   ./build.gradle
 perl -0777 -i \
-  -pe 's/(<!-- for master -->\n)<!--\n([\S\s]*?)-->(\n<!-- for a specific release -->)\n([\S\s]*?)\n(\n# <img)/$1\n$2$3\n<!--$4-->\n$5/;' \
+  -pe 's/(<!-- for main -->\n)<!--\n([\S\s]*?)-->(\n<!-- for a specific release -->)\n([\S\s]*?)\n(\n# <img)/$1\n$2$3\n<!--$4-->\n$5/;' \
   -pe 's/<!(---\n❗ You are taking[^-]*?---)>/$1/;' \
-  -pe "s@(For instance, the \[README of v$ATRIUM_VERSION\].*tree/)master/@\$1v$ATRIUM_VERSION/@;" \
+  -pe "s@(For instance, the \[README of v$ATRIUM_VERSION\].*tree/)main/@\$1v$ATRIUM_VERSION/@;" \
   ./README.md
 git commit -a -m "prepare dev cycle of $ATRIUM_NEXT_VERSION"
 
@@ -531,7 +531,7 @@ alternatively the manual steps:
 
     a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
 b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
-   c) use the master badges in README (uncomment them in README and comment out release badges)
+   c) use the main badges in README (uncomment them in README and comment out release badges)
    d) uncomment the warning about taking a sneak peek in README and revert `tree/v0.12.0` still point to the tag
 e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 f) commit & push changes

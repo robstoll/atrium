@@ -3,7 +3,7 @@ name: Generate README examples
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
