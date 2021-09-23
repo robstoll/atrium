@@ -15,7 +15,7 @@ buildscript {
 
         // test
         jacocoToolVersion = '0.8.7'
-        junitPlatformVersion = '1.8.0'
+        junitPlatformVersion = '1.8.1'
         jupiterVersion = '5.7.2'
         spek2Version = '2.0.12'
         spekExtensionsVersion = '1.2.1'
