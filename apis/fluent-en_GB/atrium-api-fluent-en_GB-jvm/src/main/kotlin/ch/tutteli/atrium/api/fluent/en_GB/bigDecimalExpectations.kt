@@ -84,6 +84,8 @@ fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [notToEqualIncludingScale].
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationSamples.notToEqual
+ *
  * @since 0.17.0
  */
 @Deprecated(
@@ -113,6 +115,8 @@ fun <T : BigDecimal> Expect<T>.notToEqual(expected: T): Nothing =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationSamples.toEqualNumerically
+ *
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
@@ -132,6 +136,8 @@ fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationSamples.notToEqualNumerically
+ *
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<T> =
@@ -148,6 +154,8 @@ fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationSamples.toEqualIncludingScale
+ *
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<T> =
@@ -163,6 +171,8 @@ fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<T> =
  * - `expect(BigDecimal("10")).notToEqualNumerically(BigDecimal("10.0"))`  does not hold.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.BigDecimalExpectationSamples.notToEqualIncludingScale
  *
  * @since 0.17.0
  */
