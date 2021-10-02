@@ -13,6 +13,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun1(Expect<Path>::toEndWith),
     fun1(Expect<Path>::notToEndWith),
     fun0(Expect<Path>::toBeReadable),
+    fun0(Expect<Path>::notToBeReadable),
     fun0(Expect<Path>::toBeWritable),
     fun0(Expect<Path>::notToBeWritable),
     fun0(Expect<Path>::toBeExecutable),
@@ -58,6 +59,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.toEndWith(Paths.get("a"))
         a1.notToEndWith(Paths.get("a"))
         a1.toBeReadable()
+        a1.notToBeReadable()
         a1.toBeWritable()
         a1.notToBeWritable()
         a1.toBeExecutable()

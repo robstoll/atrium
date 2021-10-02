@@ -25,6 +25,7 @@ interface PathAssertions {
     fun <T : Path> existsNot(container: AssertionContainer<T>, linkOption: LinkOption? = null): Assertion
 
     fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isNotReadable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion

@@ -14,6 +14,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun1(Expect<Path>::toEndWith),
     fun1(Expect<Path>::notToEndWith),
     "toBe ${readable::class.simpleName}" to Companion::toBeReadable,
+    "notToBe ${readable::class.simpleName}" to Companion::notToBeReadable,
     "toBe ${writable::class.simpleName}" to Companion::toBeWritable,
     "notToBe ${writable::class.simpleName}" to Companion::notToBeWritable,
     "toBe ${executable::class.simpleName}" to Companion::toBeExecutable,
@@ -45,6 +46,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun toExist(expect: Expect<Path>) = expect toBe existing
         private fun notToExist(expect: Expect<Path>) = expect notToBe existing
         private fun toBeReadable(expect: Expect<Path>) = expect toBe readable
+        private fun notToBeReadable(expect: Expect<Path>) = expect notToBe readable
         private fun toBeWritable(expect: Expect<Path>) = expect toBe writable
         private fun notToBeWritable(expect: Expect<Path>) = expect notToBe writable
         private fun toBeExecutable(expect: Expect<Path>) = expect toBe executable
@@ -91,6 +93,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 toEndWith Paths.get("a")
         a1 notToEndWith Paths.get("a")
         a1 toBe readable
+        a1 notToBe readable
         a1 toBe writable
         a1 notToBe writable
         a1 toBe executable
