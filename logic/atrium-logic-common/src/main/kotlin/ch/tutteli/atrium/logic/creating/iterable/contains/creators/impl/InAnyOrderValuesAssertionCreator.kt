@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
@@ -8,7 +9,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.impl.createHasElementAssertion
+import ch.tutteli.atrium.logic.impl.createIndexAssertions
+import ch.tutteli.atrium.logic.impl.decorateAssertionWithHasNext
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -37,14 +39,8 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
     override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
-
-    override fun getAssertionGroupType(): AssertionGroupType {
-        return if (searchBehaviour is NotSearchBehaviour) {
-            DefaultSummaryAssertionGroupType
-        } else {
-            DefaultListAssertionGroupType
-        }
-    }
+    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ELEMENT_NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable = DescriptionIterableAssertion.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
         turnSubjectToList(container, converter)
@@ -52,17 +48,27 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     override fun search(multiConsumableContainer: AssertionContainer<List<SC>>, searchCriterion: SC): Int =
         multiConsumableContainer.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
 
-    override fun decorateAssertion(
-        container: AssertionContainer<List<SC>>,
-        featureAssertion: Assertion
+    /**
+     * Override in any subclass that wants to report mismatched elements individually when the [searchBehaviour]
+     * is [NotSearchBehaviour]
+     */
+    override fun mismatchesForNotSearchBehaviour(
+        multiConsumableContainer: AssertionContainer<List<SC>>,
+        searchCriterion: SC
     ): List<Assertion> {
-        return if (searchBehaviour is NotSearchBehaviour) {
-            listOf(
-                featureAssertion,
-                createHasElementAssertion(container.maybeSubject.getOrElse { emptyList() })
-            )
-        } else {
-            listOf(featureAssertion)
-        }
+        val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
+        return createIndexAssertions(list) { (_, element) -> element == searchCriterion }
+    }
+
+    /**
+     * Override in a subclass if you want to decorate the assertion.
+     */
+    override fun decorateInAnyOrderAssertion(
+        inAnyOrderAssertion: AssertionGroup,
+        multiConsumableContainer: AssertionContainer<List<SC>>
+    ): AssertionGroup {
+        return if (searchBehaviour is NotSearchBehaviour)
+            decorateAssertionWithHasNext(inAnyOrderAssertion, multiConsumableContainer)
+        else inAnyOrderAssertion
     }
 }

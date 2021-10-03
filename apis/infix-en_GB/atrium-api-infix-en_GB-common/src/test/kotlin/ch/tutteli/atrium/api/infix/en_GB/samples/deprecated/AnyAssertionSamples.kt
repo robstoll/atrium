@@ -12,17 +12,17 @@ class AnyAssertionSamples {
 
     @Test
     fun toBe() {
-        expect(12) toBe 12 // holds
+        expect(12) toEqual 12 // holds
 
         fails {
-            expect(12) toBe 11
+            expect(12) toEqual 11
         }
 
         // holds, toBe is based on equality, use isSameAs for identity
-        expect(listOf(1)) toBe listOf(1)
+        expect(listOf(1)) toEqual listOf(1)
 
         fails { // because array has not implemented equals, so is equivalent to isSameAs
-            expect(arrayOf(1)) toBe arrayOf(1)
+            expect(arrayOf(1)) toEqual arrayOf(1)
         }
     }
 
@@ -30,22 +30,22 @@ class AnyAssertionSamples {
     @Test
     fun because() {
         expect(12) because of("this is true as anything can ever be") {
-            toBe(12)
+            this toEqual 12
         }
 
         fails {
             expect(12) because of("won't hold, it's not equal") {
-                toBe(11)
+                this toEqual 11
             }
         }
 
         expect(listOf(1)) because of("toBe is based on equality, use isSameAs for identity") {
-            toBe(listOf(1))
+            this toEqual listOf(1)
         }
 
         fails {
             expect(arrayOf(1)) because of("array has not implemented equals, so is equivalent to isSameAs") {
-                toBe(arrayOf(1))
+                this toEqual arrayOf(1)
             }
         }
     }
@@ -117,7 +117,7 @@ class AnyAssertionSamples {
         expect<Int?>(1) notToBeNull { // subject is now of type Int
             it isGreaterThan 0
             it isLessThan 10
-        } toBe 1 // subject here remains type Int
+        } toEqual 1 // subject here remains type Int
 
         fails {
             // because you forgot to define an assertion in the assertion group block
@@ -128,7 +128,7 @@ class AnyAssertionSamples {
         fails {
             // notToBeNull already fails, reporting mentions that subject was expected `to be: 2`
             expect<Int?>(null) notToBeNull { // subject inside this block is of type Int (actually 1)
-                it toBe 2
+                it toEqual 2
             }  // subject here remains type Int
         }
 
@@ -142,11 +142,11 @@ class AnyAssertionSamples {
     @Test
     fun isAFeature() {
         val n: Number = 1
-        expect(n).isA<Int>() isGreaterThan 0
+        expect(n).toBeAnInstanceOf<Int>() isGreaterThan 0
         //          | subject is now of type Int
 
         fails {
-            expect("A").isA<Long>() isLessThan 2L // not shown in reporting as `isA<Long>()` already fails
+            expect("A").toBeAnInstanceOf<Long>() isLessThan 2L // not shown in reporting as `isA<Long>()` already fails
         }
     }
 
@@ -160,14 +160,14 @@ class AnyAssertionSamples {
         fails {
             // because wrong type expected (Long instead of String)
             expect("A").isA<Long> {
-                it toBe 43
+                it toEqual 43
             }
         }
 
         fails {
             // type fits, but sub-assertion fails
             expect(54L).isA<Long> {
-                it toBe -1L
+                it toEqual -1L
             }
         }
     }
@@ -183,13 +183,13 @@ class AnyAssertionSamples {
 
     @Test
     fun and() {
-        expect(13).isA<Int>() and {
+        expect(13).toBeAnInstanceOf<Int>() and {
             it isGreaterThan 5
             it isLessThan 20
         }
 
         fails {
-            expect(13).isA<Int>() and {
+            expect(13).toBeAnInstanceOf<Int>() and {
                 // all assertions are evaluated inside an assertion group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
                 it isNoneOf values(1, 2, 13)  // fails
@@ -224,7 +224,7 @@ class AnyAssertionSamples {
     @Test
     fun becauseOf() {
         expect("filename") because of("? is not allowed in file names on Windows") {
-            it containsNot "?"
+            it notToContain "?"
         }
 
         expect(customers) all {

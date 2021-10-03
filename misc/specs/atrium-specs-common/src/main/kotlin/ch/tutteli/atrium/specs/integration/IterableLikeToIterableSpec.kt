@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
@@ -24,7 +24,7 @@ abstract class IterableLikeToIterableSpec<T>(
                     expect {
                         expect(subject).funIterableLike(input)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains("IterableLike without elements are not allowed")
+                        messageToContain("IterableLike without elements are not allowed")
                     }
                 }
             }
@@ -33,7 +33,7 @@ abstract class IterableLikeToIterableSpec<T>(
                 expect {
                     expect(subject).funIterableLike("test")
                 }.toThrow<IllegalArgumentException> {
-                    messageContains(
+                    messageToContain(
                         "IterableLikeToIterableTransformer accepts arguments of types:",
                         "Iterable, Sequence, Array, CharArray, ByteArray, ShortArray, IntArray, LongArray, FloatArray, DoubleArray and BooleanArray"
                     )

@@ -1,3 +1,4 @@
+//TODO rename file to charSequenceToContain... in 0.18.0
 //TODO remove JvmMultifileClass with 1.0.0
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceContainsCreatersKt")
@@ -224,7 +225,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  *
  * @since 0.9.0
  */
-//TODO rename to `matchFor` with 1.0.0
+//TODO rename to `matchFor` with 0.18.0
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex

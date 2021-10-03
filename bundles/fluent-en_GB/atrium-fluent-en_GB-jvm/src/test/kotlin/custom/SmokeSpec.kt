@@ -1,9 +1,8 @@
 package custom
 
-import ch.tutteli.atrium.api.fluent.en_GB.existsNot
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.verbs.assert
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.fluent.en_GB.notToExist
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -17,33 +16,33 @@ import org.spekframework.spek2.Spek
 import java.nio.file.Paths
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
-        assertThat(1).toBe(1)
+    test("see if `toEqual` can be used") {
+        expect(1).toEqual(1)
     }
 
     test("see if `Path.existsNot` can be used") {
-        assert(Paths.get("nonExisting")).existsNot()
+        expect(Paths.get("nonExisting")).notToExist()
     }
 
-    test("see if own assertion function without i18n can be used") {
-        assertThat(2).isEven()
-        assertThat(1).isOdd()
+    test("see if own expectation function without i18n can be used") {
+        expect(2).toBeEven()
+        expect(1).toBeOdd()
     }
 
-    test("see if own assertion function with i18n can be used") {
-        assertThat(4).isMultipleOf(2)
+    test("see if own expectation function with i18n can be used") {
+        expect(4).toBeAMultipleOf(2)
     }
 })
 
-fun Expect<Int>.isEven() =
-    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+fun Expect<Int>.toBeEven() =
+    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
-fun Expect<Int>.isOdd() =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
+fun Expect<Int>.toBeOdd() =
+    _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.isMultipleOf(base: Int) = _logicAppend { isMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int) = _logicAppend { toBeAMultipleOf(base) }
 
-private fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {

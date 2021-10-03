@@ -2,6 +2,7 @@ package ch.tutteli.atrium.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 /**
@@ -11,14 +12,14 @@ class JsNameAmbiguityTest {
 
     @Test
     fun toBeNullable() {
-        expect(null as Int?).toBe(null)
-        expect(1 as Int?).toBe(1)
+        expect(null as Int?).toEqual(null)
+        expect(1 as Int?).toEqual(1)
     }
 
     @Test
     fun isKeyValueNullable() {
-        expect(mapOf(1 to null as Int?)).asEntries().containsExactly {
-            isKeyValue(1, null)
+        expect(mapOf(1 to null as Int?)).asEntries().toContainExactly {
+            toEqualKeyValue(1, null)
         }
     }
 }

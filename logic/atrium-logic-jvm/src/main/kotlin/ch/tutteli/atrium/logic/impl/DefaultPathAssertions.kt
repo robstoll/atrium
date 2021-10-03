@@ -8,7 +8,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.assertions.builders.withFailureHintBasedOnDefinedSubject
+import ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -63,7 +63,7 @@ class DefaultPathAssertions : PathAssertions {
         changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Success }
-                .withIOExceptionFailureHint(fileAttributesExpect) { realPath, exception ->
+                .withHelpOnIOExceptionFailure(fileAttributesExpect) { realPath, exception ->
                     when (exception) {
                         // TODO remove group once https://github.com/robstoll/atrium-roadmap/issues/1 is implemented
                         is NoSuchFileException -> assertionBuilder.explanatoryGroup
@@ -82,7 +82,7 @@ class DefaultPathAssertions : PathAssertions {
         changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
             assertionBuilder.descriptive
                 .withTest(fileAttributesExpect) { it is Failure && it.exception is NoSuchFileException }
-                .withFileAttributesFailureHint(fileAttributesExpect)
+                .withHelpOnFileAttributesFailure(fileAttributesExpect)
                 .withDescriptionAndRepresentation(DescriptionBasic.NOT_TO, EXIST)
                 .build()
         }
@@ -130,7 +130,7 @@ class DefaultPathAssertions : PathAssertions {
     }.let { checkAccessResultExpect ->
         assertionBuilder.descriptive
             .withTest(checkAccessResultExpect) { it is Success }
-            .withIOExceptionFailureHint(checkAccessResultExpect) { realPath, exception ->
+            .withHelpOnIOExceptionFailure(checkAccessResultExpect) { realPath, exception ->
                 when (exception) {
                     is AccessDeniedException -> findHintForProblemWithParent(realPath)
                         ?: assertionBuilder.explanatoryGroup
@@ -155,7 +155,7 @@ class DefaultPathAssertions : PathAssertions {
     ) = changeSubjectToFileAttributes(container, linkOption) { fileAttributesExpect ->
         assertionBuilder.descriptive
             .withTest(fileAttributesExpect) { it is Success && typeTest(it.value) }
-            .withFileAttributesFailureHint(fileAttributesExpect)
+            .withHelpOnFileAttributesFailure(fileAttributesExpect)
             .withDescriptionAndRepresentation(DescriptionBasic.IS, typeName)
             .build()
     }
@@ -204,7 +204,7 @@ class DefaultPathAssertions : PathAssertions {
             }.let { expectResult ->
                 assertionBuilder.descriptive
                     .withTest(expectResult) { it is Success && it.value.isEmpty() }
-                    .withFailureHintBasedOnDefinedSubject(expectResult) { ioResult ->
+                    .withHelpOnFailureBasedOnDefinedSubject(expectResult) { ioResult ->
                         explainForResolvedLink(ioResult.path) { realPath ->
                             when (ioResult) {
                                 is Success -> {

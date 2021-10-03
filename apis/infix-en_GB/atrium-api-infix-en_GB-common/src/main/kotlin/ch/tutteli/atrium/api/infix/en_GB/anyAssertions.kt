@@ -17,6 +17,7 @@ import kotlin.reflect.KClass
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBe
  */
+@Deprecated("Use toEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqual<T>(expected)"))
 infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expected) }
 
 /**
@@ -26,6 +27,7 @@ infix fun <T> Expect<T>.toBe(expected: T): Expect<T> = _logicAppend { toBe(expec
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBe
  */
+@Deprecated("Use notToEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEqual<T>(expected)"))
 infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
 
 /**
@@ -35,6 +37,10 @@ infix fun <T> Expect<T>.notToBe(expected: T): Expect<T> = _logicAppend { notToBe
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isSameAs
  */
+@Deprecated(
+    "Use toBeTheInstance; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheInstance<T>(expected)")
+)
 infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
 
 /**
@@ -44,8 +50,13 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isNotSameAs
  */
+@Deprecated(
+    "Use notToBeTheInstance; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToBeTheInstance<T>(expected)")
+)
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *
@@ -54,12 +65,14 @@ infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isN
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
+ *
  * @since 0.15.0
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.because
  */
 infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
     _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Helper function to create a [KeyWithCreator] based on the given [reason] and [assertionCreator].
  */
@@ -74,6 +87,10 @@ fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreat
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.toBeNullIfNullGivenElse
  */
+@Deprecated(
+    "Use toEqualNullIfNullGivenElse; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toEqualNullIfNullGivenElse<T>(assertionCreatorOrNull)")
+)
 infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
@@ -91,6 +108,7 @@ infix fun <T : Any> Expect<T?>.toBeNullIfNullGivenElse(
  * @since 0.12.0
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
+@Deprecated("Use notToEqualNull; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToEqualNull<T>(o)"))
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> =
     notToBeNullButOfType(T::class).transform()
 
@@ -103,6 +121,10 @@ inline infix fun <reified T : Any> Expect<T?>.notToBeNull(@Suppress("UNUSED_PARA
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.notToBeNull
  */
 @Suppress(/* less magic */ "RemoveExplicitTypeArguments")
+@Deprecated(
+    "Use notToEqualNull; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualNull<T>(assertionCreator)")
+)
 inline infix fun <reified T : Any> Expect<T?>.notToBeNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     notToBeNullButOfType(T::class).transformAndAppend(assertionCreator)
 
@@ -118,18 +140,22 @@ internal fun <T : Any> Expect<T?>.notToBeNullButOfType(kClass: KClass<T>): Subje
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
  * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isAFeature
  */
+@Deprecated(
+    "Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAnInstanceOf<TSub>()")
+)
 //TODO make infix and add `o` as parameter as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
 inline fun <reified TSub : Any> Expect<*>.isA(): Expect<TSub> =
     isA(TSub::class).transform()
@@ -168,21 +194,26 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
  * The actual types are ignored as function types erase to Function0,
  * Function1 etc. on byte code level, which means the assertion holds as long as the subject is a
  * function and has the same amount of arguments regardless if the types differ. For instance
- * `assert({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
+ * `expect({x: Int -> "hello"}).isA<String -> Unit>{}` holds, even though `(Int) -> String` is clearly not
  * a `(String) -> Unit`.
  *
  * More generally speaking, the [flaw](https://youtrack.jetbrains.com/issue/KT-27826) applies to all generic types.
  * For instance `isA<List<String>>` would only check if the subject is a `List` without checking if
  * the element type is actually `String`. Or in other words
- * `assert(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
+ * `expect(listOf(1, 2)).isA<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
  * @return An [Expect] with the new type [TSub].
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.isA
  */
+@Deprecated(
+    "Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAnInstanceOf<T>(assertionCreator)")
+)
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Can be used to separate single assertions.
  *
@@ -194,28 +225,30 @@ inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: E
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.andFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.andFeature
  *
  * @since 0.12.0
  */
 @Suppress("NOTHING_TO_INLINE")
 inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = this
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
  *
- * For instance `assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
+ * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.AnyAssertionSamples.and
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.and
  */
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAssertionsCreatedBy(assertionCreator)
+    _logic.appendAsGroup(assertionCreator)
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
  *
@@ -240,6 +273,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  */
 inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
 
+//TODO move to anyExpectations.kt with 0.18.0
 /**
  * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
  *
@@ -274,6 +308,10 @@ inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use notToEqualOneOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualOneOf<T>(values)")
+)
 infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
     _logicAppend { isNotIn(values.toList()) }
 
@@ -290,5 +328,6 @@ infix fun <T> Expect<T>.isNoneOf(values: Values<T>): Expect<T> =
  *
  * @since 0.13.0
  */
+@Deprecated("Use notToBeIn; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToBeIn<T>(expected)"))
 infix fun <T> Expect<T>.isNotIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }

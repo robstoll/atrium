@@ -114,7 +114,7 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
  */
 @Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */)
 @Deprecated(
-    "use withExplanatoryAssertion instead; will be removed latest with 1.0.0",
+    "use withExplanatoryAssertion instead; will be removed with 1.0.0 at the latest",
     ReplaceWith("this.withExplanatoryAssertion(translatable, arg, *otherArgs)")
 )
 fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertions(
@@ -156,7 +156,7 @@ inline fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAs
  */
 @Suppress("DEPRECATION" /* TODO remove whole interface with 1.0.0 */)
 @Deprecated(
-    "Use ExplanatoryGroup.GroupTypeOption instead; will be removed latest with 1.0.0",
+    "Use ExplanatoryGroup.GroupTypeOption instead; will be removed with 1.0.0 at the latest",
     ReplaceWith("ExplanatoryGroup.GroupTypeOption")
 )
 interface ExplanatoryAssertionGroupTypeOption {
@@ -187,7 +187,7 @@ interface ExplanatoryAssertionGroupTypeOption {
  * defined [groupType] and the [explanatoryAssertions].
  */
 @Deprecated(
-    "Use ExplanatoryGroup.FinalStep instead; will be removed latest with 1.0.0",
+    "Use ExplanatoryGroup.FinalStep instead; will be removed with 1.0.0 at the latest",
     ReplaceWith("ExplanatoryGroup.FinalStep")
 )
 interface ExplanatoryAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGroup> {

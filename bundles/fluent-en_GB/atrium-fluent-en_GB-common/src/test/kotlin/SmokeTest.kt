@@ -1,7 +1,4 @@
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.AssertionVerb
 import ch.tutteli.atrium.api.verbs.assert
 import ch.tutteli.atrium.api.verbs.assertThat
@@ -20,31 +17,32 @@ import kotlin.test.Test
 
 class SmokeTest {
     @Test
-    fun toBe_canBeUsed() {
-        assertThat(1).toBe(1)
+    fun toEqual_canBeUsed() {
+        expect(1).toEqual(1)
     }
 
     @Test
-    fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2).isEven()
-        assertThat(1).isOdd()
+    fun expectationFunctionWithoutI18nCanBeUsed() {
+        expect(2).toBeEven()
+        expect(1).toBeOdd()
     }
 
     @Test
-    fun assertionFunctionWithI18nCanBeUsed() {
-        assertThat(4).isMultipleOf(2)
+    fun expectationFunctionWithI18nCanBeUsed() {
+        expect(4).toBeAMultipleOf(2)
     }
 
 
+    //TODO remove with 0.18.0
     @Test
     fun assertWithinAssert() {
+        @Suppress("DEPRECATION")
         expect {
             assert(1) {
-                @Suppress("DEPRECATION")
-                assert(2).toBe(1)
+                (assert(2).toEqual(1))
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.ASSERT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -52,15 +50,16 @@ class SmokeTest {
         }
     }
 
+    //TODO remove with 0.18.0
     @Test
     fun assertThatWithinAssertThat() {
+        @Suppress("DEPRECATION")
         expect {
-            @Suppress("DEPRECATION")
             assertThat(1) {
-                assertThat(2).toBe(1)
+                assertThat(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 1",
                 "${AssertionVerb.ASSERT_THAT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -71,12 +70,12 @@ class SmokeTest {
     @Test
     fun expectWithinExpect() {
         expect {
-            @Suppress("DEPRECATION")
             expect(1) {
-                expect(2).toBe(1)
+                @Suppress("DEPRECATION")
+                expect(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
-            messageContains(
+            messageToContain(
                 "${AssertionVerb.EXPECT.getDefault()}: 1",
                 "${AssertionVerb.EXPECT.getDefault()}: 2",
                 "${TO_BE.getDefault()}: 1"
@@ -85,38 +84,38 @@ class SmokeTest {
     }
 
     @Test
-    fun assertAnExceptionOccurred() {
-        assertThat {
+    fun expectAnExceptionOccurred() {
+        expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
     }
 
     @Test
-    fun assertAnExceptionWithAMessageOccurred() {
-        assertThat {
+    fun expectAnExceptionWithAMessageOccurred() {
+        expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            messageContains("hello")
+            messageToContain("hello")
         }
     }
 
     @Test
-    fun assertNotToThrow() {
-        assertThat {
+    fun expectNotToThrow() {
+        expect {
 
         }.notToThrow()
     }
 }
 
-fun Expect<Int>.isEven() =
-    _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+fun Expect<Int>.toBeEven() =
+    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
-fun Expect<Int>.isOdd() =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1 })
+fun Expect<Int>.toBeOdd() =
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 
-private fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {

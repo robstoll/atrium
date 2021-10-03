@@ -30,61 +30,61 @@ class BulletPointProviderSpec : Spek({
         val redefinedBulletPoints =
             mapOf<KClass<out BulletPointIdentifier>, Pair<String, (Pair<KClass<out BulletPointIdentifier>, String>) -> Expect<*>>>(
                 RootAssertionGroupType::class to ("* " to { p ->
-                    expectWitNewBulletPoint(p, "a") toBe "b"
+                    expectWitNewBulletPoint(p, "a") toEqual "b"
                 }),
                 ListAssertionGroupType::class to ("- " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy(fun Expect<String>.() {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.list
                                 .withDescriptionAndEmptyRepresentation("hello")
                                 .withAssertion(_logic.toBe("b")).build()
                         )
-                    })
+                    }
                 }),
                 FeatureAssertionGroupType::class to (">> " to { p ->
-                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toBe 2
+                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixFeatureAssertionGroupHeader::class to ("=> "  to { p ->
-                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toBe 2
+                    expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixSuccessfulSummaryAssertion::class to ("(/) " to { p ->
-                    expectWitNewBulletPoint(p, listOf(1)) containsExactly values(1, 2)
+                    expectWitNewBulletPoint(p, listOf(1)) toContainExactly values(1, 2)
                 }),
                 PrefixFailingSummaryAssertion::class to ("(x) " to { p ->
-                    expectWitNewBulletPoint(p, listOf(1)) containsExactly 2
+                    expectWitNewBulletPoint(p, listOf(1)) toContainExactly 2
                 }),
                 ExplanatoryAssertionGroupType::class to (">> " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy(fun Expect<String>.() {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withDefaultType
                                 .withAssertion(_logic.toBe("b"))
                                 .failing
                                 .build()
                         )
-                    })
+                    }
                 }),
                 WarningAssertionGroupType::class to ("(!) " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy(fun Expect<String>.() {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withWarningType
                                 .withAssertion(_logic.toBe("b"))
                                 .failing
                                 .build()
                         )
-                    })
+                    }
                 }),
                 InformationAssertionGroupType::class to ("(i) " to { p ->
-                    expectWitNewBulletPoint(p, "a")._logic.appendAssertionsCreatedBy(fun Expect<String>.() {
-                        _logic.appendAssertion(
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
                             assertionBuilder.explanatoryGroup
                                 .withInformationType(false)
                                 .withAssertion(_logic.toBe("b"))
                                 .failing
                                 .build()
                         )
-                    })
+                    }
                 })
             )
 
@@ -97,8 +97,8 @@ class BulletPointProviderSpec : Spek({
                     expectBuilder(kClass to newBulletPoint)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(newBulletPoint)
-                        containsNot(defaultBulletPoint)
+                        toContain(newBulletPoint)
+                        notToContain(defaultBulletPoint)
                     }
                 }
             }

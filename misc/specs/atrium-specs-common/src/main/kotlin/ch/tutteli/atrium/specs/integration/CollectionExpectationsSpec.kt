@@ -22,12 +22,12 @@ abstract class CollectionExpectationsSpec(
         isEmpty.forSubjectLess(),
         isNotEmpty.forSubjectLess(),
         sizeFeature.forSubjectLess().adjustName { "$it feature" },
-        size.forSubjectLess { isGreaterThan(2) }
+        size.forSubjectLess { toBeGreaterThan(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
         describePrefix, listOf(999),
-        size.forAssertionCreatorSpec("$toBeDescr: 1") { toBe(1) }
+        size.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -50,7 +50,7 @@ abstract class CollectionExpectationsSpec(
             it("${isNotEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isNotDescr: $empty") }
             }
         }
 
@@ -58,7 +58,7 @@ abstract class CollectionExpectationsSpec(
             it("${isEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-                }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$isDescr: $empty") }
             }
             it("${isNotEmpty.name} - does not throw") {
                 expect(listOf(1) as Collection<Int>).isNotEmptyFun()
@@ -72,13 +72,13 @@ abstract class CollectionExpectationsSpec(
         context("list with two entries") {
             sizeFunctions.forEach { (name, sizeFun, _) ->
                 it("$name - is greater than 1 holds") {
-                    fluent.sizeFun { isGreaterThan(1) }
+                    fluent.sizeFun { toBeGreaterThan(1) }
                 }
                 it("$name - is less than 1 fails") {
                     expect {
-                        fluent.sizeFun { isLessThan(1) }
+                        fluent.sizeFun { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
-                        messageContains("$sizeDescr: 2")
+                        messageToContain("$sizeDescr: 2")
                     }
                 }
             }

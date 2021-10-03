@@ -4,6 +4,7 @@ package ch.tutteli.atrium.logic.creating.maplike.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -43,12 +44,21 @@ interface MapLikeContainsAssertions {
 
     fun <K, V, T : MapLike> keyValuePairsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>,
-        keyValuePairs: List<Pair<K, V>>
+        keyValuePairs: List<Pair<K, V>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
+    ): Assertion
+
+    //TODO remove with 0.18.0 only here for backward compatiblity with specs
+    fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
+        entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
+        valueType: KClass<V>,
+        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
     ): Assertion
 
     fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
         valueType: KClass<V>,
-        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>
+        keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>,
+        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 }

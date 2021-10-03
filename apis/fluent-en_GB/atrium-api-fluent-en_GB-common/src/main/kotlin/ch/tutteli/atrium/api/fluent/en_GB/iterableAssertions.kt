@@ -20,6 +20,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  */
+@Deprecated("Use toContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.toContain"))
 val <E, T : Iterable<E>> Expect<T>.contains: IterableLikeContains.EntryPointStep<E, T, NoOpSearchBehaviour>
     get() = _logic.builderContainsInIterableLike(::identity)
 
@@ -29,6 +30,7 @@ val <E, T : Iterable<E>> Expect<T>.contains: IterableLikeContains.EntryPointStep
  *
  * @return The newly created builder.
  */
+@Deprecated("Use notToContain; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToContain"))
 val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBehaviour>
     get() = _logic.builderContainsNotInIterableLike(::identity)
 
@@ -49,8 +51,12 @@ val <E, T : Iterable<E>> Expect<T>.containsNot: NotCheckerStep<E, T, NotSearchBe
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<E, T>(expected, *otherExpected)")
+)
 fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E): Expect<T> =
-    contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
+    toContain.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding the
@@ -65,8 +71,12 @@ fun <E, T : Iterable<E>> Expect<T>.contains(expected: E, vararg otherExpected: E
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<E, T>(assertionCreatorOrNull)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
+    toContain.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains an entry holding the
@@ -84,10 +94,14 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(assertionCreatorOrNull: (Expe
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContain<E, T>(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = contains.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+): Expect<T> = toContain.inAnyOrder.atLeast(1).entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only
@@ -101,8 +115,12 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.contains(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainExactly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainExactly<E, T>(expected, *otherExpected)")
+)
 fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpected: E): Expect<T> =
-    contains.inOrder.only.values(expected, *otherExpected)
+    toContain.inOrder.only.values(expected, *otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
@@ -121,8 +139,12 @@ fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E, vararg otherExpe
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainExactly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainExactly<E, T>(assertionCreatorOrNull)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    contains.inOrder.only.entry(assertionCreatorOrNull)
+    toContain.inOrder.only.entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
@@ -144,10 +166,14 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(assertionCreatorOrNull
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toContainExactly; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainExactly<E, T>(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = contains.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+): Expect<T> = toContain.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only elements of [expectedIterableLike]
@@ -166,9 +192,13 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toContainExactlyElementsOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainExactlyElementsOf<E, T>(expectedIterableLike)")
+)
 inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> = contains.inOrder.only.elementsOf(expectedIterableLike)
+): Expect<T> = toContain.inOrder.only.elementsOf(expectedIterableLike)
 
 /** Expects that the subject of `this` expectation (an [Iterable]) contains all elements of [expectedIterableLike].
  *
@@ -185,9 +215,13 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsExactlyElementsOf(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toContainElementsOf; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toContainElementsOf<E, T>(expectedIterableLike)")
+)
 inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> = contains.inAnyOrder.atLeast(1).elementsOf(expectedIterableLike)
+): Expect<T> = toContain.inAnyOrder.atLeast(1).elementsOf(expectedIterableLike)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
@@ -197,10 +231,14 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use notToContain; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToContain<E, T>(expected, *otherExpected)")
+)
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
-    containsNot.values(expected, *otherExpected)
+    notToContain.values(expected, *otherExpected)
 
-
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Creates an [Expect] for the result of calling `min()` on the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -212,6 +250,7 @@ fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
     _logic.min(::identity).transform()
 
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Expects that the result of calling `min()` on the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -224,6 +263,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.min(::identity).collectAndAppend(assertionCreator)
 
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Creates an [Expect] for the result of calling `max()` on the subject of `this` expectation,
  * so that further fluent calls are assertions about it.
@@ -235,6 +275,7 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<
 fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
     _logic.max(::identity).transform()
 
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Expects that the result of calling `max()` on  the subject of `this` expectation
  * holds all assertions the given [assertionCreator] creates for it and
@@ -257,8 +298,12 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toHaveElementsAndAny; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAny<E, T>(assertionCreatorOrNull)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    contains.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
+    toContain.inAnyOrder.atLeast(1).entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
@@ -269,8 +314,12 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.any(assertionCreatorOrNull: (Expect<E>
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toHaveElementsAndNone; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndNone<E, T>(assertionCreatorOrNull)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    containsNot.entry(assertionCreatorOrNull)
+    notToContain.entry(assertionCreatorOrNull)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) has at least one element and
@@ -279,6 +328,10 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.none(assertionCreatorOrNull: (Expect<E
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toHaveElementsAndAll; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndAll<E, T>(assertionCreatorOrNull)")
+)
 fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { all(::identity, assertionCreatorOrNull) }
 
@@ -290,6 +343,10 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.all(assertionCreatorOrNull: (Expect<E>
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toHaveElements; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElements<E, T>()")
+)
 fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext(::identity) }
 
@@ -300,6 +357,10 @@ fun <E, T : Iterable<E>> Expect<T>.hasNext(): Expect<T> =
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use notToHaveElements; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToHaveElements<E, T>()")
+)
 fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext(::identity) }
 
@@ -310,9 +371,14 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toHaveElementsAndNoDuplicates; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toHaveElementsAndNoDuplicates<E, T>()")
+)
 fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
 
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Turns `Expect<E, T : Iterable<E>>` into `Expect<List<E>`.
  *
@@ -325,6 +391,7 @@ fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
  */
 fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
+//TODO 0.18.0 move to iterableExpectations.kt
 /**
  * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
  * the subject as [List].
@@ -337,4 +404,4 @@ fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * @since 0.14.0
  */
 fun <E, T : Iterable<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList()._logic.appendAssertionsCreatedBy(assertionCreator) }
+    apply { asList()._logic.appendAsGroup(assertionCreator) }

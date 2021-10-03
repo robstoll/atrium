@@ -145,9 +145,9 @@ interface CoreFactoryCommon {
      * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
      * pairs on the same line.
      *
-     * As an example `assert(10).toBe(9)` results in the following error:
+     * As an example `expect(10).toBe(9)` results in the following error:
      * ```
-     * assert: 10        (java.lang.Integer <934275857>)
+     * expect: 10        (java.lang.Integer <934275857>)
      * ◆ to be: 9        (java.lang.Integer <1364913072>)
      * ```
      *
@@ -167,9 +167,9 @@ interface CoreFactoryCommon {
      * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
      * pairs on separate lines
      *
-     * As an example `assert(10).toBe(9)` results in the following error:
+     * As an example `expect(10).toBe(9)` results in the following error:
      * ```
-     * assert:
+     * expect:
      *   10        (java.lang.Integer <934275857>)
      * ◆ to be:
      *   9        (java.lang.Integer <1364913072>)

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.messageContains
+import ch.tutteli.atrium.api.infix.en_GB.messageToContain
 import ch.tutteli.atrium.api.infix.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import org.spekframework.spek2.Spek
@@ -12,7 +12,7 @@ class TextSpec : Spek({
             expect{
                 Text("")
             }.toThrow<IllegalArgumentException> {
-                messageContains("use Text.Empty instead")
+                messageToContain("use Text.Empty instead")
             }
         }
 

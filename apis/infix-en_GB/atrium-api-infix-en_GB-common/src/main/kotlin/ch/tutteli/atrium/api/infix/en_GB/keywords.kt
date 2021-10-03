@@ -5,37 +5,37 @@ package ch.tutteli.atrium.api.infix.en_GB
 /**
  * Marker interface for keywords.
  *
- * For instance, can be used to add a deprecated overload in case an assertion function accepts Any as argument type
- * (see toBe).
+ * For instance, can be used to add a deprecated overload in case an expectation function accepts Any as argument type
+ * (see toEqual).
  */
 interface Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being a regular file.
+ * A helper construct to allow expressing expectations about a path being a regular file.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object aRegularFile : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being a directory.
+ * A helper construct to allow expressing expectations about a path being a directory.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object aDirectory : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being an empty directory.
+ * A helper construct to allow expressing expectations about a path being an empty directory.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object anEmptyDirectory : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being a symbolic link.
+ * A helper construct to allow expressing expectations about a path being a symbolic link.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object aSymbolicLink : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being absolute.
+ * A helper construct to allow expressing expectations about a path being absolute.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.14.0
@@ -43,7 +43,7 @@ object aSymbolicLink : Keyword
 object absolute : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being relative.
+ * A helper construct to allow expressing expectations about a path being relative.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.14.0
@@ -75,7 +75,7 @@ object empty : Keyword
 object entries : Keyword
 
 /**
- * A helper construct to allow expressing assertions about path existence.
+ * A helper construct to allow expressing expectations about path existence.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object existing : Keyword
@@ -87,7 +87,7 @@ object existing : Keyword
 object group : Keyword
 
 /**
- * Represents the pseudo keyword `next` as in [has] `next`.
+ * Represents the pseudo keyword `next` as in [toHave] `next`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.12.0
@@ -125,35 +125,55 @@ object present : Keyword
 
 
 /**
- * A helper construct to allow expressing assertions about a path being readable.
+ * A helper construct to allow expressing expectations about a path being readable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object readable : Keyword
 
 /**
- * Represents the pseudo keyword `success` as in [toBe] `success.
+ * Represents the pseudo keyword `success` as in [toEqual] `success`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use aSuccess; will be removed with 1.0.0 at the latest",
+    ReplaceWith("aSuccess", "ch.tutteli.atrium.api.infix.en_GB.aSuccess")
+)
 object success : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being writable.
+ * A helper construct to allow expressing expectations about a something being a success.
+ * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.17.0
+ */
+object aSuccess : Keyword
+
+/**
+ * A helper construct to allow expressing expectations about a path being writable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object writable : Keyword
 
 /**
- * A helper construct to allow expressing assertions about a path being executable.
+ * A helper construct to allow expressing expectations about a path being executable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object executable : Keyword
 
 /**
- * A helper construct to allow expressing assertions about iterable contains no duplicates.
+ * A helper construct to allow expressing expectations about iterable contains no duplicates.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
  * @since 0.14.0
  */
 object noDuplicates : Keyword
+
+/**
+ * A helper construct to allow expressing expectations about elements as in `expect(iterable) toHave elements`.
+ * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @since 0.17.0
+ */
+object elements : Keyword

@@ -53,12 +53,12 @@ abstract class Fun0ExpectationsJvmSpec(
 
             fun Expect<AssertionError>.expectSuppressedInReporting() =
                 message {
-                    containsRegex(
+                    toContainRegex(
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
                         "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
-                            messageAndStackTrace("not good"),
+                                messageAndStackTrace("not good"),
                         "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
-                            messageAndStackTrace(errMessage)
+                                messageAndStackTrace(errMessage)
                     )
                 }
 
@@ -68,10 +68,10 @@ abstract class Fun0ExpectationsJvmSpec(
                     expect {
                         expect<() -> Any?> {
                             throw exceptionWithSuppressed
-                        }.toThrowFun { message.toBe("hello") }
+                        }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                        if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                     }
                 }
             }
@@ -81,10 +81,10 @@ abstract class Fun0ExpectationsJvmSpec(
                     expect {
                         expect<() -> Int> {
                             throw exceptionWithSuppressed
-                        }.notToThrowFun { toBe(2) }
+                        }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        if (hasExtraHint) messageToContain("$toBeDescr: 2")
                     }
                 }
             }
@@ -96,12 +96,12 @@ abstract class Fun0ExpectationsJvmSpec(
 
                 fun Expect<AssertionError>.expectSuppressedAndCauseInReporting() =
                     message {
-                        containsRegex(
+                        toContainRegex(
                             UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
-                                messageAndStackTrace("io"),
+                                    messageAndStackTrace("io"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
-                                messageAndStackTrace(errMessage)
+                                    messageAndStackTrace(errMessage)
                         )
 
                     }
@@ -112,10 +112,10 @@ abstract class Fun0ExpectationsJvmSpec(
                         expect {
                             expect<() -> Any?> {
                                 throw exceptionWithSuppressedWhichHasCause
-                            }.toThrowFun { message.toBe("hello") }
+                            }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -125,10 +125,10 @@ abstract class Fun0ExpectationsJvmSpec(
                         expect {
                             expect<() -> Int> {
                                 throw exceptionWithSuppressedWhichHasCause
-                            }.notToThrowFun { toBe(2) }
+                            }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                            if (hasExtraHint) messageToContain("$toBeDescr: 2")
                         }
                     }
                 }

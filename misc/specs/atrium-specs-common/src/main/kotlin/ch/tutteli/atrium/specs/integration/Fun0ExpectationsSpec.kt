@@ -28,12 +28,12 @@ abstract class Fun0ExpectationsSpec(
     include(object : SubjectLessSpec<() -> Any?>(
         "$describePrefix[toThrow] ",
         toThrowFeature.forSubjectLess().adjustName { "$it feature" },
-        toThrow.forSubjectLess { messageContains("bla") }
+        toThrow.forSubjectLess { messageToContain("bla") }
     ) {})
 
     include(object : SubjectLessSpec<() -> Int>(describePrefix,
         notToThrowFeature.forSubjectLess().adjustName { "$it feature" },
-        notToThrow.forSubjectLess { toBe(2) }
+        notToThrow.forSubjectLess { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<() -> Any?>(
@@ -41,7 +41,7 @@ abstract class Fun0ExpectationsSpec(
         assertionCreatorSpecTriple(
             toThrow.name,
             "bla",
-            { apply { toThrow.invoke(this) { messageContains("bla") } } },
+            { apply { toThrow.invoke(this) { messageToContain("bla") } } },
             { apply { toThrow.invoke(this) {} } }
         )
     ) {})
@@ -51,7 +51,7 @@ abstract class Fun0ExpectationsSpec(
         assertionCreatorSpecTriple(
             notToThrow.name,
             "$toBeDescr: 1",
-            { apply { notToThrow.invoke(this) { toBe(1) } } },
+            { apply { notToThrow.invoke(this) { toEqual(1) } } },
             { apply { notToThrow.invoke(this) {} } }
         )
     ) {})
@@ -78,15 +78,21 @@ abstract class Fun0ExpectationsSpec(
             toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect<() -> Any?> { /* no exception occurs */ 1 }.toThrowFun { toBe(IllegalArgumentException("what")) }
+                        expect<() -> Any?> { /* no exception occurs */ 1 }.toThrowFun {
+                            toEqual(
+                                IllegalArgumentException(
+                                    "what"
+                                )
+                            )
+                        }
                     }.toThrow<AssertionError> {
                         message {
-                            contains.exactly(1).values(
+                            toContain.exactly(1).values(
                                 "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
                                     DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
                                 "$isADescr: ${IllegalArgumentException::class.simpleName}"
                             )
-                            if (hasExtraHint) contains("$toBeDescr: ${IllegalArgumentException::class.fullName}")
+                            if (hasExtraHint) toContain("$toBeDescr: ${IllegalArgumentException::class.fullName}")
                         }
                     }
                 }
@@ -94,16 +100,16 @@ abstract class Fun0ExpectationsSpec(
 
             notToThrowFunctions.forEach { (name, notToThrowFun, _) ->
                 it("$name - does not throw, allows to make a sub assertion") {
-                    expect { 1 }.notToThrowFun { toBe(1) }
+                    expect { 1 }.notToThrowFun { toEqual(1) }
                 }
             }
 
             notToThrowFunctions.forEach { (name, notToThrowFun, _) ->
                 it("$name - shows return value in case sub-assertion fails") {
                     expect {
-                        expect { 123456789 }.notToThrowFun { toBe(1) }
+                        expect { 123456789 }.notToThrowFun { toEqual(1) }
                     }.toThrow<AssertionError>() {
-                        messageContains("123456789")
+                        messageToContain("123456789")
                     }
                 }
             }
@@ -117,7 +123,7 @@ abstract class Fun0ExpectationsSpec(
                 it("$name - allows to define assertions for the Throwable if the correct exception is thrown") {
                     expect<() -> Any?> {
                         throw IllegalArgumentException("hello")
-                    }.toThrowFun { message.toBe("hello") }
+                    }.toThrowFun { message.toEqual("hello") }
                 }
 
                 it(
@@ -127,15 +133,15 @@ abstract class Fun0ExpectationsSpec(
                     expect {
                         expect<() -> Any?> {
                             throw wrongException
-                        }.toThrowFun { message.toBe("hello") }
+                        }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "$isADescr:.+" + IllegalArgumentException::class.fullName,
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) contains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) toContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -149,10 +155,10 @@ abstract class Fun0ExpectationsSpec(
                     expect {
                         expect<() -> Int> {
                             throw wrongException
-                        }.notToThrowFun { toBe(2) }
+                        }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 "\\Qinvoke()\\E: ${
                                     DescriptionFunLikeAssertion.THREW.getDefault()
                                         .format(UnsupportedOperationException::class.fullName)
@@ -160,7 +166,7 @@ abstract class Fun0ExpectationsSpec(
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) contains("$toBeDescr: 2")
+                            if (hasExtraHint) toContain("$toBeDescr: 2")
                         }
                     }
                 }
@@ -173,7 +179,7 @@ abstract class Fun0ExpectationsSpec(
 
                 fun Expect<AssertionError>.expectCauseInReporting() =
                     message {
-                        containsRegex(
+                        toContainRegex(
                             UnsupportedOperationException::class.simpleName + separator +
                                 messageAndStackTrace("not supported"),
                             "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
@@ -190,10 +196,10 @@ abstract class Fun0ExpectationsSpec(
                         expect {
                             expect<() -> Any?> {
                                 throw exceptionWithCause
-                            }.toThrowFun { message.toBe("hello") }
+                            }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                         }
                     }
                 }
@@ -203,10 +209,10 @@ abstract class Fun0ExpectationsSpec(
                         expect {
                             expect<() -> Int> {
                                 throw exceptionWithCause
-                            }.notToThrowFun { toBe(2) }
+                            }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageContains("$toBeDescr: 2")
+                            if (hasExtraHint) messageToContain("$toBeDescr: 2")
                         }
                     }
                 }
@@ -219,7 +225,7 @@ abstract class Fun0ExpectationsSpec(
 
                     fun Expect<AssertionError>.expectCauseAndNestedInReporting() =
                         message {
-                            containsRegex(
+                            toContainRegex(
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace("not supported"),
                                 "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${RuntimeException::class.fullName}" +
@@ -235,10 +241,10 @@ abstract class Fun0ExpectationsSpec(
                             expect {
                                 expect<() -> Any?> {
                                     throw exceptionWithNestedCause
-                                }.toThrowFun { message.toBe("hello") }
+                                }.toThrowFun { message.toEqual("hello") }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageContains("$toBeDescr: \"hello\"")
+                                if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
                             }
                         }
                     }
@@ -248,10 +254,10 @@ abstract class Fun0ExpectationsSpec(
                             expect {
                                 expect<() -> Int> {
                                     throw exceptionWithNestedCause
-                                }.notToThrowFun { toBe(2) }
+                                }.notToThrowFun { toEqual(2) }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageContains("$toBeDescr: 2")
+                                if (hasExtraHint) messageToContain("$toBeDescr: 2")
                             }
                         }
                     }

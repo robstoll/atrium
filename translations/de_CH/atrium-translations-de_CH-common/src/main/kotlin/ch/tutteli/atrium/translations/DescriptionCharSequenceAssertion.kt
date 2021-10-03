@@ -19,6 +19,8 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     IGNORING_CASE("%s, Gross-/Kleinschreibung ignorierend"),
     MATCHES("stimmt vollständig überein mit"),
     MISMATCHES("stimmt nicht vollständig überein mit"),
+    NOT_FOUND("aber es wurde kein Treffer gefunden"),
+    NUMBER_OF_MATCHES_FOUND("und %s Treffer wurden gefunden"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     STARTS_WITH("beginnt mit"),
     STARTS_NOT_WITH("beginnt nicht mit"),

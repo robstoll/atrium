@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.*
 class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableExpectationsSpec(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
-    fun2(Expect<Throwable>::messageContains),
+    fun2(Expect<Throwable>::messageToContain),
     ("cause" to Companion::causeFeature).withFeatureSuffix(),
     "cause" to Companion::cause
 ) {
@@ -31,7 +31,7 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
 
         a1.message
         a1 = a1.message {}
-        a1 = a1.messageContains("asdf")
+        a1 = a1.messageToContain("asdf")
 
         a1.cause<ClassCastException>()
         a1.cause<ClassCastException> { }

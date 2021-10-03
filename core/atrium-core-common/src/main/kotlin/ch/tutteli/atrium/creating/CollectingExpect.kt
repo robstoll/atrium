@@ -22,8 +22,8 @@ interface CollectingExpect<T> : Expect<T> {
     fun getAssertions(): List<Assertion>
 
     @Deprecated(
-        "use appendAssertionsCreatedBy; will be removed with 0.18.0",
-        ReplaceWith("this.appendAssertionsCreatedBy(assertionCreator)")
+        "use appendAsGroup; will be removed with 0.18.0",
+        ReplaceWith("this.appendAsGroup(assertionCreator)")
     )
     override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
@@ -41,7 +41,7 @@ interface CollectingExpect<T> : Expect<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
     */
-    fun appendAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
+    fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
     companion object {
         @Suppress(

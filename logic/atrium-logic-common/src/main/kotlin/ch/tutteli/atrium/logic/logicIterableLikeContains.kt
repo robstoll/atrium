@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.EntryPointStep<E, T, S>._logicAppend(
     factory: IterableLikeContains.EntryPointStepLogic<E, T, S>.() -> Assertion
-): Expect<T> = _logic.let { l -> l.container.appendAssertion(l.factory()) }
+): Expect<T> = _logic.let { l -> l.container.append(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
@@ -52,7 +52,7 @@ inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.CheckerStep<E, T, S>._logicAppend(
     factory: IterableLikeContains.CheckerStepLogic<E, T, S>.() -> Assertion
-): Expect<T> = _logic.let { l -> l.entryPointStepLogic.container.appendAssertion(l.factory()) }
+): Expect<T> = _logic.let { l -> l.entryPointStepLogic.container.append(l.factory()) }
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

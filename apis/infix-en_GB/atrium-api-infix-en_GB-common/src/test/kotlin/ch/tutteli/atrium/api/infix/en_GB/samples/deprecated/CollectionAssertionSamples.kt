@@ -55,8 +55,8 @@ class CollectionAssertionSamples {
                 //|       | fails
                 //| subject is now of type Int (actually 3)
         } message {
-            contains("${isLessThanDescr}: 1")
-            containsNot("${isGreaterThanDescr}: 4")
+            toContain("${isLessThanDescr}: 1")
+            notToContain("${isGreaterThanDescr}: 4")
         }
     }
 

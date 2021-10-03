@@ -4,23 +4,48 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import org.spekframework.spek2.Spek
 
-class ComparableExpectationsSpec : ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
-    fun1(Expect<Int>::isLessThan),
-    fun1(Expect<Int>::isLessThanOrEqual),
-    fun1(Expect<Int>::isGreaterThan),
-    fun1(Expect<Int>::isGreaterThanOrEqual),
-    fun1(Expect<Int>::isEqualComparingTo),
-    fun1(Expect<DiffEqualsCompareTo>::isEqualComparingTo)
-) {
+class ComparableExpectationsSpec: Spek({
+
+    include(object: ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
+        fun1(Expect<Int>::toBeLessThan),
+        fun1(Expect<Int>::toBeLessThanOrEqualTo),
+        fun1(Expect<Int>::toBeEqualComparingTo),
+        fun1(Expect<Int>::toBeGreaterThanOrEqualTo),
+        fun1(Expect<Int>::toBeGreaterThan),
+
+        fun1(Expect<DiffEqualsCompareTo>::toBeLessThanOrEqualTo),
+        fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
+        fun1(Expect<DiffEqualsCompareTo>::toBeGreaterThanOrEqualTo),
+        describePrefix = "[Atrium][<=] "
+    ){})
+
+    include(object: ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
+        fun1(Expect<Int>::toBeLessThan),
+        fun1(Expect<Int>::notToBeGreaterThan),
+        fun1(Expect<Int>::toBeEqualComparingTo),
+        fun1(Expect<Int>::notToBeLessThan),
+        fun1(Expect<Int>::toBeGreaterThan),
+
+        fun1(Expect<DiffEqualsCompareTo>::notToBeGreaterThan),
+        fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
+        fun1(Expect<DiffEqualsCompareTo>::notToBeLessThan),
+
+        DescriptionComparableAssertion.IS_NOT_GREATER_THAN.getDefault(),
+        DescriptionComparableAssertion.IS_NOT_LESS_THAN.getDefault(),
+        describePrefix = "[Atrium][!>] "
+    ){})
+})  {
 
     @Suppress("unused")
     fun ambiguityTest() {
         val a1: Expect<Int> = notImplemented()
-        a1 isLessThan 1
-        a1 isLessThanOrEqual 1
-        a1 isGreaterThan 1
-        a1 isGreaterThanOrEqual 1
-        a1 isEqualComparingTo 1
+        a1 toBeLessThan 1
+        a1 toBeLessThanOrEqualTo 1
+        a1 toBeGreaterThan 1
+        a1 toBeGreaterThanOrEqualTo 1
+        a1 toBeEqualComparingTo 1
     }
 }

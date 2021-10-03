@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -36,7 +36,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val assertions = listOf(
-        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 1).build(),
+        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT, 1).build(),
         assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2).build()
     )
     val featureAssertionGroup = assertionBuilder
@@ -60,7 +60,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     .withAssertions(listOf())
                     .build()
             )
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
     }
 
@@ -96,11 +96,11 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$arrow placeholder %s: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "$arrow placeholder %s: 2$lineSeparator"
+                                + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -109,12 +109,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 val listAssertions = listOf(
                     featureAssertionGroup,
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.ASSERT,
+                        AssertionVerb.EXPECT,
                         20
                     ).build()
                 )
                 val listAssertionGroup = assertionBuilder.list
-                    .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
+                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
                     .withAssertions(listAssertions)
                     .build()
                 it("does only indent the assertions but not the feature") {
@@ -123,13 +123,13 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.ASSERT.getDefault()}: 10$lineSeparator"
+                            + "${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
                             + "$listBulletPoint $arrow placeholder %s: 2$lineSeparator"
-                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
+                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
                             + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20"
+                            + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
                     )
                 }
             }
@@ -137,11 +137,11 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$featureBulletPoint` for each assertion and `$listBulletPoint` for each element in the list group") {
                     val featureAssertions = listOf(
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.ASSERT,
+                            AssertionVerb.EXPECT,
                             5
                         ).build(), featureAssertionGroup,
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.ASSERT,
+                            AssertionVerb.EXPECT,
                             30
                         ).build()
                     )
@@ -155,14 +155,14 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         sb,
                         alwaysTrueAssertionFilter
                     )
-                    expect(sb.toString()).toBe(
+                    expect(sb.toString()).toEqual(
                         lineSeparator
                             + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator"
                             + "$indentArrow$featureBulletPoint $arrow placeholder %s: 2$lineSeparator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$lineSeparator"
+                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
                             + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30"
+                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 30"
                     )
                 }
             }

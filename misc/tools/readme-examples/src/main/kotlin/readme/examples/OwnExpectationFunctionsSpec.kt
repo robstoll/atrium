@@ -33,8 +33,8 @@ import readme.examples.utils.expect
 object OwnExpectationFunctionsSpec : Spek({
 
     //snippet-own-boolean-1-start
-    fun Expect<Int>.isMultipleOf(base: Int) =
-        _logic.createAndAppendAssertion("is multiple of", base) { it % base == 0 }
+    fun Expect<Int>.toBeAMultipleOf(base: Int) =
+        _logic.createAndAppend("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
     test("code-own-boolean-1") {
         //snippet-own-boolean-import-insert
@@ -42,12 +42,12 @@ object OwnExpectationFunctionsSpec : Spek({
         //snippet-own-boolean-1-insert
     }
     test("ex-own-boolean-1") {
-        expect(12).isMultipleOf(5)
+        expect(12).toBeAMultipleOf(5)
     }
 
     //snippet-own-boolean-2-start
-    fun Expect<Int>.isEven() =
-        _logic.createAndAppendAssertion("is", Text("an even number")) { it % 2 == 0 }
+    fun Expect<Int>.toBeEven() =
+        _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     test("code-own-boolean-2") {
         //snippet-own-boolean-import-insert
@@ -55,7 +55,7 @@ object OwnExpectationFunctionsSpec : Spek({
         //snippet-own-boolean-2-insert
     }
     test("ex-own-boolean-2") {
-        expect(13).isEven()
+        expect(13).toBeEven()
     }
 
     test("code-own-compose-3a") {
@@ -63,8 +63,8 @@ object OwnExpectationFunctionsSpec : Spek({
     }
 
     //snippet-own-compose-3b-start
-    fun Expect<Person>.hasNumberOfChildren(number: Int): Expect<Person> =
-        feature(Person::children) { hasSize(number) }
+    fun Expect<Person>.toHaveNumberOfChildren(number: Int): Expect<Person> =
+        feature(Person::children) { toHaveSize(number) }
 
     //snippet-own-compose-3b-end
     test("code-own-compose-3b") {
@@ -73,13 +73,15 @@ object OwnExpectationFunctionsSpec : Spek({
 
     test("ex-own-compose-3") {
         expect(Person("Susanne", "Whitley", 43, listOf()))
-            .hasNumberOfChildren(2)
+            .toHaveNumberOfChildren(2)
     }
 
     //snippet-own-compose-4-start
-    fun Expect<Person>.hasAdultChildren(): Expect<Person> =
+    fun Expect<Person>.toHaveAdultChildren(): Expect<Person> =
         feature(Person::children) {
-            all { feature(Person::age).isGreaterThanOrEqual(18) }
+            toHaveElementsAndAll {
+                feature(Person::age).toBeGreaterThanOrEqualTo(18)
+            }
         }
 
     //snippet-own-compose-4-end
@@ -88,7 +90,7 @@ object OwnExpectationFunctionsSpec : Spek({
     }
     test("ex-own-compose-4") {
         expect(Person("Susanne", "Whitley", 43, listOf()))
-            .hasAdultChildren()
+            .toHaveAdultChildren()
     }
 
 
@@ -99,16 +101,22 @@ object OwnExpectationFunctionsSpec : Spek({
     test("ex-own-compose-5"){
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
             .children { // using the fun -> assertion group, ergo sub-assertions don't fail fast
-                none { feature { f(it::firstName) }.startsWith("Ro") }
-                all { feature { f(it::lastName) }.toBe("Whitley") }
+                toHaveElementsAndNone {
+                    feature { f(it::firstName) }.toStartWith("Ro")
+                }
+                toHaveElementsAndAll {
+                    feature { f(it::lastName) }.toEqual("Whitley")
+                }
             } // subject is still Person here
             .apply { // only evaluated because the previous assertion group holds
                 children  // using the val -> subsequent assertions are about children and fail fast
-                    .hasSize(2)
-                    .any { feature { f(it::age) }.isGreaterThan(18) }
+                    .toHaveSize(2)
+                    .toHaveElementsAndAny {
+                        feature { f(it::age) }.toBeGreaterThan(18)
+                    }
             } // subject is still Person here due to the `apply`
             .children // using the val -> subsequent assertions are about children and fail fast
-            .hasSize(2)
+            .toHaveSize(2)
     }
     //@formatter:on
 
@@ -118,7 +126,7 @@ object OwnExpectationFunctionsSpec : Spek({
         person: Person, vararg otherPersons: Person
     ): Expect<T> {
         val (pair, otherPairs) = mapArguments(person, otherPersons) { it.firstName to it.lastName }
-        return contains.inAnyOrder.only.values(pair, *otherPairs)
+        return toContain.inAnyOrder.only.values(pair, *otherPairs)
     }
     //snippet-own-compose-6-end
 
@@ -132,10 +140,10 @@ object OwnExpectationFunctionsSpec : Spek({
             person: Person, vararg otherPersons: Person
         ): Expect<T> {
             val (first, others) = mapArguments(person, otherPersons).toExpect<Pair<String, String>> {
-                first.startsWith(it.firstName[0].toString())
-                second.startsWith(it.lastName[0].toString())
+                first.toStartWith(it.firstName[0].toString())
+                second.toStartWith(it.lastName[0].toString())
             }
-            return contains.inOrder.only.entries(first, *others)
+            return toContain.inOrder.only.entries(first, *others)
         }
     }
 })

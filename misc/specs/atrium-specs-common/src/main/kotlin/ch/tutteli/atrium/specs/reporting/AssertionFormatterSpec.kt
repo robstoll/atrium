@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -58,8 +55,8 @@ abstract class AssertionFormatterSpec(
                     override val representation = 1
                     override val assertions: List<Assertion> = emptyList()
                 }, parameterObject)
-            }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }
-            expect(sb).isEmpty()
+            }.toThrow<UnsupportedOperationException> { message { toEqual(AssertionFormatter.CALL_FORMAT_GROUP) } }
+            expect(sb).toBeEmpty()
         }
     }
 })

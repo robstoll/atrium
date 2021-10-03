@@ -130,7 +130,7 @@ object SymbolicLinkResolvingSpec : Spek({
                 val file = tempFolder.newFile("testFile").toRealPath()
 
                 val resultAssertion = explainForResolvedLink(file, resolvedPathConsumer)
-                expect(resultAssertion).isSameAs(testAssertion)
+                expect(resultAssertion).toBeTheInstance(testAssertion)
             }
 
             it("adds an explanation for one symbolic link") {
@@ -139,10 +139,10 @@ object SymbolicLinkResolvingSpec : Spek({
                 val link = target.createSymbolicLink(testDir.resolve("link"))
 
                 val resultAssertion = explainForResolvedLink(link, resolvedPathConsumer)
-                expect(resultAssertion).isA<AssertionGroup>()
-                    .feature { p(it::assertions) }.containsExactly(
+                expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                    .feature { p(it::assertions) }.toContainExactly(
                         { describesLink(link, target) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheInstance(testAssertion) }
                     )
             }
 
@@ -153,11 +153,11 @@ object SymbolicLinkResolvingSpec : Spek({
                 val start = toNowhere.createSymbolicLink(testDir.resolve("start"))
 
                 val resultAssertion = explainForResolvedLink(start, resolvedPathConsumer)
-                expect(resultAssertion).isA<AssertionGroup>()
-                    .feature { p(it::assertions) }.containsExactly(
+                expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                    .feature { p(it::assertions) }.toContainExactly(
                         { describesLink(start, toNowhere) },
                         { describesLink(toNowhere, nowhere) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheInstance(testAssertion) }
                     )
             }
 
@@ -175,12 +175,12 @@ object SymbolicLinkResolvingSpec : Spek({
                 )
 
                 val resultAssertion = explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
-                expect(resultAssertion).isA<AssertionGroup>()
-                    .feature { p(it::assertions) }.containsExactly(
+                expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                    .feature { p(it::assertions) }.toContainExactly(
                         { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
                         { describesLink(grandparentLink, grandparent) },
                         { describesLink(innerLink, target) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheInstance(testAssertion) }
                     )
             }
 
@@ -191,12 +191,12 @@ object SymbolicLinkResolvingSpec : Spek({
                 val testLink = barLink.resolve(barLink.fileName).resolve(barLink.fileName).resolve(target.fileName)
 
                 val resultAssertion = explainForResolvedLink(testLink, resolvedPathConsumer)
-                expect(resultAssertion).isA<AssertionGroup>()
-                    .feature { p(it::assertions) }.containsExactly(
+                expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                    .feature { p(it::assertions) }.toContainExactly(
                         { describesLink(barLink, testDir) },
                         { describesLink(barLink, testDir) },
                         { describesLink(barLink, testDir) },
-                        { isSameAs(testAssertion) }
+                        { toBeTheInstance(testAssertion) }
                     )
             }
         }
@@ -208,12 +208,12 @@ object SymbolicLinkResolvingSpec : Spek({
             b.createSymbolicLink(a)
 
             val resultAssertion = explainForResolvedLink(a, resolvedPathConsumer)
-            expect(resultAssertion).isA<AssertionGroup>()
-                .feature { p(it::assertions) }.containsExactly(
+            expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                .feature { p(it::assertions) }.toContainExactly(
                     { describesLink(a, b) },
                     { describesLink(b, a) },
                     { describesLinkLoop(a, b, a) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheInstance(testAssertion) }
                 )
         }
 
@@ -224,12 +224,12 @@ object SymbolicLinkResolvingSpec : Spek({
             val link = fooLink.resolve("link").createSymbolicLink(foo.resolve("link"))
 
             val resultAssertion = explainForResolvedLink(link, resolvedPathConsumer)
-            expect(resultAssertion).isA<AssertionGroup>()
-                .feature { p(it::assertions) }.containsExactly(
+            expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                .feature { p(it::assertions) }.toContainExactly(
                     { describesLink(link, fooLink.resolve("link")) },
                     { describesLink(fooLink, foo) },
                     { describesLinkLoop(link, link) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheInstance(testAssertion) }
                 )
         }
 
@@ -248,8 +248,8 @@ object SymbolicLinkResolvingSpec : Spek({
                 innerLinkInGrandparentLink.createSymbolicLink(testDir.resolve("__transitive_linkTo_${a.fileName}"))
 
             val resultAssertion = explainForResolvedLink(linkToInnerLink, resolvedPathConsumer)
-            expect(resultAssertion).isA<AssertionGroup>()
-                .feature { p(it::assertions) }.containsExactly(
+            expect(resultAssertion).toBeAnInstanceOf<AssertionGroup>()
+                .feature { p(it::assertions) }.toContainExactly(
                     { describesLink(linkToInnerLink, innerLinkInGrandparentLink) },
                     { describesLink(grandparentLink, grandparent) },
                     { describesLink(innerLink, a) },
@@ -257,28 +257,28 @@ object SymbolicLinkResolvingSpec : Spek({
                     { describesLink(b, c) },
                     { describesLink(c, a) },
                     { describesLinkLoop(a, b, c, a) },
-                    { isSameAs(testAssertion) }
+                    { toBeTheInstance(testAssertion) }
                 )
         }
     }
 })
 
 fun <T : Assertion> Expect<T>.describesLink(link: Path, target: Path) {
-    isA<ExplanatoryAssertion> {
-        feature { p(it::explanation) }.toBe(
+    toBeAnInstanceOf<ExplanatoryAssertion> {
+        feature { p(it::explanation) }.toEqual(
             TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link, target)
         )
     }
 }
 
 fun <T : Assertion> Expect<T>.describesLinkLoop(vararg loop: Path) {
-    isA<AssertionGroup> {
-        feature { p(it::assertions) }.containsExactly {
-            isA<ExplanatoryAssertion> {
+    toBeAnInstanceOf<AssertionGroup> {
+        feature { p(it::assertions) }.toContainExactly {
+            toBeAnInstanceOf<ExplanatoryAssertion> {
                 val expectedExplanation = TranslatableWithArgs(FAILURE_DUE_TO_LINK_LOOP, loop.joinToString(" -> "))
-                feature { p(it::explanation) }.toBe(expectedExplanation)
+                feature { p(it::explanation) }.toEqual(expectedExplanation)
             }
         }
-        feature { p(it::type) }.toBe(WarningAssertionGroupType)
+        feature { p(it::type) }.toEqual(WarningAssertionGroupType)
     }
 }

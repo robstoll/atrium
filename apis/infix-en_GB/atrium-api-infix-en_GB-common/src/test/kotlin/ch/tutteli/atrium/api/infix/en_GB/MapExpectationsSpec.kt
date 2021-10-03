@@ -5,39 +5,39 @@ import ch.tutteli.atrium.specs.*
 import kotlin.jvm.JvmName
 
 class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsSpec(
-    fun1<Map<out String, *>, String>(Companion::containsKey),
-    fun1<Map<out String?, *>, String?>(Companion::containsKey).withNullableSuffix(),
-    fun1<Map<out String, *>, String>(Companion::containsNotKey),
-    fun1<Map<out String?, *>, String?>(Companion::containsNotKey).withNullableSuffix(),
+    fun1<Map<out String, *>, String>(Companion::toContainKey),
+    fun1<Map<out String?, *>, String?>(Companion::toContainKey).withNullableSuffix(),
+    fun1<Map<out String, *>, String>(Companion::notToContainKey),
+    fun1<Map<out String?, *>, String?>(Companion::notToContainKey).withNullableSuffix(),
     feature1<Map<out String, Int>, String, Int>(Expect<Map<out String, Int>>::getExisting),
     fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>(Companion::getExisting),
     feature1<Map<out String?, Int?>, String?, Int?>(Expect<Map<out String?, Int?>>::getExisting).withNullableSuffix(),
     fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>(Companion::getExisting).withNullableSuffix(),
-    "toBe ${empty::class.simpleName}" to Companion::isEmpty,
-    "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty,
+    "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
+    "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>(Expect<Map<out String, Int>>::keys),
     property<Map<out String, Int>, Set<String>>(Expect<Map<out String, Int>>::keys),
     property<Map<out String, Int>, Collection<Int>>(Expect<Map<out String, Int>>::values),
     fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>(Expect<Map<out String, Int>>::values)
 ) {
     companion object {
-        private fun containsKey(expect: Expect<Map<out String, *>>, key: String) =
-            expect containsKey key
+        private fun toContainKey(expect: Expect<Map<out String, *>>, key: String) =
+            expect toContainKey key
 
-        @JvmName("containsKeyNullable")
-        private fun containsKey(expect: Expect<Map<out String?, *>>, key: String?) =
-            expect containsKey key
+        @JvmName("toContainKeyNullable")
+        private fun toContainKey(expect: Expect<Map<out String?, *>>, key: String?) =
+            expect toContainKey key
 
-        private fun containsNotKey(expect: Expect<Map<out String, *>>, key: String) =
-            expect containsNotKey key
+        private fun notToContainKey(expect: Expect<Map<out String, *>>, key: String) =
+            expect notToContainKey key
 
-        @JvmName("containsNotKeyNullable")
-        private fun containsNotKey(expect: Expect<Map<out String?, *>>, key: String?) =
-            expect containsNotKey key
+        @JvmName("notToContainKeyNullable")
+        private fun notToContainKey(expect: Expect<Map<out String?, *>>, key: String?) =
+            expect notToContainKey key
 
-        private fun isEmpty(expect: Expect<Map<*, *>>) = expect toBe empty
+        private fun toBeEmpty(expect: Expect<Map<*, *>>) = expect toBe empty
 
-        private fun isNotEmpty(expect: Expect<Map<*, *>>) = expect notToBe empty
+        private fun notToBeEmpty(expect: Expect<Map<*, *>>) = expect notToBe empty
 
         private fun getExisting(
             expect: Expect<Map<out String, Int>>,
@@ -64,23 +64,23 @@ class MapExpectationsSpec : ch.tutteli.atrium.specs.integration.MapExpectationsS
         var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
         var starMap: Expect<Map<*, *>> = notImplemented()
 
-        map containsKey 1
-        map containsKey 1f
-        subMap containsKey 1
-        subMap containsKey 1f
-        nullableKeyMap containsKey 1
-        nullableKeyMap containsKey 1f
-        readOnlyNullableKeyValueMap containsKey 1
-        readOnlyNullableKeyValueMap containsKey 1f
+        map toContainKey 1
+        map toContainKey 1f
+        subMap toContainKey 1
+        subMap toContainKey 1f
+        nullableKeyMap toContainKey 1
+        nullableKeyMap toContainKey 1f
+        readOnlyNullableKeyValueMap toContainKey 1
+        readOnlyNullableKeyValueMap toContainKey 1f
 
-        map containsNotKey 1
-        map containsNotKey 1f
-        subMap containsNotKey 1
-        subMap containsNotKey 1f
-        nullableKeyMap containsNotKey 1
-        nullableKeyMap containsNotKey 1f
-        readOnlyNullableKeyValueMap containsNotKey 1
-        readOnlyNullableKeyValueMap containsNotKey 1f
+        map notToContainKey 1
+        map notToContainKey 1f
+        subMap notToContainKey 1
+        subMap notToContainKey 1f
+        nullableKeyMap notToContainKey 1
+        nullableKeyMap notToContainKey 1f
+        readOnlyNullableKeyValueMap notToContainKey 1
+        readOnlyNullableKeyValueMap notToContainKey 1f
 
         map = map toBe empty
         subMap = subMap toBe empty

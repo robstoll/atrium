@@ -6,26 +6,26 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectationsSpec(
-    fun0(Expect<Path>::exists),
-    fun0(Expect<Path>::existsNot),
-    fun1(Expect<Path>::startsWith),
-    fun1(Expect<Path>::startsNotWith),
-    fun1(Expect<Path>::endsWith),
-    fun1(Expect<Path>::endsNotWith),
-    fun0(Expect<Path>::isReadable),
-    fun0(Expect<Path>::isWritable),
-    fun0(Expect<Path>::isExecutable),
-    fun0(Expect<Path>::isRegularFile),
-    fun0(Expect<Path>::isDirectory),
-    fun0(Expect<Path>::isSymbolicLink),
-    fun0(Expect<Path>::isAbsolute),
-    fun0(Expect<Path>::isRelative),
-    fun0(Expect<Path>::isEmptyDirectory),
-    Expect<Path>::hasDirectoryEntry.name to Companion::hasDirectoryEntrySingle,
-    fun2<Path, String, Array<out String>>(Expect<Path>::hasDirectoryEntry),
-    fun1(Expect<Path>::hasSameBinaryContentAs),
-    fun3(Expect<Path>::hasSameTextualContentAs),
-    Expect<Path>::hasSameTextualContentAs.name to Companion::hasSameTextualContentAsDefaultArgs,
+    fun0(Expect<Path>::toExist),
+    fun0(Expect<Path>::notToExist),
+    fun1(Expect<Path>::toStartWith),
+    fun1(Expect<Path>::notToStartWith),
+    fun1(Expect<Path>::toEndWith),
+    fun1(Expect<Path>::notToEndWith),
+    fun0(Expect<Path>::toBeReadable),
+    fun0(Expect<Path>::toBeWritable),
+    fun0(Expect<Path>::toBeExecutable),
+    fun0(Expect<Path>::toBeARegularFile),
+    fun0(Expect<Path>::toBeADirectory),
+    fun0(Expect<Path>::toBeASymbolicLink),
+    fun0(Expect<Path>::toBeAbsolute),
+    fun0(Expect<Path>::toBeRelative),
+    fun0(Expect<Path>::toBeAnEmptyDirectory),
+    Expect<Path>::toHaveTheDirectoryEntries.name to Companion::toHaveTheDirectoryEntry,
+    fun2<Path, String, Array<out String>>(Expect<Path>::toHaveTheDirectoryEntries),
+    fun1(Expect<Path>::toHaveTheSameBinaryContentAs),
+    fun3(Expect<Path>::toHaveTheSameTextualContentAs),
+    Expect<Path>::toHaveTheSameTextualContentAs.name to Companion::toHaveTheSameTextualContentAsDefaultArgs,
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     feature1<Path, String, Path>(Expect<Path>::resolve),
@@ -39,29 +39,30 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 ) {
 
     companion object {
-        private fun hasSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
-            expect.hasSameTextualContentAs(targetPath)
+        private fun toHaveTheSameTextualContentAsDefaultArgs(expect: Expect<Path>, targetPath: Path): Expect<Path> =
+            expect.toHaveTheSameTextualContentAs(targetPath)
 
-        private fun hasDirectoryEntrySingle(expect: Expect<Path>, entry: String) = expect.hasDirectoryEntry(entry)
+        private fun toHaveTheDirectoryEntry(expect: Expect<Path>, entry: String) =
+            expect.toHaveTheDirectoryEntries(entry)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<DummyPath> = notImplemented()
 
-        a1.exists()
-        a1.existsNot()
-        a1.startsWith(Paths.get("a"))
-        a1.startsNotWith(Paths.get("a"))
-        a1.endsWith(Paths.get("a"))
-        a1.endsNotWith(Paths.get("a"))
-        a1.isReadable()
-        a1.isWritable()
-        a1.isRegularFile()
-        a1.isDirectory()
-        a1.isSymbolicLink()
-        a1.hasSameBinaryContentAs(Paths.get("a"))
-        a1.hasSameTextualContentAs(Paths.get("a"))
+        a1.toExist()
+        a1.notToExist()
+        a1.toStartWith(Paths.get("a"))
+        a1.notToStartWith(Paths.get("a"))
+        a1.toEndWith(Paths.get("a"))
+        a1.notToEndWith(Paths.get("a"))
+        a1.toBeReadable()
+        a1.toBeWritable()
+        a1.toBeARegularFile()
+        a1.toBeADirectory()
+        a1.toBeASymbolicLink()
+        a1.toHaveTheSameBinaryContentAs(Paths.get("a"))
+        a1.toHaveTheSameTextualContentAs(Paths.get("a"))
 
         a1.parent
         a1 = a1.parent { }
@@ -76,7 +77,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 = a1.extension { }
 
         a1.resolve("test")
-        a1.resolve("test", {})
+        a1.resolve("test") {}
     }
 }
 

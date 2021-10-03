@@ -32,7 +32,7 @@ actual interface CoreFactory : CoreFactoryCommon {
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     @Deprecated(
-        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed latest with 1.0.0",
+        "Use the overload which expects an AtriumErrorAdjuster in addition; will be removed with 1.0.0 at the latest",
         ReplaceWith("this.newOnlyFailureReporter(assertionFormatterFacade, this.newNoOpAtriumErrorAdjuster())")
     )
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter

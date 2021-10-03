@@ -4,20 +4,20 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
 class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpectationsSpec(
-    feature0<Result<Int>, Int>(Expect<Result<Int>>::isSuccess),
-    fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::isSuccess),
-    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
-    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::isSuccess).withNullableSuffix(),
-    ("isFailure" to Companion::isFailureFeature).withFeatureSuffix(),
-    "isFailure" to Companion::isFailure
+    feature0<Result<Int>, Int>(Expect<Result<Int>>::toBeASuccess),
+    fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::toBeASuccess),
+    feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
+    fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
+    ("isFailure" to Companion::toBeAFailureFeature).withFeatureSuffix(),
+    "isFailure" to Companion::toBeAFailure
 ) {
     companion object {
-        private fun isFailureFeature(expect: Expect<Result<Int>>) = expect.isFailure<IllegalArgumentException>()
+        private fun toBeAFailureFeature(expect: Expect<Result<Int>>) = expect.toBeAFailure<IllegalArgumentException>()
 
-        private fun isFailure(
+        private fun toBeAFailure(
             expect: Expect<out Result<*>>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
-        ) = expect.isFailure<IllegalArgumentException> { assertionCreator() }
+        ) = expect.toBeAFailure<IllegalArgumentException> { assertionCreator() }
 
         @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
@@ -26,23 +26,23 @@ class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpecta
 
             var star: Expect<Result<*>> = notImplemented()
 
-            a1.isSuccess()
-            a1 = a1.isSuccess { }
+            a1.toBeASuccess()
+            a1 = a1.toBeASuccess { }
 
-            a1.isFailure<IllegalArgumentException>()
-            val r1: Expect<IllegalArgumentException> = a1.isFailure<IllegalArgumentException> { }
+            a1.toBeAFailure<IllegalArgumentException>()
+            val r1: Expect<IllegalArgumentException> = a1.toBeAFailure<IllegalArgumentException> { }
 
-            a1b.isSuccess()
-            a1b = a1b.isSuccess { }
+            a1b.toBeASuccess()
+            a1b = a1b.toBeASuccess { }
 
-            a1b.isFailure<IllegalArgumentException>()
-            val r1b: Expect<IllegalArgumentException> = a1b.isFailure<IllegalArgumentException> { }
+            a1b.toBeAFailure<IllegalArgumentException>()
+            val r1b: Expect<IllegalArgumentException> = a1b.toBeAFailure<IllegalArgumentException> { }
 
-            star.isSuccess()
-            star = star.isSuccess { }
+            star.toBeASuccess()
+            star = star.toBeASuccess { }
 
-            star.isFailure<IllegalArgumentException>()
-            val r3: Expect<IllegalArgumentException> = star.isFailure<IllegalArgumentException> { }
+            star.toBeAFailure<IllegalArgumentException>()
+            val r3: Expect<IllegalArgumentException> = star.toBeAFailure<IllegalArgumentException> { }
         }
     }
 }

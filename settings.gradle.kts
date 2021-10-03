@@ -28,8 +28,21 @@ buildscript {
                             "contains noDuplicates"
                         ) + "`/list with duplicates",
                         // changed reporting as most of it is no longer based on IterableLike.contains
-                        "MapAssertionsSpec.*",
-                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                        "MapAssertionsSpec",
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException",
+                        // we renamed containsNot to notToContain with 0.17.0
+                        "CharSequenceContains.*Spec.*points to containsNot",
+                        "IterableContains.*Spec.*points to containsNot",
+                        // we improved reporting for notToContain with 0.17.0
+                        "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot( nullable)?`.*throws AssertionError",
+                        "IterableNoneAssertionsSpec.*`(none|containsNot)( nullable)?`.*throws AssertionError",
+                        // changed reporting for contains.atLeast(1) with 0.17.0
+                        or(
+                            "(CharSequence|Iterable)Contains.*Spec",
+                            "IterableAnyAssertionsSpec"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                        // changed reporting for Iterable.all empty collection cases with 0.17.0
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -86,7 +99,20 @@ buildscript {
                             "containsNoDuplicates",
                             "contains noDuplicates"
                         ) + "`/list with duplicates",
-                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*"
+                        "BigDecimalAssertionsSpec.*overload throws PleaseUseReplacementException.*",
+                        // we renamed containsNot to notToContain with 0.17.0
+                        "CharSequenceContains.*Spec.*points to containsNot",
+                        "IterableContains.*Spec.*points to containsNot",
+                        // we improved reporting for notToContain with 0.17.0
+                        "IterableContainsNot(Entries|Values)AssertionsSpec.*`containsNot.*`.*throws AssertionError",
+                        "IterableNoneAssertionsSpec.*`(none|containsNot).*`.*throws AssertionError",
+                        // changed reporting for contains.atLeast(1) with 0.17.0
+                        or(
+                            "(CharSequence|Iterable)Contains.*Spec",
+                            "IterableAnyAssertionsSpec"
+                        ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                        // changed reporting for Iterable.all empty collection cases with 0.17.0
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -100,7 +126,7 @@ buildscript {
                 ) + ".*)"
             ).let { commonPatterns ->
                 Pair(
-                    //bc
+                    // bc
                     or(
                         commonPatterns,
                         "(ch/tutteli/atrium/api/infix/en_GB/" +
@@ -112,6 +138,7 @@ buildscript {
                                 "IterableContainsInOrderOnlyGroupedValuesAssertionsSpec.*"
                             ) + ".*)"
                     ),
+                    // bbc
                     true to or(
                         commonPatterns,
                         "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
@@ -140,7 +167,31 @@ buildscript {
         Triple(
             "0.16.0",
             allApisAllTargets,
-            Pair("", true to "")
+            // forgive for bc and bbc
+            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" + or(
+                // we renamed containsNot to notToContain with 0.17.0
+                "CharSequenceContains.*Spec.*points to containsNot",
+                "IterableContains.*Spec.*points to containsNot",
+                // we improved reporting for containsNoDuplicates
+                "IterableExpectationsSpec.*`(containsNoDuplicates|contains noDuplicates)`",
+                // we improved reporting for notToContain with 0.17.0
+                "IterableContainsNot(Entries|Values)ExpectationsSpec.*`containsNot.*`.*throws AssertionError",
+                "IterableNoneExpectationsSpec.*`(none|containsNot).*`.*throws AssertionError",
+                // changed reporting for contains.atLeast(1) with 0.17.0
+                or(
+                    "(CharSequence|Iterable)Contains.*Spec",
+                    "IterableAnyExpectationsSpec"
+                ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
+                // changed reporting for Iterable.all empty collection cases with 0.17.0
+                "IterableAllExpectationsSpec.*" + "empty collection.*" + "throws AssertionError"
+            ) + ".*)").let { commonPatterns ->
+                Pair(
+                    // bc
+                    commonPatterns,
+                    // bbc
+                    true to commonPatterns
+                )
+            }
         )
     )
     (gradle as ExtensionAware).extra.apply {

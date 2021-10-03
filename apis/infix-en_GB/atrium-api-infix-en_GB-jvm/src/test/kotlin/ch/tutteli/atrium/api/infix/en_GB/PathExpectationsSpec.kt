@@ -9,10 +9,10 @@ import java.nio.file.Paths
 class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectationsSpec(
     "toBe ${existing::class.simpleName}" to Companion::exists,
     "notToBe ${existing::class.simpleName}" to Companion::existsNot,
-    fun1(Expect<Path>::startsWith),
-    fun1(Expect<Path>::startsNotWith),
-    fun1(Expect<Path>::endsWith),
-    fun1(Expect<Path>::endsNotWith),
+    fun1(Expect<Path>::toStartWith),
+    fun1(Expect<Path>::notToStartWith),
+    fun1(Expect<Path>::toEndWith),
+    fun1(Expect<Path>::notToEndWith),
     "toBe ${readable::class.simpleName}" to Companion::isReadable,
     "toBe ${writable::class.simpleName}" to Companion::isWritable,
     "toBe ${executable::class.simpleName}" to Companion::isExecutable,
@@ -22,11 +22,11 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
     "toBe ${relative::class.simpleName}" to Companion::isRelative,
     "toBe ${relative::class.simpleName}" to Companion::isEmptyDirectory,
-    fun1(Expect<Path>::hasDirectoryEntry),
-    "has ${::directoryEntries.name}" to Companion::hasDirectoryEntryMultiple,
-    fun1(Expect<Path>::hasSameBinaryContentAs),
-    fun3(Companion::hasSameTextualContentAs),
-    fun1(Companion::hasSameTextualContentAsDefaultArgs),
+    "toHave ${::directoryEntries.name}" to Companion::toHaveTheDirectoryEntry,
+    "toHave ${::directoryEntries.name}" to Companion::toHaveTheDirectoryEntries,
+    fun1(Expect<Path>::toHaveTheSameBinaryContentAs),
+    fun3(Companion::toHaveTheSameTextualContentAs),
+    fun1(Companion::toHaveTheSameTextualContentAsDefaultArgs),
     property<Path, Path>(Expect<Path>::parent),
     fun1<Path, Expect<Path>.() -> Unit>(Expect<Path>::parent),
     feature1<Path, String, Path>(Expect<Path>::resolve),
@@ -52,20 +52,24 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
         private fun isRelative(expect: Expect<Path>) = expect toBe relative
         private fun isEmptyDirectory(expect: Expect<Path>) = expect toBe anEmptyDirectory
-        private fun hasDirectoryEntryMultiple(expect: Expect<Path>, entry: String, vararg otherEntries: String) =
-            expect has directoryEntries(entry, *otherEntries)
 
-        private fun hasSameTextualContentAs(
+        private fun toHaveTheDirectoryEntry(expect: Expect<Path>, entry: String) =
+            expect toHave directoryEntries(entry)
+
+        private fun toHaveTheDirectoryEntries(expect: Expect<Path>, entry: String, vararg otherEntries: String) =
+            expect toHave directoryEntries(entry, *otherEntries)
+
+        private fun toHaveTheSameTextualContentAs(
             expect: Expect<Path>,
             targetPath: Path,
             sourceCharset: Charset,
             targetCharset: Charset
-        ): Expect<Path> = expect hasSameTextualContentAs withEncoding(targetPath, sourceCharset, targetCharset)
+        ): Expect<Path> = expect toHaveTheSameTextualContentAs withEncoding(targetPath, sourceCharset, targetCharset)
 
-        private fun hasSameTextualContentAsDefaultArgs(
+        private fun toHaveTheSameTextualContentAsDefaultArgs(
             expect: Expect<Path>,
             targetPath: Path
-        ): Expect<Path> = expect hasSameTextualContentAs targetPath
+        ): Expect<Path> = expect toHaveTheSameTextualContentAs targetPath
 
         private fun resolve(
             expect: Expect<Path>,
@@ -80,21 +84,22 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 
         a1 toBe existing
         a1 notToBe existing
-        a1 startsWith Paths.get("a")
-        a1 startsNotWith Paths.get("a")
-        a1 endsWith Paths.get("a")
-        a1 endsNotWith Paths.get("a")
+        a1 toStartWith Paths.get("a")
+        a1 notToStartWith Paths.get("a")
+        a1 toEndWith Paths.get("a")
+        a1 notToEndWith Paths.get("a")
         a1 toBe readable
         a1 toBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
         a1 toBe absolute
         a1 toBe relative
-        a1 hasSameTextualContentAs withEncoding(Paths.get("a"))
-        a1 hasSameTextualContentAs Paths.get("a")
+        a1 toHaveTheSameTextualContentAs withEncoding(Paths.get("a"))
+        a1 toHaveTheSameTextualContentAs Paths.get("a")
+        a1 toHaveTheSameBinaryContentAs  Paths.get("a")
         a1 resolve "a"
-        a1 hasDirectoryEntry "a"
-        a1 has directoryEntries("a", "b", "c")
+        a1 toHave directoryEntries("a")
+        a1 toHave directoryEntries("a", "b", "c")
 
         a1.fileName
         a1 fileName {}

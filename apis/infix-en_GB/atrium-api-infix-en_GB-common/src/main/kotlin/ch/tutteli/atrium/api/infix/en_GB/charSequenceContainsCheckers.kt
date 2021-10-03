@@ -1,3 +1,4 @@
+//TODO rename file to charSequenceToContain... in 0.18.0
 //TODO remove JvmMultifileClass with 1.0.0
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceContainsCheckersKt")
@@ -21,7 +22,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  */
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
     times: Int
@@ -39,7 +40,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
@@ -64,7 +65,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAt
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  */
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.exactly(
     times: Int
@@ -84,7 +85,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atMost(
@@ -106,7 +107,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPoin
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  */
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
     times: Int

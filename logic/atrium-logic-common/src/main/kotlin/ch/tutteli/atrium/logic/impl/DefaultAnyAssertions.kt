@@ -36,7 +36,7 @@ class DefaultAnyAssertions : AnyAssertions {
         } else {
             val collectSubject = container.maybeSubject.flatMap { if (it != null) Some(it) else None }
             val assertion = container.collectBasedOnSubject(collectSubject) {
-                _logic.appendAssertionsCreatedBy(assertionCreatorOrNull)
+                _logic.appendAsGroup(assertionCreatorOrNull)
             }
             //TODO 0.18.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(

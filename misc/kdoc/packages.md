@@ -86,9 +86,7 @@ Contains functions necessary for the infix API to work due to Kotlin related bug
 inference capabilities .
 
 # ch.tutteli.atrium.api.verbs
-Contains the  [out-of-the-box Assertion Verbs](https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs)
-such as [expect](./ch.tutteli.atrium.api.verbs/expect.html), [assert](./ch.tutteli.atrium.api.verbs/assert.html)
-and [assertThat](./ch.tutteli.atrium.api.verbs/assert-that.html).
+Contains the out-of-the-box expectation verb [expect](./ch.tutteli.atrium.api.verbs/expect.html).
 
 # ch.tutteli.atrium.assertions
 Contains different types of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html),  
@@ -227,6 +225,9 @@ Contains steps for sophisticated `IterableLike.contains` expectation builders.
 
 # ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
 Contains the default implementations for the interfaces defined in [ch.tutteli.atrium.logic.creating.iterable.contains.steps].
+
+# ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting
+Reporting related interfaces for `IterableLike.contains`.
 
 
 # ch.tutteli.atrium.logic.creating.maplike.contains

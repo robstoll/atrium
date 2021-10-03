@@ -13,6 +13,7 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeASuccess; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeASuccess<E, T>()"))
 fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
     _logic.isSuccess().transform()
 
@@ -24,6 +25,10 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(): Expect<E> =
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeASuccess; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeASuccess<E, T>(assertionCreator)")
+)
 fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.isSuccess().collectAndAppend(assertionCreator)
 
@@ -35,6 +40,7 @@ fun <E, T : Result<E>> Expect<T>.isSuccess(assertionCreator: Expect<E>.() -> Uni
  *
  * @since 0.9.0
  */
+@Deprecated("Use toBeAFailure; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAFailure<TExpected>()"))
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
 
@@ -47,6 +53,10 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(): Ex
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeAFailure; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAFailure<TExpected>(assertionCreator)")
+)
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.isFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)

@@ -1,7 +1,7 @@
 package custom
 
-import ch.tutteli.atrium.api.infix.en_GB.toBe
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.infix.en_GB.toEqual
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -14,17 +14,17 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import org.spekframework.spek2.Spek
 
 object SmokeSpec : Spek({
-    test("see if `toBe` can be used") {
-        assertThat(1) toBe 1
+    test("see if `toEqual` can be used") {
+        expect(1) toEqual 1
     }
 
-    test("see if own assertion function without i18n can be used") {
-        assertThat(2) tobe even
-        assertThat(1) tobe odd
+    test("see if own expectation function without i18n can be used") {
+        expect(2) tobe even
+        expect(1) tobe odd
     }
 
-    test("see if own assertion function with i18n can be used") {
-        assertThat(4) isMultipleOf 2
+    test("see if own expectation function with i18n can be used") {
+        expect(4) isMultipleOf 2
     }
 })
 
@@ -34,10 +34,10 @@ object even
 object odd
 
 infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an even number")) { it % 2 == 0 })
+    _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an even number")) { it % 2 == 0 })
 
 infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") odd: odd) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
+    _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
 
 infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
 

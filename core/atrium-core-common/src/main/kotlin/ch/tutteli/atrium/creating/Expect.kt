@@ -41,7 +41,7 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T> {
  * @param T The type of the subject of `this` expectation.
  */
 @Suppress("DEPRECATION")
-@ExpectMarker
+//@ExpectMarker
 interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
 
     @Deprecated(
@@ -63,8 +63,8 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @return an [Expect] for the subject of `this` expectation.
      */
     @Deprecated(
-        "use _logic.appendAssertionsCreatedBy; will be removed with 0.18.0",
-        ReplaceWith("this._logic.appendAssertionsCreatedBy(assertionCreator)", "ch.tutteli.atrium.logic._logic")
+        "use _logic.appendAsGroup; will be removed with 0.18.0",
+        ReplaceWith("this._logic.appendAsGroup(assertionCreator)", "ch.tutteli.atrium.logic._logic")
     )
     fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
@@ -76,8 +76,8 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @return an [Expect] for the subject of `this` expectation.
      */
     @Deprecated(
-        "use _logic.appendAssertion; will be removed with 0.18.0",
-        ReplaceWith("this._logic.appendAssertion(assertion)", "ch.tutteli.atrium.logic._logic")
+        "use _logic.append; will be removed with 0.18.0",
+        ReplaceWith("this._logic.append(assertion)", "ch.tutteli.atrium.logic._logic")
     )
     override fun addAssertion(assertion: Assertion): Expect<T>
 
@@ -92,9 +92,9 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @return an [Expect] for the subject of `this` expectation.
      */
     @Deprecated(
-        "use _logic.createAndAppendAssertion; will be removed with 0.18.0",
+        "use _logic.createAndAppend; will be removed with 0.18.0",
         ReplaceWith(
-            "this._logic.createAndAppendAssertion(description, expected, test)",
+            "this._logic.createAndAppend(description, expected, test)",
             "ch.tutteli.atrium.logic._logic"
         )
     )
@@ -112,9 +112,9 @@ interface Expect<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
      * @return an [Expect] for the subject of `this` expectation.
      */
     @Deprecated(
-        "use _logic.createAndAppendAssertion; will be removed with 0.18.0",
+        "use _logic.createAndAppend; will be removed with 0.18.0",
         ReplaceWith(
-            "this._logic.appendAssertion(this._logic.createDescriptiveAssertion(description, expected, test))",
+            "this._logic.append(this._logic.createDescriptiveAssertion(description, expected, test))",
             "ch.tutteli.atrium.logic._logic",
             "ch.tutteli.atrium.logic.createDescriptiveAssertion"
         )

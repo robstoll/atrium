@@ -1,3 +1,4 @@
+//TODO rename file to fun0Expectations.kt with 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -44,7 +45,7 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * val p: Person = Student()
  * expect(p)               // subject of type Person
- *   .isA<Student> { ... } // subject now refined to Student
+ *   .toBeA<Student> { ... } // subject now refined to Student
  *   .baz()                // available via Student
  *   .foo()                // not available to Student, only to Person, results in compilation error
  *   .bar()                // available via T : Person

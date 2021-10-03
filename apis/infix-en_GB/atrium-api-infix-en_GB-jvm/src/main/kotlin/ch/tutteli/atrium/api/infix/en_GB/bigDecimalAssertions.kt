@@ -51,9 +51,11 @@ infix fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing =
  * Expects that the subject of `this` expectation (a [BigDecimal]) is `null`.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.BigDecimalAssertionSamples.toBe
  */
 @JvmName("toBeNull")
+@Deprecated("Use toEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqual<T>(expected)"))
 infix fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
     _logicAppend { toBe(expected) }
 
@@ -93,8 +95,11 @@ infix fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing =
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
  */
+@Deprecated(
+    "Use toEqualNumerically; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toEqualNumerically<T>(expected)")
+)
 infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNumericallyEqualTo(expected) }
 
@@ -111,8 +116,11 @@ infix fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
  */
+@Deprecated(
+    "Use notToEqualNumerically; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualNumerically<T>(expected)")
+)
 infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNotNumericallyEqualTo(expected) }
 
@@ -127,8 +135,11 @@ infix fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expec
  * - `expect(BigDecimal("10")).isNumericallyEqualTo(BigDecimal("10.0"))` holds.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
  */
+@Deprecated(
+    "Use toEqualIncludingScale; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toEqualIncludingScale<T>(expected)")
+)
 infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isEqualIncludingScale(expected, this::isNumericallyEqualTo.name) }
 
@@ -142,7 +153,10 @@ infix fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<
  * - `expect(BigDecimal("10")).isNotNumericallyEqualTo(BigDecimal("10.0"))`  does not hold.
  *
  * @return an [Expect] for the subject of `this` expectation.
-
  */
+@Deprecated(
+    "Use notToEqualIncludingScale; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualIncludingScale<T>(expected)")
+)
 infix fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isNotEqualIncludingScale(expected) }

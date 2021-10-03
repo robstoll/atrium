@@ -2,7 +2,10 @@ package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupType
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
@@ -85,14 +88,14 @@ class KClassCastTest {
     fun illegalCasts_privateAndClass_throwsClassCastException() {
         expect {
             Int::class.cast(null)
-        }.toThrow<ClassCastException> { this messageContains values("null", "Int") }
+        }.toThrow<ClassCastException> { this messageToContain values("null", "Int") }
         expect {
             Int::class.cast(1L)
-        }.toThrow<ClassCastException> { this messageContains values("Int", "Long") }
+        }.toThrow<ClassCastException> { this messageToContain values("Int", "Long") }
         expect {
             Translatable::class.cast(objInterface)
         }.toThrow<ClassCastException> {
-            this messageContains values(
+            this messageToContain values(
                 "`object: ${Assertion::class.fullName}` (js: objInterface",
                 Translatable::class.fullName
             )
@@ -100,7 +103,7 @@ class KClassCastTest {
         expect {
             Translatable::class.cast(objClass)
         }.toThrow<ClassCastException> {
-            this messageContains values(
+            this messageToContain values(
                 "`object: ${ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class.fullName}` (js: objClass",
                 Translatable::class.fullName
             )
@@ -123,16 +126,16 @@ class KClassCastTest {
         expect {
             val f1: (Int) -> Int = { it }
             f1::class.cast({ "a" })
-        }.toThrow<ClassCastException> { this messageContains values(" Function0", " Function1") }
+        }.toThrow<ClassCastException> { this messageToContain values(" Function0", " Function1") }
 
         expect {
             type<(Int) -> Int>().cast({ "a" })
-        }.toThrow<ClassCastException> { this messageContains values(" Function0", " Function1") }
+        }.toThrow<ClassCastException> { this messageToContain values(" Function0", " Function1") }
     }
 
     private fun Expect<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
         return { (value, kClass) ->
-            it feature { f("value", kClass.cast(value)) } isSameAs value
+            it feature { f("value", kClass.cast(value)) } toBeTheInstance value
         }
     }
 }

@@ -8,9 +8,10 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerSt
 import kotlin.reflect.KFunction3
 
 internal object StaticNames {
+    //TODO rename with 0.18.0 notToContain
     val containsNotValuesFun = run {
         val f: KFunction3<Expect<Iterable<Double>>, Double, Array<out Double>, Expect<Iterable<Double>>> =
-            Expect<Iterable<Double>>::containsNot
+            Expect<Iterable<Double>>::notToContain
         f.name
     }
 

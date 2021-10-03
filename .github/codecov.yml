@@ -14,6 +14,7 @@ coverage:
         target: 85%
 
 codecov:
+  branch: main
   notify:
     after_n_builds: 5
 comment:

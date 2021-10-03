@@ -8,16 +8,12 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::startsWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::startsNotWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::startsNotWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::endsWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::endsNotWith),
-    fun1<CharSequence, Char>(Expect<CharSequence>::endsNotWith),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::matches),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::mismatches)
+    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toStartWith),
+    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToStartWith),
+    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toEndWith),
+    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToEndWith),
+    fun1<CharSequence, Regex>(Expect<CharSequence>::toMatch),
+    fun1<CharSequence, Regex>(Expect<CharSequence>::notToMatch)
 ) {
     companion object {
         private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe empty
@@ -33,17 +29,12 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
         a1 notToBe empty
         a1 notToBe blank
 
-        a1 startsWith "expected"
-        a1 startsNotWith "expected"
-        a1 endsWith "expected"
-        a1 endsNotWith "expected"
+        a1 toStartWith "expected"
+        a1 notToStartWith "expected"
+        a1 toEndWith "expected"
+        a1 notToEndWith "expected"
 
-        a1 startsWith 'a'
-        a1 startsNotWith 'a'
-        a1 endsWith 'a'
-        a1 endsNotWith 'a'
-
-        a1 matches Regex("a")
-        a1 mismatches Regex("a")
+        a1 toMatch Regex("a")
+        a1 notToMatch Regex("a")
     }
 }

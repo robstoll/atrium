@@ -39,26 +39,26 @@ abstract class VerbSpec(
 
         context("the assertions hold") {
             it("does not throw an exception") {
-                assertionVerb(1) { toBe(1) }
+                assertionVerb(1) { toEqual(1) }
             }
             context("a subsequent assertion holds") {
                 it("does not throw an exception") {
-                    assertionVerb(1) { toBe(1) }.isLessThan(2)
+                    assertionVerb(1) { toEqual(1) }.toBeLessThan(2)
                 }
             }
             context("a subsequent group of assertions hold") {
                 it("does not throw an exception") {
-                    assertionVerb(1) { toBe(1) }.and { isLessThan(2) }
+                    assertionVerb(1) { toEqual(1) }.and { toBeLessThan(2) }
                 }
             }
             context("a subsequent assertion fails") {
                 it("throws an AssertionError") {
                     assert {
-                        assertionVerb(1) { toBe(1) }.isLessThan(1)
+                        assertionVerb(1) { toEqual(1) }.toBeLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
-                            containsNot(toBeDescr)
+                            toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
+                            notToContain(toBeDescr)
                         }
                     }
                 }
@@ -67,15 +67,15 @@ abstract class VerbSpec(
             context("multiple assertions of a subsequent group of assertion fails") {
                 it("evaluates all assertions and then throws an AssertionError, reporting only failing") {
                     assert {
-                        assertionVerb(1) { toBe(1) }.and { isLessThan(0); toBe(1); isGreaterThan(2) }
+                        assertionVerb(1) { toEqual(1) }.and { toBeLessThan(0); toEqual(1); toBeGreaterThan(2) }
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
+                            toContain(
                                 ": 1",
                                 "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0",
                                 "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2"
                             )
-                            containsNot(toBeDescr)
+                            notToContain(toBeDescr)
                         }
                     }
                 }
@@ -86,14 +86,14 @@ abstract class VerbSpec(
             it("evaluates all assertions and then throws an AssertionError") {
                 assert {
                     assertionVerb(1) {
-                        isLessThan(0)
-                        isGreaterThan(2)
+                        toBeLessThan(0)
+                        toBeGreaterThan(2)
                     }
                 }.toThrow<AssertionError> {
                     message {
-                        contains(": 1")
-                        contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0")
-                        contains("${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2")
+                        toContain(": 1")
+                        toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0")
+                        toContain("${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2")
                     }
                 }
             }
@@ -104,19 +104,18 @@ abstract class VerbSpec(
         val (_, assertionVerb) = forNullable
 
         context("subject is null") {
-            it("does not throw an exception when calling toBe(`null`)") {
-                assertionVerb(null).toBe(null)
+            it("does not throw an exception when calling $toBeDescr(`null`)") {
+                assertionVerb(null).toEqual(null)
             }
-            it("throws an AssertionError when calling notToBeNull") {
+            it("throws an AssertionError when calling notToEqualNull") {
                 assert {
-                    assertionVerb(null).notToBeNull { toBe(1) }
+                    assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
                     @Suppress("DEPRECATION")
-                    messageContains(
+                    (messageToContain(
                         DescriptionAnyAssertion.IS_A.getDefault(),
-                        "Int",
-                        "$toBeDescr: 1"
-                    )
+                        "Int", "$toBeDescr: 1"
+                    ))
                 }
             }
         }
@@ -133,7 +132,7 @@ abstract class VerbSpec(
                 assertionVerb {
                     throw IllegalArgumentException("hello")
                 }.toThrow<IllegalArgumentException> {
-                    message.toBe("hello")
+                    message.toEqual("hello")
                 }
             }
             it("throws an AssertionError when expecting an UnsupportedOperationException") {
@@ -142,7 +141,7 @@ abstract class VerbSpec(
                         throw IllegalArgumentException()
                     }.toThrow<UnsupportedOperationException> {}
                 }.toThrow<AssertionError> {
-                    messageContains(
+                    messageToContain(
                         DescriptionAnyAssertion.IS_A.getDefault(),
                         IllegalArgumentException::class.fullName,
                         UnsupportedOperationException::class.fullName
@@ -156,16 +155,16 @@ abstract class VerbSpec(
 
 private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
     it("does not throw an exception in case the assertion holds") {
-        assertionVerb(1).toBe(1)
+        assertionVerb(1).toEqual(1)
     }
     it("throws an AssertionError as soon as one assertion fails") {
         assert {
-            assertionVerb(1).isLessThanOrEqual(10).and.isLessThanOrEqual(0).and.isGreaterThanOrEqual(2)
+            assertionVerb(1).toBeLessThanOrEqualTo(10).and.toBeLessThanOrEqualTo(0).and.toBeGreaterThanOrEqualTo(2)
         }.toThrow<AssertionError> {
             message {
-                contains(": 1")
-                contains("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()}: 0")
-                containsNot("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()}: 2")
+                toContain(": 1")
+                toContain("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()}: 0")
+                notToContain("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()}: 2")
             }
         }
     }

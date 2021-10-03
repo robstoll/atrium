@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.Locale
@@ -35,7 +36,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(locale)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains(
+                        messageToContain(
                             "The macrolanguage `no` is not supported",
                             locale.toString()
                         )
@@ -48,7 +49,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(localeGb, locale)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains(
+                        messageToContain(
                             "The macrolanguage `no` is not supported",
                             locale.toString()
                         )
@@ -61,7 +62,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(localeGb, localeFr, locale)
                     }.toThrow<IllegalArgumentException> {
-                        messageContains(
+                        messageToContain(
                             "The macrolanguage `no` is not supported",
                             locale.toString()
                         )
@@ -77,7 +78,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(locale)
                     }
-                        .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
+                        .toThrow<IllegalArgumentException> { messageToContain("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
             context("first fallback Locale is $locale") {
@@ -85,7 +86,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(localeGb, locale)
                     }
-                        .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
+                        .toThrow<IllegalArgumentException> { messageToContain("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
 
@@ -94,7 +95,7 @@ abstract class TranslatorErrorCaseSpec(
                     expect {
                         testeeFactory(localeGb, localeFr, locale)
                     }
-                        .toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
+                        .toThrow<IllegalArgumentException> { messageToContain("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
         }

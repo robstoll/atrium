@@ -6,6 +6,6 @@ import ch.tutteli.atrium.specs.fun2
 
 class FloatingPointWithErrorToleranceExpectationsSpec :
     ch.tutteli.atrium.specs.integration.FloatingPointWithErrorToleranceExpectationsSpec(
-        fun2(Expect<Float>::toBeWithErrorTolerance).adjustName { "$it for Float" },
-        fun2(Expect<Double>::toBeWithErrorTolerance).adjustName { "$it for Double" }
+        fun2(Expect<Float>::toEqualWithErrorTolerance).adjustName { "$it for Float" },
+        fun2(Expect<Double>::toEqualWithErrorTolerance).adjustName { "$it for Double" }
     )

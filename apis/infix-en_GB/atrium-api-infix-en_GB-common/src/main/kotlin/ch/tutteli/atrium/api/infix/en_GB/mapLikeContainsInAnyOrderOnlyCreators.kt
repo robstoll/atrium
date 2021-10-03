@@ -1,3 +1,4 @@
+//TODO rename file to mapLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
@@ -27,7 +28,6 @@ import kotlin.reflect.KClass
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     this the pairs(keyValuePair)
 
-// TODO 0.17.0 implement https://github.com/robstoll/atrium/issues/292 for the new function in ...Expectations.kt file
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePairs] where it does not matter

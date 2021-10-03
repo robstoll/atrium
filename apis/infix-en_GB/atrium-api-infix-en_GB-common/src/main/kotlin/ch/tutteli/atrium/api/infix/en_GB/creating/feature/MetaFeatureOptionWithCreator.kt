@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.creating.feature.MetaFeature
  * argument is a lambda with a [MetaFeatureOption] as receiver which has to create a [MetaFeature]
  * where the subject of the expectation is available via implicit parameter `it`.
  * Usually you use [f][MetaFeatureOption.f] to create a [MetaFeature],
- * e.g. `feature of({ f(it::size) }) { o toBe 3 }`
+ * e.g. `feature of({ f(it::size) }) { it toEqual 3 }`
  *
  * @since 0.12.0
  */

@@ -111,6 +111,29 @@ inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>
         )
     )
 
+inline fun <T, R, A1> Fun3<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>, A1>.forAssertionCreatorSpec(
+    containsNot1: String,
+    containsNot2: String,
+    noinline subAssert: Expect<R>.() -> Unit,
+    subAsserts: Array<out Expect<R>.() -> Unit>,
+    a1: A1
+): Array<Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>>> =
+    arrayOf(
+        assertionCreatorSpecTriple(
+            this.name + " - first empty",
+            containsNot1,
+            { this@forAssertionCreatorSpec(this, subAssert, subAsserts, a1) },
+            { this@forAssertionCreatorSpec(this, {}, subAsserts, a1) }
+        ),
+        assertionCreatorSpecTriple(
+            this.name + " - second empty",
+            containsNot2,
+            { this@forAssertionCreatorSpec(this, subAssert, subAsserts, a1) },
+            { this@forAssertionCreatorSpec(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1), a1) }
+        )
+    )
+
+
 fun <T, R> unifySignatures(
     f0: Feature0<T, R>,
     f1: Fun1<T, Expect<R>.() -> Unit>

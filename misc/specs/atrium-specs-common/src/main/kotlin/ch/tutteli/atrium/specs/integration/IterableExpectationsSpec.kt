@@ -11,29 +11,31 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableExpectationsSpec(
-    hasNext: Fun0<Iterable<Int>>,
-    hasNotNext: Fun0<Iterable<Int>>,
+    toHaveElements: Fun0<Iterable<Int>>,
+    notToHaveElements: Fun0<Iterable<Int>>,
     minFeature: Feature0<Iterable<Int>, Int>,
     min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     maxFeature: Feature0<Iterable<Int>, Int>,
     max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
-    containsNoDuplicates: Fun0<Iterable<Int>>,
+    toHaveElementsAndNoDuplicates: Fun0<Iterable<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Iterable<Int>>(
         describePrefix,
-        hasNext.forSubjectLess(),
+        toHaveElements.forSubjectLess(),
+        notToHaveElements.forSubjectLess(),
         minFeature.forSubjectLess(),
-        min.forSubjectLess { isGreaterThan(-100) },
+        min.forSubjectLess { toBeGreaterThan(-100) },
         maxFeature.forSubjectLess(),
-        max.forSubjectLess { toBe(1) }
+        max.forSubjectLess { toEqual(1) },
+        toHaveElementsAndNoDuplicates.forSubjectLess()
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20, 20, 0),
-        min.forAssertionCreatorSpec("$toBeDescr: -20") { toBe(-20) },
-        max.forAssertionCreatorSpec("$toBeDescr: 20") { toBe(20) }
+        min.forAssertionCreatorSpec("$toBeDescr: -20") { toEqual(-20) },
+        max.forAssertionCreatorSpec("$toBeDescr: 20") { toEqual(20) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -44,31 +46,33 @@ abstract class IterableExpectationsSpec(
     val nextElementDescr = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
-    describeFun(hasNext) {
-        val hasNextFun = hasNext.lambda
+    val hasANextElement = "$hasDescr: $nextElementDescr"
+
+    describeFun(toHaveElements) {
+        val toHaveElementsFun = toHaveElements.lambda
 
         it("does not throw if an iterable has next") {
-            expect(listOf(1, 2) as Iterable<Int>).hasNextFun()
+            expect(listOf(1, 2) as Iterable<Int>).toHaveElementsFun()
         }
 
         it("throws an AssertionError if an iterable does not have next") {
             expect {
-                expect(listOf<Int>() as Iterable<Int>).hasNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasDescr: $nextElementDescr") }
+                expect(listOf<Int>() as Iterable<Int>).toHaveElementsFun()
+            }.toThrow<AssertionError> { messageToContain(hasANextElement) }
         }
     }
 
-    describeFun(hasNotNext) {
-        val hasNotNextFun = hasNotNext.lambda
+    describeFun(notToHaveElements) {
+        val notToHaveElementsFun = notToHaveElements.lambda
 
         it("does not throw if an iterable has not next") {
-            expect(listOf<Int>() as Iterable<Int>).hasNotNextFun()
+            expect(listOf<Int>() as Iterable<Int>).notToHaveElementsFun()
         }
 
         it("throws an AssertionError if an iterable has next element") {
             expect {
-                expect(listOf(1, 2) as Iterable<Int>).hasNotNextFun()
-            }.toThrow<AssertionError> { messageContains("$hasNotDescr: $nextElementDescr") }
+                expect(listOf(1, 2) as Iterable<Int>).notToHaveElementsFun()
+            }.toThrow<AssertionError> { messageToContain("$hasNotDescr: $nextElementDescr") }
         }
     }
 
@@ -80,25 +84,25 @@ abstract class IterableExpectationsSpec(
             val fluent = expect(listOf(4, 3) as Iterable<Int>)
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - is greater than 2 holds") {
-                    fluent.minFun { isGreaterThan(2) }
+                    fluent.minFun { toBeGreaterThan(2) }
                 }
                 it("$name - is less than 2 fails") {
                     expect {
-                        fluent.minFun { isLessThan(2) }
+                        fluent.minFun { toBeLessThan(2) }
                     }.toThrow<AssertionError> {
-                        messageContains("min(): 3")
+                        messageToContain("min(): 3")
                     }
                 }
             }
             maxFunctions.forEach { (name, maxFun, _) ->
                 it("$name - toBe(4) holds") {
-                    fluent.maxFun { toBe(4) }
+                    fluent.maxFun { toEqual(4) }
                 }
-                it("$name - toBe(3) fails") {
+                it("$name - $toBeDescr(3) fails") {
                     expect {
-                        fluent.maxFun { toBe(3) }
+                        fluent.maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageContains("max(): 4")
+                        messageToContain("max(): 4")
                     }
                 }
             }
@@ -111,41 +115,64 @@ abstract class IterableExpectationsSpec(
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - fails warning about empty iterable") {
                     expect {
-                        emptyIterable.minFun { toBe(1) }
+                        emptyIterable.minFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(noElementsDescr)
+                        messageToContain(noElementsDescr)
                     }
                 }
             }
             maxFunctions.forEach { (name, maxFun, _) ->
                 it("$name - fails warning about empty iterable") {
                     expect {
-                        emptyIterable.maxFun { toBe(1) }
+                        emptyIterable.maxFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageContains(noElementsDescr)
+                        messageToContain(noElementsDescr)
                     }
                 }
             }
         }
     }
 
-    describeFun(containsNoDuplicates) {
-        val containsNoDuplicatesFun = containsNoDuplicates.lambda
+    describeFun(toHaveElementsAndNoDuplicates) {
+        val toHaveElementsAndNoDuplicatesFun = toHaveElementsAndNoDuplicates.lambda
 
-        it("list without duplicates") {
-            expect(listOf(1, 2) as Iterable<Int>).containsNoDuplicatesFun()
+        describe("empty collection") {
+            it("throws AssertionError as there needs to be at least one element") {
+                expect {
+                    expect(listOf<Int>() as Iterable<Int>).toHaveElementsAndNoDuplicatesFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            hasANextElement,
+                            "$hasNotDescr: $duplicateElements"
+                        )
+                    }
+                }
+            }
         }
 
-        it("list with duplicates") {
-            fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
+        describe("list without duplicates") {
+            it("happy case") {
+                expect(listOf(1, 2) as Iterable<Int>).toHaveElementsAndNoDuplicatesFun()
+            }
+        }
 
-            val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
-            expect {
-                expect(input).containsNoDuplicatesFun()
-            }.toThrow<AssertionError> {
-                message {
-                    contains("$hasNotDescr: $duplicateElements")
-                    contains(index(2, 1), index(3, 2), index(6, 4), index(7, 4))
+        describe("list with duplicates") {
+            it("throws AssertionError with details of duplicate indices") {
+                fun index(i: Int, element: Int) = DescriptionIterableAssertion.INDEX.getDefault().format("$i: $element")
+                fun duplicatedBy(vararg elements: Int) =
+                    DescriptionIterableAssertion.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
+
+                val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
+
+                expect {
+                    expect(input).toHaveElementsAndNoDuplicatesFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("$hasNotDescr: $duplicateElements")
+                        toContain(index(0, 1), index(1, 2), index(5, 4))
+                        toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
+                    }
                 }
             }
         }

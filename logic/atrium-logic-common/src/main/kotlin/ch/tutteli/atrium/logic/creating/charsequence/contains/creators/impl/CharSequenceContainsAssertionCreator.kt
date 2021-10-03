@@ -2,8 +2,6 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
@@ -39,8 +37,8 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
 
     override val descriptionContains: Translatable = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
-
-    override fun getAssertionGroupType(): AssertionGroupType = DefaultListAssertionGroupType
+    override val descriptionNotFound: Translatable = DescriptionCharSequenceAssertion.NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_MATCHES_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<String> =
         container.changeSubject.unreported { it.toString() }.toAssertionContainer()
@@ -49,9 +47,4 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
         // if the maybeSubject is None it means we are in an explanation like context in which
         // it should not matter what this number is. Moreover, we check in the atMostChecker that times is >= 0
         multiConsumableContainer.maybeSubject.fold({ -1 }) { searcher.search(it, searchCriterion) }
-
-    override fun decorateAssertion(
-        container: AssertionContainer<String>,
-        featureAssertion: Assertion
-    ): List<Assertion> = listOf(featureAssertion)
 }

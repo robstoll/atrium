@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.logic.assertions
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -26,11 +26,11 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 .build()
         }
         it("does not evaluate anything") {
-            expect(callingCount).toBe(0)
+            expect(callingCount).toEqual(0)
         }
         it("adding it to a list does not evaluate anything") {
             listOf(testee)
-            expect(callingCount).toBe(0)
+            expect(callingCount).toEqual(0)
         }
         context("invoking ${testee::holds.name}") {
             var resultHolds = true
@@ -40,11 +40,11 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
 
             it("evaluates it") {
-                expect(callingCount).toBe(1)
+                expect(callingCount).toEqual(1)
             }
 
             it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
-                expect(resultHolds).toBe(false)
+                expect(resultHolds).toEqual(false)
             }
         }
 
@@ -56,15 +56,15 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
 
             it("evaluates it only once") {
-                expect(callingCount).toBe(1)
+                expect(callingCount).toEqual(1)
             }
 
             it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
-                expect(resultHolds).toBe(false)
+                expect(resultHolds).toEqual(false)
             }
 
             it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
-                expect(testee.assertions).containsExactly(assertion)
+                expect(testee.assertions).toContainExactly(assertion)
             }
         }
     }

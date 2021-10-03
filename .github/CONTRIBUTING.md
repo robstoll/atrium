@@ -12,7 +12,7 @@ Following a few guidelines so that others can quickly benefit from your contribu
 
 ## Code of Conduct
 This project and everyone participating in it is governed by Atrium's 
-[Code of Conduct](https://github.com/robstoll/atrium/tree/master/.github/CODE_OF_CONDUCT.md). 
+[Code of Conduct](https://github.com/robstoll/atrium/tree/main/.github/CODE_OF_CONDUCT.md). 
 By participating, you are expected to uphold this code. Please report unacceptable behaviour to info@tutteli.ch
 
 ## How to Contribute
@@ -111,7 +111,7 @@ Dealing with Git for the first time? Here are some recommendations for how to se
  `git remote add upstream https://github.com/robstoll/atrium.git`. You will use this to
   fetch changes made in this repository.
 - to ensure your branch is up-to-date, rebase your work on
-  upstream/master using `git rebase upstream/master` or `git pull -r upstream master`.
+  upstream/main using `git rebase upstream/main` or `git pull -r upstream main`.
   This will add all new changes in this repository into your branch and place your
   local unpushed changes at the top of the branch.
 
@@ -145,7 +145,7 @@ However, here a few hints in order that your pull request is merged quickly.
 
 ## Pull Request Checklist
 Please make sure you can check every item on the following list before you create a pull request:  
-- [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
+- [ ] your pull request is rebased on the [latest commit on main](https://github.com/robstoll/atrium/commits/main)
 - [ ] Your pull request addresses only “one thing”. It cannot be meaningfully split up into multiple pull requests.
      
 Once you have created and submitted your pull request, make sure:

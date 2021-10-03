@@ -19,6 +19,10 @@ import java.time.chrono.ChronoLocalDateTime
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isBefore(expected) }
@@ -31,6 +35,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
@@ -43,6 +51,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isAfter(expected) }
@@ -55,6 +67,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
@@ -67,6 +83,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoLocalDateTime<*>
 ): Expect<T> = _logicAppend { isEqual(expected) }
@@ -86,6 +106,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: String
 ): Expect<T> = _logicAppend { isBefore(expected) }
@@ -105,6 +129,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: String
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
@@ -124,6 +152,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqu
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: String
 ): Expect<T> = _logicAppend { isAfter(expected) }
@@ -143,6 +175,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: String
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
@@ -162,6 +198,10 @@ infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqua
  *
  * @since 0.13.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 infix fun <T : ChronoLocalDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: String
 ): Expect<T> = _logicAppend { isEqual(expected) }

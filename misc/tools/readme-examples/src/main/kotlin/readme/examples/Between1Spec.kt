@@ -1,8 +1,8 @@
 package readme.examples
 
 import ch.tutteli.atrium.api.fluent.en_GB.and
-import ch.tutteli.atrium.api.fluent.en_GB.isGreaterThanOrEqual
-import ch.tutteli.atrium.api.fluent.en_GB.isLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.toBeGreaterThanOrEqualTo
+import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 import java.util.*
@@ -24,7 +24,7 @@ import java.util.*
  */
 object Between1Spec : Spek({
     test("code-own-compose-1") {
-        fun <T : Date> Expect<T>.isBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-            isGreaterThanOrEqual(lowerBoundInclusive).and.isLessThan(upperBoundExclusive)
+        fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
+            toBeGreaterThanOrEqualTo(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
     }
 })

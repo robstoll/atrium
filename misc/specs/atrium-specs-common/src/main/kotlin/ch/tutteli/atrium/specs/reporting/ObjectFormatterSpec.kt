@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.isSameAs
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toBeTheInstance
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Text
@@ -33,21 +33,21 @@ abstract class ObjectFormatterSpec(
             val i: Int? = null
             val result = testee.format(i)
             it("returns null") {
-                expect(result).toBe("null")
+                expect(result).toEqual("null")
             }
         }
 
         context("a ${Text::class.simpleName}") {
             val result = testee.format(Text("hello"))
             it("returns the containing string") {
-                expect(result).toBe("hello")
+                expect(result).toEqual("hello")
             }
         }
 
         context("a ${Translatable::class.simpleName}") {
             val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
             it("returns the translated string") {
-                expect(result).isSameAs(translatedText)
+                expect(result).toBeTheInstance(translatedText)
             }
         }
     }

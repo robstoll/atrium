@@ -2,8 +2,6 @@ package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.translating.Translations.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -15,7 +13,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(HELLO, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
@@ -24,7 +22,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(HELLO, "one")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 1",
                         "placeholders = 0"
@@ -37,20 +35,20 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_1_ARG, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
             }
             it("one argument given; OK") {
-                expect(TranslatableWithArgs(WITH_1_ARG, "hello").getDefault()).toBe("a) hello")
-                expect(TranslatableWithArgs(WITH_1_ARG, listOf("hello")).getDefault()).toBe("a) hello")
+                expect(TranslatableWithArgs(WITH_1_ARG, "hello").getDefault()) toEqual "a) hello"
+                expect(TranslatableWithArgs(WITH_1_ARG, listOf("hello")).getDefault()) toEqual "a) hello"
             }
             it("two arguments given; throws") {
                 expect {
                     TranslatableWithArgs(WITH_1_ARG, "one", "two")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 2",
                         "placeholders = 1"
@@ -63,7 +61,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_2_ARGS, listOf())
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "No arguments specified"
                     )
                 }
@@ -72,7 +70,7 @@ class TranslatableWithArgsSpec : Spek({
                 expect {
                     TranslatableWithArgs(WITH_2_ARGS, "one")
                 }.toThrow<IllegalArgumentException> {
-                    its messageContains values(
+                    its messageToContain values(
                         "The number of given arguments does not match the number of placeholders in",
                         "number of arguments = 1",
                         "placeholders = 2"
@@ -80,9 +78,8 @@ class TranslatableWithArgsSpec : Spek({
                 }
             }
             it("two arguments given; OK") {
-                expect(TranslatableWithArgs(WITH_2_ARGS, "hello", "world").getDefault()).toBe("a) hello b) world")
-                expect(TranslatableWithArgs(WITH_2_ARGS, listOf("hello", "world")).getDefault())
-                    .toBe("a) hello b) world")
+                expect(TranslatableWithArgs(WITH_2_ARGS, "hello", "world").getDefault()) toEqual "a) hello b) world"
+                expect(TranslatableWithArgs(WITH_2_ARGS, listOf("hello", "world")).getDefault()) toEqual "a) hello b) world"
             }
         }
     }

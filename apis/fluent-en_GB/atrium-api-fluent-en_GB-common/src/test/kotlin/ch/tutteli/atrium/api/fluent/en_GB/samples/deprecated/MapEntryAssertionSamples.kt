@@ -1,3 +1,6 @@
+//TODO remove file with 1.0.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -9,10 +12,10 @@ class MapEntryAssertionSamples {
 
     @Test
     fun isKeyValue() {
-        expect(mapOf(1 to "a").entries.first()).isKeyValue(1, "a")
+        expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "a")
 
         fails {
-            expect(mapOf(1 to "a").entries.first()).isKeyValue(1, "b")
+            expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "b")
         }
     }
 

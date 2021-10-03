@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
@@ -12,42 +12,42 @@ import org.spekframework.spek2.style.specification.Suite
 import java.util.*
 
 abstract class OptionalExpectationsSpec(
-    isEmpty: Fun0<Optional<Int>>,
-    isPresentFeature: Feature0<Optional<Int>, Int>,
-    isPresent: Fun1<Optional<Int>, Expect<Int>.() -> Unit>,
+    toBeEmpty: Fun0<Optional<Int>>,
+    toBePresentFeature: Feature0<Optional<Int>, Int>,
+    toBePresent: Fun1<Optional<Int>, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessSpec<Optional<Int>>(
         "$describePrefix[Path] ",
-        isEmpty.forSubjectLess(),
-        isPresentFeature.forSubjectLess().adjustName { "$it feature" },
-        isPresent.forSubjectLess { toBe(1) }
+        toBeEmpty.forSubjectLess(),
+        toBePresentFeature.forSubjectLess().adjustName { "$it feature" },
+        toBePresent.forSubjectLess { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<Optional<Int>>(
         describePrefix, Optional.of(2),
-        isPresent.forAssertionCreatorSpec("$toBeDescr: 2") { toBe(2) }
+        toBePresent.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    describeFun(isEmpty, isPresentFeature, isPresent) {
-        val isEmptyFun = isEmpty.lambda
-        val isPresentFunctions = unifySignatures(isPresentFeature, isPresent)
+    describeFun(toBeEmpty, toBePresentFeature, toBePresent) {
+        val toBeEmptyFun = toBeEmpty.lambda
+        val toBePresentFunctions = unifySignatures(toBePresentFeature, toBePresent)
 
         val emptyValue = Optional.empty<Int>()
         context("$emptyValue") {
-            it("${isEmpty.name} - does not throw") {
-                expect(emptyValue).isEmptyFun()
+            it("${toBeEmpty.name} - does not throw") {
+                expect(emptyValue).toBeEmptyFun()
             }
-            isPresentFunctions.forEach { (name, isPresentFun, hasExtraHint) ->
+            toBePresentFunctions.forEach { (name, toBePresentFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(emptyValue).isPresentFun { toBe(2) }
+                        expect(emptyValue).toBePresentFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageContains(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
-                        if (hasExtraHint) messageContains("$toBeDescr: 2")
+                        messageToContain(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
+                        if (hasExtraHint) messageToContain("$toBeDescr: 2")
                     }
                 }
             }
@@ -55,17 +55,17 @@ abstract class OptionalExpectationsSpec(
 
         val presentValue: Optional<Int> = Optional.of(2)
         context("$presentValue") {
-            it("${isEmpty.name} - throws an AssertionError") {
+            it("${toBeEmpty.name} - throws an AssertionError") {
                 expect {
-                    expect(presentValue).isEmptyFun()
+                    expect(presentValue).toBeEmptyFun()
                 }.toThrow<AssertionError> {
-                    messageContains("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
+                    messageToContain("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
                 }
             }
 
-            isPresentFunctions.forEach { (name, isPresentFun, _) ->
+            toBePresentFunctions.forEach { (name, toBePresentFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(presentValue).isPresentFun { toBe(2) }
+                    expect(presentValue).toBePresentFun { toEqual(2) }
                 }
             }
         }

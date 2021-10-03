@@ -55,9 +55,9 @@ internal class RootExpectImpl<T>(
     private val assertions: MutableList<Assertion> = mutableListOf()
 
     override fun addAssertion(assertion: Assertion): Expect<T> =
-        appendAssertion(assertion)
+        append(assertion)
 
-    override fun appendAssertion(assertion: Assertion): Expect<T> {
+    override fun append(assertion: Assertion): Expect<T> {
         assertions.add(assertion)
         if (!assertion.holds()) {
             val assertionGroup = assertionBuilder.root

@@ -18,6 +18,10 @@ import java.time.chrono.ChronoZonedDateTime
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isBefore(expected) }
@@ -30,6 +34,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
@@ -42,6 +50,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isAfter(expected) }
@@ -54,6 +66,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
@@ -66,6 +82,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
  *
  * @since 0.9.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isEqual(expected) }
@@ -99,6 +119,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeBefore; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBefore<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
     expected: String
 ): Expect<T> = _logicAppend { isBefore(expected) }
@@ -132,6 +156,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBefore(
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeBeforeOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeBeforeOrTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
     expected: String
 ): Expect<T> = _logicAppend { isBeforeOrEqual(expected) }
@@ -165,6 +193,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isBeforeOrEqual(
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeAfter; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfter<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
     expected: String
 ): Expect<T> = _logicAppend { isAfter(expected) }
@@ -198,6 +230,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfter(
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeAfterOrTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeAfterOrTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
     expected: String
 ): Expect<T> = _logicAppend { isAfterOrEqual(expected) }
@@ -231,6 +267,10 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isAfterOrEqual(
  *
  * @since 0.14.0
  */
+@Deprecated(
+    "Use toBeTheSamePointInTimeAs; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toBeTheSamePointInTimeAs<T>(expected)")
+)
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.isEqual(
     expected: String
 ): Expect<T> = _logicAppend { isEqual(expected) }

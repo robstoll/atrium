@@ -27,10 +27,11 @@ class ZonedDateTimeExpectationsSpec : ch.tutteli.atrium.specs.integration.ZonedD
         a1.month
         a1 = a1.month { }
 
-        a1.dayOfWeek
-        a1 = a1.dayOfWeek { }
-
         a1.day
         a1 = a1.day { }
+
+
+        a1.dayOfWeek
+        a1 = a1.dayOfWeek { }
     }
 }

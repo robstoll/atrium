@@ -10,10 +10,11 @@ import ch.tutteli.atrium.logic.hasNotNext
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.IteratorAssertionSamples.hasNext
+ *
+ * @since 0.13.0
  */
+@Deprecated("Use toHaveNext; will be removed with 1.0.0 at the latest", ReplaceWith("this.toHaveNext<T>(expected)"))
 fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
     _logicAppend { hasNext() }
 
@@ -22,9 +23,10 @@ fun <E, T : Iterator<E>> Expect<T>.hasNext(): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.13.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.IteratorAssertionSamples.hasNoNext
+ *
+ * @since 0.13.0
  */
+@Deprecated("Use notToHaveNext; will be removed with 1.0.0 at the latest", ReplaceWith("this.notToHaveNext<T>(expected)"))
 fun <E, T : Iterator<E>> Expect<T>.hasNotNext(): Expect<T> =
     _logicAppend { hasNotNext() }

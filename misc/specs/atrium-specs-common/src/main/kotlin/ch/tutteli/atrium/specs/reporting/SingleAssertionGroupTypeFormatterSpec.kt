@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.isEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.messageContains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -86,29 +83,29 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     describeFun(testee::canFormat.name) {
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroupWithAnonymousType)
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroup)
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroup)
-            expect(result).toBe(true)
+            expect(result).toEqual(true)
         }
 
         it("returns false for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertionGroup)
-            expect(result).toBe(false)
+            expect(result).toEqual(false)
         }
 
         it("returns false for an object : ${Assertion::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertion)
-            expect(result).toBe(false)
+            expect(result).toEqual(false)
         }
     }
 
@@ -116,8 +113,8 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException") {
             expect {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
-            expect(sb).isEmpty()
+            }.toThrow<UnsupportedOperationException> { messageToContain(supportedAssertionGroupTypeClass.fullName) }
+            expect(sb).toBeEmpty()
         }
     }
 
@@ -127,8 +124,8 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             expect {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.fullName) }
-            expect(sb).isEmpty()
+            }.toThrow<UnsupportedOperationException> { messageToContain(supportedAssertionGroupTypeClass.fullName) }
+            expect(sb).toBeEmpty()
         }
 
         it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {

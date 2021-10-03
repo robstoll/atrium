@@ -9,81 +9,81 @@ import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.reflect.KFunction2
 
 class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsSpec(
-    fun1<Int, Int>(Expect<Int>::toBe),
-    fun1<DataClass, DataClass>(Expect<DataClass>::toBe),
-    fun1<Int?, Int?>(Expect<Int?>::toBe).withNullableSuffix(),
-    fun1<DataClass?, DataClass?>(Expect<DataClass?>::toBe).withNullableSuffix(),
-    fun1(Expect<Int>::notToBe),
-    fun1(Expect<DataClass>::notToBe),
-    fun1(Expect<Int?>::notToBe).withNullableSuffix(),
-    fun1(Expect<DataClass?>::notToBe).withNullableSuffix(),
-    fun1(Expect<Int>::isSameAs),
-    fun1(Expect<DataClass>::isSameAs),
-    fun1(Expect<Int?>::isSameAs).withNullableSuffix(),
-    fun1(Expect<DataClass?>::isSameAs).withNullableSuffix(),
-    fun1(Expect<Int>::isNotSameAs),
-    fun1(Expect<DataClass>::isNotSameAs),
-    fun1(Expect<Int?>::isNotSameAs).withNullableSuffix(),
-    fun1(Expect<DataClass?>::isNotSameAs).withNullableSuffix(),
-    fun2(Companion::isNoneOfInt),
-    fun2(Companion::isNoneOfDataClass),
-    fun2(Companion::isNoneOfIntNullable).withNullableSuffix(),
-    fun2(Companion::isNoneOfDataClassNullable).withNullableSuffix(),
-    fun1(Expect<Int>::isNotIn),
-    fun1(Expect<DataClass>::isNotIn),
-    fun1(Expect<Int?>::isNotIn).withNullableSuffix(),
-    fun1(Expect<DataClass?>::isNotIn).withNullableSuffix(),
+    fun1<Int, Int>(Expect<Int>::toEqual),
+    fun1<DataClass, DataClass>(Expect<DataClass>::toEqual),
+    fun1<Int?, Int?>(Expect<Int?>::toEqual).withNullableSuffix(),
+    fun1<DataClass?, DataClass?>(Expect<DataClass?>::toEqual).withNullableSuffix(),
+    fun1(Expect<Int>::notToEqual),
+    fun1(Expect<DataClass>::notToEqual),
+    fun1(Expect<Int?>::notToEqual).withNullableSuffix(),
+    fun1(Expect<DataClass?>::notToEqual).withNullableSuffix(),
+    fun1(Expect<Int>::toBeTheInstance),
+    fun1(Expect<DataClass>::toBeTheInstance),
+    fun1(Expect<Int?>::toBeTheInstance).withNullableSuffix(),
+    fun1(Expect<DataClass?>::toBeTheInstance).withNullableSuffix(),
+    fun1(Expect<Int>::notToBeTheInstance),
+    fun1(Expect<DataClass>::notToBeTheInstance),
+    fun1(Expect<Int?>::notToBeTheInstance).withNullableSuffix(),
+    fun1(Expect<DataClass?>::notToBeTheInstance).withNullableSuffix(),
+    fun2(Companion::notToEqualOneOfInt),
+    fun2(Companion::notToEqualOneOfDataClass),
+    fun2(Companion::notToEqualOneOfIntNullable).withNullableSuffix(),
+    fun2(Companion::notToEqualOneOfDataClassNullable).withNullableSuffix(),
+    fun1(Expect<Int>::notToEqualOneIn),
+    fun1(Expect<DataClass>::notToEqualOneIn),
+    fun1(Expect<Int?>::notToEqualOneIn).withNullableSuffix(),
+    fun1(Expect<DataClass?>::notToEqualOneIn).withNullableSuffix(),
     fun2<String, String, Expect<String>.() -> Unit>(Companion::because),
     fun2<Int, String, Expect<Int>.() -> Unit>(Companion::becauseOfInt),
 
-    "${Expect<Int?>::toBe.name}(null)" to Companion::toBeNull,
-    fun1(Expect<Int?>::toBeNullIfNullGivenElse),
-    ("isA" to Companion::isAIntFeature).withFeatureSuffix(),
-    "isA" to Companion::isAInt,
-    ("isA" to Companion::isASuperTypeFeature).withFeatureSuffix(),
-    "isA" to Companion::isASuperType,
-    ("isA" to Companion::isASubTypeFeature).withFeatureSuffix(),
-    "isA" to Companion::isASubType,
+    "${Expect<Int?>::toEqual.name}(null)" to Companion::toEqualNull,
+    fun1(Expect<Int?>::toEqualNullIfNullGivenElse),
+    ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfIntFeature).withFeatureSuffix(),
+    "toBeAnInstanceOf" to Companion::toBeAnInstanceOfInt,
+    ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfSuperTypeFeature).withFeatureSuffix(),
+    "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSuperType,
+    ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubTypeFeature).withFeatureSuffix(),
+    "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubType,
 
-    ("notToBeNull" to Companion::notToBeNullFeature).withFeatureSuffix(),
-    "notToBeNull" to Companion::notToBeNull,
+    ("notToEqualNull" to Companion::notToEqualNullFeature).withFeatureSuffix(),
+    "notToEqualNull" to Companion::notToEqualNull,
 
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
 
-    companion object  {
-        private fun toBeNull(expect: Expect<Int?>) = expect toBe null
+    companion object {
+        private fun toEqualNull(expect: Expect<Int?>) = expect toEqual null
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isAIntFeature(expect: Expect<out Any?>): Expect<Int> =
-            expect.isA<Int>()
+        private fun toBeAnInstanceOfIntFeature(expect: Expect<out Any?>): Expect<Int> =
+            expect.toBeAnInstanceOf()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isAInt(expect: Expect<out Any?>, assertionCreator: Expect<Int>.() -> Unit): Expect<Int> =
-            expect.isA<Int> { assertionCreator() }
+        private fun toBeAnInstanceOfInt(expect: Expect<out Any?>, assertionCreator: Expect<Int>.() -> Unit): Expect<Int> =
+            expect.toBeAnInstanceOf<Int> { assertionCreator() }
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASuperTypeFeature(expect: Expect<out Any?>): Expect<SuperType> =
-            expect.isA<SuperType>()
+        private fun toBeAnInstanceOfSuperTypeFeature(expect: Expect<out Any?>): Expect<SuperType> =
+            expect.toBeAnInstanceOf<SuperType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASuperType(
+        private fun toBeAnInstanceOfSuperType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SuperType>.() -> Unit
         ): Expect<SuperType> =
-            expect.isA<SuperType> { assertionCreator() }
+            expect.toBeAnInstanceOf<SuperType> { assertionCreator() }
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
-            expect.isA<SubType>()
+        private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
+            expect.toBeAnInstanceOf<SubType>()
 
         @Suppress("RemoveExplicitTypeArguments")
-        private fun isASubType(
+        private fun toBeAnInstanceOfSubType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SubType>.() -> Unit
         ): Expect<SubType> =
-            expect.isA<SubType> { assertionCreator() }
+            expect.toBeAnInstanceOf<SubType> { assertionCreator() }
 
         private fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> =
             "and o" to { e: Expect<Int> ->
@@ -96,35 +96,35 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
                 e and { assertionCreator() }
             }
 
-        private fun notToBeNullFeature(expect: Expect<Int?>) =
-            expect notToBeNull o
+        private fun notToEqualNullFeature(expect: Expect<Int?>) =
+            expect notToEqualNull o
 
-        private fun notToBeNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
-            expect notToBeNull assertionCreator
+        private fun notToEqualNull(expect: Expect<Int?>, assertionCreator: Expect<Int>.() -> Unit) =
+            expect notToEqualNull assertionCreator
 
-        private fun isNoneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
-            expect isNoneOf values(expected, *otherValues)
+        private fun notToEqualOneOfInt(expect: Expect<Int>, expected: Int, otherValues: Array<out Int>): Expect<Int> =
+            expect notToEqualOneOf values(expected, *otherValues)
 
-        private fun isNoneOfIntNullable(
+        private fun notToEqualOneOfIntNullable(
             expect: Expect<Int?>,
             expected: Int?,
             otherValues: Array<out Int?>
         ): Expect<Int?> =
-            expect isNoneOf values(expected, *otherValues)
+            expect notToEqualOneOf values(expected, *otherValues)
 
-        private fun isNoneOfDataClass(
+        private fun notToEqualOneOfDataClass(
             expect: Expect<DataClass>,
             expected: DataClass,
             otherValues: Array<out DataClass>
         ): Expect<DataClass> =
-            expect isNoneOf values(expected, *otherValues)
+            expect notToEqualOneOf values(expected, *otherValues)
 
-        private fun isNoneOfDataClassNullable(
+        private fun notToEqualOneOfDataClassNullable(
             expect: Expect<DataClass?>,
             expected: DataClass?,
             otherValues: Array<out DataClass?>
         ): Expect<DataClass?> =
-            expect isNoneOf values(expected, *otherValues)
+            expect notToEqualOneOf values(expected, *otherValues)
 
         private fun because(expect: Expect<String>, reason: String, assertionCreator: Expect<String>.() -> Unit) =
             expect because of(reason) { assertionCreator() }
@@ -138,42 +138,42 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
         val a1: Expect<Number> = notImplemented()
         val a1b: Expect<Number?> = notImplemented()
 
-        a1 toBe 1
-        a1 toBe 1.2
-        a1 notToBe 1
-        a1 notToBe 1.2
-        a1 isSameAs 1
-        a1 isSameAs 1.2
-        a1 isNotSameAs 1
-        a1 isNotSameAs 1.2
-        a1.isA<Int>()
-        a1.isA<Int> {}
-        a1 isNoneOf values(1, 2)
-        a1 isNotIn listOf(1, 1.2)
-        a1 because of("hello") { toBe(1) }
+        a1 toEqual 1
+        a1 toEqual 1.2
+        a1 notToEqual 1
+        a1 notToEqual 1.2
+        a1 toBeTheInstance 1
+        a1 toBeTheInstance 1.2
+        a1 notToBeTheInstance 1
+        a1 notToBeTheInstance 1.2
+        a1.toBeAnInstanceOf<Int>()
+        a1.toBeAnInstanceOf<Int> {}
+        a1 notToEqualOneOf values(1, 2)
+        a1 notToEqualOneIn listOf(1, 1.2)
+        a1 because of("hello") { toEqual(1) }
 
-        a1b toBe 1
-        a1b toBe 1.2
-        a1b notToBe 1
-        a1b notToBe 1.2
-        a1b isSameAs 1
-        a1b isSameAs 1.2
-        a1b isNotSameAs 1
-        a1b isNotSameAs 1.2
-        a1b.isA<Int>()
-        a1b.isA<Int> {}
-        a1b isNoneOf values(1, 2)
-        a1b isNotIn listOf(1, 1.2)
+        a1b toEqual 1
+        a1b toEqual 1.2
+        a1b notToEqual 1
+        a1b notToEqual 1.2
+        a1b toBeTheInstance 1
+        a1b toBeTheInstance 1.2
+        a1b notToBeTheInstance 1
+        a1b notToBeTheInstance 1.2
+        a1b.toBeAnInstanceOf<Int>()
+        a1b.toBeAnInstanceOf<Int> {}
+        a1b notToEqualOneOf values(1, 2)
+        a1b notToEqualOneIn listOf(1, 1.2)
 
-        a1b notToBeNull o toBe 1
-        a1b notToBeNull {}
+        a1b notToEqualNull o toEqual 1
+        a1b notToEqualNull { }
 
-        a1 and o toBe 1
-        a1 and { it toBe 1 }
+        a1 and o toEqual 1
+        a1 and { it toEqual 1 }
 
     }
 
     //regression for #298, should compile without the need for E : Any or List<E?>
     @Suppress("unused")
-    fun <E> Expect<List<E>>.firstIs(value: E) = it get index(0) { it toBe value }
+    fun <E> Expect<List<E>>.firstIs(value: E) = it get index(0) { it toEqual value }
 }

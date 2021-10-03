@@ -16,7 +16,7 @@ abstract class MapAsEntriesExpectationsSpec(
     include(object : SubjectLessSpec<Map<String, Int>>(
         describePrefix,
         asEntriesFeature.forSubjectLess(),
-        asEntries.forSubjectLess { contains("a" to 1) }
+        asEntries.forSubjectLess { toContain("a" to 1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -28,11 +28,11 @@ abstract class MapAsEntriesExpectationsSpec(
         asEntriesFunctions.forEach{ (name, asEntriesFun, _) ->
             it("$name - transformation can be applied and an assertion made") {
                 expect(mapOf("a" to 1, "b" to 2)).asEntriesFun {
-                    contains.inAnyOrder.only.entries(
-                        { isKeyValue("b", 2) },
+                    toContain.inAnyOrder.only.entries(
+                        { toEqualKeyValue("b", 2) },
                         {
-                            key { startsWith("a") }
-                            value.isGreaterThanOrEqual(1)
+                            key.toStartWith("a")
+                            value.toBeGreaterThanOrEqualTo(1)
                         }
                     )
                 }

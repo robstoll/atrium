@@ -1,3 +1,4 @@
+//TODO rename file to optionalExpectations with 0.18.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
@@ -17,7 +18,7 @@ import java.util.*
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is empty (not present).
  *
- * Shortcut for more or less something like `feature(Optional<T>::isEmpty) { toBe(true) }`
+ * Shortcut for more or less something like `feature(Optional<T>::isEmpty) { it toEqual true }`
  * depends on the underlying implementation though.
  *
  * @return an [Expect] for the subject of `this` expectation.

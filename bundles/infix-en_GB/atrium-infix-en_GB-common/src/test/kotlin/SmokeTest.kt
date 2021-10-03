@@ -1,5 +1,5 @@
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.assertThat
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -14,40 +14,40 @@ import kotlin.test.Test
 class SmokeTest {
 
     @Test
-    fun toBe_canBeUsed() {
-        assertThat(1) toBe 1
+    fun toEqual_canBeUsed() {
+        expect(1) toEqual 1
     }
 
     @Test
-    fun assertionFunctionWithoutI18nCanBeUsed() {
-        assertThat(2) tobe even
-        assertThat(1) tobe odd
+    fun expectationFunctionWithoutI18nCanBeUsed() {
+        expect(2) toBe even
+        expect(1) toBe odd
     }
 
     @Test
-    fun assertionFunctionWithI18nCanBeUsed() {
-        assertThat(4) isMultipleOf 2
+    fun expectationFunctionWithI18nCanBeUsed() {
+        expect(4) toBeAMultipleOf 2
     }
 
     @Test
-    fun assertAnExceptionOccurred() {
-        assertThat {
+    fun expectAnExceptionOccurred() {
+        expect {
             throw IllegalArgumentException()
         }.toThrow<IllegalArgumentException>()
     }
 
     @Test
-    fun assertAnExceptionWithAMessageOccurred() {
-        assertThat {
+    fun expectAnExceptionWithAMessageOccurred() {
+        expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            it messageContains "hello"
+            it messageToContain "hello"
         }
     }
 
     @Test
-    fun assertNotToThrow() {
-        assertThat {
+    fun expectNotToThrow() {
+        expect {
 
         }.notToThrow()
     }
@@ -58,15 +58,15 @@ object even
 @Suppress("ClassName")
 object odd
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
 
-infix fun Expect<Int>.tobe(@Suppress("UNUSED_PARAMETER") odd: odd) =
-    _logic.appendAssertion(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1})
 
-infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
+infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 
-private fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {

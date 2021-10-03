@@ -16,13 +16,13 @@ import java.math.BigDecimal
  *
  * Use [isNumericallyEqualTo] if you expect that the following assertion holds:
  * ```
- * expect(BigDecimal("10").toBe(BigDecimal("10.0"))
+ * expect(BigDecimal("10").toEqual(BigDecimal("10.0"))
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [isEqualIncludingScale].
  */
 @Deprecated(
     "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).toEqual(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
@@ -37,7 +37,7 @@ fun <T : BigDecimal> Expect<T>.toBe(expected: T): Nothing =
 @JvmName("toBeNullable")
 @Deprecated(
     "Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
-        "`expect(BigDecimal(\"10\")).toBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).toEqual(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)")
 )
@@ -55,6 +55,7 @@ fun <T : BigDecimal?> Expect<T>.toBe(expected: T): Nothing =
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.BigDecimalAssertionSamples.toBe
  */
 @JvmName("toBeNull")
+@Deprecated("Use toEqual; will be removed with 1.0.0 at the latest", ReplaceWith("this.toEqual<T>(expected)"))
 fun <T : BigDecimal> Expect<T?>.toBe(expected: Nothing?): Expect<T?> =
     _logicAppend { toBe(expected) }
 
@@ -95,6 +96,10 @@ fun <T : BigDecimal> Expect<T>.notToBe(expected: T): Nothing =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toEqualNumerically; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toEqualNumerically<T>(expected)")
+)
 fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNumericallyEqualTo(expected) }
 
@@ -112,6 +117,10 @@ fun <T : BigDecimal> Expect<T>.isNumericallyEqualTo(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use notToEqualNumerically; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualNumerically<T>(expected)")
+)
 fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
     _logicAppend { isNotNumericallyEqualTo(expected) }
 
@@ -126,6 +135,10 @@ fun <T : BigDecimal> Expect<T>.isNotNumericallyEqualTo(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use toEqualIncludingScale; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.toEqualIncludingScale<T>(expected)")
+)
 fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isEqualIncludingScale(expected, this::isNumericallyEqualTo.name) }
 
@@ -140,5 +153,9 @@ fun <T : BigDecimal> Expect<T>.isEqualIncludingScale(expected: T): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
+@Deprecated(
+    "Use notToEqualIncludingScale; will be removed with 1.0.0 at the latest",
+    ReplaceWith("this.notToEqualIncludingScale<T>(expected)")
+)
 fun <T : BigDecimal> Expect<T>.isNotEqualIncludingScale(expected: T): Expect<T> =
     _logicAppend { isNotEqualIncludingScale(expected) }

@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.toBe
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -64,8 +65,8 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("writes whether the assertion holds including a message telling the type is unsupported") {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
                 expect(sb) {
-                    contains("false")
-                    contains("Unsupported type ${unsupportedAssertion::class.fullName}")
+                    toContain("false")
+                    toContain("Unsupported type ${unsupportedAssertion::class.fullName}")
                 }
             }
         }
@@ -74,14 +75,14 @@ abstract class TextFallbackAssertionFormatterSpec(
                 val assertion =
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
                 testee.formatNonGroup(assertion, parameterObject)
-                expect(sb.toString()).toBe("$lineSeparator${IS_SAME.getDefault()}: bli")
+                expect(sb.toString()).toEqual("$lineSeparator${IS_SAME.getDefault()}: bli")
             }
         }
         context("assertion of type ${RepresentationOnlyAssertion::class.simpleName}") {
             it("writes ${RepresentationOnlyAssertion::representation.name} without any additional colon or such") {
                 val assertion = assertionBuilder.representationOnly.failing.withRepresentation("hello").build()
                 testee.formatNonGroup(assertion, parameterObject)
-                expect(sb.toString()).toBe("${lineSeparator}hello")
+                expect(sb.toString()).toEqual("${lineSeparator}hello")
             }
         }
     }
@@ -113,10 +114,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
 
-                    expect(sb).contains(
+                    expect(sb).toContain(
                         "group: subject of group$lineSeparator" +
-                            "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
-                            "$bulletPoint $toBeDescr: d"
+                                "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
+                                "$bulletPoint $toBeDescr: d"
                     )
                 }
             }
@@ -151,7 +152,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                         alwaysTrueAssertionFilter
                     )
 
-                    expect(sb).contains(
+                    expect(sb).toContain(
                         "outer group: subject of outer group$lineSeparator" +
                             "$bulletPoint inner group: subject of inner group$lineSeparator" +
                             "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
