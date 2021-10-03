@@ -21,6 +21,8 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.messageToContain
+ *
  * @since 0.17.0
  */
 fun <T : Throwable> Expect<T>.messageToContain(
