@@ -16,6 +16,8 @@ import kotlin.reflect.KClass
  * the element type is actually `String`.
  *
  * @return An [Expect] with the new type [TExpected].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
     toThrow(TExpected::class).transform()
@@ -56,6 +58,8 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * the element type is actually `String`.
  *
  * @return An [Expect] with the new type [TExpected].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature.toThrow
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
@@ -67,6 +71,8 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * and changes the subject of `this` expectation to the return value of type [R].
  *
  * @return An [Expect] with the new type [R].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.notToThrowFeature
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
     _logic.notToThrow().transform()
@@ -76,6 +82,8 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
  * and that the corresponding return value holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the new type [R].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature.notToThrow
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(
     assertionCreator: Expect<R>.() -> Unit
