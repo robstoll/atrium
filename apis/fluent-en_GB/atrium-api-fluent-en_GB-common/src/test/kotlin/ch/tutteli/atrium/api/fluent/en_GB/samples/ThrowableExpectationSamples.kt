@@ -44,7 +44,10 @@ class ThrowableExpectationSamples {
             .messageToContain("b")
 
         fails {
-            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException>()
+            expect(IllegalStateException(IndexOutOfBoundsException("abc")))
+              .cause<IllegalStateException>()
+              .messageToContain("d") // not shown in reporting as `cause<IllegalStateException>()` already fails
+
         }
     }
 
