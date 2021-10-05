@@ -26,12 +26,12 @@ class ThrowableExpectationSamples {
 
     @Test
     fun message() {
-        expect(RuntimeException("abc")).message {
+        expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
             toContain("a")
         }
 
         fails {
-            expect(RuntimeException("abc")).message {
+            expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
                 toContain("d")
             }
         }
@@ -39,24 +39,23 @@ class ThrowableExpectationSamples {
 
     @Test
     fun causeFeature() {
-        expect(IllegalStateException(IndexOutOfBoundsException())).cause<Throwable>()
-            .toBeAnInstanceOf<IndexOutOfBoundsException>()
+        expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IndexOutOfBoundsException>()
+            .messageToContain("b")
 
         fails {
-            expect(IllegalStateException(IndexOutOfBoundsException())).cause<Throwable>()
-                .toBeAnInstanceOf<IllegalStateException>()
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException>()
         }
     }
 
     @Test
     fun cause() {
-        expect(IllegalStateException(IndexOutOfBoundsException())).cause<Throwable> {
-            toBeAnInstanceOf<IndexOutOfBoundsException>()
+        expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IndexOutOfBoundsException> { // subject inside this block is of type Throwable (actually IndexOutOfBoundsException)
+            messageToContain("b")
         }
 
         fails {
-            expect(IllegalStateException(IndexOutOfBoundsException())).cause<Throwable> {
-                toBeAnInstanceOf<IllegalStateException>()
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { // subject inside this block is of type Throwable (actually IllegalStateException)
+                messageToContain("b")
             }
         }
     }
