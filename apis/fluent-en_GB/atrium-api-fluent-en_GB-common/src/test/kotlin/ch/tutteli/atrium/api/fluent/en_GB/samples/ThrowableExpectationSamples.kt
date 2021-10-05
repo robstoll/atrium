@@ -54,7 +54,7 @@ class ThrowableExpectationSamples {
         }
 
         fails {
-            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { // subject inside this block is of type Throwable (actually IllegalStateException)
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { // subject is now of type IndexOutOfBoundsException
                 messageToContain("b")
             }
         }
