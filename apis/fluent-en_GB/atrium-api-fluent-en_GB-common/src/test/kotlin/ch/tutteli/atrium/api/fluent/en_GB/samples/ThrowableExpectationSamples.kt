@@ -57,9 +57,9 @@ class ThrowableExpectationSamples {
             messageToContain("b")
         }
 
-        fails {
-            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { // subject is now of type IndexOutOfBoundsException
-                messageToContain("b")
+        fails { // because wrong type expected (IllegalStateException instead of IndexOutOfBoundsException), but since we use a block...
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { 
+                messageToContain("b") // ... reporting mentions that subject's message was expected `to contain: "b"`
             }
         }
     }
