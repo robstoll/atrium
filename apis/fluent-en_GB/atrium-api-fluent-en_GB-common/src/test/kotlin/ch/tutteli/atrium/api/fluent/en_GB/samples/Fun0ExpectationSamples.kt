@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class Fun0AssertionSamples {
+class Fun0ExpectationSamples {
 
     @Test
     fun toThrowFeature() {
@@ -26,7 +26,7 @@ class Fun0AssertionSamples {
                 messageToContain("abc")
             }
 
-        fails { // because wrong type expected (IllegalStateException instead of IndexOutOfBoundsException), but since we use a block...
+        fails { // because wrong type expected (IndexOutOfBoundsException instead of IllegalStateException), but since we use a block...
             expect { throw IllegalStateException("abc") }
                 .toThrow<IndexOutOfBoundsException> {
                     messageToContain("abc") // ... reporting mentions that subject's message was expected `to contain: "abc"`

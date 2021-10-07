@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  *
  * @return An [Expect] with the new type [TExpected].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrowFeature
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
     toThrow(TExpected::class).transform()
@@ -59,7 +59,7 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * @return An [Expect] with the new type [TExpected].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature.toThrow
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrow
  */
 inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
@@ -72,7 +72,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * @return An [Expect] with the new type [R].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.notToThrowFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.notToThrowFeature
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
     _logic.notToThrow().transform()
@@ -83,7 +83,7 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
  *
  * @return An [Expect] with the new type [R].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0AssertionSamples.toThrowFeature.notToThrow
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.notToThrow
  */
 fun <R, T : () -> R> Expect<T>.notToThrow(
     assertionCreator: Expect<R>.() -> Unit
