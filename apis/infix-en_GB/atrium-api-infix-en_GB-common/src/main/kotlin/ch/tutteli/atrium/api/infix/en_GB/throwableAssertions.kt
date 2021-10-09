@@ -14,6 +14,8 @@ import kotlin.reflect.KClass
  * creates an [Expect] for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.messageFeature
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = it feature Throwable::message notToEqualNull o
@@ -25,6 +27,8 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.message
  */
 infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     it feature of(Throwable::message) { it notToEqualNull assertionCreator }
@@ -78,6 +82,8 @@ infix fun <T : Throwable> Expect<T>.messageContains(values: Values<Any>): Expect
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of `this` expectation
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.causeFeature
+ *
  * @since 0.12.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
@@ -100,6 +106,8 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.cause
  *
  * @since 0.12.0
  */
