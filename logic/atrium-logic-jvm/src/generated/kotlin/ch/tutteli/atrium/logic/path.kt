@@ -31,6 +31,7 @@ fun <T : Path> AssertionContainer<T>.existsNot(linkOption: LinkOption? = null): 
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = impl.isReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(this)
+fun <T : Path> AssertionContainer<T>.isNotWritable(): Assertion = impl.isNotWritable(this)
 fun <T : Path> AssertionContainer<T>.isExecutable(): Assertion = impl.isExecutable(this)
 fun <T : Path> AssertionContainer<T>.isRegularFile(): Assertion = impl.isRegularFile(this)
 fun <T : Path> AssertionContainer<T>.isDirectory(): Assertion = impl.isDirectory(this)
