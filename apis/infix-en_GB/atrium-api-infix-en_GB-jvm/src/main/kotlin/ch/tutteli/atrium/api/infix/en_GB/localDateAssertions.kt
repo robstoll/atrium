@@ -29,6 +29,8 @@ val Expect<LocalDate>.year: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateExpectationSamples.year
+ *
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDate> =
@@ -51,6 +53,8 @@ val Expect<LocalDate>.month: Expect<Int>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateExpectationSamples.month
  *
  * @since 0.12.0
  */
@@ -75,6 +79,8 @@ val Expect<LocalDate>.dayOfWeek: Expect<DayOfWeek>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateExpectationSamples.dayOfWeek
+ *
  * @since 0.12.0
  */
 infix fun Expect<LocalDate>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<LocalDate> =
@@ -98,6 +104,8 @@ val Expect<LocalDate>.day: Expect<Int>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateExpectationSamples.day
  *
  * @since 0.12.0
  */
