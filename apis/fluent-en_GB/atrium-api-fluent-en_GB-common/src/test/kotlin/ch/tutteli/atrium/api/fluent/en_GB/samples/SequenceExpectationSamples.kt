@@ -34,7 +34,7 @@ class SequenceExpectationSamples {
 
         fails {
             expect(sequenceOf(1, 2, 3))
-                .asIterable { // subject within this block is of type List<Int>
+                .asIterable { // subject within this block is of type Iterable<Int>
                     toContain(4)
                 } // subject here is back to type Sequence<Int>
         }
