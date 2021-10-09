@@ -26,7 +26,7 @@ class SequenceExpectationSamples {
     @Test
     fun asIterable() {
         expect(sequenceOf(1, 2, 3))
-            .asIterable { // subject within this block is of type List<Int>
+            .asIterable { // subject within this block is of type Iterable<Int>
                 toContain(1)
                 toContain(2)
                 toContain(3)
