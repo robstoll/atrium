@@ -7,6 +7,8 @@ import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.nio.file.attribute.PosixFilePermissions
+import java.nio.file.attribute.PosixFilePermissions.asFileAttribute
 import javax.swing.filechooser.FileSystemView
 import kotlin.test.Test
 
@@ -126,6 +128,18 @@ class PathExpectationSamples {
 
         fails {
             expect(Paths.get("invalid_dir")).toBeWritable()
+        }
+    }
+
+    @Test
+    fun notToBeWritable() {
+        val readyOnlyPermissions = PosixFilePermissions.fromString("r--r--r--")
+        val dir = tempDir.newDirectory("test_dir", asFileAttribute(readyOnlyPermissions))
+
+        expect(dir).notToBeWritable()
+
+        fails {
+            expect(Paths.get("invalid_dir")).notToBeWritable()
         }
     }
 
