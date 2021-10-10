@@ -109,10 +109,10 @@ class PathExpectationSamples {
 
         val emptyFilePath = tempDir.newFile("test_file_3")
 
-        expect(notEmptyFilePath) toHaveTheSameTextualContentAs PathWithEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
+        expect(notEmptyFilePath) toHaveTheSameTextualContentAs withEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
 
         fails { // because nothing is written inside of `emptyFilePath`
-            expect(emptyFilePath) toHaveTheSameTextualContentAs PathWithEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
+            expect(emptyFilePath) toHaveTheSameTextualContentAs withEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
         }
     }
 
