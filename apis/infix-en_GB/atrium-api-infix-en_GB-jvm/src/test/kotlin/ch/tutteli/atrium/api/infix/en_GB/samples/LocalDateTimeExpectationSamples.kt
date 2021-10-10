@@ -12,12 +12,14 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun year() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) year {
+            // subject inside this block is of type Int (actually 2021)
             it toEqual 2021
             it toBeGreaterThan 2020
         }
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) year {
+                // subject inside this block is of type Int (actually 2021)
                 it notToEqual 2022
                 it toBeGreaterThan 2022
                 it toBeLessThan 2020
@@ -28,12 +30,14 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun month() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) month {
+            // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
             it toEqual Month.OCTOBER.value
             it notToEqual Month.SEPTEMBER.value
         }
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) month {
+                // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
                 it toEqual Month.SEPTEMBER.value
                 it notToEqual Month.OCTOBER.value
             }
@@ -43,12 +47,14 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun dayOfWeek() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) dayOfWeek {
+            // subject inside this block is of type DayOfWeek (actually SATURDAY)
             it toEqual DayOfWeek.SATURDAY
             it notToEqual DayOfWeek.SUNDAY
         }
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) dayOfWeek {
+                // subject inside this block is of type DayOfWeek (actually SATURDAY)
                 it toEqual DayOfWeek.MONDAY
                 it notToEqual DayOfWeek.SATURDAY
             }
@@ -58,12 +64,14 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun day() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) day {
+            // subject inside this block is of type Int (actually 9)
             it toEqual 9
             it toBeGreaterThan 5
         }
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) day {
+                // subject inside this block is of type Int (actually 9)
                 it toEqual 5
                 it toBeLessThan 7
             }
