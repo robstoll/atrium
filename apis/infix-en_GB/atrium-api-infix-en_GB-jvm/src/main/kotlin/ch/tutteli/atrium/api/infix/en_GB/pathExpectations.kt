@@ -78,7 +78,7 @@ infix fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
  * @see [directoryEntries]
  * @see [hasDirectoryEntry]
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHave
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHaveTheDirectoryEntries
  *
  * @since 0.17.0
  */

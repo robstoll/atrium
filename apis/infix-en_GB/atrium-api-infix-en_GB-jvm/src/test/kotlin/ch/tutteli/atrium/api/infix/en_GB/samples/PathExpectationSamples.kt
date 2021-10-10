@@ -61,7 +61,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun toHave() {
+    fun toHaveTheDirectoryEntries() {
         val dir = tempDir.newDirectory("test_dir")
 
         val file1 = dir.newFile("test_file1")
