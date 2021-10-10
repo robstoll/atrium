@@ -67,13 +67,13 @@ class PathExpectationSamples {
         val file1 = dir.newFile("test_file1")
         val file2 = dir.newFile("test_file2")
 
-        expect(dir) toHave DirectoryEntries("test_file1", arrayOf("test_file2"))
+        expect(dir) toHave directoryEntries("test_file1", "test_file2")
 
         file1.delete()
         file2.delete()
 
         fails {
-            expect(dir) toHave DirectoryEntries("test_file1", arrayOf("test_file2"))
+            expect(dir) toHave directoryEntries("test_file1", "test_file2")
         }
 
     }
