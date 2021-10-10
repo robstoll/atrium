@@ -16,6 +16,8 @@ import java.time.LocalDate
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.LocalDateExpectationSamples.yearFeature
+ *
  * @since 0.9.0
  */
 val Expect<LocalDate>.year: Expect<Int>
@@ -40,6 +42,8 @@ fun Expect<LocalDate>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<Loc
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.LocalDateExpectationSamples.monthFeature
  *
  * @since 0.9.0
  */
@@ -66,6 +70,8 @@ fun Expect<LocalDate>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<Lo
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.LocalDateExpectationSamples.dayOfWeekFeature
+ *
  * @since 0.9.0
  */
 val Expect<LocalDate>.dayOfWeek: Expect<DayOfWeek>
@@ -91,6 +97,8 @@ fun Expect<LocalDate>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit):
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.LocalDateExpectationSamples.dayFeature
  *
  * @since 0.9.0
  */

@@ -10,9 +10,21 @@ import kotlin.test.Test
 class LocalDateExpectationSamples {
 
     @Test
+    fun yearFeature() {
+        expect(LocalDate.of(2021, Month.OCTOBER, 9))
+            .year.toEqual(2021)
+
+        fails {
+            expect(LocalDate.of(2021, Month.OCTOBER, 9))
+                .year.notToEqual(2021)
+        }
+    }
+
+    @Test
     fun year() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
             .year {
+                // subject inside this block is of type Int (actually 2021)
                 toEqual(2021)
                 toBeGreaterThan(2020)
             }
@@ -20,7 +32,8 @@ class LocalDateExpectationSamples {
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
                 .year {
-                    notToEqual(2022)
+                    // subject inside this block is of type Int (actually 2021)
+                    notToEqual(2021)
                     toBeGreaterThan(2022)
                     toBeLessThan(2020)
                 }
@@ -28,9 +41,21 @@ class LocalDateExpectationSamples {
     }
 
     @Test
+    fun monthFeature() {
+        expect(LocalDate.of(2021, Month.OCTOBER, 9))
+            .month.toEqual(Month.OCTOBER.value)
+
+        fails {
+            expect(LocalDate.of(2021, Month.OCTOBER, 9))
+                .month.toEqual(Month.SEPTEMBER.value)
+        }
+    }
+
+    @Test
     fun month() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
             .month {
+                // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
                 toEqual(Month.OCTOBER.value)
                 notToEqual(Month.SEPTEMBER.value)
             }
@@ -38,6 +63,7 @@ class LocalDateExpectationSamples {
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
                 .month {
+                    // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
                     toEqual(Month.SEPTEMBER.value)
                     notToEqual(Month.OCTOBER.value)
                 }
@@ -45,9 +71,21 @@ class LocalDateExpectationSamples {
     }
 
     @Test
+    fun dayOfWeekFeature() {
+        expect(LocalDate.of(2021, Month.OCTOBER, 9))
+            .dayOfWeek.toEqual(DayOfWeek.SATURDAY)
+
+        fails {
+            expect(LocalDate.of(2021, Month.OCTOBER, 9))
+                .dayOfWeek.toEqual(DayOfWeek.MONDAY)
+        }
+    }
+
+    @Test
     fun dayOfWeek() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
             .dayOfWeek {
+                // subject inside this block is of type DayOfWeek (actually SATURDAY)
                 toEqual(DayOfWeek.SATURDAY)
                 notToEqual(DayOfWeek.SUNDAY)
             }
@@ -55,6 +93,7 @@ class LocalDateExpectationSamples {
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
                 .dayOfWeek {
+                    // subject inside this block is of type DayOfWeek (actually SATURDAY)
                     toEqual(DayOfWeek.MONDAY)
                     notToEqual(DayOfWeek.SATURDAY)
                 }
@@ -62,9 +101,21 @@ class LocalDateExpectationSamples {
     }
 
     @Test
+    fun dayFeature() {
+        expect(LocalDate.of(2021, Month.OCTOBER, 9))
+            .day.toEqual(9)
+
+        fails {
+            expect(LocalDate.of(2021, Month.OCTOBER, 9))
+                .day.toEqual(5)
+        }
+    }
+
+    @Test
     fun day() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
             .day {
+                // subject inside this block is of type Int (actually 9)
                 toEqual(9)
                 toBeGreaterThan(5)
             }
@@ -72,6 +123,7 @@ class LocalDateExpectationSamples {
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
                 .day {
+                    // subject inside this block is of type Int (actually 9)
                     toEqual(5)
                     toBeLessThan(7)
                 }
