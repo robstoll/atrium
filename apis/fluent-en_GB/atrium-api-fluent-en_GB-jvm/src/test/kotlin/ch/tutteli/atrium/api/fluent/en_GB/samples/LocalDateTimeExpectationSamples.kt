@@ -10,6 +10,17 @@ import kotlin.test.Test
 class LocalDateTimeExpectationSamples {
 
     @Test
+    fun yearFeature() {
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .year.toEqual(2021)
+
+        fails {
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .year.notToEqual(2021)
+        }
+    }
+
+    @Test
     fun year() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .year {
@@ -22,10 +33,21 @@ class LocalDateTimeExpectationSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .year {
                     // subject inside this block is of type Int (actually 2021)
-                    notToEqual(2022)
+                    notToEqual(2021)
                     toBeGreaterThan(2022)
                     toBeLessThan(2020)
                 }
+        }
+    }
+
+    @Test
+    fun monthFeature() {
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .month.toEqual(Month.OCTOBER.value)
+
+        fails {
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .month.toEqual(Month.SEPTEMBER.value)
         }
     }
 
@@ -49,6 +71,17 @@ class LocalDateTimeExpectationSamples {
     }
 
     @Test
+    fun dayOfWeekFeature() {
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .dayOfWeek.toEqual(DayOfWeek.SATURDAY)
+
+        fails {
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .dayOfWeek.toEqual(DayOfWeek.MONDAY)
+        }
+    }
+
+    @Test
     fun dayOfWeek() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .dayOfWeek {
@@ -64,6 +97,17 @@ class LocalDateTimeExpectationSamples {
                     toEqual(DayOfWeek.MONDAY)
                     notToEqual(DayOfWeek.SATURDAY)
                 }
+        }
+    }
+
+    @Test
+    fun dayFeature() {
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .day.toEqual(9)
+
+        fails {
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .day.toEqual(5)
         }
     }
 
@@ -85,5 +129,4 @@ class LocalDateTimeExpectationSamples {
                 }
         }
     }
-
 }
