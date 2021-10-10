@@ -98,16 +98,16 @@ class DefaultPathAssertions : PathAssertions {
     }.let(block)
 
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, READABLE, true, AccessMode.READ, DescriptionBasic.IS)
+        filePermissionAssertion(container, READABLE, AccessMode.READ, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, WRITABLE, true, AccessMode.WRITE, DescriptionBasic.IS)
+        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, NOT_WRITABLE, false, AccessMode.WRITE, DescriptionBasic.IS_NOT)
+        filePermissionAssertion(container, NOT_WRITABLE, AccessMode.WRITE, DescriptionBasic.IS_NOT, shouldHaveAccess = false)
 
     override fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, EXECUTABLE, true, AccessMode.EXECUTE, DescriptionBasic.IS)
+        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_FILE) { it.isRegularFile }
@@ -127,9 +127,9 @@ class DefaultPathAssertions : PathAssertions {
     private fun <T : Path> filePermissionAssertion(
         container: AssertionContainer<T>,
         permissionName: Translatable,
-        shouldHaveAccess: Boolean,
         accessMode: AccessMode,
-        description: DescriptionBasic
+        description: DescriptionBasic,
+        shouldHaveAccess: Boolean
     ) = container.changeSubject.unreported {
         it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
     }.let { checkAccessResultExpect ->
