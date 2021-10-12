@@ -435,7 +435,7 @@ class PathExpectationSamples {
         }
 
         fails {
-            expect(dir) resolve path("test_file.txt") {
+            expect(dir) resolve path("test_file.ttt") {
                 it toEqual fileInDir // fails
                 it toBe existing     // still evaluated even though `toEqual(fileInDir)` already fails
                 //                      use `.resolve(other).` if you want a fail fast behaviour
