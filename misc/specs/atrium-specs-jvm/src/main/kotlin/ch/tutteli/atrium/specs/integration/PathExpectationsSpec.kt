@@ -651,7 +651,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeWritable) {
         val notToBeWritableFun = notToBeWritable.lambda
-        val expectedMessage = "$isDescr: ${WRITABLE.getDefault()}"
+        val expectedMessage = "$isNotDescr: ${WRITABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -683,7 +683,6 @@ abstract class PathExpectationsSpec(
                     }.toThrow<AssertionError>().message {
                         toContain(
                             expectedMessage,
-                            expectedPermissionTypeHintFor(A_FILE, being = NOT_WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
                         )
@@ -701,7 +700,6 @@ abstract class PathExpectationsSpec(
                     }.toThrow<AssertionError>().message {
                         toContain(
                             expectedMessage,
-                            expectedPermissionTypeHintFor(A_DIRECTORY, being = NOT_WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
                         )
