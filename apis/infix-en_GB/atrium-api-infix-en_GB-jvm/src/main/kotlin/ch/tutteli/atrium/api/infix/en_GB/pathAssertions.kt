@@ -74,6 +74,8 @@ infix fun <T : Path> Expect<T>.endsNotWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toExist
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
@@ -89,6 +91,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToExist
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
@@ -101,6 +105,8 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.extensionFeature
  *
  * @since 0.12.0
  */
@@ -116,6 +122,8 @@ val <T : Path> Expect<T>.extension: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.extension
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -128,6 +136,8 @@ infix fun <T : Path> Expect<T>.extension(assertionCreator: Expect<String>.() -> 
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileNameFeature
  *
  * @since 0.12.0
  */
@@ -143,6 +153,8 @@ val <T : Path> Expect<T>.fileName: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileName
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
@@ -155,6 +167,8 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileNameWithoutExtension
  *
  * @since 0.12.0
  */
@@ -182,6 +196,8 @@ infix fun <T : Path> Expect<T>.fileNameWithoutExtension(assertionCreator: Expect
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.parentFeature
+ *
  * @since 0.12.0
  */
 val <T : Path> Expect<T>.parent: Expect<Path>
@@ -194,6 +210,8 @@ val <T : Path> Expect<T>.parent: Expect<Path>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.parent
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit): Expect<T> =
@@ -205,6 +223,8 @@ infix fun <T : Path> Expect<T>.parent(assertionCreator: Expect<Path>.() -> Unit)
  * so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.resolveFeature
  *
  * @since 0.12.0
  */
@@ -220,6 +240,8 @@ infix fun <T : Path> Expect<T>.resolve(other: String): Expect<Path> =
  *  Use the function `path(String) { ... }` to create a [PathWithCreator].
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.resolve
  *
  * @since 0.12.0
  */
@@ -249,6 +271,8 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeReadable
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
@@ -265,6 +289,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * at the location the link points at.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeWritable
  *
  * @since 0.12.0
  */
@@ -287,6 +313,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeExecutable
+ *
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: executable): Expect<T> =
@@ -306,6 +334,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
  * take place.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeARegularFile
  *
  * @since 0.12.0
  */
@@ -327,6 +357,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeADirectory
+ *
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
@@ -343,7 +375,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeASymbolicLink
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeASymbolicLink
  *
  * @since 0.16.0
  */
@@ -357,6 +389,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink:
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeAbsolute
+ *
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: absolute): Expect<T> =
@@ -368,6 +402,8 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: abso
  * meaning that the [Path] specified in this instance does not start at the file system root.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeRelative
  *
  * @since 0.14.0
  */
@@ -446,7 +482,7 @@ fun directoryEntries(entry: String, vararg otherEntries: String) = DirectoryEntr
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.deprecated.PathAssertionSamples.toBeAnEmptyDirectory
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeAnEmptyDirectory
  *
  * @since 0.16.0
  */
