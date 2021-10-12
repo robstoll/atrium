@@ -12,129 +12,132 @@ class LocalDateExpectationSamples {
     @Test
     fun yearFeature() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .year.toEqual(2021)
-        //  | subject is now of type Int
+            .year // subject is now of type Int (actually 2021)
+            .toEqual(2021)
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .year.notToEqual(2021)
-            //  | subject is now of type Int
+                .year // subject is now of type Int (actually 2021)
+                .toBeGreaterThan(2030)  // fails
+                .toBeLessThan(2000)     // not reported because toBeLessThan already fails
+            //                             use `.year { ... }` if you want that all expectations are evaluated
         }
     }
 
     @Test
     fun year() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .year {
-                // subject inside this block is of type Int (actually 2021)
+            .year { // subject inside this block is of type Int (actually 2021)
                 toEqual(2021)
                 toBeGreaterThan(2020)
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type LocalDate
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .year {
-                    // subject inside this block is of type Int (actually 2021)
-                    notToEqual(2021)
-                    toBeGreaterThan(2022)
-                    toBeLessThan(2020)
-                } // subject here is back to type LocalDateTime
+                .year { // subject inside this block is of type Int (actually 2021)
+                    notToEqual(1980)    // fails
+                    toBeLessThan(2000)  // not reported because notToEqual already fails
+                    //                     use `.year.` if you want a fail fast behaviour
+                } // subject here is back to type LocalDate
         }
     }
 
     @Test
     fun monthFeature() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .month.toEqual(Month.OCTOBER.value)
-        //  | subject is now of type Int
+            .month // subject is now of type Int (actually Month.OCTOBER.value i.e. 10)
+            .toEqual(10)
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .month.toEqual(Month.SEPTEMBER.value)
-            //  | subject is now of type Int
+                .month // subject is now of type Int (actually Month.OCTOBER.value i.e. 10)
+                .toBeLessThan(9)     // fails
+                .toBeGreaterThan(11) // not reported because toBeLessThan already fails
+            //                          use `.month { ... }` if you want that all expectations are evaluated
         }
     }
 
     @Test
     fun month() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .month {
-                // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
-                toEqual(Month.OCTOBER.value)
-                notToEqual(Month.SEPTEMBER.value)
-            } // subject here is back to type LocalDateTime
+            .month { // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
+                toBeGreaterThan(5)
+                notToEqual(9)
+            } // subject here is back to type LocalDate
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .month {
-                    // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
-                    toEqual(Month.SEPTEMBER.value)
-                    notToEqual(Month.OCTOBER.value)
-                } // subject here is back to type LocalDateTime
+                .month { // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
+                    toBeLessThan(9)      // fails
+                    toBeGreaterThan(11)  // still evaluated even though `toBeLessThan(9)` already fails
+                    //                      use `.month.` if you want a fail fast behaviour
+                } // subject here is back to type LocalDate
         }
     }
 
     @Test
     fun dayOfWeekFeature() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .dayOfWeek.toEqual(DayOfWeek.SATURDAY)
-        //  | subject is now of type DayOfWeek
+            .dayOfWeek // subject is now of type DayOfWeek (actually SATURDAY)
+            .toEqual(DayOfWeek.SATURDAY)
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .dayOfWeek.toEqual(DayOfWeek.MONDAY)
-            //  | subject is now of type DayOfWeek
+                .dayOfWeek // subject is now of type DayOfWeek (actually SATURDAY)
+                .toEqual(DayOfWeek.MONDAY)       // fails
+                .notToEqual(DayOfWeek.SATURDAY)  // not reported because toEqual already fails
+            //                                      use `.dayOfWeek { ... }` if you want that all expectations are evaluated
         }
     }
 
     @Test
     fun dayOfWeek() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .dayOfWeek {
-                // subject inside this block is of type DayOfWeek (actually SATURDAY)
+            .dayOfWeek { // subject inside this block is of type DayOfWeek (actually SATURDAY)
                 toEqual(DayOfWeek.SATURDAY)
                 notToEqual(DayOfWeek.SUNDAY)
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type LocalDate
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .dayOfWeek {
-                    // subject inside this block is of type DayOfWeek (actually SATURDAY)
-                    toEqual(DayOfWeek.MONDAY)
-                    notToEqual(DayOfWeek.SATURDAY)
-                } // subject here is back to type LocalDateTime
+                .dayOfWeek { // subject inside this block is of type DayOfWeek (actually SATURDAY)
+                    toEqual(DayOfWeek.MONDAY)       // fails
+                    notToEqual(DayOfWeek.SATURDAY)  // still evaluated even though toEqual already fails
+                    //                                 use `.dayOfWeek.` if you want a fail fast behaviour
+                } // subject here is back to type LocalDate
         }
     }
 
     @Test
     fun dayFeature() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .day.toEqual(9)
-        //  | subject is now of type Int
+            .day // subject is now of type Int (actually 9)
+            .toEqual(9)
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .day.toEqual(5)
-            //  | subject is now of type Int
+                .day // subject is now of type Int (actually 9)
+                .toEqual(5)          // fails
+                .toBeGreaterThan(10) // not reported because toEqual already fails
+            //                          use `.day { ... }` if you want that all expectations are evaluated
         }
     }
 
     @Test
     fun day() {
         expect(LocalDate.of(2021, Month.OCTOBER, 9))
-            .day {
-                // subject inside this block is of type Int (actually 9)
+            .day { // subject inside this block is of type Int (actually 9)
                 toEqual(9)
                 toBeGreaterThan(5)
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type LocalDate
 
         fails {
             expect(LocalDate.of(2021, Month.OCTOBER, 9))
-                .day {
-                    // subject inside this block is of type Int (actually 9)
-                    toEqual(5)
-                    toBeLessThan(7)
-                } // subject here is back to type LocalDateTime
+                .day { // subject inside this block is of type Int (actually 9)
+                    toEqual(5)       // fails
+                    toBeLessThan(7)  // still evaluated even though toEqual already fails
+                    //                  use `.day.` if you want a fail fast behaviour
+                } // subject here is back to type LocalDate
         }
     }
 

@@ -1,21 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries
-import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
-import ch.tutteli.atrium.api.infix.en_GB.fileName
-import ch.tutteli.atrium.api.infix.en_GB.fileNameWithoutExtension
-import ch.tutteli.atrium.api.infix.en_GB.notToEqual
-import ch.tutteli.atrium.api.infix.en_GB.parent
-import ch.tutteli.atrium.api.infix.en_GB.toEndWith
-import ch.tutteli.atrium.api.infix.en_GB.toStartWith
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
-import javax.swing.filechooser.FileSystemView
 import kotlin.test.Test
 
 class PathExpectationSamples {
@@ -243,10 +233,18 @@ class PathExpectationSamples {
 
         val emptyFilePath = tempDir.newFile("test_file_3")
 
-        expect(notEmptyFilePath) toHaveTheSameTextualContentAs withEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
+        expect(notEmptyFilePath) toHaveTheSameTextualContentAs withEncoding(
+            expectedFilePath,
+            Charsets.UTF_8,
+            Charsets.UTF_8
+        )
 
         fails { // because nothing is written inside of `emptyFilePath`
-            expect(emptyFilePath) toHaveTheSameTextualContentAs withEncoding(expectedFilePath, Charsets.UTF_8, Charsets.UTF_8)
+            expect(emptyFilePath) toHaveTheSameTextualContentAs withEncoding(
+                expectedFilePath,
+                Charsets.UTF_8,
+                Charsets.UTF_8
+            )
         }
     }
 
@@ -272,15 +270,15 @@ class PathExpectationSamples {
         val extension = "txt"
         val dir = tempDir.newFile("test_file.$extension")
 
-        expect(dir).extension notToBe empty toEqual extension notToEndWith("jpg")
+        expect(dir).extension notToBe empty toEqual extension notToEndWith ("jpg")
         //          | subject is now of type String (actually "txt")
 
         fails {
             expect(dir).extension toEqual "txtt" toEndWith "jpg"
-            //          | subject is now of type String (actually "txt")
+            //          |           |              | not reported because toEqual already fails
+            //          |           |              | use `extension { ... }` if you want that all expectations are evaluated
             //          |           | fails because it doesn't equal to "txtt"
-            //          |                       | not reported
-            //          | use `.extension` if you want that all expectations are evaluated
+            //          | subject is now of type String (actually "txt")
         }
     }
 
@@ -290,18 +288,18 @@ class PathExpectationSamples {
         val dir = tempDir.newDirectory("test.$extension")
 
 
-        expect(dir) extension { // subject is now of type String (actually "txt")
+        expect(dir) extension { // subject inside this block is of type String (actually "txt")
             it notToBe empty
             it toEqual extension
             it notToEndWith "jpg"
-        }
+        } // subject here is back to type Path
 
         fails {
-            expect(dir) extension { // subject is now of type String (actually "txt")
+            expect(dir) extension { // subject inside this block is of type String (actually "txt")
                 it toEqual "txtt"     // fails because it doesn't equal to "txtt"
                 it toEndWith "jpg"    // fails because it doesn't end with "jpg"
-                //                     use `.extension` if you want fail fast behaviour
-            }
+                //                       use `.extension` if you want fail fast behaviour
+            } // subject here is back to type Path
         }
     }
 
@@ -314,10 +312,10 @@ class PathExpectationSamples {
 
         fails {
             expect(dir).fileName toEndWith "foo" toStartWith "invalid"
-            //          |       |               | not reported
-            //          |       | fails because it does not end with "foo"
+            //          |          |               | not reported
+            //          |          |               | use `fileName {...}` if you want that all expectations are evaluated
+            //          |          | fails because it does not end with "foo"
             //          | subject is now of type String (actually "test_dir")
-            //          | use `fileName {...}` if you want that all expectations are evaluated
         }
     }
 
@@ -325,18 +323,18 @@ class PathExpectationSamples {
     fun fileName() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir) fileName { // subject is now of type String (actually "test_dir")
+        expect(dir) fileName { // subject inside this block is of type String (actually "test_dir")
             it toEndWith "dir"
             it toStartWith "test"
             it notToBe blank
-        }
+        } // subject here is back to type Path
 
         fails {
-            expect(dir) fileName {
+            expect(dir) fileName {        // subject inside this block is of type String (actually "test_dir")
                 it toEndWith "foo"        // fails because it does not end with "foo"
-                it toStartWith "invalid"  // still evaluated even though `toEndWith("foo")` already fails
-                //                         use `.fileName` if you want fail fast behaviour
-            }
+                it toStartWith "invalid"  // still evaluated even though toEndWith already fails
+                //                           use `.fileName` if you want fail fast behaviour
+            }  // subject here is back to type Path
         }
     }
 
@@ -348,10 +346,10 @@ class PathExpectationSamples {
 
         fails {
             expect(dir).fileNameWithoutExtension toBe empty notToEqual "test_dir"
-            //          |                           |       | not reported toBeEmpty already fails
-            //          |                           | fails because string is not empty
-            //          | subject is now of type String (actually "test_dir")
-            // use `.fileNameWithoutExtension { ... }` if you want that all expectations are evaluated
+            //            |                        |          | not reported toBeEmpty already fails
+            //            |                        |          | use `.fileNameWithoutExtension { ... }` if you want that all expectations are evaluated
+            //            |                        | fails because string is not empty
+            //            | subject is now of type String (actually "test_dir")
         }
     }
 
@@ -359,13 +357,13 @@ class PathExpectationSamples {
     fun fileNameWithoutExtension() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir) fileNameWithoutExtension { // subject is now of type String (actually "test_dir")
+        expect(dir) fileNameWithoutExtension { // subject inside this block is of type String (actually "test_dir")
             it notToBe empty
             it toEqual "test_dir"
         }
 
-        fails {                                     // because fileNameWithoutExtension equals `test_dir`
-            expect(dir) fileNameWithoutExtension {  // subject is now of type String (actually "test_dir")
+        fails {
+            expect(dir) fileNameWithoutExtension {  // subject inside this block is of type String (actually "test_dir")
                 it toBe empty                       // fails because string is not empty
                 it notToEqual "test_dir"            // still evaluated even though `toBeEmpty()` already fails
                 //                                     use `.fileNameWithoutExtension` if you want a fail fast behaviour
@@ -382,10 +380,10 @@ class PathExpectationSamples {
 
         fails {
             val dir3 = dir2.newDirectory("test_dir")
-            expect(dir).parent toEqual(dir3) notToBe existing
-            //                  |           | not reported `toEqual(dir3)` already fails
-            //                  | fails because dir3 and dir does not have same parents
-            // use `.parent { ... }` if you want that all expectations are evaluated
+            expect(dir).parent toEqual (dir3) notToBe existing
+            //                   |              | not reported `toEqual(dir3)` already fails
+            //                   |              | use `.parent { ... }` if you want that all expectations are evaluated
+            //                   | fails because dir3 and dir do not have same parents
         }
     }
 
@@ -394,17 +392,17 @@ class PathExpectationSamples {
         val dir = tempDir.newDirectory("test_dir_1")
         val dir2 = tempDir.newDirectory("test_dir_2")
 
-        expect(dir) parent {
+        expect(dir) parent { // subject inside this block refers to path corresponding to `test_dir_1/..`
             it toEqual dir2.parent
             it toBe existing
-        }
+        } // subject here is back to `test_dir_1`
 
         fails {
             val dir3 = dir2.newDirectory("test_dir")
             expect(dir) parent {
-                it toEqual dir3 // fails because dir3 and dir does not have same parents
-                it notToBe existing  // still evaluated even though `toEqual(dir3)` already fails
-                //               use `.parent` if you want a fail fast behaviour
+                it toEqual dir3     // fails because dir3 and dir do not have same parents
+                it notToBe existing // still evaluated even though `toEqual(dir3)` already fails
+                //                     use `.parent` if you want a fail fast behaviour
             }
         }
     }
@@ -415,12 +413,14 @@ class PathExpectationSamples {
         val fileInDir = dir.newFile("test_file.txt")
 
         expect(dir) resolve "test_file.txt" toEqual fileInDir toEndWith Paths.get("test_file.txt")
+        //            | subject changes to `test_dir/test_file.txt`
 
         fails {
             expect(dir) resolve "test_file.ttt" toEqual fileInDir toEndWith Paths.get("ttt")
-            //          |                       |                 |  not reported `toEqual(fileInDir)` already fails
-            //          |                       | fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
-            //          | use `resolve other { ... }` if you want that all expectations are evaluated
+            //           |                        |                 | not reported toEqual already fails
+            //           |                        |                 | use `resolve path(other) { ... }` if you want that all expectations are evaluated
+            //           |                        | fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
+
         }
     }
 
@@ -429,16 +429,16 @@ class PathExpectationSamples {
         val dir = tempDir.newDirectory("test_dir")
         val fileInDir = dir.newFile("test_file.txt")
 
-        expect(dir) resolve path("test_file.txt") {
+        expect(dir) resolve path("test_file.txt") { // subject inside this block refers to `test_dir/test_file.txt`
             it toEqual fileInDir
             it toBe existing
-        }
+        } // subject here is back to `test_dir`
 
         fails {
             expect(dir) resolve path("test_file.ttt") {
                 it toEqual fileInDir // fails
                 it toBe existing     // still evaluated even though `toEqual(fileInDir)` already fails
-                //                      use `.resolve(other).` if you want a fail fast behaviour
+                //                      use `.resolve other` if you want a fail fast behaviour
             }
         }
     }

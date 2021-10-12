@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.workaround.it
 import ch.tutteli.atrium.api.verbs.internal.expect
 import java.time.DayOfWeek
 import java.time.LocalDateTime
@@ -12,12 +11,17 @@ class LocalDateTimeExpectationSamples {
 
     @Test
     fun yearFeature() {
-        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).year toEqual 2021
-        //                                                      | subject is now of type Int
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .year toEqual 2021
+        //    | subject is now of type Int (actually 2021)
 
         fails {
-            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).year toEqual 2022
-            //                                                      | subject is now of type Int
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .year toEqual 2022 toBeLessThan 2000
+            //    |     |            | not reported because notToEqual already fails
+            //    |     |            | use `year { ... }` if you want that all expectations are evaluated
+            //    |     | fails
+            //    | subject is now of type Int (actually 2021)
         }
     }
 
@@ -32,9 +36,9 @@ class LocalDateTimeExpectationSamples {
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) year {
                 // subject inside this block is of type Int (actually 2021)
-                it notToEqual 2021
-                it toBeGreaterThan 2022
-                it toBeLessThan 2020
+                it notToEqual 2021       // fails
+                it toBeGreaterThan 2022  // not reported because notToEqual already fails
+                //                          use `.year.` if you want a fail fast behaviour
             } // subject here is back to type LocalDateTime
         }
     }
@@ -43,12 +47,15 @@ class LocalDateTimeExpectationSamples {
     fun monthFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .month toEqual Month.OCTOBER.value
-        //  | subject is now of type Int
+        //    | subject is now of type Int (actually Month.OCTOBER.value i.e. 10)
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
-                .month toEqual Month.SEPTEMBER.value
-            //  | subject is now of type Int
+                .month toBeLessThan 9 toBeGreaterThan 11
+            //    |     |              | not reported because toBeLessThan already fails
+            //    |     |              | use `month { ... }` if you want that all expectations are evaluated
+            //    |     | fails
+            //    | subject is now of type Int (actually Month.OCTOBER.value i.e. 10)
         }
     }
 
@@ -63,8 +70,9 @@ class LocalDateTimeExpectationSamples {
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) month {
                 // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
-                it toEqual Month.SEPTEMBER.value
-                it notToEqual Month.OCTOBER.value
+                it toBeLessThan 9      // fails
+                it toBeGreaterThan 11  // still evaluated even though toBeLessThan already fails
+                //                        use `.month` if you want a fail fast behaviour
             } // subject here is back to type LocalDateTime
         }
     }
@@ -73,12 +81,15 @@ class LocalDateTimeExpectationSamples {
     fun dayOfWeekFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .dayOfWeek toEqual DayOfWeek.SATURDAY
-        //  | subject is now of type DayOfWeek
+        //    | subject is now of type DayOfWeek (actually SATURDAY)
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .dayOfWeek toEqual DayOfWeek.MONDAY
-            //  | subject is now of type DayOfWeek
+            //    |          |              | not reported because toEqual already fails
+            //    |          |              | use `dayOfWeek { ... }` if you want that all expectations are evaluated
+            //    |          | fails
+            //    | subject is now of type DayOfWeek (actually SATURDAY)
         }
     }
 
@@ -93,20 +104,26 @@ class LocalDateTimeExpectationSamples {
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) dayOfWeek {
                 // subject inside this block is of type DayOfWeek (actually SATURDAY)
-                it toEqual DayOfWeek.MONDAY
-                it notToEqual DayOfWeek.SATURDAY
+                it toEqual DayOfWeek.MONDAY       // fails
+                it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
+                //                                   use `.dayOfWeek.` if you want a fail fast behaviour
             } // subject here is back to type LocalDateTime
         }
     }
 
     @Test
     fun dayFeature() {
-        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).day toEqual 9
-        //                                                      | subject is now of type DayOfWeek
+        expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+            .day toEqual 9
+        //    | subject is now of type Int (actually 9)
 
         fails {
-            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).day toEqual 5
-            //                                                      | subject is now of type DayOfWeek
+            expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+                .day toEqual 5 toBeGreaterThan 10
+            //    |    |         | not reported because toEqual already fails
+            //    |    |         | use `day { ... }` if you want that all expectations are evaluated
+            //    |    | fails
+            //    | subject is now of type Int (actually 9)
         }
     }
 
@@ -121,8 +138,9 @@ class LocalDateTimeExpectationSamples {
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) day {
                 // subject inside this block is of type Int (actually 9)
-                it toEqual 5
-                it toBeLessThan 7
+                it toEqual 5       // fails
+                it toBeLessThan 7  // still evaluated even though toEqual already fails
+                //                    use `.day` if you want a fail fast behaviour
             } // subject here is back to type LocalDateTime
         }
     }

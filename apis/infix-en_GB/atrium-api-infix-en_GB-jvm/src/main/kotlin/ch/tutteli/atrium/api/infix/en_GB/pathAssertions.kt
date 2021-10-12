@@ -168,7 +168,7 @@ infix fun <T : Path> Expect<T>.fileName(assertionCreator: Expect<String>.() -> U
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileNameWithoutExtension
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileNameWithoutExtensionFeature
  *
  * @since 0.12.0
  */
@@ -183,6 +183,8 @@ val <T : Path> Expect<T>.fileNameWithoutExtension: Expect<String>
  * and returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.fileNameWithoutExtension
  *
  * @since 0.12.0
  */
