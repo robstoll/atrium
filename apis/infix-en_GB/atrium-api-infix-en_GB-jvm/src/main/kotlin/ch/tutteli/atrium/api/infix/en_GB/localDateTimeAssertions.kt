@@ -17,6 +17,8 @@ import java.time.LocalDateTime
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.yearFeature
+ *
  * @since 0.12.0
  */
 val Expect<LocalDateTime>.year: Expect<Int>
@@ -29,6 +31,8 @@ val Expect<LocalDateTime>.year: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.year
+ *
  * @since 0.12.0
  */
 infix fun Expect<LocalDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDateTime> =
@@ -39,6 +43,8 @@ infix fun Expect<LocalDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): 
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.monthFeature
  *
  * @since 0.12.0
  */
@@ -52,6 +58,8 @@ val Expect<LocalDateTime>.month: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.month
+ *
  * @since 0.12.0
  */
 infix fun Expect<LocalDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<LocalDateTime> =
@@ -62,6 +70,8 @@ infix fun Expect<LocalDateTime>.month(assertionCreator: Expect<Int>.() -> Unit):
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.dayOfWeekFeature
  *
  * @since 0.12.0
  */
@@ -75,6 +85,8 @@ val Expect<LocalDateTime>.dayOfWeek: Expect<DayOfWeek>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.dayOfWeek
+ *
  * @since 0.12.0
  */
 infix fun Expect<LocalDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<LocalDateTime> =
@@ -85,6 +97,8 @@ infix fun Expect<LocalDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.()
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.dayFeature
  *
  * @since 0.12.0
  */
@@ -97,6 +111,8 @@ val Expect<LocalDateTime>.day: Expect<Int>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.LocalDateTimeExpectationSamples.day
  *
  * @since 0.12.0
  */
