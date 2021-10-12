@@ -27,7 +27,7 @@ class LocalDateTimeExpectationSamples {
                 // subject inside this block is of type Int (actually 2021)
                 toEqual(2021)
                 toBeGreaterThan(2020)
-            }
+            } // subject here is back to type LocalDateTime
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
@@ -36,7 +36,7 @@ class LocalDateTimeExpectationSamples {
                     notToEqual(2021)
                     toBeGreaterThan(2022)
                     toBeLessThan(2020)
-                }
+                } // subject here is back to type LocalDateTime
         }
     }
 
@@ -58,7 +58,7 @@ class LocalDateTimeExpectationSamples {
                 // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
                 toEqual(Month.OCTOBER.value)
                 notToEqual(Month.SEPTEMBER.value)
-            }
+            } // subject here is back to type LocalDateTime
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
@@ -66,7 +66,7 @@ class LocalDateTimeExpectationSamples {
                     // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
                     toEqual(Month.SEPTEMBER.value)
                     notToEqual(Month.OCTOBER.value)
-                }
+                } // subject here is back to type LocalDateTime
         }
     }
 
@@ -88,7 +88,7 @@ class LocalDateTimeExpectationSamples {
                 // subject inside this block is of type DayOfWeek (actually SATURDAY)
                 toEqual(DayOfWeek.SATURDAY)
                 notToEqual(DayOfWeek.SUNDAY)
-            }
+            } // subject here is back to type LocalDateTime
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
@@ -96,7 +96,7 @@ class LocalDateTimeExpectationSamples {
                     // subject inside this block is of type DayOfWeek (actually SATURDAY)
                     toEqual(DayOfWeek.MONDAY)
                     notToEqual(DayOfWeek.SATURDAY)
-                }
+                } // subject here is back to type LocalDateTime
         }
     }
 
@@ -118,7 +118,7 @@ class LocalDateTimeExpectationSamples {
                 // subject inside this block is of type Int (actually 9)
                 toEqual(9)
                 toBeGreaterThan(5)
-            }
+            } // subject here is back to type LocalDateTime
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
@@ -126,7 +126,7 @@ class LocalDateTimeExpectationSamples {
                     // subject inside this block is of type Int (actually 9)
                     toEqual(5)
                     toBeLessThan(7)
-                }
+                } // subject here is back to type LocalDateTime
         }
     }
 }
