@@ -142,8 +142,8 @@ class PathExpectationSamples {
 
         fails {
             expect(dir) resolve "test_file.ttt" toEqual fileInDir toEndWith Paths.get("ttt")
-            //                                                    |  not reported `toEqual(fileInDir)` already fails
-            //                                  | fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
+            //          |                       |                 |  not reported `toEqual(fileInDir)` already fails
+            //          |                       | fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
             //          | use `resolve other { ... }` if you want that all expectations are evaluated
         }
     }
