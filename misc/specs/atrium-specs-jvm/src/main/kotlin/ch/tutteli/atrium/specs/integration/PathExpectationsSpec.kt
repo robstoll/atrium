@@ -673,7 +673,6 @@ abstract class PathExpectationsSpec(
         }
 
         context("writable") {
-            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rwx g= o=x")
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
 
@@ -681,11 +680,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            expectedMessage,
-                            expectedPermissionHint,
-                            expectedPosixOwnerAndGroupHintFor(file)
-                        )
+                        toContain(expectedMessage)
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -698,11 +693,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            expectedMessage,
-                            expectedPermissionHint,
-                            expectedPosixOwnerAndGroupHintFor(folder)
-                        )
+                        toContain(expectedMessage)
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -748,16 +739,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeWritable()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            expectedMessage,
-                            expectedAclOwnerHintFor(file),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
-                        )
-                        toContainRegex(
-                            file.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
-                            file.expectedAclEntryPartFor("ALLOW", "WRITE_DATA"),
-                            file.expectedAclEntryPartFor("ALLOW", "EXECUTE")
-                        )
+                        toContain(expectedMessage)
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -769,16 +751,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            expectedMessage,
-                            expectedAclOwnerHintFor(folder),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
-                        )
-                        toContainRegex(
-                            folder.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
-                            folder.expectedAclEntryPartFor("ALLOW", "WRITE_DATA"),
-                            folder.expectedAclEntryPartFor("ALLOW", "EXECUTE")
-                        )
+                        toContain(expectedMessage)
                         containsExplanationFor(maybeLink)
                     }
                 }
