@@ -13,9 +13,11 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun yearFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).year toEqual 2021
+        //                                                      | subject is now of type Int
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).year toEqual 2022
+            //                                                      | subject is now of type Int
         }
     }
 
@@ -41,10 +43,12 @@ class LocalDateTimeExpectationSamples {
     fun monthFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .month toEqual Month.OCTOBER.value
+        //  | subject is now of type Int
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .month toEqual Month.SEPTEMBER.value
+            //  | subject is now of type Int
         }
     }
 
@@ -69,10 +73,12 @@ class LocalDateTimeExpectationSamples {
     fun dayOfWeekFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
             .dayOfWeek toEqual DayOfWeek.SATURDAY
+        //  | subject is now of type DayOfWeek
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .dayOfWeek toEqual DayOfWeek.MONDAY
+            //  | subject is now of type DayOfWeek
         }
     }
 
@@ -96,9 +102,11 @@ class LocalDateTimeExpectationSamples {
     @Test
     fun dayFeature() {
         expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).day toEqual 9
+        //                                                      | subject is now of type DayOfWeek
 
         fails {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)).day toEqual 5
+            //                                                      | subject is now of type DayOfWeek
         }
     }
 
