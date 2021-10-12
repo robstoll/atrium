@@ -750,7 +750,6 @@ abstract class PathExpectationsSpec(
                     }.toThrow<AssertionError>().message {
                         toContain(
                             expectedMessage,
-                            expectedPermissionTypeHintFor(A_FILE, being = NOT_WRITABLE),
                             expectedAclOwnerHintFor(file),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )
@@ -772,7 +771,6 @@ abstract class PathExpectationsSpec(
                     }.toThrow<AssertionError>().message {
                         toContain(
                             expectedMessage,
-                            expectedPermissionTypeHintFor(A_DIRECTORY, being = NOT_WRITABLE),
                             expectedAclOwnerHintFor(folder),
                             HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
                         )

@@ -134,7 +134,10 @@ class DefaultPathAssertions : PathAssertions {
         it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
     }.let { checkAccessResultExpect ->
         assertionBuilder.descriptive
-            .withTest(checkAccessResultExpect) { it is Success == shouldHaveAccess }
+            .withTest(checkAccessResultExpect) {
+                if (shouldHaveAccess) it is Success
+                else it is Failure && it.exception is AccessDeniedException
+            }
             .withHelpOnIOExceptionFailure(checkAccessResultExpect) { realPath, exception ->
                 when (exception) {
                     is AccessDeniedException -> findHintForProblemWithParent(realPath)
