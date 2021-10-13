@@ -10,7 +10,7 @@ class ZonedDateTimeExpectationSamples {
     @Test
     fun yearFeature() {
         expect(ZonedDateTime.of(LocalDateTime.of(2021, 10, 9, 11, 56), ZoneId.systemDefault()))
-            .year
+            .year // subject is now of type Int (actually 2021)
             .toEqual(2021)
 
         fails {
