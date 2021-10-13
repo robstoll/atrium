@@ -144,7 +144,9 @@ infix fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): E
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToBeWritable
+ *
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
-    _logicAppend { isWritable() }
+    _logicAppend { isNotWritable() }
