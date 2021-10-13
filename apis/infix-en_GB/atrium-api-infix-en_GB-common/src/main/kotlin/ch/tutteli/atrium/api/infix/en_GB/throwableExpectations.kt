@@ -18,6 +18,8 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.messageToContain
+ *
  * @since 0.17.0
  */
 infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNumberOrChar): Expect<T> =
@@ -34,6 +36,8 @@ infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNum
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.messageFeature
  *
  * @since 0.17.0
  */

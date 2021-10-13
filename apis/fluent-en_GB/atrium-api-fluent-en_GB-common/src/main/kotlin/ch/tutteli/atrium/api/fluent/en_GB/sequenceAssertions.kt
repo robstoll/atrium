@@ -12,6 +12,8 @@ import ch.tutteli.atrium.logic.changeSubject
  * Use `feature(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asIterableFeature
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
     _logic.changeSubject.unreported { it.asIterable() }
@@ -24,6 +26,8 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
  * Use `feature(Sequence::asIterable, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asIterable
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
     apply { asIterable()._logic.appendAsGroup(assertionCreator) }
@@ -37,6 +41,8 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<
  * @return The newly created [Expect] for the transformed subject.
  *
  * @since 0.14.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asListFeature
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
@@ -50,6 +56,8 @@ fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asList
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
     apply { asList()._logic.appendAsGroup(assertionCreator) }

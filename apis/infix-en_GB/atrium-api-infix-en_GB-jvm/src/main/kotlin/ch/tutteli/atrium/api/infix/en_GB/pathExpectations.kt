@@ -16,6 +16,8 @@ import java.nio.file.Path
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toStartWith
+ *
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
@@ -25,6 +27,8 @@ infix fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
  * Expects that the subject of `this` expectation (a [Path]) does not start with the [expected] [Path].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToStartWith
  *
  * @since 0.17.0
  */
@@ -36,6 +40,8 @@ infix fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toEndWith
+ *
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
@@ -46,6 +52,8 @@ infix fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
  *
  * @param expected The [Path] provided to the assertion
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToEndWith
  *
  * @since 0.17.0
  */
@@ -70,6 +78,8 @@ infix fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
  * @see [directoryEntries]
  * @see [hasDirectoryEntry]
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHaveTheDirectoryEntries
+ *
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toHave(directoryEntries: DirectoryEntries) =
@@ -80,6 +90,8 @@ infix fun <T : Path> Expect<T>.toHave(directoryEntries: DirectoryEntries) =
  * as [targetPath] (using UTF-8 for encoding)
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHaveTheSameTextualContentAs
  *
  * @since 0.17.0
  */
@@ -95,7 +107,9 @@ infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.17.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHaveTheSameTextualContentAsPathWithEncoding
+ *
+@since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(pathWithEncoding: PathWithEncoding): Expect<T> =
     _logicAppend {
@@ -107,6 +121,8 @@ infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(pathWithEncoding: P
  * as [targetPath].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toHaveTheSameBinaryContentAs
  *
  * @since 0.17.0
  */
