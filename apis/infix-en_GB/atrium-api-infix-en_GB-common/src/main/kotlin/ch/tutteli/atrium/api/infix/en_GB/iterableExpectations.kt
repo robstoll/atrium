@@ -18,6 +18,8 @@ import ch.tutteli.kbox.identity
  *
  * @return The newly created builder.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainBuilder
+ *
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.toContain(
@@ -32,6 +34,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContain(
  *
  * @return The newly created builder.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToContainBuilder
+ *
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.notToContain(
@@ -44,6 +48,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(
  * It is a shortcut for `toContain o inAny order atLeast 1 value expected`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainValue
  *
  * @since 0.17.0
  */
@@ -70,6 +76,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContain(expected: E): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainValues
+ *
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.toContain(values: Values<E>): Expect<T> =
@@ -87,6 +95,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContain(values: Values<E>): Expect<T>
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainAssertion
  *
  * @since 0.17.0
  */
@@ -107,6 +117,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContain(assertionCreatorOrNull
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainAssertions
+ *
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContain(entries: Entries<E>): Expect<T> =
@@ -119,6 +131,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContain(entries: Entries<E>): 
  * It is a shortcut for `toContain o inGiven order and only value expected`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyValue
  *
  * @since 0.17.0
  */
@@ -139,6 +153,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(expected: E): Expect<T
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyValues
  *
  * @since 0.17.0
  */
@@ -161,6 +177,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(values: Values<E>): Ex
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyAssertion
  *
  * @since 0.17.0
  */
@@ -187,6 +205,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyAssertions
+ *
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(entries: Entries<E>): Expect<T> =
@@ -204,6 +224,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(entries: Entrie
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
  * or the given [expectedIterableLike] does not have elements (is empty).
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyElementsOf
  *
  * @since 0.17.0
  */
@@ -224,6 +246,8 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainExactlyElements
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types
  * or the given [expectedIterableLike] does not have elements (is empty).
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainElementsOf
+ *
  * @since 0.17.0
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainElementsOf(
@@ -237,6 +261,8 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainElementsOf(
  * It is a shortcut for `notToContain o value expected`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToContainValue
  *
  * @since 0.17.0
  */
@@ -254,6 +280,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToContain
+ *
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.notToContain(values: Values<E>): Expect<T> =
@@ -264,6 +292,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(values: Values<E>): Expect
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElements
+ *
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
@@ -273,6 +303,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") el
  * Expects that the subject of `this` expectation (an [Iterable]) does not have next element.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToHaveElements
  *
  * @since 0.17.0
  */
@@ -289,6 +321,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER")
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElementsAndAny
+ *
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
@@ -304,6 +338,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAny(assertionCr
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElementsAndNone
+ *
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
@@ -316,6 +352,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionC
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElementsAndAll
+ *
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
@@ -326,6 +364,8 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCr
  * Expects that the subject of `this` expectation (an [Iterable]) does not have duplicate elements.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElementsAndNoDuplicates
  *
  * @since 0.17.0
  */
