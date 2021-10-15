@@ -666,10 +666,6 @@ abstract class PathExpectationsSpec(
                     containsExplanationFor(maybeLink)
                 }
             }
-
-            itPrintsFileAccessProblemDetails { testFile ->
-                expect(testFile).notToBeWritableFun()
-            }
         }
 
         context("POSIX: writable", skip = ifPosixNotSupported) {
