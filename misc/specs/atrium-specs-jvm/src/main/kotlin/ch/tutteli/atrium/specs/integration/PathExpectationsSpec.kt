@@ -672,7 +672,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("writable") {
+        context("POSIX: writable", skip = ifPosixNotSupported) {
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
 
@@ -681,7 +681,6 @@ abstract class PathExpectationsSpec(
                         expect(file).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
-                        containsExplanationFor(maybeLink)
                     }
                 }
             }
@@ -694,7 +693,6 @@ abstract class PathExpectationsSpec(
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
-                        containsExplanationFor(maybeLink)
                     }
                 }
             }
@@ -740,7 +738,6 @@ abstract class PathExpectationsSpec(
                         expect(file).notToBeWritable()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
-                        containsExplanationFor(maybeLink)
                     }
                 }
             }
@@ -752,7 +749,6 @@ abstract class PathExpectationsSpec(
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
-                        containsExplanationFor(maybeLink)
                     }
                 }
             }
