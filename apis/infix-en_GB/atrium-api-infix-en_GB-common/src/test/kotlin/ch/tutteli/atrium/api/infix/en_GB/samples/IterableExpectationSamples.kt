@@ -177,7 +177,7 @@ class IterableExpectationSamples {
     }
 
     @Test
-    fun notToContain() {
+    fun notToContainValues() {
         expect(listOf("A", "B", "C")) notToContain values("D", "E")
 
         fails {
