@@ -2,17 +2,20 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
-import javax.swing.filechooser.FileSystemView
+import java.nio.file.attribute.PosixFilePermissions
+import java.nio.file.attribute.PosixFilePermissions.asFileAttribute
 import kotlin.test.Test
 
 class PathExpectationSamples {
 
     private val tempDir = Files.createTempDirectory("PathAssertionSamples")
+
+    private val ifPosixSupported = fileSystemSupportsPosixPermissions()
 
     @Test
     fun toBeASymbolicLink() {
@@ -126,6 +129,26 @@ class PathExpectationSamples {
 
         fails {
             expect(Paths.get("invalid_dir")).toBeWritable()
+        }
+    }
+
+    @Test
+    fun notToBeWritable() {
+        assertIf(ifPosixSupported) {
+            val readyOnlyPermissions = PosixFilePermissions.fromString("r--r--r--")
+            val readyWritePermissions = PosixFilePermissions.fromString("rw-r--r--")
+            val readOnlyDir = tempDir.newDirectory("read_only_dir", asFileAttribute(readyOnlyPermissions))
+            val readWriteDir = tempDir.newDirectory("read_write_dir", asFileAttribute(readyWritePermissions))
+
+            expect(readOnlyDir).notToBeWritable()
+
+            fails {
+                expect(readWriteDir).notToBeWritable()
+            }
+        }
+
+        fails {
+            expect(Paths.get("invalid_dir")).notToBeWritable()
         }
     }
 

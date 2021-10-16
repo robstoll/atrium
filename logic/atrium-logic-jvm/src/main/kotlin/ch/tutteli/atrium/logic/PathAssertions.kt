@@ -26,6 +26,7 @@ interface PathAssertions {
 
     fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion
     fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion

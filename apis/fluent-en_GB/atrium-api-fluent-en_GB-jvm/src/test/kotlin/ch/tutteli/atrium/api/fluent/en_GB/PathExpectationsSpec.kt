@@ -14,6 +14,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun1(Expect<Path>::notToEndWith),
     fun0(Expect<Path>::toBeReadable),
     fun0(Expect<Path>::toBeWritable),
+    fun0(Expect<Path>::notToBeWritable),
     fun0(Expect<Path>::toBeExecutable),
     fun0(Expect<Path>::toBeARegularFile),
     fun0(Expect<Path>::toBeADirectory),

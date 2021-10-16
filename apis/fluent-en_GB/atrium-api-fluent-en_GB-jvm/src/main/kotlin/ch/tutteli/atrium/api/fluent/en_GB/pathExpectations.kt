@@ -133,6 +133,23 @@ fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
 fun <T : Path> Expect<T>.toBeWritable(): Expect<T> =
     _logicAppend { isWritable() }
 
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is not writable;
+ * meaning that there is a file system entry at the location the [Path] points to and
+ * that the current thread does not have the permission to write to it.
+ *
+ * This assertion _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue
+ * at the location the link points at.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.notToBeWritable
+ *
+ * @since 0.17.0
+ */
+fun <T : Path> Expect<T>.notToBeWritable(): Expect<T> =
+    _logicAppend { isNotWritable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is executable;

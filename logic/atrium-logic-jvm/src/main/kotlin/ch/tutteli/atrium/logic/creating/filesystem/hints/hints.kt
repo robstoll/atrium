@@ -3,12 +3,16 @@ package ch.tutteli.atrium.logic.creating.filesystem.hints
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.creating.filesystem.Failure
 import ch.tutteli.atrium.logic.creating.filesystem.IoResult
 import ch.tutteli.atrium.logic.creating.filesystem.Success
+import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -26,11 +30,24 @@ inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnIO
     expect: Expect<IoResult<T>>,
     crossinline f: (Path, IOException) -> Assertion?
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
-    withHelpOnFailureBasedOnDefinedSubject(expect) { result ->
-        explainForResolvedLink(result.path) { realPath ->
-            val exception = (result as Failure).exception
-            f(realPath, exception) ?: hintForIoException(realPath, exception)
+    withHelpOnFailureBasedOnSubject(expect) {
+        ifDefined { result ->
+            explainForResolvedLink(result.path) { realPath ->
+                val exception = (result as Failure).exception
+                f(realPath, exception) ?: hintForIoException(realPath, exception)
+            }
         }
+            .ifAbsent {
+                // TODO code duplication, same as in withHelpOnFailureBasedOnDefinedSubject
+                // source out to separate function, something like createShouldNotBeShownToUserWarning
+                // and use here and in withHelpOnFailureBasedOnDefinedSubject
+                assertionBuilder.explanatoryGroup
+                    .withWarningType
+                    .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
+                    .build()
+            }
+    }.showOnlyIf {
+        expect._logic.maybeSubject.map { it is Failure }.getOrElse { false }
     }
 
 @Deprecated("Use withHelpOnIOExceptionFailure; will be removed with 1.0.0")

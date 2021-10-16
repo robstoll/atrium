@@ -6,6 +6,7 @@ import ch.tutteli.niok.*
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.nio.file.attribute.PosixFilePermissions
 import kotlin.test.Test
 
 class PathExpectationSamples {
@@ -124,6 +125,28 @@ class PathExpectationSamples {
 
         fails {
             expect(Paths.get("invalid_dir")) toBe writable
+        }
+    }
+
+    @Test
+    fun notToBeWritable() {
+        val readyOnlyPermissions = PosixFilePermissions.fromString("r--r--r--")
+        val readyWritePermissions = PosixFilePermissions.fromString("rw-r--r--")
+        val readOnlyDir = tempDir.newDirectory("read_only_dir",
+            PosixFilePermissions.asFileAttribute(readyOnlyPermissions)
+        )
+        val readWriteDir = tempDir.newDirectory("read_write_dir",
+            PosixFilePermissions.asFileAttribute(readyWritePermissions)
+        )
+
+        expect(readOnlyDir) notToBe writable
+
+        fails {
+            expect(readWriteDir) notToBe writable
+        }
+
+        fails {
+            expect(Paths.get("invalid_dir")) notToBe writable
         }
     }
 

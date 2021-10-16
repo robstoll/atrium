@@ -15,6 +15,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun1(Expect<Path>::notToEndWith),
     "toBe ${readable::class.simpleName}" to Companion::isReadable,
     "toBe ${writable::class.simpleName}" to Companion::isWritable,
+    "notToBe ${writable::class.simpleName}" to Companion::isNotWritable,
     "toBe ${executable::class.simpleName}" to Companion::isExecutable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
@@ -45,6 +46,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun existsNot(expect: Expect<Path>) = expect notToBe existing
         private fun isReadable(expect: Expect<Path>) = expect toBe readable
         private fun isWritable(expect: Expect<Path>) = expect toBe writable
+        private fun isNotWritable(expect: Expect<Path>) = expect notToBe writable
         private fun isExecutable(expect: Expect<Path>) = expect toBe executable
         private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
@@ -90,6 +92,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 notToEndWith Paths.get("a")
         a1 toBe readable
         a1 toBe writable
+        a1 notToBe writable
         a1 toBe aRegularFile
         a1 toBe aDirectory
         a1 toBe absolute

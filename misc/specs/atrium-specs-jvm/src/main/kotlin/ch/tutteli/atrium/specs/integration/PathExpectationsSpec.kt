@@ -36,6 +36,7 @@ abstract class PathExpectationsSpec(
     notToEndWith: Fun1<Path, Path>,
     toBeReadable: Fun0<Path>,
     toBeWritable: Fun0<Path>,
+    notToBeWritable: Fun0<Path>,
     toBeExecutable: Fun0<Path>,
     toBeRegularFile: Fun0<Path>,
     toBeADirectory: Fun0<Path>,
@@ -71,6 +72,7 @@ abstract class PathExpectationsSpec(
         notToEndWith.forSubjectLess(Paths.get("a")),
         toBeReadable.forSubjectLess(),
         toBeWritable.forSubjectLess(),
+        notToBeWritable.forSubjectLess(),
         toBeExecutable.forSubjectLess(),
         toBeRegularFile.forSubjectLess(),
         toBeADirectory.forSubjectLess(),
@@ -641,6 +643,108 @@ abstract class PathExpectationsSpec(
                             folder.expectedAclEntryPartFor("ALLOW", "EXECUTE")
                         )
                         containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(notToBeWritable) {
+        val notToBeWritableFun = notToBeWritable.lambda
+        val expectedMessage = "$isNotDescr: ${WRITABLE.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).notToBeWritableFun()
+                }.toThrow<AssertionError>().message {
+                    toContain(
+                        expectedMessage,
+                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
+                    )
+                    containsExplanationFor(maybeLink)
+                }
+            }
+        }
+
+        context("POSIX: writable", skip = ifPosixNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("writable"))
+
+                file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(file).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("writable"))
+
+                folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(folder).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+        }
+
+        context("POSIX: not writable", skip = ifPosixNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-writable"))
+                file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect(file).notToBeWritable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
+                folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect(folder).notToBeWritable()
+                }
+            }
+        }
+
+        context("ACL: not writable", skip = ifAclNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-writable"))
+                file.whileWithAcl(TestAcls::ownerNoWrite) {
+                    expect(file).notToBeWritable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
+                folder.whileWithAcl(TestAcls::ownerNoWrite) {
+                    expect(folder).notToBeWritable()
+                }
+            }
+        }
+
+        context("ACL: writable", skip = ifAclNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("writable"))
+                file.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(file).notToBeWritable()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("writable"))
+                folder.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(folder).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
                     }
                 }
             }
