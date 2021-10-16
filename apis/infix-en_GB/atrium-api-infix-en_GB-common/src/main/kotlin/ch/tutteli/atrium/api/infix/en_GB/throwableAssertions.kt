@@ -100,7 +100,7 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
 /**
  *
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type) and
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
