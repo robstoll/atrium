@@ -31,7 +31,7 @@ class IterableExpectationSamples {
 
     @Test
     fun toContainValue() {
-        expect(listOf("A", "B", "C")) toContain value("B")
+        expect(listOf("A", "B", "C")) toContain "B"
 
         fails {
             expect(setOf(4, 2, 1)) toContain 3
