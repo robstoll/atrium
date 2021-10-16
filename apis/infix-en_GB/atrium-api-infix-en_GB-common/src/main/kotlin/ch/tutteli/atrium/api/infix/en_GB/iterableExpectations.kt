@@ -280,7 +280,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToContain
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToContainValues
  *
  * @since 0.17.0
  */
