@@ -172,7 +172,7 @@ class IterableExpectationSamples {
         expect(listOf("A", "B", "C")) notToContain "D"
 
         fails {
-            expect(listOf("A", "B", "C")) notToContain value("A")
+            expect(listOf("A", "B", "C")) notToContain "A"
         }
     }
 
