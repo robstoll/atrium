@@ -1,3 +1,4 @@
+//TODO 0.18.0 or 0.19.0 rename package to proofWithHelpOnFailure when we rename DescriptiveAssertionWithFailureHint to ProofWithHelpOnFailure
 package ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -38,9 +39,8 @@ internal class ShowOptionImpl(
         predicate: () -> Boolean
     ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
         Descriptive.DescriptionOption.create(
-            test,
-            { t, d, r -> DescriptiveAssertionWithFailureHint.FinalStep.create(t, predicate, failureHintFactory, d, r) }
-        )
+            test
+        ) { t, d, r -> DescriptiveAssertionWithFailureHint.FinalStep.create(t, predicate, failureHintFactory, d, r) }
 }
 
 
