@@ -35,7 +35,7 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
- * [expected]'s [toString] representation using a non disjoint search.
+ * [expected]'s [toString] representation using a non-disjoint search.
  **
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
@@ -55,7 +55,7 @@ infix fun <T : Throwable> Expect<T>.messageContains(expected: CharSequenceOrNumb
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
- * [values]'s [toString] representation using a non disjoint search.
+ * [values]'s [toString] representation using a non-disjoint search.
  **
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
  * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).

@@ -61,7 +61,7 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains the [toString] representation of the
- * given [values] using a non disjoint search.
+ * given [values] using a non-disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 the values(expected, *otherExpected)`.
  *
@@ -69,7 +69,7 @@ infix fun <T : CharSequence> Expect<T>.contains(expected: CharSequenceOrNumberOr
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and
  * [Values] is defined as `values("a", "a")`, then both match,
  * even though they match the same sequence in the input of the search.
@@ -167,11 +167,11 @@ infix fun <T : CharSequence> Expect<T>.contains(pattern: Regex): Expect<T> =
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [regexPatterns], using a non disjoint search.
+ * regular expression [regexPatterns], using a non-disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 the regexPatterns(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
  * [RegexPatterns] is defined as `regexPatterns("a(b)?", "a(b)?")` as well, then both match,
  * even though they match the same sequence in the input of the search.
@@ -196,11 +196,11 @@ infix fun <T : CharSequence> Expect<T>.contains(regexPatterns: RegexPatterns): E
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [patterns], using a non disjoint search.
+ * regular expression [patterns], using a non-disjoint search.
  *
  * It is a shortcut for `contains o atLeast 1 regex All(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and
  * [All] is defined as `all(Regex("a(b)?"), Regex("a(b)?"))` as well, then both match,
  * even though they match the same sequence in the input of the search.

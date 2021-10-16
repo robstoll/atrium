@@ -35,7 +35,7 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
  * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if given),
- * using a non disjoint search.
+ * using a non-disjoint search.
  *
  * It is more or less a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`, depending on
  * the implementation though.

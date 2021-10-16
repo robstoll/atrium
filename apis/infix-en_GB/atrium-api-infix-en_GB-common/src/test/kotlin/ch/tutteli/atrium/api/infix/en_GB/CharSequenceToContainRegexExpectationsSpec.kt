@@ -11,10 +11,10 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
 
 
     describe("context 'aaaa'") {
-        it("search for 'aa' finds 3 hits since we want non disjoint matches") {
+        it("search for 'aa' finds 3 hits since we want non-disjoint matches") {
             expect("aaaa") toContain o exactly 3 regex "aa"
         }
-        it("search for 'aa?' finds 4 hits since we want non disjoint matches") {
+        it("search for 'aa?' finds 4 hits since we want non-disjoint matches") {
             expect("aaaa") toContain o exactly 4 regex "aa?"
         }
     }

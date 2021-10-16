@@ -25,7 +25,7 @@ import kotlin.jvm.JvmName
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
- * using a non disjoint search.
+ * using a non-disjoint search.
  *
  * Delegates to [values].
  *
@@ -33,7 +33,7 @@ import kotlin.jvm.JvmName
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
@@ -45,13 +45,13 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
- * the [otherExpected] values shall be searched, using a non disjoint search.
+ * the [otherExpected] values shall be searched, using a non-disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
  * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
@@ -77,7 +77,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
- * (ignoring case), using a non disjoint search.
+ * (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expected)`.
  *
@@ -85,7 +85,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
@@ -99,13 +99,13 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
- * the [otherExpected] values shall be searched (ignoring case), using a non disjoint search.
+ * the [otherExpected] values shall be searched (ignoring case), using a non-disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
  * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
@@ -132,7 +132,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
- * (ignoring case), using a non disjoint search where it needs to be contained at least once.
+ * (ignoring case), using a non-disjoint search where it needs to be contained at least once.
  *
  * Delegates to `atLeast(1).value(expected)`.
  *
@@ -140,7 +140,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expected The value which is expected to be contained within the input of the search.
  *
@@ -152,7 +152,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(expe
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
- * the [otherExpected] values shall be searched (ignoring case), using a non disjoint search
+ * the [otherExpected] values shall be searched (ignoring case), using a non-disjoint search
  * where each need to be contained at least once.
  *
  * Delegates to `atLeast(1).values(expected, otherExpected)`
@@ -161,7 +161,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(expe
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
  * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search.
@@ -180,9 +180,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
- * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
+ * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
@@ -205,9 +205,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
- * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
+ * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
@@ -233,9 +233,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
- * as well as the [otherPatterns] are expected to have a match (ignoring case), using a non disjoint search.
+ * as well as the [otherPatterns] are expected to have a match (ignoring case), using a non-disjoint search.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
@@ -260,11 +260,11 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to to have at least one match (ignoring case),
- * using a non disjoint search.
+ * using a non-disjoint search.
  *
  * Delegates to `atLeast(1).regex(pattern, otherPatterns)`
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly]
@@ -287,7 +287,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched, using a non disjoint search.
+ * shall be searched, using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [values] for more information).
@@ -295,7 +295,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
@@ -314,7 +314,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched (ignoring case), using a non disjoint search.
+ * shall be searched (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [values] for more information).
@@ -322,7 +322,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
@@ -341,7 +341,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
- * shall be searched (ignoring case), using a non disjoint search.
+ * shall be searched (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
  * (see [values] for more information).
@@ -349,7 +349,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * By non disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
+ * By non-disjoint is meant that "aa" in "aaaa" is found three times and not only two times.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within the input of the search.
  *
