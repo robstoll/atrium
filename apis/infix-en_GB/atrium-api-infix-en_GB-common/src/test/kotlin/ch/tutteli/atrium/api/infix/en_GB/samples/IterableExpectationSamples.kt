@@ -114,7 +114,10 @@ class IterableExpectationSamples {
         }
 
         fails {
-            expect(listOf(null, "B")) toContainExactly value(null)
+            // cast only necessary if Kotlin verison < 1.4 due to a bug in Kotlin
+            expect(listOf(null, "B")) toContainExactly (null as (Expect<String>.() -> Unit)?)
+           // Kotlin > 1.4 would be
+           // expect(listOf(null, "B")) toContainExactly null
         }
     }
 
