@@ -66,7 +66,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
         }
 
         context("text 'aaaa'") {
-            it("search for 'aa' finds 3 hits since we want non disjoint matches") {
+            it("search for 'aa' finds 3 hits since we want non-disjoint matches") {
                 expect("aaaa" as CharSequence).toContainExactlyFun(3, "aa")
             }        }
 

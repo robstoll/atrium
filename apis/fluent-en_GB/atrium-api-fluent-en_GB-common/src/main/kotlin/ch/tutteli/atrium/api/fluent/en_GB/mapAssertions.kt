@@ -177,8 +177,8 @@ fun <K, T : Map<out K, *>> Expect<T>.containsNotKey(key: K): Expect<T> =
 //TODO move to mapExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
- * creates an [Expect] for the corresponding value and returns the newly created assertion container,
- * so that further fluent calls are assertions about it.
+ * creates an [Expect] for the corresponding value and returns the newly created [Expect],
+ * so that further fluent calls are expectations about it.
  *
  * @return The newly created [Expect] for the extracted feature.
  *

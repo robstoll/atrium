@@ -118,7 +118,7 @@ abstract class AnyExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
 
     fun <T : Int?> Suite.checkInt(
         description: String,
@@ -182,7 +182,7 @@ abstract class AnyExpectationsSpec(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint${IS_NONE_OF.getDefault()}\\E:.*$separator" +
-                                    "$indentBulletPoint${listBulletPoint}1"
+                                    "$indentRootBulletPoint${listBulletPoint}1"
                             )
                             notToContain("$listBulletPoint 2")
                         }

@@ -35,7 +35,7 @@ val <T : CharSequence> Expect<T>.notToContain: NotCheckerStep<T, NotSearchBehavi
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains [expected]'s [toString] representation
- * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
+ * and the [toString] representation of the [otherExpected] (if given), using a non-disjoint search.
  *
  * It is a shortcut for `toContain.atLeast(1).values(expected, *otherExpected)`.
  *
@@ -43,7 +43,7 @@ val <T : CharSequence> Expect<T>.notToContain: NotCheckerStep<T, NotSearchBehavi
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"a"` and [expected]
  * is defined as `"a"` and one [otherExpected] is defined as `"a"` as well, then both match, even though they match the
  * same sequence in the input of the search. Use the property `toContain` to create a more sophisticated `toContain`
@@ -91,11 +91,11 @@ fun <T : CharSequence> Expect<T>.notToContain(
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
+ * regular expression [pattern] as well as the [otherPatterns] (if given), using a non-disjoint search.
  *
  * It is a shortcut for `toContain.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
@@ -120,11 +120,11 @@ fun <T : CharSequence> Expect<T>.toContainRegex(pattern: String, vararg otherPat
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains a sequence which matches the given
- * regular expression [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
+ * regular expression [pattern] as well as the [otherPatterns] (if given), using a non-disjoint search.
  *
  * It is a shortcut for `toContain.atLeast(1).regex(pattern, *otherPatterns)`.
  *
- * By non disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
  * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to

@@ -35,7 +35,7 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
  * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if given),
- * using a non disjoint search.
+ * using a non-disjoint search.
  *
  * It is more or less a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`, depending on
  * the implementation though.
@@ -82,9 +82,9 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsA(
 /**
  *
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type) and
- * holds all assertions the given [assertionCreator] creates for it and returns this assertion container.
+ * holds all assertions the given [assertionCreator] creates for it.
  *
- * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
+ * Notice, in contrast to other expectation functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
  *
  * @return an [Expect] for the subject of `this` expectation.

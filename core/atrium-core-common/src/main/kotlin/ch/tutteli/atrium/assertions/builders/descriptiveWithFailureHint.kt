@@ -29,7 +29,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
  * You can use [withHelpOnFailureBasedOnSubject] or [withHelpOnFailureBasedOnDefinedSubject]
  * in case your [DescriptiveAssertion] is based on the subject.
  */
-@Deprecated("Use withHelpOnFailure; will be removed with 1.0.0")
+@Deprecated("Use withHelpOnFailure; will be removed with 1.0.0", ReplaceWith("withHelpOnFailure(failureHintFactory)"))
 fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
     failureHintFactory: () -> Assertion
 ): DescriptiveAssertionWithFailureHint.ShowOption =
@@ -79,7 +79,7 @@ fun createShouldNotBeShownToUserWarning(): Assertion =
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
 // then move to logic and expect ProofContainer with 0.18.0
-@Deprecated("Use withHelpOnFailureBasedOnDefinedSubject; will be removed with 1.0.0")
+@Deprecated("Use withHelpOnFailureBasedOnDefinedSubject; will be removed with 1.0.0", ReplaceWith("withHelpOnFailureBasedOnDefinedSubject(expect, failureHintFactory)"))
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnDefinedSubject(
     expect: Expect<T>,
     failureHintFactory: (T) -> Assertion
@@ -122,7 +122,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBa
  * You can use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
-@Deprecated("Use withHelpOnFailureBasedOnSubject; will be removed with 1.0.0")
+@Deprecated("Use withHelpOnFailureBasedOnSubject; will be removed with 1.0.0", ReplaceWith("withHelpOnFailureBasedOnSubject(expect, failureHintSubStep)"))
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBasedOnSubject(
     expect: Expect<T>,
     failureHintSubStep: DescriptiveAssertionWithFailureHint.FailureHintSubjectDefinedOption<T>.() -> Pair<() -> Assertion, (T) -> Assertion>

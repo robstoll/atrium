@@ -30,7 +30,7 @@ interface FeatureExtractor {
      * new subject and applies [maybeSubAssertions] in case they are specified.
      *
      *
-     * @param container the assertion container with the current subject (before the change)
+     * @param container the container with the current subject (before the change)
      * @param description Describes the feature
      * @param representationForFailure Representation in case the extraction cannot be carried out.
      * @param featureExtraction Extracts the feature where it returns the feature wrapped into a [Some] if the
@@ -39,9 +39,7 @@ interface FeatureExtractor {
      *   This is especially useful if the extraction cannot be carried out, because this way we can then already
      *   show to you (in error reporting) what you wanted to assert about the feature (which gives you more context to
      *   the error).
-     * @param representationInsteadOfFeature Per default the feature as such is used to represent itself. However,
-     *   if you want a different representation, then use this parameter where passing `null` still means use the
-     *   feature.
+     * @param featureExpectOptions Additional options which shall apply to the feature extraction.
      *
      * @return The newly created [Expect] for the extracted feature.
      */

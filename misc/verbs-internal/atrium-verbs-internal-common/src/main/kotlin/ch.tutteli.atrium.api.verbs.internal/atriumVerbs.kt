@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  *
  * @param subject The subject for which we are going to postulate assertions.
  *
- * @return The newly created assertion container.
+ * @return The newly created [RootExpect].
  * @throws AssertionError in case an assertion does not hold.
  */
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -37,7 +37,7 @@ fun <T> expect(subject: T): RootExpect<T> =
  * @param subject The subject for which we are going to postulate assertions.
  * @param assertionCreator Assertion group block with a non-fail fast behaviour.
  *
- * @return The newly created assertion container.
+ * @return The newly created [RootExpect].
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
