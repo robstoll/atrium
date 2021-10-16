@@ -34,7 +34,7 @@ class IterableExpectationSamples {
         expect(listOf("A", "B", "C")) toContain value("B")
 
         fails {
-            expect(setOf(4, 2, 1)) toContain value(3)
+            expect(setOf(4, 2, 1)) toContain 3
         }
     }
 
