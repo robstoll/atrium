@@ -135,7 +135,7 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(3, 5)) toContainExactly entries(
-                { toEqual(1) }, // fails
+                { toEqual(1) },      // fails
                 { toBeLessThan(11) } // this assertion is not checked
             )
         }
