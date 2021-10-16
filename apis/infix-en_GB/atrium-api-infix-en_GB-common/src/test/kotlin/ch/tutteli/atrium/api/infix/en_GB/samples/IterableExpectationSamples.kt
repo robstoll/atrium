@@ -160,7 +160,7 @@ class IterableExpectationSamples {
 
     @Test
     fun toContainElementsOf() {
-        expect(listOf(1, 2, 2, 4)).toContainElementsOf(listOf(1, 2, 4))
+        expect(listOf(1, 2, 2, 4)) toContainElementsOf listOf(1, 2, 4)
 
         fails {
             expect(listOf(1, 2, 2, 4)) toContainElementsOf listOf(1, 2, 3)
