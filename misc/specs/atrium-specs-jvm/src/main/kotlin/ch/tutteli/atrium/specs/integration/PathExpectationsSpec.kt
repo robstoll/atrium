@@ -131,9 +131,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsParentAccessDeniedDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
+    fun Suite.itPrintsParentAccessDeniedDetails(
+        forceNoLinks: Skip = No,
+        block: (Path) -> Unit
+    ) {
         // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
-        // that children cannot be accessed. On Windows, for example, one can still access children whithout any
+        // that children cannot be accessed. On Windows, for example, one can still access children without any
         // permissions on the parent.
         it(
             "POSIX: prints parent permission error details",
@@ -143,14 +146,14 @@ abstract class PathExpectationsSpec(
             val start = tempFolder.newDirectory("startDir")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
 
-            start.whileWithPermissions(OWNER_READ, OWNER_WRITE) {
+            start.whileWithPermissions(OWNER_READ, OWNER_WRITE, GROUP_READ) {
                 expect {
                     block(doesNotExist)
                 }.toThrow<AssertionError>().message {
                     toContain(
                         String.format(FAILURE_DUE_TO_PARENT.getDefault(), start),
                         FAILURE_DUE_TO_ACCESS_DENIED.getDefault(),
-                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g= o="),
+                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o="),
                         expectedPosixOwnerAndGroupHintFor(start)
                     )
                     containsExplanationFor(maybeLink)
@@ -180,7 +183,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsFileAccessProblemDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
+    fun Suite.itPrintsFileAccessProblemDetails(
+        forceNoLinks: Skip = No,
+        checkParentHints: Boolean = true,
+        block: (Path) -> Unit
+    ) {
         it(
             "prints the closest existing parent if it is a directory",
             forceNoLink = forceNoLinks
@@ -231,7 +238,9 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        itPrintsParentAccessDeniedDetails(forceNoLinks, block)
+        if (checkParentHints) {
+            itPrintsParentAccessDeniedDetails(forceNoLinks, block)
+        }
         itPrintsFileAccessExceptionDetails(block)
     }
 
@@ -665,6 +674,13 @@ abstract class PathExpectationsSpec(
                     )
                     containsExplanationFor(maybeLink)
                 }
+            }
+
+            itPrintsFileAccessProblemDetails(
+                // because if we cannot access parent then it is still not writeable
+                checkParentHints = false
+            ) { testFile ->
+                expect(testFile).notToBeWritable()
             }
         }
 
@@ -1292,7 +1308,11 @@ abstract class PathExpectationsSpec(
 
             it("${toHaveTheSameTextualContentAs.name} - does not throw if ISO_8859_1, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
-                expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.ISO_8859_1, Charsets.ISO_8859_1)
+                expect(sourcePath).toHaveTheSameTextualContentAsFun(
+                    targetPath,
+                    Charsets.ISO_8859_1,
+                    Charsets.ISO_8859_1
+                )
             }
 
             it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
@@ -1352,7 +1372,11 @@ abstract class PathExpectationsSpec(
             it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
-                    expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
+                    expect(sourcePath).toHaveTheSameTextualContentAsFun(
+                        targetPath,
+                        Charsets.UTF_16,
+                        Charsets.ISO_8859_1
+                    )
                 }.toThrow<AssertionError>().message {
                     toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
                 }

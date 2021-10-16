@@ -104,7 +104,13 @@ class DefaultPathAssertions : PathAssertions {
         filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS_NOT, shouldHaveAccess = false)
+        filePermissionAssertion(
+            container,
+            WRITABLE,
+            AccessMode.WRITE,
+            DescriptionBasic.IS_NOT,
+            shouldHaveAccess = false
+        )
 
     override fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion =
         filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, DescriptionBasic.IS, shouldHaveAccess = true)
@@ -131,7 +137,7 @@ class DefaultPathAssertions : PathAssertions {
         description: DescriptionBasic,
         shouldHaveAccess: Boolean
     ) = container.changeSubject.unreported {
-        it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
+        it.runCatchingIo { fileSystem.provider().checkAccess(this, accessMode) }
     }.let { checkAccessResultExpect ->
         assertionBuilder.descriptive
             .withTest(checkAccessResultExpect) {

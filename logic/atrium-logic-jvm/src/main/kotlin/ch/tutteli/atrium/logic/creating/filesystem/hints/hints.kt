@@ -36,16 +36,7 @@ inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnIO
                 val exception = (result as Failure).exception
                 f(realPath, exception) ?: hintForIoException(realPath, exception)
             }
-        }
-            .ifAbsent {
-                // TODO code duplication, same as in withHelpOnFailureBasedOnDefinedSubject
-                // source out to separate function, something like createShouldNotBeShownToUserWarning
-                // and use here and in withHelpOnFailureBasedOnDefinedSubject
-                assertionBuilder.explanatoryGroup
-                    .withWarningType
-                    .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
-                    .build()
-            }
+        }.ifAbsent(::createShouldNotBeShownToUserWarning)
     }.showOnlyIf {
         expect._logic.maybeSubject.map { it is Failure }.getOrElse { false }
     }

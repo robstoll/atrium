@@ -59,6 +59,8 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.notToEndWith(Paths.get("a"))
         a1.toBeReadable()
         a1.toBeWritable()
+        a1.notToBeWritable()
+        a1.toBeExecutable()
         a1.toBeARegularFile()
         a1.toBeADirectory()
         a1.toBeASymbolicLink()

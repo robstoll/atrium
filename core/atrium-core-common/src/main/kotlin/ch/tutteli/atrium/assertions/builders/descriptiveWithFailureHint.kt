@@ -44,7 +44,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
  * - provide a hint also if the subject is absent.
  * - do not show the hint in certain cases even if the subject is defined
  *
- * Or use [withHelpOnFailure] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * Or use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
@@ -55,14 +55,15 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBa
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
     return withHelpOnFailureBasedOnSubject(expect) {
         ifDefined(failureHintFactory)
-            .ifAbsent {
-                assertionBuilder.explanatoryGroup
-                    .withWarningType
-                    .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
-                    .build()
-            }
+            .ifAbsent(::createShouldNotBeShownToUserWarning)
     }.showOnlyIfSubjectDefined(expect)
 }
+
+fun createShouldNotBeShownToUserWarning(): Assertion =
+    assertionBuilder.explanatoryGroup
+        .withWarningType
+        .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
+        .build()
 
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint
@@ -73,7 +74,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBa
  * - provide a hint also if the subject is absent.
  * - do not show the hint in certain cases even if the subject is defined
  *
- * Or use [withHelpOnFailure] which does not expect a [subjectProvider] in case your [DescriptiveAssertion] is not based
+ * Or use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
@@ -99,7 +100,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHintBase
  * (which is based on the subject of the expectation)
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  *
- * You can use [withHelpOnFailure] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
+ * You can use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnSubject(
@@ -118,7 +119,7 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBa
  * (which is based on the subject of the expectation)
  * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  *
- * You can use [withHelpOnFailure] which does not expect a [expect] in case your [DescriptiveAssertion] is not based
+ * You can use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
 @Deprecated("Use withHelpOnFailureBasedOnSubject; will be removed with 1.0.0")
@@ -164,7 +165,7 @@ interface DescriptiveAssertionWithFailureHint {
     }
 
     /**
-     * Option which allows to specify in which situations the failure hint should be shown.
+     * Option which allows specifying in which situations the failure hint should be shown.
      */
     interface ShowOption {
         /**
