@@ -97,7 +97,7 @@ class IterableExpectationSamples {
         expect(listOf("A")) toContainExactly "A"
 
         fails {
-            expect(listOf("A")) toContainExactly value("D")
+            expect(listOf("A")) toContainExactly "D"
         }
     }
 
