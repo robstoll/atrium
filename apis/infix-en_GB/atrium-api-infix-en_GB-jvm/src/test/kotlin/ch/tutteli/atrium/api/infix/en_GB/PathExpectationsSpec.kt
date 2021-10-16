@@ -7,21 +7,22 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectationsSpec(
-    "toBe ${existing::class.simpleName}" to Companion::exists,
-    "notToBe ${existing::class.simpleName}" to Companion::existsNot,
+    "toBe ${existing::class.simpleName}" to Companion::toExist,
+    "notToBe ${existing::class.simpleName}" to Companion::notToExist,
     fun1(Expect<Path>::toStartWith),
     fun1(Expect<Path>::notToStartWith),
     fun1(Expect<Path>::toEndWith),
     fun1(Expect<Path>::notToEndWith),
-    "toBe ${readable::class.simpleName}" to Companion::isReadable,
-    "toBe ${writable::class.simpleName}" to Companion::isWritable,
-    "toBe ${executable::class.simpleName}" to Companion::isExecutable,
-    "toBe ${aRegularFile::class.simpleName}" to Companion::isRegularFile,
-    "toBe ${aDirectory::class.simpleName}" to Companion::isDirectory,
+    "toBe ${readable::class.simpleName}" to Companion::toBeReadable,
+    "toBe ${writable::class.simpleName}" to Companion::toBeWritable,
+    "notToBe ${writable::class.simpleName}" to Companion::notToBeWritable,
+    "toBe ${executable::class.simpleName}" to Companion::toBeExecutable,
+    "toBe ${aRegularFile::class.simpleName}" to Companion::toBeRegularFile,
+    "toBe ${aDirectory::class.simpleName}" to Companion::toBeADirectory,
     "toBe ${aSymbolicLink::class.simpleName}" to Companion::toBeASymbolicLink,
-    "toBe ${relative::class.simpleName}" to Companion::isAbsolute,
-    "toBe ${relative::class.simpleName}" to Companion::isRelative,
-    "toBe ${relative::class.simpleName}" to Companion::isEmptyDirectory,
+    "toBe ${relative::class.simpleName}" to Companion::toBeAbsolute,
+    "toBe ${relative::class.simpleName}" to Companion::toBeRelative,
+    "toBe ${relative::class.simpleName}" to Companion::toBeAnEmptyDirectory,
     "toHave ${::directoryEntries.name}" to Companion::toHaveTheDirectoryEntry,
     "toHave ${::directoryEntries.name}" to Companion::toHaveTheDirectoryEntries,
     fun1(Expect<Path>::toHaveTheSameBinaryContentAs),
@@ -41,17 +42,18 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
 
     companion object {
 
-        private fun exists(expect: Expect<Path>) = expect toBe existing
-        private fun existsNot(expect: Expect<Path>) = expect notToBe existing
-        private fun isReadable(expect: Expect<Path>) = expect toBe readable
-        private fun isWritable(expect: Expect<Path>) = expect toBe writable
-        private fun isExecutable(expect: Expect<Path>) = expect toBe executable
-        private fun isRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
-        private fun isDirectory(expect: Expect<Path>) = expect toBe aDirectory
+        private fun toExist(expect: Expect<Path>) = expect toBe existing
+        private fun notToExist(expect: Expect<Path>) = expect notToBe existing
+        private fun toBeReadable(expect: Expect<Path>) = expect toBe readable
+        private fun toBeWritable(expect: Expect<Path>) = expect toBe writable
+        private fun notToBeWritable(expect: Expect<Path>) = expect notToBe writable
+        private fun toBeExecutable(expect: Expect<Path>) = expect toBe executable
+        private fun toBeRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
+        private fun toBeADirectory(expect: Expect<Path>) = expect toBe aDirectory
         private fun toBeASymbolicLink(expect: Expect<Path>) = expect toBe aSymbolicLink
-        private fun isAbsolute(expect: Expect<Path>) = expect toBe absolute
-        private fun isRelative(expect: Expect<Path>) = expect toBe relative
-        private fun isEmptyDirectory(expect: Expect<Path>) = expect toBe anEmptyDirectory
+        private fun toBeAbsolute(expect: Expect<Path>) = expect toBe absolute
+        private fun toBeRelative(expect: Expect<Path>) = expect toBe relative
+        private fun toBeAnEmptyDirectory(expect: Expect<Path>) = expect toBe anEmptyDirectory
 
         private fun toHaveTheDirectoryEntry(expect: Expect<Path>, entry: String) =
             expect toHave directoryEntries(entry)
@@ -90,6 +92,8 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 notToEndWith Paths.get("a")
         a1 toBe readable
         a1 toBe writable
+        a1 notToBe writable
+        a1 toBe executable
         a1 toBe aRegularFile
         a1 toBe aDirectory
         a1 toBe absolute

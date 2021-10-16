@@ -128,3 +128,25 @@ infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(pathWithEncoding: P
  */
 infix fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
+
+/**
+ * Expects that the subject of `this` expectation (a [Path]) is not writable;
+ * meaning that there is a file system entry at the location the [Path] points to and
+ * that the current thread does not have the permission to write from it.
+ *
+ * This assertion _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to,
+ * search will continue at the location the link points at.
+ *
+ * This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
+ * Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+ * take place.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToBeWritable
+ *
+ * @since 0.17.0
+ */
+infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
+    _logicAppend { isNotWritable() }

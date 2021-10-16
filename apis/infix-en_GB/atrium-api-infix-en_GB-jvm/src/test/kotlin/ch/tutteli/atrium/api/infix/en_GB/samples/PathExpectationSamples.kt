@@ -2,10 +2,12 @@ package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.nio.file.attribute.PosixFilePermissions
 import kotlin.test.Test
 
 class PathExpectationSamples {
@@ -45,7 +47,7 @@ class PathExpectationSamples {
         expect(dir) toStartWith dir.parent
 
         fails {
-            expect(dir) toStartWith Paths.get("invalid_dir")
+            expect(dir) toStartWith Paths.get("non_existing_dir")
         }
     }
 
@@ -53,7 +55,7 @@ class PathExpectationSamples {
     fun notToStartWith() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir) notToStartWith Paths.get("invalid_dir")
+        expect(dir) notToStartWith Paths.get("non_existing_dir")
 
         fails {
             expect(dir) notToStartWith dir.parent
@@ -67,7 +69,7 @@ class PathExpectationSamples {
         expect(dir) toEndWith Paths.get("test_dir")
 
         fails {
-            expect(dir) toEndWith Paths.get("invalid_dir")
+            expect(dir) toEndWith Paths.get("non_existing_dir")
         }
     }
 
@@ -75,7 +77,7 @@ class PathExpectationSamples {
     fun notToEndWith() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir) notToEndWith Paths.get("invalid_dir")
+        expect(dir) notToEndWith Paths.get("non_existing_dir")
 
         fails {
             expect(dir) notToEndWith Paths.get("test_dir")
@@ -89,7 +91,7 @@ class PathExpectationSamples {
         expect(dir) toBe existing
 
         fails {
-            expect(Paths.get("invalid_dir")) toBe existing
+            expect(Paths.get("non_existing_dir")) toBe existing
         }
     }
 
@@ -97,7 +99,7 @@ class PathExpectationSamples {
     fun notToExist() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(Paths.get("invalid_dir")) notToBe existing
+        expect(Paths.get("non_existing_dir")) notToBe existing
 
         fails {
             expect(dir) notToBe existing
@@ -112,7 +114,7 @@ class PathExpectationSamples {
         expect(dir) toBe readable
 
         fails {
-            expect(Paths.get("invalid_dir")) toBe readable
+            expect(Paths.get("non_existing_dir")) toBe readable
         }
     }
 
@@ -123,7 +125,36 @@ class PathExpectationSamples {
         expect(dir) toBe writable
 
         fails {
-            expect(Paths.get("invalid_dir")) toBe writable
+            expect(Paths.get("non_existing_dir")) toBe writable
+        }
+    }
+
+    @Test
+    fun notToBeWritable() {
+        assertIf(fileSystemSupportsPosixPermissions()) {
+            val readyOnlyPermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
+            val readyWritePermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-r--r--"))
+
+            val readOnlyDir = tempDir.newDirectory("read_only_dir", readyOnlyPermissions)
+            val readOnlyFile = tempDir.newFile("read_only_file", readyOnlyPermissions)
+            val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+            val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+            expect(readOnlyDir) notToBe writable
+            expect(readOnlyFile) notToBe writable
+
+            fails {
+                expect(readWriteDir) notToBe writable
+            }
+            fails {
+                expect(readWriteFile) notToBe writable
+            }
+        }
+
+        fails {
+            expect(Paths.get("non_existing_dir")) notToBe writable
         }
     }
 
@@ -134,7 +165,7 @@ class PathExpectationSamples {
         expect(dir) toBe executable
 
         fails {
-            expect(Paths.get("invalid_dir")) toBe executable
+            expect(Paths.get("non_existing_dir")) toBe executable
         }
     }
 

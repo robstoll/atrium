@@ -98,13 +98,22 @@ class DefaultPathAssertions : PathAssertions {
     }.let(block)
 
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, READABLE, AccessMode.READ)
+        filePermissionAssertion(container, READABLE, AccessMode.READ, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE)
+        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS, shouldHaveAccess = true)
+
+    override fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion =
+        filePermissionAssertion(
+            container,
+            WRITABLE,
+            AccessMode.WRITE,
+            DescriptionBasic.IS_NOT,
+            shouldHaveAccess = false
+        )
 
     override fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE)
+        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, DescriptionBasic.IS, shouldHaveAccess = true)
 
     override fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_FILE) { it.isRegularFile }
@@ -124,12 +133,17 @@ class DefaultPathAssertions : PathAssertions {
     private fun <T : Path> filePermissionAssertion(
         container: AssertionContainer<T>,
         permissionName: Translatable,
-        accessMode: AccessMode
+        accessMode: AccessMode,
+        description: DescriptionBasic,
+        shouldHaveAccess: Boolean
     ) = container.changeSubject.unreported {
-        it.runCatchingIo { fileSystem.provider().checkAccess(it, accessMode) }
+        it.runCatchingIo { fileSystem.provider().checkAccess(this, accessMode) }
     }.let { checkAccessResultExpect ->
         assertionBuilder.descriptive
-            .withTest(checkAccessResultExpect) { it is Success }
+            .withTest(checkAccessResultExpect) {
+                if (shouldHaveAccess) it is Success
+                else it is Failure && it.exception is AccessDeniedException
+            }
             .withHelpOnIOExceptionFailure(checkAccessResultExpect) { realPath, exception ->
                 when (exception) {
                     is AccessDeniedException -> findHintForProblemWithParent(realPath)
@@ -143,7 +157,7 @@ class DefaultPathAssertions : PathAssertions {
                     else -> null
                 }
             }
-            .withDescriptionAndRepresentation(DescriptionBasic.IS, permissionName)
+            .withDescriptionAndRepresentation(description, permissionName)
             .build()
     }
 

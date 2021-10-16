@@ -36,6 +36,7 @@ abstract class PathExpectationsSpec(
     notToEndWith: Fun1<Path, Path>,
     toBeReadable: Fun0<Path>,
     toBeWritable: Fun0<Path>,
+    notToBeWritable: Fun0<Path>,
     toBeExecutable: Fun0<Path>,
     toBeRegularFile: Fun0<Path>,
     toBeADirectory: Fun0<Path>,
@@ -71,6 +72,7 @@ abstract class PathExpectationsSpec(
         notToEndWith.forSubjectLess(Paths.get("a")),
         toBeReadable.forSubjectLess(),
         toBeWritable.forSubjectLess(),
+        notToBeWritable.forSubjectLess(),
         toBeExecutable.forSubjectLess(),
         toBeRegularFile.forSubjectLess(),
         toBeADirectory.forSubjectLess(),
@@ -129,9 +131,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsParentAccessDeniedDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
+    fun Suite.itPrintsParentAccessDeniedDetails(
+        forceNoLinks: Skip = No,
+        block: (Path) -> Unit
+    ) {
         // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
-        // that children cannot be accessed. On Windows, for example, one can still access children whithout any
+        // that children cannot be accessed. On Windows, for example, one can still access children without any
         // permissions on the parent.
         it(
             "POSIX: prints parent permission error details",
@@ -141,14 +146,14 @@ abstract class PathExpectationsSpec(
             val start = tempFolder.newDirectory("startDir")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
 
-            start.whileWithPermissions(OWNER_READ, OWNER_WRITE) {
+            start.whileWithPermissions(OWNER_READ, OWNER_WRITE, GROUP_READ) {
                 expect {
                     block(doesNotExist)
                 }.toThrow<AssertionError>().message {
                     toContain(
                         String.format(FAILURE_DUE_TO_PARENT.getDefault(), start),
                         FAILURE_DUE_TO_ACCESS_DENIED.getDefault(),
-                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g= o="),
+                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o="),
                         expectedPosixOwnerAndGroupHintFor(start)
                     )
                     containsExplanationFor(maybeLink)
@@ -178,7 +183,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsFileAccessProblemDetails(forceNoLinks: Skip = No, block: (Path) -> Unit) {
+    fun Suite.itPrintsFileAccessProblemDetails(
+        forceNoLinks: Skip = No,
+        checkParentHints: Boolean = true,
+        block: (Path) -> Unit
+    ) {
         it(
             "prints the closest existing parent if it is a directory",
             forceNoLink = forceNoLinks
@@ -229,7 +238,9 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        itPrintsParentAccessDeniedDetails(forceNoLinks, block)
+        if (checkParentHints) {
+            itPrintsParentAccessDeniedDetails(forceNoLinks, block)
+        }
         itPrintsFileAccessExceptionDetails(block)
     }
 
@@ -641,6 +652,115 @@ abstract class PathExpectationsSpec(
                             folder.expectedAclEntryPartFor("ALLOW", "EXECUTE")
                         )
                         containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(notToBeWritable) {
+        val notToBeWritableFun = notToBeWritable.lambda
+        val expectedMessage = "$isNotDescr: ${WRITABLE.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).notToBeWritableFun()
+                }.toThrow<AssertionError>().message {
+                    toContain(
+                        expectedMessage,
+                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
+                    )
+                    containsExplanationFor(maybeLink)
+                }
+            }
+
+            itPrintsFileAccessProblemDetails(
+                // because if we cannot access parent then it is still not writeable
+                checkParentHints = false
+            ) { testFile ->
+                expect(testFile).notToBeWritable()
+            }
+        }
+
+        context("POSIX: writable", skip = ifPosixNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("writable"))
+
+                file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(file).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("writable"))
+
+                folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(folder).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+        }
+
+        context("POSIX: not writable", skip = ifPosixNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-writable"))
+                file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect(file).notToBeWritable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
+                folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect(folder).notToBeWritable()
+                }
+            }
+        }
+
+        context("ACL: not writable", skip = ifAclNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-writable"))
+                file.whileWithAcl(TestAcls::ownerNoWrite) {
+                    expect(file).notToBeWritable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
+                folder.whileWithAcl(TestAcls::ownerNoWrite) {
+                    expect(folder).notToBeWritable()
+                }
+            }
+        }
+
+        context("ACL: writable", skip = ifAclNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("writable"))
+                file.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(file).notToBeWritable()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("writable"))
+                folder.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(folder).notToBeWritableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
                     }
                 }
             }
@@ -1188,7 +1308,11 @@ abstract class PathExpectationsSpec(
 
             it("${toHaveTheSameTextualContentAs.name} - does not throw if ISO_8859_1, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
-                expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.ISO_8859_1, Charsets.ISO_8859_1)
+                expect(sourcePath).toHaveTheSameTextualContentAsFun(
+                    targetPath,
+                    Charsets.ISO_8859_1,
+                    Charsets.ISO_8859_1
+                )
             }
 
             it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
@@ -1248,7 +1372,11 @@ abstract class PathExpectationsSpec(
             it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
-                    expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
+                    expect(sourcePath).toHaveTheSameTextualContentAsFun(
+                        targetPath,
+                        Charsets.UTF_16,
+                        Charsets.ISO_8859_1
+                    )
                 }.toThrow<AssertionError>().message {
                     toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
                 }

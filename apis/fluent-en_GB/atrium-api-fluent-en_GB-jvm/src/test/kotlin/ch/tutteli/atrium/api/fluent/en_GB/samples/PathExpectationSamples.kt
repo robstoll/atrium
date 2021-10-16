@@ -2,17 +2,19 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
-import javax.swing.filechooser.FileSystemView
+import java.nio.file.attribute.PosixFilePermissions
 import kotlin.test.Test
 
 class PathExpectationSamples {
 
     private val tempDir = Files.createTempDirectory("PathAssertionSamples")
+
+    private val ifPosixSupported = fileSystemSupportsPosixPermissions()
 
     @Test
     fun toBeASymbolicLink() {
@@ -47,7 +49,7 @@ class PathExpectationSamples {
         expect(dir).toStartWith(dir.parent)
 
         fails {
-            expect(dir).toStartWith(Paths.get("invalid_dir"))
+            expect(dir).toStartWith(Paths.get("non_existing_dir"))
         }
     }
 
@@ -55,7 +57,7 @@ class PathExpectationSamples {
     fun notToStartWith() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).notToStartWith(Paths.get("invalid_dir"))
+        expect(dir).notToStartWith(Paths.get("non_existing_dir"))
 
         fails {
             expect(dir).notToStartWith(dir.parent)
@@ -69,7 +71,7 @@ class PathExpectationSamples {
         expect(dir).toEndWith(Paths.get("test_dir"))
 
         fails {
-            expect(dir).toEndWith(Paths.get("invalid_dir"))
+            expect(dir).toEndWith(Paths.get("non_existing_dir"))
         }
     }
 
@@ -77,7 +79,7 @@ class PathExpectationSamples {
     fun notToEndWith() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(dir).notToEndWith(Paths.get("invalid_dir"))
+        expect(dir).notToEndWith(Paths.get("non_existing_dir"))
 
         fails {
             expect(dir).notToEndWith(Paths.get("test_dir"))
@@ -91,7 +93,7 @@ class PathExpectationSamples {
         expect(dir).toExist()
 
         fails {
-            expect(Paths.get("invalid_dir")).toExist()
+            expect(Paths.get("non_existing_dir")).toExist()
         }
     }
 
@@ -99,7 +101,7 @@ class PathExpectationSamples {
     fun notToExist() {
         val dir = tempDir.newDirectory("test_dir")
 
-        expect(Paths.get("invalid_dir")).notToExist()
+        expect(Paths.get("non_existing_dir")).notToExist()
 
         fails {
             expect(dir).notToExist()
@@ -114,7 +116,7 @@ class PathExpectationSamples {
         expect(dir).toBeReadable()
 
         fails {
-            expect(Paths.get("invalid_dir")).toBeReadable()
+            expect(Paths.get("non_existing_dir")).toBeReadable()
         }
     }
 
@@ -125,7 +127,40 @@ class PathExpectationSamples {
         expect(dir).toBeWritable()
 
         fails {
-            expect(Paths.get("invalid_dir")).toBeWritable()
+            expect(Paths.get("non_existing_dir")).toBeWritable()
+        }
+    }
+
+    @Test
+    fun notToBeWritable() {
+        assertIf(ifPosixSupported) {
+            val readyOnlyPermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
+            val readyWritePermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-r--r--"))
+
+            val readOnlyDir = tempDir.newDirectory("read_only_dir", readyOnlyPermissions)
+            val readOnlyFile = tempDir.newFile("read_only_file", readyOnlyPermissions)
+            val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+            val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+            expect(readOnlyDir).notToBeWritable()
+            expect(readOnlyFile).notToBeWritable()
+
+            fails {
+                expect(readWriteDir).notToBeWritable()
+            }
+            fails {
+                expect(readWriteFile).notToBeWritable()
+            }
+
+            fails {
+                expect(readWriteDir).notToBeWritable()
+            }
+        }
+
+        fails {
+            expect(Paths.get("non_existing_dir")).notToBeWritable()
         }
     }
 
@@ -136,7 +171,7 @@ class PathExpectationSamples {
         expect(dir).toBeExecutable()
 
         fails {
-            expect(Paths.get("invalid_dir")).toBeExecutable()
+            expect(Paths.get("non_existing_dir")).toBeExecutable()
         }
     }
 
