@@ -14,6 +14,8 @@ class PathExpectationSamples {
 
     private val tempDir = Files.createTempDirectory("PathAssertionSamples")
 
+    private val ifPosixSupported = fileSystemSupportsPosixPermissions()
+
     @Test
     fun toBeASymbolicLink() {
         val target = tempDir.newFile("target")
@@ -131,7 +133,7 @@ class PathExpectationSamples {
 
     @Test
     fun notToBeWritable() {
-        assertIf(fileSystemSupportsPosixPermissions()) {
+        assertIf(ifPosixSupported) {
             val readyOnlyPermissions =
                 PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
             val readyWritePermissions =
@@ -166,6 +168,35 @@ class PathExpectationSamples {
 
         fails {
             expect(Paths.get("non_existing_dir")) toBe executable
+        }
+    }
+
+    @Test
+    fun notToBeExecutable() {
+        assertIf(ifPosixSupported) {
+            val readyOnlyPermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
+            val readyWriteExecutePermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwxr--r--"))
+
+            val readOnlyDir = tempDir.newDirectory("read_only_dir", readyOnlyPermissions)
+            val readOnlyFile = tempDir.newFile("read_only_file", readyOnlyPermissions)
+            val readWriteExecuteDir = tempDir.newDirectory("read_write_execute_dir", readyWriteExecutePermissions)
+            val readWriteExecuteFile = tempDir.newFile("read_write_execute_file", readyWriteExecutePermissions)
+
+            expect(readOnlyDir) notToBe executable
+            expect(readOnlyFile) notToBe executable
+
+            fails {
+                expect(readWriteExecuteDir) notToBe executable
+            }
+            fails {
+                expect(readWriteExecuteFile) notToBe executable
+            }
+        }
+
+        fails {
+            expect(Paths.get("non_existing_dir")) notToBe executable
         }
     }
 

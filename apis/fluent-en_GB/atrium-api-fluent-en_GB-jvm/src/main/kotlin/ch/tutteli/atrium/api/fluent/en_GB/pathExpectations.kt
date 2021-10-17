@@ -174,6 +174,28 @@ fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
     _logicAppend { isExecutable() }
 
 /**
+ * Expects that the subject of `this` expectation (a [Path]) is not executable;
+ * meaning that there is a file system entry at the location the [Path] points to and
+ * that the current thread does not have the permission to execute it.
+ *
+ * The semantics of “permission to execute it” may differ when checking access to a directory. For example, on UNIX
+ * systems, it means that the Java virtual machine has permission to search the directory in order to access file or
+ * subdirectories.
+ *
+ * This assertion _resolves_ symbolic links.
+ * Therefore, if a symbolic link exists at the location the subject points to, search will continue
+ * at the location the link points at.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PathExpectationSamples.notToBeExecutable
+ *
+ * @since 0.17.0
+ */
+fun <T : Path> Expect<T>.notToBeExecutable(): Expect<T> =
+    _logicAppend { isNotExecutable() }
+
+/**
  * Expects that the subject of `this` expectation (a [Path]) is a file;
  * meaning that there is a file system entry at the location the [Path] points to and that is a regular file.
  *
