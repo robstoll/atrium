@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeAFailure
 import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
-import kotlin.test.assertFails
 
 class ResultExpectationSamples {
 
@@ -17,14 +16,14 @@ class ResultExpectationSamples {
             .toBeASuccess()  // Returns the value within Result
             .toEqual(1)
 
-        assertFails {
+        fails {
             expect(success)
                 .toBeASuccess() // Returns the value within Result
                 .toBeLessThan(5)
                 .toBeGreaterThan(12)
         }
 
-        assertFails {
+        fails {
             expect(Result.failure<ArithmeticException>(ArithmeticException()))
                 .toBeASuccess()
         }
@@ -41,7 +40,7 @@ class ResultExpectationSamples {
                 toBeLessThan(15)
             }
 
-        assertFails {
+        fails {
             expect(success)
                 .toBeASuccess {
                     toBeGreaterThan(15)
@@ -60,13 +59,13 @@ class ResultExpectationSamples {
             .message
             .toEqual(message) // subject is now of type String
 
-        assertFails {
+        fails {
             expect(failure)
                 .toBeAFailure<IllegalArgumentException>()
                 .message.toEqual("wrong parameter")
         }
 
-        assertFails {
+        fails {
             expect(Result.success(1))
                 .toBeAFailure<ArithmeticException>()
         }
@@ -83,7 +82,7 @@ class ResultExpectationSamples {
                 message.toEqual(errorMessage)
             }
 
-        assertFails {
+        fails {
             expect(failure)
                 .toBeAFailure<ArithmeticException> {
                     toBeAnInstanceOf<IllegalArgumentException>()
