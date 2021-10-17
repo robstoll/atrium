@@ -67,15 +67,9 @@ class ResultExpectationSamples {
 
         fails {
             expect(Result.success(1))
-                .toBeAFailure<ArithmeticException>()
-        }
-
-        fails {
-            expect(failure)
                 .toBeAFailure<ArithmeticException>()  // fails
-                .messageContains("parameter") // not reported because toBeAFailure already fails
-                                                      //  use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
-
+                .messageToContain("parameter") // not reported because toBeAFailure already fails
+            //  use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
         }
 
     }
@@ -93,18 +87,11 @@ class ResultExpectationSamples {
 
         fails {
             expect(failure)
-                .toBeAFailure<ArithmeticException> {
-                    toBeAnInstanceOf<IllegalArgumentException>()
-                    message.toEqual("can divide by one")
-                }
-        }
-
-        fails {
-            expect(failure)
                 .toBeAFailure<ArithmeticException> { // fails
-                    messageContains("parameter") // fails
+                    toBeAnInstanceOf<IllegalArgumentException>()  // fails
+                    message.toEqual("can divide by one") // fails
+                    // use `toBeAFailure<...> ()` if you want to stop on first failure
                 }
-                                          // use `toBeAFailure<...> ()` if you want to stop on first failure
         }
 
     }
