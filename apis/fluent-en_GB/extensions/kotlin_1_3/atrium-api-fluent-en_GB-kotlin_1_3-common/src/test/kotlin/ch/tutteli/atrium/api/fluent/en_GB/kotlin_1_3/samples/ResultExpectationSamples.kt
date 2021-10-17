@@ -13,12 +13,12 @@ class ResultExpectationSamples {
         val success = Result.success(10)
 
         expect(success)
-            .toBeASuccess()  // Returns the value within Result
+            .toBeASuccess()  // subject is now of type Int (actually 10)
             .toEqual(1)
 
         fails {
             expect(success)
-                .toBeASuccess() // Returns the value within Result
+                .toBeASuccess() // subject is now of type Int (actually 10)
                 .toBeLessThan(5)
                 .toBeGreaterThan(12)
         }
@@ -38,11 +38,11 @@ class ResultExpectationSamples {
             .toBeASuccess {
                 toEqual(10)
                 toBeLessThan(15)
-            }
+            } // subject here is back to type Result<Int>
 
         fails {
             expect(success)
-                .toBeASuccess {
+                .toBeASuccess { // subject within this block is of type Int (actually 10)
                     toBeGreaterThan(15)
                     toBeLessThan(5)
                 }
@@ -55,9 +55,9 @@ class ResultExpectationSamples {
         val failure = Result.failure<IllegalArgumentException>(IllegalArgumentException(message))
 
         expect(failure)
-            .toBeAFailure<IllegalArgumentException>()
-            .message
-            .toEqual(message) // subject is now of type String
+            .toBeAFailure<IllegalArgumentException>() // subject is now of type IllegalArgumentException
+            .message  // subject is now of type String
+            .toEqual(message)
 
         fails {
             expect(failure)
@@ -69,6 +69,7 @@ class ResultExpectationSamples {
             expect(Result.success(1))
                 .toBeAFailure<ArithmeticException>()
         }
+
     }
 
     @Test
@@ -89,6 +90,7 @@ class ResultExpectationSamples {
                     message.toEqual("can divide by one")
                 }
         }
+
     }
 
 
