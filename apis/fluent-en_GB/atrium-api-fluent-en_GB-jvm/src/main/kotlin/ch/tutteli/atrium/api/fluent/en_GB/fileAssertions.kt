@@ -20,6 +20,8 @@ import java.nio.file.Path
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileExpectationSamples.asPath
+ *
  * @since 0.9.0
  */
 fun <T : File> Expect<T>.asPath(): Expect<Path> =
@@ -33,6 +35,8 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  * Use `feature(File::toPath, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileExpectationSamples.asPathWithAssertionCreator
  *
  * @since 0.9.0
  */
