@@ -104,8 +104,7 @@ class ResultExpectationSamples {
                 .toBeAFailure<ArithmeticException> { // fails
                     messageContains("parameter") // fails
                 }
-                                                          // use `toBeAFailure<...> ()` if you want to stop on first failure
-
+                                          // use `toBeAFailure<...> ()` if you want to stop on first failure
         }
 
     }
