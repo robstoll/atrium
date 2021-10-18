@@ -34,8 +34,7 @@ class ResultExpectationSamples {
     fun toBeASuccess() {
         val success = Result.success(10)
 
-        expect(success)
-            .toBeASuccess {
+        expect(success).toBeASuccess { // subject within this block is of type Int (actually 10)
                 toEqual(10)
                 toBeLessThan(15)
             } // subject here is back to type Result<Int>
