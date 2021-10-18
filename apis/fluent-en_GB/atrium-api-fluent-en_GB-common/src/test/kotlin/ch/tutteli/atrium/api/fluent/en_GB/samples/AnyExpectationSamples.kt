@@ -82,7 +82,7 @@ class AnyExpectationSamples {
         fails {
             expect<Int?>(null)
                 .notToEqualNull() // fails
-                .toBeLessThan(2) // not reported because `notToEqualNull` already fails
+                .toBeLessThan(2)  // not reported because `notToEqualNull` already fails
         }
     }
 
