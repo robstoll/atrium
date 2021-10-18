@@ -41,7 +41,7 @@ class ResultExpectationSamples {
 
         fails {
             expect(success)
-                .toBeASuccess { // subject within this block is of type Int (actually 10)
+                .toBeASuccess {
                     toBeGreaterThan(15)
                     toBeLessThan(5)
                 }
