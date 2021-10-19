@@ -11,7 +11,7 @@ class FileExpectationSamples {
     private val tempDir = Files.createTempDirectory("FileAssertionSamples")
 
     @Test
-    fun asPath() {
+    fun asPathFeature() {
         val file = tempDir.newFile("target").toFile()
 
         expect(file).asPath().toBeARegularFile()
@@ -22,7 +22,7 @@ class FileExpectationSamples {
     }
 
     @Test
-    fun asPathWithAssertionCreator() {
+    fun asPath() {
         val file = tempDir.newFile("target").toFile()
 
         expect(file).asPath {
