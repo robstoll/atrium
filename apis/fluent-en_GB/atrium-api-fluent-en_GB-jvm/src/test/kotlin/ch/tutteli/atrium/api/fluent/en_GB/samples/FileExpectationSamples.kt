@@ -14,10 +14,15 @@ class FileExpectationSamples {
     fun asPathFeature() {
         val file = tempDir.newFile("target").toFile()
 
-        expect(file).asPath().toBeARegularFile()
+        expect(file)
+          .asPath() // subject is now of type Path
+          .toBeARegularFile()
 
         fails {
-            expect(file).asPath().toBeADirectory()
+            expect(file)
+              .asPath()
+              .toBeADirectory()  //fails
+              .toBe...
         }
     }
 
@@ -25,11 +30,11 @@ class FileExpectationSamples {
     fun asPath() {
         val file = tempDir.newFile("target").toFile()
 
-        expect(file).asPath {
+        expect(file).asPath { // subject within this block is of type Path
             toBeARegularFile()
             toBeWritable()
             toStartWith(tempDir)
-        }
+        } // subject here is back to type File
 
         fails {
             expect(file).asPath {
