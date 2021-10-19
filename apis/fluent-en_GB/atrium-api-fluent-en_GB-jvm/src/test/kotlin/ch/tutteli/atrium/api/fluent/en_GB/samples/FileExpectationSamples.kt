@@ -22,7 +22,6 @@ class FileExpectationSamples {
             expect(file)
               .asPath()
               .toBeADirectory()  //fails
-              .toBe...
         }
     }
 
@@ -32,15 +31,16 @@ class FileExpectationSamples {
 
         expect(file).asPath { // subject within this block is of type Path
             toBeARegularFile()
-            toBeWritable()
             toStartWith(tempDir)
         } // subject here is back to type File
 
         fails {
+            // all assertions are evaluated inside an assertion group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
             expect(file).asPath {
-                toBeADirectory()
-                notToBeWritable()
-                notToStartWith(tempDir)
+                toBeADirectory()        // fails
+                notToStartWith(tempDir) // still evaluated, use `.asList().` if you want a fail fast behaviour
             }
         }
     }
