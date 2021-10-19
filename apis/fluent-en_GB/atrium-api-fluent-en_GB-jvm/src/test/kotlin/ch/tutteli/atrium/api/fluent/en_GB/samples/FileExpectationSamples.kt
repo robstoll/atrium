@@ -40,7 +40,7 @@ class FileExpectationSamples {
 
             expect(file).asPath {
                 toBeADirectory()        // fails
-                notToStartWith(tempDir) // still evaluated, use `.asList().` if you want a fail fast behaviour
+                notToStartWith(tempDir) // still evaluated, use `.asPath().` if you want a fail fast behaviour
             }
         }
     }
