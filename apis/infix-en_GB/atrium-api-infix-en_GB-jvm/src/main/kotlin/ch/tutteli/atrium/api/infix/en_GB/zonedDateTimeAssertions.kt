@@ -17,6 +17,8 @@ import java.time.ZonedDateTime
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.yearFeature
+ *
  * @since 0.12.0
  */
 val Expect<ZonedDateTime>.year: Expect<Int>
@@ -29,6 +31,8 @@ val Expect<ZonedDateTime>.year: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.year
+ *
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
@@ -39,6 +43,8 @@ infix fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): 
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.monthFeature
  *
  * @since 0.12.0
  */
@@ -52,6 +58,8 @@ val Expect<ZonedDateTime>.month: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.month
+ *
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expect<ZonedDateTime> =
@@ -62,6 +70,8 @@ infix fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit):
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.dayOfWeekFeature
  *
  * @since 0.12.0
  */
@@ -75,6 +85,8 @@ val Expect<ZonedDateTime>.dayOfWeek: Expect<DayOfWeek>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.dayOfWeek
+ *
  * @since 0.12.0
  */
 infix fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Unit): Expect<ZonedDateTime> =
@@ -85,6 +97,8 @@ infix fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.()
  * of the subject of `this` expectation, so that further fluent calls are assertions about it.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.dayFeature
  *
  * @since 0.12.0
  */
@@ -97,6 +111,8 @@ val Expect<ZonedDateTime>.day: Expect<Int>
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ZonedDateTimeExpectationSamples.day
  *
  * @since 0.12.0
  */
