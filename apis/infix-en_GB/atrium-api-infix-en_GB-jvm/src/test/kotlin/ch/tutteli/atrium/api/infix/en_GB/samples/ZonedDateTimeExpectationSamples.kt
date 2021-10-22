@@ -29,7 +29,7 @@ class ZonedDateTimeExpectationSamples {
             // subject inside this block is of type Int (actually 2021)
             it toEqual 2021
             it toBeGreaterThan 2020
-        } // subject here is back to type LocalDateTime
+        } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) year {
@@ -37,7 +37,7 @@ class ZonedDateTimeExpectationSamples {
                 it notToEqual 2021       // fails
                 it toBeGreaterThan 2022  // not reported because notToEqual already fails
                 //                          use `.year.` if you want a fail fast behaviour
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type ZonedDateTime
         }
     }
 
@@ -63,7 +63,7 @@ class ZonedDateTimeExpectationSamples {
             // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
             it toEqual Month.OCTOBER.value
             it notToEqual Month.SEPTEMBER.value
-        } // subject here is back to type LocalDateTime
+        } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) month {
@@ -71,7 +71,7 @@ class ZonedDateTimeExpectationSamples {
                 it toBeLessThan 9      // fails
                 it toBeGreaterThan 11  // still evaluated even though toBeLessThan already fails
                 //                        use `.month` if you want a fail fast behaviour
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type ZonedDateTime
         }
     }
 
@@ -97,7 +97,7 @@ class ZonedDateTimeExpectationSamples {
             // subject inside this block is of type DayOfWeek (actually SATURDAY)
             it toEqual DayOfWeek.SATURDAY
             it notToEqual DayOfWeek.SUNDAY
-        } // subject here is back to type LocalDateTime
+        } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) dayOfWeek {
@@ -105,7 +105,7 @@ class ZonedDateTimeExpectationSamples {
                 it toEqual DayOfWeek.MONDAY       // fails
                 it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
                 //                                   use `.dayOfWeek.` if you want a fail fast behaviour
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type ZonedDateTime
         }
     }
 
@@ -131,7 +131,7 @@ class ZonedDateTimeExpectationSamples {
             // subject inside this block is of type Int (actually 9)
             it toEqual 9
             it toBeGreaterThan 5
-        } // subject here is back to type LocalDateTime
+        } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) day {
@@ -139,7 +139,7 @@ class ZonedDateTimeExpectationSamples {
                 it toEqual 5       // fails
                 it toBeLessThan 7  // still evaluated even though toEqual already fails
                 //                    use `.day` if you want a fail fast behaviour
-            } // subject here is back to type LocalDateTime
+            } // subject here is back to type ZonedDateTime
         }
     }
 }
