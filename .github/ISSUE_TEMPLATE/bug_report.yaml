@@ -17,6 +17,7 @@ body:
     id: api
     attributes:
       label: API
+      multiple: true
       options:
         - fluent-en_GB
         - infix-en_GB
