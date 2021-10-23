@@ -27,8 +27,8 @@ body:
     id: platform
     attributes:
       label: Platform
+      multiple: true
       options:
-        - all
         - jvm
         - js
     validations:
