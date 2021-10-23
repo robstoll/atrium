@@ -1,0 +1,65 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: version
+    attributes:
+      label: Affected Version
+      description: What version of Atrium are you running?
+        placeholder: ex. email@example.com
+    validations:
+      required: true
+  - type: dropdown
+    id: api
+    attributes:
+      label: API
+      options:
+        - fluent-en_GB
+        - infix-en_GB
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - all
+        - jvm
+        - js
+    validations:
+      required: true      
+  - type: input
+    id: kotlin-version
+    attributes:
+      label: Kotlin Version
+      description: What Kotlin version are you using when running Atrium?
+      placeholder: 1.5
+    validations:
+      required: false         
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce the problem?
+      value: "```kotlin
+      
+             expect("this dummy text").wasReplaced.withYourCode()
+
+             ```"
+    validations:
+      required: true  
+  - type: textarea
+    id: describe-bug
+    attributes:
+      label: Describe the bug
+    validations:
+      required: true      
+  - type: textarea
+    id: expected-behviour
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
