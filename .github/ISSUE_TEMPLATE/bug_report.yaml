@@ -44,11 +44,10 @@ body:
     id: reproduce
     attributes:
       label: How to reproduce the problem?
-      value: "```kotlin
-      
-             expect("this dummy text").wasReplaced.withYourCode()
-
-             ```"
+      value: |
+        ```kotlin
+        expect("this dummy text").wasReplaced.withYourCode()
+        ```
     validations:
       required: true  
   - type: textarea
