@@ -10,7 +10,7 @@ body:
     attributes:
       label: Affected Version
       description: What version of Atrium are you running?
-      placeholder: 0.16.0
+      placeholder: "0.16.0"
     validations:
       required: true
   - type: dropdown
@@ -37,7 +37,7 @@ body:
     attributes:
       label: Kotlin Version
       description: What Kotlin version are you using when running Atrium?
-      placeholder: 1.5
+      placeholder: "1.5"
     validations:
       required: false         
   - type: textarea
