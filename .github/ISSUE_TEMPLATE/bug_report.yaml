@@ -10,7 +10,7 @@ body:
     attributes:
       label: Affected Version
       description: What version of Atrium are you running?
-        placeholder: ex. email@example.com
+      placeholder: 0.16.0
     validations:
       required: true
   - type: dropdown
