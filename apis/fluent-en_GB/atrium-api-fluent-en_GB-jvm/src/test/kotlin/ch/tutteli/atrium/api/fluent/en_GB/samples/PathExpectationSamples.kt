@@ -121,6 +121,39 @@ class PathExpectationSamples {
     }
 
     @Test
+    fun notToBeReadable() {
+        assertIf(ifPosixSupported) {
+            val writeOnlyPermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
+            val readyWritePermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-rw-rw-"))
+
+            val writeOnlyDir = tempDir.newDirectory("write_only_dir", writeOnlyPermissions)
+            val writeOnlyFile = tempDir.newFile("write_only_file", writeOnlyPermissions)
+            val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+            val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+            expect(writeOnlyDir).notToBeReadable()
+            expect(writeOnlyFile).notToBeReadable()
+
+            fails {
+                expect(readWriteDir).notToBeReadable()
+            }
+            fails {
+                expect(readWriteFile).notToBeReadable()
+            }
+
+            fails {
+                expect(readWriteDir).notToBeReadable()
+            }
+        }
+
+        fails {
+            expect(Paths.get("non_existing_dir")).notToBeReadable()
+        }
+    }
+
+    @Test
     fun toBeWritable() {
         val dir = tempDir.newDirectory("test_dir")
 

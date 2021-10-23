@@ -280,6 +280,7 @@ fun <E> path(path: String, assertionCreator: Expect<E>.() -> Unit): PathWithCrea
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
     _logicAppend { isReadable() }
 
+
 //TODO move to pathExpectations.kt with 0.18.0
 /**
  * Expects that the subject of `this` expectation (a [Path]) is writable;
