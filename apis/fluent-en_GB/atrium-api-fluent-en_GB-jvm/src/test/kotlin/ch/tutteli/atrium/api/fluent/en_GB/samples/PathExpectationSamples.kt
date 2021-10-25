@@ -121,6 +121,39 @@ class PathExpectationSamples {
     }
 
     @Test
+    fun notToBeReadable() {
+        assertIf(ifPosixSupported) {
+            val writeOnlyPermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
+            val readyWritePermissions =
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-rw-rw-"))
+
+            val writeOnlyDir = tempDir.newDirectory("write_only_dir", writeOnlyPermissions)
+            val writeOnlyFile = tempDir.newFile("write_only_file", writeOnlyPermissions)
+            val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+            val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+            expect(writeOnlyDir).notToBeReadable()
+            expect(writeOnlyFile).notToBeReadable()
+
+            fails {
+                expect(readWriteDir).notToBeReadable()
+            }
+            fails {
+                expect(readWriteFile).notToBeReadable()
+            }
+
+            fails {
+                expect(readWriteDir).notToBeReadable()
+            }
+        }
+
+        fails {
+            expect(Paths.get("non_existing_dir")).notToBeReadable()
+        }
+    }
+
+    @Test
     fun toBeWritable() {
         val dir = tempDir.newDirectory("test_dir")
 
@@ -334,7 +367,7 @@ class PathExpectationSamples {
             expect(dir).extension { // subject inside this block is of type String (actually "txt")
                 toEqual("txtt")     // fails because it doesn't equal to "txtt"
                 toEndWith("jpg")    // fails because it doesn't end with "jpg"
-                //                     use `.extension` if you want fail fast behaviour
+                //                     use `.extension.` if you want fail fast behaviour
             } // subject here is back to type Path
         }
     }
@@ -370,7 +403,7 @@ class PathExpectationSamples {
             expect(dir).fileName {      // subject inside this block is of type String (actually "test_dir")
                 toEndWith("foo")        // fails because it does not end with "foo"
                 toStartWith("invalid")  // still evaluated even though toEndWith already fails
-                //                         use `.fileName` if you want fail fast behaviour
+                //                         use `.fileName.` if you want fail fast behaviour
             }  // subject here is back to type Path
         }
     }
@@ -402,7 +435,7 @@ class PathExpectationSamples {
             expect(dir).fileNameWithoutExtension { // subject inside this block is of type String (actually "test_dir")
                 toBeEmpty()             // fails because string is not empty
                 notToEqual("test_dir")  // still evaluated even though toBeEmpty already fails
-                //                         use `.fileNameWithoutExtension` if you want a fail fast behaviour
+                //                         use `.fileNameWithoutExtension.` if you want a fail fast behaviour
             } // subject here is back to type Path
         }
     }
@@ -438,7 +471,7 @@ class PathExpectationSamples {
             expect(dir).parent {
                 toEqual(dir3) // fails because dir3 and dir do not have same parents
                 notToExist()  // still evaluated even though toEqual already fails
-                //               use `.parent` if you want a fail fast behaviour
+                //               use `.parent.` if you want a fail fast behaviour
             }
         }
     }

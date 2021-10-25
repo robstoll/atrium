@@ -100,6 +100,15 @@ class DefaultPathAssertions : PathAssertions {
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =
         filePermissionAssertion(container, READABLE, AccessMode.READ, DescriptionBasic.IS, shouldHaveAccess = true)
 
+    override fun <T : Path> isNotReadable(container: AssertionContainer<T>): Assertion =
+        filePermissionAssertion(
+            container,
+            READABLE,
+            AccessMode.READ,
+            DescriptionBasic.IS_NOT,
+            shouldHaveAccess = false
+        )
+
     override fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion =
         filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS, shouldHaveAccess = true)
 

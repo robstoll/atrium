@@ -30,6 +30,7 @@ fun <T : Path> AssertionContainer<T>.exists(linkOption: LinkOption? = null): Ass
 fun <T : Path> AssertionContainer<T>.existsNot(linkOption: LinkOption? = null): Assertion = impl.existsNot(this, linkOption)
 
 fun <T : Path> AssertionContainer<T>.isReadable(): Assertion = impl.isReadable(this)
+fun <T : Path> AssertionContainer<T>.isNotReadable(): Assertion = impl.isNotReadable(this)
 fun <T : Path> AssertionContainer<T>.isWritable(): Assertion = impl.isWritable(this)
 fun <T : Path> AssertionContainer<T>.isNotWritable(): Assertion = impl.isNotWritable(this)
 fun <T : Path> AssertionContainer<T>.isExecutable(): Assertion = impl.isExecutable(this)

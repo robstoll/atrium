@@ -11,6 +11,8 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  *
  * @return The newly created [Expect] if the given assertion is a success.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeASuccessFeature
+ *
  * @since 0.17.0
  */
 fun <E, T : Result<E>> Expect<T>.toBeASuccess(): Expect<E> =
@@ -21,6 +23,8 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(): Expect<E> =
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeASuccess
  *
  * @since 0.17.0
  */
@@ -33,6 +37,8 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(assertionCreator: Expect<E>.() -> 
  *
  * @return An [Expect] with the new type [TExpected]
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeAFailureFeature
+ *
  * @since 0.17.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
@@ -44,6 +50,8 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure():
  * that the exception holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the new type [TExpected]
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeAFailure
  *
  * @since 0.17.0
  */
