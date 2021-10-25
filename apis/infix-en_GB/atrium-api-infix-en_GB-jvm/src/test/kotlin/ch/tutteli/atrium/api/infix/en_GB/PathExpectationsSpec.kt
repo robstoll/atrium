@@ -18,6 +18,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     "toBe ${writable::class.simpleName}" to Companion::toBeWritable,
     "notToBe ${writable::class.simpleName}" to Companion::notToBeWritable,
     "toBe ${executable::class.simpleName}" to Companion::toBeExecutable,
+    "notToBe ${executable::class.simpleName}" to Companion::notToBeExecutable,
     "toBe ${aRegularFile::class.simpleName}" to Companion::toBeRegularFile,
     "toBe ${aDirectory::class.simpleName}" to Companion::toBeADirectory,
     "toBe ${aSymbolicLink::class.simpleName}" to Companion::toBeASymbolicLink,
@@ -50,6 +51,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         private fun toBeWritable(expect: Expect<Path>) = expect toBe writable
         private fun notToBeWritable(expect: Expect<Path>) = expect notToBe writable
         private fun toBeExecutable(expect: Expect<Path>) = expect toBe executable
+        private fun notToBeExecutable(expect: Expect<Path>) = expect notToBe executable
         private fun toBeRegularFile(expect: Expect<Path>) = expect toBe aRegularFile
         private fun toBeADirectory(expect: Expect<Path>) = expect toBe aDirectory
         private fun toBeASymbolicLink(expect: Expect<Path>) = expect toBe aSymbolicLink
@@ -97,6 +99,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1 toBe writable
         a1 notToBe writable
         a1 toBe executable
+        a1 notToBe executable
         a1 toBe aRegularFile
         a1 toBe aDirectory
         a1 toBe absolute

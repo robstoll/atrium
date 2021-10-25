@@ -39,6 +39,7 @@ abstract class PathExpectationsSpec(
     toBeWritable: Fun0<Path>,
     notToBeWritable: Fun0<Path>,
     toBeExecutable: Fun0<Path>,
+    notToBeExecutable: Fun0<Path>,
     toBeRegularFile: Fun0<Path>,
     toBeADirectory: Fun0<Path>,
     toBeASymbolicLink: Fun0<Path>,
@@ -1011,6 +1012,115 @@ abstract class PathExpectationsSpec(
                             folder.expectedAclEntryPartFor("ALLOW", "WRITE_DATA")
                         )
                         containsExplanationFor(maybeLink)
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(notToBeExecutable) {
+        val notToBeExecutableFun = notToBeExecutable.lambda
+        val expectedMessage = "$isNotDescr: ${EXECUTABLE.getDefault()}"
+
+        context("not accessible") {
+            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
+                expect {
+                    expect(file).notToBeExecutableFun()
+                }.toThrow<AssertionError>().message {
+                    toContain(
+                        expectedMessage,
+                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
+                    )
+                    containsExplanationFor(maybeLink)
+                }
+            }
+
+            itPrintsFileAccessProblemDetails(
+                // because if we cannot access parent then it is still not executable
+                checkParentHints = false
+            ) { testFile ->
+                expect(testFile).notToBeExecutable()
+            }
+        }
+
+        context("POSIX: executable", skip = ifPosixNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("executable"))
+
+                file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(file).notToBeExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("executable"))
+
+                folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
+                    expect {
+                        expect(folder).notToBeExecutableFun()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+        }
+
+        context("POSIX: not executable", skip = ifPosixNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-executable"))
+                file.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
+                    expect(file).notToBeExecutable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
+                folder.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
+                    expect(folder).notToBeExecutable()
+                }
+            }
+        }
+
+        context("ACL: not executable", skip = ifAclNotSupported) {
+            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("not-executable"))
+                file.whileWithAcl(TestAcls::ownerNoExecute) {
+                    expect(file).notToBeExecutable()
+                }
+            }
+
+            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
+                folder.whileWithAcl(TestAcls::ownerNoExecute) {
+                    expect(folder).notToBeExecutable()
+                }
+            }
+        }
+
+        context("ACL: executable", skip = ifAclNotSupported) {
+            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+                val file = maybeLink.create(tempFolder.newFile("executable"))
+                file.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(file).notToBeExecutable()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
+                    }
+                }
+            }
+
+            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+                val folder = maybeLink.create(tempFolder.newDirectory("executable"))
+                folder.whileWithAcl(TestAcls::all) {
+                    expect {
+                        expect(folder).notToBeExecutable()
+                    }.toThrow<AssertionError>().message {
+                        toContain(expectedMessage)
                     }
                 }
             }

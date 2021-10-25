@@ -29,6 +29,7 @@ interface PathAssertions {
     fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion
+    fun <T : Path> isNotExecutable(container: AssertionContainer<T>): Assertion
     fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion
     fun <T : Path> isDirectory(container: AssertionContainer<T>): Assertion
     fun <T : Path> isSymbolicLink(container: AssertionContainer<T>): Assertion

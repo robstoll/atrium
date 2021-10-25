@@ -17,6 +17,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
     fun0(Expect<Path>::toBeWritable),
     fun0(Expect<Path>::notToBeWritable),
     fun0(Expect<Path>::toBeExecutable),
+    fun0(Expect<Path>::notToBeExecutable),
     fun0(Expect<Path>::toBeARegularFile),
     fun0(Expect<Path>::toBeADirectory),
     fun0(Expect<Path>::toBeASymbolicLink),
@@ -63,6 +64,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.toBeWritable()
         a1.notToBeWritable()
         a1.toBeExecutable()
+        a1.notToBeExecutable()
         a1.toBeARegularFile()
         a1.toBeADirectory()
         a1.toBeASymbolicLink()
