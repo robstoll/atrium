@@ -978,14 +978,14 @@ abstract class PathExpectationsSpec(
         context("ACL: not executable", skip = ifAclNotSupported) {
             it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
-                file.whileWithAcl(TestAcls::ownerNoWrite) {
+                file.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect(file).notToBeExecutable()
                 }
             }
 
             it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
-                folder.whileWithAcl(TestAcls::ownerNoWrite) {
+                folder.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect(folder).notToBeExecutable()
                 }
             }
