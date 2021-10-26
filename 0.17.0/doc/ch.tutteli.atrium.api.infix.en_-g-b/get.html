@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>get - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./get.html">get</a><br/>
+<br/>
+<h1>get</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/listAssertions.kt#L17">(source)</a>
+<p>Expects that the given <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</a> is within the bounds of the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at that position.</p>
+<pre><code class="lang-kotlin">val list = listOf(1, 2, 3)
+
+expect(list) get 0 toBeGreaterThan 0 toBeLessThan 2
+//               |                 | subject is still of type Int (still 1)
+//               | subject is now of type Int (actually 1)
+
+fails {
+    expect(list) get 3 toBeLessThan 0
+    //             |        | not reported
+    //             | fails because index 3 is out of bound
+    // use `get index(elementIndex) { ... }` if you want that all expectations are evaluated
+} message {
+    toContain("index out of bounds")
+    notToContain("is less than: 0")
+}
+
+fails {
+    expect(list) get 0 toBeGreaterThan 2 toBeLessThan 0
+    //               |        |            | not reported because `toBeGreaterThan 2` already fails
+    //               |        | fails
+    //               | subject is now of type Int (actually 1)
+    expect(list) get 0 toBeLessThan 0
+    // use `get index(elementIndex) { ... }` if you want that all expectations are evaluated
+
+} message {
+    toContain("${toBeGreaterThanDescr}: 2")
+    notToContain("${toBeLessThanDescr}: 0")
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the element at position <a href="get.html#ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), kotlin.Int)/index">index</a>.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator((ch.tutteli.atrium.api.infix.en_GB.get.E)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$get(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.get.T)), ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator((ch.tutteli.atrium.api.infix.en_GB.get.E)))/index">index</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/index.html"><span class="identifier">IndexWithCreator</span></a><span class="symbol">&lt;</span><a href="get.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/listAssertions.kt#L31">(source)</a>
+<p>Expects that the given <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/--index--.html">index</a> is within the bounds of the subject of <code>this</code> expectation
+(a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>) and that the element at that position holds all assertions the given
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/assertion-creator.html">IndexWithCreator.assertionCreator</a> creates for it.</p>
+<p>Use the function <code>index(Int) { ... }</code> to create an <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-index-with-creator/index.html">IndexWithCreator</a>.</p>
+<pre><code class="lang-kotlin">val list = listOf(1, 2, 3)
+
+expect(list) get index(0) {  // subject inside this block is of type Int (actually 1)
+    it toBeLessThan 2
+    it toBeGreaterThan 0
+}
+
+expect(list) get index(1) {  // subject inside this block is of type Int (actually 2)
+    it toBeLessThan 3
+    it toBeGreaterThan 1
+}
+
+fails {
+    // all expectations are evaluated inside an expectation group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(list) get index(0) {
+        it toBeGreaterThan 2    // fails
+        it toBeLessThan 0       // still evaluated even though `isGreaterThan(2)` already fails,
+        //                         use `get index` if you want a fail fast behaviour
+    }
+} messageToContain values(
+    "${toBeGreaterThanDescr}: 2",
+    "${toBeLessThanDescr}: 0"
+)</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

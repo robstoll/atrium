@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToEqualNull - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-equal-null.html">notToEqualNull</a><br/>
+<br/>
+<h1>notToEqualNull</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$notToEqualNull(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal-null.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToEqualNull</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal-null.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L77">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation is not null and changes the subject to the non-nullable version.</p>
+<pre><code class="lang-kotlin">expect&lt;Int?&gt;(1)
+    .notToEqualNull() // subject is now of type Int
+    .toBeLessThan(2)
+
+fails {
+    expect&lt;Int?&gt;(null)
+        .notToEqualNull() // fails
+        .toBeLessThan(2)  // not reported because `notToEqualNull` already fails
+}</code></pre>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the non-nullable type <a href="not-to-equal-null.html#T">T</a> (was <code>T?</code> before).</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$notToEqualNull(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal-null.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToEqualNull</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$notToEqualNull(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal-null.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal-null.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L92">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation is not null and
+that it holds all assertions the given <a href="not-to-equal-null.html#ch.tutteli.atrium.api.fluent.en_GB$notToEqualNull(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqualNull.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<pre><code class="lang-kotlin">expect&lt;Int?&gt;(1)
+    .notToEqualNull { // subject is now of type Int
+        toBeGreaterThan(0)
+        toBeLessThan(10)
+    } // subject remains type Int also after the block
+    .toEqual(1)
+
+fails {
+    // because you forgot to define an expectation in the expectation group block
+    // use `notToEqualNull()` if this is all you expect
+    expect&lt;Int?&gt;(1).notToEqualNull { }
+}
+
+
+fails { // because subject is null, but since we use a block...
+    expect&lt;Int?&gt;(null).notToEqualNull {
+        toBeGreaterThan(2) // ...reporting mentions that subject was expected `to be greater than: 2`
+    }
+}
+
+fails { // because sub-expectation fails
+    expect&lt;Int?&gt;(1).notToEqualNull {
+        toBeLessThan(0)
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the non-nullable type <a href="not-to-equal-null.html#T">T</a> (was <code>T?</code> before)</p>
+</BODY>
+</HTML>

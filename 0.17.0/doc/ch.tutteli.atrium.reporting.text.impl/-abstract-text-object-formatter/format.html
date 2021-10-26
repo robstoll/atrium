@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AbstractTextObjectFormatter.format - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.text.impl</a>&nbsp;/&nbsp;<a href="index.html">AbstractTextObjectFormatter</a>&nbsp;/&nbsp;<a href="./format.html">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.Any)"></a>
+<code><span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.Any)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-jvm/src/main/kotlin/ch/tutteli/atrium/reporting/text/impl/DefaultTextObjectFormatter.kt#L40">(source)</a>
+<p>Overrides <a href="../-text-object-formatter-common/format.html">TextObjectFormatterCommon.format</a></p>
+<p>Returns a formatted version of the given <a href="format.html#ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.Any)/value">value</a>.</p>
+<p>The following rules apply for the representation of an object:</p>
+<ul><li><code>null</code> is represented as <a href="../../ch.tutteli.atrium.reporting/-text/-n-u-l-l.html">Text.NULL</a>.<a href="../../ch.tutteli.atrium.reporting/-text/string.html">Text.string</a></li>
+<li><a href="../../ch.tutteli.atrium.reporting/-lazy-representation/index.html">LazyRepresentation</a> is <a href="../../ch.tutteli.atrium.reporting/-lazy-representation/eval.html">evaluated</a> and then again <a href="./format.html">format</a>ted</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> is put in apostrophes</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> is represented with its <a href="#">toString</a> representation</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> is put in quotes and its <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a> is omitted</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> is put in quotes, but <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a> is used in contrast to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></li>
+<li><a href="../../ch.tutteli.atrium.reporting/-text/index.html">Text</a> is represented as <a href="../../ch.tutteli.atrium.reporting/-text/string.html">Text.string</a></li>
+<li><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> is represented as result of its translation (by <a href="#">translator</a>)</li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a> is represented as "<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getSimpleName()">Class.getSimpleName</a> (<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a>)"</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a> is represented as "<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/simple-name.html">KClass.simpleName</a> (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a>)" unless the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/qualified-name.html">KClass.qualifiedName</a>
+differs from <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a> in which case, "-- Class: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a>" is appended in addition</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a> is represented as "<a href="#">toString</a> (<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a>)</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is represented as "<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a>"</li>
+<li>All other objects are represented as "<a href="#">toString</a> (<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getName()">Class.getName</a> &lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#identityHashCode(java.lang.Object)">System.identityHashCode</a>&gt;)"</li>
+</ul>
+<h3>Parameters</h3>
+<p><a name="value"></a>
+<code>value</code> - The value which shall be formatted.</p>
+<p><strong>Return</strong><br/>
+The formatted <a href="format.html#ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.Any)/value">value</a>.</p>
+<a name="ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.reflect.KClass((kotlin.Any)))"></a>
+<code><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter$format(kotlin.reflect.KClass((kotlin.Any)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-jvm/src/main/kotlin/ch/tutteli/atrium/reporting/text/impl/DefaultTextObjectFormatter.kt#L47">(source)</a>
+<p>Overrides <a href="../-text-object-formatter-common/format.html">TextObjectFormatterCommon.format</a></p>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>parent - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./parent.html">parent</a><br/>
+<br/>
+<h1>parent</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$parent#ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.parent.T))"></a>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">parent</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathAssertions.kt#L205">(source)</a>
+<p>Expects that this <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> has a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html#getParent()">parent</a> and creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it,
+so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir_1")
+val dir2 = tempDir.newDirectory("test_dir_2")
+
+expect(dir).parent toEqual dir2.parent toBe existing
+
+fails {
+    val dir3 = dir2.newDirectory("test_dir")
+    expect(dir).parent toEqual (dir3) notToBe existing
+    //                   |              | not reported `toEqual(dir3)` already fails
+    //                   |              | use `.parent { ... }` if you want that all expectations are evaluated
+    //                   | fails because dir3 and dir do not have same parents
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$parent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.parent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">parent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$parent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.parent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="parent.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathAssertions.kt#L219">(source)</a>
+<p>Expects that this <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> has a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html#getParent()">parent</a>, that the parent holds all assertions the
+given <a href="parent.html#ch.tutteli.atrium.api.infix.en_GB$parent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.parent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir_1")
+val dir2 = tempDir.newDirectory("test_dir_2")
+
+expect(dir) parent { // subject inside this block refers to path corresponding to `test_dir_1/..`
+    it toEqual dir2.parent
+    it toBe existing
+} // subject here is back to `test_dir_1`
+
+fails {
+    val dir3 = dir2.newDirectory("test_dir")
+    expect(dir) parent {
+        it toEqual dir3     // fails because dir3 and dir do not have same parents
+        it notToBe existing // still evaluated even though `toEqual(dir3)` already fails
+        //                     use `.parent` if you want a fail fast behaviour
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>withHelpOnFailureBasedOnDefinedSubject - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./with-help-on-failure-based-on-defined-subject.html">withHelpOnFailureBasedOnDefinedSubject</a><br/>
+<br/>
+<h1>withHelpOnFailureBasedOnDefinedSubject</h1>
+<a name="ch.tutteli.atrium.assertions.builders$withHelpOnFailureBasedOnDefinedSubject(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T, ch.tutteli.atrium.assertions.Assertion)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="-descriptive/-final-step/index.html"><span class="identifier">Descriptive.FinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withHelpOnFailureBasedOnDefinedSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders$withHelpOnFailureBasedOnDefinedSubject(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T, ch.tutteli.atrium.assertions.Assertion)))/expect">expect</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="with-help-on-failure-based-on-defined-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders$withHelpOnFailureBasedOnDefinedSubject(ch.tutteli.atrium.assertions.builders.Descriptive.DescriptionOption((ch.tutteli.atrium.assertions.builders.Descriptive.FinalStep)), ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T)), kotlin.Function1((ch.tutteli.atrium.assertions.builders.withHelpOnFailureBasedOnDefinedSubject.T, ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="with-help-on-failure-based-on-defined-subject.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-descriptive/-description-option/index.html"><span class="identifier">Descriptive.DescriptionOption</span></a><span class="symbol">&lt;</span><a href="-descriptive-assertion-with-failure-hint/-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHint.FinalStep</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L52">(source)</a>
+<p>Option to create a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> like assertion with an additional hint
+which is based on the subject of the expectation and
+which is only shown the subject is defined.</p>
+<p>You can use <a href="with-help-on-failure-based-on-subject.html">withHelpOnFailureBasedOnSubject</a> in case you want to:</p>
+<ul><li>provide a hint also if the subject is absent.</li>
+<li>do not show the hint in certain cases even if the subject is defined</li>
+</ul>
+<p>Or use <a href="with-help-on-failure.html">withHelpOnFailure</a> which does not expect an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> in case your <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> is not based
+on the subject of the expectation.</p>
+</BODY>
+</HTML>

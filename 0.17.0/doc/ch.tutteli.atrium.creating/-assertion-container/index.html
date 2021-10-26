@@ -1,0 +1,285 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionContainer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="./index.html">AssertionContainer</a><br/>
+<br/>
+<h1>AssertionContainer</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionContainer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/AssertionContainer.kt#L22">(source)</a>
+<p>Represents the extension point of the logic level for subjects of type <a href="index.html#T">T</a>.</p>
+<p>In contrast to expectation functions defined for <a href="../-expect/index.html">Expect</a> which usually return <a href="../-expect/index.html">Expect</a>, functions defined for
+<a href="./index.html">AssertionContainer</a> return <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> so that they can be appended to whatever we want.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the subject of <code>this</code> expectation.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="components.html">components</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">components</span><span class="symbol">: </span><a href="../-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a></code>
+<p>Do not use yet, this is experimental</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="maybe-subject.html">maybeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maybeSubject</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Either <a href="../../ch.tutteli.atrium.core/-some/index.html">Some</a> wrapping the subject of an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> or <a href="../../ch.tutteli.atrium.core/-none.html">None</a> in case a previous subject transformation
+could not be carried out.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="append.html">append</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">append</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$append(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Appends the given <a href="append.html#ch.tutteli.atrium.creating.AssertionContainer$append(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> to this container and returns an <a href="../-expect/index.html">Expect</a> which includes it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="append-as-group.html">appendAsGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">appendAsGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$appendAsGroup(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.AssertionContainer.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Appends the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the given <a href="append-as-group.html#ch.tutteli.atrium.creating.AssertionContainer$appendAsGroup(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.AssertionContainer.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates to this container and
+returns an <a href="../-expect/index.html">Expect</a> which includes them.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-and-append.html">createAndAppend</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">createAndAppend</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-and-append.html#ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/description">description</a>, <a href="create-and-append.html#ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/expected">expected</a> and <a href="create-and-append.html#ch.tutteli.atrium.creating.AssertionContainer$createAndAppend(kotlin.String, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.creating.AssertionContainer.T, kotlin.Boolean)))/test">test</a>
+and <a href="append.html">append</a>s it to the container.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-impl.html">getImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">getImpl</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$getImpl(kotlin.reflect.KClass((ch.tutteli.atrium.creating.AssertionContainer.getImpl.I)), kotlin.Function0((ch.tutteli.atrium.creating.AssertionContainer.getImpl.I)))/kClass">kClass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="get-impl.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$getImpl(kotlin.reflect.KClass((ch.tutteli.atrium.creating.AssertionContainer.getImpl.I)), kotlin.Function0((ch.tutteli.atrium.creating.AssertionContainer.getImpl.I)))/defaultFactory">defaultFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="get-impl.html#I"><span class="identifier">I</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="get-impl.html#I"><span class="identifier">I</span></a></code>
+<p>Do not use yet, this is experimental and will definitely change in 0.17.0 or 0.18.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-subject-provider/add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.SubjectProvider$addAssertion(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-subject-provider/index.html"><span class="identifier">SubjectProvider</span></a><span class="symbol">&lt;</span><a href="../-subject-provider/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Adds the given <a href="../-subject-provider/add-assertion.html#ch.tutteli.atrium.creating.SubjectProvider$addAssertion(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> to this holder.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/change-subject.html">changeSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">changeSubject</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer-builder/-kind-step/index.html"><span class="identifier">SubjectChangerBuilder.KindStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/change-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer-builder/index.html">SubjectChangerBuilder</a> based on this <a href="./index.html">AssertionContainer</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/extract-feature.html">extractFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/extract-feature.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">extractFeature</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-description-step/index.html"><span class="identifier">FeatureExtractorBuilder.DescriptionStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/extract-feature.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Entry point to use the <a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/index.html">FeatureExtractorBuilder</a> based on this <a href="./index.html">AssertionContainer</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.transformers/feature-extractor.html">featureExtractor</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.transformers/feature-extractor.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">featureExtractor</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor/index.html"><span class="identifier">FeatureExtractor</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.typeutils/iterable-like-to-iterable-transformer.html">iterableLikeToIterableTransformer</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">iterableLikeToIterableTransformer</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like-to-iterable-transformer/index.html"><span class="identifier">IterableLikeToIterableTransformer</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.typeutils/map-like-to-map-transformer.html">mapLikeToMapTransformer</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">mapLikeToMapTransformer</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like-to-iterable-pair-transformer/index.html"><span class="identifier">MapLikeToIterablePairTransformer</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.creating.transformers/subject-changer.html">subjectChanger</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.creating.transformers/subject-changer.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">subjectChanger</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-subject-changer/index.html"><span class="identifier">SubjectChanger</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/collect.html">collect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$collect(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Use this function if you want to make <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s about a feature or you perform a type transformation or any
+other action which results in an <a href="../-expect/index.html">Expect</a> being created for a different subject and
+you do not require this resulting <a href="../-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/collect-based-on-subject.html">collectBasedOnSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectBasedOnSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$collectBasedOnSubject(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectBasedOnSubject.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectBasedOnSubject.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-based-on-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic$collectBasedOnSubject(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectBasedOnSubject.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectBasedOnSubject.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-based-on-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Use this function if you want to make <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s about a feature or you perform a type transformation or any
+other action which results in an <a href="../-expect/index.html">Expect</a> being created for a different subject and
+you do not require this resulting <a href="../-expect/index.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/collect-for-composition.html">collectForComposition</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectForComposition</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$collectForComposition(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForComposition.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-for-composition.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Use this function if you want to collect <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of another <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> (e.g. as part
+of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/collect-for-composition-based-on-subject.html">collectForCompositionBasedOnSubject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collectForCompositionBasedOnSubject</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$collectForCompositionBasedOnSubject(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject.T)), kotlin.Unit)))/maybeSubject">maybeSubject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.core/-option/index.html"><span class="identifier">Option</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-for-composition-based-on-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic$collectForCompositionBasedOnSubject(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), ch.tutteli.atrium.core.Option((ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/collect-for-composition-based-on-subject.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Use this function if you want to collect <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and use it as part of another <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> (e.g. as part
+of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html">createDescriptiveAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">createDescriptiveAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html#ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/description">description</a>, <a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html#ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/representation">representation</a> and <a href="../../ch.tutteli.atrium.logic/create-descriptive-assertion.html#ch.tutteli.atrium.logic$createDescriptiveAssertion(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.createDescriptiveAssertion.T)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Function1((ch.tutteli.atrium.logic.createDescriptiveAssertion.T, kotlin.Boolean)))/test">test</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html">genericSubjectBasedFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">genericSubjectBasedFeature</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$genericSubjectBasedFeature(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.genericSubjectBasedFeature.T)), kotlin.Function1((ch.tutteli.atrium.logic.genericSubjectBasedFeature.T, ch.tutteli.atrium.logic.creating.feature.MetaFeature((ch.tutteli.atrium.logic.genericSubjectBasedFeature.R)))))/provider">provider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html"><span class="identifier">MetaFeature</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic/generic-subject-based-feature.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable.html">iterableLikeToIterable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">iterableLikeToIterable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$iterableLikeToIterable(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable.html#ch.tutteli.atrium.logic.utils$iterableLikeToIterable(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable-without-check-for-elements.html">iterableLikeToIterableWithoutCheckForElements</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">iterableLikeToIterableWithoutCheckForElements</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$iterableLikeToIterableWithoutCheckForElements(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable-without-check-for-elements.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable-without-check-for-elements.html#ch.tutteli.atrium.logic.utils$iterableLikeToIterableWithoutCheckForElements(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="../../ch.tutteli.atrium.logic.utils/iterable-like-to-iterable-without-check-for-elements.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/manual-feature.html">manualFeature</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/manual-feature.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">manualFeature</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic$manualFeature(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.manualFeature.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.logic.manualFeature.T, ch.tutteli.atrium.logic.manualFeature.R)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.logic$manualFeature(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.manualFeature.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.logic.manualFeature.T, ch.tutteli.atrium.logic.manualFeature.R)))/provider">provider</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic/manual-feature.html#T"><span class="identifier">T</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.logic/manual-feature.html#R"><span class="identifier">R</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html"><span class="identifier">FeatureExtractorBuilder.ExecutionStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/manual-feature.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic/manual-feature.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Convenience method to pass a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> as <a href="../../ch.tutteli.atrium.logic/manual-feature.html#ch.tutteli.atrium.logic$manualFeature(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.manualFeature.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.logic.manualFeature.T, ch.tutteli.atrium.logic.manualFeature.R)))/description">description</a> which is wrapped into an <a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> instead of passing
+a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.utils/map-like-to-iterable-pair.html">mapLikeToIterablePair</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">mapLikeToIterablePair</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$mapLikeToIterablePair(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html"><span class="identifier">MapLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/map-like-to-iterable-pair.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.utils/map-like-to-iterable-pair.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html">MapLike</a> to <code>Pair&lt;Pair&lt;K, V&gt;, Array&lt;out Pair&lt;K, V&gt;&gt;&gt;</code> with the intention that
+it can be easily used for a function requiring <code>Pair&lt;K, V&gt;, vararg Pair&lt;K, V&gt;</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic.utils/map-like-to-var-arg-pairs.html">mapLikeToVarArgPairs</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">mapLikeToVarArgPairs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$mapLikeToVarArgPairs(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html"><span class="identifier">MapLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/map-like-to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.utils/map-like-to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic.utils/map-like-to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.utils/map-like-to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html">MapLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><code>&lt;K, V&gt;</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.logic/to-expect.html">toExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/to-expect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toExpect</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.logic/to-expect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Casts this <a href="./index.html">AssertionContainer</a> back to an <a href="../-expect/index.html">Expect</a> so that you can use it in places where an <a href="../-expect/index.html">Expect</a> is used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-expect-internal/index.html">ExpectInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExpectInternal</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="../-expect-internal/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="../-expect-internal/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="./index.html">AssertionContainer</a> from newcomers which usually don't have to deal with
+this.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

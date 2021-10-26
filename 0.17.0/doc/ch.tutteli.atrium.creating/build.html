@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>build - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="./build.html">build</a><br/>
+<br/>
+<h1>build</h1>
+<a name="ch.tutteli.atrium.creating$build(ch.tutteli.atrium.creating.ComponentFactoryContainer)"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">.</span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="build.html#I"><span class="identifier">I</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/ComponentFactoryContainer.kt#L91">(source)</a>
+<p>Returns the component of type <a href="build.html#I">I</a> using a corresponding factory or throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a>
+in case no factory was found which is able to build a component of the given type.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case <a href="-component-factory-container/build-or-null.html">ComponentFactoryContainer.buildOrNull</a> returns <code>null</code>
+because not suitable factory was found.</p>
+<p><a name="ClassCastException"></a>
+<code>ClassCastException</code> - in case the factory returns an illegal type.</p>
+</BODY>
+</HTML>

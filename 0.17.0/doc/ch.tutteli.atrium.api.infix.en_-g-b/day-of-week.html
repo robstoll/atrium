@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>dayOfWeek - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./day-of-week.html">dayOfWeek</a><br/>
+<br/>
+<h1>dayOfWeek</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek#ch.tutteli.atrium.creating.Expect((java.time.LocalDate))"></a>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html"><span class="identifier">LocalDate</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/localDateAssertions.kt#L78">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#getDayOfWeek()">LocalDate.getDayOfWeek</a> of the subject of <code>this</code> expectation,
+so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">expect(LocalDate.of(2021, Month.OCTOBER, 9))
+    .dayOfWeek toEqual DayOfWeek.SATURDAY
+//    | subject is now of type DayOfWeek (actually SATURDAY)
+
+fails {
+    expect(LocalDate.of(2021, Month.OCTOBER, 9))
+        .dayOfWeek toEqual DayOfWeek.MONDAY
+    //    |          |              | not reported because toEqual already fails
+    //    |          |              | use `dayOfWeek { ... }` if you want that all expectations are evaluated
+    //    |          | fails
+    //    | subject is now of type DayOfWeek (actually SATURDAY)
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek#ch.tutteli.atrium.creating.Expect((java.time.LocalDateTime))"></a>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html"><span class="identifier">LocalDateTime</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/localDateTimeAssertions.kt#L78">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html#getDayOfWeek()">LocalDateTime.dayOfWeek</a>
+of the subject of <code>this</code> expectation, so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+    .dayOfWeek toEqual DayOfWeek.SATURDAY
+//    | subject is now of type DayOfWeek (actually SATURDAY)
+
+fails {
+    expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
+        .dayOfWeek toEqual DayOfWeek.MONDAY
+    //    |          |              | not reported because toEqual already fails
+    //    |          |              | use `dayOfWeek { ... }` if you want that all expectations are evaluated
+    //    |          | fails
+    //    | subject is now of type DayOfWeek (actually SATURDAY)
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek#ch.tutteli.atrium.creating.Expect((java.time.ZonedDateTime))"></a>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html"><span class="identifier">ZonedDateTime</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/zonedDateTimeAssertions.kt#L78">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html#getDayOfWeek()">ZonedDatetime.dayOfWeek</a>
+of the subject of <code>this</code> expectation, so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault()))
+    .dayOfWeek toEqual DayOfWeek.SATURDAY
+//    | subject is now of type DayOfWeek (actually SATURDAY)
+
+fails {
+    expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault()))
+        .dayOfWeek toEqual DayOfWeek.MONDAY
+    //    |          |              | not reported because toEqual already fails
+    //    |          |              | use `dayOfWeek { ... }` if you want that all expectations are evaluated
+    //    |          | fails
+    //    | subject is now of type DayOfWeek (actually SATURDAY)
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDate)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html"><span class="identifier">LocalDate</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDate)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html"><span class="identifier">LocalDate</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/localDateAssertions.kt#L92">(source)</a>
+<p>Expects that the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#getDayOfWeek()">LocalDate.getDayOfWeek</a> of the subject of <code>this</code> expectation
+holds all assertions the given <a href="day-of-week.html#ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDate)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">expect(LocalDate.of(2021, Month.OCTOBER, 9)) dayOfWeek {
+    // subject inside this block is of type DayOfWeek (actually SATURDAY)
+    it toEqual DayOfWeek.SATURDAY
+    it notToEqual DayOfWeek.SUNDAY
+} // subject here is back to type LocalDate
+
+fails {
+    expect(LocalDate.of(2021, Month.OCTOBER, 9)) dayOfWeek {
+        // subject inside this block is of type DayOfWeek (actually SATURDAY)
+        it toEqual DayOfWeek.MONDAY       // fails
+        it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
+        //                                   use `.dayOfWeek.` if you want a fail fast behaviour
+    } // subject here is back to type LocalDate
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html"><span class="identifier">LocalDateTime</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html"><span class="identifier">LocalDateTime</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/localDateTimeAssertions.kt#L92">(source)</a>
+<p>Expects that the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html#getDayOfWeek()">LocalDateTime.dayOfWeek</a>of the subject of <code>this</code> expectation
+holds all assertions the given <a href="day-of-week.html#ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.LocalDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) dayOfWeek {
+    // subject inside this block is of type DayOfWeek (actually SATURDAY)
+    it toEqual DayOfWeek.SATURDAY
+    it notToEqual DayOfWeek.SUNDAY
+} // subject here is back to type LocalDateTime
+
+fails {
+    expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56)) dayOfWeek {
+        // subject inside this block is of type DayOfWeek (actually SATURDAY)
+        it toEqual DayOfWeek.MONDAY       // fails
+        it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
+        //                                   use `.dayOfWeek.` if you want a fail fast behaviour
+    } // subject here is back to type LocalDateTime
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.ZonedDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html"><span class="identifier">ZonedDateTime</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dayOfWeek</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.ZonedDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/DayOfWeek.html"><span class="identifier">DayOfWeek</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html"><span class="identifier">ZonedDateTime</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/zonedDateTimeAssertions.kt#L92">(source)</a>
+<p>Expects that the property <a href="https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html#getDayOfWeek()">ZonedDatetime.dayOfWeek</a> of the subject of <code>this</code> expectation
+holds all assertions the given <a href="day-of-week.html#ch.tutteli.atrium.api.infix.en_GB$dayOfWeek(ch.tutteli.atrium.creating.Expect((java.time.ZonedDateTime)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.time.DayOfWeek)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) dayOfWeek {
+    // subject inside this block is of type DayOfWeek (actually SATURDAY)
+    it toEqual DayOfWeek.SATURDAY
+    it notToEqual DayOfWeek.SUNDAY
+} // subject here is back to type ZonedDateTime
+
+fails {
+    expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) dayOfWeek {
+        // subject inside this block is of type DayOfWeek (actually SATURDAY)
+        it toEqual DayOfWeek.MONDAY       // fails
+        it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
+        //                                   use `.dayOfWeek.` if you want a fail fast behaviour
+    } // subject here is back to type ZonedDateTime
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

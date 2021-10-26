@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToBeReadable - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-be-readable.html">notToBeReadable</a><br/>
+<br/>
+<h1>notToBeReadable</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$notToBeReadable(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToBeReadable.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be-readable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBeReadable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be-readable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L137">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is not readable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread does not have the permission to read from it.</p>
+<p>This assertion <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to,
+search will continue at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<pre><code class="lang-kotlin">assertIf(ifPosixSupported) {
+    val writeOnlyPermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
+    val readyWritePermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-rw-rw-"))
+
+    val writeOnlyDir = tempDir.newDirectory("write_only_dir", writeOnlyPermissions)
+    val writeOnlyFile = tempDir.newFile("write_only_file", writeOnlyPermissions)
+    val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+    val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+    expect(writeOnlyDir).notToBeReadable()
+    expect(writeOnlyFile).notToBeReadable()
+
+    fails {
+        expect(readWriteDir).notToBeReadable()
+    }
+    fails {
+        expect(readWriteFile).notToBeReadable()
+    }
+
+    fails {
+        expect(readWriteDir).notToBeReadable()
+    }
+}
+
+fails {
+    expect(Paths.get("non_existing_dir")).notToBeReadable()
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,175 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.reporting.text.impl - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.reporting.text.impl</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.reporting.text.impl</h2>
+<p>Contains default implementations of the interfaces defined in <a href="../ch.tutteli.atrium.reporting.text/index.html">ch.tutteli.atrium.reporting.text</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-abstract-text-object-formatter/index.html">AbstractTextObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbstractTextObjectFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-text-object-formatter-common/index.html"><span class="identifier">TextObjectFormatterCommon</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-text-method-call-formatter/index.html">DefaultTextMethodCallFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultTextMethodCallFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.text/-text-method-call-formatter.html"><span class="identifier">TextMethodCallFormatter</span></a></code>
+<p>Responsible to format a method call for text output (e.g. to the console) where it represents arguments of a
+method call by using their <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/to-string.html">Any.toString</a> representation with a few exceptions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-default-text-object-formatter/index.html">DefaultTextObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">DefaultTextObjectFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.text/-text-object-formatter.html"><span class="identifier">TextObjectFormatter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-special-child-formatting-single-assertion-group-type-formatter/index.html">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-single-assertion-group-type-formatter/index.html"><span class="identifier">SingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="-no-special-child-formatting-single-assertion-group-type-formatter/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>A base type for <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/can-format.html">canFormat</a> only
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s of one specific <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> and does nothing special when it comes to formatting
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> (merely delegates to <a href="#">assertionFormatterController</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-single-assertion-group-type-formatter/index.html">SingleAssertionGroupTypeFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">SingleAssertionGroupTypeFormatter</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a></code>
+<p>A base type for <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/can-format.html">canFormat</a> only
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s of one specific <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-assertion-formatter-factory/index.html">TextAssertionFormatterFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TextAssertionFormatterFactory</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-explanatory-assertion-group-formatter/index.html">TextExplanatoryAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextExplanatoryAssertionGroupFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-no-special-child-formatting-single-assertion-group-type-formatter/index.html"><span class="identifier">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> by
+neglecting the group header and defining an child-<a href="../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> which indicates that we are in an
+explanatory assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-fallback-assertion-formatter/index.html">TextFallbackAssertionFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextFallbackAssertionFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code>
+<p>Formats an <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> for text output (e.g. to the console) by using the given <a href="#">assertionPairFormatter</a>
+to format the group header for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s and uses the bullet point defined for
+<a href="../ch.tutteli.atrium.assertions/-root-assertion-group-type.html">RootAssertionGroupType</a> as prefix for the <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-feature-assertion-group-formatter/index.html">TextFeatureAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextFeatureAssertionGroupFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-no-special-child-formatting-single-assertion-group-type-formatter/index.html"><span class="identifier">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html"><span class="identifier">FeatureAssertionGroupType</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with a <a href="../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> by
+using the given <a href="#">assertionPairFormatter</a> to format the group header, additionally prefixing it with the
+"bullet point" (typically an arrow) defined for <a href="../ch.tutteli.atrium.assertions/-prefix-feature-assertion-group-header.html">PrefixFeatureAssertionGroupHeader</a> and uses the bullet point
+defined for <a href="../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">FeatureAssertionGroupType</a> as prefix for the <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-list-assertion-group-formatter/index.html">TextListAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextListAssertionGroupFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-text-list-based-assertion-group-formatter/index.html"><span class="identifier">TextListBasedAssertionGroupFormatter</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-list-assertion-group-type.html"><span class="identifier">ListAssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with a <a href="../ch.tutteli.atrium.assertions/-list-assertion-group-type.html">ListAssertionGroupType</a> by
+using the given <a href="#">assertionPairFormatter</a> to format the group header and uses the bullet point defined for
+<a href="../ch.tutteli.atrium.assertions/-list-assertion-group-type.html">ListAssertionGroupType</a> as prefix for the <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-list-based-assertion-group-formatter/index.html">TextListBasedAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TextListBasedAssertionGroupFormatter</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-no-special-child-formatting-single-assertion-group-type-formatter/index.html"><span class="identifier">NoSpecialChildFormattingSingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="-text-list-based-assertion-group-formatter/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with type <a href="-text-list-based-assertion-group-formatter/index.html#T">T</a> by using the given
+<a href="#">assertionPairFormatter</a> to format the group header and using the given <code>bulletPoint</code> (see constructor) to prefix
+the <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-next-line-assertion-pair-formatter/index.html">TextNextLineAssertionPairFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextNextLineAssertionPairFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html"><span class="identifier">AssertionPairFormatter</span></a><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-pair-formatter/index.html"><span class="identifier">TextAssertionPairFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">AssertionPairFormatter</a> formatter of assertion pairs -- which consists of a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>
+and a representation -- where it puts the translation on one line and the representation on the next line
+(including indentation as if the representation is a child).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-object-formatter-common/index.html">TextObjectFormatterCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TextObjectFormatterCommon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.text/-text-object-formatter.html"><span class="identifier">TextObjectFormatter</span></a></code>
+<p>Base class for the platform specific implementation of <a href="-default-text-object-formatter/index.html">DefaultTextObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-prefix-based-assertion-group-formatter/index.html">TextPrefixBasedAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextPrefixBasedAssertionGroupFormatter</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-same-line-assertion-pair-formatter/index.html">TextSameLineAssertionPairFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextSameLineAssertionPairFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html"><span class="identifier">AssertionPairFormatter</span></a><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-pair-formatter/index.html"><span class="identifier">TextAssertionPairFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">AssertionPairFormatter</a> formatter of assertion pairs -- which consists of a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>
+and a representation -- where it puts them on the same line in the form: <code>translation: representation</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-summary-assertion-group-formatter/index.html">TextSummaryAssertionGroupFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextSummaryAssertionGroupFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-single-assertion-group-type-formatter/index.html"><span class="identifier">SingleAssertionGroupTypeFormatter</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html"><span class="identifier">SummaryAssertionGroupType</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../ch.tutteli.atrium.reporting.text/-text-assertion-formatter.html"><span class="identifier">TextAssertionFormatter</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with a <a href="../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a> by
+using the given <a href="#">assertionPairFormatter</a> to format the group header and uses the bullet point defined
+for <a href="../ch.tutteli.atrium.assertions/-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a> as prefix for successful <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> and the bullet point
+defined for <a href="../ch.tutteli.atrium.assertions/-prefix-feature-assertion-group-header.html">PrefixFeatureAssertionGroupHeader</a> as prefix for failing <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

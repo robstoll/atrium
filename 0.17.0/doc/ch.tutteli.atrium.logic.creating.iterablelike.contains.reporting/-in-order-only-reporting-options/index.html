@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>InOrderOnlyReportingOptions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting</a>&nbsp;/&nbsp;<a href="./index.html">InOrderOnlyReportingOptions</a><br/>
+<br/>
+<h1>InOrderOnlyReportingOptions</h1>
+<code><span class="keyword">interface </span><span class="identifier">InOrderOnlyReportingOptions</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/iterablelike/contains/reporting/InOrderOnlyReportingOptions.kt#L5">(source)</a>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="number-of-elements-in-summary.html">numberOfElementsInSummary</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">numberOfElementsInSummary</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Indicates until how many elements the summary view shall be used. If there are more elements in the
+<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html">IterableLike</a>, then only failing expectations shall be shown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-always-summary.html">showAlwaysSummary</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showAlwaysSummary</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Always shows a summary where both failing and successful expectations are shown, same as
+<a href="show-only-failing-if-more-elements-than.html">InOrderOnlyReportingOptions.showOnlyFailingIfMoreElementsThan</a><code>(Int.MAX_VALUE)</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-failing.html">showOnlyFailing</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showOnlyFailing</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Always shows only failing expectations, same as <a href="show-only-failing-if-more-elements-than.html">InOrderOnlyReportingOptions.showOnlyFailingIfMoreElementsThan</a><code>(0)</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-failing-if-more-elements-than.html">showOnlyFailingIfMoreElementsThan</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">showOnlyFailingIfMoreElementsThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions$showOnlyFailingIfMoreElementsThan(kotlin.Int)/number">number</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Show only failing expectations, i.e. elements which do not match, instead of a summary which
+lists also successful expectations/elements.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

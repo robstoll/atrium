@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>collect - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic</a>&nbsp;/&nbsp;<a href="./collect.html">collect</a><br/>
+<br/>
+<h1>collect</h1>
+<a name="ch.tutteli.atrium.logic$collect(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collect.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">collect</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.logic$collect(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utilsCollect.kt#L36">(source)</a>
+<p>Use this function if you want to make <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s about a feature or you perform a type transformation or any
+other action which results in an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> being created for a different subject and
+you do not require this resulting <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+<p>Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
+<a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>.</p>
+<p>Note that an assertion will be added which fails in case <a href="collect.html#ch.tutteli.atrium.logic$collect(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> does not create a single assertion.</p>
+<p>It uses the <a href="../ch.tutteli.atrium.creating/-assertion-container/maybe-subject.html">AssertionContainer.maybeSubject</a> as subject of the given <a href="collect.html#ch.tutteli.atrium.logic$collect(ch.tutteli.atrium.creating.AssertionContainer((ch.tutteli.atrium.logic.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.logic.collect.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> and
+delegates to <a href="collect-based-on-subject.html">collectBasedOnSubject</a>.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - A lambda which defines the expectations for the <a href="../ch.tutteli.atrium.creating/-assertion-container/maybe-subject.html">AssertionContainer.maybeSubject</a>.</p>
+<p><strong>Return</strong><br/>
+The collected assertions.</p>
+</BODY>
+</HTML>

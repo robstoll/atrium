@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>resolve - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./resolve.html">resolve</a><br/>
+<br/>
+<h1>resolve</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathAssertions.kt#L224">(source)</a>
+<p>Expects that <a href="resolve.html#ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String)/other">other</a> resolves against this <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> and creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the resolved <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>
+so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+val fileInDir = dir.newFile("test_file.txt")
+
+expect(dir).resolve("test_file.txt") // subject changes to `test_dir/test_file.txt`
+    .toEqual(fileInDir)
+    .toEndWith(Paths.get("test_file.txt"))
+
+fails {
+    expect(dir).resolve("test_file.ttt")
+        .toEqual(fileInDir)          // fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
+        .toEndWith(Paths.get("ttt")) // not reported toEqual already fails
+    //                                  use `.resolve(other) { ... }` if you want that all expectations are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">resolve</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="resolve.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathAssertions.kt#L238">(source)</a>
+<p>Expects that <a href="resolve.html#ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/other">other</a> resolves against this <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>, that the resolved <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> holds all assertions the
+given <a href="resolve.html#ch.tutteli.atrium.api.fluent.en_GB$resolve(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.resolve.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((java.nio.file.Path)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+val fileInDir = dir.newFile("test_file.txt")
+
+expect(dir).resolve("test_file.txt") { // subject inside this block refers to `test_dir/test_file.txt`
+    toEqual(fileInDir)
+    toExist()
+} // subject here is back to `test_dir`
+
+fails {
+    expect(dir).resolve("test_file.ttt") {
+        toEqual(fileInDir) // fails
+        toExist()          // still evaluated even though toEqual already fails
+        //                    use `.resolve(other).` if you want a fail fast behaviour
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.10.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHaveTheSameTextualContentAs - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-have-the-same-textual-content-as.html">toHaveTheSameTextualContentAs</a><br/>
+<br/>
+<h1>toHaveTheSameTextualContentAs</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveTheSameTextualContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L98">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) has the same textual content
+as <a href="to-have-the-same-textual-content-as.html#ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path)/targetPath">targetPath</a> (using UTF-8 for encoding)</p>
+<pre><code class="lang-kotlin">val writtenTextInFile = "test_test"
+
+val notEmptyFilePath = tempDir.newFile("test_file_1")
+notEmptyFilePath.writeText(writtenTextInFile)
+
+val expectedFilePath = tempDir.newFile("test_file_2")
+expectedFilePath.writeText(writtenTextInFile)
+
+val emptyFilePath = tempDir.newFile("test_file_3")
+
+expect(notEmptyFilePath) toHaveTheSameTextualContentAs expectedFilePath
+
+fails { // because nothing is written inside of `emptyFilePath`
+    expect(emptyFilePath) toHaveTheSameTextualContentAs expectedFilePath
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveTheSameTextualContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding)/pathWithEncoding">pathWithEncoding</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.path/-path-with-encoding/index.html"><span class="identifier">PathWithEncoding</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L114">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) has the same textual content
+as <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.path/-path-with-encoding/path.html">PathWithEncoding.path</a> in the given <a href="to-have-the-same-textual-content-as.html#ch.tutteli.atrium.api.infix.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHaveTheSameTextualContentAs.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding)/pathWithEncoding">pathWithEncoding</a> with the specified encodings.</p>
+<p>Use the function <code>withEncoding(Path, Charset, Charset)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.path/-path-with-encoding/index.html">PathWithEncoding</a>.</p>
+<pre><code class="lang-kotlin">val writtenTextInFile = "test_test"
+
+val notEmptyFilePath = tempDir.newFile("test_file_1")
+notEmptyFilePath.writeText(writtenTextInFile)
+
+val expectedFilePath = tempDir.newFile("test_file_2")
+expectedFilePath.writeText(writtenTextInFile)
+
+val emptyFilePath = tempDir.newFile("test_file_3")
+
+expect(notEmptyFilePath) toHaveTheSameTextualContentAs withEncoding(
+    expectedFilePath,
+    Charsets.UTF_8,
+    Charsets.UTF_8
+)
+
+fails { // because nothing is written inside of `emptyFilePath`
+    expect(emptyFilePath) toHaveTheSameTextualContentAs withEncoding(
+        expectedFilePath,
+        Charsets.UTF_8,
+        Charsets.UTF_8
+    )
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

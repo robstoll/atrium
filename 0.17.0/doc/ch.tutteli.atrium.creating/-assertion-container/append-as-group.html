@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionContainer.appendAsGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">AssertionContainer</a>&nbsp;/&nbsp;<a href="./append-as-group.html">appendAsGroup</a><br/>
+<br/>
+<h1>appendAsGroup</h1>
+<a name="ch.tutteli.atrium.creating.AssertionContainer$appendAsGroup(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.AssertionContainer.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">appendAsGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$appendAsGroup(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.AssertionContainer.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/AssertionContainer.kt#L75">(source)</a>
+<p>Appends the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s the given <a href="append-as-group.html#ch.tutteli.atrium.creating.AssertionContainer$appendAsGroup(kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.creating.AssertionContainer.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates to this container and
+returns an <a href="../-expect/index.html">Expect</a> which includes them.</p>
+<p>Whether the returned <a href="../-expect/index.html">Expect</a> is the same as the initial one is up to the implementation (i.e. if a mutable
+structure is used or an immutable). Atrium strives for an immutable data structure in the long run and will
+little by little refactor the code accordingly.</p>
+<h3>Parameters</h3>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - The lambda which will create assertions.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are immediately evaluated.</p>
+<p><strong>Return</strong><br/>
+an <a href="../-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

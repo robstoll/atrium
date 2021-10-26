@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TextSummaryAssertionGroupFormatter.<init> - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.text.impl</a>&nbsp;/&nbsp;<a href="index.html">TextSummaryAssertionGroupFormatter</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter$&lt;init&gt;(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionPairFormatter)"></a>
+<code><span class="identifier">TextSummaryAssertionGroupFormatter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter$<init>(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionPairFormatter)/bulletPoints">bulletPoints</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-bullet-point-identifier.html"><span class="identifier">BulletPointIdentifier</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter$<init>(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionPairFormatter)/assertionFormatterController">assertionFormatterController</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter$<init>(kotlin.collections.Map((kotlin.reflect.KClass((ch.tutteli.atrium.assertions.BulletPointIdentifier)), kotlin.String)), ch.tutteli.atrium.reporting.AssertionFormatterController, ch.tutteli.atrium.reporting.AssertionPairFormatter)/assertionPairFormatter">assertionPairFormatter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html"><span class="identifier">AssertionPairFormatter</span></a><span class="symbol">)</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an
+<a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a> by using the given <a href="#">assertionPairFormatter</a> to format the group header and uses the
+bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a> as prefix for successful <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>
+and the bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-prefix-feature-assertion-group-header.html">PrefixFeatureAssertionGroupHeader</a> as prefix for failing <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<h3>Parameters</h3>
+<p><a name="bulletPoints"></a>
+<code>bulletPoints</code> - The formatter uses the bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a>
+(<code>"✔ "</code> if absent) as prefix for successful assertions in <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> and the bullet point defined
+for <a href="../../ch.tutteli.atrium.assertions/-prefix-failing-summary-assertion.html">PrefixFailingSummaryAssertion</a> (<code>"✘ "</code> if absent) for failing assertions.</p>
+<p><a name="assertionFormatterController"></a>
+<code>assertionFormatterController</code> - The controller to which this formatter gives back the control
+when it comes to format children of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+<p><a name="assertionPairFormatter"></a>
+<code>assertionPairFormatter</code> - The formatter which is used to format assertion pairs.</p>
+<p><strong>Constructor</strong><br/>
+Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which formats <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s with an
+<a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a> by using the given <a href="#">assertionPairFormatter</a> to format the group header and uses the
+bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a> as prefix for successful <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>
+and the bullet point defined for <a href="../../ch.tutteli.atrium.assertions/-prefix-feature-assertion-group-header.html">PrefixFeatureAssertionGroupHeader</a> as prefix for failing <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</BODY>
+</HTML>

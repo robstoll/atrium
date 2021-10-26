@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToBe - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-be.html">notToBe</a><br/>
+<br/>
+<h1>notToBe</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.notToBe.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">notToBe</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.notToBe.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L31">(source)</a><br/>
+<strong>Deprecated:</strong> Use notToEqual; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation is not (equal to) <a href="not-to-be.html#ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.notToBe.T)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">expect(2) notToBe 3
+
+fails {
+    expect(12) notToBe 12
+}
+
+expect(listOf(2)) notToBe listOf(3)
+
+fails {
+    expect(listOf(2)) notToBe listOf(2)
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.empty)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.empty)/empty">empty</span><span class="symbol">:</span>&nbsp;<a href="empty.html"><span class="identifier">empty</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceAssertions.kt#L367">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-not-empty.html">kotlin.text.isNotEmpty</a>.</p>
+<pre><code class="lang-kotlin">//Unresolved: ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeEmpty</code></pre>
+<h3>Parameters</h3>
+<p><a name="empty"></a>
+<code>empty</code> - Use the pseudo-keyword <code>empty</code>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.blank)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.blank)/blank">blank</span><span class="symbol">:</span>&nbsp;<a href="blank.html"><span class="identifier">blank</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceAssertions.kt#L380">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-not-blank.html">kotlin.text.isNotBlank</a>.</p>
+<pre><code class="lang-kotlin">//Unresolved: ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank</code></pre>
+<h3>Parameters</h3>
+<p><a name="blank"></a>
+<code>blank</code> - Use the pseudo-keyword <code>blank</code>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.existing)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.existing)/existing">existing</span><span class="symbol">:</span>&nbsp;<a href="existing.html"><span class="identifier">existing</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathAssertions.kt#L98">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) does not exist;
+meaning that there is no file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to.</p>
+<p>This assertion <em>resolves</em> symbolic links. Therefore, if a symbolic link exists at the location the subject points to,
+then the search will continue at that location.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+
+expect(Paths.get("non_existing_dir")) notToBe existing
+
+fails {
+    expect(dir) notToBe existing
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.readable)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.readable)/readable">readable</span><span class="symbol">:</span>&nbsp;<a href="readable.html"><span class="identifier">readable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L151">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is not readable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread does not have the permission to read from it.</p>
+<p>This assertion <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to,
+search will continue at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<pre><code class="lang-kotlin">assertIf(fileSystemSupportsPosixPermissions()) {
+    val writeOnlyPermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
+    val readWritePermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-rw-rw-"))
+
+    val writeOnlyDir = tempDir.newDirectory("write_only_dir", writeOnlyPermissions)
+    val writeOnlyFile = tempDir.newFile("write_only_file", writeOnlyPermissions)
+    val readWriteDir = tempDir.newDirectory("read_write_dir", readWritePermissions)
+    val readWriteFile = tempDir.newFile("read_write_file", readWritePermissions)
+
+    expect(writeOnlyDir) notToBe readable
+    expect(writeOnlyFile) notToBe readable
+
+    fails {
+        expect(readWriteDir) notToBe readable
+    }
+    fails {
+        expect(readWriteFile) notToBe readable
+    }
+}
+
+fails {
+    expect(Paths.get("non_existing_dir")) notToBe readable
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.writable)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.writable)/writable">writable</span><span class="symbol">:</span>&nbsp;<a href="writable.html"><span class="identifier">writable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L173">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is not writable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread does not have the permission to write from it.</p>
+<p>This assertion <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to,
+search will continue at the location the link points at.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
+Its result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<pre><code class="lang-kotlin">assertIf(ifPosixSupported) {
+    val readyOnlyPermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
+    val readyWritePermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-r--r--"))
+
+    val readOnlyDir = tempDir.newDirectory("read_only_dir", readyOnlyPermissions)
+    val readOnlyFile = tempDir.newFile("read_only_file", readyOnlyPermissions)
+    val readWriteDir = tempDir.newDirectory("read_write_dir", readyWritePermissions)
+    val readWriteFile = tempDir.newFile("read_write_file", readyWritePermissions)
+
+    expect(readOnlyDir) notToBe writable
+    expect(readOnlyFile) notToBe writable
+
+    fails {
+        expect(readWriteDir) notToBe writable
+    }
+    fails {
+        expect(readWriteFile) notToBe writable
+    }
+}
+
+fails {
+    expect(Paths.get("non_existing_dir")) notToBe writable
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.executable)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$notToBe(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.notToBe.T)), ch.tutteli.atrium.api.infix.en_GB.executable)/executable">executable</span><span class="symbol">:</span>&nbsp;<a href="executable.html"><span class="identifier">executable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-be.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L195">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is not executable;
+meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and
+that the current thread does not have the permission to execute it.</p>
+<p>The semantics of “permission to execute it” may differ when checking access to a directory. For example, on UNIX
+systems, it means that the Java virtual machine has permission to search the directory in order to access file or
+subdirectories.</p>
+<p>This assertion <em>resolves</em> symbolic links.
+Therefore, if a symbolic link exists at the location the subject points to, search will continue
+at the location the link points at.</p>
+<pre><code class="lang-kotlin">assertIf(ifPosixSupported) {
+    val readyOnlyPermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
+    val readyWriteExecutePermissions =
+        PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwxr--r--"))
+
+    val readOnlyDir = tempDir.newDirectory("read_only_dir", readyOnlyPermissions)
+    val readOnlyFile = tempDir.newFile("read_only_file", readyOnlyPermissions)
+    val readWriteExecuteDir = tempDir.newDirectory("read_write_execute_dir", readyWriteExecutePermissions)
+    val readWriteExecuteFile = tempDir.newFile("read_write_execute_file", readyWriteExecutePermissions)
+
+    expect(readOnlyDir) notToBe executable
+    expect(readOnlyFile) notToBe executable
+
+    fails {
+        expect(readWriteExecuteDir) notToBe executable
+    }
+    fails {
+        expect(readWriteExecuteFile) notToBe executable
+    }
+}
+
+fails {
+    expect(Paths.get("non_existing_dir")) notToBe executable
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>getExisting - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./get-existing.html">getExisting</a><br/>
+<br/>
+<h1>getExisting</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.getExisting.K)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="get-existing.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="get-existing.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get-existing.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getExisting</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.getExisting.K)/key">key</span><span class="symbol">:</span>&nbsp;<a href="get-existing.html#K"><span class="identifier">K</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get-existing.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapAssertions.kt#L269">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains the given <a href="get-existing.html#ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.getExisting.K)/key">key</a>,
+creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the corresponding value and returns the newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a>,
+so that further fluent calls are expectations about it.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")) getExisting 1 toEqual "a"
+//                      | subject is of type String (actually "a")
+
+fails {
+    // fails because "a" is not equal to "b"
+    expect(mapOf(1 to "a")) getExisting 1 toEqual "b"
+    //                      | subject is of type String (actually "a")
+}
+
+fails {
+    // expectation fails because key 2 does not exist
+    expect(mapOf(1 to "a")) getExisting 2 toEqual "a" // not reported, use `getExisting(key) { ... }`
+    // if you want that all expectations are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((ch.tutteli.atrium.api.infix.en_GB.getExisting.K, ch.tutteli.atrium.api.infix.en_GB.getExisting.V)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="get-existing.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="get-existing.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get-existing.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getExisting</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((ch.tutteli.atrium.api.infix.en_GB.getExisting.K, ch.tutteli.atrium.api.infix.en_GB.getExisting.V)))/key">key</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html"><span class="identifier">KeyWithCreator</span></a><span class="symbol">&lt;</span><a href="get-existing.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="get-existing.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="get-existing.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapAssertions.kt#L285">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains the given <a href="get-existing.html#ch.tutteli.atrium.api.infix.en_GB$getExisting(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.getExisting.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((ch.tutteli.atrium.api.infix.en_GB.getExisting.K, ch.tutteli.atrium.api.infix.en_GB.getExisting.V)))/key">key</a> and that
+the corresponding value holds all assertions the given <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/assertion-creator.html">KeyWithCreator.assertionCreator</a> creates for it.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")) getExisting key(1) {   // subject inside this block is of type String (actually "a")
+    this toEqual "a"
+}
+
+fails {
+    expect(mapOf(1 to "a")) getExisting key(1) {  // subject inside this block is of type String (actually "a")
+        this toEqual "b"   // fails because "a" is not equal to "b"
+    }
+}
+
+fails {
+    // all expectations are evaluated inside an expectation group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+    expect(mapOf(1 to "a")) getExisting key(2) {   // fails because key 2 does not exist
+        this toEqual "a"    // still evaluated because we use an expectation group block
+        // use `.getExisting(key).` if you want a fail fast behaviour
+    }
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="key"></a>
+<code>key</code> - Use the function <code>key(...) { ... }</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html">KeyWithCreator</a> where the first parameter corresponds
+to the key and the second is the <code>assertionCreator</code>-lambda</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

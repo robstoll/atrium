@@ -1,0 +1,94 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:ch.tutteli.atrium.core.migration$toAtriumLocale(java.util.Locale)ch.tutteli.atrium.core.migration/java.util.-locale/to-atrium-locale.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$appendln(java.lang.StringBuilder)ch.tutteli.atrium.core.polyfills/java.lang.-string-builder/appendln.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$cast(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.cast.T)), kotlin.Any)ch.tutteli.atrium.core.polyfills/kotlin.reflect.-k-class/cast.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$format(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale, kotlin.Any, kotlin.Array((kotlin.Any)))ch.tutteli.atrium.core.polyfills/kotlin.-string/format.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$format(kotlin.String, kotlin.Any, kotlin.Array((kotlin.Any)))ch.tutteli.atrium.core.polyfills/kotlin.-string/format.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$fullName#kotlin.reflect.KClass((kotlin.Any))ch.tutteli.atrium.core.polyfills/kotlin.reflect.-k-class/full-name.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$fullName(kotlin.reflect.KClass((ch.tutteli.atrium.core.polyfills.fullName.T)), ch.tutteli.atrium.core.polyfills.fullName.T)ch.tutteli.atrium.core.polyfills/kotlin.reflect.-k-class/full-name.html
+$dokka.location:ch.tutteli.atrium.core.polyfills$stackBacktrace#kotlin.Throwablech.tutteli.atrium.core.polyfills/kotlin.-throwable/stack-backtrace.html
+$dokka.location:ch.tutteli.atrium.logic.creating.filesystem$runCatchingIo(java.nio.file.Path, kotlin.Function1((java.nio.file.Path, ch.tutteli.atrium.logic.creating.filesystem.runCatchingIo.T)))ch.tutteli.atrium.logic.creating.filesystem/java.nio.file.-path/run-catching-io.html
+ch.tutteli.atrium.api.fluent.en_GB
+ch.tutteli.atrium.api.fluent.en_GB.creating.feature
+ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
+ch.tutteli.atrium.api.infix.en_GB
+ch.tutteli.atrium.api.infix.en_GB.creating
+ch.tutteli.atrium.api.infix.en_GB.creating.feature
+ch.tutteli.atrium.api.infix.en_GB.creating.iterable
+ch.tutteli.atrium.api.infix.en_GB.creating.map
+ch.tutteli.atrium.api.infix.en_GB.creating.path
+ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
+ch.tutteli.atrium.api.infix.en_GB.workaround
+ch.tutteli.atrium.api.verbs
+ch.tutteli.atrium.assertions
+ch.tutteli.atrium.assertions.builders
+ch.tutteli.atrium.assertions.builders.common
+ch.tutteli.atrium.core
+ch.tutteli.atrium.core.migration
+ch.tutteli.atrium.core.polyfills
+ch.tutteli.atrium.creating
+ch.tutteli.atrium.creating.feature
+ch.tutteli.atrium.creating.feature.impl
+ch.tutteli.atrium.creating.impl
+ch.tutteli.atrium.logic
+ch.tutteli.atrium.logic.assertions.impl
+ch.tutteli.atrium.logic.creating
+ch.tutteli.atrium.logic.creating.basic.contains
+ch.tutteli.atrium.logic.creating.basic.contains.checkers
+ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl
+ch.tutteli.atrium.logic.creating.basic.contains.creators.impl
+ch.tutteli.atrium.logic.creating.basic.contains.steps.impl
+ch.tutteli.atrium.logic.creating.charsequence.contains
+ch.tutteli.atrium.logic.creating.charsequence.contains.checkers
+ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
+ch.tutteli.atrium.logic.creating.charsequence.contains.creators
+ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
+ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
+ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
+ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl
+ch.tutteli.atrium.logic.creating.charsequence.contains.steps
+ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
+ch.tutteli.atrium.logic.creating.collectors
+ch.tutteli.atrium.logic.creating.feature
+ch.tutteli.atrium.logic.creating.filesystem
+ch.tutteli.atrium.logic.creating.filesystem.hints
+ch.tutteli.atrium.logic.creating.impl
+ch.tutteli.atrium.logic.creating.iterable.contains
+ch.tutteli.atrium.logic.creating.iterable.contains.checkers
+ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
+ch.tutteli.atrium.logic.creating.iterable.contains.creators
+ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
+ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours
+ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl
+ch.tutteli.atrium.logic.creating.iterable.contains.steps
+ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl
+ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting
+ch.tutteli.atrium.logic.creating.maplike.contains
+ch.tutteli.atrium.logic.creating.maplike.contains.checkers
+ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl
+ch.tutteli.atrium.logic.creating.maplike.contains.creators
+ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl
+ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours
+ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.impl
+ch.tutteli.atrium.logic.creating.maplike.contains.steps
+ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl
+ch.tutteli.atrium.logic.creating.transformers
+ch.tutteli.atrium.logic.creating.transformers.impl
+ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor
+ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger
+ch.tutteli.atrium.logic.creating.typeutils
+ch.tutteli.atrium.logic.creating.typeutils.impl
+ch.tutteli.atrium.logic.impl
+ch.tutteli.atrium.logic.kotlin_1_3
+ch.tutteli.atrium.logic.kotlin_1_3.impl
+ch.tutteli.atrium.logic.utils
+ch.tutteli.atrium.reporting
+ch.tutteli.atrium.reporting.erroradjusters
+ch.tutteli.atrium.reporting.erroradjusters.impl
+ch.tutteli.atrium.reporting.impl
+ch.tutteli.atrium.reporting.text
+ch.tutteli.atrium.reporting.text.impl
+ch.tutteli.atrium.reporting.translating
+ch.tutteli.atrium.reporting.translating.impl
+ch.tutteli.atrium.translations

@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toContainExactly - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-contain-exactly.html">toContainExactly</a><br/>
+<br/>
+<h1>toContainExactly</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContainExactly</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/report">report</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting/-in-order-only-reporting-options/index.html"><span class="identifier">InOrderOnlyReportingOptions</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a>&nbsp;<span class="symbol">=</span>&nbsp;{}<span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableExpectations.kt#L127">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains only
+the <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/expected">expected</a> value and the <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E, kotlin.Array((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/otherExpected">otherExpected</a> values (if given) in the defined order.</p>
+<p>It is a shortcut for <code>toContain.inOrder.only.values(expected, *otherExpected)</code></p>
+<p>Note that we might change the signature of this function with the next version
+which will cause a binary backward compatibility break (see
+<a href="https://github.com/robstoll/atrium/issues/292">#292</a> for more information)</p>
+<pre><code class="lang-kotlin">expect(listOf(1, 2, 2, 4)).toContainExactly(1, 2, 2, 4)
+
+fails {
+    expect(listOf("A", "B")).toContainExactly("A", "B", "C")
+}
+
+fails {
+    expect(listOf("A", "B")).toContainExactly("B", "A")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContainExactly</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableExpectations.kt#L159">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains only an entry holding
+the assertions created by <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> or only one entry which is <code>null</code> in case <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a>
+is defined as <code>null</code>.</p>
+<p>It is a shortcut for <code>toContain.inOrder.only.entry(assertionCreatorOrNull)</code></p>
+<p>Note that we might change the signature of this function with the next version
+which will cause a binary backward compatibility break (see
+<a href="https://github.com/robstoll/atrium/issues/292">#292</a> for more information)</p>
+<pre><code class="lang-kotlin">expect(listOf(4)).toContainExactly {
+    toBeLessThan(5)
+    toBeGreaterThan(3)
+}
+
+expect(listOf(null)).toContainExactly(null)
+
+fails {
+    expect(listOf("A", "B")).toContainExactly {
+        toEqual("A")
+    }
+}
+
+fails {
+    expect(listOf(null, "B")).toContainExactly(null)
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="assertionCreatorOrNull"></a>
+<code>assertionCreatorOrNull</code> - The identification lambda which creates the assertions which the entry we are looking
+for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+or not. In case it is defined as <code>null</code>, then an entry is identified if it is <code>null</code> as well.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContainExactly</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/otherAssertionCreatorsOrNulls">otherAssertionCreatorsOrNulls</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/report">report</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting/-in-order-only-reporting-options/index.html"><span class="identifier">InOrderOnlyReportingOptions</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a>&nbsp;<span class="symbol">=</span>&nbsp;{}<span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-exactly.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableExpectations.kt#L186">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains only an entry holding
+the assertions created by <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> or <code>null</code> in case <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> is defined as <code>null</code>
+and likewise an additional entry for each <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/otherAssertionCreatorsOrNulls">otherAssertionCreatorsOrNulls</a> (if given)
+whereas the entries have to appear in the defined order.</p>
+<p>It is a shortcut for <code>toContain.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)</code></p>
+<p>Note that we might change the signature of this function with the next version
+which will cause a binary backward compatibility break (see
+<a href="https://github.com/robstoll/atrium/issues/292">#292</a> for more information)</p>
+<pre><code class="lang-kotlin">expect(listOf(3, 5, null)).toContainExactly(
+    { toEqual(3) },
+    { toBeLessThan(11) },
+    null
+)
+
+fails {
+    expect(listOf(3, 5, 7)).toContainExactly(
+        { toBeGreaterThan(2) },
+        { toBeLessThan(11) }
+    )
+}
+
+fails {
+    expect(listOf(3, 5)).toContainExactly(
+        { toEqual(1) }, // fails
+        { toBeLessThan(11) } // this assertion is not checked
+    )
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="assertionCreatorOrNull"></a>
+<code>assertionCreatorOrNull</code> - The identification lambda which creates the assertions which the entry we are looking
+for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+or not. In case it is defined as <code>null</code>, then an entry is identified if it is <code>null</code> as well.</p>
+<p><a name="otherAssertionCreatorsOrNulls"></a>
+<code>otherAssertionCreatorsOrNulls</code> - Additional identification lambdas which each identify (separately) an entry
+which we are looking for (see <a href="to-contain-exactly.html#ch.tutteli.atrium.api.fluent.en_GB$toContainExactly(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)), kotlin.Array((kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainExactly.E)), kotlin.Unit)))), kotlin.Function1((ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions, kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> for more information).</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

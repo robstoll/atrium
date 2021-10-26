@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>because - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./because.html">because</a><br/>
+<br/>
+<h1>because</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.because.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((kotlin.String, ch.tutteli.atrium.api.infix.en_GB.because.T)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">because</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.because.T)), ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator((kotlin.String, ch.tutteli.atrium.api.infix.en_GB.because.T)))/keyWithCreator">keyWithCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html"><span class="identifier">KeyWithCreator</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyAssertions.kt#L72">(source)</a>
+<p>Allows to state a reason for one or multiple assertions for the current subject.</p>
+<pre><code class="lang-kotlin">expect("filename") because of("? is not allowed in file names on Windows") {
+    it notToContain "?"
+}
+
+expect(customers) toHaveElementsAndAll (fun Expect&lt;Person&gt;.() {
+    it because of("the legal age of maturity in Switzerland is 18") {
+        feature { f(it::age) } toBeGreaterThanOrEqualTo 18
+    }
+})</code></pre>
+<h3>Parameters</h3>
+<p><a name="keyWithCreator"></a>
+<code>keyWithCreator</code> - Combines the reason with the assertionCreator-lambda. Use the function
+<code>of(reason) { ... }</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-key-with-creator/index.html">KeyWithCreator</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.15.0</p>
+</BODY>
+</HTML>

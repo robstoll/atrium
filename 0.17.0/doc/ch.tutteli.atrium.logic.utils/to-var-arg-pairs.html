@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toVarArgPairs - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic.utils</a>&nbsp;/&nbsp;<a href="./to-var-arg-pairs.html">toVarArgPairs</a><br/>
+<br/>
+<h1>toVarArgPairs</h1>
+<a name="ch.tutteli.atrium.logic.utils$toVarArgPairs(ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic((kotlin.Any, , kotlin.Any, ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.SearchBehaviour)), kotlin.Any)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-entry-point-step-logic/index.html"><span class="identifier">MapLikeContains.EntryPointStepLogic</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toVarArgPairs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$toVarArgPairs(ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic((kotlin.Any, , kotlin.Any, ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.SearchBehaviour)), kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html"><span class="identifier">MapLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="to-var-arg-pairs.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-var-arg-pairs.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/varArgHelpers.kt#L117">(source)</a>
+<p>Transforms the given <a href="../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html">MapLike</a> to <code>Pair&lt;Pair&lt;K, V&gt;, Array&lt;out Pair&lt;K, V&gt;&gt;&gt;</code> with the intention that
+it can be easily used for a function requiring <code>Pair&lt;K, V&gt;, vararg Pair&lt;K, V&gt;</code>.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the <a href="to-var-arg-pairs.html#ch.tutteli.atrium.logic.utils$toVarArgPairs(ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStepLogic((kotlin.Any, , kotlin.Any, ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.SearchBehaviour)), kotlin.Any)/mapLike">mapLike</a> is empty.</p>
+<p><strong>Since</strong><br/>
+0.15.0</p>
+</BODY>
+</HTML>

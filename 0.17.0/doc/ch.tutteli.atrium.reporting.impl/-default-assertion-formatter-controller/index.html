@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultAssertionFormatterController - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.impl</a>&nbsp;/&nbsp;<a href="./index.html">DefaultAssertionFormatterController</a><br/>
+<br/>
+<h1>DefaultAssertionFormatterController</h1>
+<code><span class="keyword">class </span><span class="identifier">DefaultAssertionFormatterController</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html"><span class="identifier">AssertionFormatterController</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/reporting/impl/DefaultAssertionFormatterController.kt#L16">(source)</a>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a> which does nothing special in addition
+but just the job of the controller :)</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DefaultAssertionFormatterController</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a> which does nothing special in addition
+but just the job of the controller :)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Finds a suitable <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> -- which was previously <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/register.html">register</a>ed -- for the given <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> and
+formats it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="register.html">register</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">register</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController$register(ch.tutteli.atrium.reporting.AssertionFormatter)/assertionFormatter">assertionFormatter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/index.html"><span class="identifier">AssertionFormatter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Registers the given <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/register.html#ch.tutteli.atrium.reporting.AssertionFormatterController$register(ch.tutteli.atrium.reporting.AssertionFormatter)/assertionFormatter">assertionFormatter</a>, which means it will be considered when an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>
+shall be <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/format.html">format</a>ted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/is-explanatory-assertion-group.html">isExplanatoryAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isExplanatoryAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$isExplanatoryAssertionGroup(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Checks whether the given <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/is-explanatory-assertion-group.html#ch.tutteli.atrium.reporting.AssertionFormatterController$isExplanatoryAssertionGroup(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> and if its <a href="../../ch.tutteli.atrium.assertions/-assertion-group/type.html">type</a>
+is an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

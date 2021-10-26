@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>iterableLikeToIterableWithoutCheckForElements - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.logic.utils</a>&nbsp;/&nbsp;<a href="./iterable-like-to-iterable-without-check-for-elements.html">iterableLikeToIterableWithoutCheckForElements</a><br/>
+<br/>
+<h1>iterableLikeToIterableWithoutCheckForElements</h1>
+<a name="ch.tutteli.atrium.logic.utils$iterableLikeToIterableWithoutCheckForElements(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">iterableLikeToIterableWithoutCheckForElements</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.utils$iterableLikeToIterableWithoutCheckForElements(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="iterable-like-to-iterable-without-check-for-elements.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/varArgHelpers.kt#L99">(source)</a>
+<p>Transforms the given <a href="iterable-like-to-iterable-without-check-for-elements.html#ch.tutteli.atrium.logic.utils$iterableLikeToIterableWithoutCheckForElements(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)), kotlin.Any)/iterableLike">iterableLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <a href="iterable-like-to-iterable-without-check-for-elements.html#T">T</a>.</p>
+<p>It does not check if the resulting <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> has a next element. Use <a href="iterable-like-to-iterable.html">iterableLikeToIterable</a> which
+incorporates this check. Use this function only, if you want to support <a href="../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html">IterableLike</a> types in conjunction with
+another ...Like type.</p>
+<p><strong>Returns</strong><br/>
+the resulting <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> of type</p>
+<p><strong>Since</strong><br/>
+0.15.0</p>
+</BODY>
+</HTML>

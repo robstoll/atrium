@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ResourceBundleInspiredLocaleOrderDecider - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating.impl</a>&nbsp;/&nbsp;<a href="./index.html">ResourceBundleInspiredLocaleOrderDecider</a><br/>
+<br/>
+<h1>ResourceBundleInspiredLocaleOrderDecider</h1>
+<code><span class="keyword">object </span><span class="identifier">ResourceBundleInspiredLocaleOrderDecider</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html"><span class="identifier">LocaleOrderDecider</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/reporting/translating/impl/ResourceBundleInspiredLocaleOrderDecider.kt#L22">(source)</a>
+<p>Responsible to determine in which order <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s should be processed.</p>
+<p>Inspired by Java's <code>ResourceBundle.Control.getCandidateLocales()</code> and <code>ResourceBundle.Control.getFallbackLocale()</code>
+but there are a few differences:</p>
+<ul><li>it is based on Atrium's <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> and not <code>java.util.java</code></li>
+<li>allows to define more than one fallback <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a></li>
+<li>does not use <a href="../../ch.tutteli.atrium.reporting.translating/get-default-locale.html">getDefaultLocale</a> implicitly (one can define it explicitly as fallback <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a> though)</li>
+<li>it does not return <code>java.util.Locale.ROOT</code></li>
+</ul>
+<p>Further information can be found at <a href="../../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="determine-order.html">determineOrder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">determineOrder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider$determineOrder(ch.tutteli.atrium.reporting.translating.Locale, kotlin.collections.List((ch.tutteli.atrium.reporting.translating.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span></code>
+<p>Defines the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a> of <a href="../../ch.tutteli.atrium.reporting.translating/-locale/index.html">Locale</a>s which should be used in <a href="../../ch.tutteli.atrium.reporting.translating/-translator/translate.html">Translator.translate</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHave - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-have.html">toHave</a><br/>
+<br/>
+<h1>toHave</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.elements)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-have.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHave</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.elements)/elements">elements</span><span class="symbol">:</span>&nbsp;<a href="elements.html"><span class="identifier">elements</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L299">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) has at least one element.</p>
+<pre><code class="lang-kotlin">expect(listOf("A", 1, 3f)) toHave elements
+
+fails {
+    expect(emptyList&lt;Int&gt;()) toHave elements
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.next)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHave</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.next)/next">next</span><span class="symbol">:</span>&nbsp;<a href="next.html"><span class="identifier">next</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iteratorExpectations.kt#L17">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html">Iterator</a>) has a next element.</p>
+<pre><code class="lang-kotlin">val list = listOf(1)
+val iterator = list.iterator()
+expect(iterator) toHave next      // holds as iterator has a next element
+
+fails {
+    iterator.next()               // returns the next element in iteration
+    expect(iterator) toHave next  // fails as list has only 1 element, i.e. no next any more.
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHave</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries)/directoryEntries">directoryEntries</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.path/-directory-entries/index.html"><span class="identifier">DirectoryEntries</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L85">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a directory having the provided entries.
+That means that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that it is a directory.
+Furthermore, every argument string resolved against the subject yields an existing file system entry.</p>
+<p>This assertion <em>resolves</em> symbolic links for the subject, but not for the entries.
+Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
+the entry’s symbolic link will not be followed.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertions work on.
+The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+
+val file1 = dir.newFile("test_file1")
+val file2 = dir.newFile("test_file2")
+
+expect(dir) toHave directoryEntries("test_file1", "test_file2")
+
+file1.delete()
+file2.delete()
+
+fails {
+    expect(dir) toHave directoryEntries("test_file1", "test_file2")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="to-have.html#ch.tutteli.atrium.api.infix.en_GB$toHave(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toHave.T)), ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries)/directoryEntries">directoryEntries</a></p>
+<p><a href="has-directory-entry.html">hasDirectoryEntry</a></p>
+</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

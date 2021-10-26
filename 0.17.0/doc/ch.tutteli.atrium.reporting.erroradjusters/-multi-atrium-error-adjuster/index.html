@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MultiAtriumErrorAdjuster - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.erroradjusters</a>&nbsp;/&nbsp;<a href="./index.html">MultiAtriumErrorAdjuster</a><br/>
+<br/>
+<h1>MultiAtriumErrorAdjuster</h1>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">MultiAtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/reporting/erroradjusters/MultiAtriumErrorAdjuster.kt#L13">(source)</a>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which incorporates several <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> and executes one after another
+during adjustment in the given order.</p>
+<p><strong>FirstAdjuster</strong><br/>
+The first adjuster which shall be used.</p>
+<p><strong>SecondAdjuster</strong><br/>
+The second adjuster which shall be used.</p>
+<p><strong>OtherAdjusters</strong><br/>
+The other adjusters which shall be used.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MultiAtriumErrorAdjuster</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster$<init>(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/firstAdjuster">firstAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster$<init>(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/secondAdjuster">secondAdjuster</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster$<init>(ch.tutteli.atrium.reporting.AtriumErrorAdjuster, ch.tutteli.atrium.reporting.AtriumErrorAdjuster, kotlin.collections.List((ch.tutteli.atrium.reporting.AtriumErrorAdjuster)))/otherAdjusters">otherAdjusters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which incorporates several <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> and executes one after another
+during adjustment in the given order.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="adjust-stack-trace.html">adjustStackTrace</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">adjustStackTrace</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster$adjustStackTrace(kotlin.sequences.Sequence((java.lang.StackTraceElement)))/stackTrace">stackTrace</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StackTraceElement.html"><span class="identifier">StackTraceElement</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StackTraceElement.html"><span class="identifier">StackTraceElement</span></a><span class="symbol">&gt;</span></code>
+<p>Adjusts the given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/stack-trace.html">Throwable.stackTrace</a> in some way or another.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-filter-atrium-error-adjuster/adjust.html">adjust</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">adjust</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.FilterAtriumErrorAdjuster$adjust(kotlin.Throwable)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adjusts the given <a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster-common/adjust.html#ch.tutteli.atrium.reporting.AtriumErrorAdjusterCommon$adjust(kotlin.Throwable)/throwable">throwable</a> -  typically this involves filtering the stack trace
+(<code>stackTrace</code> in JVM, <code>stack</code> in JS) in some way or another as well as the stack traces of a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/cause.html">Throwable.cause</a>
+and other stack traces (e.g. stack traces of suppressed throwable in JVM).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-filter-atrium-error-adjuster/adjust-other-than-stacks.html">adjustOtherThanStacks</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">adjustOtherThanStacks</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.erroradjusters.FilterAtriumErrorAdjuster$adjustOtherThanStacks(kotlin.Throwable)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Does nothing (no adjustments) - override in subclass if you want a different behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.reporting/-atrium-error-adjuster/adjust-stack-trace.html">adjustStackTrace</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">adjustStackTrace</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AtriumErrorAdjuster$adjustStackTrace(kotlin.sequences.Sequence((java.lang.StackTraceElement)))/stackTrace">stackTrace</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StackTraceElement.html"><span class="identifier">StackTraceElement</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/StackTraceElement.html"><span class="identifier">StackTraceElement</span></a><span class="symbol">&gt;</span></code>
+<p>Adjusts the given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/stack-trace.html">Throwable.stackTrace</a> in some way or another.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultComponentFactoryContainer - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.creating.impl</a>&nbsp;/&nbsp;<a href="./-default-component-factory-container.html">DefaultComponentFactoryContainer</a><br/>
+<br/>
+<h1>DefaultComponentFactoryContainer</h1>
+<code><span class="keyword">object </span><span class="identifier">DefaultComponentFactoryContainer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L119">(source)</a>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.creating/build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">.</span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/build.html#I"><span class="identifier">I</span></a></code>
+<p>Returns the component of type <a href="../ch.tutteli.atrium.creating/build.html#I">I</a> using a corresponding factory or throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a>
+in case no factory was found which is able to build a component of the given type.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.creating/build-chained.html">buildChained</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">.</span><span class="identifier">buildChained</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.creating/build-chained.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a chain of components of type <a href="../ch.tutteli.atrium.creating/build-chained.html#I">I</a> using a corresponding factory or throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a>
+in case no factory was found which is able to build a chain of components of the given type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

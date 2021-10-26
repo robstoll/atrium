@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>second - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./second.html">second</a><br/>
+<br/>
+<h1>second</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$second#ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.T))"></a>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="second.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="second.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">second</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="second.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pairAssertions.kt#L40">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/second.html">Pair.second</a> of the subject of <code>this</code> expectation,
+so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">val pair = "one" to 1
+
+expect(pair)
+    .second isLessThan 2 isGreaterThan 0
+    //|         |             | subject is still of type Int (still 1)
+    //|         | subject is still of type Int (still 1)
+    //| subject is now of type Int (actually 1)
+
+fails {
+    expect(pair)
+        .second isGreaterThan 2 isLessThan 0
+        //|         |             | not reported because `isGreaterThan 2` already fails
+        //|         | fails
+        //| subject is now of type Int (actually 1)
+        // use `.second { ... }` if you want that all assertions are evaluated
+} message {
+    toContain("${isGreaterThanDescr}: 2")
+    notToContain("${isLessThanDescr}: 0")
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$second(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.V)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="second.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="second.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="second.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">second</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$second(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.V)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="second.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="second.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pairAssertions.kt#L52">(source)</a>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/second.html">Pair.second</a> of the subject of <code>this</code> expectation
+holds all assertions the given <a href="second.html#ch.tutteli.atrium.api.infix.en_GB$second(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.second.V)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and
+returns an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">val pair = "one" to 1
+
+expect(pair)
+    .second { // subject inside this block is of type Int (actually 1)
+        it isLessThan 2
+    } // subject here is back to type Pair&lt;Int, String&gt;
+    .second { // subject inside this block is of type Int (actually 1)
+        it isGreaterThan 0
+    }
+
+fails {
+    // all assertions are evaluated inside an assertion group block; for more details:
+    // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+    expect(pair)
+        .second { // subject inside this block is of type Int (actually 1)
+            it isGreaterThan 2 // fails
+            it isLessThan 0    // still evaluated even though `isGreaterThan 2` already fails,
+                               // use `.second.` if you want a fail fast behaviour
+        }
+} messageContains values(
+    "${isGreaterThanDescr}: 2",
+    "${isLessThanDescr}: 0"
+)</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

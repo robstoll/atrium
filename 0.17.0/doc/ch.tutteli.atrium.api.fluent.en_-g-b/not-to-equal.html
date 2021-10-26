@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToEqual - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-equal.html">notToEqual</a><br/>
+<br/>
+<h1>notToEqual</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$notToEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToEqual</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$notToEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="not-to-equal.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L34">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation is <strong>not</strong> equal to <a href="not-to-equal.html#ch.tutteli.atrium.api.fluent.en_GB$notToEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.notToEqual.T)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">expect(2).notToEqual(3)
+
+fails {
+    expect(12).notToEqual(12)
+}
+
+expect(listOf(2)).notToEqual(listOf(3))
+
+fails {
+    expect(listOf(2)).notToEqual(listOf(2))
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

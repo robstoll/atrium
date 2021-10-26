@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>and - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./and.html">and</a><br/>
+<br/>
+<h1>and</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$and#ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.and.T))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">and</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyAssertions.kt#L203">(source)</a>
+<p>Can be used to separate single assertions.</p>
+<p>For instance <code>expect(1).isLessThan(2).and.isGreaterThan(0)</code> creates
+two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
+asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.</p>
+<pre><code class="lang-kotlin">// `and` is just a filler word; does not have any behaviour
+expect(13).toBeGreaterThan(5).and.toBeLessThan(20)
+
+// i.e. the above is equivalent to:
+expect(13).toBeGreaterThan(5).toBeLessThan(20)</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$and(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.and.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.and.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">and</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$and(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.and.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.and.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyAssertions.kt#L218">(source)</a>
+<p>Can be used to create a group of sub assertions when using the fluent API.</p>
+<p>For instance <code>expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }</code> creates
+two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
+second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
+Hence the reporting might (depending on the configured <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) contain both failing sub-assertions.</p>
+<pre><code class="lang-kotlin">expect(13).toBeAnInstanceOf&lt;Int&gt;().and {
+    toBeGreaterThan(5)
+    toBeLessThan(20)
+}
+
+fails {
+    expect(13).toBeAnInstanceOf&lt;Int&gt;().and {
+        // introduces an expectation group block
+        // all expectations are evaluated inside an expectation group block; for more details:
+        // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+        // use `.and.` if you want fail fast behaviour
+
+        notToEqualOneOf(1, 2, 13) // fails
+        toBeLessThan(10)          // still evaluated and included in the error report
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

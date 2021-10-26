@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHaveTheDirectoryEntries - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-have-the-directory-entries.html">toHaveTheDirectoryEntries</a><br/>
+<br/>
+<h1>toHaveTheDirectoryEntries</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheDirectoryEntries(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheDirectoryEntries.T)), kotlin.String, kotlin.Array((kotlin.String)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-directory-entries.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveTheDirectoryEntries</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheDirectoryEntries(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheDirectoryEntries.T)), kotlin.String, kotlin.Array((kotlin.String)))/entry">entry</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheDirectoryEntries(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheDirectoryEntries.T)), kotlin.String, kotlin.Array((kotlin.String)))/otherEntries">otherEntries</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect/index.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-directory-entries.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.17.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L339">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) is a directory having the provided entries.
+That means that there is a file system entry at the location the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> points to and that it is a directory.
+Furthermore, every argument string resolved against the subject yields an existing file system entry.</p>
+<p>This assertion <em>resolves</em> symbolic links for the subject, but not for the entries.
+Therefore, if a symbolic link exists at the location the subject points to, the search will continue at the location
+the link points at. If a symbolic link exists at one of the entries, this will fulfill the respective assertion and
+the entry’s symbolic link will not be followed.</p>
+<p>This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on.
+The result, in particular its extended explanations, may be wrong if such concurrent file system operations
+take place.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+
+val file1 = dir.newFile("test_file1")
+val file2 = dir.newFile("test_file2")
+
+expect(dir).toHaveTheDirectoryEntries("test_file1", "test_file2")
+
+file1.delete()
+file2.delete()
+
+fails {
+    expect(dir).toHaveTheDirectoryEntries("test_file1", "test_file2")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>
