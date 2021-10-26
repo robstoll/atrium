@@ -537,7 +537,7 @@ e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 f) commit & push changes
 
 2. establish backward compatibility tests for the previous version
-a) add new version at the end of atrium-bc-test/build.gradle
+a) append new version to bcConfigs in settings.gradle.kts
 b) git commit -a -m "establish backward compatibility tests for v$ATRIUM_VERSION"
 c) commit & push changes
 
