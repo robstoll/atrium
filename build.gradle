@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.17.0'
+    rootProject.version = '0.18.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -59,7 +59,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.17.0"
+        dokka_sourceMapping = "tree/main"
 
 
         toolProjects = toolProjectsFun
@@ -427,7 +427,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=0.17.0
-export ATRIUM_VERSION=0.17.0
+export ATRIUM_VERSION=0.18.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -470,13 +470,13 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
 
 gr ghPages
+cd ../atrium-gh-pages
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
-  ../atrium-gh-pages/latest/index.html
+  ./latest/index.html
 perl -0777 -i \
   -pe "s@(- \[$ATRIUM_PREVIOUS_VERSION\]\($ATRIUM_PREVIOUS_VERSION\))@- \[$ATRIUM_VERSION\]\($ATRIUM_VERSION\)\n\$1@;" \
-  ../atrium-gh-pages/README.md
-cd ../atrium-gh-pages
+  ./README.md
 git add . && git commit -m "v$ATRIUM_VERSION"
 
 check changes
@@ -507,7 +507,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.17.0
-export ATRIUM_NEXT_VERSION=0.17.0
+export ATRIUM_NEXT_VERSION=0.18.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
