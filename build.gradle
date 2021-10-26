@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.17.0-SNAPSHOT'
+    rootProject.version = '0.17.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -59,7 +59,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/main"
+        dokka_sourceMapping = "tree/v0.17.0"
 
 
         toolProjects = toolProjectsFun
@@ -426,7 +426,7 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=0.17.0-RC1
+export ATRIUM_PREVIOUS_VERSION=0.17.0
 export ATRIUM_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
@@ -458,11 +458,11 @@ alternatively the manual steps:
     h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
 2. prepare release on github
-    a) git tag vX.Y.Z
-    b) git push origin vX.Y.Z
+    a) git tag "v$ATRIUM_VERSION"
+    b) git push origin "v$ATRIUM_VERSION"
     c) Log in to github and create draft for the release
 
-The tag is required for dokka in order that the source-mapping works
+The tag is required for dokka in order that the externalLinkDocumentation and source-mapping works
 
 3. update github pages:
 Assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
@@ -506,7 +506,7 @@ Prepare next dev cycle
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=0.17.0-RC1
+export ATRIUM_VERSION=0.17.0
 export ATRIUM_NEXT_VERSION=0.17.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
