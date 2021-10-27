@@ -20,6 +20,8 @@ import java.util.*
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBeEmpty
+ *
  * @since 0.17.0
  */
 fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
@@ -34,6 +36,8 @@ fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
  *
  * @return The newly created [Expect] for the inner type [E].
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresent
+ *
  * @since 0.17.0
  */
 fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
@@ -44,6 +48,8 @@ fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
  * that it holds all assertions the given [assertionCreator] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresentAssertionCreator
  *
  * @since 0.17.0
  */
