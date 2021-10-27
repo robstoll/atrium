@@ -24,7 +24,7 @@ class OptionalExpectationsSamples {
     }
 
     @Test
-    fun toBePresentAssertionCreator() {
+    fun toBePresentFeature() {
         val x  = 10
         val y  = 5
 

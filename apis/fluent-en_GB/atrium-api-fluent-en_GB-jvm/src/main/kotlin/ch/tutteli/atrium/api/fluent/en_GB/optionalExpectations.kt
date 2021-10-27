@@ -49,7 +49,7 @@ fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresentAssertionCreator
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresentFeature
  *
  * @since 0.17.0
  */
