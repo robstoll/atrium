@@ -1,7 +1,3 @@
-//TODO rename file to iterableLikeToContain... in 0.18.0
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -13,6 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.E
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import kotlin.jvm.JvmName
 
 /**
@@ -33,11 +30,10 @@ import kotlin.jvm.JvmName
 fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
     secondGroup: Group<E>,
-    vararg otherExpectedGroups: Group<E>
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+    vararg otherExpectedGroups: Group<E>,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {
-    valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), {})
+    valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report)
 }
 
 /**
@@ -63,9 +59,8 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
 fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,
-    vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+    vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {
-    entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), {})
+    entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report)
 }

@@ -53,23 +53,6 @@ fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSameAs(exp
 )
 fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Allows to state a reason for one or multiple assertions for the current subject.
- *
- * @param reason The explanation for the assertion(s) created by [assertionCreator].
- * @param assertionCreator The group of assertions to make.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.because
- *
- * @since 0.15.0
- */
-fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logicAppend { because(reason, assertionCreator) }
-
-
 /**
  * Expects that the subject of `this` expectation is either `null` in case [assertionCreatorOrNull]
  * is `null` or is not `null` and holds all assertions [assertionCreatorOrNull] creates.
@@ -187,36 +170,6 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
 @Deprecated("Use toBeAnInstanceOf; will be removed with 1.0.0 at the latest", ReplaceWith("this.toBeAnInstanceOf<TSub>(assertionCreator)"))
 inline fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to separate single assertions.
- *
- * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
- * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
- * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.andFeature
- */
-inline val <T> Expect<T>.and: Expect<T> get() = this
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to create a group of sub assertions when using the fluent API.
- *
- * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
- * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
- * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.and
- */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAsGroup(assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) [expected] and [otherValues].

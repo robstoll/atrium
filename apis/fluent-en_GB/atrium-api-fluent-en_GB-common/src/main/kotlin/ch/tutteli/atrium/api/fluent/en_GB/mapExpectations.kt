@@ -184,3 +184,100 @@ fun <T : Map<*, *>> Expect<T>.notToBeEmpty(): Expect<T> =
     _logicAppend { isNotEmpty(::toEntries) }
 
 private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries
+
+/**
+ * Expects that the subject of `this` expectation (a [Map]) contains the given [key],
+ * creates an [Expect] for the corresponding value and returns the newly created [Expect],
+ * so that further fluent calls are expectations about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.getExistingFeature
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
+    _logic.getExisting(::identity, key).transform()
+
+/**
+ * Expects that the subject of `this` expectation (a [Map]) contains the given [key] and that
+ * the corresponding value holds all assertions the given [assertionCreator] creates for it.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.getExisting
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K, assertionCreator: Expect<V>.() -> Unit): Expect<T> =
+    _logic.getExisting(::identity, key).collectAndAppend(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.keysFeature
+ */
+val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
+    get() = _logic.property(Map<out K, *>::keys).transform()
+
+/**
+ * Expects that the property [Map.keys] of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.keys
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
+    _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Map.values] of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.valuesFeature
+ */
+val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
+    get() = _logic.property(Map<out Any?, V>::values).transform()
+
+/**
+ * Expects that the property [Map.keys] of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.values
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
+    _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
+
+/**
+ * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
+ *
+ * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.asEntriesFeature
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(): Expect<Set<Map.Entry<K, V>>> =
+    _logic.changeSubject.unreported { it.entries }
+
+/**
+ * Turns `Expect<Map<K, V>>` into `Expect<Set<Map.Entry<K, V>>>` and expects that it holds all assertions the given
+ * [assertionCreator] creates for it.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `feature { f(it::entries) }` if you want to show the transformation in reporting.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapExpectationSamples.asEntries
+ */
+fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
+    assertionCreator: Expect<Set<Map.Entry<K, V>>>.() -> Unit
+): Expect<T> = apply { asEntries()._logic.appendAsGroup(assertionCreator) }

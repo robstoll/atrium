@@ -1,70 +1,65 @@
-//TODO rename file to iterableLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.EntryPointStep
+import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.CheckerStep
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entries
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
-import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
- * needs to contain only the [expected] value.
+ * needs to contain the [expected] value.
  *
  * Delegates to [values].
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
- * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
+ * @param expected The value which is expected to be contained within this [IterableLike].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
- * needs to contain only the [expected] value as well as the [otherExpected] values
- * where it does not matter in which order.
+ * needs to contain the [expected] value as well as the [otherExpected] values where it does not matter
+ * in which order they appear.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
+ * [expected] is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match,
+ * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
+ * number of occurrences you expect.
  *
- * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
- * @param otherExpected Additional values which are expected to be contained within [IterableLike].
+ * Meaning you might want to use:
+ *   `contains.inAnyOrder.exactly(2).values('a')`
+ * instead of:
+ *   `contains.inAnyOrder.atLeast(1).values('a', 'a')`
+ *
+ * @param expected The object which is expected to be contained within this [IterableLike].
+ * @param otherExpected Additional objects which are expected to be contained within this [IterableLike].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.values(
+fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected) }
+): Expect<T> = _logicAppend { values(expected glue otherExpected) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
- * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
- * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
+ * needs to contain an entry which either holds all assertions [assertionCreatorOrNull] creates or
+ * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to [entries].
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -74,28 +69,16 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
- * needs to contain only an entry for [assertionCreatorOrNull] as well as for the [otherAssertionCreatorsOrNulls]
+ * needs to contain an entry for [assertionCreatorOrNull] as well as for the [otherAssertionCreatorsOrNulls]
  * where it does not matter in which order they appear -- an entry is contained if it either
  * holds all assertions [assertionCreatorOrNull] creates or
  * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
- *
- * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
- * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
- * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `entries({ isGreaterThan(0) }, { toEqual(1) })` but for
- * `entries({ toEqual(1) }, { isGreaterThan(0) })` otherwise
- * `isGreaterThan(0)` matches `1` before `toEqual(1)` would match it. As a consequence `toEqual(1)` could only match the
- * entry which is left -- in this case `2` -- and of course this would fail.
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -107,26 +90,24 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
+): Expect<T> = _logicAppend { entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
- * needs to contain only and all elements of [expectedIterableLike] where it does not matter in which order.
+ * needs to contain all elements of the [expectedIterableLike] where it does not matter in which order they appear.
  *
- * Delegates to [values].
+ * Delegates to [values] which also means that it does not search for unique matches
+ * (see [values] for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed (this can be changed via [IterableLikeToIterableTransformer]).
  * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
- * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike]
+ * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not
@@ -135,6 +116,6 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  *
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
-inline fun <reified E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+inline fun <reified E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest) }
