@@ -1,13 +1,12 @@
-//TODO rename file to mapLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyValuePairsInAnyOrderOnly
-import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyWithValueAssertionsInAnyOrderOnly
-import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyValuePairsInAnyOrder
+import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyWithValueAssertionsInAnyOrder
+import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.utils.toVarArgPairs
 import ch.tutteli.kbox.glue
@@ -15,7 +14,7 @@ import kotlin.reflect.KClass
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain exactly one entry where key and value have to equal the given [keyValuePair].
+ * needs to contain the given [keyValuePair].
  *
  * Delegates to [entries].
  *
@@ -23,26 +22,30 @@ import kotlin.reflect.KClass
  *
  * @since 0.15.0
  */
-fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
+fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValuePair] as well as the [otherPairs] where it does not matter
+ * needs to contain the given [keyValuePair] as well as the [otherPairs] where it does not matter
  * in which order they appear.
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValuePair] is
+ * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
+ * even though they match the same entry.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
-fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entries(
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>
-): Expect<T> = _logicAppend { keyValuePairsInAnyOrderOnly(keyValuePair glue otherPairs) }
+): Expect<T> = _logicAppend { keyValuePairsInAnyOrder(keyValuePair glue otherPairs) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain exactly one entry with a key as defined by [keyValue]'s [KeyValue.key] and
+ * needs to contain an entry with a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
@@ -53,38 +56,43 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.e
  *
  * @since 0.15.0
  */
-inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entry(
+inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entry(
     keyValue: KeyValue<K, V>
 ): Expect<T> = entries(keyValue)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValue] as well as the [otherKeyValues] where it does not matter
+ * needs to contain the given [keyValue] as well as the [otherKeyValues] where it does not matter
  * in which order they appear -- an entry is contained if it has a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
  *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
+ * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
+ * , then both match, even though they match the same entry.
+ *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
-inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entries(
+inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
     vararg otherKeyValues: KeyValue<K, V>
 ): Expect<T> = entries(V::class, keyValue glue otherKeyValues)
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entries(
+internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entries(
     kClass: KClass<V>,
     keyValues: List<KeyValue<K, V>>
 ): Expect<T> = _logicAppend {
-    keyWithValueAssertionsInAnyOrderOnly(kClass, keyValues.map { it.toPair() })
+    keyWithValueAssertionsInAnyOrder(kClass, keyValues.map { it.toPair() })
 }
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only and all entries of the given [expectedMapLike] where it does not matter
+ * needs to contain all entries of the given [expectedMapLike] where it does not matter
  * in which order they appear.
  *
  * Delegates to [entries] which also means that it does not search for unique matches
@@ -102,6 +110,6 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
  *
  * @since 0.15.0
  */
-fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
+fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
 ): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) -> entries(first, *rest) }

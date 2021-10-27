@@ -58,7 +58,7 @@ buildscript {
                     // bc
                     commonPatterns,
                     // bbc
-                    true to
+                    false to
                         or(
                             commonPatterns,
                             "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
@@ -139,7 +139,7 @@ buildscript {
                             ) + ".*)"
                     ),
                     // bbc
-                    true to or(
+                    false to or(
                         commonPatterns,
                         "(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" +
                             or(
@@ -189,11 +189,10 @@ buildscript {
                     // bc
                     commonPatterns,
                     // bbc
-                    true to commonPatterns
+                    false to commonPatterns
                 )
             }
-        )
-        ,
+        ),
         Triple(
             "0.17.0",
             allApisAllTargets,
@@ -203,7 +202,7 @@ buildscript {
                     // bc
                     commonPatterns,
                     // bbc
-                    true to commonPatterns
+                    false to commonPatterns
                 )
             }
         )

@@ -1,4 +1,3 @@
-//TODO rename file to iterableLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -8,6 +7,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.E
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
@@ -50,10 +50,9 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
  */
 fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.values(
     expected: E,
-    vararg otherExpected: E
-    //TODO use the following with 0.18.0
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected, {}) }
+    vararg otherExpected: E,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { valuesInOrderOnly(expected glue otherExpected, report) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -101,10 +100,9 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  */
 fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, {}) }
+    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { entriesInOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, report) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -130,7 +128,6 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
 inline fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
-    expectedIterableLike: IterableLike
-    //TODO 0.18.0 add the following
-    //noinline report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest) }
+    expectedIterableLike: IterableLike,
+    noinline report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest, report = report) }
