@@ -18,6 +18,7 @@ configure(dexerProjects) { subproject ->
     }
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         r8 "com.android.tools:r8:$d8_version"
