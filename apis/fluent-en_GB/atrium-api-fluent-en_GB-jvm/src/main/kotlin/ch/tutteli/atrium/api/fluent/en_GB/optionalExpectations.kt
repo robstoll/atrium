@@ -41,7 +41,7 @@ fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
 
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is present and
- * that it holds all assertions the given [assertionCreator] creates.
+ * that the wrapped value of type [E] holds all assertions the given [assertionCreator] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

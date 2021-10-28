@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion

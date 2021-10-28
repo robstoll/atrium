@@ -9,8 +9,8 @@ class IteratorExpectationSamples {
 
     @Test
     fun toHaveNext() {
-        val list = listOf(1)
-        val iterator = list.iterator()
+        val iterator = listOf(1).iterator()
+
         expect(iterator).toHaveNext()      // holds as iterator has a next element
 
         fails {
@@ -21,14 +21,13 @@ class IteratorExpectationSamples {
 
     @Test
     fun notToHaveNext() {
-        val list = listOf(1)
-        val iterator = list.iterator()     // fails as iterator has a next element (has actually one element)
+        val iterator = listOf(1).iterator()
 
         fails {
-            expect(iterator).notToHaveNext()
+            expect(iterator).notToHaveNext() // fails as iterator has a next element (has actually one element)
         }
 
-        iterator.next()                    // returns the next element in iteration
-        expect(iterator).notToHaveNext()   // returns the next element in iteration
+        iterator.next()                      // returns the next element in iteration
+        expect(iterator).notToHaveNext()     // does not fail as by now iterator has no next element
     }
 }
