@@ -3,7 +3,7 @@
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-val atriumVersion = "0.16.0"
+val atriumVersion = "0.17.0"
 val junitVersion = "5.8.1"
 
 plugins {
