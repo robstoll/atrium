@@ -19,6 +19,8 @@ import kotlin.reflect.*
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.itsFeature
+ *
  * @since 0.16.0
  */
 
@@ -32,6 +34,8 @@ fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.its
  *
  * @since 0.16.0
  */
@@ -50,6 +54,8 @@ private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
  *
  * @return The newly created [Expect] for the given [property].
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromPropertyFeature
+ *
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
@@ -62,6 +68,8 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R>
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromProperty
  *
  * @since 0.9.0
  */
@@ -79,6 +87,8 @@ fun <T, R> Expect<T>.feature(
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionFeature
+ *
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
@@ -91,6 +101,8 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunction
  *
  * @since 0.9.0
  */
@@ -109,6 +121,8 @@ fun <T, R> Expect<T>.feature(
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithArgumentFeature
+ *
  * @since 0.9.0
  */
 fun <T, A1, R> Expect<T>.feature(
@@ -124,6 +138,8 @@ fun <T, A1, R> Expect<T>.feature(
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithArgument
  *
  * @since 0.9.0
  */
@@ -143,6 +159,8 @@ fun <T, A1, R> Expect<T>.feature(
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithTwoArgumentsFeature
+ *
  * @since 0.9.0
  */
 fun <T, A1, A2, R> Expect<T>.feature(
@@ -158,6 +176,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithTwoArguments
  *
  * @since 0.9.0
  */
@@ -177,6 +197,8 @@ fun <T, A1, A2, R> Expect<T>.feature(
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithThreeArgumentsFeature
+ *
  * @since 0.9.0
  */
 fun <T, A1, A2, A3, R> Expect<T>.feature(
@@ -192,6 +214,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithThreeArguments
  *
  * @since 0.9.0
  */
@@ -211,6 +235,8 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFourArgumentsFeature
+ *
  * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
@@ -226,6 +252,8 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFourArguments
  *
  * @since 0.9.0
  */
@@ -244,6 +272,8 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
  *
  * @return The newly [Expect] for the return value of calling [f] on the current subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFiveArgumentsFeature
+ *
  * @since 0.9.0
  */
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
@@ -259,6 +289,8 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFiveArguments
  *
  * @since 0.9.0
  */
@@ -280,6 +312,8 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureWithDescriptionFeature
+ *
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureExpect<T, R> =
@@ -296,6 +330,8 @@ fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureE
  *   implicit parameter `it`.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureWithDescription
  *
  * @since 0.9.0
  */
@@ -318,6 +354,8 @@ fun <T, R> Expect<T>.feature(
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureWithMetaFeatureProviderFeature
+ *
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
@@ -334,6 +372,8 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
  *   implicit parameter `it`. Usually you use [MetaFeatureOption.f] to create a [MetaFeature], e.g. `f(it::size)`
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.featureWithMetaFeatureProvider
  *
  * @since 0.9.0
  */
