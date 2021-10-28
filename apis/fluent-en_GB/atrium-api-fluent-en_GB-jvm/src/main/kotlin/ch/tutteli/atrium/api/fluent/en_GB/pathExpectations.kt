@@ -372,3 +372,4 @@ fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
  */
 fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
     _logicAppend { hasSameBinaryContentAs(targetPath) }
+

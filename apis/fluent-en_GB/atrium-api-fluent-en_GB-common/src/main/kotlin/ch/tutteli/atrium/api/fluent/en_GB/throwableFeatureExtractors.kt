@@ -35,9 +35,6 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if given),
  * using a non-disjoint search.
  *
- * It is more or less a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`, depending on
- * the implementation though.
- *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
  * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
  * so that you can mix [String] and [Int] for instance.

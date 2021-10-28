@@ -197,21 +197,6 @@ fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
 
 /**
- * Allows to state a reason for one or multiple assertions for the current subject.
- *
- * @param reason The explanation for the assertion(s) created by [assertionCreator].
- * @param assertionCreator The group of assertions to make.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.because
- *
- * @since 0.15.0
- */
-fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logicAppend { because(reason, assertionCreator) }
-
-/**
  * Can be used to separate single assertions.
  *
  * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates

@@ -50,7 +50,7 @@ Map<String, Closure<Tuple4<String, String, String, String>>> map = [
         } else {
             throw new IllegalStateException("define a configuration for this new file $fileNameAsString")
         }
-    }
+    },
 ]
 def generateLogic = createGenerateLogicTask(project, "impls", '', map)
 compileKotlinCommon.dependsOn(generateLogic)

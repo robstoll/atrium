@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 import java.time.Month
 import kotlin.test.Test
 
-class LocalDateTimeExpectationSamples {
+class LocalDateTimeFeatureExtractorSamples {
 
     @Test
     fun yearFeature() {
@@ -38,7 +38,7 @@ class LocalDateTimeExpectationSamples {
                     notToEqual(1980)    // fails
                     toBeLessThan(2000)  // not reported because notToEqual already fails
                     //                     use `.year.` if you want a fail fast behaviour
-                } // subject here is back to type LocalDateTime
+                }
         }
     }
 
@@ -71,7 +71,7 @@ class LocalDateTimeExpectationSamples {
                     toBeLessThan(9)      // fails
                     toBeGreaterThan(11)  // still evaluated even though toBeLessThan already fails
                     //                      use `.month.` if you want a fail fast behaviour
-                } // subject here is back to type LocalDateTime
+                }
         }
     }
 
@@ -106,7 +106,7 @@ class LocalDateTimeExpectationSamples {
                     toEqual(DayOfWeek.MONDAY)       // fails
                     notToEqual(DayOfWeek.SATURDAY)  // still evaluated even though toEqual already fails
                     //                                 use `.dayOfWeek.` if you want a fail fast behaviour
-                } // subject here is back to type LocalDateTime
+                }
         }
     }
 
@@ -139,7 +139,7 @@ class LocalDateTimeExpectationSamples {
                     toEqual(5)       // fails
                     toBeLessThan(7)  // still evaluated even though toEqual already fails
                     //                  use `.day.` if you want a fail fast behaviour
-                } // subject here is back to type LocalDateTime
+                }
         }
     }
 }

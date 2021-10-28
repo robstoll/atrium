@@ -1,6 +1,4 @@
-//TODO rename file to zonedDateTimeExpectations with 0.18.0
 @file:Suppress(
-    "FINAL_UPPER_BOUND" /* remove once https://youtrack.jetbrains.com/issue/KT-34257 is fixed */,
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE" /* TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed */
 )
 
@@ -17,7 +15,7 @@ import java.time.ZonedDateTime
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.yearFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.yearFeature
  *
  * @since 0.9.0
  */
@@ -31,7 +29,7 @@ val Expect<ZonedDateTime>.year: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.year
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.year
  *
  * @since 0.9.0
  */
@@ -44,7 +42,7 @@ fun Expect<ZonedDateTime>.year(assertionCreator: Expect<Int>.() -> Unit): Expect
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.monthFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.monthFeature
  *
  * @since 0.9.0
  */
@@ -58,7 +56,7 @@ val Expect<ZonedDateTime>.month: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.month
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.month
  *
  * @since 0.9.0
  */
@@ -71,7 +69,7 @@ fun Expect<ZonedDateTime>.month(assertionCreator: Expect<Int>.() -> Unit): Expec
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.dayOfWeekFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.dayOfWeekFeature
  *
  * @since 0.9.0
  */
@@ -85,7 +83,7 @@ val Expect<ZonedDateTime>.dayOfWeek: Expect<DayOfWeek>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.dayOfWeek
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.dayOfWeek
  *
  * @since 0.9.0
  */
@@ -98,7 +96,7 @@ fun Expect<ZonedDateTime>.dayOfWeek(assertionCreator: Expect<DayOfWeek>.() -> Un
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.dayFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.dayFeature
  *
  * @since 0.9.0
  */
@@ -112,7 +110,7 @@ val Expect<ZonedDateTime>.day: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeExpectationSamples.day
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ZonedDateTimeFeatureExtractorSamples.day
  *
  * @since 0.9.0
  */

@@ -39,26 +39,3 @@ fun <T : Collection<*>> Expect<T>.notToBeEmpty(): Expect<T> =
  */
 fun <T : Collection<*>> Expect<T>.toHaveSize(expected: Int): Expect<T> =
     size { toEqual(expected) }
-
-/**
- * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionExpectationSamples.sizeFeature
- */
-val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _logic.size(::identity).transform()
-
-/**
- * Expects that the property [Collection.size] of the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionExpectationSamples.size
- */
-fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic.size(::identity).collectAndAppend(assertionCreator)
