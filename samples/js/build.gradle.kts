@@ -5,7 +5,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 // for infix-api -> change to 'atrium-infix-en_GB-js'
 val atriumApi = "atrium-fluent-en_GB-js"
-val atriumVersion = "0.16.0"
+val atriumVersion = "0.17.0"
 
 repositories {
     mavenCentral()
