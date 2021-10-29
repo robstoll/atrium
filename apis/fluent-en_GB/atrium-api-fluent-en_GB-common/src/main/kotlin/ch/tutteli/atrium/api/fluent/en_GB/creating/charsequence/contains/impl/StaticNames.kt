@@ -7,8 +7,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheck
 import kotlin.reflect.KFunction3
 
 internal object StaticNames {
-    //TODO rename with 0.18.0 to notToContain
-    val containsNotValuesFun = run {
+    val notToContainValuesFun = run {
         val f: KFunction3<Expect<CharSequence>, Any, Array<out Any>, Expect<CharSequence>> =
             Expect<CharSequence>::notToContain
         f.name

@@ -1,10 +1,8 @@
-//TODO rename file with 0.18.0 to ...Expectations
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.size
-
 
 /**
  * Creates an [Expect] for the property [Map.size] of the subject of `this` expectation,

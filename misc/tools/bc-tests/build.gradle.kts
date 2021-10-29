@@ -384,6 +384,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             }
                             if (apiName == "infix-en_GB") {
                                 implementation(project(":atrium-translations-de_CH-common"))
+                            } else {
+                                implementation(project(":atrium-translations-en_GB-common"))
                             }
 
                             // for samples
@@ -397,6 +399,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             implementation(project(":atrium-api-$apiName-jvm"))
                             if (apiName == "infix-en_GB") {
                                 implementation(project(":atrium-translations-de_CH-jvm"))
+                            } else {
+                                implementation(project(":atrium-translations-en_GB-jvm"))
                             }
 
                             // to run forgiving spek tests
@@ -786,87 +790,6 @@ listOf("0.14.0", "0.15.0").forEach { version ->
             }
         }
     }
-
-
-    listOf("fluent", "infix").forEach { apiShortName ->
-        with(project(":bc-tests:$version-api-$apiShortName-en_GB-bbc")) {
-            the<KotlinMultiplatformExtension>().apply {
-                sourceSets {
-                    val main = file("src/main/kotlin/")
-                    val jvmTest by getting {
-                        kotlin.srcDir(main)
-                    }
-                    main.mkdirs()
-
-                    // we removed  ch.tutteli.atrium.domain.builders.utils.Group in 0.17.0 but it is
-                    // required for the setup of bbc version 0.14.0 and 0.15.0. E.g. it is used in
-                    // ch.tutteli.atrium.api.fluent.en_GB.IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec
-                    main.resolve("Group.kt").writeText(
-                        """
-                            package ch.tutteli.atrium.domain.builders.utils
-                            interface Group<out T> {
-                                /**
-                                 * Returns the members of the group as [List].
-                                 */
-                                fun toList(): List<T>
-                            }
-                        """.trimIndent()
-                    )
-
-                    //we removed PleaseUseReplacementException and it is used in a test - we could also forgive but
-                    //this seems to be easier
-                    main.resolve("PleaseUseReplacementException.kt").writeText(
-                        """
-                            package ch.tutteli.atrium.domain.builders.creating
-                            class PleaseUseReplacementException(reason: String) : Exception(reason)
-                        """.trimIndent()
-                    )
-                    // infix is using ReportFactory since it is using the AsciiReportFactory
-                    main.resolve("ReporterFactory.kt").writeText(
-                        """
-                            @file:Suppress("UNUSED_PARAMETER")
-                            package ch.tutteli.atrium.reporting
-                            import ch.tutteli.atrium.core.polyfills.loadServices
-
-                            val reporter: Reporter by lazy {
-                                val id = "ascii"
-                                val factory = loadServices(ReporterFactory::class)
-                                    .firstOrNull { it.id == id }
-                                    ?: throw IllegalStateException("Could not find ...")
-
-                                factory.create()
-                            }
-                            interface ReporterFactory {
-                                val id: String
-                                fun create(): Reporter
-
-                                companion object {
-                                    const val ATRIUM_PROPERTY_KEY = "ch.tutteli.atrium.reporting.reporterFactory"
-                                    fun specifyFactory(reporterFactoryId: String) {}
-                                    fun specifyFactoryIfNotYetSet(reporterFactoryId: String) {}
-                                }
-                            }
-
-                        """.trimIndent()
-                    )
-                    main.resolve("StaticName.kt").writeText(
-                        """
-                        package ch.tutteli.atrium.api.$apiShortName.en_GB.creating.charsequence.contains.impl
-                        internal object StaticName {
-                            val containsNotValuesFun = "containsNot"
-
-                            val atLeast = "atLeast"
-                            val butAtMost = "butAtMost"
-                            val atMost = "atMost"
-                            val exactly = "exactly"
-                            val notOrAtMost = "notOrAtMost"
-                        }
-                        """.trimIndent()
-                    )
-                }
-            }
-        }
-    }
 }
 
 fun Project.removeWithAsciiReporter(file: String) {
@@ -919,9 +842,95 @@ listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
     }
 }
 
+fun Project.rewriteIterableToContainSpecBase(file: String) {
+    rewriteFile(file) {
+        it
+            .replaceFirst(
+                "import kotlin.reflect.KFunction4",
+                "import kotlin.reflect.KFunction5\nimport ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions"
+            )
+            .replaceFirst(
+                "private val withinInAnyOrderFun: KFunction4<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, Expect<Iterable<Int>>> =\n" +
+                    "        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder",
+                "private val withinInAnyOrderFun: KFunction5<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, InOrderOnlyReportingOptions.() -> Unit, Expect<Iterable<Int>>> =\n" +
+                    "        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour, >::inAnyOrder"
+            )
+    }
+}
 
-// TODO 0.18.0 remove once we support js again
 listOf("0.14.0", "0.15.0", "0.16.0").forEach { version ->
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+
+            the<KotlinMultiplatformExtension>().apply {
+                sourceSets {
+                    val main = file("src/main/kotlin/")
+                    val jvmTest by getting {
+                        kotlin.srcDir(main)
+                    }
+                    main.mkdirs()
+
+                    // InOrderOnlyReportingOptions was introduced in 0.17.0
+                    main.resolve("InOrderOnlyReportingOptions.kt").writeText(
+                        """
+                            package ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting
+
+                            import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+
+                            interface InOrderOnlyReportingOptions {
+
+                            /**
+                             * Always shows only failing expectations, same as [InOrderOnlyReportingOptions.showOnlyFailingIfMoreElementsThan]`(0)`
+                             */
+                            fun showOnlyFailing() = showOnlyFailingIfMoreElementsThan(0)
+
+                            /**
+                             * Always shows a summary where both failing and successful expectations are shown, same as
+                             * [InOrderOnlyReportingOptions.showOnlyFailingIfMoreElementsThan]`(Int.MAX_VALUE)`.
+                             */
+                            fun showAlwaysSummary() = showOnlyFailingIfMoreElementsThan(Int.MAX_VALUE)
+
+                            /**
+                             * Show only failing expectations, i.e. elements which do not match, instead of a summary which
+                             * lists also successful expectations/elements.
+                             *
+                             * Default shows up to 10 elements in a summary ans only failing afterwards,
+                             * i.e. default is [showOnlyFailingIfMoreElementsThan]`(10)`
+                             */
+                            fun showOnlyFailingIfMoreElementsThan(number: Int)
+
+                            /**
+                             * Indicates until how many elements the summary view shall be used. If there are more elements in the
+                             * [IterableLike], then only failing expectations shall be shown.
+                             */
+                            val numberOfElementsInSummary: Int
+                            }
+
+                        """.trimIndent()
+                    )
+                }
+            }
+
+            defineSourceFix("common") {
+                rewriteIterableToContainSpecBase("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableContainsSpecBase.kt")
+            }
+        }
+    }
+}
+
+listOf("0.17.0").forEach { version ->
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+            defineSourceFix("common") {
+                rewriteIterableToContainSpecBase("src/commonTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/IterableToContainSpecBase.kt")
+            }
+        }
+    }
+}
+
+
+// TODO 0.19.0 or 0.20.0 remove once we support js again
+listOf("0.14.0", "0.15.0", "0.16.0", "0.17.0").forEach { version ->
     listOf("fluent", "infix").forEach { apiShortName ->
         with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
             defineSourceFix("common") {

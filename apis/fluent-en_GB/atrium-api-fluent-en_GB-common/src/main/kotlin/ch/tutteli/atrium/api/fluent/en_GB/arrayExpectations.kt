@@ -1,4 +1,3 @@
-//TODO rename file with 0.18.0 to arrayExpectations.kt
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect

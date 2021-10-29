@@ -1,9 +1,9 @@
-//TODO rename file to mapLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.EntryPointStep
 import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyValuePairsInOrderOnly
 import ch.tutteli.atrium.logic.creating.maplike.contains.creators.keyWithValueAssertionsInOrderOnly
@@ -39,10 +39,9 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entries(
     keyValuePair: Pair<K, V>,
-    vararg otherPairs: Pair<K, V>
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logicAppend { keyValuePairsInOrderOnly(keyValuePair glue otherPairs, {}) }
+    vararg otherPairs: Pair<K, V>,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { keyValuePairsInOrderOnly(keyValuePair glue otherPairs,report) }
 
 
 /**
@@ -76,19 +75,17 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
-    vararg otherKeyValues: KeyValue<K, V>
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = entries(V::class, keyValue glue otherKeyValues)
+    vararg otherKeyValues: KeyValue<K, V>,
+    noinline report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = entries(V::class, keyValue glue otherKeyValues, report)
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entries(
     kClass: KClass<V>,
-    keyValues: List<KeyValue<K, V>>
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
+    keyValues: List<KeyValue<K, V>>,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {
-    keyWithValueAssertionsInOrderOnly(kClass, keyValues.map { it.toPair() }, { })
+    keyWithValueAssertionsInOrderOnly(kClass, keyValues.map { it.toPair() }, report)
 }
 
 /**
@@ -110,8 +107,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
-    expectedMapLike: MapLike
-    //TODO 0.18.0 add the following
-    //report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) -> entries(first, *rest) }
+    expectedMapLike: MapLike,
+    report: InOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) -> entries(first, *rest, report = report) }
 

@@ -238,55 +238,6 @@ inline fun <reified E, T : Iterable<E>> Expect<T>.containsElementsOf(
 fun <E, T : Iterable<E>> Expect<T>.containsNot(expected: E, vararg otherExpected: E): Expect<T> =
     notToContain.values(expected, *otherExpected)
 
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Creates an [Expect] for the result of calling `min()` on the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(): Expect<E> =
-    _logic.min(::identity).transform()
-
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Expects that the result of calling `min()` on the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.min(::identity).collectAndAppend(assertionCreator)
-
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Creates an [Expect] for the result of calling `max()` on the subject of `this` expectation,
- * so that further fluent calls are assertions about it.
- *
- * @return The newly created [Expect] for the extracted feature.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(): Expect<E> =
-    _logic.max(::identity).transform()
-
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Expects that the result of calling `max()` on  the subject of `this` expectation
- * holds all assertions the given [assertionCreator] creates for it and
- * returns an [Expect] for the current subject of `this` expectation.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.9.0
- */
-fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
-    _logic.max(::identity).collectAndAppend(assertionCreator)
 
 
 /**
@@ -377,31 +328,3 @@ fun <E, T : Iterable<E>> Expect<T>.hasNotNext(): Expect<T> =
 )
 fun <E, T : Iterable<E>> Expect<T>.containsNoDuplicates(): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
-
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Turns `Expect<E, T : Iterable<E>>` into `Expect<List<E>`.
- *
- * The transformation as such is not reflected in reporting.
- * Use `feature { f(it::toList) }` if you want to show the transformation in reporting.
- *
- * @return The newly created [Expect] for the transformed subject.
- *
- * @since 0.14.0
- */
-fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
-
-//TODO 0.18.0 move to iterableExpectations.kt
-/**
- * Expects that the subject of `this` expectation holds all assertions the given [assertionCreator] creates for
- * the subject as [List].
- *
- * The transformation as such is not reflected in reporting.
- * Use `feature of({ f(it::toList) }, assertionCreator)` if you want to show the transformation in reporting.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.14.0
- */
-fun <E, T : Iterable<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
-    apply { asList()._logic.appendAsGroup(assertionCreator) }
