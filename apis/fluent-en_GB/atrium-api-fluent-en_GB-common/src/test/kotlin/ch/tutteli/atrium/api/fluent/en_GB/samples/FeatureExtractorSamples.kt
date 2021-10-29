@@ -22,8 +22,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .its({ age }) { toEqual(30)} // fails, subject still Person afterwards
-                .its { name } // not evaluated anymore, subject String afterwards
-                .toEqual("John Smith") // not evaluated anymore
+                .its { name }                         // not evaluated anymore, subject String afterwards
+                .toEqual("John Smith")       // not evaluated anymore
         }
     }
 
@@ -85,7 +85,7 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")  // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
                 }
         }
 
