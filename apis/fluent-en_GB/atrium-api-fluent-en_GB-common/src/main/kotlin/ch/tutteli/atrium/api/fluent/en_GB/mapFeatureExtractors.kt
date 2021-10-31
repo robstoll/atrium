@@ -83,6 +83,8 @@ fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collecti
  * @return The newly created [Expect] for the extracted feature.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapFeatureExtractorSamples.sizeFeature
  */
 val <T : Map<*, *>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::toEntries).transform()
@@ -95,6 +97,8 @@ val <T : Map<*, *>> Expect<T>.size: Expect<Int>
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapFeatureExtractorSamples.size
  */
 fun <K, V, T : Map<out K, V>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::toEntries).collectAndAppend(assertionCreator)
