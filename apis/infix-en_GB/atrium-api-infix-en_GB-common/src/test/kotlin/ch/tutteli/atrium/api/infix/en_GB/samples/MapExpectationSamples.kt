@@ -293,4 +293,36 @@ class MapExpectationSamples {
             expect(emptyMap<Int, String>()) notToBe empty
         }
     }
+
+    @Test
+    fun sizeFeature() {
+        expect(mapOf(1 to "a", 2 to "b")).size toEqual 2
+        //                               | subject is now of type Int (containing 2)
+
+        fails {
+            // fails because 1 is not equal to 2
+            expect(mapOf(1 to "a")).size toEqual 2
+            //                     | subject is now of type Int (containing 1)
+        }
+    }
+
+    @Test
+    fun size() {
+        expect(mapOf(1 to "a", 2 to "b")) size {   // subject inside this block is of type Int (containing 2)
+            this toEqual 2
+            this toBeGreaterThan 1
+        }
+
+        fails {
+            // all expectations are evaluated inside an expectation group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+            expect(mapOf(1 to "a")) size { // subject inside this block is of type Int (containing 1)
+                this toEqual 2      // fails because 1 is not equal to 2
+                this toBeLessThan 0      // fails because 1 is not less than 0
+                // use `.size.` if you want a fail fast behaviour
+            }
+        }
+    }
+
 }

@@ -123,4 +123,40 @@ class MapFeatureExtractorSamples {
                 }
         }
     }
+
+    @Test
+    fun sizeFeature() {
+        expect(mapOf(1 to "a", 2 to "b"))
+            .size // subject is now of type Int (containing 2)
+            .toEqual(2)
+
+        fails {
+            expect(mapOf(1 to "a", 2 to "b"))
+                .size          // subject is now of type Int (containing 2)
+                .toBeGreaterThan(5)  // fails because 2 is not greater than 5
+                .notToEqual(2)   // not reported even though `toBeGreaterThan` already fails
+            //                      use `.size { ... }` if you want that all expectations are evaluated
+        }
+    }
+
+
+    @Test
+    fun size() {
+        expect(mapOf(1 to "a", 2 to "b"))
+            .size {   // subject inside this block is of type Int (containing 2)
+                toEqual(2)
+            }
+
+        fails {
+            // all expectations are evaluated inside an expectation group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+
+            expect(mapOf(1 to "a", 2 to "b"))
+                .size { // subject inside this block is of type Int (containing 2)
+                    toEqual(5)    // fails because 5 is not equal to 2
+                    toBeLessThan(1)    // fails because 2 is not less than 1
+                    //                        use `.size.` if you want a fail fast behaviour
+                }
+        }
+    }
 }
