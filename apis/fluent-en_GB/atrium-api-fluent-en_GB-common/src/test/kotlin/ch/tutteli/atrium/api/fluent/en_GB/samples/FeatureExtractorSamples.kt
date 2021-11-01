@@ -22,7 +22,7 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .its({ age }) { toEqual(30)} // fails, subject still Person afterwards
-                .its { name }                         // not evaluated anymore, subject String afterwards
+                .its { name }                // not evaluated anymore, subject String afterwards
                 .toEqual("John Smith")       // not evaluated anymore
         }
     }
