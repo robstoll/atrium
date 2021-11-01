@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class SequenceExpectationSamples {
+class SequenceSubjectChangerSamples {
 
     @Test
     fun asIterableFeature() {

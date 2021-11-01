@@ -1,4 +1,3 @@
-//TODO rename file to fileExpectations with 0.18.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
@@ -20,7 +19,7 @@ import java.nio.file.Path
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileExpectationSamples.asPathFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileSubjectTransformerSamples.asPathFeature
  *
  * @since 0.9.0
  */
@@ -36,7 +35,7 @@ fun <T : File> Expect<T>.asPath(): Expect<Path> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileExpectationSamples.asPath
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FileSubjectTransformerSamples.asPath
  *
  * @since 0.9.0
  */

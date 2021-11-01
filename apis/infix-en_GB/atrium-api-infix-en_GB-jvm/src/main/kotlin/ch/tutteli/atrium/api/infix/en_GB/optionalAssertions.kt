@@ -35,7 +35,7 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: 
  * Shortcut for more or less something like `feature(Optional<T>::get)` but with error handling; yet it
  * depends on the underlying implementation though.
  *
- * @return The newly created [Expect] for the inner type [E].
+ * @return the newly created [Expect] for the inner type [E].
  *
  * @since 0.12.0
  */
@@ -44,7 +44,7 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") pres
 
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is present and
- * that it holds all assertions the given [PresentWithCreator.assertionCreator] creates.
+ * that the wrapped value of type [E] holds all assertions the given [assertionCreator] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

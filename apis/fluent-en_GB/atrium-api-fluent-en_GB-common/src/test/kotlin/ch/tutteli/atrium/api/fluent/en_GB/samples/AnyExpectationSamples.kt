@@ -62,6 +62,10 @@ class AnyExpectationSamples {
     fun toEqualNullIfNullGivenElse() {
         expect<Int?>(null).toEqualNullIfNullGivenElse(null)
 
+        fails { // because subject is not null
+            expect<Int?>(1).toEqualNullIfNullGivenElse(null)
+        }
+
         expect<Int?>(1).toEqualNullIfNullGivenElse { // subject inside this block is of type Int
             toBeLessThan(2)
         }  // subject here is back to type Int?
@@ -83,6 +87,7 @@ class AnyExpectationSamples {
             expect<Int?>(null)
                 .notToEqualNull() // fails
                 .toBeLessThan(2)  // not reported because `notToEqualNull` already fails
+            //                       use `notToEqualNull { ... }` if you want that all expectations are evaluated
         }
     }
 
@@ -95,13 +100,6 @@ class AnyExpectationSamples {
             } // subject remains type Int also after the block
             .toEqual(1)
 
-        fails {
-            // because you forgot to define an expectation in the expectation group block
-            // use `notToEqualNull()` if this is all you expect
-            expect<Int?>(1).notToEqualNull { }
-        }
-
-
         fails { // because subject is null, but since we use a block...
             expect<Int?>(null).notToEqualNull {
                 toBeGreaterThan(2) // ...reporting mentions that subject was expected `to be greater than: 2`
@@ -110,8 +108,16 @@ class AnyExpectationSamples {
 
         fails { // because sub-expectation fails
             expect<Int?>(1).notToEqualNull {
-                toBeLessThan(0)
+                toBeLessThan(0)     // fails
+                toBeGreaterThan(5)  // still evaluated even though `toBeLessThan` already fails,
+                //                     use `.notToEqualNull().` if you want a fail fast behaviour
             }
+        }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `.notToEqualNull()` if this is all you expect
+            expect<Int?>(1).notToEqualNull { }
         }
     }
 
@@ -124,9 +130,9 @@ class AnyExpectationSamples {
 
         fails {
             expect("A")
-                .toBeAnInstanceOf<Long>()
-                .toBeLessThan(2L) // not shown in reporting as `toBeA<Long>()` already fails
-
+                .toBeAnInstanceOf<Long>() // fails
+                .toBeLessThan(2L)         // not reported because `toBeAnInstanceOf` already fails
+            //                               use `toBeAnInstanceOf<...> { ... }` if you want that all expectations are evaluated
         }
     }
 
@@ -147,8 +153,28 @@ class AnyExpectationSamples {
 
         fails { // because sub-expectation fails
             expect(n).toBeAnInstanceOf<Long> {
-                toEqual(-1L)
+                toEqual(-1L)     // fails
+                toBeLessThan(2L) // still evaluated even though `toEqual` already fails,
+                //                  use `.toBeAnInstanceOf<...>().` if you want a fail fast behaviour
             }
+        }
+    }
+
+    @Test
+    fun notToEqualOneOf() {
+        expect(99).notToEqualOneOf(1, 2, 3, 4)
+
+        fails {
+            expect(1).notToEqualOneOf(1, 2, 3, 4)
+        }
+    }
+
+    @Test
+    fun notToEqualOneIn() {
+        expect(99).notToEqualOneIn(listOf(1, 2, 3, 4))
+
+        fails {
+            expect(1).notToEqualOneIn(listOf(1, 2, 3, 4))
         }
     }
 
@@ -177,42 +203,6 @@ class AnyExpectationSamples {
 
                 notToEqualOneOf(1, 2, 13) // fails
                 toBeLessThan(10)          // still evaluated and included in the error report
-            }
-        }
-    }
-
-    @Test
-    fun notToEqualOneOf() {
-        expect(99).notToEqualOneOf(1, 2, 3, 4)
-
-        fails {
-            expect(1).notToEqualOneOf(1, 2, 3, 4)
-        }
-    }
-
-    @Test
-    fun notToEqualOneIn() {
-        expect(99).notToEqualOneIn(listOf(1, 2, 3, 4))
-
-        fails {
-            expect(1).notToEqualOneIn(listOf(1, 2, 3, 4))
-        }
-    }
-
-    data class Person(val age: Int)
-
-    private val customers = listOf(Person(21))
-
-    @Test
-    fun because() {
-        expect("filename")
-            .because("? is not allowed in file names on Windows") {
-                notToContain("?")
-            }
-
-        expect(customers).toHaveElementsAndAll {
-            because("the legal age of maturity in Switzerland is 18") {
-                feature { f(it::age) }.toBeGreaterThanOrEqualTo(18)
             }
         }
     }

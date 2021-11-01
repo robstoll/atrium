@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.changeSubject
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asIterableFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asIterableFeature
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
     _logic.changeSubject.unreported { it.asIterable() }
@@ -26,7 +26,7 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(): Expect<Iterable<E>> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asIterable
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asIterable
  */
 fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
     apply { asIterable()._logic.appendAsGroup(assertionCreator) }
@@ -41,7 +41,7 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<
  *
  * @since 0.14.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asListFeature
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
@@ -56,7 +56,7 @@ fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  *
  * @since 0.14.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceExpectationSamples.asList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asList
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
     apply { asList()._logic.appendAsGroup(assertionCreator) }

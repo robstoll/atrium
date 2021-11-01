@@ -4,13 +4,21 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class ArrayExpectationSamples {
+class ArraySubjectChangerSamples {
 
     @Test
     fun asListFeature() {
         expect(arrayOf("A", "B"))
             .asList()  // subject is now of type List<String>
             .toEqual(listOf("A", "B"))
+
+        fails {
+            expect(arrayOf("A", "B"))
+                .asList()  // subject is now of type List<String>
+                .toContain("C")  // fails
+                .toContain("D")  // not reported because above `toContain` already fails
+            //                      use `.asList { ... }` if you want that all expectations are evaluated
+        }
     }
 
     @Test
@@ -27,7 +35,8 @@ class ArrayExpectationSamples {
             expect(arrayOf("A", "B"))
                 .asList {
                     toContain("C")  // fails
-                    toContain("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain("D")  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -46,7 +55,8 @@ class ArrayExpectationSamples {
             expect<Array<out String>>(arrayOf("A", "B"))
                 .asList {
                     toContain("C")  // fails
-                    toContain("D")  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain("D")  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -72,7 +82,8 @@ class ArrayExpectationSamples {
             expect(byteArrayOf(1, 2, 3))
                 .asList {
                     toContain(98)  // fails
-                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -98,7 +109,8 @@ class ArrayExpectationSamples {
             expect(charArrayOf('A', 'B', 'C'))
                 .asList {
                     toContain('X')  // fails
-                    toContain('Y')  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain('Y')  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -124,7 +136,8 @@ class ArrayExpectationSamples {
             expect(shortArrayOf(1, 2, 3))
                 .asList {
                     toContain(98)  // fails
-                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -150,7 +163,8 @@ class ArrayExpectationSamples {
             expect(intArrayOf(1, 2, 3))
                 .asList {
                     toContain(98)  // fails
-                    toContain(99)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -176,7 +190,8 @@ class ArrayExpectationSamples {
             expect(longArrayOf(1L, 2L, 3L))
                 .asList {
                     toContain(98L)  // fails
-                    toContain(99L)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99L)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -202,7 +217,8 @@ class ArrayExpectationSamples {
             expect(floatArrayOf(1f, 2f, 3f))
                 .asList {
                     toContain(98f)  // fails
-                    toContain(99f)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99f)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -228,7 +244,8 @@ class ArrayExpectationSamples {
             expect(doubleArrayOf(1.1, 2.2, 3.3))
                 .asList {
                     toContain(98.1)  // fails
-                    toContain(99.2)  // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    toContain(99.2)  // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
@@ -256,7 +273,8 @@ class ArrayExpectationSamples {
                     // fails
                     toContain(false)
 
-                    // still evaluated, use `.asList().` if you want a fail fast behaviour
+                    // still evaluated even though above `toContain` already fails
+                    //                 use `.asList().` if you want a fail fast behaviour
                     toContain.inAnyOrder.atLeast(3).value(true)
                 }
         }

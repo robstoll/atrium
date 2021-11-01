@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.second
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.firstFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairFeatureExtractorSamples.firstFeature
  */
 val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
     get() : Expect<K> = _logic.first().transform()
@@ -23,7 +23,7 @@ val <K, T : Pair<K, *>> Expect<T>.first: Expect<K>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.first
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairFeatureExtractorSamples.first
  */
 fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.first().collectAndAppend(assertionCreator)
@@ -34,7 +34,7 @@ fun <K, V, T : Pair<K, V>> Expect<T>.first(assertionCreator: Expect<K>.() -> Uni
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.secondFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairFeatureExtractorSamples.secondFeature
  */
 val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
     get() : Expect<V> = _logic.second().transform()
@@ -46,7 +46,7 @@ val <V, T : Pair<*, V>> Expect<T>.second: Expect<V>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.deprecated.PairAssertionSamples.second
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.PairFeatureExtractorSamples.second
  */
 fun <K, V, T : Pair<K, V>> Expect<T>.second(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.second().collectAndAppend(assertionCreator)

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.logic.get
  *
  * @return The newly created [Expect] for the element at position [index].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListExpectationSamples.getFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.getFeature
  */
 fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
     _logic.get(index).transform()
@@ -21,7 +21,8 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListExpectationSamples.get
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.get
  */
 fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.get(index).collectAndAppend(assertionCreator)
+

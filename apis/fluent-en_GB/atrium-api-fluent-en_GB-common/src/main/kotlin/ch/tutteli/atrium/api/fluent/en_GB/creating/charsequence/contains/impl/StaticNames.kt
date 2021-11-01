@@ -1,3 +1,4 @@
+//TODO rename package to charsequence.toContain with 1.0.0
 package ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.*

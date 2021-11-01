@@ -928,6 +928,27 @@ listOf("0.17.0").forEach { version ->
     }
 }
 
+listOf("0.14.0", "0.15.0").forEach { version ->
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+            defineSourceFix("jvm") {
+                // we removed FloatingPointWithErrorToleranceJvmAssertions with 0.18.0, no need to test this anymore
+                file("src/jvmTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FloatingPointWithErrorToleranceAssertionsJvmSpec.kt").delete()
+            }
+        }
+    }
+}
+listOf("0.16.0", "0.17.0").forEach { version ->
+    listOf("fluent", "infix").forEach { apiShortName ->
+        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {
+            defineSourceFix("jvm") {
+                // we removed FloatingPointWithErrorToleranceJvmAssertions with 0.18.0, no need to test this anymore
+                file("src/jvmTest/kotlin/ch/tutteli/atrium/api/$apiShortName/en_GB/FloatingPointWithErrorToleranceExpectationsJvmSpec.kt").delete()
+            }
+        }
+    }
+}
+
 
 // TODO 0.19.0 or 0.20.0 remove once we support js again
 listOf("0.14.0", "0.15.0", "0.16.0", "0.17.0").forEach { version ->

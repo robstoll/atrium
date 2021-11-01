@@ -8,6 +8,7 @@ ext.jacoco_additional = [
 
 dependencies {
     api prefixedProject('logic-jvm')
+    implementation niok()
 
     testImplementation prefixedProject('specs-jvm')
 }

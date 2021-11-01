@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class ThrowableExpectationSamples {
+class ThrowableFeatureExtractorSamples {
 
     @Test
     fun messageToContain() {
@@ -17,10 +17,16 @@ class ThrowableExpectationSamples {
 
     @Test
     fun messageFeature() {
-        expect(RuntimeException("abc")).message.toContain("a")
+        expect(RuntimeException("abc"))
+            .message         // subject is now of type String
+            .toContain("a")
 
         fails {
-            expect(RuntimeException("abc")).message.toContain("d")
+            expect(RuntimeException("abc"))
+                .message
+                .toContain("d")   // fails
+                .toStartWith("z") // not reported because `toContain` already fails
+            //                       use `.message { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -28,11 +34,13 @@ class ThrowableExpectationSamples {
     fun message() {
         expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
             toContain("a")
-        }
+        } // subject here is back to type RuntimeException
 
         fails {
             expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
-                toContain("d")
+                toContain("d")   // fails
+                toStartWith("z") // still evaluated even though `toContain` already fails
+                //                  use `.message.` if you want a fail fast behaviour
             }
         }
     }
@@ -45,8 +53,9 @@ class ThrowableExpectationSamples {
 
         fails {
             expect(IllegalStateException(IndexOutOfBoundsException("abc")))
-              .cause<IllegalStateException>()
-              .messageToContain("d") // not shown in reporting as `cause<IllegalStateException>()` already fails
+                .cause<IllegalStateException>() // fails
+                .messageToContain("d")          // not reported because `cause` already fails
+            //                                     use `.cause<...> { ... }` if you want that all assertions are evaluated
 
         }
     }
@@ -61,6 +70,12 @@ class ThrowableExpectationSamples {
             expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> {
                 messageToContain("b") // ... reporting mentions that subject's message was expected `to contain: "b"`
             }
+        }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `.cause<...>()` if this is all you expect
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { }
         }
     }
 }

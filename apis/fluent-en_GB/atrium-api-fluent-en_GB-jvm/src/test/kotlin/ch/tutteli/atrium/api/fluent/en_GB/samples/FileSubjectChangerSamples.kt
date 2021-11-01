@@ -6,7 +6,7 @@ import ch.tutteli.niok.newFile
 import java.nio.file.Files
 import kotlin.test.Test
 
-class FileExpectationSamples {
+class FileSubjectChangerSamples {
 
     private val tempDir = Files.createTempDirectory("FileAssertionSamples")
 
@@ -15,13 +15,15 @@ class FileExpectationSamples {
         val file = tempDir.newFile("target").toFile()
 
         expect(file)
-          .asPath() // subject is now of type Path
-          .toBeARegularFile()
+            .asPath() // subject is now of type Path
+            .toBeARegularFile()
 
         fails {
             expect(file)
-              .asPath()
-              .toBeADirectory()  //fails
+                .asPath()                // subject is now of type Path
+                .toBeADirectory()        // fails
+                .notToStartWith(tempDir) // not reported because `cause` already fails
+            //                              use `.asPath { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -40,7 +42,8 @@ class FileExpectationSamples {
 
             expect(file).asPath {
                 toBeADirectory()        // fails
-                notToStartWith(tempDir) // still evaluated, use `.asPath().` if you want a fail fast behaviour
+                notToStartWith(tempDir) // still evaluated even though `toBeADirectory` already fails
+                //                         use `.asPath().` if you want a fail fast behaviour
             }
         }
     }
