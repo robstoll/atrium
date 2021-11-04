@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  *
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.message
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableFeatureExtractorSamples.message
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = feature(Throwable::message).notToEqualNull()
@@ -25,7 +25,7 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.messageFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableFeatureExtractorSamples.messageFeature
  */
 fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     feature(Throwable::message) { notToEqualNull(assertionCreator) }
@@ -41,7 +41,7 @@ fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Uni
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.messageToContain
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableFeatureExtractorSamples.messageToContain
  *
  * @since 0.17.0
  */
@@ -56,15 +56,15 @@ fun <T : Throwable> Expect<T>.messageToContain(
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.causeFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableFeatureExtractorSamples.causeFeature
  *
  * @since 0.10.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
-    causeIsInstanceOf(TExpected::class).transform()
+    causeToBeAnInstanceOf(TExpected::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsInstanceOf(
+internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf(
     kClass: KClass<TExpected>
 ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = _logic.causeIsA(kClass)
 
@@ -78,10 +78,10 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeIsInstanceOf(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableExpectationSamples.cause
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ThrowableFeatureExtractorSamples.cause
  *
  * @since 0.10.0
  */
 inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = causeIsInstanceOf(TExpected::class).transformAndAppend(assertionCreator)
+): Expect<TExpected> = causeToBeAnInstanceOf(TExpected::class).transformAndAppend(assertionCreator)

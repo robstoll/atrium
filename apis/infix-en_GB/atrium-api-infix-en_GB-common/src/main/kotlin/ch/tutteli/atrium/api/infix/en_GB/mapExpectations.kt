@@ -54,7 +54,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePair: Pair<K
  * Expects the subject of `this` expectation (a [Map]) contains for each entry in [keyValuePairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
- * Delegates to `it toContain o inAny order keyValuePairs keyValuePairs`
+ * Delegates to `it toContain o inAny order the keyValuePairs`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the [Pair]
  * in [keyValuePairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
@@ -129,6 +129,18 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(ke
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it toContain o inAny order but only entry keyValue
+
+
+/**
+ * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
+ * -- allows expressing `Pair<K, (Expect<V>.() -> Unit)?>`.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
+ *
+ */
+fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?): KeyWithValueCreator<K, V> =
+    KeyWithValueCreator(key, valueAssertionCreatorOrNull)
+
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains for each [KeyWithValueCreator] in [keyValues],
@@ -219,3 +231,53 @@ infix fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
 infix fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
     _logicAppend { containsNotKey(::identity, key) }
 
+/**
+ * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toBeEmpty
+ *
+ */
+infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isEmpty(::toEntries) }
+
+/**
+ * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
+ *
+ * @param empty Use the pseudo-keyword `empty`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.notToBeEmpty
+ *
+ */
+infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
+    _logicAppend { isNotEmpty(::toEntries) }
+
+private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries
+
+/**
+ * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @since 0.15.0
+ */
+val <T : Map<*, *>> Expect<T>.size: Expect<Int>
+    get() = _logic.size(::toEntries).transform()
+
+/**
+ * Expects that the property [Collection.size] of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.15.0
+ */
+infix fun <K, V, T : Map<out K, V>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+    _logic.size(::toEntries).collectAndAppend(assertionCreator)

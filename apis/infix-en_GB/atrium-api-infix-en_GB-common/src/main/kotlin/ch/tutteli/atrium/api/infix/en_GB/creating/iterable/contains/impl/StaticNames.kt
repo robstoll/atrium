@@ -10,8 +10,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import kotlin.reflect.KFunction2
 
 internal object StaticNames {
-    //TODO rename with 0.18.0 notToContain
-    val containsNotValuesFun = run {
+    val notToContainValuesFun = run {
         val containsNotKf: KFunction2<Expect<Iterable<Double>>, o, NotCheckerStep<Double, Iterable<Double>, NotSearchBehaviour>> =
             Expect<Iterable<Double>>::notToContain
         //TODO use once  https://youtrack.jetbrains.com/issue/KT-38013 is fixed (there are other places where "values" is hard-coded)

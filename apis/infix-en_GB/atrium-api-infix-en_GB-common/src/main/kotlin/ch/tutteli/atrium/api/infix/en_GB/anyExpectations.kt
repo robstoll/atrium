@@ -6,6 +6,7 @@ import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
+import ch.tutteli.atrium.reporting.Reporter
 import kotlin.reflect.KClass
 
 /**
@@ -210,3 +211,82 @@ infix fun <T> Expect<T>.notToEqualOneOf(values: Values<T>): Expect<T> =
  */
 infix fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
+
+/**
+ * Can be used to separate single assertions.
+ *
+ * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
+ * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
+ * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
+ *
+ * @param o The filler object [o].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.andFeature
+ *
+ * @since 0.12.0
+ */
+@Suppress("NOTHING_TO_INLINE")
+inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = this
+
+/**
+ * Can be used to create a group of sub assertions when using the fluent API.
+ *
+ * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
+ * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
+ * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
+ * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.and
+ */
+infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    _logic.appendAsGroup(assertionCreator)
+
+/**
+ * Inline property referring actually to `this` and allows writing infix assertions within an assertion group block
+ *
+ * For instance, instead of:
+ * ```
+ * expect("hello world") {
+ *   this startsWith "hello"
+ *   this ends with "world"
+ * }
+ * ```
+ * You can write
+ * ```
+ * expect("hello world") {
+ *   it startsWith "hello"
+ *   it ends with "world"
+ * }
+ * ```
+ *
+ * @return `this`
+ *
+ * @since 0.12.0
+ */
+inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
+
+/**
+ * Inline property referring actually to `this` and allows writing infix assertions within an assertion group block
+ *
+ * For instance, instead of:
+ * ```
+ * expect(person) {
+ *   this name toBe 1
+ * }
+ * ```
+ * You can write
+ * ```
+ * expect("hello world") {
+ *   its name toBe 1
+ * }
+ * ```
+ *
+ * @return `this`
+ *
+ * @since 0.12.0
+ */
+inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this

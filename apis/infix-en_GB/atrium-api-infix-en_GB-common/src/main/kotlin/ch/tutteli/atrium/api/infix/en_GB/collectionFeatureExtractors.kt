@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.size
+import ch.tutteli.atrium.logic.*
+import ch.tutteli.kbox.identity
 
 /**
  * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,
@@ -10,12 +10,12 @@ import ch.tutteli.atrium.logic.size
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @since 0.15.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.sizeFeature
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.sizeFeature
  */
-val <T : Map<*, *>> Expect<T>.size: Expect<Int>
-    get() = _logic.size(::toEntries).transform()
+val <T : Collection<*>> Expect<T>.size: Expect<Int>
+    get() = _logic.size(::identity).transform()
 
 /**
  * Expects that the property [Collection.size] of the subject of `this` expectation
@@ -24,12 +24,9 @@ val <T : Map<*, *>> Expect<T>.size: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.size
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.size
  */
-infix fun <K, V, T : Map<out K, V>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic.size(::toEntries).collectAndAppend(assertionCreator)
-
-
-private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries
+infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+    _logic.size(::identity).collectAndAppend(assertionCreator)

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
 
 /**
  * Helper function to create an [All] based on the given [t] and [ts]
- * -- allows to express `T, vararg T`.
+ * -- allows expressing `T, vararg T`.
  */
 fun <T> all(t: T, vararg ts: T): All<T> = All(t, ts)
 
@@ -19,7 +19,7 @@ fun <T : Any> entry(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Entry<T> =
 
 /**
  * Helper function to create an [Entries] based on the given [assertionCreatorOrNull]
- * and [otherAssertionCreatorsOrNulls] -- allows to express `{ }, vararg { }`.
+ * and [otherAssertionCreatorsOrNulls] -- allows expressing `{ }, vararg { }`.
  *
  * In case `null` is used for an identification lambda then it is expected that the corresponding entry
  * is `null` as well.
@@ -36,7 +36,7 @@ fun <T : Any> entries(
 
 /**
  * Helper function to create a [Pairs] based on the given [pair] and [otherPairs]
- * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ * -- allows expressing `Pair<K, V>, vararg Pair<K, V>`.
  */
 fun <K, V> pairs(pair: Pair<K, V>, vararg otherPairs: Pair<K, V>): Pairs<K, V> = Pairs(pair, otherPairs)
 
@@ -48,7 +48,7 @@ fun <E> present(assertionCreator: Expect<E>.() -> Unit): PresentWithCreator<E> =
 
 /**
  * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
- * -- allows to express `String, vararg String` which are treated as regex patterns.
+ * -- allows expressing `String, vararg String` which are treated as regex patterns.
  */
 fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
     RegexPatterns(pattern, otherPatterns)
@@ -75,6 +75,6 @@ fun <T> value(value: T): Value<T> = Value(value)
 
 /**
  * Helper function to create a [Values] based on the given [value] and [otherValues]
- * -- allows to express `T, vararg T`.
+ * -- allows expressing `T, vararg T`.
  */
 fun <T> values(value: T, vararg otherValues: T): Values<T> = Values(value, otherValues)
