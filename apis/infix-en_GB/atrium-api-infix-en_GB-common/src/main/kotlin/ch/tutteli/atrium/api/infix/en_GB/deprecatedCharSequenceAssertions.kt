@@ -340,46 +340,6 @@ infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: CharSequence): Expe
 infix fun <T : CharSequence> Expect<T>.endsNotWith(expected: Char): Expect<T> =
     it notToEndWith expected.toString()
 
-
-//TODO move to charSequenceExpectations.kt with 0.18.0
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBeEmpty
- */
-infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty() }
-
-//TODO move to charSequenceExpectations.kt with 0.18.0
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
- *
- * @param empty Use the pseudo-keyword `empty`.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeEmpty
- */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isNotEmpty() }
-
-//TODO move to charSequenceExpectations.kt with 0.18.0
-/**
- * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
- *
- * @param blank Use the pseudo-keyword `blank`.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank
- */
-infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
-    _logicAppend { isNotBlank() }
-
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [expected] [Regex].
  *

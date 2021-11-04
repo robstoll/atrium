@@ -274,7 +274,7 @@ class ArraySubjectChangerSamples {
                     toContain(false)
 
                     // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
+                    // use `.asList().` if you want a fail fast behaviour
                     toContain.inAnyOrder.atLeast(3).value(true)
                 }
         }

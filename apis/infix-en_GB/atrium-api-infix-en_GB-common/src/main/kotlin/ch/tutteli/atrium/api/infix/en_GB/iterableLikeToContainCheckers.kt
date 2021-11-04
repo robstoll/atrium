@@ -1,4 +1,3 @@
-//TODO rename file to iterableLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.impl.StaticNames
@@ -24,7 +23,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.atLeast(
     times: Int
 ): AtLeastCheckerStep<E, T, S> =
-    _logic.atLeastCheckerStep(times, StaticNames.containsNotValuesFun) { "`${StaticNames.atLeast} $it`" }
+    _logic.atLeastCheckerStep(times, StaticNames.notToContainValuesFun) { "`${StaticNames.atLeast} $it`" }
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the entry which we
@@ -47,7 +46,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerSte
     times: Int
 ): ButAtMostCheckerStep<E, T, S> = _logic.butAtMostCheckerStep(
     times,
-    StaticNames.containsNotValuesFun,
+    StaticNames.notToContainValuesFun,
     { l, u -> "`${StaticNames.atLeast} $l ${StaticNames.butAtMost} $u`" },
     { "`${StaticNames.atLeast} $it`" },
     { "`${StaticNames.butAtMost} $it`" },
@@ -71,7 +70,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerSte
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.exactly(
     times: Int
 ): ExactlyCheckerStep<E, T, S> =
-    _logic.exactlyCheckerStep(times, StaticNames.containsNotValuesFun) { "`${StaticNames.exactly} $it`" }
+    _logic.exactlyCheckerStep(times, StaticNames.notToContainValuesFun) { "`${StaticNames.exactly} $it`" }
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -95,7 +94,7 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
     times: Int
 ): AtMostCheckerStep<E, T, S> = _logic.atMostCheckerStep(
     times,
-    StaticNames.containsNotValuesFun,
+    StaticNames.notToContainValuesFun,
     { "`${StaticNames.atMost} $it`" },
     { "`${StaticNames.atLeast} $it`" },
     { "`${StaticNames.exactly} $it`" }
@@ -117,4 +116,4 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.notOrAtMost(
     times: Int
 ): NotOrAtMostCheckerStep<E, T, S> =
-    _logic.notOrAtMostCheckerStep(times, StaticNames.containsNotValuesFun) { "`${StaticNames.notOrAtMost} $it`" }
+    _logic.notOrAtMostCheckerStep(times, StaticNames.notToContainValuesFun) { "`${StaticNames.notOrAtMost} $it`" }

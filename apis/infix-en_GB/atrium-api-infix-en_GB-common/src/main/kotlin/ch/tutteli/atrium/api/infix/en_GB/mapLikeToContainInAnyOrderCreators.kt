@@ -1,4 +1,3 @@
-//TODO rename file to mapLikeToContain... in 0.18.0
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
@@ -93,7 +92,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSe
 
 /**
  * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
- * -- allows to express `Pair<K, V>, vararg Pair<K, V>`.
+ * -- allows expressing `Pair<K, V>, vararg Pair<K, V>`.
  */
 // TODO 1.0.0: consider to rename to entries once updated to Kotlin 1.4 maybe the type inference is better and there
 // is no longer a clash with Iterable entries

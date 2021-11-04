@@ -48,7 +48,7 @@ interface MapLikeContainsAssertions {
         reportingOptions: InOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
-    //TODO remove with 0.18.0 only here for backward compatiblity with specs
+    //TODO remove with 0.18.0 only here for backward compatibility with specs
     fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>,
         valueType: KClass<V>,

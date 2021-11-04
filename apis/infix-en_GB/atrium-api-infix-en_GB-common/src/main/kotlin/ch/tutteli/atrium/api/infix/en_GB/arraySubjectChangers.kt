@@ -1,4 +1,3 @@
-//TODO rename file with 0.18.0 to arrayExpectations.kt
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -14,7 +13,7 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.asListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.asListFeature
  *
  * @since 0.12.0
  */
@@ -30,7 +29,7 @@ infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.asList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.asList
  *
  * @since 0.12.0
  */
@@ -46,7 +45,7 @@ infix fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.asListEOut
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.asListEOut
  *
  * @since 0.12.0
  */
@@ -62,7 +61,7 @@ infix fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.byteArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.byteArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -79,7 +78,7 @@ infix fun Expect<ByteArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.byteArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.byteArrAsList
  *
  * @since 0.12.0
  */
@@ -96,7 +95,7 @@ infix fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.charArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.charArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -113,7 +112,7 @@ infix fun Expect<CharArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.charArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.charArrAsList
  *
  * @since 0.12.0
  */
@@ -130,7 +129,7 @@ infix fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.shortArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.shortArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -147,7 +146,7 @@ infix fun Expect<ShortArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.shortArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.shortArrAsList
  *
  * @since 0.12.0
  */
@@ -164,7 +163,7 @@ infix fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> 
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.intArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.intArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -181,7 +180,7 @@ infix fun Expect<IntArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<Li
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.intArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.intArrAsList
  *
  * @since 0.12.0
  */
@@ -198,7 +197,7 @@ infix fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.longArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.longArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -215,7 +214,7 @@ infix fun Expect<LongArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<L
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.longArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.longArrAsList
  *
  * @since 0.12.0
  */
@@ -232,7 +231,7 @@ infix fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Un
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.floatArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.floatArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -249,7 +248,7 @@ infix fun Expect<FloatArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.floatArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.floatArrAsList
  *
  * @since 0.12.0
  */
@@ -266,7 +265,7 @@ infix fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> 
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.doubleArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.doubleArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -283,7 +282,7 @@ infix fun Expect<DoubleArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.doubleArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.doubleArrAsList
  *
  * @since 0.12.0
  */
@@ -300,7 +299,7 @@ infix fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.booleanArrAsListFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.booleanArrAsListFeature
  *
  * @since 0.12.0
  */
@@ -317,7 +316,7 @@ infix fun Expect<BooleanArray>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expec
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArrayExpectationSamples.booleanArrAsList
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ArraySubjectChangerSamples.booleanArrAsList
  *
  * @since 0.12.0
  */

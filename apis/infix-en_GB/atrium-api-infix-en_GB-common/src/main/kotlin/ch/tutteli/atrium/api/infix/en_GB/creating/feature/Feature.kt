@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import kotlin.reflect.KProperty1
 
 /**
- * Parameter object which contains a [description] of a feature along with an [extractor]
+ * Parameter object which contains a [descriptionProvider] for a feature along with an [extractor]
  * which actually extracts the feature out of a subject of an assertion.
  *
  * Use `of(K..., ...) { ... }` to create this representation where the first argument is the extractor in form of a

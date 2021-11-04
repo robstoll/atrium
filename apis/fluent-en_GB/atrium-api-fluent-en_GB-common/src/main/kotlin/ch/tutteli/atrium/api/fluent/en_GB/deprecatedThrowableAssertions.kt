@@ -2,10 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.causeIsA
-import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
-import kotlin.reflect.KClass
 
 /**
  * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains

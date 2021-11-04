@@ -51,7 +51,7 @@ object absolute : Keyword
 object relative : Keyword
 
 /**
- * Represents a helper construct which allows to express blankness.
+ * Represents a helper construct which allows expressing blankness.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object blank : Keyword
@@ -63,7 +63,7 @@ object blank : Keyword
 object case : Keyword
 
 /**
- * Represents a helper construct which allows to express emptiness.
+ * Represents a helper construct which allows expressing emptiness.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object empty : Keyword
@@ -118,7 +118,7 @@ object only : Keyword
 object order : Keyword
 
 /**
- * Represents a helper construct which allows to express presence.
+ * Represents a helper construct which allows expressing presence.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  */
 object present : Keyword

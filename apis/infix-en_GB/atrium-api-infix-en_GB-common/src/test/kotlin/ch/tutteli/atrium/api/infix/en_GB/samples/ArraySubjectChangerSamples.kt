@@ -1,13 +1,10 @@
-//TODO remove file with 1.0.0
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class ArrayExpectationSamples {
+class ArraySubjectChangerSamples {
 
     @Test
     fun asListFeature() {
@@ -27,9 +24,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(arrayOf("A", "B"))
                 .asList {
-                    it contains "C"  // fails
-                    it contains "D"  // still evaluated even though `contains "C"` already fails
-                    //                  use `asList o` if you want a fail fast behaviour
+                    it toContain "C"  // fails
+                    it toContain "D"  // still evaluated even though above `toContain` already fails
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -46,9 +43,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect<Array<out String>>(arrayOf("A", "B"))
                 .asList {
-                    it contains "C" // fails
-                    it contains "D" // still evaluated even though `contains "C"` already fails
-                    //                 use `asList o` if you want a fail fast behaviour
+                    it toContain "C" // fails
+                    it toContain "D" // still evaluated even though above `toContain` already fails
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -71,9 +68,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(byteArrayOf(1, 2, 3))
                 .asList {
-                    it contains 98  // fails
-                    it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `asList o` if you want a fail fast behaviour
+                    it toContain 98  // fails
+                    it toContain 99  // still evaluated even though above `toContain` already fails
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -96,9 +93,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(charArrayOf('A', 'B', 'C'))
                 .asList {
-                    it contains 'X'  // fails
-                    it contains 'Y'  // still evaluated even though `contains 'X'` already fails
-                    //                  use `asList o` if you want a fail fast behaviour
+                    it toContain 'X'  // fails
+                    it toContain 'Y'  // still evaluated even though above `toContain` already fails
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -121,9 +118,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(shortArrayOf(1, 2, 3))
                 .asList {
-                    it contains 98  // fails
-                    it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `asList o` if you want a fail fast behaviour
+                    it toContain 98  // fails
+                    it toContain 99  // still evaluated even though above `toContain` already fails
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -146,9 +143,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(intArrayOf(1, 2, 3))
                 .asList {
-                    it contains 98  // fails
-                    it contains 99  // still evaluated even though `contains 98` already fails
-                    //                 use `asList o` if you want a fail fast behaviour
+                    it toContain 98  // fails
+                    it toContain 99  // still evaluated even though above `toContain` already fails
+                    //                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -171,9 +168,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(longArrayOf(1L, 2L, 3L))
                 .asList {
-                    it contains 98L  // fails
-                    it contains 99L  // still evaluated even though `contains 98L` already fails
-                    //                  use `asList o` if you want a fail fast behaviour
+                    it toContain 98L  // fails
+                    it toContain 99L  // still evaluated even though above `toContain` already fails
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -196,9 +193,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(floatArrayOf(1f, 2f, 3f))
                 .asList {
-                    it contains 98f  // fails
-                    it contains 99f  // still evaluated even though `contains 98f` already fails
-                    //                  use `asList o` if you want a fail fast behaviour
+                    it toContain 98f  // fails
+                    it toContain 99f  // still evaluated even though above `toContain` already fails
+                    //                   use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -221,9 +218,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(doubleArrayOf(1.1, 2.2, 3.3))
                 .asList {
-                    it contains 98.1  // fails
-                    it contains 99.2  // still evaluated even though `contains 98.1` already fails
-                    //                   use `asList o` if you want a fail fast behaviour
+                    it toContain 98.1  // fails
+                    it toContain 99.2  // still evaluated even though above `toContain` already fails
+                    //                    use `asList o` if you want a fail fast behaviour
                 }
         }
     }
@@ -246,9 +243,9 @@ class ArrayExpectationSamples {
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
             expect(booleanArrayOf(true, true))
                 .asList {
-                    it contains false  //                              fails
-                    it contains o inAny order atLeast 3 value true  // still evaluated even though `contains false` already fails
-                    //                                                 use `asList o` if you want a fail fast behaviour
+                    it toContain false                               // fails
+                    it toContain o inAny order atLeast 3 value true  // still evaluated even though above `toContain` already fails
+                    //                                                  use `asList o` if you want a fail fast behaviour
                 }
         }
     }

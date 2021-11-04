@@ -56,28 +56,6 @@ infix fun <T> Expect<T>.isSameAs(expected: T): Expect<T> = _logicAppend { isSame
 )
 infix fun <T> Expect<T>.isNotSameAs(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
 
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Allows to state a reason for one or multiple assertions for the current subject.
- *
- * @param keyWithCreator Combines the reason with the assertionCreator-lambda. Use the function
- *   `of(reason) { ... }` to create a [KeyWithCreator].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
- *
- * @since 0.15.0
- */
-infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expect<T> =
-    _logicAppend { because(keyWithCreator.key, keyWithCreator.assertionCreator) }
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Helper function to create a [KeyWithCreator] based on the given [reason] and [assertionCreator].
- */
-fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreator<String, T> =
-    KeyWithCreator(reason, assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation is either `null` in case [assertionCreatorOrNull]
@@ -212,89 +190,6 @@ internal fun <TSub : Any> Expect<*>.isA(kClass: KClass<TSub>): SubjectChangerBui
 )
 inline infix fun <reified TSub : Any> Expect<*>.isA(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     isA(TSub::class).transformAndAppend(assertionCreator)
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to separate single assertions.
- *
- * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
- * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
- * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
- *
- * @param o The filler object [o].
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.andFeature
- *
- * @since 0.12.0
- */
-@Suppress("NOTHING_TO_INLINE")
-inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T> = this
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Can be used to create a group of sub assertions when using the fluent API.
- *
- * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
- * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
- * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
- *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.and
- */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logic.appendAsGroup(assertionCreator)
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
- *
- * For instance, instead of:
- * ```
- * expect("hello world") {
- *   this startsWith "hello"
- *   this ends with "world"
- * }
- * ```
- * You can write
- * ```
- * expect("hello world") {
- *   it startsWith "hello"
- *   it ends with "world"
- * }
- * ```
- *
- * @return `this`
- *
- * @since 0.12.0
- */
-inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
-
-//TODO move to anyExpectations.kt with 0.18.0
-/**
- * Inline property referring actually to `this` and allows to write infix assertions within an assertion group block
- *
- * For instance, instead of:
- * ```
- * expect(person) {
- *   this name toBe 1
- * }
- * ```
- * You can write
- * ```
- * expect("hello world") {
- *   its name toBe 1
- * }
- * ```
- *
- * @return `this`
- *
- * @since 0.12.0
- */
-inline val <T> Expect<T>.its: Expect<T> get() : Expect<T> = this
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) in [values].

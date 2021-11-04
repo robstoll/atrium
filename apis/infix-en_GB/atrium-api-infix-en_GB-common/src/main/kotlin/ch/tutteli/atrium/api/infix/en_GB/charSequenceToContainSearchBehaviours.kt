@@ -1,8 +1,3 @@
-//TODO rename file to charSequenceToContain... in 0.18.0
-//TODO remove JvmMultifileClass with 1.0.0
-@file:JvmMultifileClass
-@file:JvmName("CharSequenceContainsSearchBehavioursKt")
-
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.logic._logic
