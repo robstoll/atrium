@@ -12,8 +12,7 @@ import ch.tutteli.kbox.identity
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExistingFeature
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.getExistingFeature
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
     _logic.getExisting(::identity, key).transform()
@@ -27,8 +26,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: K): Expect<V> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExisting
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.getExisting
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K, V>): Expect<T> =
     _logic.getExisting(::identity, key.key).collectAndAppend(key.assertionCreator)
@@ -36,8 +34,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K,
 /**
  * Helper function to create an [KeyWithCreator] based on the given [key] and [assertionCreator].
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.getExisting
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.getExisting
  */
 fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K, V> =
     KeyWithCreator(key, assertionCreator)
@@ -49,8 +46,7 @@ fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.keysFeature
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.keysFeature
  */
 val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
     get() = _logic.property(Map<out K, *>::keys).transform()
@@ -62,8 +58,7 @@ val <K, T : Map<out K, *>> Expect<T>.keys: Expect<Set<K>>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.keys
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.keys
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<K>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, *>::keys).collectAndAppend(assertionCreator)
@@ -74,8 +69,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.keys(assertionCreator: Expect<Set<
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.valuesFeature
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.valuesFeature
  */
 val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
     get() = _logic.property(Map<out Any?, V>::values).transform()
@@ -87,8 +81,36 @@ val <V, T : Map<*, V>> Expect<T>.values: Expect<Collection<V>>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.values
- *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.values
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.values(assertionCreator: Expect<Collection<V>>.() -> Unit): Expect<T> =
     _logic.property(Map<out K, V>::values).collectAndAppend(assertionCreator)
+
+/**
+ * Creates an [Expect] for the property [Collection.size] of the subject of `this` expectation,
+ * so that further fluent calls are assertions about it.
+ *
+ * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.sizeFeature
+ *
+ * @since 0.15.0
+ */
+val <T : Map<*, *>> Expect<T>.size: Expect<Int>
+    get() = _logic.size(::toEntries).transform()
+
+/**
+ * Expects that the property [Collection.size] of the subject of `this` expectation
+ * holds all assertions the given [assertionCreator] creates for it and
+ * returns an [Expect] for the current subject of `this` expectation.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapFeatureExtractorSamples.size
+ *
+ * @since 0.15.0
+ */
+infix fun <K, V, T : Map<out K, V>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
+    _logic.size(::toEntries).collectAndAppend(assertionCreator)
+
+private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

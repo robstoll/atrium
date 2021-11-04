@@ -108,7 +108,7 @@ class MapFeatureExtractorSamples {
     @Test
     fun values() {
         expect(mapOf(1 to "a"))
-            .values {   // subject inside this block is of type Collection<String> (containing "a")
+            .values { // subject inside this block is of type Collection<String> (containing "a")
                 toEqual(setOf("a"))
             }
 
@@ -118,8 +118,9 @@ class MapFeatureExtractorSamples {
 
             expect(mapOf(1 to "a"))
                 .values { // subject inside this block is of type Collection<String> (containing <"a">)
-                    toEqual(setOf("b"))    // fails because "a" is not equal to "b"
-                    //                        use `.values.` if you want a fail fast behaviour
+                    toEqual(setOf("b"))  // fails because "a" is not equal to "b"
+                    toContain("c")       // still evaluated because we use an expectation group block
+                    //                      use `.values.` if you want a fail fast behaviour
                 }
         }
     }
@@ -127,15 +128,15 @@ class MapFeatureExtractorSamples {
     @Test
     fun sizeFeature() {
         expect(mapOf(1 to "a", 2 to "b"))
-            .size // subject is now of type Int (containing 2)
+            .size // subject is now of type Int (actually 2)
             .toEqual(2)
 
         fails {
             expect(mapOf(1 to "a", 2 to "b"))
-                .size          // subject is now of type Int (containing 2)
+                .size                // subject is now of type Int (actually 2)
                 .toBeGreaterThan(5)  // fails because 2 is not greater than 5
-                .notToEqual(2)   // not evaluated/reported even though `toBeGreaterThan` already fails
-            //                      use `.size { ... }` if you want that all expectations are evaluated
+                .notToEqual(2)       // not evaluated/reported even though `toBeGreaterThan` already fails
+            //                          use `.size { ... }` if you want that all expectations are evaluated
         }
     }
 
@@ -143,19 +144,19 @@ class MapFeatureExtractorSamples {
     @Test
     fun size() {
         expect(mapOf(1 to "a", 2 to "b"))
-            .size {   // subject inside this block is of type Int (containing 2)
+            .size { // subject inside this block is of type Int (actually 2)
                 toEqual(2)
-            }
+            } // subject here is back to type Map<Int, String>
 
         fails {
             // all expectations are evaluated inside an expectation group block; for more details:
             // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
 
             expect(mapOf(1 to "a", 2 to "b"))
-                .size { // subject inside this block is of type Int (containing 2)
-                    toEqual(5)    // fails because 5 is not equal to 2
-                    toBeLessThan(1)    // fails because 2 is not less than 1
-                    //                        use `.size.` if you want a fail fast behaviour
+                .size {               // subject inside this block is of type Int (containing 2)
+                    toEqual(5)        // fails because 5 is not equal to 2
+                    toBeLessThan(1)   // fails because 2 is not less than 1
+                    //                   use `.size.` if you want a fail fast behaviour
                 }
         }
     }

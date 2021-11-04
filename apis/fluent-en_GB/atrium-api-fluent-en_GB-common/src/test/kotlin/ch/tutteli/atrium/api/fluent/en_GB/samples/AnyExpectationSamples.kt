@@ -68,7 +68,7 @@ class AnyExpectationSamples {
 
         expect<Int?>(1).toEqualNullIfNullGivenElse { // subject inside this block is of type Int
             toBeLessThan(2)
-        }  // subject here is back to type Int?
+        } // subject here is back to type Int?
 
         fails { // because sub-expectation fails
             expect<Int?>(1).toEqualNullIfNullGivenElse {
@@ -157,6 +157,12 @@ class AnyExpectationSamples {
                 toBeLessThan(2L) // still evaluated even though `toEqual` already fails,
                 //                  use `.toBeAnInstanceOf<...>().` if you want a fail fast behaviour
             }
+        }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `.toBeAnInstanceOf<Int>()` if this is all you expect
+            expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
     }
 

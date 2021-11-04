@@ -95,11 +95,6 @@ class AnyExpectationSamples {
         } /* subject remains type Int also after the block
         */ toEqual 1
 
-        fails {
-            // because you forgot to define an expectation in the expectation group block
-            // use `notToEqualNull o` if this is all you expect
-            expect<Int?>(1) notToEqualNull { }
-        }
 
         fails { // because subject is null, but since we use a block...
             expect<Int?>(null) notToEqualNull {
@@ -112,6 +107,12 @@ class AnyExpectationSamples {
                 it toBeLessThan 0
             }
         }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `notToEqualNull o` if this is all you expect
+            expect<Int?>(1) notToEqualNull { }
+        }
     }
 
     @Test
@@ -122,7 +123,7 @@ class AnyExpectationSamples {
 
         fails {
             expect("A").toBeAnInstanceOf<Long>() toBeLessThan 2L
-            //                        | not shown in reporting as `toBeA<Long>()` already fails
+            //                                      | not shown in reporting as `toBeAnInstanceOf` already fails
         }
     }
 
@@ -144,6 +145,12 @@ class AnyExpectationSamples {
             expect(n).toBeAnInstanceOf<Long> {
                 it toEqual -1L
             }
+        }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `.toBeAnInstanceOf<Int>()` if this is all you expect
+            expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
     }
 
@@ -168,9 +175,10 @@ class AnyExpectationSamples {
                 // introduces an expectation group block
                 // all expectations are evaluated inside an expectations group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
                 it notToEqualOneOf values(1, 2, 13) // fails
                 it toBeLessThan 10                  // still evaluated and included in the error report
-                //                                     use `.and.` if you want fail fast behaviour
+                //                                     use ` and o` if you want fail fast behaviour
             }
         }
     }
@@ -191,22 +199,5 @@ class AnyExpectationSamples {
         fails {
             expect(1) notToEqualOneIn listOf(1, 2, 3, 4)
         }
-    }
-
-    data class Person(val age: Int)
-
-    private val customers = listOf(Person(21))
-
-    @Test
-    fun becauseOf() {
-        expect("filename") because of("? is not allowed in file names on Windows") {
-            it notToContain "?"
-        }
-
-        expect(customers) toHaveElementsAndAll (fun Expect<Person>.() {
-            it because of("the legal age of maturity in Switzerland is 18") {
-                feature { f(it::age) } toBeGreaterThanOrEqualTo 18
-            }
-        })
     }
 }

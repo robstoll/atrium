@@ -9,6 +9,8 @@ import ch.tutteli.atrium.creating.Expect
 /**
  * Helper function to create an [All] based on the given [t] and [ts]
  * -- allows expressing `T, vararg T`.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexMultiple
  */
 fun <T> all(t: T, vararg ts: T): All<T> = All(t, ts)
 
@@ -37,6 +39,8 @@ fun <T : Any> entries(
 /**
  * Helper function to create a [Pairs] based on the given [pair] and [otherPairs]
  * -- allows expressing `Pair<K, V>, vararg Pair<K, V>`.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyPairs
  */
 fun <K, V> pairs(pair: Pair<K, V>, vararg otherPairs: Pair<K, V>): Pairs<K, V> = Pairs(pair, otherPairs)
 
@@ -49,6 +53,8 @@ fun <E> present(assertionCreator: Expect<E>.() -> Unit): PresentWithCreator<E> =
 /**
  * Helper function to create a [RegexPatterns] based on the given [pattern] and [otherPatterns]
  * -- allows expressing `String, vararg String` which are treated as regex patterns.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toContainRegexStringMultiple
  */
 fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
     RegexPatterns(pattern, otherPatterns)

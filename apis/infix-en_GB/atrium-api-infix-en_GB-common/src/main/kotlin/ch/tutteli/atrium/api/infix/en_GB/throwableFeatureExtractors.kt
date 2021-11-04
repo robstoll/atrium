@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.causeIsA
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import kotlin.reflect.KClass
 
 /**
@@ -12,7 +14,7 @@ import kotlin.reflect.KClass
  *
  * @return The newly created [Expect] for the property [Throwable.message] of the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.messageFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.messageFeature
  */
 val <T : Throwable> Expect<T>.message: Expect<String>
     get() = it feature Throwable::message notToEqualNull o
@@ -24,10 +26,47 @@ val <T : Throwable> Expect<T>.message: Expect<String>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.message
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.message
  */
 infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() -> Unit): Expect<T> =
     it feature of(Throwable::message) { it notToEqualNull assertionCreator }
+
+/**
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
+ * [expected]'s [toString] representation using a non-disjoint search.
+ **
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
+ * This function expects [CharSequenceOrNumberOrChar] (which is a typealias for [Any]) for your convenience,
+ * so that you can mix [String] and [Int] for instance.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.messageToContain
+ *
+ * @since 0.17.0
+ */
+infix fun <T : Throwable> Expect<T>.messageToContain(expected: CharSequenceOrNumberOrChar): Expect<T> =
+    this messageToContain values(expected)
+
+/**
+ * Expects that the property [Throwable.message] of the subject of `this` expectation is not null and contains
+ * [values]'s [toString] representation using a non-disjoint search.
+ **
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
+ * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
+ * @param values The values which are expected to be contained within [Throwable.message]
+ *   -- use the function `values(t, ...)` to create a [Values].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.messageFeature
+ *
+ * @since 0.17.0
+ */
+infix fun <T : Throwable> Expect<T>.messageToContain(values: Values<Any>): Expect<T> =
+    message { toContain(values) }
+
 
 /**
  * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),
@@ -35,7 +74,7 @@ infix fun <T : Throwable> Expect<T>.message(assertionCreator: Expect<String>.() 
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of `this` expectation
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.causeFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.causeFeature
  *
  * @since 0.12.0
  */
@@ -58,7 +97,7 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableExpectationSamples.cause
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ThrowableFeatureExtractorSamples.cause
  *
  * @since 0.12.0
  */
