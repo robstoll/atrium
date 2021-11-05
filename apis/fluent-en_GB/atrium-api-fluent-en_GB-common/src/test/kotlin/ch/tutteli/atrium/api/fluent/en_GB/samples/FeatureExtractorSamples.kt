@@ -100,7 +100,7 @@ class FeatureExtractorSamples {
         fun f(person: Person) = person.name
 
         expect(person)
-            .feature(::f) // subject is now String, after function [f] is applied
+            .feature(Person::name) // subject is now of type String
             .toStartWith("John")
             .toEndWith("Smith")
 
