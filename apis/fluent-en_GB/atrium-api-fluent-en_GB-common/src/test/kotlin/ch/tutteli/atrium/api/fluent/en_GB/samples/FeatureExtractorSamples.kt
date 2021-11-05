@@ -74,7 +74,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature(Person::name) { // subject is now String
+            .feature(Person::name) { // subject within this block is of type String
                 toStartWith("John")
                 toEndWith("Smith")
             } // subject is now Person
