@@ -86,7 +86,7 @@ class AnyExpectationSamples {
         fails {
             expect<Int?>(null)
                 .notToEqualNull() // fails
-                .toBeLessThan(2)  // not reported because `notToEqualNull` already fails
+                .toBeLessThan(2)  // not evaluated/reported because `notToEqualNull` already fails
             //                       use `notToEqualNull { ... }` if you want that all expectations are evaluated
         }
     }
@@ -131,7 +131,7 @@ class AnyExpectationSamples {
         fails {
             expect("A")
                 .toBeAnInstanceOf<Long>() // fails
-                .toBeLessThan(2L)         // not reported because `toBeAnInstanceOf` already fails
+                .toBeLessThan(2L)         // not evaluated/reported because `toBeAnInstanceOf` already fails
             //                               use `toBeAnInstanceOf<...> { ... }` if you want that all expectations are evaluated
         }
     }

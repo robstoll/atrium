@@ -48,7 +48,7 @@ class CollectionAssertionSamples {
             expect(listOf(1, 2, 3))
                 .size
                 .isLessThan(1)    // fails
-                .isGreaterThan(4) // not reported because `isLessThan(1)` already fails
+                .isGreaterThan(4) // not evaluated/reported because `isLessThan(1)` already fails
             // use `size { ... }` if you want that all assertions are evaluated
         }.message {
             contains("is less than: 1")

@@ -25,7 +25,7 @@ class ThrowableFeatureExtractorSamples {
             expect(RuntimeException("abc"))
                 .message
                 .toContain("d")   // fails
-                .toStartWith("z") // not reported because `toContain` already fails
+                .toStartWith("z") // not evaluated/reported because `toContain` already fails
             //                       use `.message { ... }` if you want that all assertions are evaluated
         }
     }
@@ -54,7 +54,7 @@ class ThrowableFeatureExtractorSamples {
         fails {
             expect(IllegalStateException(IndexOutOfBoundsException("abc")))
                 .cause<IllegalStateException>() // fails
-                .messageToContain("d")          // not reported because `cause` already fails
+                .messageToContain("d")          // not evaluated/reported because `cause` already fails
             //                                     use `.cause<...> { ... }` if you want that all assertions are evaluated
 
         }

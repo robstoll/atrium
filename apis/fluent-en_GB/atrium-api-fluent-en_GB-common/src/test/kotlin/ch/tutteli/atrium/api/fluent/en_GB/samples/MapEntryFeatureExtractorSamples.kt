@@ -18,7 +18,7 @@ class MapEntryFeatureExtractorSamples {
             expect(entry)
                 .key             // subject here is of type Int (actually 1)
                 .toEqual(2)      // fails
-                .toBeLessThan(0) // not reported because `toEqual` already fails
+                .toBeLessThan(0) // not evaluated/reported because `toEqual` already fails
             //                      use `.key { ... }` if you want that all assertions are evaluated
         }
     }
@@ -52,7 +52,7 @@ class MapEntryFeatureExtractorSamples {
             expect(entry)
                 .value            // subject here is of type String (actually "a")
                 .toEqual("b")     // fails
-                .toStartWith("z") // not reported because `toEqual` already fails
+                .toStartWith("z") // not evaluated/reported because `toEqual` already fails
             //                       use `.value { ... }` if you want that all assertions are evaluated
         }
     }

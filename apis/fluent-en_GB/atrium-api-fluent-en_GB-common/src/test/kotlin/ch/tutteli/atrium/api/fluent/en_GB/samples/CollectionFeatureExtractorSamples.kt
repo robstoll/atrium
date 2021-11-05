@@ -17,7 +17,7 @@ class CollectionFeatureExtractorSamples {
             expect(listOf(1, 2, 3))
                 .size
                 .toBeLessThan(1)    // fails
-                .toBeGreaterThan(4) // not reported because `toBeLessThan` already fails
+                .toBeGreaterThan(4) // not evaluated/reported because `toBeLessThan` already fails
             //                         use `.size { ... }` if you want that all assertions are evaluated
         }
     }

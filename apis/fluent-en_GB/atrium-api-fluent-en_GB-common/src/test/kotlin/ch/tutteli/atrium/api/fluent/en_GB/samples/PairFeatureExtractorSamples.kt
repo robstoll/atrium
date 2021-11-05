@@ -19,7 +19,7 @@ class PairFeatureExtractorSamples {
             expect(pair)
                 .first
                 .toBeGreaterThan(2) // fails
-                .toBeLessThan(0)    // not reported because `toBeGreaterThan` already fails
+                .toBeLessThan(0)    // not evaluated/reported because `toBeGreaterThan` already fails
             //                         use `.first { ... }` if you want that all assertions are evaluated
         }
     }
@@ -62,7 +62,7 @@ class PairFeatureExtractorSamples {
             expect(pair)
                 .second
                 .toBeGreaterThan(2) // fails
-                .toBeLessThan(0)    // not reported because `toBeGreaterThan` already fails
+                .toBeLessThan(0)    // not evaluated/reported because `toBeGreaterThan` already fails
             //                         use `.second { ... }` if you want that all assertions are evaluated
         }
     }

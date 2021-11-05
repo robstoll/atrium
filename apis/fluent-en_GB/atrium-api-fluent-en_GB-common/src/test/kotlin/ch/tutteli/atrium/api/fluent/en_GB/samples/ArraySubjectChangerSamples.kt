@@ -16,7 +16,7 @@ class ArraySubjectChangerSamples {
             expect(arrayOf("A", "B"))
                 .asList()  // subject is now of type List<String>
                 .toContain("C")  // fails
-                .toContain("D")  // not reported because above `toContain` already fails
+                .toContain("D")  // not evaluated/reported because above `toContain` already fails
             //                      use `.asList { ... }` if you want that all expectations are evaluated
         }
     }

@@ -19,7 +19,7 @@ class LocalDateTimeFeatureExtractorSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .year // subject is now of type Int (actually 2021)
                 .notToEqual(1980)    // fails
-                .toBeLessThan(2000)  // not reported because notToEqual already fails
+                .toBeLessThan(2000)  // not evaluated/reported because notToEqual already fails
             //                          use `.year { ... }` if you want that all expectations are evaluated
         }
     }
@@ -36,7 +36,7 @@ class LocalDateTimeFeatureExtractorSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .year { // subject inside this block is of type Int (actually 2021)
                     notToEqual(1980)    // fails
-                    toBeLessThan(2000)  // not reported because notToEqual already fails
+                    toBeLessThan(2000)  // not evaluated/reported because notToEqual already fails
                     //                     use `.year.` if you want a fail fast behaviour
                 }
         }
@@ -52,7 +52,7 @@ class LocalDateTimeFeatureExtractorSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .month               // subject is now of type Int (actually Month.OCTOBER.value i.e. 10)
                 .toBeLessThan(9)     // fails
-                .toBeGreaterThan(11) // not reported because toBeLessThan already fails
+                .toBeGreaterThan(11) // not evaluated/reported because toBeLessThan already fails
             //                          use `.month { ... }` if you want that all expectations are evaluated
         }
     }
@@ -86,7 +86,7 @@ class LocalDateTimeFeatureExtractorSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .dayOfWeek // subject is now of type DayOfWeek (actually SATURDAY)
                 .toEqual(DayOfWeek.MONDAY)       // fails
-                .notToEqual(DayOfWeek.SATURDAY)  // not reported because toEqual already fails
+                .notToEqual(DayOfWeek.SATURDAY)  // not evaluated/reported because toEqual already fails
             //                                      use `.dayOfWeek { ... }` if you want that all expectations are evaluated
 
         }
@@ -120,7 +120,7 @@ class LocalDateTimeFeatureExtractorSamples {
             expect(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56))
                 .day // subject is now of type Int (actually 9)
                 .toEqual(5)          // fails
-                .toBeGreaterThan(10) // not reported because toEqual already fails
+                .toBeGreaterThan(10) // not evaluated/reported because toEqual already fails
             //                          use `.day { ... }` if you want that all expectations are evaluated
         }
     }

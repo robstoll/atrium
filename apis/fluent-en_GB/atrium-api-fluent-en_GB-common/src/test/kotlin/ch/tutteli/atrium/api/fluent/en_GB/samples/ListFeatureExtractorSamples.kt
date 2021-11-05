@@ -19,14 +19,14 @@ class ListFeatureExtractorSamples {
             expect(list)
                 .get(0)              // subject is now of type Int (actually 1)
                 .toBeGreaterThan(2)  // fails
-                .toBeLessThan(0)     // not reported because `toBeGreaterThan` already fails
+                .toBeLessThan(0)     // not evaluated/reported because `toBeGreaterThan` already fails
             //                          use `.get(index) { ... }` if you want that all expectations are evaluated
         }
 
         fails {
             expect(list)
                 .get(3)          // fails because index 3 is out of bound
-                .toBeLessThan(0) // not reported because `get` already fails
+                .toBeLessThan(0) // not evaluated/reported because `get` already fails
             //                      use `.get(index) { ... }` if you want that all expectations are evaluated
         }
 
