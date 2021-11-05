@@ -19,14 +19,14 @@ class ResultExpectationSamples {
             expect(Result.success(10))
                 .toBeASuccess()      // subject is now of type Int (actually 10)
                 .toBeLessThan(5)     // fails
-                .toBeGreaterThan(12) // not reported because toBeLessThan already fails
+                .toBeGreaterThan(12) // not evaluated/reported because toBeLessThan already fails
             //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
         }
 
         fails { // because it was a Failure
             expect(Result.failure<Int>(ArithmeticException()))
                 .toBeASuccess()      // fails
-                .toBeGreaterThan(12) // not reported because toBeLessThan already fails
+                .toBeGreaterThan(12) // not evaluated/reported because toBeLessThan already fails
             //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
         }
     }
@@ -75,14 +75,14 @@ class ResultExpectationSamples {
         fails { // because wrong Expectation type expected
             expect(failure)
                 .toBeAFailure<ArithmeticException>() // fails
-                .messageToContain("parameter")       // not reported because toBeAFailure already fails
+                .messageToContain("parameter")       // not evaluated/reported because toBeAFailure already fails
             //                                          use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
         }
 
         fails { // because it was a Success
             expect(Result.success(10))
                 .toBeAFailure<IllegalArgumentException>() // fails
-                .messageToContain("parameter")            // not reported because toBeAFailure already fails
+                .messageToContain("parameter")            // not evaluated/reported because toBeAFailure already fails
             //                                               use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
         }
     }

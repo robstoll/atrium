@@ -166,7 +166,7 @@ class MapExpectationSamples {
 
         fails {
             // expectation fails because key 2 does not exist
-            expect(mapOf(1 to "a")) getExisting 2 toEqual "a" // not reported, use `getExisting(key) { ... }`
+            expect(mapOf(1 to "a")) getExisting 2 toEqual "a" // not evaluated/reported, use `getExisting(key) { ... }`
             // if you want that all expectations are evaluated
         }
     }

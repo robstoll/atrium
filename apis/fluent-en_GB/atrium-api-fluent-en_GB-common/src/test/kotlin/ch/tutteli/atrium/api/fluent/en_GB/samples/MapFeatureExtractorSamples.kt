@@ -22,7 +22,7 @@ class MapFeatureExtractorSamples {
         fails {
             expect(mapOf(1 to "a"))
                 .getExisting(2) // expectation fails because key 2 does not exist
-                .toEqual("a")   // not reported even though `getExisting` already fails
+                .toEqual("a")   // not evaluated/reported even though `getExisting` already fails
             //                     use `.getExisting(key) { ... }` if you want that all expectations are evaluated
         }
     }
@@ -65,7 +65,7 @@ class MapFeatureExtractorSamples {
             expect(mapOf(1 to "a"))
                 .keys          // subject is now of type Set<Int> (containing 1)
                 .toContain(2)  // fails
-                .toHaveSize(5) // not reported even though `toContain` already fails
+                .toHaveSize(5) // not evaluated/reported even though `toContain` already fails
             //                    use `.keys { ... }` if you want that all expectations are evaluated
         }
     }
@@ -100,7 +100,7 @@ class MapFeatureExtractorSamples {
             expect(mapOf(1 to "a"))
                 .values          // subject is now of type Collection<String> (containing "a")
                 .toContain("b")  // fails because "a" is not equal to "b"
-                .toHaveSize(5)   // not reported even though `toContain` already fails
+                .toHaveSize(5)   // not evaluated/reported even though `toContain` already fails
             //                      use `.values { ... }` if you want that all expectations are evaluated
         }
     }
@@ -134,7 +134,7 @@ class MapFeatureExtractorSamples {
             expect(mapOf(1 to "a", 2 to "b"))
                 .size          // subject is now of type Int (containing 2)
                 .toBeGreaterThan(5)  // fails because 2 is not greater than 5
-                .notToEqual(2)   // not reported even though `toBeGreaterThan` already fails
+                .notToEqual(2)   // not evaluated/reported even though `toBeGreaterThan` already fails
             //                      use `.size { ... }` if you want that all expectations are evaluated
         }
     }

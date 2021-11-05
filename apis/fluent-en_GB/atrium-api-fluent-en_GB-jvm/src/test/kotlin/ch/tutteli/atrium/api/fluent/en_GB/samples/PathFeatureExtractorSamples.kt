@@ -27,7 +27,7 @@ class PathFeatureExtractorSamples {
         fails {
             expect(dir).extension // subject is now of type String (actually "txt")
                 .toEqual("txtt")  // fails because it doesn't equal to "txtt"
-                .toEndWith("jpg") // not reported because toEqual already fails
+                .toEndWith("jpg") // not evaluated/reported because toEqual already fails
             //                       use `.extension { ... } ` if you want that all expectations are evaluated
         }
     }
@@ -64,7 +64,7 @@ class PathFeatureExtractorSamples {
         fails {
             expect(dir).fileName        // subject is now of type String (actually "test_dir")
                 .toEndWith("foo")       // fails because it does not end with "foo"
-                .toStartWith("invalid") // not reported because toEndWith already fails
+                .toStartWith("invalid") // not evaluated/reported because toEndWith already fails
             //                             use `fileName {...}` if you want that all expectations are evaluated
         }
     }
@@ -97,7 +97,7 @@ class PathFeatureExtractorSamples {
         fails {
             expect(dir).fileNameWithoutExtension // subject is now of type String (actually "test_dir")
                 .toBeEmpty()                     // fails because string is not empty
-                .notToEqual("test_dir")          // not reported because toBeEmpty already fails
+                .notToEqual("test_dir")          // not evaluated/reported because toBeEmpty already fails
             //                                      use `.fileNameWithoutExtension { ... }` if you want that all expectations are evaluated
         }
     }
@@ -131,7 +131,7 @@ class PathFeatureExtractorSamples {
             val dir3 = dir2.newDirectory("test_dir")
             expect(dir).parent
                 .toEqual(dir3) // fails because dir3 and dir do not have same parents
-                .notToExist()  // not reported because toEqual already fails
+                .notToExist()  // not evaluated/reported because toEqual already fails
             //                    use `.parent { ... }` if you want that all expectations are evaluated
         }
     }
@@ -168,7 +168,7 @@ class PathFeatureExtractorSamples {
         fails {
             expect(dir).resolve("test_file.ttt")
                 .toEqual(fileInDir)          // fails because resolve returns *test_file.ttt and fileInDir equals *test_file.txt
-                .toEndWith(Paths.get("ttt")) // not reported toEqual already fails
+                .toEndWith(Paths.get("ttt")) // not evaluated/reported toEqual already fails
             //                                  use `.resolve(other) { ... }` if you want that all expectations are evaluated
         }
     }

@@ -22,7 +22,7 @@ class FileSubjectChangerSamples {
             expect(file)
                 .asPath()                // subject is now of type Path
                 .toBeADirectory()        // fails
-                .notToStartWith(tempDir) // not reported because `cause` already fails
+                .notToStartWith(tempDir) // not evaluated/reported because `cause` already fails
             //                              use `.asPath { ... }` if you want that all assertions are evaluated
         }
     }

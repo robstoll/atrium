@@ -35,7 +35,7 @@ class ZonedDateTimeExpectationSamples {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) year {
                 // subject inside this block is of type Int (actually 2021)
                 it notToEqual 2021       // fails
-                it toBeGreaterThan 2022  // not reported because notToEqual already fails
+                it toBeGreaterThan 2022  // not evaluated/reported because notToEqual already fails
                 //                          use `.year.` if you want a fail fast behaviour
             } // subject here is back to type ZonedDateTime
         }

@@ -25,7 +25,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .its { age }         // subject is now Int
                 .toBeLessThan(20)    // fails
-                .toBeGreaterThan(30) // not reported because `toBeLessThan` already fails
+                .toBeGreaterThan(30) // not evaluated/reported because `toBeLessThan` already fails
             //                          use `.its { ... }` if you want that all assertions are evaluated
         }
     }
@@ -66,7 +66,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(Person::name)
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kprop) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -110,7 +110,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f)
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -158,7 +158,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, arg1) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -211,7 +211,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, arg1, arg2) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -268,7 +268,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, a1, a2, a3) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -330,7 +330,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, a1, a2, a3, a4) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -396,7 +396,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1", "B2")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+                .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, a1, a2, a3, a4, a5) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -455,7 +455,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature("Actual age", Person::age)
                 .toBeLessThan(20)    // fails
-                .toBeGreaterThan(30) // not reported because `toBeLessThan` already fails
+                .toBeGreaterThan(30) // not evaluated/reported because `toBeLessThan` already fails
             //                          use `.feature(descr, kprop) { ... }` if you want that all assertions are evaluated
         }
     }
@@ -503,7 +503,7 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature { f(it::age) }
                 .toBeGreaterThan(30) // fails
-                .toBeLessThan(20)    // not reported because `toBeGreaterThan` already fails
+                .toBeLessThan(20)    // not evaluated/reported because `toBeGreaterThan` already fails
             //                          use `.feature({ extractor }) { ... }` if you want that all assertions are evaluated
         }
     }
