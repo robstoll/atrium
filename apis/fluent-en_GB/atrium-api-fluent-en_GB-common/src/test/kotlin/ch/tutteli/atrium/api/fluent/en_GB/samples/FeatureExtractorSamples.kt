@@ -17,13 +17,15 @@ class FeatureExtractorSamples {
 
         expect(person)
             .its { age } // subject is now Int
-            .toEqual(25)
+            .toBeLessThan(30)
+            .toBeGreaterThan(20)
+
 
         fails {
             expect(person)
-                .its({ age }) { toEqual(30)} // fails, subject still Person afterwards
-                .its { name }                // not evaluated anymore, subject String afterwards
-                .toEqual("John Smith")       // not evaluated anymore
+                .its { age }         // subject is now Int
+                .toBeLessThan(20)    // fails, subject still Person afterwards
+                .toBeGreaterThan(30) // not evaluated anymore
         }
     }
 
