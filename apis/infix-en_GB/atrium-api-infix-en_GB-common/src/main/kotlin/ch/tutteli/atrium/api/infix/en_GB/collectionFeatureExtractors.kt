@@ -10,9 +10,7 @@ import ch.tutteli.kbox.identity
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.sizeFeature
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.sizeFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionFeatureExtractorSamples.sizeFeature
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
     get() = _logic.size(::identity).transform()
@@ -24,9 +22,7 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.size
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.size
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionFeatureExtractorSamples.size
  */
 infix fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
     _logic.size(::identity).collectAndAppend(assertionCreator)

@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.because
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.becauseOf
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.DocumentationUtilSamples.becauseOf
  *
  * @since 0.15.0
  */
@@ -22,6 +22,8 @@ infix fun <T> Expect<T>.because(keyWithCreator: KeyWithCreator<String, T>): Expe
 
 /**
  * Helper function to create a [KeyWithCreator] based on the given [reason] and [assertionCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.DocumentationUtilSamples.becauseOf
  */
 fun <T> of(reason: String, assertionCreator: Expect<T>.() -> Unit): KeyWithCreator<String, T> =
     KeyWithCreator(reason, assertionCreator)

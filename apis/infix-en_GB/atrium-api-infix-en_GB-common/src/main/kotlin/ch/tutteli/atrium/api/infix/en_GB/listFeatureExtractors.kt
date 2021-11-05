@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.get
  *
  * @return The newly created [Expect] for the element at position [index].
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListExpectationSamples.getFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.getFeature
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
     _logic.get(index).transform()
@@ -25,13 +25,15 @@ infix fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListExpectationSamples.get
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.get
  */
 infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> =
     _logic.get(index.index).collectAndAppend(index.assertionCreator)
 
 /**
  * Helper function to create an [IndexWithCreator] based on the given [index] and [assertionCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.get
  */
 fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCreator<E> =
     IndexWithCreator(index, assertionCreator)

@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.*
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.asEntriesFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapSubjectChangerSamples.asEntriesFeature
  *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
@@ -27,7 +27,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.asEntries
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapSubjectChangerSamples.asEntries
  *
  */
 infix fun <K, V, T : Map<out K, V>> Expect<T>.asEntries(

@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.value
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.keyFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryFeatureExtractorSamples.keyFeature
  */
 val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
     get() = _logic.key().transform()
@@ -23,7 +23,7 @@ val <K, T : Map.Entry<K, *>> Expect<T>.key: Expect<K>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.key
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryFeatureExtractorSamples.key
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.() -> Unit): Expect<T> =
     _logic.key().collectAndAppend(assertionCreator)
@@ -34,7 +34,7 @@ infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.key(assertionCreator: Expect<K>.
  *
  * @return The newly created [Expect] for the extracted feature.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.valueFeature
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryFeatureExtractorSamples.valueFeature
  */
 val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
     get() = _logic.value().transform()
@@ -46,7 +46,7 @@ val <V, T : Map.Entry<*, V>> Expect<T>.value: Expect<V>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryExpectationSamples.value
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapEntryFeatureExtractorSamples.value
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.value(assertionCreator: Expect<V>.() -> Unit): Expect<T> =
     _logic.value().collectAndAppend(assertionCreator)

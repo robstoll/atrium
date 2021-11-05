@@ -13,7 +13,7 @@ import ch.tutteli.kbox.identity
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.toBe_empty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.toBeEmpty
  */
 infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty(::identity) }
@@ -25,7 +25,7 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.notToBe_empty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.notToBeEmpty
  */
 infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty(::identity) }

@@ -146,7 +146,7 @@ class CharSequenceExpectationSamples {
     }
 
     @Test
-    fun toBe_empty() {
+    fun toBeEmpty() {
         expect("") toBe empty
 
         fails {
@@ -155,7 +155,7 @@ class CharSequenceExpectationSamples {
     }
 
     @Test
-    fun notToBe_empty() {
+    fun notToBeEmpty() {
         expect("XYZ") notToBe empty
 
         fails {
@@ -167,7 +167,7 @@ class CharSequenceExpectationSamples {
     }
 
     @Test
-    fun notToBe_blank() {
+    fun notToBeBlank() {
         expect("XZY") notToBe blank
 
         fails {

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
-class ThrowableExpectationSamples {
+class ThrowableFeatureExtractorSamples {
 
     @Test
     fun messageToContain() {
@@ -63,6 +63,12 @@ class ThrowableExpectationSamples {
             expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> {
                 it messageToContain "b" // ... reporting mentions that subject's message was expected `to contain: "b"`
             }
+        }
+
+        fails {
+            // because you forgot to define an expectation in the expectation group block
+            // use `.cause<...>()` if this is all you expect
+            expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { }
         }
     }
 }

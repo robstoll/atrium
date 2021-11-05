@@ -13,30 +13,40 @@ interface Keyword
 /**
  * A helper construct to allow expressing expectations about a path being a regular file.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeARegularFile
  */
 object aRegularFile : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being a directory.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeADirectory
  */
 object aDirectory : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being an empty directory.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeAnEmptyDirectory
  */
 object anEmptyDirectory : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being a symbolic link.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeASymbolicLink
  */
 object aSymbolicLink : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being absolute.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeAbsolute
  *
  * @since 0.14.0
  */
@@ -46,6 +56,8 @@ object absolute : Keyword
  * A helper construct to allow expressing expectations about a path being relative.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeRelative
+ *
  * @since 0.14.0
  */
 object relative : Keyword
@@ -53,6 +65,8 @@ object relative : Keyword
 /**
  * Represents a helper construct which allows expressing blankness.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank
  */
 object blank : Keyword
 
@@ -65,6 +79,9 @@ object case : Keyword
 /**
  * Represents a helper construct which allows expressing emptiness.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBeEmpty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.notToBeEmpty
  */
 object empty : Keyword
 
@@ -77,6 +94,8 @@ object entries : Keyword
 /**
  * A helper construct to allow expressing expectations about path existence.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToExist
  */
 object existing : Keyword
 
@@ -90,6 +109,8 @@ object group : Keyword
  * Represents the pseudo keyword `next` as in [toHave] `next`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IteratorExpectationSamples.toHave_next
+ *
  * @since 0.12.0
  */
 object next : Keyword
@@ -101,6 +122,8 @@ object next : Keyword
  *
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.andFeature
+ *
  * @since 0.12.0
  */
 object o : Keyword
@@ -108,12 +131,16 @@ object o : Keyword
 /**
  * Represents the pseudo keyword `only` as in [and] `only`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainBuilder
  */
 object only : Keyword
 
 /**
  * Represents the pseudo keyword `order` as in [inAny] `order`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainBuilder
  */
 object order : Keyword
 
@@ -127,6 +154,8 @@ object present : Keyword
 /**
  * A helper construct to allow expressing expectations about a path being readable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeReadable
  */
 object readable : Keyword
 
@@ -153,18 +182,24 @@ object aSuccess : Keyword
 /**
  * A helper construct to allow expressing expectations about a path being writable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeWritable
  */
 object writable : Keyword
 
 /**
  * A helper construct to allow expressing expectations about a path being executable.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeExecutable
  */
 object executable : Keyword
 
 /**
  * A helper construct to allow expressing expectations about iterable contains no duplicates.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toHaveElementsAndNoDuplicates
  *
  * @since 0.14.0
  */
@@ -173,6 +208,8 @@ object noDuplicates : Keyword
 /**
  * A helper construct to allow expressing expectations about elements as in `expect(iterable) toHave elements`.
  * It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToHaveElements
  *
  * @since 0.17.0
  */

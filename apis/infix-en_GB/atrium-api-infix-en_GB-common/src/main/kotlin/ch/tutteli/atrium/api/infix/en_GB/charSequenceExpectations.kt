@@ -314,7 +314,7 @@ infix fun <T : CharSequence> Expect<T>.notToMatch(pattern: Regex): Expect<T> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBe_empty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isEmpty() }
@@ -326,7 +326,7 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBe_empty
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
     _logicAppend { isNotEmpty() }
@@ -338,7 +338,7 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBe_blank
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
     _logicAppend { isNotBlank() }
