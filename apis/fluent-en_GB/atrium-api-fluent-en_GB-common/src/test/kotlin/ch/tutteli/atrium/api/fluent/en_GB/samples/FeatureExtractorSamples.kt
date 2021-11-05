@@ -77,7 +77,7 @@ class FeatureExtractorSamples {
             .feature(Person::name) { // subject within this block is of type String
                 toStartWith("John")
                 toEndWith("Smith")
-            } // subject is now Person
+            } // subject here is back to type Person
 
         fails {
             expect(person)
