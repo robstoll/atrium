@@ -24,8 +24,9 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .its { age }         // subject is now Int
-                .toBeLessThan(20)    // fails, subject still Person afterwards
-                .toBeGreaterThan(30) // not evaluated anymore
+                .toBeLessThan(20)    // fails
+                .toBeGreaterThan(30) // not reported because `toBeLessThan` already fails
+            //                          use `.its { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -65,7 +66,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(Person::name)
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kprop) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -87,7 +89,7 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated, use `.feature(kprop).` if you want fail fast behaviour
                 }
         }
 
@@ -108,7 +110,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f)
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -122,7 +125,7 @@ class FeatureExtractorSamples {
             .feature(::f) { // subject is now String, after function [f] is applied
                 toStartWith("John")
                 toEndWith("Smith")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -132,7 +135,7 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated, use `.feature(kfun).` if you want fail fast behaviour
                 }
         }
     }
@@ -144,7 +147,10 @@ class FeatureExtractorSamples {
         fun f(person: Person, title: String) = "$title ${person.name}"
 
         expect(person)
-            .feature(::f, "Dr.") // subject is now String, function [f] is applied with argument
+            .feature(
+                ::f,
+                "Dr."
+            ) // subject is now String (actually the return value of calling `f` with the given argument)
             .toStartWith("Dr. John")
             .toEndWith("Smith")
 
@@ -152,7 +158,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun, arg1) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -163,10 +170,13 @@ class FeatureExtractorSamples {
         fun f(person: Person, title: String) = "$title ${person.name}"
 
         expect(person)
-            .feature(::f, "Dr.") { // subject is now String, function [f] is applied with argument
+            .feature(
+                ::f,
+                "Dr."
+            ) {// subject within this block is of type String (actually the return value of calling `f` with the given argument)
                 toStartWith("Dr. John")
                 toEndWith("Smith")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -176,7 +186,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                    //                      use `.feature(kfun, arg1).` if you want fail fast behaviour
                 }
         }
     }
@@ -188,7 +199,11 @@ class FeatureExtractorSamples {
         fun f(person: Person, title: String, suffix: String) = "$title ${person.name}, $suffix"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP") // subject is now String, function [f] is applied with two arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP"
+            ) // subject is now String (actually the return value of calling `f` with the given two arguments)
             .toStartWith("Dr. John")
             .toEndWith("Smith, PMP")
 
@@ -196,7 +211,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun, arg1, arg2) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -207,10 +223,14 @@ class FeatureExtractorSamples {
         fun f(person: Person, title: String, suffix: String) = "$title ${person.name}, $suffix"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP") { // subject is now String, function [f] is applied with two arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP"
+            ) { // subject within this block is of type String (actually the return value of calling `f` with the given two arguments)
                 toStartWith("Dr. John")
                 toEndWith("Smith, PMP")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -220,7 +240,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                    //                      use `.feature(kfun, arg1, arg2).` if you want fail fast behaviour
                 }
         }
     }
@@ -233,7 +254,12 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native") // subject is now String, function [f] is applied with three arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native"
+            ) // subject is now String (actually the return value of calling `f` with the given three arguments)
             .toStartWith("Dr. John Smith")
             .toContain("PMP")
             .toEndWith("English level: Native")
@@ -242,7 +268,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun, a1, a2, a3) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -254,11 +281,16 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native") { // subject is now String, function [f] is applied with three arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native"
+            ) { // subject within this block is of type String (actually the return value of calling `f` with the given three arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toEndWith("English level: Native")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -268,7 +300,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                    //                      use `.feature(kfun, a1, a2, a3).` if you want fail fast behaviour
                 }
         }
     }
@@ -281,7 +314,13 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english, German level: $german"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native", "C1") // subject is now String, function [f] is applied with four arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native",
+                "C1"
+            ) // subject is now String (actually the return value of calling `f` with the given four arguments)
             .toStartWith("Dr. John Smith")
             .toContain("PMP")
             .toContain("English level: Native")
@@ -291,7 +330,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun, a1, a2, a3, a4) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -303,12 +343,18 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english, German level: $german"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native", "C1") { // subject is now String, function [f] is applied with four arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native",
+                "C1"
+            ) { // subject within this block is of type String (actually the return value of calling `f` with the given four arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toContain("English level: Native")
                 toEndWith("German level: C1")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -318,7 +364,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                    //                      use `.feature(kfun, a1, a2, a3, a4).` if you want fail fast behaviour
                 }
         }
     }
@@ -331,7 +378,14 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english, German level: $german, Spanish level: $spanish"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native", "C1", "B2") // subject is now String, function [f] is applied with five arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native",
+                "C1",
+                "B2"
+            ) // subject is now String (actually the return value of calling `f` with the given five arguments)
             .toStartWith("Dr. John Smith")
             .toContain("PMP")
             .toContain("English level: Native")
@@ -342,7 +396,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1", "B2")
                 .toStartWith("Kevin") // fails
-                .toEndWith("Bacon")   // not evaluated
+                .toEndWith("Bacon")   // not reported because `toStartWith` already fails
+            //                           use `.feature(kfun, a1, a2, a3, a4, a5) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -354,13 +409,20 @@ class FeatureExtractorSamples {
             "$title ${person.name}, $suffix. English level: $english, German level: $german, Spanish level: $spanish"
 
         expect(person)
-            .feature(::f, "Dr.", "PMP", "Native", "C1", "B2") { // subject is now String, function [f] is applied with five arguments
+            .feature(
+                ::f,
+                "Dr.",
+                "PMP",
+                "Native",
+                "C1",
+                "B2"
+            ) { // subject within this block is of type String (actually the return value of calling `f` with the given five arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toContain("English level: Native")
                 toContain("German level: C1")
                 toEndWith("Spanish level: B2")
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             expect(person)
@@ -370,7 +432,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                    //                      use `.feature(kfun, a1, a2, a3, a4, a5).` if you want fail fast behaviour
                 }
         }
     }
@@ -380,19 +443,20 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature("Actual age", Person::age) // subject is Int
+            .feature("Actual age", Person::age) // subject is now Int (actually 25)
             .toBeLessThan(30)
             .toBeGreaterThan(20)
 
         fails {
             // Reporting will include the description:
             // expected that subject: Person(name=John Smith, age=25)
-            //   Actual age: 25
-            //      is less than: 30
+            //   * Actual age:        25
+            //     - to be less than: 30
             expect(person)
                 .feature("Actual age", Person::age)
                 .toBeLessThan(20)    // fails
-                .toBeGreaterThan(30) // not evaluated
+                .toBeGreaterThan(30) // not reported because `toBeLessThan` already fails
+            //                          use `.feature(descr, kprop) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -401,17 +465,17 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature("Actual age", Person::age) { // subject is now Int
+            .feature("Actual age", Person::age) { // subject within this block is now of type Int (actually 25)
                 toBeLessThan(30)
                 toBeGreaterThan(20)
-            } // subject is now Person
+            } // subject here is back type Person
 
         fails {
             // Reporting will include the description:
             // expected that subject: Person(name=John Smith, age=25)
-            //   Actual age: 25
-            //      is less than: 20
-            //      is greater than: 30
+            //   * Actual age:           25
+            //     - to be less than:    30
+            //     - to be greater than: 30
 
             expect(person)
                 .feature("Actual age", Person::age) {
@@ -420,7 +484,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toBeLessThan(20)    // fails
-                    toBeGreaterThan(30) // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toBeGreaterThan(30) // still evaluated even though `toBeLessThan` already fails
+                    //                     use `.feature(descr, kprop).` if you want fail fast behaviour
                 }
         }
     }
@@ -430,7 +495,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature { f(it::age) } // it refers to `person`, resulting subject is Int
+            .feature { f(it::age) } // `it` refers to `person`, resulting subject is of type Int (actually 25)
             .toBeGreaterThan(20)
             .toBeLessThan(30)
 
@@ -438,7 +503,8 @@ class FeatureExtractorSamples {
             expect(person)
                 .feature { f(it::age) }
                 .toBeGreaterThan(30) // fails
-                .toBeLessThan(20)    // not evaluated
+                .toBeLessThan(20)    // not reported because `toBeGreaterThan` already fails
+            //                          use `.feature({ extractor }) { ... }` if you want that all assertions are evaluated
         }
     }
 
@@ -447,10 +513,10 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature({ f(it::age) }) { // it refers to `person`, resulting subject is Int
+            .feature({ f(it::age) }) { // `it` refers to `person`, subject within this block is of type Int (actually 25)
                 toBeGreaterThan(20)
                 toBeLessThan(30)
-            } // subject is back to Person
+            } // subject here is back to Person
 
         fails {
             expect(person)
@@ -460,7 +526,8 @@ class FeatureExtractorSamples {
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toBeGreaterThan(30) // fails
-                    toBeLessThan(20)    // still evaluated, use `.feature.` if you want fail fast behaviour
+                    toBeLessThan(20)    // still evaluated even though `toBeLessThan` already fails
+                    //                     use `.feature({ extractor }).` if you want fail fast behaviour
                 }
         }
     }
