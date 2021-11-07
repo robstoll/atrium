@@ -19,39 +19,35 @@ class OptionalExpectationSamples {
         }
     }
 
+
     @Test
     fun toBePresentFeature() {
-        val notEmpty: String? = "toBePresentFeature"
-        val opt = Optional.ofNullable(notEmpty)
 
+        val opt = Optional.of(1)
 
-        expect(opt).toBePresent()
+        expect(opt)
+            .toBePresent() //subject is now of type Int
 
         fails {
-            expect(opt).toBeEmpty()
+            expect(opt).toBeEmpty() //fails
         }
-    }
 
+    }
 
     @Test
     fun toBePresent() {
-        val x = 10
-        val y = 5
+        val opt = Optional.of(10)
 
-        val optX = Optional.ofNullable(x)
-        val optY = Optional.ofNullable(y)
+        expect(opt).toBePresent() {
+            toBeGreaterThan(0)
+            toBeLessThan(11)
+        }
 
-        expect(optX) {
-            val sum = optX.get() + optY.get()
-
-            feature("toBeLessThan") { sum }.toBeLessThan(20)
-            feature("toBeGreaterThan") { sum }.toBeGreaterThan(5)
-            feature("toBeGreaterThanOrEqualTo") { sum }.toBeGreaterThanOrEqualTo(15)
-
-        }.toBePresent()
-
-
+        fails {
+            expect(opt).toBePresent() {
+                toBeGreaterThan(15)
+                toBeLessThan(9)
+            }
+        }
     }
-
-
 }
