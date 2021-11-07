@@ -10,44 +10,60 @@ class OptionalExpectationSamples {
     @Test
     fun toBeEmpty() {
 
-        val opt: Optional<String> = Optional.empty()
-
-        expect(opt).toBeEmpty()
+        expect(Optional.empty<String>()).toBeEmpty()
 
         fails {
-            expect(opt).toBePresent() // fails
+            expect(Optional.of(1)).toBeEmpty()
         }
     }
 
 
     @Test
     fun toBePresentFeature() {
+        expect(Optional.of(1))
+            .toBePresent() // subject is now of type Int (actually 1)
+            .toBeGreaterThan(0)
 
-        val opt = Optional.of(1)
 
-        expect(opt)
-            .toBePresent() //subject is now of type Int
+        fails { // because sub-expectation fails
+            expect(Optional.of(10))
+                .toBePresent()       // subject is now of type Int (actually 10)
+                .toBeLessThan(5)     // fails
+                .toBeGreaterThan(12) // not evaluated/reported because `toBeLessThan` already fails
+            //                          use `.toBePresent { ... }` if you want that all expectations are evaluated
+        }
 
-        fails {
-            expect(opt).toBeEmpty() //fails
+        fails { // because it was empty
+            expect(Optional.empty<Int>())
+                .toBePresent()       // fails
+                .toBeGreaterThan(0)  // not evaluated/reported because `toBePresent` already fails
+            //                          use `.toBePresent { ... }` if you want that all expectations are evaluated
         }
 
     }
 
     @Test
     fun toBePresent() {
-        val opt = Optional.of(10)
 
-        expect(opt).toBePresent() {
+        expect(Optional.of(10)).toBePresent {  // subject within this block is of type Int (actually 10)
             toBeGreaterThan(0)
             toBeLessThan(11)
         }
 
-        fails {
-            expect(opt).toBePresent() {
-                toBeGreaterThan(15)
-                toBeLessThan(9)
+        fails { // because sub-expectation fails
+            expect(Optional.of(10)).toBePresent {
+                toBeGreaterThan(15) // fails
+                toBeLessThan(5)     // still evaluated even though `toBeGreaterThan` already fails
+                //                     use `.toBePresent.` if you want a fail fast behaviour
             }
+        }
+
+        fails { // because it was empty, but since we use a block...
+            expect(Optional.empty<Int>()).toBePresent {
+                toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
+                //                     use `.toBePresent.` if you want a fail fast behaviour
+            }
+
         }
     }
 }
