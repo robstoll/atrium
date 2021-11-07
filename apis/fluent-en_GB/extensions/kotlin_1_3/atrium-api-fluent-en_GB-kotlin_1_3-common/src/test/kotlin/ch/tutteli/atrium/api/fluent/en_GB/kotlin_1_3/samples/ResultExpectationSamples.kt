@@ -19,14 +19,14 @@ class ResultExpectationSamples {
             expect(Result.success(10))
                 .toBeASuccess()      // subject is now of type Int (actually 10)
                 .toBeLessThan(5)     // fails
-                .toBeGreaterThan(12) // not evaluated/reported because toBeLessThan already fails
+                .toBeGreaterThan(12) // not evaluated/reported because `toBeLessThan` already fails
             //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
         }
 
         fails { // because it was a Failure
             expect(Result.failure<Int>(ArithmeticException()))
                 .toBeASuccess()      // fails
-                .toBeGreaterThan(12) // not evaluated/reported because toBeLessThan already fails
+                .toBeGreaterThan(12) // not evaluated/reported because `toBeASuccess` already fails
             //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
         }
     }
@@ -42,7 +42,7 @@ class ResultExpectationSamples {
         fails { // because sub-expectation fails
             expect(Result.success(10)).toBeASuccess {
                 toBeGreaterThan(15) // fails
-                toBeLessThan(5)     // still evaluated even though toBeGreaterThan already fails
+                toBeLessThan(5)     // still evaluated even though `toBeGreaterThan` already fails
                 //                     use `.toBeASuccess.` if you want a fail fast behaviour
             }
         }
