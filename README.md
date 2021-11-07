@@ -89,7 +89,7 @@ For instance, the [README of v0.17.0](https://github.com/robstoll/atrium/tree/v0
 ## JVM
 Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium). 
 
-*gradle*: 
+*build.gradle.kts*: 
 ```
 repositories {
     mavenCentral()
@@ -150,6 +150,7 @@ That is all, you are all set. Jump to [Examples](#examples) which shows how to u
 
 ## JS
 
+*build.gradle.kts*:
 ```
 repositories {
     mavenCentral()
