@@ -36,7 +36,7 @@ fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
  *
  * @return The newly created [Expect] for the inner type [E].
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresent
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationSamples.toBePresentFeature
  *
  * @since 0.17.0
  */
@@ -49,7 +49,7 @@ fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBePresentFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationSamples.toBePresent
  *
  * @since 0.17.0
  */
