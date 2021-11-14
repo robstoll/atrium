@@ -19,10 +19,6 @@ import ch.tutteli.kbox.glue
  *
  * Delegates to [values].
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -37,12 +33,10 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
  * needs to contain only the [expected] value as well as the [otherExpected] values
  * in the specified order.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -60,10 +54,6 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `entries(assertionCreatorOrNull)`.
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -84,15 +74,13 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  * holds all assertions [assertionCreatorOrNull] creates or
  * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -114,11 +102,9 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  * are passed (this can be changed via [IterableLikeToIterableTransformer]).
  * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an

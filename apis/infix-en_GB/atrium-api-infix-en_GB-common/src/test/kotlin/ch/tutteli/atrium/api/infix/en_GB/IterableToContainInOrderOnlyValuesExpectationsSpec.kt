@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
+import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
@@ -36,13 +35,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only value a
                 else expect toContain o inGiven order and only the values(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend {
-                valuesInOrderOnly(listOf(a, *aX), report)
-            }
+            } else expect toContain o inGiven order and only the values(a, *aX, report = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::toContainInOrderOnlyNullableValues
@@ -53,13 +49,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only value a
                 else expect toContain o inGiven order and only the values(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend {
-                valuesInOrderOnly(listOf(a, *aX), report)
-            }
+            } else expect toContain o inGiven order and only the values(a, *aX, report = report)
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactly
@@ -72,13 +65,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly a
                 else expect toContainExactly values(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend {
-                valuesInOrderOnly(listOf(a, *aX), report)
-            }
+            } else expect toContainExactly values(a, *aX, report = report)
 
         private val toContainNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Double?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactly
@@ -92,13 +82,49 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly a
                 else expect toContainExactly values(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend {
-                valuesInOrderOnly(listOf(a, *aX), report)
-            }
+            } else expect toContainExactly values(a, *aX, report = report)
+    }
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list toContain o inGiven order and only value 1
+        nList = nList toContain o inGiven order and only value 1
+        subList = subList toContain o inGiven order and only value 1
+        star = star toContain o inGiven order and only value 1
+
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        list = list toContain o inGiven order and only the values<Number>(1, 1.2)
+        nList = nList toContain o inGiven order and only the values<Number?>(1, 1.2)
+        subList = subList toContain o inGiven order and only the values<Number>(1, 2.2)
+        star = star toContain o inGiven order and only the values<Any?>(1, 1.2, "asdf")
+
+        list = list toContain o inGiven order and only the values(1, 1.2, report = {})
+        nList = nList toContain o inGiven order and only the values(1, 1.2, report = {})
+        subList = subList toContain o inGiven order and only the values(1, 2.2, report = {})
+        star = star toContain o inGiven order and only the values(1, 1.2, "asdf", report = {})
+
+        list = list toContainExactly 1
+        nList = nList toContainExactly values(1, 1.2)
+        subList = subList toContainExactly 1
+        star = star toContainExactly 1
+
+        //TODO we should actually setup proper tests for those cases as we only see it compiles (has no ambiguity)
+        // but don't know if it has chosen the correct overload in the end
+        // (because we sometimes have Any as param and passing a ParamObject to such a function is not a compile error)
+        list = list toContainExactly values(1, 1.2, report = { showOnlyFailingIfMoreElementsThan(1) })
+        nList = nList toContainExactly values(1, 1.2, report = { showOnlyFailing() })
+        subList = subList toContainExactly values(1, 2.2, report = { showAlwaysSummary() })
+        // TODO would wish this does not work, maybe @OnlyInputTypes would help?
+        subList = subList toContainExactly values("asdf", report = {})
+        star = star toContainExactly values(1, 1.2, "asdf", report = {})
     }
 }
 

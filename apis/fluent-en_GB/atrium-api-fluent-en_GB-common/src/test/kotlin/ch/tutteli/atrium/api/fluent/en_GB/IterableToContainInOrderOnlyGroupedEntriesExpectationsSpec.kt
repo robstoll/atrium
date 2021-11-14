@@ -11,7 +11,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         "[Atrium][Builder] "
     ) {
     companion object : IterableToContainSpecBase() {
-        val functionDescription =  "$toContain.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
+        val functionDescription = "$toContain.$inOrder.$only.$grouped.$within.$withinInAnyOrder"
 
         private fun toContainInOrderOnlyGroupedInAnyOrderEntries(
             expect: Expect<Iterable<Double?>>,
@@ -35,16 +35,26 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()
         var subList: Expect<ArrayList<Number>> = notImplemented()
-        //var star: Expect<Collection<*>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry{}, Entries({}, {}))
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-        // TODO 1.0.0: not supported, but OK for this rare case, maybe supported with Kotlin 1.4
-        //star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number> {}, Entries<Number>({}, {}))
+
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number> {}, Entries<Number>({}, {}))
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
-        // TODO 1.0.0: not supported, but OK for this rare case, maybe supported with Kotlin 1.4
-        //star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries(null, {}))
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number>(null), Entries<Number>(null, {}))
+
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null), report = {})
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number>(null), Entries<Number>(null, {}))
     }
 }

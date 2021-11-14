@@ -2,14 +2,17 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInOrderOnlyReportingOptions
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.kbox.identity
+import kotlin.jvm.JvmName
 
 /**
  * Starts a sophisticated `toContain` assertion building process based on this [Expect].
@@ -143,11 +146,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(expected: E): Expect<T
  * Expects that the subject of `this` expectation (an [Iterable]) contains only
  * the expected [values] in the defined order.
  *
- * It is a shortcut for `toContain o inGiven order and only the Values(...)`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ * It is a shortcut for `toContain o inGiven order and only the values(...)`
  *
  * @param values The values which are expected to be contained within the [Iterable]
  *   -- use the function `values(t, ...)` to create a [Values].
@@ -162,15 +161,31 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(values: Values<E>): Ex
     it toContain o inGiven order and only the values
 
 /**
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only
+ * the expected [values] in the defined order.
+ *
+ * It is a shortcut for `toContain o inGiven order and only the values(..., report = {... })`
+ *
+ * @param values The values which are expected to be contained within the [IterableLike] plus a lambda configuring
+ *   the [InOrderOnlyReportingOptions] -- use the function `values(t, ..., report = { ... })`
+ *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Values].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyValues
+ *
+ * @since 0.18.0
+ */
+@JvmName("toContainExactlyValuesWithReportingOption")
+infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(values: WithInOrderOnlyReportingOptions<Values<E>>): Expect<T> =
+    it toContain o inGiven order and only the values
+
+/**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
  * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
  * is defined as `null`.
  *
  * It is a shortcut for `toContain o inGiven order and only entry assertionCreatorOrNull`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -194,11 +209,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
  * [entries].[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
  *
- * It is a shortcut for `toContain o inGiven order and only the Entries(...)`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ * It is a shortcut for `toContain o inGiven order and only the entries(...)`
  *
  * @param entries The entries which are expected to be contained within the [Iterable]
  *   -- use the function `entries(t, ...)` to create an [Entries].
@@ -213,10 +224,35 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(entries: Entrie
     it toContain o inGiven order and only the entries
 
 /**
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
+ * the assertions created by [entries].t.[assertionCreatorOrNull][Entries.assertionCreatorOrNull] or
+ * `null` in case [entries].t.[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null`
+ * and likewise an additional entry for each
+ * [entries].t.[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] (if given)
+ * whereas the entries have to appear in the defined order.
+ *
+ * It is a shortcut for `toContain o inGiven order and only the entries(..., report = { ... })`
+ *
+ * @param entries The entries which are expected to be contained within the [Iterable] plus a lambda configuring
+ *   the [InOrderOnlyReportingOptions] -- use the function `entries(t, ..., report = { ... })`
+ *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Entries].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyAssertions
+ *
+ * @since 0.18.0
+ */
+@JvmName("toContainExactlyEntriesWithReportingOption")
+infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
+    entries: WithInOrderOnlyReportingOptions<Entries<E>>
+): Expect<T> = it toContain o inGiven order and only the entries
+
+/**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only elements of [expectedIterableLike]
  * in same order
  *
- * It is a shortcut for 'toContain.inOrder.only.elementsOf(anotherList)'
+ * It is a shortcut for 'toContain o inGiven order and only elementsOf expectedIterableLike'
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
@@ -231,7 +267,34 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(entries: Entrie
  */
 inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainExactlyElementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> = it toContain o inGiven order and only elementsOf (expectedIterableLike)
+): Expect<T> = it toContain o inGiven order and only elementsOf expectedIterableLike
+
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
+ * the assertions created by [entries].t.[assertionCreatorOrNull][Entries.assertionCreatorOrNull] or
+ * `null` in case [entries].t.[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null`
+ * and likewise an additional entry for each
+ * [entries].t.[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] (if given)
+ * whereas the entries have to appear in the defined order.
+ *
+ * It is a shortcut for `toContain o inGiven order and only the elementsOf(..., report = { ... })`
+ *
+ * @param elementsOf The [IterableLike] whose elements are expected to be contained within
+ *   this [IterableLike] plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function
+ *   `elementsOf(iterableLike, report = { ... })`
+ *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [IterableLike].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.toContainExactlyAssertions
+ *
+ * @since 0.18.0
+ */
+@JvmName("toContainExactlyElementsOfWithReportingOption")
+inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainExactly(
+    elementsOf: WithInOrderOnlyReportingOptions<IterableLike>
+): Expect<T> = it toContain o inGiven order and only the elementsOf
 
 /** Expects that the subject of `this` expectation (an [Iterable]) contains all elements of [expectedIterableLike].
  *

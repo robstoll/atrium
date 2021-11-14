@@ -108,11 +108,12 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContain(
  * Expects that the subject of `this` expectation (an [Iterable]) contains only
  * the [expected] value and the [otherExpected] values (if given) in the defined order.
  *
- * It is a shortcut for `toContain.inOrder.only.values(expected, *otherExpected)`
+ * It is a shortcut for `toContain.inOrder.only.values(expected, *otherExpected, report = { ... })`
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
+ * @param expected The first expected value.
+ * @param otherExpected The other expected values in the given order.
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -124,8 +125,7 @@ fun <E, T : Iterable<E>> Expect<T>.toContainExactly(
     expected: E,
     vararg otherExpected: E,
     report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> =
-    toContain.inOrder.only.values(expected, *otherExpected, report = report)
+): Expect<T> = toContain.inOrder.only.values(expected, *otherExpected, report = report)
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) contains only an entry holding
@@ -133,10 +133,6 @@ fun <E, T : Iterable<E>> Expect<T>.toContainExactly(
  * is defined as `null`.
  *
  * It is a shortcut for `toContain.inOrder.only.entry(assertionCreatorOrNull)`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -159,15 +155,13 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(assertionCreatorOrNul
  *
  * It is a shortcut for `toContain.inOrder.only.entries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -192,6 +186,8 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [Iterable].
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given

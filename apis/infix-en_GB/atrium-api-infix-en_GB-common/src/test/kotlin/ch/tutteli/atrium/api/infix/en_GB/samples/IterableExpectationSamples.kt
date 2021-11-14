@@ -90,6 +90,19 @@ class IterableExpectationSamples {
         fails {
             expect(listOf("A", "B")) toContainExactly values("B", "A")
         }
+
+        // cannot run due to a Kotlin bug in JS-target
+//        fails {
+//            expect(listOf("A", "B")) toContainExactly values(
+//                "C",
+//                "B",
+//                // optional
+//                report = { // allows configuring reporting, e.g.
+//                    showOnlyFailing() // would not show the successful `B`
+//                    showOnlyFailingIfMoreElementsThan(10)
+//                }
+//            )
+//        }
     }
 
     @Test
@@ -115,7 +128,7 @@ class IterableExpectationSamples {
         }
 
         fails {
-            // cast only necessary if Kotlin verison < 1.4 due to a bug in Kotlin
+            // cast only necessary if Kotlin version < 1.4 due to a bug in Kotlin
             expect(listOf(null, "B")) toContainExactly (null as (Expect<String>.() -> Unit)?)
            // Kotlin > 1.4 would be
            // expect(listOf(null, "B")) toContainExactly null
@@ -139,8 +152,13 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(3, 5)) toContainExactly entries(
-                { toEqual(1) },      // fails
-                { toBeLessThan(11) } // this assertion is not checked
+                { toEqual(1) },       // fails
+                { toBeLessThan(11) }, // succeeds,
+                // optional
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful `toBeLessThan(11)`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
             )
         }
     }
@@ -150,11 +168,22 @@ class IterableExpectationSamples {
         expect(listOf(1, 2, 2, 4)) toContainExactlyElementsOf listOf(1, 2, 2, 4)
 
         fails {
-            expect(listOf(2, 3, 4)).toContainExactlyElementsOf(listOf(2, 3, 4, 1))
+            expect(listOf(2, 3, 4)) toContainExactlyElementsOf listOf(2, 3, 4, 1)
         }
 
         fails {
-            expect(listOf(1, 2, 2, 4)).toContainExactlyElementsOf(listOf(1, 2, 4))
+            expect(listOf(1, 2, 2, 4)) toContainExactlyElementsOf listOf(1, 2, 4)
+        }
+
+        fails {
+            // alternative form where you can specify a lambda configuring the InOrderOnlyReportingOptions.
+            expect(listOf(1, 2, 2, 4)) toContainExactly elementsOf(
+                listOf(1, 2, 4),
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful first and second `1, 2`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
+            )
         }
     }
 

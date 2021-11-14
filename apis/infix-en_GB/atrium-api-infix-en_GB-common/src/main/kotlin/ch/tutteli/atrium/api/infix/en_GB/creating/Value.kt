@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION" /* TODO remove suppress with 1.0.0 */)
-
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.logic.utils.Group

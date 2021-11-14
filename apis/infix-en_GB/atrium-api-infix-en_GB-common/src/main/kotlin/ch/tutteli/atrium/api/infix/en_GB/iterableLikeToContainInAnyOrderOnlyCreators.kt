@@ -20,10 +20,6 @@ import ch.tutteli.atrium.logic.utils.toVarArg
  *
  * Delegates to `the values(expected)`.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param expected The value which is expected to be contained within the [IterableLike].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -35,9 +31,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
  * needs to contain only the expected [values] where it does not matter in which order.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param values The values which are expected to be contained within the [IterableLike]
  *   -- use the function `values(t, ...)` to create a [Values].
@@ -53,10 +46,6 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `the entries(assertionCreatorOrNull)`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -82,10 +71,6 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  * otherwise `isGreaterThan(0)` matches `1` before `toEqual(1)` would match it. As a consequence `toEqual(1)` could
  * only match the entry which is left -- in this case `2` -- and of course this would fail.
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param entries The entries which are expected to be contained within the [IterableLike]
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
@@ -105,10 +90,6 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed (this can be changed via [IterableLikeToIterableTransformer]).
  * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike]
  *
