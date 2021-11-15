@@ -38,11 +38,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect.toContain.inOrder.only.value(a)
                 else expect.toContain.inOrder.only.values(a, *aX)
-            } else expect.toContain.inOrder.only._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            } else expect.toContain.inOrder.only.values(a, *aX, report = report)
 
         private fun toContainInOrderOnlyNullableValues(
             expect: Expect<Iterable<Double?>>,
@@ -50,11 +49,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             aX: Array<out Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect.toContain.inOrder.only.value(a)
                 else expect.toContain.inOrder.only.values(a, *aX)
-            } else expect.toContain.inOrder.only._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            } else expect.toContain.inOrder.only.values(a, *aX, report = report)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -75,24 +73,23 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         subList = subList.toContain.inOrder.only.values(1, 2.2)
         star = star.toContain.inOrder.only.values(1, 1.2, "asdf")
 
-        //TODO use the following with 0.18.0
-//        list = list.toContain.inOrder.only.values(1, 1.2, report = {})
-//        nList = nList.toContain.inOrder.only.values(1, 1.2, report = {})
-//        subList = subList.toContain.inOrder.only.values(1, 2.2, report = {})
-//        star = star.toContain.inOrder.only.values(1, 1.2, "asdf", report = {})
+        list = list.toContain.inOrder.only.values(1, 1.2, report = {})
+        nList = nList.toContain.inOrder.only.values(1, 1.2, report = {})
+        subList = subList.toContain.inOrder.only.values(1, 2.2, report = {})
+        star = star.toContain.inOrder.only.values(1, 1.2, "asdf", report = {})
 
 
         list = list.toContainExactly(1)
-        nList = nList.toContainExactly(1)
+        nList = nList.toContainExactly(1, 1.2)
         subList = subList.toContainExactly(1)
-        star = star.toContainExactly(1)
+        star = star.toContainExactly(1, "a", null)
 
-        list = list.toContainExactly(1, 1.2, report = { showOnlyFailingIfMoreElementsThan(1) })
+        list = list.toContainExactly(1, report = { showOnlyFailingIfMoreElementsThan(1) })
         nList = nList.toContainExactly(1, 1.2, report = { showOnlyFailing() })
         subList = subList.toContainExactly(1, 2.2, report = { showAlwaysSummary() })
         // TODO would wish this does not work, maybe @OnlyInputTypes would help?
         subList = subList.toContainExactly("asdf", report = {})
-        star = star.toContainExactly(1, 1.2, "asdf", report = {})
+        star = star.toContainExactly(1, "asdf", null, report = {})
     }
 }
 

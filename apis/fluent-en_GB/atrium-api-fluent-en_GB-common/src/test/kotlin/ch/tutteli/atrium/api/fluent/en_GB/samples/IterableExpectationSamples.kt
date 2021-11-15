@@ -86,6 +86,18 @@ class IterableExpectationSamples {
         fails {
             expect(listOf("A", "B")).toContainExactly("B", "A")
         }
+
+        fails {
+            expect(listOf("A", "B")).toContainExactly(
+                "C",
+                "B",
+                // optional
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful `B`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
+            )
+        }
     }
 
     @Test
@@ -125,8 +137,13 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(3, 5)).toContainExactly(
-                { toEqual(1) }, // fails
-                { toBeLessThan(11) } // this assertion is not checked
+                { toEqual(1) },       // fails
+                { toBeLessThan(11) }, // succeeds
+                // optional
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful `toBeLessThan(11)`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
             )
         }
     }
@@ -141,6 +158,17 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(1, 2, 2, 4)).toContainExactlyElementsOf(listOf(1, 2, 4))
+        }
+
+        fails {
+            expect(listOf(1, 2, 2, 4)).toContainExactlyElementsOf(
+                listOf(1, 2, 4),
+                // optional
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful first and second `1, 2`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
+            )
         }
     }
 

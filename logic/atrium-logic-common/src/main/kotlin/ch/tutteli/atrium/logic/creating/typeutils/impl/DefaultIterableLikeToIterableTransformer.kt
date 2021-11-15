@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.logic.creating.typeutils.impl
 
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.kbox.appendToStringBuilder

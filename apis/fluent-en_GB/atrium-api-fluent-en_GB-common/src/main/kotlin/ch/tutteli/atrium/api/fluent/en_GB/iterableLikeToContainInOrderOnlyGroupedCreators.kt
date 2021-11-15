@@ -22,6 +22,8 @@ import kotlin.jvm.JvmName
  *   within the [IterableLike].
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [IterableLike] whereas the groups have to appear in the given order.
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -50,6 +52,8 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
  *   within the [IterableLike].
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [IterableLike] whereas the groups have to appear in the given order.
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

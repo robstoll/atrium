@@ -41,11 +41,10 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
                 else expect.toContain.inOrder.only.entries(a, *aX)
-            } else expect.toContain.inOrder.only._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect.toContain.inOrder.only.entries(a, *aX, report = report)
 
         private fun toContainInOrderOnlyNullable(
             expect: Expect<Iterable<Double?>>,
@@ -53,11 +52,10 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect.toContain.inOrder.only.entry(a)
                 else expect.toContain.inOrder.only.entries(a, *aX)
-            } else expect.toContain.inOrder.only._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect.toContain.inOrder.only.entries(a, *aX, report = report)
 
         private fun toContainExactly(
             expect: Expect<Iterable<Double>>,
@@ -97,14 +95,13 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
         nList = nList.toContain.inOrder.only.entries(null, {}, null)
         star = star.toContain.inOrder.only.entries(null, {}, null)
 
-        //TODO use the following with 0.18.0
-//        list = list.toContain.inOrder.only.entries({}, {}, report = { })
-//        nList = nList.toContain.inOrder.only.entries({}, {}, report = { })
-//        subList = subList.toContain.inOrder.only.entries({}, {}, report = { })
-//        star = star.toContain.inOrder.only.entries({}, {}, report = { })
-//
-//        nList = nList.toContain.inOrder.only.entries(null, {}, null, report = { })
-//        star = star.toContain.inOrder.only.entries(null, {}, null, report = { })
+        list = list.toContain.inOrder.only.entries({}, {}, report = { })
+        nList = nList.toContain.inOrder.only.entries({}, {}, report = { })
+        subList = subList.toContain.inOrder.only.entries({}, {}, report = { })
+        star = star.toContain.inOrder.only.entries({}, {}, report = { })
+
+        nList = nList.toContain.inOrder.only.entries(null, {}, null, report = { })
+        star = star.toContain.inOrder.only.entries(null, {}, null, report = { })
 
         list = list.toContainExactly {}
         nList = nList.toContainExactly {}

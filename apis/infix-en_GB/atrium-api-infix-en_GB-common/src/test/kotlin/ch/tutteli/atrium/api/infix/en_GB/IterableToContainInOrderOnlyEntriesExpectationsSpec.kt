@@ -36,11 +36,10 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only entry a
                 else expect toContain o inGiven order and only the entries(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect toContain o inGiven order and only the entries(a, *aX, report = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyEntries" to Companion::toContainInOrderOnlyNullableEntriesPair
@@ -51,11 +50,10 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only entry a
                 else expect toContain o inGiven order and only the entries(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect toContain o inGiven order and only the entries(a, *aX, report = report)
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactly
@@ -68,11 +66,10 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out Expect<Double>.() -> Unit>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly { a() }
                 else expect toContainExactly entries(a, *aX)
-            } else (expect toContain o inGiven order and only)._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect toContainExactly entries(a, *aX, report = report)
 
         private val toContainNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactly
@@ -86,7 +83,6 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             aX: Array<out (Expect<Double>.() -> Unit)?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) {
                     //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
@@ -95,6 +91,6 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
                 } else {
                     expect toContainExactly entries(a, *aX)
                 }
-            } else (expect toContain o inGiven order and only)._logicAppend { entriesInOrderOnly(listOf(a, *aX), report) }
+            } else expect toContainExactly entries(a, *aX, report = report)
     }
 }

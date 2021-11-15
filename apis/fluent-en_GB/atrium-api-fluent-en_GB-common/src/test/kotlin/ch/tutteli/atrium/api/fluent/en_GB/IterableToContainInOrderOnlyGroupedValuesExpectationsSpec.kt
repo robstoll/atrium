@@ -61,7 +61,15 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
         star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
 
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
+
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null))
         star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2))
+
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null), report = {})
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2), report = {})
     }
 }

@@ -139,10 +139,6 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsExactly(expected: E): Expect<T>
  *
  * It is a shortcut for `contains o inGiven order and only the Values(...)`
  *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
- *
  * @param values The values which are expected to be contained within the [Iterable]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
@@ -161,10 +157,6 @@ infix fun <E, T : Iterable<E>> Expect<T>.containsExactly(values: Values<E>): Exp
  * is defined as `null`.
  *
  * It is a shortcut for `contains o inGiven order and only entry assertionCreatorOrNull`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -189,10 +181,6 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.containsExactly(
  * whereas the entries have to appear in the defined order.
  *
  * It is a shortcut for `contains o inGiven order and only the Entries(...)`
- *
- * Note that we might change the signature of this function with the next version
- * which will cause a binary backward compatibility break (see
- * [#292](https://github.com/robstoll/atrium/issues/292) for more information)
  *
  * @param entries The entries which are expected to be contained within the [Iterable]
  *   -- use the function `entries(t, ...)` to create an [Entries].

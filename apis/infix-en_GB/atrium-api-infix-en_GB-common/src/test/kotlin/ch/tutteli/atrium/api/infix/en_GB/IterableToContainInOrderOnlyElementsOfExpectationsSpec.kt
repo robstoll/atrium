@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
+import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
@@ -50,9 +50,8 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             aX: Array<out Double>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf listOf(a, *aX)
-            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), report = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderElementsOf" to Companion::toContainInOrderOnlyNullableValues
@@ -63,9 +62,8 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             aX: Array<out Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf sequenceOf(a, *aX)
-            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), report = report)
 
         private val toContainExactlyElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactlyElementsOf
@@ -79,9 +77,8 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             aX: Array<out Double>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions)  expect toContainExactlyElementsOf arrayOf(a, *aX)
-            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            else expect toContainExactly elementsOf(arrayOf(a, *aX), report)
 
         private val toContainExactlyElementsOfNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Iterable<Double?>, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactlyElementsOf
@@ -95,10 +92,32 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             aX: Array<out Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
-            //TODO 0.18.0 remove if once implemented
             if (report === emptyInOrderOnlyReportOptions) expect toContainExactlyElementsOf sequenceOf(a, *aX).asIterable()
-            else (expect toContain o inGiven order and only)._logicAppend { valuesInOrderOnly(listOf(a, *aX), report) }
+            else expect toContainExactly elementsOf(arrayOf(a, *aX), report)
+    }
 
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list toContain o inGiven order and only elementsOf(listOf<Int>())
+        nList = nList toContain o inGiven order and only elementsOf(listOf<Int>())
+        subList = subList toContain o inGiven order and only elementsOf(listOf<Int>())
+        star = star toContain o inGiven order and only elementsOf(listOf<Int>())
+
+        list = list toContain o inGiven order and only the elementsOf(listOf<Int>(), report = { showAlwaysSummary() })
+        nList = nList toContain o inGiven order and only the elementsOf(listOf<Int>(), report = { showOnlyFailing()})
+        subList = subList toContain o inGiven order and only the elementsOf(listOf<Int>(), report = {})
+        star = star toContain o inGiven order and only the elementsOf(listOf<Int>(), report = {})
+
+        list = list.toContainExactlyElementsOf(listOf(1))
+        nList = nList.toContainExactlyElementsOf(listOf(1))
+        subList = subList.toContainExactlyElementsOf(listOf(1))
+        star = star.toContainExactlyElementsOf(listOf(1))
     }
 }
 
