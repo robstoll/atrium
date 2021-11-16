@@ -12,18 +12,18 @@ object CalculatorSpec : Spek({
 
         it("1 + 2 = 3") {
             val sum = 3
-            expect(calculator.add(1, 2)).toBe(sum)
+            expect(calculator.add(1, 2)).toEqual(sum)
         }
 
         it("division sanity") {
             expect {
                 // the below statement throws exception
                 calculator.divide(12, 0)
-            }.toThrow<IllegalArgumentException> { messageContains("division by zero") }
+            }.toThrow<IllegalArgumentException> { messageToContain("division by zero") }
         }
 
         it("defaults to fancy"){
-            expect(calculator.isFancy).toBe(true)
+            expect(calculator.isFancy).toEqual(true)
         }
     }
 })

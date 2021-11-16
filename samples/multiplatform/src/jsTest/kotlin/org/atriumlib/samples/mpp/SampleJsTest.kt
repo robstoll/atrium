@@ -6,8 +6,8 @@ import kotlin.test.Test
 
 class SampleJsTest {
     @Test
-    fun toBe() {
-        expect(1).toBe(1)
+    fun toEqual() {
+        expect(1).toEqual(1)
     }
 
     @Test
@@ -23,13 +23,13 @@ class SampleJsTest {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            messageContains("hello")
+            messageToContain("hello")
         }
     }
 
     @Test
     fun useOwnFunction() {
-        // isEven is defined in commonTest
-        expect(2).isEven()
+        // toBeEven is defined in commonTest
+        expect(2).toBeEven()
     }
 }
