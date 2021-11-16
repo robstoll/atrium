@@ -36,6 +36,9 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  * in [pairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
+ * @param pairs The key-value [Pairs] expected to be contained within this [MapLike]
+ *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
+ *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
@@ -52,6 +55,11 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `the keyValues(keyValue)`.
+ *
+ * @param keyValue The [KeyWithValueCreator] whose key is expected to be contained within this [MapLike] and
+ *   where the corresponding value holds all assertions the  [KeyWithValueCreator.valueAssertionCreatorOrNull] creates
+ *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
+ *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -74,6 +82,9 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
  * , then both match, even though they match the same entry.
  *
+ * @param keyValues The [KeyWithValueCreator]s -- use the function
+ *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
+ *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
@@ -89,18 +100,6 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSe
 ): Expect<T> = _logicAppend {
     keyWithValueAssertionsInAnyOrder(kClass, keyValues.map { it.toPair() })
 }
-
-/**
- * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
- * -- allows expressing `Pair<K, V>, vararg Pair<K, V>`.
- */
-// TODO 1.0.0: consider to rename to entries once updated to Kotlin 1.4 maybe the type inference is better and there
-// is no longer a clash with Iterable entries
-fun <K, V : Any> keyValues(
-    keyValue: KeyWithValueCreator<K, V>,
-    vararg otherKeyValues: KeyWithValueCreator<K, V>
-): KeyValues<K, V> = KeyValues(keyValue, otherKeyValues)
-
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
