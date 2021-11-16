@@ -91,7 +91,7 @@ class IterableExpectationSamples {
             expect(listOf("A", "B")) toContainExactly values("B", "A")
         }
 
-        // cannot run due to a Kotlin bug in JS-target
+        // cannot run due to a Kotlin bug in JS-target: see https://youtrack.jetbrains.com/issue/KT-49728
 //        fails {
 //            expect(listOf("A", "B")) toContainExactly values(
 //                "C",
