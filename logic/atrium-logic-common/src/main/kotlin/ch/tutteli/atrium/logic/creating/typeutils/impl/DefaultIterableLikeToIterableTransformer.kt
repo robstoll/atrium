@@ -39,6 +39,8 @@ class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransform
             else -> throw IllegalArgumentException(
                 StringBuilder("IterableLikeToIterableTransformer accepts arguments of types: ").also { sb ->
                     supportedTypes().appendToStringBuilder(sb, ", ", " and ") { sb.append(it) }
+                }.also { sb ->
+                    sb.append("\ngiven: ${iterableLike::class.fullName(iterableLike)}")
                 }.toString()
             )
         }
@@ -52,9 +54,9 @@ class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransform
     }
 
     override fun supportedTypes(): List<String> = listOf(
-        "Iterable",
-        "Sequence",
-        "Array",
+        "Iterable<*>",
+        "Sequence<*>",
+        "Array<*>",
         "CharArray",
         "ByteArray",
         "ShortArray",
@@ -65,3 +67,6 @@ class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransform
         "BooleanArray"
     )
 }
+
+
+

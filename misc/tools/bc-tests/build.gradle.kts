@@ -160,6 +160,18 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
             compileTasks.forEach {
                 it.configure {
                     dependsOn(unzip)
+
+                    doFirst {
+                        if (this is AbstractCompile) {
+                            println("here ======================: ${it.name}")
+                            val standardOutput = java.io.ByteArrayOutputStream()
+
+                            // we don't want to see all the deprecation errors during compilation
+                            this.logging.captureStandardOutput(LogLevel.DEBUG)
+                            this.logging.captureStandardError(LogLevel.DEBUG)
+                            this.standardOutputCapture.stop()
+                        }
+                    }
                 }
             }
         }
@@ -168,7 +180,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
         the<KotlinMultiplatformExtension>().apply {
             jvm()
-            // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
+            // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //            js().nodejs {}
             sourceSets {
                 val commonMain by getting {

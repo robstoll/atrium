@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.logic.creating.typeutils.impl
 
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.typeutils.MapLikeToIterablePairTransformer
@@ -30,6 +31,7 @@ class DefaultMapLikeToIterablePairTransformer(private val container: AssertionCo
                     StringBuilder("MapLikeToIterablePairTransformer accepts arguments of types: ")
                         .also { sb -> supportedTypes().appendToStringBuilder(sb, ", ", " and ") { sb.append(it) } }
                         .append(" as well as IterableLike with an element type `Pair<*, *>` and `Map.Entry<*, *>`  -- see `cause` why the IterableLike transformation failed.")
+                        .append("\ngiven: ${mapLike::class.fullName(mapLike)}")
                         .toString()
                 throw IllegalArgumentException(message, cause)
             }

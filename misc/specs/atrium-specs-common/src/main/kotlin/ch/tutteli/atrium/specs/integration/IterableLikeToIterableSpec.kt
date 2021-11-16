@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.specs.emptyIterableLikeTypes
-import ch.tutteli.atrium.specs.iterableLikeTypesWithElement1
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -35,7 +34,8 @@ abstract class IterableLikeToIterableSpec<T>(
                 }.toThrow<IllegalArgumentException> {
                     messageToContain(
                         "IterableLikeToIterableTransformer accepts arguments of types:",
-                        "Iterable, Sequence, Array, CharArray, ByteArray, ShortArray, IntArray, LongArray, FloatArray, DoubleArray and BooleanArray"
+                        "Iterable<*>, Sequence<*>, Array<*>, CharArray, ByteArray, ShortArray, IntArray, LongArray, FloatArray, DoubleArray and BooleanArray",
+                        "given: kotlin.String"
                     )
                 }
             }
