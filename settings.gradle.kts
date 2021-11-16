@@ -42,7 +42,13 @@ buildscript {
                             "IterableAnyAssertionsSpec"
                         ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
                         // changed reporting for Iterable.all empty collection cases with 0.17.0
-                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError",
+                        // improved error message with 0.18.0
+                        or(
+                            "CharSequenceContainsAtLeastAssertionsSpec",
+                            "IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec",
+                            "IterableContainsInAnyOrderOnlyElementsOfAssertionSpec"
+                        ) + ".*expecting an IterableLike/passing a String instead of an IterableLike"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -112,7 +118,14 @@ buildscript {
                             "IterableAnyAssertionsSpec"
                         ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
                         // changed reporting for Iterable.all empty collection cases with 0.17.0
-                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError"
+                        "IterableAllAssertionsSpec.*" + "empty collection.*" + "throws AssertionError",
+                        // improved error message with 0.18.0
+                        or(
+                            "CharSequenceContainsAtLeastAssertionsSpec",
+                            "IterableContainsInAnyOrderAtLeast1ElementsOfAssertionsSpec",
+                            "IterableContainsInAnyOrderOnlyElementsOfAssertionsSpec",
+                            "IterableContainsInOrderOnlyElementsOfAssertionsSpec"
+                        ) + ".*expecting an IterableLike/passing a String instead of an IterableLike"
                     ) + ".*)",
                 // we don't use asci bullet points in reporting since 0.17.0
                 // but have own tests to assure that changing bullet points work
@@ -183,7 +196,15 @@ buildscript {
                     "IterableAnyExpectationsSpec"
                 ) + ".*`.*(any|contains).*`.*(throws.*AssertionError|failing cases)",
                 // changed reporting for Iterable.all empty collection cases with 0.17.0
-                "IterableAllExpectationsSpec.*" + "empty collection.*" + "throws AssertionError"
+                "IterableAllExpectationsSpec.*" + "empty collection.*" + "throws AssertionError",
+                // improved error message with 0.18.0
+                or(
+                    "CharSequenceContainsAtLeastExpectationsSpec",
+                    "IterableContainsInAnyOrderAtLeast1ElementsOfExpectationsSpec",
+                    "IterableContainsInAnyOrderOnlyElementsOfExpectationsSpec",
+                    "IterableContainsInOrderOnlyElementsOfExpectationsSpec"
+                ) + ".*expecting an IterableLike/passing a String instead of an IterableLike"
+
             ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc
@@ -197,7 +218,16 @@ buildscript {
             "0.17.0",
             allApisAllTargets,
             // forgive for bc and bbc
-            ("^$").let { commonPatterns ->
+            ("(ch/tutteli/atrium/api/(fluent|infix)/en_GB/" + or(
+                // improved error message with 0.18.0
+                or(
+
+                    "CharSequenceToContainAtLeastExpectationsSpec",
+                    "IterableToContainInAnyOrderAtLeast1ElementsOfExpectationsSpec",
+                    "IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec",
+                    "IterableToContainInOrderOnlyElementsOfExpectationsSpec"
+                ) + ".*expecting an IterableLike/passing a String instead of an IterableLike"
+            ) + ".*)").let { commonPatterns ->
                 Pair(
                     // bc
                     commonPatterns,
