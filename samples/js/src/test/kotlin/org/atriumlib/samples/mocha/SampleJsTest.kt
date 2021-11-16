@@ -9,8 +9,8 @@ import kotlin.test.Test
 
 class SampleJsTest {
     @Test
-    fun toBe() {
-        expect(1).toBe(1)
+    fun toEqual() {
+        expect(1).toEqual(1)
     }
 
     @Test
@@ -26,15 +26,15 @@ class SampleJsTest {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            messageContains("hello")
+            messageToContain("hello")
         }
     }
 
     @Test
     fun useOwnFunction() {
         // isEven is defined in the common module
-        expect(2).isEven()
+        expect(2).toBeEven()
     }
 }
 
-fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
+fun Expect<Int>.toBeEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }

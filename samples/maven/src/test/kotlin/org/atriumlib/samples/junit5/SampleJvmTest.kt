@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test
 
 class SampleJvmTest {
     @Test
-    fun `to be`() {
-        expect(1).toBe(1)
+    fun `to equal`() {
+        expect(1).toEqual(1)
     }
 
     @Test
@@ -26,15 +26,15 @@ class SampleJvmTest {
         expect {
             throw IllegalArgumentException("oho... hello btw")
         }.toThrow<IllegalArgumentException> {
-            messageContains("hello")
+            messageToContain("hello")
         }
     }
 
     @Test
     fun `use own function`() {
-        expect(2).isEven()
+        expect(2).toBeEven()
     }
 }
 
-fun Expect<Int>.isEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
+fun Expect<Int>.toBeEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
 
