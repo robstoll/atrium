@@ -163,13 +163,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                     doFirst {
                         if (this is AbstractCompile) {
-                            println("here ======================: ${it.name}")
-                            val standardOutput = java.io.ByteArrayOutputStream()
-
                             // we don't want to see all the deprecation errors during compilation
-                            this.logging.captureStandardOutput(LogLevel.DEBUG)
-                            this.logging.captureStandardError(LogLevel.DEBUG)
-                            this.standardOutputCapture.stop()
+                            this.logging.level = LogLevel.QUIET
                         }
                     }
                 }
@@ -211,7 +206,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         implementation(project(":atrium-fluent-en_GB-jvm"))
                     }
                 }
-                // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
+                // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //                val jsMain by getting {
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
@@ -358,7 +353,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             the<KotlinMultiplatformExtension>().apply {
 
-                // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
+                // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //                js().nodejs {}
 
                 jvm {
@@ -378,7 +373,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         // we want to run the samples as well
                         dependsOn(tasks.named("build"))
                     }
-                    //TODO 0.16.0 not yet sure if it makes more sense to include it into :check as well
+                    //TODO 0.19.0 not yet sure if it makes more sense to include it into :check as well
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
@@ -424,7 +419,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         }
                     }
-                    // TODO 0.16.0 reactivate once we have transitioned everything to the new MPP plugin
+                    // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //                    val jsTest by getting {
 //                        dependencies {
 //                            implementation(project(":atrium-api-$apiName-js"))
