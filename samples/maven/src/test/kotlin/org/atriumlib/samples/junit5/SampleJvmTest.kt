@@ -3,6 +3,8 @@ package org.atriumlib.samples.junit5
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import org.junit.jupiter.api.Test
@@ -36,5 +38,7 @@ class SampleJvmTest {
     }
 }
 
-fun Expect<Int>.toBeEven() = createAndAddAssertion(IS, Text("an even number")) { it % 2 == 0 }
+fun Expect<Int>.toBeEven() =
+    //TODO 0.19.0 replace with _logic.createAndAppend(IS, Text("an even number")) { it % 2 == 0 }
+    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })
 

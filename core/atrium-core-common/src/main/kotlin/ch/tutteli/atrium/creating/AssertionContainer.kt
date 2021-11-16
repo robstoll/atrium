@@ -19,22 +19,23 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-//TODO 0.18.0 introduce ProofContainer
-interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvider<T> {
+//TODO 0.19.0 introduce ProofContainer
+interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
      * could not be carried out.
      */
-    //TODO 0.18.0 remove override once we no longer extend SubjectProvider
-    override val maybeSubject: Option<T>
+    val maybeSubject: Option<T>
 
     /**
      * Do not use yet, this is experimental and will definitely change in 0.17.0 or 0.18.0.
      *
      * Might be we completely remove it without prior notice.
      */
-    //TODO 0.18.0/0.19.0 maybe it would be better to have proofFactories as val like we have components?
-    //TODO 0.18.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
+    //TODO 0.19.0/0.20.0 maybe it would be better to have proofFactories as val like we have components?
+    //TODO 0.19.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
+    // however, check if extensibility for a library author is still given. We don't want that a consumer of a third-party
+    // expectation function collection-library needs to use an own expectation verb
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 
@@ -98,7 +99,7 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO remove SUPPRESS with 0.18.0/0.19.0 once the toExpect function is in core
+    //TODO remove SUPPRESS with 0.19.0 once the toExpect function is in core
     @Suppress("UNCHECKED_CAST")
     fun createAndAppend(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         append(

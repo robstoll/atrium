@@ -50,7 +50,7 @@ inline fun <T> AssertionContainer<T>.collect(noinline assertionCreator: Expect<T
  *
  * @return The collected assertions as a `List<[Assertion]>`.
  */
-//TODO 0.18.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
+//TODO 0.19.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
 inline fun <T> AssertionContainer<T>.collectForComposition(
     noinline assertionCreator: Expect<T>.() -> Unit
 ): List<Assertion> = collectForCompositionBasedOnSubject(maybeSubject, assertionCreator)
@@ -73,7 +73,7 @@ inline fun <T> AssertionContainer<T>.collectForComposition(
  * @return The collected assertions.
  */
 //TODO check if it makes more sense to stay on the logic level for assertionCreator
-//TODO 0.18.0 deprecate and move to ProofContainer
+//TODO 0.19.0 deprecate and move to ProofContainer
 inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
     maybeSubject: Option<T>,
     noinline assertionCreator: Expect<T>.() -> Unit
@@ -96,14 +96,14 @@ inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
  *
  * @return The collected assertions as a `List<[Assertion]>`.
  */
-//TODO 0.18.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
+//TODO 0.19.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalComponentFactoryContainer::class)
 inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
     maybeSubject: Option<T>,
     noinline assertionCreator: Expect<T>.() -> Unit
 ): List<Assertion> = CollectingExpect(maybeSubject, components)
-    .addAssertionsCreatedBy(assertionCreator)
+    .appendAsGroup(assertionCreator)
     .getAssertions()
 
 /**

@@ -78,7 +78,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInAnyOrderOnlyDescr()
-                            toContainsSize(0, 1)
+                            toContainSize(0, 1)
                             entryNonExisting("a", "$toBeDescr: 1")
                             notToContain(additionalEntriesDescr)
                         }
@@ -96,7 +96,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInAnyOrderOnlyDescr()
-                            toContainsSize(0, 3)
+                            toContainSize(0, 3)
                             entryNonExisting("a", "$toBeLessThanDescr: 1")
                             entryNonExisting("b", "$toBeDescr: 3")
                             entryNonExisting("c", "$toBeLessThanDescr: 4")
@@ -134,7 +134,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInAnyOrderOnlyDescr()
-                            toContainsSize(2, 1)
+                            toContainSize(2, 1)
                             entrySuccess("a", 1, "$toBeLessThanDescr: 2")
                             additionalEntries("b" to 2)
                         }
@@ -168,7 +168,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInAnyOrderOnlyDescr()
-                            toContainsSize(2, 3)
+                            toContainSize(2, 3)
                             entrySuccess("a", 1, "$toBeLessThanDescr: 3")
                             entryFailing("b", 2, "$toBeLessThanDescr: 1")
                             entryNonExisting("c", "$toBeDescr: 4")
@@ -214,7 +214,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainInAnyOrderOnlyDescr()
-                        toContainsSize(3, 1)
+                        toContainSize(3, 1)
                         entryFailingExplaining("a", null, "$toBeDescr: 1")
                         additionalEntries(null to 1, "b" to 2)
                     }
@@ -234,7 +234,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainInAnyOrderOnlyDescr()
-                        toContainsSize(3, 4)
+                        toContainSize(3, 4)
                         entryFailingExplaining("a", null, "$toBeDescr: 1")
                         entryNonExisting("c", "$toBeLessThanDescr: 3")
                         entryFailing(null, "1", "$toBeDescr: null")

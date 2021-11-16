@@ -16,13 +16,8 @@ internal class CollectingExpectImpl<T>(
 
     override fun getAssertions(): List<Assertion> = assertions.toList()
 
-    override fun addAssertion(assertion: Assertion): Expect<T> = append(assertion)
-
     override fun append(assertion: Assertion): Expect<T> =
         apply { assertions.add(assertion) }
-
-    override fun addAssertionsCreatedBy(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> =
-        appendAsGroup(assertionCreator)
 
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
         // in case we run into performance problems, the code below is certainly not ideal

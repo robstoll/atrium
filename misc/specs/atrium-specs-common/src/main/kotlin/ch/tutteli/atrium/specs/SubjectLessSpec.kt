@@ -31,7 +31,7 @@ abstract class SubjectLessSpec<T>(
                 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
                 @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
-                    .addAssertionsCreatedBy(createAssertion)
+                    .appendAsGroup(createAssertion)
                     .getAssertions()
 
                 expandAssertionGroups(assertions)
@@ -61,7 +61,7 @@ abstract class SubjectLessSpec<T>(
                 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
                 @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
-                    .addAssertionsCreatedBy(createAssertion)
+                    .appendAsGroup(createAssertion)
                     .getAssertions()
                 expect(assertions).toHaveElementsAndAll {
                     feature(Assertion::holds).toEqual(false)

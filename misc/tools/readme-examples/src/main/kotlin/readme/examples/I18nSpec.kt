@@ -37,11 +37,8 @@ object I18nSpec : Spek({
     test("code-i18n-1") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
-            append(
-                createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
-            )
-        }
+        fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
+            _logic.createAndAppend(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
 
         //snippet-DescriptionIntAssertion-insert
     }
@@ -49,11 +46,8 @@ object I18nSpec : Spek({
     test("code-i18n-2") {
         //snippet-import-logic-insert
 
-        fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
-            append(
-                createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
-            )
-        }
+        fun Expect<Int>.toBeEven(): Expect<Int> =
+            _logic.createAndAppend(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
         //snippet-DescriptionIntAssertions-insert
     }

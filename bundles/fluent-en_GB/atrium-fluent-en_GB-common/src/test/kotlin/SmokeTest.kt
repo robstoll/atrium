@@ -1,7 +1,5 @@
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.AssertionVerb
-import ch.tutteli.atrium.api.verbs.assert
-import ch.tutteli.atrium.api.verbs.assertThat
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -30,41 +28,6 @@ class SmokeTest {
     @Test
     fun expectationFunctionWithI18nCanBeUsed() {
         expect(4).toBeAMultipleOf(2)
-    }
-
-
-    //TODO remove with 0.18.0
-    @Test
-    fun assertWithinAssert() {
-        @Suppress("DEPRECATION")
-        expect {
-            assert(1) {
-                (assert(2).toEqual(1))
-            }
-        }.toThrow<AssertionError> {
-            messageToContain(
-                "${AssertionVerb.ASSERT.getDefault()}: 1",
-                "${AssertionVerb.ASSERT.getDefault()}: 2",
-                "${TO_BE.getDefault()}: 1"
-            )
-        }
-    }
-
-    //TODO remove with 0.18.0
-    @Test
-    fun assertThatWithinAssertThat() {
-        @Suppress("DEPRECATION")
-        expect {
-            assertThat(1) {
-                assertThat(2).toEqual(1)
-            }
-        }.toThrow<AssertionError> {
-            messageToContain(
-                "${AssertionVerb.ASSERT_THAT.getDefault()}: 1",
-                "${AssertionVerb.ASSERT_THAT.getDefault()}: 2",
-                "${TO_BE.getDefault()}: 1"
-            )
-        }
     }
 
     @Test

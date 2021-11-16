@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * defines which [Checker]s should be applied and
  * is finalized by one of the [IterableLikeContainsAssertions] which usually use a [Creator].
  */
-//TODO 0.18.0 use IterableLikeToContains in combination with Proof
+//TODO 0.19.0 use IterableLikeToContains in combination with Proof
 interface IterableLikeContains {
 
     /**
