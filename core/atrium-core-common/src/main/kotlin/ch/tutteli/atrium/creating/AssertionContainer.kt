@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
 
@@ -84,8 +85,26 @@ interface AssertionContainer<T> : @kotlin.Suppress("DEPRECATION") SubjectProvide
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO remove SUPPRESS with 0.18.0
-    @Suppress("UNCHECKED_CAST", "DEPRECATION")
     fun createAndAppend(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
-        append(assertionBuilder.createDescriptive(this as Expect<T>, Untranslatable(description),expected, test))
+        createAndAppend(Untranslatable(description),expected, test)
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
+     * and [append]s it to the container.
+     *
+     * @param description The description of the assertion, e.g., `is less than`.
+     * @param expected The expected value, e.g., `5`
+     * @param test Indicates whether the assertion holds or fails.
+     *
+     * @return an [Expect] for the subject of `this` expectation.
+     */
+    //TODO remove SUPPRESS with 0.18.0/0.19.0 once the toExpect function is in core
+    @Suppress("UNCHECKED_CAST")
+    fun createAndAppend(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
+        append(
+            assertionBuilder.descriptive
+                .withTest(this as Expect<T>, test)
+                .withDescriptionAndRepresentation(description, expected)
+                .build()
+        )
 }
