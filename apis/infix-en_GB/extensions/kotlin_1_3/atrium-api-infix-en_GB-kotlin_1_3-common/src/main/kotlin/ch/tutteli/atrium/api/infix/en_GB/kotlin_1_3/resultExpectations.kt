@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
 
 import ch.tutteli.atrium.api.infix.en_GB.aSuccess
+import ch.tutteli.atrium.api.infix.en_GB.creating.SuccessWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.kotlin_1_3.isFailureOfType
@@ -16,6 +17,19 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSuccess: aSuccess): Expect<E> =
     _logic.isSuccess().transform()
+
+/**
+ * Expects that the subject of `this` expectation (a [Result]) is a success ([Result.isSuccess]) and
+ * that it holds all assertions the given [SuccessWithCreator.assertionCreator] creates.
+ *
+ * Use the function `aSuccess { ... }` to create a [SuccessWithCreator].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.12.0
+ */
+infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
+    _logic.isSuccess().collectAndAppend(success.assertionCreator)
 
 /**
  * Expects that the subject of `this` expectation (a [Result]) is a failure ([Result.isFailure]) and

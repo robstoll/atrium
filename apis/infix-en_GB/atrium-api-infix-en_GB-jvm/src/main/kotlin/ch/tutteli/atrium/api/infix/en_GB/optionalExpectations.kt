@@ -1,4 +1,3 @@
-//TODO rename file to optionalExpectations with 0.18.0
 @file:Suppress(
     // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
     "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
@@ -44,7 +43,7 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") pres
 
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is present and
- * that the wrapped value of type [E] holds all assertions the given [assertionCreator] creates.
+ * that the wrapped value of type [E] holds all assertions the given [PresentWithCreator.assertionCreator] creates.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
