@@ -51,16 +51,16 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePair: Pair<K
     it toContain o inAny order but only entry keyValuePair
 
 /**
- * Expects the subject of `this` expectation (a [Map]) contains for each entry in [keyValuePairs],
+ * Expects the subject of `this` expectation (a [Map]) contains for each key-value pair in [pairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
- * Delegates to `it toContain o inAny order the keyValuePairs`
+ * Delegates to `it toContain o inAny order the pairs`
  *
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the [Pair]
- * in [keyValuePairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
+ * in [pairs] is defined as `'a' to 1` and another one is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
- * @param keyValuePairs The key-value [Pairs] expected to be contained within this [Map]
+ * @param pairs The key-value [Pairs] expected to be contained within this [Map]
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -68,16 +68,16 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePair: Pair<K
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainPairs
  *
  */
-infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(keyValuePairs: Pairs<K, V>): Expect<T> =
-    it toContain o inAny order the keyValuePairs
+infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(pairs: Pairs<K, V>): Expect<T> =
+    it toContain o inAny order the pairs
 
 /**
- * Expects the subject of `this` expectation (a [Map]) contains only (in any order) for each entry in [keyValuePairs],
+ * Expects the subject of `this` expectation (a [Map]) contains only (in any order) for each key-value pair in [pairs],
  * a key as defined by that entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
- * Delegates to `it toContain o inAny order but only the keyValuePairs`
+ * Delegates to `it toContain o inAny order but only the pairs`
  *
- * @param keyValuePairs The key-value [Pairs] expected to be contained within this [Map]
+ * @param pairs The key-value [Pairs] expected to be contained within this [Map]
  *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -85,8 +85,8 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.toContain(keyValuePairs: Pairs<K, 
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainOnlyPairs
  *
  */
-infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(keyValuePairs: Pairs<K, V>): Expect<T> =
-    it toContain o inAny order but only the keyValuePairs
+infix fun <K, V, T : Map<out K, V>> Expect<T>.toContainOnly(pairs: Pairs<K, V>): Expect<T> =
+    it toContain o inAny order but only the pairs
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains a key as defined by [keyValue]'s [KeyWithValueCreator.key]
@@ -130,18 +130,6 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(ke
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(keyValue: KeyWithValueCreator<K, V>): Expect<T> =
     it toContain o inAny order but only entry keyValue
 
-
-/**
- * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
- * -- allows expressing `Pair<K, (Expect<V>.() -> Unit)?>`.
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValue
- *
- */
-fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?): KeyWithValueCreator<K, V> =
-    KeyWithValueCreator(key, valueAssertionCreatorOrNull)
-
-
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains for each [KeyWithValueCreator] in [keyValues],
  * a key as defined by [KeyWithValueCreator.key] with a corresponding value which either holds all
@@ -153,6 +141,9 @@ fun <K, V : Any> keyValue(key: K, valueAssertionCreatorOrNull: (Expect<V>.() -> 
  * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and
  * one [KeyWithValueCreator] in [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and
  * another one is defined as `Key('a') { isLessThan(2) }`, then both match, even though they match the same entry.
+ *
+ * @param keyValues The [KeyWithValueCreator]s -- use the function
+ *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -170,6 +161,9 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
  * to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *
  * Delegates to `it toContain o inAny order but only the keyValues`
+ *
+ * @param keyValues The [KeyWithValueCreator]s -- use the function
+ *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

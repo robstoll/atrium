@@ -29,16 +29,19 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehavi
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValuePairs] where it does not matter
+ * needs to contain only the given key-value [pairs] where it does not matter
  * in which order they appear.
+ *
+ * @param pairs The key-value [Pairs] expected to be contained within this [MapLike]
+ *   -- use the function `pairs(x to y, ...)` to create a [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.the(
-    keyValuePairs: Pairs<K, V>
-): Expect<T> = _logicAppend { keyValuePairsInAnyOrderOnly(keyValuePairs.toList()) }
+    pairs: Pairs<K, V>
+): Expect<T> = _logicAppend { keyValuePairsInAnyOrderOnly(pairs.toList()) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
@@ -48,6 +51,11 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehavi
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * Delegates to `the keyValues(keyValue)`.
+ *
+ * @param keyValue The [KeyWithValueCreator] whose key is expected to be contained within this [MapLike] and
+ *   where the corresponding value holds all assertions the  [KeyWithValueCreator.valueAssertionCreatorOrNull] creates
+ *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
+ *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -65,6 +73,9 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
+ *
+ * @param keyValues The [KeyWithValueCreator]s -- use the function
+ *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
