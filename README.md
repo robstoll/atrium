@@ -1956,8 +1956,8 @@ expect(listOf(1)).get(0) {}
 ```text
 expected that subject: [1]        (java.util.Collections.SingletonList <1234789>)
 ◆ ▶ get(0): 1        (kotlin.Int <1234789>)
-    ◾ at least one assertion defined: false
-        » You forgot to define assertions in the assertionCreator-lambda
+    ◾ at least one expectation defined: false
+        » You forgot to define expectations in the expectationCreator-lambda
         » Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
 ```
 </ex-pitfall-2>

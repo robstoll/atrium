@@ -26,9 +26,9 @@ abstract class AssertionCreatorSpec<T>(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
-                                ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
-                                ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                                ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
+                                ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
+                                ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
                             )
                             notToContain(stringNotInMessage)
                         }
