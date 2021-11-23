@@ -2040,18 +2040,18 @@ expected that subject: 12        (kotlin.Int <1234789>)
 
 Let us see how we actually defined `toBeAMultipleOf`. 
 1. *Choose the extension point*: in our example we want to provide the assertion function for `Int`s. 
-    Hence we define `toBeAMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
+    Hence, we define `toBeAMultipleOf` as [extension function](https://kotlinlang.org/docs/reference/extensions.html) of `Expect<Int>`.
 
-2. *Use the method `createAndAddAssertion`* (provided by `Expect`)  which creates and adds 
-    the assertion to itself (creating alone is not enough, it needs to be added in order that it is evaluated). 
-    The method `createAndAddAssertion` returns itself (the same `Expect`) making it easy for you to provide a fluent API as well.
+2. *Use the method `_logic.createAndAppend`* which creates and appends 
+    the expectation to itself (creating alone is not enough, it needs to be appended in order that it is evaluated). 
+    The method `createAndAppend` returns an `Expect` for the current subject, making it easy for you to provide a fluent API as well.
  
-    The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html)
+    The method [createAndAppend](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-container/create-and-append.html)
     expects:
-    - a either a `String` or a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
-      as description of your assertion.
+    - either a `String` or a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
+      as description of your expectation.
     - the representation of the expected value.
-    - and the actual check as lambda where you typically use `it` which refers to the subject of the assertion.
+    - and the actual check as lambda where you typically use `it` which refers to the subject of the expectation.
      
 We used a `String` as description in the above example because we are not bothered with internationalization at this point
 (have a look at [Internationalization](#internationalization-1) if you are).
@@ -2483,7 +2483,7 @@ Following on the example in [Write own Assertion Functions](#write-own-assertion
 we show here how you need to write the `toBeAMultipleOf` function, so that it supports i18n. 
 This way the report could be generated in another language.
 
-The difference lies in the first argument passed to `createAndAddAssertion`; 
+The difference lies in the first argument passed to `createAndappend`; 
 we do no longer use a `String` but a proper `Translatable`. 
 
 <code-i18n-1>
@@ -2491,11 +2491,8 @@ we do no longer use a `String` but a proper `Translatable`.
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logic.run {
-    append(
-        createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
-    )
-}
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
+    _logic.createAndAppend(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
     TO_BE_A_MULTIPLE_OF("to be a multiple of")
@@ -2543,11 +2540,8 @@ as second example:
 ```kotlin
 import ch.tutteli.atrium.logic.*
 
-fun Expect<Int>.toBeEven(): Expect<Int> = _logic.run {
-    append(
-        createDescriptiveAssertion(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
-    )
-}
+fun Expect<Int>.toBeEven(): Expect<Int> =
+    _logic.createAndAppend(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")

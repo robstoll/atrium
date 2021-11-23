@@ -56,7 +56,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val subAssertions = maybeSubAssertions.fold({
                     listOf<Assertion>()
                 }) { assertionCreator ->
-                    // TODO 0.18.0: factor out in common pattern, should not be the concern of the average expectation
+                    // TODO 0.19.0: factor out in common pattern, should not be the concern of the average expectation
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory assertion group, no need to wrap again
@@ -81,12 +81,12 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     // show the fixedClaimGroup in case it is empty because the feature as such will already be shown
                     // via explanatory assertion group
                     if (featureAssertions.isNotEmpty()) {
-                        container.addAssertion(fixedClaimGroup)
+                        container.append(fixedClaimGroup)
                     }
                 }, {
                     // on the other hand, if the subject is defined, then we need the fixedClaimGroup which inter alia
                     // shows why the extraction went wrong (e.g. index out of bound)
-                    container.addAssertion(fixedClaimGroup)
+                    container.append(fixedClaimGroup)
                 })
                 createFeatureExpect(None, listOf())
             },

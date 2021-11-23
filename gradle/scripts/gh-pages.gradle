@@ -66,9 +66,7 @@ dokka {
     }
 
     [
-        "ch.tutteli.atrium.api.verbs.internal",
-        //TODO remove with 0.18.0
-        "ch.tutteli.atrium.assertions.builders.impl",
+        "ch.tutteli.atrium.api.verbs.internal"
 
     ].each { pkg ->
         packageOptions {

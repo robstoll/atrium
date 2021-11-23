@@ -1,4 +1,4 @@
-//TODO 0.18.0 or 0.19.0 rename package to proofWithHelpOnFailure when we rename DescriptiveAssertionWithFailureHint to ProofWithHelpOnFailure
+//TODO 0.19.0 rename package to proofWithHelpOnFailure when we rename DescriptiveAssertionWithFailureHint to ProofWithHelpOnFailure
 package ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint
 
 import ch.tutteli.atrium.assertions.Assertion

@@ -15,7 +15,7 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
         val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
         val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
 
-        fun Expect<String>.toContainsSize(actual: Int, expected: Int) =
+        fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1)
                 .regex("\\Q$rootBulletPoint$featureArrow$sizeDescr\\E: $actual[^:]+${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
 

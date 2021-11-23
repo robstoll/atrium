@@ -21,7 +21,7 @@ class DefaultThrowableAssertions : ThrowableAssertions {
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(OCCURRED_EXCEPTION_CAUSE) { cause }.transform().let { previousExpect ->
-            //TODO 0.18.0 factor out a pattern, we are doing this more than once, in API we have withOptions
+            //TODO 0.19.0 factor out a pattern, we are doing this more than once, in API we have withOptions
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = {

@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.RootExpect
@@ -24,8 +23,8 @@ fun <T> expect(subject: T): RootExpect<T> =
         .build()
 
 /**
- * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
- * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
+ * Creates an [Expect] for the given [subject] and appends the expectations the given
+ * [assertionCreator]-lambda creates as group to it.
  *
  * @param subject The subject for which we are going to postulate assertions.
  * @param assertionCreator Assertion group block with a non-fail fast behaviour.
@@ -36,7 +35,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     expect(subject)._logic.appendAsGroup(assertionCreator)
 
 @Deprecated(
-    "`expect` should not be nested, use `feature` instead.",
+    "`expect` should not be nested, use `feature` or `its` instead.",
     ReplaceWith(
         "feature(\"name of the feature\") { newSubject /* see also other overloads which do not require `name of the feature` and provide the subject as parameter, e.g. feature { f(it::yourFeature) } */}",
         "ch.tutteli.atrium.api.infix.en_GB.feature",

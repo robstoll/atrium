@@ -106,8 +106,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInOrderOnlyDescr()
-                            // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-                            //toContainsSize(0, 1)
+                            toContainSize(0, 1)
                             elementOutOfBound(0, "a", 1)
                         }
                     }
@@ -119,8 +118,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainInOrderOnlyDescr()
-                            // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-                            //toContainsSize(0, 3)
+                            toContainSize(0, 3)
                             elementOutOfBound(0, "a", 2)
                             elementOutOfBound(1, "b", 3)
                             elementOutOfBound(2, "c", 4)
@@ -149,8 +147,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         message {
                             elementSuccess(0, "a=1", "a", 1)
                             additionalEntries(1 to "b=2")
-                            // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-//                                toContainsSize(2, 1)
+                            toContainSize(2, 1)
                         }
                     }
                 }
@@ -163,9 +160,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                             elementFailing(0, "a=1", "b", 2)
                             elementFailing(1, "b=2", "a", 1)
 
-                            // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-//                                toContainNot(sizeDescr)
-                            notToContain(additionalEntriesDescr)
+                            notToContain(additionalEntriesDescr, sizeDescr)
                         }
                     }
                 }
@@ -206,8 +201,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                     message {
                         elementSuccess(0, "a=null", "a", null)
                         additionalEntries(1 to "null=1", 2 to "b=2")
-                        // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-//                            toContainsSize(3, 1)
+                        toContainSize(3, 1)
                     }
                 }
             }
@@ -221,10 +215,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         elementFailing(1, "null=1", "a", null)
                         elementFailing(2, "b=2", null, 1)
 
-                        // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-//                                toContainNot(sizeDescr)
-                        notToContain(additionalEntriesDescr)
-
+                        notToContain(additionalEntriesDescr, sizeDescr)
                     }
                 }
             }
@@ -239,9 +230,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         elementFailing(1, "null=1", "c", 3)
                         elementFailing(2, "b=2", "b", 3)
 
-                        // TODO 0.18.0 wait for size to be moved out of Iterable.toContain
-//                                toContainNot(sizeDescr)
-                        notToContain(additionalEntriesDescr)
+                        notToContain(additionalEntriesDescr, sizeDescr)
                     }
                 }
             }

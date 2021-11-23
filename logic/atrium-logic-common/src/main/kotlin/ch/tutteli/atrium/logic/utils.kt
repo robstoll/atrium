@@ -24,7 +24,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param representation The representation of the expected outcome
  * @param test The test which checks whether the assertion holds
  */
-//TODO deprecate with 0.18.0
+//TODO deprecate with 0.19.0 (when ProofContainer is introduced)
 fun <T> AssertionContainer<T>.createDescriptiveAssertion(
     description: Translatable,
     representation: Any?,
@@ -37,14 +37,14 @@ fun <T> AssertionContainer<T>.createDescriptiveAssertion(
 /**
  * Entry point to use the [SubjectChangerBuilder] based on this [AssertionContainer].
  */
-//TODO deprecate with 0.18.0
+//TODO deprecate with 0.19.0 (when ProofContainer is introduced)
 val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
     get() = SubjectChangerBuilder(this)
 
 /**
  * Entry point to use the [FeatureExtractorBuilder] based on this [AssertionContainer].
  */
-//TODO deprecate with 0.18.0
+//TODO deprecate with 0.19.0 (when ProofContainer is introduced)
 val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
     get() = FeatureExtractorBuilder(this)
 
@@ -54,7 +54,7 @@ val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.Descriptio
  * logic level.
  */
 //is not internal as it is used by extensions, however it is not made visible via module-info.java
-//TODO deprecate with 0.18.0 and move toProofContainer to core
+//TODO deprecate with 0.19.0 and move toProofContainer to core
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
         is ExpectInternal<T> -> this
@@ -64,7 +64,7 @@ fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
 /**
  * Casts this [AssertionContainer] back to an [Expect] so that you can use it in places where an [Expect] is used.
  */
-//TODO deprecate with 0.18.0 and move ProofContainer.toExpect to core
+//TODO deprecate with 0.19.0 and move ProofContainer.toExpect to core
 fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
     when (this) {
         is ExpectInternal<T> -> this

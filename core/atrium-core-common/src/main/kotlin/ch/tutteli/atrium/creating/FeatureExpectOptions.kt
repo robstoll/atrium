@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Additional (non-mandatory) options to create a [FeatureExpect].

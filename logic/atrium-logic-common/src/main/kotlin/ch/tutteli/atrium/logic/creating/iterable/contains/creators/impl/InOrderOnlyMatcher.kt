@@ -20,7 +20,7 @@ interface InOrderOnlyMatcher<E, SC> {
         }
         val elementAssertion = elementAssertionCreator(maybeElement, searchCriterion)
         val assertion = maybeElement.map { elementAssertion }.getOrElse {
-            //TODO 0.18.0: extract common pattern
+            //TODO 0.19.0: extract common pattern
             maybeSubject.fold({
                 // already in an explanatory assertion context, no need to wrap it again
                 elementAssertion
@@ -33,7 +33,7 @@ interface InOrderOnlyMatcher<E, SC> {
             }
         }
 
-        addAssertion(
+        append(
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(
                     TranslatableWithArgs(translatableIndex, currentIndex),

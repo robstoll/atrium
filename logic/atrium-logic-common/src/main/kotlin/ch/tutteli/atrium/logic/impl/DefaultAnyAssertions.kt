@@ -38,7 +38,7 @@ class DefaultAnyAssertions : AnyAssertions {
             val assertion = container.collectBasedOnSubject(collectSubject) {
                 _logic.appendAsGroup(assertionCreatorOrNull)
             }
-            //TODO 0.18.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            //TODO 0.19.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(
                 {
                     // already in an explanatory assertion context, no need to wrap it again
