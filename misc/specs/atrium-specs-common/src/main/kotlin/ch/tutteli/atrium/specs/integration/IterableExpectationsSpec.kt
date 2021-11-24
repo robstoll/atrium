@@ -41,12 +41,12 @@ abstract class IterableExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val hasDescr = DescriptionBasic.HAS.getDefault()
-    val hasNotDescr = DescriptionBasic.HAS_NOT.getDefault()
+    val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
+    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
     val nextElementDescr = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableAssertion.DUPLICATE_ELEMENTS.getDefault()
 
-    val hasANextElement = "$hasDescr: $nextElementDescr"
+    val hasANextElement = "$toHaveDescr: $nextElementDescr"
 
     describeFun(toHaveElements) {
         val toHaveElementsFun = toHaveElements.lambda
@@ -72,7 +72,7 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable has next element") {
             expect {
                 expect(listOf(1, 2) as Iterable<Int>).notToHaveElementsFun()
-            }.toThrow<AssertionError> { messageToContain("$hasNotDescr: $nextElementDescr") }
+            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $nextElementDescr") }
         }
     }
 
@@ -144,7 +144,7 @@ abstract class IterableExpectationsSpec(
                     message {
                         toContain(
                             hasANextElement,
-                            "$hasNotDescr: $duplicateElements"
+                            "$notToHaveDescr: $duplicateElements"
                         )
                     }
                 }
@@ -169,7 +169,7 @@ abstract class IterableExpectationsSpec(
                     expect(input).toHaveElementsAndNoDuplicatesFun()
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("$hasNotDescr: $duplicateElements")
+                        toContain("$notToHaveDescr: $duplicateElements")
                         toContain(index(0, 1), index(1, 2), index(5, 4))
                         toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
                     }

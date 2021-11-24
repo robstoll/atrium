@@ -45,7 +45,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val mismatchesAdditionalElements = DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
         val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
         val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
-        val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
+        val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
         val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
         val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
         val noSuchValueDescr = DescriptionIterableAssertion.ELEMENT_NOT_FOUND.getDefault()

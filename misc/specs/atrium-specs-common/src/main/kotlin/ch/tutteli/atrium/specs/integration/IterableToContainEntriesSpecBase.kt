@@ -35,7 +35,7 @@ abstract class IterableToContainEntriesSpecBase(
         val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
         val afterExplanatoryIndent = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint"
         val afterMismatchedWarning = "$afterExplanatoryIndent$indentWarningBulletPoint\\Q$listBulletPoint\\E"
-        val hasANextElement = "\\Q$rootBulletPoint\\E$hasDescriptionBasic: $nextElement"
+        val hasANextElement = "\\Q$rootBulletPoint\\E$toHaveDescr: $nextElement"
         //@formatter:on
 
     }

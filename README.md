@@ -2224,7 +2224,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 ```text
 expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
-    ◾ has: a next element
+    ◾ to have: a next element
       » all entries: 
           » ▶ age: 
               ◾ is greater than or equal to: 18        (kotlin.Int <1234789>)

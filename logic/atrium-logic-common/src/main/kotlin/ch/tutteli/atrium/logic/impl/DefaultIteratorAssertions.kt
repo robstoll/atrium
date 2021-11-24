@@ -9,8 +9,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 
 class DefaultIteratorAssertions : IteratorAssertions {
     override fun <E, T : Iterator<E>> hasNext(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(HAS, NEXT_ELEMENT) { it.hasNext() }
+        container.createDescriptiveAssertion(TO_HAVE, NEXT_ELEMENT) { it.hasNext() }
 
     override fun <E, T : Iterator<E>> hasNotNext(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(HAS_NOT, NEXT_ELEMENT) { !it.hasNext() }
+        container.createDescriptiveAssertion(NOT_TO_HAVE, NEXT_ELEMENT) { !it.hasNext() }
 }

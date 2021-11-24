@@ -14,8 +14,12 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
     TO_BE("to be"),
     NOT_TO_BE("not to be"),
 
-    HAS("has"),
-    HAS_NOT("has not"),
+    /** @since 0.18.0 */
+    TO_HAVE("to have"),
+
+    /** @since 0.18.0 */
+    NOT_TO_HAVE("not to have"),
+
     WAS("was"),
     NONE("none"),
 
@@ -24,4 +28,10 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
 
     @Deprecated("Use NOT_TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_BE"))
     IS_NOT("is not"),
+
+    @Deprecated("Use TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_HAVE"))
+    HAS("has"),
+
+    @Deprecated("Use NOT_TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_HAVE"))
+    HAS_NOT("has not"),
 }
