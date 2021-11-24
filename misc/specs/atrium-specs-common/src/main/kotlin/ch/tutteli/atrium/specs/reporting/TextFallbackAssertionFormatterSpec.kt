@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -17,9 +16,9 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.specs.toBeDescr
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.specs.toEqualDescr
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_THE_INSTANCE
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
@@ -73,9 +72,9 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion =
-                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
+                    assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(TO_BE_THE_INSTANCE, "bli").build()
                 testee.formatNonGroup(assertion, parameterObject)
-                expect(sb.toString()).toEqual("$lineSeparator${IS_SAME.getDefault()}: bli")
+                expect(sb.toString()).toEqual("$lineSeparator${TO_BE_THE_INSTANCE.getDefault()}: bli")
             }
         }
         context("assertion of type ${RepresentationOnlyAssertion::class.simpleName}") {
@@ -103,10 +102,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                             override val representation = "subject of group"
                             override val assertions = listOf(
                                 assertionBuilder.descriptive.failing
-                                    .withDescriptionAndRepresentation(IS_SAME, "b")
+                                    .withDescriptionAndRepresentation(TO_BE_THE_INSTANCE, "b")
                                     .build(),
                                 assertionBuilder.descriptive.failing
-                                    .withDescriptionAndRepresentation(TO_BE, "d")
+                                    .withDescriptionAndRepresentation(TO_EQUAL, "d")
                                     .build()
                             )
                         },
@@ -116,8 +115,8 @@ abstract class TextFallbackAssertionFormatterSpec(
 
                     expect(sb).toContain(
                         "group: subject of group$lineSeparator" +
-                                "$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
-                                "$bulletPoint $toBeDescr: d"
+                                "$bulletPoint ${TO_BE_THE_INSTANCE.getDefault()}: b$lineSeparator" +
+                                "$bulletPoint $toEqualDescr: d"
                     )
                 }
             }
@@ -138,10 +137,10 @@ abstract class TextFallbackAssertionFormatterSpec(
                                     override val representation = "subject of inner group"
                                     override val assertions = listOf(
                                         assertionBuilder.descriptive.failing
-                                            .withDescriptionAndRepresentation(IS_SAME, "b")
+                                            .withDescriptionAndRepresentation(TO_BE_THE_INSTANCE, "b")
                                             .build(),
                                         assertionBuilder.descriptive.failing
-                                            .withDescriptionAndRepresentation(TO_BE, "d")
+                                            .withDescriptionAndRepresentation(TO_EQUAL, "d")
                                             .build()
                                     )
                                 },
@@ -155,8 +154,8 @@ abstract class TextFallbackAssertionFormatterSpec(
                     expect(sb).toContain(
                         "outer group: subject of outer group$lineSeparator" +
                             "$bulletPoint inner group: subject of inner group$lineSeparator" +
-                            "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$lineSeparator" +
-                            "$indentBulletPoint$bulletPoint $toBeDescr: d",
+                            "$indentBulletPoint$bulletPoint ${TO_BE_THE_INSTANCE.getDefault()}: b$lineSeparator" +
+                            "$indentBulletPoint$bulletPoint $toEqualDescr: d",
                         "$bulletPoint Unsupported type ${unsupportedAssertion::class.fullName}"
                     )
                 }

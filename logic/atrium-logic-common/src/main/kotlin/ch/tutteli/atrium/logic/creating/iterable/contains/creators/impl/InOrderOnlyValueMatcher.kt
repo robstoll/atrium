@@ -5,12 +5,12 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 
 class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
 
     override fun AssertionContainer<List<E>>.elementAssertionCreator(maybeElement: Option<E>, searchCriterion: E): Assertion =
-        assertionBuilder.createDescriptive(TO_BE, searchCriterion) {
+        assertionBuilder.createDescriptive(TO_EQUAL, searchCriterion) {
             maybeElement.fold(falseProvider) { it == searchCriterion }
         }
 }

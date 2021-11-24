@@ -102,8 +102,8 @@ class FeatureExtractorSpec : Spek({
     test("ex-arbitrary-features") {
         //snippet-Family-insert
         expect(myFamily)
-            .feature("number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
-            .feature("first member's name") { members.first().name }       // subject narrowed to String
+            .feature("the number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
+            .feature("the first member's name") { members.first().name }       // subject narrowed to String
             .toEqual("Peter")
     }
 

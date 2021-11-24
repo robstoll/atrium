@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -18,9 +17,9 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
-import ch.tutteli.atrium.specs.toBeDescr
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.specs.toEqualDescr
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
@@ -55,8 +54,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 val assertionGroup = with(assertionBuilder) {
                     assertionBuilder.root.withDescriptionAndRepresentation(EXPECT, "subject")
                         .withAssertions(
-                            descriptive.failing.withDescriptionAndRepresentation(TO_BE, "bli").build(),
-                            descriptive.failing.withDescriptionAndRepresentation(NOT_TO_BE, "bye").build()
+                            descriptive.failing.withDescriptionAndRepresentation(TO_EQUAL, "bli").build(),
+                            descriptive.failing.withDescriptionAndRepresentation(NOT_TO_EQUAL, "bye").build()
                         )
                         .build()
                 }
@@ -64,8 +63,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()) toEqual
                         "${EXPECT.getDefault()}: subject$lineSeparator" +
-                        "$squarePoint $toBeDescr: bli$lineSeparator" +
-                        "$squarePoint ${NOT_TO_BE.getDefault()}: bye"
+                        "$squarePoint $toEqualDescr: bli$lineSeparator" +
+                        "$squarePoint ${NOT_TO_EQUAL.getDefault()}: bye"
             }
         }
     }

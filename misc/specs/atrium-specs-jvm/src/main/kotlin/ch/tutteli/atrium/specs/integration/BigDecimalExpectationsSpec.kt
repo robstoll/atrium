@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -141,7 +141,7 @@ abstract class BigDecimalExpectationsSpec(
                     expectTenAsAny.notToEqualAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(BigDecimal.TEN, "${NOT_TO_BE.getDefault()}: $expected")
+                        toContain(BigDecimal.TEN, "${NOT_TO_EQUAL.getDefault()}: $expected")
                         notToContain(failureHintNotNumerically)
                     }
                 }
@@ -186,7 +186,7 @@ abstract class BigDecimalExpectationsSpec(
                         expectTenAsAny.toEqualAnyFun(expected)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(BigDecimal.TEN, "$toBeDescr: $expected")
+                            toContain(BigDecimal.TEN, "$toEqualDescr: $expected")
                             notToContain(failureHintNumerically)
                         }
                     }
@@ -230,7 +230,7 @@ abstract class BigDecimalExpectationsSpec(
                     expectTenAsAny.toEqualAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(BigDecimal.TEN, "$toBeDescr: $expected")
+                        toContain(BigDecimal.TEN, "$toEqualDescr: $expected")
                         notToContain(failureHintNumerically)
                     }
                 }

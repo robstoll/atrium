@@ -36,10 +36,10 @@ abstract class LocalDateExpectationsSpec(
 
     include(object : AssertionCreatorSpec<LocalDate>(
         describePrefix, LocalDate.of(2040, 1, 13),
-        year.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(2040) },
-        month.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) },
-        day.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(13) },
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(DayOfWeek.FRIDAY) }
+        year.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(2040) },
+        month.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
+        day.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(13) },
+        dayOfWeek.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(DayOfWeek.FRIDAY) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

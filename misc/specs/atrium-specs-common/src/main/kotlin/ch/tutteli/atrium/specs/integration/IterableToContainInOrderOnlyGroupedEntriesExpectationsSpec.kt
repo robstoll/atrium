@@ -28,15 +28,15 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
     //@formatter:off
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         describePrefix, listOf(1.2, 2.0, 3.0),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [first empty]", "$toBeDescr: 1.2",
+        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [first empty]", "$toEqualDescr: 1.2",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) }
         ),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [second empty]", "$toBeDescr: 2.0",
+        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [second empty]", "$toEqualDescr: 2.0",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) })) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { }, arrayOf( Entry { toEqual(3.0) })) }
         ),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [third empty]", "$toBeDescr: 3.0",
+        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [third empty]", "$toEqualDescr: 3.0",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { })) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry {  })) }
         )
@@ -197,8 +197,8 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                            indexNonExisting(0, "$toBeDescr: 1.0")
-                            indexNonExisting(1, "$toBeDescr: 1.2")
+                            indexNonExisting(0, "$toEqualDescr: 1.0")
+                            indexNonExisting(1, "$toEqualDescr: 1.2")
                             notToContain(additionalElements)
                             toContainSize(0, 2)
                         }
@@ -261,16 +261,16 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexFail(
                                     0, 1, listOf(1.0, 2.0),
                                     sizeCheck(2, 2),
-                                    failAfterFail("$toBeDescr: 4.0"),
-                                    successAfterFail("$toBeDescr: 1.0"),
+                                    failAfterFail("$toEqualDescr: 4.0"),
+                                    successAfterFail("$toEqualDescr: 1.0"),
                                     mismatchesAfterFail(2.0)
                                 )
                                 indexFail(
                                     2, 4, listOf(3.0, 4.0, 4.0),
                                     sizeCheck(3, 3),
-                                    failAfterFail("$toBeDescr: 2.0"),
-                                    successAfterFail("$toBeDescr: 3.0"),
-                                    successAfterFail("$toBeDescr: 4.0"),
+                                    failAfterFail("$toEqualDescr: 2.0"),
+                                    successAfterFail("$toEqualDescr: 3.0"),
+                                    successAfterFail("$toEqualDescr: 4.0"),
                                     mismatchesAfterFail(4.0)
                                 )
                                 notToContain(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
@@ -298,9 +298,9 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexSuccess(
                                     2, 4, listOf(3.0, 4.0, 4.0),
                                     sizeCheck(3, 3),
-                                    successAfterSuccess("$toBeDescr: 4.0"),
-                                    successAfterSuccess("$toBeDescr: 3.0"),
-                                    successAfterSuccess("$toBeDescr: 4.0")
+                                    successAfterSuccess("$toEqualDescr: 4.0"),
+                                    successAfterSuccess("$toEqualDescr: 3.0"),
+                                    successAfterSuccess("$toEqualDescr: 4.0")
                                 )
                                 notToContain(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                             }
@@ -317,11 +317,11 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             message {
                                 toContainSize(5, 4)
                                 toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                                indexSuccess(0, 1.0, "$toBeDescr: 1.0")
+                                indexSuccess(0, 1.0, "$toEqualDescr: 1.0")
                                 indexSuccess(
                                     1, 3, listOf(2.0, 3.0, 4.0),
                                     sizeCheck(3, 3),
-                                    successAfterSuccess("$toBeDescr: 4.0", "$toBeDescr: 2.0", "$toBeDescr: 3.0")
+                                    successAfterSuccess("$toEqualDescr: 4.0", "$toEqualDescr: 2.0", "$toEqualDescr: 3.0")
                                 )
                                 toContainRegex(additional(4 to 4.0))
                             }
@@ -339,8 +339,8 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                             message {
                                 toContainSize(5, 2)
                                 toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                                indexSuccess(0, 1.0, "$toBeDescr: 1.0")
-                                indexFail(1, 2.0, "$toBeDescr: 4.0")
+                                indexSuccess(0, 1.0, "$toEqualDescr: 1.0")
+                                indexFail(1, 2.0, "$toEqualDescr: 4.0")
                                 toContainRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
                             }
                         }
@@ -357,11 +357,11 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexFail(
                                     0, 1, listOf(1.0, 2.0),
                                     sizeCheck(2, 2),
-                                    successAfterFail("$toBeDescr: 1.0"),
-                                    failAfterFail("$toBeDescr: 3.0"),
+                                    successAfterFail("$toEqualDescr: 1.0"),
+                                    failAfterFail("$toEqualDescr: 3.0"),
                                     mismatchesAfterFail(2.0)
                                 )
-                                indexFail(2, 3.0, "$toBeDescr: 5.0")
+                                indexFail(2, 3.0, "$toEqualDescr: 5.0")
                                 toContainRegex(additional(3 to 4.0, 4 to 4.0))
                             }
                         }
@@ -380,17 +380,17 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                     0, 3, listOf(1.0, 2.0, 3.0, 4.0),
                                     sizeCheck(4, 4),
                                     successAfterSuccess(
-                                        "$toBeDescr: 4.0",
-                                        "$toBeDescr: 1.0",
-                                        "$toBeDescr: 3.0",
-                                        "$toBeDescr: 2.0"
+                                        "$toEqualDescr: 4.0",
+                                        "$toEqualDescr: 1.0",
+                                        "$toEqualDescr: 3.0",
+                                        "$toEqualDescr: 2.0"
                                     )
                                 )
                                 indexFail(
                                     4, 5, listOf(4.0),
                                     sizeCheck(1, 2),
-                                    failAfterFail("$toBeDescr: 5.0"),
-                                    successAfterFail("$toBeDescr: 4.0")
+                                    failAfterFail("$toEqualDescr: 5.0"),
+                                    successAfterFail("$toEqualDescr: 4.0")
                                 )
                             }
                         }
@@ -460,12 +460,12 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                     0, 1, listOf(null, 1.0),
                                     sizeCheck(2, 2),
                                     successAfterSuccess("$isDescr: null"),
-                                    successAfterSuccess("$toBeDescr: 1.0")
+                                    successAfterSuccess("$toEqualDescr: 1.0")
                                 )
                                 indexFail(
                                     2, 4, listOf(null, 3.0),
                                     sizeCheck(2, 3),
-                                    successAfterFail("$toBeDescr: 3.0"),
+                                    successAfterFail("$toEqualDescr: 3.0"),
                                     successAfterFail("$isDescr: null"),
                                     failAfterFail("$isDescr: null")
 

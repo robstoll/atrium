@@ -1,4 +1,7 @@
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.AssertionVerb
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -9,7 +12,7 @@ import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionBasic.IS
 import kotlin.test.Test
 
@@ -41,7 +44,7 @@ class SmokeTest {
             messageToContain(
                 "${AssertionVerb.EXPECT.getDefault()}: 1",
                 "${AssertionVerb.EXPECT.getDefault()}: 2",
-                "${TO_BE.getDefault()}: 1"
+                "${TO_EQUAL.getDefault()}: 1"
             )
         }
     }

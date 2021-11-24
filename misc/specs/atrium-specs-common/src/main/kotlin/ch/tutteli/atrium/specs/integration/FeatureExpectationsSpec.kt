@@ -230,7 +230,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
-                    messageToContain("$lazyWithNestedImmediateFeatureInfo: 37", "$toBeDescr: 12")
+                    messageToContain("$lazyWithNestedImmediateFeatureInfo: 37", "$toEqualDescr: 12")
                 }
             }
         }
@@ -242,7 +242,7 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
-                    messageToContain("$lazyWithNestedLazyFeatureInfo: 37", "$toBeDescr: 12")
+                    messageToContain("$lazyWithNestedLazyFeatureInfo: 37", "$toEqualDescr: 12")
                 }
             }
         }

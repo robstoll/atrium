@@ -24,14 +24,14 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.0),
         *toContainInAnyOrderEntries.forAssertionCreatorSpec(
-            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
         *toContainInAnyOrderNullableEntries.forAssertionCreatorSpec(
-            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
@@ -157,7 +157,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                             messageToContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
-                                "$toBeDescr: 2.0",
+                                "$toEqualDescr: 2.0",
                                 noSuchEntryDescr
                             )
                         }

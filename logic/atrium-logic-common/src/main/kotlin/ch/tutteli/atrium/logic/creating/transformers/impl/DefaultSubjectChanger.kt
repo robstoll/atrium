@@ -36,7 +36,7 @@ class DefaultSubjectChanger : SubjectChanger {
         // we can transform if maybeSubject is None as we have to be in an explaining like context in such a case,
         // even if the transformation cannot be carried out
         val shallTransform =
-            container.maybeSubject.fold(trueProvider, { expect._logic.maybeSubject.isDefined() })
+            container.maybeSubject.fold(trueProvider) { expect._logic.maybeSubject.isDefined() }
 
         val descriptiveAssertion = assertionBuilder.descriptive
             .withTest(expect) {

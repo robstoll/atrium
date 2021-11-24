@@ -57,16 +57,16 @@ abstract class MapExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        keys.forAssertionCreatorSpec("$toBeDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
-        values.forAssertionCreatorSpec("$toBeDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
-        getExisting.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toEqual(2) }
+        keys.forAssertionCreatorSpec("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
+        values.forAssertionCreatorSpec("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
+        getExisting.forAssertionCreatorSpec("$toEqualDescr: 2", "b") { toEqual(2) }
     ) {})
 
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
 
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        getExistingNullable.forAssertionCreatorSpec("$toBeDescr: 2", "b") { toEqual(null) }
+        getExistingNullable.forAssertionCreatorSpec("$toEqualDescr: 2", "b") { toEqual(null) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -221,7 +221,7 @@ abstract class MapExpectationsSpec(
                         fluent.getExistingFun("c") { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(\"c\"): $keyDoesNotExist")
-                        if (hasExtraHint) messageToContain("$toBeDescr: 3")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
                     }
                 }
             }
@@ -247,7 +247,7 @@ abstract class MapExpectationsSpec(
                         nullableFluent.getExistingFun("c") { toEqual(null) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(\"c\"): $keyDoesNotExist")
-                        if (hasExtraHint) messageToContain("$toBeDescr: null")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: null")
                     }
                 }
             }

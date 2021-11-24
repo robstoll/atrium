@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.*
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import kotlin.reflect.KClass
 
 /**
@@ -71,13 +71,13 @@ interface SubjectChangerBuilder {
         val container: AssertionContainer<T>
 
         /**
-         * Uses [DescriptionAnyAssertion.IS_A] as description of the change,
+         * Uses [DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF] as description of the change,
          * the given [subType] as representation and tries to perform a down-cast of [container]'s
          * [AssertionContainer.maybeSubject] to the given type [TSub]
          */
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
         fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerStep<T, TSub> =
-            withDescriptionAndRepresentation(DescriptionAnyAssertion.IS_A, subType)
+            withDescriptionAndRepresentation(DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF, subType)
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
                 }

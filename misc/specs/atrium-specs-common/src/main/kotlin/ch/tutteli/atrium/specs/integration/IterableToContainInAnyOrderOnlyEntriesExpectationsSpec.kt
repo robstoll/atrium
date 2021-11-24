@@ -23,14 +23,14 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.0),
         *toContainInAnyOrderOnlyEntries.forAssertionCreatorSpec(
-            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
         *toContainInAnyOrderOnlyNullableEntries.forAssertionCreatorSpec(
-            "$toBeDescr: 1.2", "$toBeDescr: 2.0",
+            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) })
         )
     ) {})
@@ -148,10 +148,10 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -194,10 +194,10 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 5.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0",
+                                    "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: 1.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -218,7 +218,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
                                     "$failingBulletPoint$anEntryAfterFailing$toBeGreaterThanDescr: 4.0",
                                     "$warningBulletPoint$mismatchesAdditionalElements:",
@@ -246,13 +246,13 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 2.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
-                                    "$failingBulletPoint$anEntryAfterSuccess$toBeDescr: 5.0"
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
+                                    "$failingBulletPoint$anEntryAfterSuccess$toEqualDescr: 5.0"
                                 )
                                 toContain.exactly(2)
-                                    .value("$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 4.0")
+                                    .value("$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0")
                                 toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
@@ -303,8 +303,8 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}null"
                                 )
@@ -313,7 +313,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }
                     }
 
-                    it("first wins: $toBeLessThanFun(4.0), null, null, $toBeDescr(1.0)") {
+                    it("first wins: $toBeLessThanFun(4.0), null, null, $toEqualDescr(1.0)") {
                         expect {
                             expect(null1null3()).toContainInAnyOrderOnlyNullableEntriesFun(
                                 { toBeLessThan(4.0) },
@@ -329,7 +329,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 4.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
+                                    "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: 1.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"
                                 )

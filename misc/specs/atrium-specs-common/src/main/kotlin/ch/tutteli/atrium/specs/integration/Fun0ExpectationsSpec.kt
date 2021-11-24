@@ -50,7 +50,7 @@ abstract class Fun0ExpectationsSpec(
         describePrefix, { 1 },
         assertionCreatorSpecTriple(
             notToThrow.name,
-            "$toBeDescr: 1",
+            "$toEqualDescr: 1",
             { apply { notToThrow.invoke(this) { toEqual(1) } } },
             { apply { notToThrow.invoke(this) {} } }
         )
@@ -90,9 +90,9 @@ abstract class Fun0ExpectationsSpec(
                             toContain.exactly(1).values(
                                 "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
                                     DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
-                                "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                                "$toBeAnInstanceOfDescr: ${IllegalArgumentException::class.simpleName}"
                             )
-                            if (hasExtraHint) toContain("$toBeDescr: ${IllegalArgumentException::class.fullName}")
+                            if (hasExtraHint) toContain("$toEqualDescr: ${IllegalArgumentException::class.fullName}")
                         }
                     }
                 }
@@ -137,11 +137,11 @@ abstract class Fun0ExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "$isADescr:.+" + IllegalArgumentException::class.fullName,
+                                "$toBeAnInstanceOfDescr:.+" + IllegalArgumentException::class.fullName,
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) toContain("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) toContain("$toEqualDescr: \"hello\"")
                         }
                     }
                 }
@@ -166,7 +166,7 @@ abstract class Fun0ExpectationsSpec(
                                 UnsupportedOperationException::class.simpleName + separator +
                                     messageAndStackTrace(errMessage)
                             )
-                            if (hasExtraHint) toContain("$toBeDescr: 2")
+                            if (hasExtraHint) toContain("$toEqualDescr: 2")
                         }
                     }
                 }
@@ -199,7 +199,7 @@ abstract class Fun0ExpectationsSpec(
                             }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
+                            if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
                         }
                     }
                 }
@@ -212,7 +212,7 @@ abstract class Fun0ExpectationsSpec(
                             }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectCauseInReporting()
-                            if (hasExtraHint) messageToContain("$toBeDescr: 2")
+                            if (hasExtraHint) messageToContain("$toEqualDescr: 2")
                         }
                     }
                 }
@@ -244,7 +244,7 @@ abstract class Fun0ExpectationsSpec(
                                 }.toThrowFun { message.toEqual("hello") }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
+                                if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
                             }
                         }
                     }
@@ -257,7 +257,7 @@ abstract class Fun0ExpectationsSpec(
                                 }.notToThrowFun { toEqual(2) }
                             }.toThrow<AssertionError> {
                                 expectCauseAndNestedInReporting()
-                                if (hasExtraHint) messageToContain("$toBeDescr: 2")
+                                if (hasExtraHint) messageToContain("$toEqualDescr: 2")
                             }
                         }
                     }

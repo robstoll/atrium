@@ -55,9 +55,9 @@ abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
                         message {
                             toContain(
                                 entry("b", 2),
-                                "$toBeDescr: 3",
+                                "$toEqualDescr: 3",
                                 entry("c", keyDoesNotExist),
-                                "$toBeDescr: 4"
+                                "$toEqualDescr: 4"
                             )
                             notToContain(entry("a"))
                         }
@@ -96,9 +96,9 @@ abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
                     message {
                         toContain(
                             entry("b", 2),
-                            "$toBeDescr: 3",
+                            "$toEqualDescr: 3",
                             entry("c", keyDoesNotExist),
-                            "$toBeDescr: 4"
+                            "$toEqualDescr: 4"
                         )
                         notToContain(entry("a"))
                     }

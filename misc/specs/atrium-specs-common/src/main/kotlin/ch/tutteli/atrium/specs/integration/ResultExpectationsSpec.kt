@@ -38,11 +38,11 @@ abstract class ResultExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, Result.success(2),
-        toBeASuccess.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
+        toBeASuccess.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<Result<Int?>>(
         "$describePrefix[nullable] ", Result.success(2),
-        toBeASuccessNullable.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
+        toBeASuccessNullable.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
@@ -83,7 +83,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: 1", "$toBeDescr: 2")
+                        messageToContain("value: 1", "$toEqualDescr: 2")
                     }
                 }
             }
@@ -95,7 +95,7 @@ abstract class ResultExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "exception: $isNotFailureDescr",
-                            "$isADescr: ${IllegalArgumentException::class.simpleName}"
+                            "$toBeAnInstanceOfDescr: ${IllegalArgumentException::class.simpleName}"
                         )
                         if (hasExtraHint) {
                             messageToContain(
@@ -115,7 +115,7 @@ abstract class ResultExpectationsSpec(
                         expect(resultFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: $isNotSuccessDescr")
-                        if (hasExtraHint) messageToContain("$toBeDescr: 1")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }
             }
@@ -150,7 +150,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: null", "$toBeDescr: 2")
+                        messageToContain("value: null", "$toEqualDescr: 2")
                     }
                 }
             }
@@ -161,7 +161,7 @@ abstract class ResultExpectationsSpec(
                         expect(resultNullableFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("value: $isNotSuccessDescr")
-                        if (hasExtraHint) messageToContain("$toBeDescr: 1")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }
             }

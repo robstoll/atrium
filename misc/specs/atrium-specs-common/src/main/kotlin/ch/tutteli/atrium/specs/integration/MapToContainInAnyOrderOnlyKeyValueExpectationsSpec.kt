@@ -79,7 +79,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                         message {
                             toContainInAnyOrderOnlyDescr()
                             toContainSize(0, 1)
-                            entryNonExisting("a", "$toBeDescr: 1")
+                            entryNonExisting("a", "$toEqualDescr: 1")
                             notToContain(additionalEntriesDescr)
                         }
                     }
@@ -98,7 +98,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                             toContainInAnyOrderOnlyDescr()
                             toContainSize(0, 3)
                             entryNonExisting("a", "$toBeLessThanDescr: 1")
-                            entryNonExisting("b", "$toBeDescr: 3")
+                            entryNonExisting("b", "$toEqualDescr: 3")
                             entryNonExisting("c", "$toBeLessThanDescr: 4")
                             notToContain(additionalEntriesDescr)
                         }
@@ -148,7 +148,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                         message {
                             toContainInAnyOrderOnlyDescr()
                             entrySuccess("a", 1, "$toBeLessThanDescr: 2")
-                            entryNonExisting("a", "$toBeDescr: 1")
+                            entryNonExisting("a", "$toEqualDescr: 1")
                             additionalEntries("b" to 2)
 
                             notToContain(sizeDescr)
@@ -171,7 +171,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                             toContainSize(2, 3)
                             entrySuccess("a", 1, "$toBeLessThanDescr: 3")
                             entryFailing("b", 2, "$toBeLessThanDescr: 1")
-                            entryNonExisting("c", "$toBeDescr: 4")
+                            entryNonExisting("c", "$toEqualDescr: 4")
 
                             notToContain(additionalEntriesDescr)
                         }
@@ -215,7 +215,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     message {
                         toContainInAnyOrderOnlyDescr()
                         toContainSize(3, 1)
-                        entryFailingExplaining("a", null, "$toBeDescr: 1")
+                        entryFailingExplaining("a", null, "$toEqualDescr: 1")
                         additionalEntries(null to 1, "b" to 2)
                     }
                 }
@@ -235,9 +235,9 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     message {
                         toContainInAnyOrderOnlyDescr()
                         toContainSize(3, 4)
-                        entryFailingExplaining("a", null, "$toBeDescr: 1")
+                        entryFailingExplaining("a", null, "$toEqualDescr: 1")
                         entryNonExisting("c", "$toBeLessThanDescr: 3")
-                        entryFailing(null, "1", "$toBeDescr: null")
+                        entryFailing(null, "1", "$toEqualDescr: null")
                         entrySuccess("b", "2", "$toBeLessThanDescr: 3")
 
                         notToContain(additionalEntriesDescr)

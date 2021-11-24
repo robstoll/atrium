@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.logic.Test
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.specs.toBeDescr
+import ch.tutteli.atrium.specs.toEqualDescr
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KFunction1
@@ -103,7 +103,7 @@ object NullableSpec : Spek({
         it("throws if the value was actually null") {
             expect {
                 expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toEqual("a")
-            }.toThrow<AssertionError> { messageToContain("get(1): null", "equals: \"a\"") }
+            }.toThrow<AssertionError> { messageToContain("get(1): null", "$toEqualDescr: \"a\"") }
         }
         it("can pass `null` as key") {
             expect(nullableKeyMap(testee.numbersWithString)[null]).toEqual("tada")
@@ -124,7 +124,7 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {
                 messageToContain(
                     "get(1): null",
-                    "$toBeDescr: \"test\""
+                    "$toEqualDescr: \"test\""
                 )
             }
 
@@ -144,7 +144,7 @@ object NullableSpec : Spek({
             }.toThrow<AssertionError> {
                 messageToContain(
                     "get(1): null",
-                    "$toBeDescr: \"hello\""
+                    "$toEqualDescr: \"hello\""
                 )
             }
         }

@@ -46,9 +46,9 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         return this.toContain.exactly(1).regex(
             "\\Q$successFailureBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
-                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toBeDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
+                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
                 "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$separator" +
-                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$toBeDescr: $expectedValue"
+                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$toEqualDescr: $expectedValue"
         )
     }
 

@@ -254,7 +254,7 @@ expect(x).toEqual(9)
 <a name="ex-first"></a>
 ```text
 expected that subject: 10        (kotlin.Int <1234789>)
-◆ equals: 9        (kotlin.Int <1234789>)
+◆ to equal: 9        (kotlin.Int <1234789>)
 ```
 </ex-first>
 
@@ -359,7 +359,7 @@ expect {
 ```text
 expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
-    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+    ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "name is empty"        <1234789>
       » stacktrace: 
@@ -396,7 +396,7 @@ expect {
 expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$8$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
+        ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow2>
 
@@ -417,7 +417,7 @@ expect {
 expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$9$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
+        ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
           » starts with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
@@ -503,7 +503,7 @@ expect(myPerson)
 ```text
 expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:43): false
-    ◾ equals: true
+    ◾ to equal: true
 ```
 </ex-its-single>
 
@@ -552,7 +552,7 @@ Feature assertions follow the common pattern of having two overloads:
       ◾ starts with: "Pe"        <1234789>
       ◾ ends with: "er"        <1234789>
   ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:58): "Stoll"        <1234789>
-      ◾ equals: "Dummy"        <1234789>
+      ◾ to equal: "Dummy"        <1234789>
   ```
   </ex-its-group>
 
@@ -577,7 +577,7 @@ expect(myPerson)
 ```text
 expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
-    ◾ equals: true
+    ◾ to equal: true
 ```
 </ex-property-methods-single>
 
@@ -621,7 +621,7 @@ expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)
     ◾ starts with: "Pe"        <1234789>
     ◾ ends with: "er"        <1234789>
 ◆ ▶ lastName: "Stoll"        <1234789>
-    ◾ equals: "Dummy"        <1234789>
+    ◾ to equal: "Dummy"        <1234789>
 ```
 </ex-property-methods-group>
 
@@ -667,7 +667,7 @@ expect(myPerson)
 ```text
 expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ nickname(false): "Mr. Robert"        <1234789>
-    ◾ equals: "Robert aka. Stoll"        <1234789>
+    ◾ to equal: "Robert aka. Stoll"        <1234789>
 ```
 </ex-methods-args>
 
@@ -700,20 +700,20 @@ data class Family(val members: List<FamilyMember>)
 
 val myFamily = Family(listOf(FamilyMember("Robert")))
 expect(myFamily)
-    .feature("number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
-    .feature("first member's name") { members.first().name }       // subject narrowed to String
+    .feature("the number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
+    .feature("the first member's name") { members.first().name }       // subject narrowed to String
     .toEqual("Peter")
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L102)</sub> ↓ <sub>[Output](#ex-arbitrary-features)</sub>
 <a name="ex-arbitrary-features"></a>
 ```text
 expected that subject: Family(members=[FamilyMember(name=Robert)])        (readme.examples.FeatureExtractorSpec$1$Family <1234789>)
-◆ ▶ first member's name: "Robert"        <1234789>
-    ◾ equals: "Peter"        <1234789>
+◆ ▶ the first member's name: "Robert"        <1234789>
+    ◾ to equal: "Peter"        <1234789>
 ```
 </ex-arbitrary-features>
 
-Also this version of `feature` provides two different kind of overloads:
+Also, this version of `feature` provides two different kind of overloads:
 - the first expects a feature description and a feature-provider-lambda
   This overload narrows the subject to the feature, 
   meaning a subsequent call in the fluent chain is about the feature and not the previous subject.
@@ -760,19 +760,19 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
       » ▶ CANNOT show description as it is based on subject which is not defined: 
-          ◾ equals: 1        (kotlin.Int <1234789>)
+          ◾ to equal: 1        (kotlin.Int <1234789>)
       » ▶ first: 
-          ◾ equals: 1        (kotlin.Int <1234789>)
+          ◾ to equal: 1        (kotlin.Int <1234789>)
 ```
 </ex-within-assertion-functions>
 
-Also, this version of `feature` provides to kind of overloads, one without and one with `assertionCreator`-lambda.
+Also, this version of `feature` provides two kind of overloads, one without and one with `assertionCreator`-lambda.
 (see for instance [Arbitrary Features](#arbitrary-features) for more information).
 
 ### Ambiguity Problems
 Unfortunately there are several Kotlin bugs when it comes to overloading, especially in conjunction with `KFunction`
 (see [Kotlin Bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) and upvote in case you run into one).
-It might happen that you run into such issues using `feature` in conjuction with a `MetaFeature`-provider-lambda (as shown in [Property and Methods](#property-and-methods)).
+It might happen that you run into such issues using `feature` in conjunction with a `MetaFeature`-provider-lambda (as shown in [Property and Methods](#property-and-methods)).
 However, Atrium provides alternative functions next to `f` within the `MetaFeature`-provider-lambda to disambiguate the situation.
 Use `p` for properties and `f0` to `f5` for methods. 
 Likely you need to specify the type parameters manually as Kotlin is not able to infer them correctly.
@@ -846,7 +846,7 @@ expect(x).toBeAnInstanceOf<SubType1>()
 <a name="ex-type-assertions-1"></a>
 ```text
 expected that subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
-◆ is instance of type: SubType1 (readme.examples.SubType1)
+◆ to be an instance of type: SubType1 (readme.examples.SubType1)
 ```
 </ex-type-assertions-1>
 
@@ -869,9 +869,9 @@ expect(x).toBeAnInstanceOf<SubType2> {
 ```text
 expected that subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ ▶ word: "hello"        <1234789>
-    ◾ equals: "goodbye"        <1234789>
+    ◾ to equal: "goodbye"        <1234789>
 ◆ ▶ flag: true
-    ◾ equals: false
+    ◾ to equal: false
 ```
 </ex-type-assertions-2>
 
@@ -897,7 +897,7 @@ expect(slogan1).toEqual(null)
 <a name="ex-nullable-1"></a>
 ```text
 expected that subject: "postulating assertions made easy"        <1234789>
-◆ equals: null
+◆ to equal: null
 ```
 </ex-nullable-1>
 
@@ -911,7 +911,7 @@ expect(slogan2).toEqual("postulating assertions made easy")
 <a name="ex-nullable-2"></a>
 ```text
 expected that subject: null
-◆ equals: "postulating assertions made easy"        <1234789>
+◆ to equal: "postulating assertions made easy"        <1234789>
 ```
 </ex-nullable-2>
 
@@ -932,7 +932,7 @@ expect(slogan2)        // subject has type String?
 <a name="ex-nullable-3"></a>
 ```text
 expected that subject: null
-◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
+◆ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -949,7 +949,7 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 <a name="ex-nullable-4"></a>
 ```text
 expected that subject: null
-◆ is instance of type: String (kotlin.String) -- Class: java.lang.String
+◆ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
   » starts with: "atrium"        <1234789>
 ```
 </ex-nullable-4>
@@ -1137,7 +1137,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, {
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
-    ◾ equals: 2        (kotlin.Int <1234789>)
+    ◾ to equal: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ is less than: 3        (kotlin.Int <1234789>)
@@ -1183,7 +1183,7 @@ expect(listOf(1, 2, 2, 4)).toContainExactly(
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
-    ◾ equals: 3        (kotlin.Int <1234789>)
+    ◾ to equal: 3        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ⚬ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ is less than: 2        (kotlin.Int <1234789>)
@@ -1214,18 +1214,18 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
-    ◾ equals: 5        (kotlin.Int <1234789>)
+    ◾ to equal: 5        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
-      ◾ equals: 1        (kotlin.Int <1234789>)
+      ◾ to equal: 1        (kotlin.Int <1234789>)
   ✔ ▶ element 1: 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
+      ◾ to equal: 2        (kotlin.Int <1234789>)
   ✔ ▶ element 2: 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
+      ◾ to equal: 2        (kotlin.Int <1234789>)
   ✘ ▶ element 3: 4        (kotlin.Int <1234789>)
-      ◾ equals: 3        (kotlin.Int <1234789>)
+      ◾ to equal: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 4: ❗❗ hasNext() returned false
-        » equals: 4        (kotlin.Int <1234789>)
+        » to equal: 4        (kotlin.Int <1234789>)
 ```
 </ex-collection-builder-2>
 <hr/>
@@ -1275,7 +1275,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ```text
 expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
-    ◾ equals: 5        (kotlin.Int <1234789>)
+    ◾ to equal: 5        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
@@ -1306,9 +1306,9 @@ expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » equals: 2        (kotlin.Int <1234789>)
+        » to equal: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
-      ◾ equals: 1        (kotlin.Int <1234789>)
+      ◾ to equal: 1        (kotlin.Int <1234789>)
 ```
 </ex-map-1>
 
@@ -1330,7 +1330,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain(
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
-        » equals: 2        (kotlin.Int <1234789>)
+        » to equal: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is greater than: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
@@ -1351,10 +1351,10 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
 ```text
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
-    ◾ equals: 1        (kotlin.Int <1234789>)
+    ◾ to equal: 1        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
   ✔ ▶ entry "b": 2        (kotlin.Int <1234789>)
-      ◾ equals: 2        (kotlin.Int <1234789>)
+      ◾ to equal: 2        (kotlin.Int <1234789>)
     ❗❗ additional entries detected: 
        ⚬ entry "a": 1        (kotlin.Int <1234789>)
 ```
@@ -1376,10 +1376,10 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
 ```text
 expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
-    ◾ equals: 3        (kotlin.Int <1234789>)
+    ◾ to equal: 3        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
   ✘ ▶ entry "c": ❗❗ key does not exist
-        » equals: 2        (kotlin.Int <1234789>)
+        » to equal: 2        (kotlin.Int <1234789>)
   ✔ ▶ entry "a": 1        (kotlin.Int <1234789>)
       ◾ is less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ entry "b": 2        (kotlin.Int <1234789>)
@@ -1406,14 +1406,14 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✘ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
-          ◾ equals: "b"        <1234789>
+          ◾ to equal: "b"        <1234789>
       ◾ ▶ value: 1        (kotlin.Int <1234789>)
-          ◾ equals: 2        (kotlin.Int <1234789>)
+          ◾ to equal: 2        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "b"        <1234789>
-          ◾ equals: "a"        <1234789>
+          ◾ to equal: "a"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
-          ◾ equals: 1        (kotlin.Int <1234789>)
+          ◾ to equal: 1        (kotlin.Int <1234789>)
 ```
 </ex-map-builder-1>
 
@@ -1433,12 +1433,12 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
-          ◾ equals: "a"        <1234789>
+          ◾ to equal: "a"        <1234789>
       ◾ ▶ value: 1        (kotlin.Int <1234789>)
           ◾ is less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "b"        <1234789>
-          ◾ equals: "b"        <1234789>
+          ◾ to equal: "b"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
           ◾ is less than: 2        (kotlin.Int <1234789>)
 ```
@@ -1469,7 +1469,7 @@ expect(mapOf("bernstein" to bernstein))
 expected that subject: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
 ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.MostExamplesSpec$1$Person <1234789>)
     ◾ ▶ age: 50        (kotlin.Int <1234789>)
-        ◾ equals: 60        (kotlin.Int <1234789>)
+        ◾ to equal: 60        (kotlin.Int <1234789>)
 ```
 </ex-map-3>
 
@@ -1526,9 +1526,9 @@ expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
-          ◾ equals: "a"        <1234789>
+          ◾ to equal: "a"        <1234789>
       ◾ ▶ value: 1        (kotlin.Int <1234789>)
-          ◾ equals: 1        (kotlin.Int <1234789>)
+          ◾ to equal: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "b"        <1234789>
           ◾ starts with: "a"        <1234789>
@@ -1675,9 +1675,9 @@ expect("calling myFun with...") {
 ```text
 expected that subject: "calling myFun with..."        <1234789>
 ◆ ▶ myFun(1): 'b'
-    ◾ equals: 'a'
+    ◾ to equal: 'a'
 ◆ ▶ myFun(3): 'd'
-    ◾ equals: 'e'
+    ◾ to equal: 'e'
 ```
 </ex-data-driven-1>
 
@@ -1755,7 +1755,7 @@ expected that subject: "calling myNullableFun with ..."        <1234789>
         ⚬ value: "min"        <1234789>
             » but no match was found
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
-    ◾ equals: "max"        <1234789>
+    ◾ to equal: "max"        <1234789>
 ```
 </ex-data-driven-3>
 
@@ -1841,12 +1841,12 @@ also states which entries were additionally contained in the list:
 ```text
 expected that subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 3        (kotlin.Int <1234789>)
-    ◾ equals: 2        (kotlin.Int <1234789>)
+    ◾ to equal: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
-      ◾ equals: 1        (kotlin.Int <1234789>)
+      ◾ to equal: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
-      ◾ equals: 3        (kotlin.Int <1234789>)
+      ◾ to equal: 3        (kotlin.Int <1234789>)
     ❗❗ additional elements detected: 
        ⚬ element 2: 3        (kotlin.Int <1234789>)
 ```
@@ -1896,9 +1896,9 @@ expect {
 ```text
 expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$40$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
-    ◾ is instance of type: IllegalStateException (java.lang.IllegalStateException)
+    ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
-          ◾ is instance of type: String (kotlin.String) -- Class: java.lang.String
+          ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
           ◾ contains: 
             ⚬ value: "no no no"        <1234789>
                 » but no match was found
@@ -2189,7 +2189,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ ▶ size: 0        (kotlin.Int <1234789>)
-        ◾ equals: 2        (kotlin.Int <1234789>)
+        ◾ to equal: 2        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-3>
 
@@ -2275,7 +2275,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
 expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
 ◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
     ◾ ▶ size: 1        (kotlin.Int <1234789>)
-        ◾ equals: 2        (kotlin.Int <1234789>)
+        ◾ to equal: 2        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-5>
 
@@ -2455,7 +2455,7 @@ expect(10).toEqual(9)
 ```text
 expected the subject:
   10        (kotlin.Int <1234789>)
-◆ equals:
+◆ to equal:
   9        (kotlin.Int <1234789>)
 ```
 </ex-own-expectation-verb>

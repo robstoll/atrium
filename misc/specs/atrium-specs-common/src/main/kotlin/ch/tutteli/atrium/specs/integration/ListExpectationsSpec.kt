@@ -31,11 +31,11 @@ abstract class ListExpectationsSpec(
 
     include(object : AssertionCreatorSpec<List<Int>>(
         describePrefix, list,
-        get.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toEqual(2) }
+        get.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<List<Int?>>(
         "$describePrefix[nullable Element] ", list,
-        getNullable.forAssertionCreatorSpec("$toBeDescr: 2", 1) { toEqual(2) }
+        getNullable.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -63,7 +63,7 @@ abstract class ListExpectationsSpec(
                         fluent.getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(4): $indexOutOfBounds")
-                        if (hasExtraHint) messageToContain("$toBeDescr: 3")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
                     }
                 }
             }

@@ -10,8 +10,9 @@ import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
-import ch.tutteli.atrium.specs.toBeDescr
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.specs.toBeAnInstanceOfDescr
+import ch.tutteli.atrium.specs.toEqualDescr
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -58,7 +59,7 @@ abstract class VerbSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
-                            notToContain(toBeDescr)
+                            notToContain(toEqualDescr)
                         }
                     }
                 }
@@ -75,7 +76,7 @@ abstract class VerbSpec(
                                 "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0",
                                 "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2"
                             )
-                            notToContain(toBeDescr)
+                            notToContain(toEqualDescr)
                         }
                     }
                 }
@@ -104,7 +105,7 @@ abstract class VerbSpec(
         val (_, assertionVerb) = forNullable
 
         context("subject is null") {
-            it("does not throw an exception when calling $toBeDescr(`null`)") {
+            it("does not throw an exception when calling $toEqualDescr(`null`)") {
                 assertionVerb(null).toEqual(null)
             }
             it("throws an AssertionError when calling notToEqualNull") {
@@ -113,8 +114,8 @@ abstract class VerbSpec(
                 }.toThrow<AssertionError> {
                     @Suppress("DEPRECATION")
                     (messageToContain(
-                        DescriptionAnyAssertion.IS_A.getDefault(),
-                        "Int", "$toBeDescr: 1"
+                        toBeAnInstanceOfDescr,
+                        "Int", "$toEqualDescr: 1"
                     ))
                 }
             }
@@ -142,7 +143,7 @@ abstract class VerbSpec(
                     }.toThrow<UnsupportedOperationException> {}
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        DescriptionAnyAssertion.IS_A.getDefault(),
+                        TO_BE_AN_INSTANCE_OF.getDefault(),
                         IllegalArgumentException::class.fullName,
                         UnsupportedOperationException::class.fullName
                     )
