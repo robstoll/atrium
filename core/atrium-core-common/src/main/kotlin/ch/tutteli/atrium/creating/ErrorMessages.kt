@@ -11,6 +11,8 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
         ReplaceWith("AT_LEAST_ONE_EXPECTATION_DEFINED")
     )
     AT_LEAST_ONE_ASSERTION_DEFINED("at least one assertion defined"),
+
+    /** @since 0.18.0 */
     AT_LEAST_ONE_EXPECTATION_DEFINED("at least one expectation defined"),
 
     @Deprecated(
@@ -18,6 +20,8 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
         ReplaceWith("FORGOT_DO_DEFINE_EXPECTATION")
     )
     FORGOT_DO_DEFINE_ASSERTION("You forgot to define assertions in the assertionCreator-lambda"),
+
+    /** @since 0.18.0 */
     FORGOT_DO_DEFINE_EXPECTATION("You forgot to define expectations in the expectationCreator-lambda"),
 
     @Deprecated(
@@ -25,5 +29,7 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
         ReplaceWith("HINT_AT_LEAST_ONE_EXPECTATION_DEFINED")
     )
     HINT_AT_LEAST_ONE_ASSERTION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),
+
+    /** @since 0.18.0 */
     HINT_AT_LEAST_ONE_EXPECTATION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),
 }

@@ -115,8 +115,7 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 
 
 @ExperimentalComponentFactoryContainer
-//TODO 0.18.0 make internal
-object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
+internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
     mapOf(
         Reporter::class createSingletonVia { c ->
             OnlyFailureReporter(c.build())
