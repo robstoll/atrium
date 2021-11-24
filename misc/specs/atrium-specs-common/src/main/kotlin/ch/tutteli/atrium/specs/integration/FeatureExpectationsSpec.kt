@@ -265,9 +265,9 @@ abstract class FeatureExpectationsSpec(
                         expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_ASSERTION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED.getDefault()
+                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
+                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
+                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
                         )
                     }
                 }

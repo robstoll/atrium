@@ -39,15 +39,15 @@ internal class CollectingExpectImpl<T>(
                     assertionBuilder.explanatoryGroup
                         .withDefaultType
                         .withAssertions(
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_ASSERTION)
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
                                 .build(),
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_ASSERTION_DEFINED)
+                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED)
                                 .build()
                         )
                         .build()
                 }
                 .showForAnyFailure
-                .withDescriptionAndRepresentation(ErrorMessages.AT_LEAST_ONE_ASSERTION_DEFINED, false)
+                .withDescriptionAndRepresentation(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false)
                 .build()
             )
         }
