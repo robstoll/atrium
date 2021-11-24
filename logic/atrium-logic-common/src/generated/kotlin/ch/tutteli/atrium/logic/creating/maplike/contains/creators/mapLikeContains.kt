@@ -37,10 +37,6 @@ fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, 
 fun <K, V, T : MapLike> MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnlySearchBehaviour>.keyValuePairsInOrderOnly(keyValuePairs: List<Pair<K, V>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
     impl.keyValuePairsInOrderOnly(this, keyValuePairs, reportingOptions)
 
-    //TODO remove with 0.18.0 only here for backward compatibility with specs
-fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>.keyWithValueAssertionsInOrderOnly(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>): Assertion =
-    impl.keyWithValueAssertionsInOrderOnly(this, valueType, keyValues)
-
 fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>.keyWithValueAssertionsInOrderOnly(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
     impl.keyWithValueAssertionsInOrderOnly(this, valueType, keyValues, reportingOptions)
 
