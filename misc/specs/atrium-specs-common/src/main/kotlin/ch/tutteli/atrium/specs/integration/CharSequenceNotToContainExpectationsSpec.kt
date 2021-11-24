@@ -91,7 +91,7 @@ abstract class CharSequenceNotToContainExpectationsSpec(
                             "$rootBulletPoint$notToContainDescr: $separator" +
                                 "$valueWithIndent: 'l'",
                             "$numberOfOccurrences: 3",
-                            "${DescriptionBasic.IS.getDefault()}: 0"
+                            "$toEqualDescr: 0"
                         )
                     }
                 }

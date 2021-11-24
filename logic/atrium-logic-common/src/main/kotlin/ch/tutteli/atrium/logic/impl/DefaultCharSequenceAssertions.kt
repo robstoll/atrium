@@ -14,8 +14,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.i
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerStep
-import ch.tutteli.atrium.translations.DescriptionBasic.IS
-import ch.tutteli.atrium.translations.DescriptionBasic.IS_NOT
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
 
 class DefaultCharSequenceAssertions : CharSequenceAssertions {
@@ -44,13 +44,13 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
         container.createDescriptiveAssertion(ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
 
     override fun <T : CharSequence> isEmpty(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(IS, EMPTY) { it.isEmpty() }
+        container.createDescriptiveAssertion(TO_BE, EMPTY) { it.isEmpty() }
 
     override fun <T : CharSequence> isNotEmpty(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(IS_NOT, EMPTY) { it.isNotEmpty() }
+        container.createDescriptiveAssertion(NOT_TO_BE, EMPTY) { it.isNotEmpty() }
 
     override fun <T : CharSequence> isNotBlank(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(IS_NOT, BLANK) { it.isNotBlank() }
+        container.createDescriptiveAssertion(NOT_TO_BE, BLANK) { it.isNotBlank() }
 
     override fun <T : CharSequence> matches(container: AssertionContainer<T>, expected: Regex): Assertion =
         container.createDescriptiveAssertion(MATCHES, expected) { it.matches(expected) }

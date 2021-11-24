@@ -33,8 +33,6 @@ abstract class CollectionExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val isDescr = DescriptionBasic.IS.getDefault()
-    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val fluent = expect(listOf(1, 2) as Collection<Int>)
     val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
@@ -50,7 +48,7 @@ abstract class CollectionExpectationsSpec(
             it("${isNotEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$isNotDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
             }
         }
 
@@ -58,7 +56,7 @@ abstract class CollectionExpectationsSpec(
             it("${isEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$isDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$toBeDescr: $empty") }
             }
             it("${isNotEmpty.name} - does not throw") {
                 expect(listOf(1) as Collection<Int>).isNotEmptyFun()

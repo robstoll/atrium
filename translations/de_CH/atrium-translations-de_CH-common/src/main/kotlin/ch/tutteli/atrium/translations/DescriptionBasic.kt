@@ -11,22 +11,17 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
     TO("zu"),
     NOT_TO("nicht zu"),
 
-    @Deprecated(
-        "Use DescriptionAnyAssertion.TO_BE or IS instead; will be removed with 1.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE")
-    )
     TO_BE("ist"),
-
-    @Deprecated(
-        "Use DescriptionAnyAssertion.NOT_TO_BE or IS_NOT instead; will be removed with 1.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE")
-    )
     NOT_TO_BE("ist nicht"),
 
-    IS("ist"),
-    IS_NOT("ist nicht"),
     HAS("hat"),
     HAS_NOT("hat nicht"),
     WAS("war"),
-    NONE("kein")
+    NONE("kein"),
+
+    @Deprecated("Use TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_BE"))
+    IS("ist"),
+
+    @Deprecated("Use NOT_TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_BE"))
+    IS_NOT("ist nicht"),
 }

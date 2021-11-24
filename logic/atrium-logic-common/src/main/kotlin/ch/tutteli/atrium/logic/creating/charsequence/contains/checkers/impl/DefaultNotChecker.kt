@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.NotChecker
-import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 
 /**
  * Represents a check that an expected search criterion is not contained in the search input.
@@ -11,5 +11,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic.IS
 class DefaultNotChecker : NotChecker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        assertionBuilder.createDescriptive(IS, 0) { foundNumberOfTimes == 0 }
+        assertionBuilder.createDescriptive(TO_EQUAL, 0) { foundNumberOfTimes == 0 }
 }

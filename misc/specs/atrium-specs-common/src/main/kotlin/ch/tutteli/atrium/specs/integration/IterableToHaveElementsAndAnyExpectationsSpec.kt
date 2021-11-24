@@ -120,7 +120,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhich: $separator",
-                                "$isDescr: null",
+                                "$toEqualDescr: null",
                                 noSuchEntryDescr
                             )
                         }

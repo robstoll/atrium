@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.identity
@@ -46,7 +46,7 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
                 it.withAssertion(
                     // it is for an explanatoryGroup where it does not matter if the assertion holds or not
                     // thus it is OK to use trueProvider
-                    assertionBuilder.createDescriptive(DescriptionBasic.IS, Text.NULL, trueProvider)
+                    assertionBuilder.createDescriptive(TO_EQUAL, Text.NULL, trueProvider)
                 )
             }
         }

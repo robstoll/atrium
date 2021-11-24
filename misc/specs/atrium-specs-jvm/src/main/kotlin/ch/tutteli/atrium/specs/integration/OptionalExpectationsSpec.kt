@@ -59,7 +59,7 @@ abstract class OptionalExpectationsSpec(
                 expect {
                     expect(presentValue).toBeEmptyFun()
                 }.toThrow<AssertionError> {
-                    messageToContain("$isDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
+                    messageToContain("$toBeDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
                 }
             }
 

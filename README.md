@@ -1572,7 +1572,7 @@ expect(Paths.get("/root/.ssh/config")).toBeWritable()
 <a name="ex-path-writable"></a>
 ```text
 expected that subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
-◆ is: writable
+◆ to be: writable
     » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
       » access was denied
       » the owner is root, the group is root
@@ -1595,7 +1595,7 @@ expect(filePointer.resolve("subfolder/file")).toBeARegularFile()
 <a name="ex-path-symlink-and-parent-not-folder"></a>
 ```text
 expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
-◆ is: a file
+◆ to be: a file
     » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
     » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
       » was a file instead of a directory
@@ -1622,7 +1622,7 @@ expected that subject: "filename?"        <1234789>
 ◆ does not contain: 
   ⚬ value: "?"        <1234789>
     ⚬ ▶ number of matches: 1
-        ◾ is: 0        (kotlin.Int <1234789>)
+        ◾ to equal: 0        (kotlin.Int <1234789>)
 ℹ because: ? is not allowed in file names on Windows
 ```
 </ex-because-1>
@@ -2541,7 +2541,7 @@ as second example:
 import ch.tutteli.atrium.logic.*
 
 fun Expect<Int>.toBeEven(): Expect<Int> =
-    _logic.createAndAppend(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+    _logic.createAndAppend(DescriptionBasic.TO_BE, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")
