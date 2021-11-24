@@ -253,7 +253,7 @@ expect(x).toEqual(9)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FirstExampleSpec.kt#L31)</sub> ↓ <sub>[Output](#ex-first)</sub>
 <a name="ex-first"></a>
 ```text
-expected that subject: 10        (kotlin.Int <1234789>)
+expected subject: 10        (kotlin.Int <1234789>)
 ◆ to equal: 9        (kotlin.Int <1234789>)
 ```
 </ex-first>
@@ -284,7 +284,7 @@ expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L24)</sub> ↓ <sub>[Output](#ex-single)</sub>
 <a name="ex-single"></a>
 ```text
-expected that subject: 10        (kotlin.Int <1234789>)
+expected subject: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
 ```
 </ex-single>
@@ -321,7 +321,7 @@ expect(4 + 6) {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L40)</sub> ↓ <sub>[Output](#ex-group)</sub>
 <a name="ex-group"></a>
 ```text
-expected that subject: 10        (kotlin.Int <1234789>)
+expected subject: 10        (kotlin.Int <1234789>)
 ◆ is less than: 5        (kotlin.Int <1234789>)
 ◆ is greater than: 10        (kotlin.Int <1234789>)
 ```
@@ -357,7 +357,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L64)</sub> ↓ <sub>[Output](#ex-toThrow1)</sub>
 <a name="ex-toThrow1"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
+expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
     ℹ Properties of the unexpected IllegalArgumentException
@@ -393,7 +393,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L71)</sub> ↓ <sub>[Output](#ex-toThrow2)</sub>
 <a name="ex-toThrow2"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$8$1 <1234789>)
+expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$8$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -414,7 +414,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L77)</sub> ↓ <sub>[Output](#ex-toThrow3)</sub>
 <a name="ex-toThrow3"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$9$1 <1234789>)
+expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$9$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -438,7 +438,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-notToThrow)</sub>
 <a name="ex-notToThrow"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$10$1 <1234789>)
+expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$10$1 <1234789>)
 ◆ ▶ invoke(): ❗❗ threw java.lang.IllegalArgumentException
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "name is empty"        <1234789>
@@ -501,7 +501,7 @@ expect(myPerson)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-its-single)</sub>
 <a name="ex-its-single"></a>
 ```text
-expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:43): false
     ◾ to equal: true
 ```
@@ -547,7 +547,7 @@ Feature assertions follow the common pattern of having two overloads:
   ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L49)</sub> ↓ <sub>[Output](#ex-its-group)</sub>
   <a name="ex-its-group"></a>
   ```text
-  expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+  expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
   ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:52): "Robert"        <1234789>
       ◾ starts with: "Pe"        <1234789>
       ◾ ends with: "er"        <1234789>
@@ -575,7 +575,7 @@ expect(myPerson)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L63)</sub> ↓ <sub>[Output](#ex-property-methods-single)</sub>
 <a name="ex-property-methods-single"></a>
 ```text
-expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ isStudent: false
     ◾ to equal: true
 ```
@@ -616,7 +616,7 @@ expect(myPerson) { // forms an assertion group block
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L71)</sub> ↓ <sub>[Output](#ex-property-methods-group)</sub>
 <a name="ex-property-methods-group"></a>
 ```text
-expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ firstName: "Robert"        <1234789>
     ◾ starts with: "Pe"        <1234789>
     ◾ ends with: "er"        <1234789>
@@ -665,7 +665,7 @@ expect(myPerson)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-methods-args)</sub>
 <a name="ex-methods-args"></a>
 ```text
-expected that subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
+expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ nickname(false): "Mr. Robert"        <1234789>
     ◾ to equal: "Robert aka. Stoll"        <1234789>
 ```
@@ -707,7 +707,7 @@ expect(myFamily)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L102)</sub> ↓ <sub>[Output](#ex-arbitrary-features)</sub>
 <a name="ex-arbitrary-features"></a>
 ```text
-expected that subject: Family(members=[FamilyMember(name=Robert)])        (readme.examples.FeatureExtractorSpec$1$Family <1234789>)
+expected subject: Family(members=[FamilyMember(name=Robert)])        (readme.examples.FeatureExtractorSpec$1$Family <1234789>)
 ◆ ▶ the first member's name: "Robert"        <1234789>
     ◾ to equal: "Peter"        <1234789>
 ```
@@ -757,7 +757,7 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/FeatureExtractorSpec.kt#L118)</sub> ↓ <sub>[Output](#ex-within-assertion-functions)</sub>
 <a name="ex-within-assertion-functions"></a>
 ```text
-expected that subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ get(10): ❗❗ index out of bounds
       » ▶ CANNOT show description as it is based on subject which is not defined: 
           ◾ to equal: 1        (kotlin.Int <1234789>)
@@ -845,7 +845,7 @@ expect(x).toBeAnInstanceOf<SubType1>()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L92)</sub> ↓ <sub>[Output](#ex-type-assertions-1)</sub>
 <a name="ex-type-assertions-1"></a>
 ```text
-expected that subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+expected subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ to be an instance of type: SubType1 (readme.examples.SubType1)
 ```
 </ex-type-assertions-1>
@@ -867,7 +867,7 @@ expect(x).toBeAnInstanceOf<SubType2> {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L98)</sub> ↓ <sub>[Output](#ex-type-assertions-2)</sub>
 <a name="ex-type-assertions-2"></a>
 ```text
-expected that subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+expected subject: SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
 ◆ ▶ word: "hello"        <1234789>
     ◾ to equal: "goodbye"        <1234789>
 ◆ ▶ flag: true
@@ -896,7 +896,7 @@ expect(slogan1).toEqual(null)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L106)</sub> ↓ <sub>[Output](#ex-nullable-1)</sub>
 <a name="ex-nullable-1"></a>
 ```text
-expected that subject: "postulating assertions made easy"        <1234789>
+expected subject: "postulating assertions made easy"        <1234789>
 ◆ to equal: null
 ```
 </ex-nullable-1>
@@ -910,7 +910,7 @@ expect(slogan2).toEqual("postulating assertions made easy")
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L110)</sub> ↓ <sub>[Output](#ex-nullable-2)</sub>
 <a name="ex-nullable-2"></a>
 ```text
-expected that subject: null
+expected subject: null
 ◆ to equal: "postulating assertions made easy"        <1234789>
 ```
 </ex-nullable-2>
@@ -931,7 +931,7 @@ expect(slogan2)        // subject has type String?
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L115)</sub> ↓ <sub>[Output](#ex-nullable-3)</sub>
 <a name="ex-nullable-3"></a>
 ```text
-expected that subject: null
+expected subject: null
 ◆ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
@@ -948,7 +948,7 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L120)</sub> ↓ <sub>[Output](#ex-nullable-4)</sub>
 <a name="ex-nullable-4"></a>
 ```text
-expected that subject: null
+expected subject: null
 ◆ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
   » starts with: "atrium"        <1234789>
 ```
@@ -987,7 +987,7 @@ expect(listOf(1, 2, 2, 4)).toContain(2, 3)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L124)</sub> ↓ <sub>[Output](#ex-collection-short-1)</sub>
 <a name="ex-collection-short-1"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which equals: 3        (kotlin.Int <1234789>)
       » but no such element was found
@@ -1025,7 +1025,7 @@ expect(listOf(1, 2, 2, 4)).toContain(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L128)</sub> ↓ <sub>[Output](#ex-collection-short-2)</sub>
 <a name="ex-collection-short-2"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
@@ -1067,7 +1067,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAny {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L135)</sub> ↓ <sub>[Output](#ex-collection-any)</sub>
 <a name="ex-collection-any"></a>
 ```text
-expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
       » is less than: 0        (kotlin.Int <1234789>)
@@ -1085,7 +1085,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndNone {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L140)</sub> ↓ <sub>[Output](#ex-collection-none)</sub>
 <a name="ex-collection-none"></a>
 ```text
-expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
   ⚬ an element which: 
       » is greater than: 2        (kotlin.Int <1234789>)
@@ -1105,7 +1105,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAll {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L145)</sub> ↓ <sub>[Output](#ex-collection-all)</sub>
 <a name="ex-collection-all"></a>
 ```text
-expected that subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ all entries: 
     » is greater than: 2        (kotlin.Int <1234789>)
     ❗❗ following elements were mismatched: 
@@ -1135,7 +1135,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L151)</sub> ↓ <sub>[Output](#ex-collection-builder-1)</sub>
 <a name="ex-collection-builder-1"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
@@ -1181,7 +1181,7 @@ expect(listOf(1, 2, 2, 4)).toContainExactly(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L154)</sub> ↓ <sub>[Output](#ex-collection-reportOptions-1)</sub>
 <a name="ex-collection-reportOptions-1"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 3        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
@@ -1212,7 +1212,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L162)</sub> ↓ <sub>[Output](#ex-collection-builder-2)</sub>
 <a name="ex-collection-builder-2"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 5        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
@@ -1237,7 +1237,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.atLeast(1).butAtMost(2).entries(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L165)</sub> ↓ <sub>[Output](#ex-collection-builder-3)</sub>
 <a name="ex-collection-builder-3"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
       » is less than: 3        (kotlin.Int <1234789>)
@@ -1254,7 +1254,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(1, 2, 3, 4)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L168)</sub> ↓ <sub>[Output](#ex-collection-builder-4)</sub>
 <a name="ex-collection-builder-4"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains only, in any order: 
   ✔ an element which equals: 1        (kotlin.Int <1234789>)
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
@@ -1273,7 +1273,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L171)</sub> ↓ <sub>[Output](#ex-collection-builder-5)</sub>
 <a name="ex-collection-builder-5"></a>
 ```text
-expected that subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 5        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
@@ -1303,7 +1303,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L175)</sub> ↓ <sub>[Output](#ex-map-1)</sub>
 <a name="ex-map-1"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
@@ -1327,7 +1327,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L178)</sub> ↓ <sub>[Output](#ex-map-2)</sub>
 <a name="ex-map-2"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
@@ -1349,7 +1349,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L186)</sub> ↓ <sub>[Output](#ex-map-only-1)</sub>
 <a name="ex-map-only-1"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
     ◾ to equal: 1        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
@@ -1374,7 +1374,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L189)</sub> ↓ <sub>[Output](#ex-map-only-2)</sub>
 <a name="ex-map-only-2"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
     ◾ to equal: 3        (kotlin.Int <1234789>)
 ◆ contains only, in any order: 
@@ -1402,7 +1402,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries("b" to 2, "a" t
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L197)</sub> ↓ <sub>[Output](#ex-map-builder-1)</sub>
 <a name="ex-map-builder-1"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✘ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
@@ -1429,7 +1429,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries(
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L200)</sub> ↓ <sub>[Output](#ex-map-builder-2)</sub>
 <a name="ex-map-builder-2"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
@@ -1466,7 +1466,7 @@ expect(mapOf("bernstein" to bernstein))
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L210)</sub> ↓ <sub>[Output](#ex-map-3)</sub>
 <a name="ex-map-3"></a>
 ```text
-expected that subject: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
+expected subject: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
 ◆ ▶ get("bernstein"): Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.MostExamplesSpec$1$Person <1234789>)
     ◾ ▶ age: 50        (kotlin.Int <1234789>)
         ◾ to equal: 60        (kotlin.Int <1234789>)
@@ -1486,7 +1486,7 @@ expect(mapOf("a" to 1, "b" to 2)) {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L222)</sub> ↓ <sub>[Output](#ex-map-4)</sub>
 <a name="ex-map-4"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
     ◾ all entries: 
         » starts with: "a"        <1234789>
@@ -1522,7 +1522,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entri
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L228)</sub> ↓ <sub>[Output](#ex-map-5)</sub>
 <a name="ex-map-5"></a>
 ```text
-expected that subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
+expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
@@ -1555,7 +1555,7 @@ expect(Paths.get("/usr/bin/noprogram")).toExist()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L37)</sub> ↓ <sub>[Output](#ex-path-exists)</sub>
 <a name="ex-path-exists"></a>
 ```text
-expected that subject: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
+expected subject: /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
 ◆ to: exist
     » the closest existing parent directory is /usr/bin
 ```
@@ -1571,7 +1571,7 @@ expect(Paths.get("/root/.ssh/config")).toBeWritable()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L41)</sub> ↓ <sub>[Output](#ex-path-writable)</sub>
 <a name="ex-path-writable"></a>
 ```text
-expected that subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
+expected subject: /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
 ◆ to be: writable
     » failure at parent path: /root        (sun.nio.fs.UnixPath <1234789>)
       » access was denied
@@ -1594,7 +1594,7 @@ expect(filePointer.resolve("subfolder/file")).toBeARegularFile()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/PathSpec.kt#L46)</sub> ↓ <sub>[Output](#ex-path-symlink-and-parent-not-folder)</sub>
 <a name="ex-path-symlink-and-parent-not-folder"></a>
 ```text
-expected that subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
+expected subject: /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
 ◆ to be: a file
     » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
     » failure at parent path: /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
@@ -1618,7 +1618,7 @@ expect("filename?")
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L238)</sub> ↓ <sub>[Output](#ex-because-1)</sub>
 <a name="ex-because-1"></a>
 ```text
-expected that subject: "filename?"        <1234789>
+expected subject: "filename?"        <1234789>
 ◆ does not contain: 
   ⚬ value: "?"        <1234789>
     ⚬ ▶ number of matches: 1
@@ -1673,7 +1673,7 @@ expect("calling myFun with...") {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L35)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
 <a name="ex-data-driven-1"></a>
 ```text
-expected that subject: "calling myFun with..."        <1234789>
+expected subject: "calling myFun with..."        <1234789>
 ◆ ▶ myFun(1): 'b'
     ◾ to equal: 'a'
 ◆ ▶ myFun(3): 'd'
@@ -1708,7 +1708,7 @@ expect("calling myFun with ...") {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L49)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
 <a name="ex-data-driven-2"></a>
 ```text
-expected that subject: "calling myFun with ..."        <1234789>
+expected subject: "calling myFun with ..."        <1234789>
 ◆ ▶ myFun(3): 'd'
     ◾ is greater than: 'e'
 ```
@@ -1749,7 +1749,7 @@ expect("calling myNullableFun with ...") {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L67)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
 <a name="ex-data-driven-3"></a>
 ```text
-expected that subject: "calling myNullableFun with ..."        <1234789>
+expected subject: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
       » contains: 
         ⚬ value: "min"        <1234789>
@@ -1839,7 +1839,7 @@ also states which entries were additionally contained in the list:
 <exs-add-info-1-output>
 
 ```text
-expected that subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
+expected subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 3        (kotlin.Int <1234789>)
     ◾ to equal: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
@@ -1869,7 +1869,7 @@ But Atrium shows where it goes wrong and even gives a possible hint:
 <exs-add-info-2-output>
 
 ```text
-expected that subject: 9.99        (kotlin.Float <1234789>)
+expected subject: 9.99        (kotlin.Float <1234789>)
 ◆ to equal (error ± 0.01): 10.0        (kotlin.Float <1234789>)
     » failure might be due to using kotlin.Float, see exact check on the next line
     » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
@@ -1894,7 +1894,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L251)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
 <a name="ex-add-info-3"></a>
 ```text
-expected that subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$40$1 <1234789>)
+expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$40$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
@@ -1936,7 +1936,7 @@ expect(BigDecimal.TEN).toEqualIncludingScale(BigDecimal("10.0"))
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L261)</sub> ↓ <sub>[Output](#ex-pitfall-1)</sub>
 <a name="ex-pitfall-1"></a>
 ```text
-expected that subject: 10        (java.math.BigDecimal <1234789>)
+expected subject: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
     ℹ notice, if you used toEqualNumerically then the assertion would have hold.
 ```
@@ -1954,7 +1954,7 @@ expect(listOf(1)).get(0) {}
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L264)</sub> ↓ <sub>[Output](#ex-pitfall-2)</sub>
 <a name="ex-pitfall-2"></a>
 ```text
-expected that subject: [1]        (java.util.Collections.SingletonList <1234789>)
+expected subject: [1]        (java.util.Collections.SingletonList <1234789>)
 ◆ ▶ get(0): 1        (kotlin.Int <1234789>)
     ◾ at least one expectation defined: false
         » You forgot to define expectations in the expectationCreator-lambda
@@ -2033,7 +2033,7 @@ expect(12).toBeAMultipleOf(5)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L44)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
 ```text
-expected that subject: 12        (kotlin.Int <1234789>)
+expected subject: 12        (kotlin.Int <1234789>)
 ◆ is multiple of: 5        (kotlin.Int <1234789>)
 ```
 </ex-own-boolean-1>
@@ -2085,7 +2085,7 @@ expect(13).toBeEven()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L57)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
 ```text
-expected that subject: 13        (kotlin.Int <1234789>)
+expected subject: 13        (kotlin.Int <1234789>)
 ◆ is: an even number
 ```
 </ex-own-boolean-2>
@@ -2186,7 +2186,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L74)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
 ```text
-expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ ▶ size: 0        (kotlin.Int <1234789>)
         ◾ to equal: 2        (kotlin.Int <1234789>)
@@ -2222,7 +2222,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L91)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
 ```text
-expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
+expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ has: a next element
       » all entries: 
@@ -2272,7 +2272,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, li
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L101)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
 ```text
-expected that subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
+expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
 ◆ ▶ children: [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
     ◾ ▶ size: 1        (kotlin.Int <1234789>)
         ◾ to equal: 2        (kotlin.Int <1234789>)

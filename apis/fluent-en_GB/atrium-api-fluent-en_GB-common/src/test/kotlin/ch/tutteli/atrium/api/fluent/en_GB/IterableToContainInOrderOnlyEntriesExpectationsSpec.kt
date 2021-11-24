@@ -1,15 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInOrderOnlyEntriesExpectationsSpec.Companion as C
 import kotlin.reflect.KFunction4
+import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInOrderOnlyEntriesExpectationsSpec.Companion as C
 
 class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
 

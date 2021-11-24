@@ -19,4 +19,3 @@ class Values<out T> internal constructor(
 ) : Group<T>, VarArgHelper<T> {
     override fun toList(): List<T> = super.toList()
 }
-

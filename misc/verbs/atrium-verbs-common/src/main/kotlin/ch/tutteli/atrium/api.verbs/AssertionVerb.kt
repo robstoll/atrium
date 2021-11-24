@@ -7,5 +7,5 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The [Translatable] for the assertion [expect].
  */
 enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
-    EXPECT("expected that subject"),
+    EXPECT("expected subject"),
 }
