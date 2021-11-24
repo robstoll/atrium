@@ -73,9 +73,9 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(1, 2, 2, 4)) toContain entries(
-                    { toEqual(3) }, // fails because no element in the list equals 3
-                    { toEqual(5) }  // still evaluated and also fails
-                )
+                { toEqual(3) }, // fails because no element in the list equals 3
+                { toEqual(5) }  // still evaluated and also fails
+            )
         }
     }
 
@@ -91,18 +91,17 @@ class IterableExpectationSamples {
             expect(listOf("A", "B")) toContainExactly values("B", "A")
         }
 
-        // cannot run due to a Kotlin bug in JS-target: see https://youtrack.jetbrains.com/issue/KT-49728
-//        fails {
-//            expect(listOf("A", "B")) toContainExactly values(
-//                "C",
-//                "B",
-//                // optional
-//                report = { // allows configuring reporting, e.g.
-//                    showOnlyFailing() // would not show the successful `B`
-//                    showOnlyFailingIfMoreElementsThan(10)
-//                }
-//            )
-//        }
+        fails {
+            expect(listOf("A", "B")) toContainExactly values(
+                "C",
+                "B",
+                // optional
+                report = { // allows configuring reporting, e.g.
+                    showOnlyFailing() // would not show the successful `B`
+                    showOnlyFailingIfMoreElementsThan(10)
+                }
+            )
+        }
     }
 
     @Test
@@ -130,8 +129,8 @@ class IterableExpectationSamples {
         fails {
             // cast only necessary if Kotlin version < 1.4 due to a bug in Kotlin
             expect(listOf(null, "B")) toContainExactly (null as (Expect<String>.() -> Unit)?)
-           // Kotlin > 1.4 would be
-           // expect(listOf(null, "B")) toContainExactly null
+            // Kotlin > 1.4 would be
+            // expect(listOf(null, "B")) toContainExactly null
         }
     }
 
