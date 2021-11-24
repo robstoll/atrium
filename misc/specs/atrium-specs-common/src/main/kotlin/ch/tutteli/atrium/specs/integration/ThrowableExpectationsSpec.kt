@@ -7,7 +7,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
@@ -34,7 +33,7 @@ abstract class ThrowableExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Throwable>(
         describePrefix, RuntimeException("hello"),
-        message.forAssertionCreatorSpec("$toBeDescr: hello") { toEqual("hello") }
+        message.forAssertionCreatorSpec("$toEqualDescr: hello") { toEqual("hello") }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -53,10 +52,10 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionAnyAssertion.IS_A.getDefault(),
+                            toBeAnInstanceOfDescr,
                             String::class.fullName
                         )
-                        if (hasExtraHint) messageToContain("$toBeDescr: \"hello\"")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
                     }
                 }
             }
@@ -67,7 +66,7 @@ abstract class ThrowableExpectationsSpec(
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        DescriptionAnyAssertion.IS_A.getDefault(), String::class.fullName,
+                        toBeAnInstanceOfDescr, String::class.fullName,
                         CONTAINS.getDefault(),
                         VALUE.getDefault() + ": 1",
                         VALUE.getDefault() + ": 2.3",
@@ -84,7 +83,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -109,7 +108,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -133,7 +132,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toBeDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {

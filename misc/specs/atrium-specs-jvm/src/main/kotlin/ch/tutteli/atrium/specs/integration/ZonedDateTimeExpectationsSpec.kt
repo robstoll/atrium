@@ -35,10 +35,10 @@ abstract class ZonedDateTimeExpectationsSpec(
 
     include(object : AssertionCreatorSpec<ZonedDateTime>(
         describePrefix, ZonedDateTime.now().withYear(2040).withDayOfYear(1).withDayOfMonth(15),
-        year.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(2040) },
-        month.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(1) },
-        day.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(15) },
-        dayOfWeek.forAssertionCreatorSpec("$toBeDescr: 1") { toEqual(DayOfWeek.SUNDAY) }
+        year.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(2040) },
+        month.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
+        day.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(15) },
+        dayOfWeek.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

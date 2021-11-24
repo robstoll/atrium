@@ -29,7 +29,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
     ) =
         toContainInOrderOnlyNullableValues(this, t, tX, report)
 
-    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
+    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
@@ -66,7 +66,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
             "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
-                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toBeDescr: $expected"
+                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toEqualDescr: $expected"
         )
     }
 

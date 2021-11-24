@@ -34,7 +34,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         vararg tX: Group<Double?>
     ) = toContainInOrderOnlyGroupedNullableValues(this, t1, t2, tX)
 
-    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toBeDescr"
+    val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
 
@@ -120,7 +120,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     fun Expect<String>.indexNonExisting(index: Int, expected: Double): Expect<String> {
         return this.toContain.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
-                "$afterFail$explanatoryBulletPoint$toBeDescr: $expected"
+                "$afterFail$explanatoryBulletPoint$toEqualDescr: $expected"
         )
     }
 

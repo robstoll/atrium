@@ -6,7 +6,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains translations which are used in error like messages.
  */
-
 enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
 
     DESCRIPTION_BASED_ON_SUBJECT("CANNOT show description as it is based on subject which is not defined"),

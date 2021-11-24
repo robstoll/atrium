@@ -56,14 +56,14 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
         context("iterable ${oneToSeven().toList()}") {
             context("happy case") {
                 listOf(1.1, 2.2, 3.3).forEach {
-                    it("$toBeDescr($it) does not throw") {
+                    it("$toEqualDescr($it) does not throw") {
                         expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(1.1) }
                     }
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("$toBeDescr(4.0) throws AssertionError") {
+                it("$toEqualDescr(4.0) throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(4.0) }
                     }.toThrow<AssertionError> {
@@ -71,7 +71,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$toBeDescr: 4.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
@@ -118,7 +118,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$toBeDescr: 1.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
                             )

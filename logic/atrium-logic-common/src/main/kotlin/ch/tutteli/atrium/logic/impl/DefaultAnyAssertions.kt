@@ -11,21 +11,21 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.*
 import kotlin.reflect.KClass
 
 class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion =
-        container.createDescriptiveAssertion(TO_BE, expected) { it == expected }
+        container.createDescriptiveAssertion(TO_EQUAL, expected) { it == expected }
 
     override fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_BE, expected) { it != expected }
+        container.createDescriptiveAssertion(NOT_TO_EQUAL, expected) { it != expected }
 
     override fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion =
-        container.createDescriptiveAssertion(IS_SAME, expected) { it === expected }
+        container.createDescriptiveAssertion(TO_BE_THE_INSTANCE, expected) { it === expected }
 
     override fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion =
-        container.createDescriptiveAssertion(IS_NOT_SAME, expected) { it !== expected }
+        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE, expected) { it !== expected }
 
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
@@ -79,7 +79,7 @@ class DefaultAnyAssertions : AnyAssertions {
                 .build()
         }
         return assertionBuilder.list
-            .withDescriptionAndEmptyRepresentation(IS_NONE_OF)
+            .withDescriptionAndEmptyRepresentation(NOT_TO_EQUAL_ONE_IN)
             .withAssertions(assertions)
             .build()
     }

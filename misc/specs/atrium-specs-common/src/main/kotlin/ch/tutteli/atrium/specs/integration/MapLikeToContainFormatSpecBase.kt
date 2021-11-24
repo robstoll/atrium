@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.dsl.Root
@@ -17,7 +16,7 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1)
-                .regex("\\Q$rootBulletPoint$featureArrow$sizeDescr\\E: $actual[^:]+${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                .regex("\\Q$rootBulletPoint$featureArrow$sizeDescr\\E: $actual[^:]+${toEqualDescr}: $expected")
 
 
         fun Expect<String>.toContainInAnyOrderOnlyDescr() =

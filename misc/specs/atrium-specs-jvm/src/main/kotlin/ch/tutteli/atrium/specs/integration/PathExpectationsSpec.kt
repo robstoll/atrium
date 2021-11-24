@@ -1722,7 +1722,7 @@ abstract class PathExpectationsSpec(
                         val childFolder = tempFolder.newDirectory("child")
                         expect(childFolder).parentFun { toEqual(childFolder) }
                     }.toThrow<AssertionError> {
-                        message { toContainRegex("$toBeDescr: .*(/|\\\\)child") }
+                        message { toContainRegex("$toEqualDescr: .*(/|\\\\)child") }
                     }
                 }
             }

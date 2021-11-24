@@ -19,7 +19,8 @@ import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -53,7 +54,7 @@ abstract class OnlyFailureReporterSpec(
         }
         val basicAssertion = assertionBuilder.descriptive
             .holding
-            .withDescriptionAndRepresentation(TO_BE, 0)
+            .withDescriptionAndRepresentation(TO_EQUAL, 0)
             .build()
 
         val basicAssertionAnonymous = object : DescriptiveAssertion {

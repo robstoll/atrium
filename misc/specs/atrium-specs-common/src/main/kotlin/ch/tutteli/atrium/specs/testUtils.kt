@@ -5,15 +5,10 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionBasic
 import kotlin.jvm.JvmName
-import kotlin.reflect.KFunction1
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
-import kotlin.reflect.KFunction4
-import kotlin.reflect.KFunction5
-import kotlin.reflect.KProperty1
+import kotlin.reflect.*
 
 typealias SpecPair<T> = Pair<String, T>
 
@@ -268,10 +263,10 @@ fun <T> notImplemented(): T = throw NotImplementedError()
 //TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
 fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
 
-val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
 val isDescr = DescriptionBasic.IS.getDefault()
 val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
-val isADescr = DescriptionAnyAssertion.IS_A.getDefault()
+val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
 
 expect val lineSeparator: String
 

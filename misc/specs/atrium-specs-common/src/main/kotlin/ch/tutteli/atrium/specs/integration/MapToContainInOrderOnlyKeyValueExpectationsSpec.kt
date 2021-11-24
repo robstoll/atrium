@@ -80,7 +80,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         return this.toContain.exactly(1).regex(
             "\\Q$successFailureBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
-                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toBeDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
+                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
                 "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$separator" +
                 "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expectedValue"
         )
@@ -144,7 +144,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                         message {
                             toContainInOrderOnlyDescr()
                             toContainSize(0, 1)
-                            elementOutOfBound(0, "a", "$toBeDescr: 1")
+                            elementOutOfBound(0, "a", "$toEqualDescr: 1")
                         }
                     }
                 }
@@ -162,7 +162,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                             toContainInOrderOnlyDescr()
                             toContainSize(0, 3)
                             elementOutOfBound(0, "a", "$toBeLessThanDescr: 1")
-                            elementOutOfBound(1, "b", "$toBeDescr: 3")
+                            elementOutOfBound(1, "b", "$toEqualDescr: 3")
                             elementOutOfBound(2, "c", "$toBeLessThanDescr: 4")
                         }
                     }
@@ -195,7 +195,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementSuccess(0, "a=1", "a", "$toBeDescr: 1")
+                            elementSuccess(0, "a=1", "a", "$toEqualDescr: 1")
                             additionalEntries(1 to "b=2")
                             toContainSize(2, 1)
                         }
@@ -210,8 +210,8 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementFailing(0, "a=1", "b", "$toBeDescr: 2")
-                            elementFailing(1, "b=2", "a", "$toBeDescr: 1")
+                            elementFailing(0, "a=1", "b", "$toEqualDescr: 2")
+                            elementFailing(1, "b=2", "a", "$toEqualDescr: 1")
 
                             notToContain(additionalEntriesDescr, sizeDescr)
                         }
@@ -269,7 +269,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                     nullableFluent.toContainFun(keyNullableValue("a", null), arrayOf())
                 }.toThrow<AssertionError> {
                     message {
-                        elementSuccess(0, "a=null", "a", "$toBeDescr: null")
+                        elementSuccess(0, "a=null", "a", "$toEqualDescr: null")
                         additionalEntries(1 to "null=1", 2 to "b=2")
                         toContainSize(3, 1)
                     }
@@ -287,9 +287,9 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                     )
                 }.toThrow<AssertionError> {
                     message {
-                        elementFailing(0, "a=null", "b", "$toBeDescr: 2", explainingValue = true)
-                        elementFailing(1, "null=1", "a", "$toBeDescr: null")
-                        elementFailing(2, "b=2", null, "$toBeDescr: 1")
+                        elementFailing(0, "a=null", "b", "$toEqualDescr: 2", explainingValue = true)
+                        elementFailing(1, "null=1", "a", "$toEqualDescr: null")
+                        elementFailing(2, "b=2", null, "$toEqualDescr: 1")
 
                         notToContain(additionalEntriesDescr, sizeDescr)
                     }
@@ -307,7 +307,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                     )
                 }.toThrow<AssertionError> {
                     message {
-                        elementSuccess(0, "a=null", "a", "$toBeDescr: null")
+                        elementSuccess(0, "a=null", "a", "$toEqualDescr: null")
                         elementFailing(1, "null=1", "c", "$toBeLessThanDescr: 1")
                         elementFailing(2, "b=2", "b", "$toBeLessThanDescr: 2")
 

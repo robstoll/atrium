@@ -26,7 +26,7 @@ abstract class OptionalExpectationsSpec(
     ) {})
     include(object : AssertionCreatorSpec<Optional<Int>>(
         describePrefix, Optional.of(2),
-        toBePresent.forAssertionCreatorSpec("$toBeDescr: 2") { toEqual(2) }
+        toBePresent.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -47,7 +47,7 @@ abstract class OptionalExpectationsSpec(
                         expect(emptyValue).toBePresentFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         messageToContain(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
-                        if (hasExtraHint) messageToContain("$toBeDescr: 2")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 2")
                     }
                 }
             }

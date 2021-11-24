@@ -34,8 +34,8 @@ abstract class IterableExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20, 20, 0),
-        min.forAssertionCreatorSpec("$toBeDescr: -20") { toEqual(-20) },
-        max.forAssertionCreatorSpec("$toBeDescr: 20") { toEqual(20) }
+        min.forAssertionCreatorSpec("$toEqualDescr: -20") { toEqual(-20) },
+        max.forAssertionCreatorSpec("$toEqualDescr: 20") { toEqual(20) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -98,7 +98,7 @@ abstract class IterableExpectationsSpec(
                 it("$name - toBe(4) holds") {
                     fluent.maxFun { toEqual(4) }
                 }
-                it("$name - $toBeDescr(3) fails") {
+                it("$name - $toEqualDescr(3) fails") {
                     expect {
                         fluent.maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {

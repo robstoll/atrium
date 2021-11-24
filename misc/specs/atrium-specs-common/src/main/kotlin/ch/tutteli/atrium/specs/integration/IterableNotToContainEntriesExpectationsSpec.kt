@@ -69,7 +69,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             "$hasANextElement$separator" +
                                 "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
                                 "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                "$indentListBulletPoint$afterExplanatory$toBeDescr: 4.0.*"
+                                "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.0.*"
                         )
                     }
                 }
@@ -116,11 +116,11 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$toBeDescr: 1.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$toBeDescr: 4.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
@@ -134,8 +134,8 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                         expect(oneToSeven()).notToContainFun({ toEqual(4.0) }, { toEqual(1.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContainRegex("$anElementWhich: $separator.*$toBeDescr: 4.0")
-                            notToContain.regex("$anElementWhich: $separator.*$toBeDescr: 1.1")
+                            toContainRegex("$anElementWhich: $separator.*$toEqualDescr: 4.0")
+                            notToContain.regex("$anElementWhich: $separator.*$toEqualDescr: 1.1")
                         }
                     }
                 }
