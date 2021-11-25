@@ -302,7 +302,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: null",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
                                     "$warningBulletPoint$additionalElements:",
@@ -323,8 +323,8 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(2).values(
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
-                                    "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null"
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: null",
+                                    "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: null"
                                 )
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",

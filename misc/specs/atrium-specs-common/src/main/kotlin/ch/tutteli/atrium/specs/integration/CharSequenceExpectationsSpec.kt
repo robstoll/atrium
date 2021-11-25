@@ -38,8 +38,6 @@ abstract class CharSequenceExpectationsSpec(
 
     val fluent = expect(text as CharSequence)
 
-    val isNot = DescriptionBasic.IS_NOT.getDefault()
-    val itIs = DescriptionBasic.IS.getDefault()
     val emptyString: CharSequence = ""
     val blankString: CharSequence = "   "
     val notBlankString: CharSequence = "not blank string"
@@ -47,7 +45,6 @@ abstract class CharSequenceExpectationsSpec(
     val emptyStringBuilder: CharSequence = StringBuilder()
     val blankStringBuilder: CharSequence = StringBuilder(blankString)
     val notBlankStringBuilder: CharSequence = StringBuilder("not blank string")
-
 
     describeFun(isEmpty.name, isNotEmpty.name) {
         val isEmptyFun = isEmpty.lambda
@@ -61,10 +58,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${isNotEmpty.name} throws an AssertionError") {
                 expect {
                     expect(emptyString).isNotEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$isNot: empty") } }
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
                 expect {
                     expect(emptyStringBuilder).isNotEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$isNot: empty") } }
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
             }
         }
         context("string is not empty") {
@@ -72,10 +69,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${isEmpty.name} throws an AssertionError") {
                 expect {
                     expect(blankString).isEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$itIs: empty") } }
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
                 expect {
                     expect(blankStringBuilder).isEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$itIs: empty") } }
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
             }
             it("${isNotEmpty.name} does not throw") {
                 expect(blankString).isNotEmptyFun()
@@ -92,10 +89,10 @@ abstract class CharSequenceExpectationsSpec(
 
                 expect {
                     expect(blankString).isNotBlankFun()
-                }.toThrow<AssertionError> { message { toEndWith("$isNot: blank") } }
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
                 expect {
                     expect(blankStringBuilder).isNotBlankFun()
-                }.toThrow<AssertionError> { message { toEndWith("$isNot: blank") } }
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
             }
         }
         context("string is not blank") {

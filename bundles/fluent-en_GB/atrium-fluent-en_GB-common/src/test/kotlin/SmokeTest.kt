@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
-import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test
 
 class SmokeTest {
@@ -77,7 +77,7 @@ fun Expect<Int>.toBeEven() =
     _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.toBeOdd() =
-    _logic.append(_logic.createDescriptiveAssertion(IS, Text("an odd number")) { it % 2 == 1 })
+    _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1 })
 
 fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 

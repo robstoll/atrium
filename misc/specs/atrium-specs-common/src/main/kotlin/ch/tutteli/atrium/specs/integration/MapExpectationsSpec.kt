@@ -161,14 +161,14 @@ abstract class MapExpectationsSpec(
             it("${notToBeEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(map2).notToBeEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$isNotDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
             }
         }
         context("$map") {
             it("${toBeEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(map as Map<*, *>).toBeEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$isDescr: $empty") }
+                }.toThrow<AssertionError> { messageToContain("$toBeDescr: $empty") }
             }
             it("${notToBeEmpty.name} - does not throw") {
                 expect(map as Map<*, *>).notToBeEmptyFun()

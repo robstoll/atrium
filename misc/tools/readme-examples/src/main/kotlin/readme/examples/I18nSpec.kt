@@ -47,7 +47,7 @@ object I18nSpec : Spek({
         //snippet-import-logic-insert
 
         fun Expect<Int>.toBeEven(): Expect<Int> =
-            _logic.createAndAppend(DescriptionBasic.IS, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
+            _logic.createAndAppend(DescriptionBasic.TO_BE, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
 
         //snippet-DescriptionIntAssertions-insert
     }

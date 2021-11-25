@@ -12,14 +12,14 @@ import ch.tutteli.atrium.logic.OptionalAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.translations.DescriptionBasic.IS
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionOptionalAssertion.*
 import java.util.*
 
 class DefaultOptionalAssertions : OptionalAssertions {
 
     override fun <T : Optional<*>> isEmpty(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(IS, EMPTY) { !it.isPresent }
+        container.createDescriptiveAssertion(TO_BE, EMPTY) { !it.isPresent }
 
     override fun <E, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature

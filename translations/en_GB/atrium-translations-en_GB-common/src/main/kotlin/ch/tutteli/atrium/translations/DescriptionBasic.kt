@@ -11,22 +11,27 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
     TO("to"),
     NOT_TO("not to"),
 
-    @Deprecated(
-        "Use DescriptionAnyAssertion.TO_BE or IS instead; will be removed with 1.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE")
-    )
-    TO_BE("equals"),
+    TO_BE("to be"),
+    NOT_TO_BE("not to be"),
 
-    @Deprecated(
-        "Use DescriptionAnyAssertion.NOT_TO_BE or IS_NOT instead; will be removed with 1.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE")
-    )
-    NOT_TO_BE("does not equal"),
+    /** @since 0.18.0 */
+    TO_HAVE("to have"),
 
-    IS("is"),
-    IS_NOT("is not"),
-    HAS("has"),
-    HAS_NOT("has not"),
+    /** @since 0.18.0 */
+    NOT_TO_HAVE("not to have"),
+
     WAS("was"),
-    NONE("none")
+    NONE("none"),
+
+    @Deprecated("Use TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_BE"))
+    IS("is"),
+
+    @Deprecated("Use NOT_TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_BE"))
+    IS_NOT("is not"),
+
+    @Deprecated("Use TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_HAVE"))
+    HAS("has"),
+
+    @Deprecated("Use NOT_TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_HAVE"))
+    HAS_NOT("has not"),
 }

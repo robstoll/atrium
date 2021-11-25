@@ -23,8 +23,8 @@ abstract class IteratorExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val hasDescriptionBasic = DescriptionBasic.HAS.getDefault()
-    val hasNotDescriptionBasic = DescriptionBasic.HAS_NOT.getDefault()
+    val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
+    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
     val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
 
     describeFun(toHaveNext) {
@@ -37,7 +37,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).toHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$hasDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$toHaveDescr: $nextElement") }
         }
     }
 
@@ -53,7 +53,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).notToHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$hasNotDescriptionBasic: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $nextElement") }
         }
     }
 })

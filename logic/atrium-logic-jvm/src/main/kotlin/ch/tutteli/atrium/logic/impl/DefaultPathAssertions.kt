@@ -22,6 +22,8 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import java.nio.charset.Charset
@@ -98,40 +100,22 @@ class DefaultPathAssertions : PathAssertions {
     }.let(block)
 
     override fun <T : Path> isReadable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, READABLE, AccessMode.READ, DescriptionBasic.IS, shouldHaveAccess = true)
+        filePermissionAssertion(container, READABLE, AccessMode.READ, shouldHaveAccess = true)
 
     override fun <T : Path> isNotReadable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(
-            container,
-            READABLE,
-            AccessMode.READ,
-            DescriptionBasic.IS_NOT,
-            shouldHaveAccess = false
-        )
+        filePermissionAssertion(container, READABLE, AccessMode.READ, shouldHaveAccess = false)
 
     override fun <T : Path> isWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, DescriptionBasic.IS, shouldHaveAccess = true)
+        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, shouldHaveAccess = true)
 
     override fun <T : Path> isNotWritable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(
-            container,
-            WRITABLE,
-            AccessMode.WRITE,
-            DescriptionBasic.IS_NOT,
-            shouldHaveAccess = false
-        )
+        filePermissionAssertion(container, WRITABLE, AccessMode.WRITE, shouldHaveAccess = false)
 
     override fun <T : Path> isExecutable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, DescriptionBasic.IS, shouldHaveAccess = true)
+        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, shouldHaveAccess = true)
 
     override fun <T : Path> isNotExecutable(container: AssertionContainer<T>): Assertion =
-        filePermissionAssertion(
-            container,
-            EXECUTABLE,
-            AccessMode.EXECUTE,
-            DescriptionBasic.IS_NOT,
-            shouldHaveAccess = false
-        )
+        filePermissionAssertion(container, EXECUTABLE, AccessMode.EXECUTE, shouldHaveAccess = false)
 
     override fun <T : Path> isRegularFile(container: AssertionContainer<T>): Assertion =
         fileTypeAssertion(container, A_FILE) { it.isRegularFile }
@@ -143,16 +127,15 @@ class DefaultPathAssertions : PathAssertions {
         fileTypeAssertion(container, A_SYMBOLIC_LINK, NOFOLLOW_LINKS) { it.isSymbolicLink }
 
     override fun <T : Path> isAbsolute(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(DescriptionBasic.IS, ABSOLUTE_PATH) { it.isAbsolute }
+        container.createDescriptiveAssertion(TO_BE, ABSOLUTE_PATH) { it.isAbsolute }
 
     override fun <T : Path> isRelative(container: AssertionContainer<T>): Assertion =
-        container.createDescriptiveAssertion(DescriptionBasic.IS, RELATIVE_PATH) { !it.isAbsolute }
+        container.createDescriptiveAssertion(TO_BE, RELATIVE_PATH) { !it.isAbsolute }
 
     private fun <T : Path> filePermissionAssertion(
         container: AssertionContainer<T>,
         permissionName: Translatable,
         accessMode: AccessMode,
-        description: DescriptionBasic,
         shouldHaveAccess: Boolean
     ) = container.changeSubject.unreported {
         it.runCatchingIo { fileSystem.provider().checkAccess(this, accessMode) }
@@ -175,7 +158,7 @@ class DefaultPathAssertions : PathAssertions {
                     else -> null
                 }
             }
-            .withDescriptionAndRepresentation(description, permissionName)
+            .withDescriptionAndRepresentation(if (shouldHaveAccess) TO_BE else NOT_TO_BE, permissionName)
             .build()
     }
 
@@ -188,7 +171,7 @@ class DefaultPathAssertions : PathAssertions {
         assertionBuilder.descriptive
             .withTest(fileAttributesExpect) { it is Success && typeTest(it.value) }
             .withHelpOnFileAttributesFailure(fileAttributesExpect)
-            .withDescriptionAndRepresentation(DescriptionBasic.IS, typeName)
+            .withDescriptionAndRepresentation(TO_BE, typeName)
             .build()
     }
 
@@ -271,7 +254,7 @@ class DefaultPathAssertions : PathAssertions {
                             }
                         }
                     }
-                    .withDescriptionAndRepresentation(DescriptionBasic.IS, AN_EMPTY_DIRECTORY)
+                    .withDescriptionAndRepresentation(TO_BE, AN_EMPTY_DIRECTORY)
                     .build()
             }
         } else return isDirectory

@@ -160,7 +160,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$isDescr: null$separator" +
+                                    "$afterExplanatory$toEqualDescr: null$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
@@ -177,7 +177,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$isDescr: null$separator" +
+                                    "$afterExplanatory$toEqualDescr: null$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${index(1)}: null.*$separator" +
                                     "$afterMismatchedWarning${index(5)}: null.*"

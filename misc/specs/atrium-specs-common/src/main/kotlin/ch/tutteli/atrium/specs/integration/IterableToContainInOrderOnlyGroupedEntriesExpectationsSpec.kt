@@ -434,8 +434,8 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexFail(
                                     0, 1, listOf(null, 1.0),
                                     sizeCheck(2, 2),
-                                    successAfterFail("$isDescr: null"),
-                                    failAfterFail("$isDescr: null")
+                                    successAfterFail("$toEqualDescr: null"),
+                                    failAfterFail("$toEqualDescr: null")
                                 )
                                 indexFail(
                                     2, 3, listOf(null, 3.0),
@@ -459,15 +459,15 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexSuccess(
                                     0, 1, listOf(null, 1.0),
                                     sizeCheck(2, 2),
-                                    successAfterSuccess("$isDescr: null"),
+                                    successAfterSuccess("$toEqualDescr: null"),
                                     successAfterSuccess("$toEqualDescr: 1.0")
                                 )
                                 indexFail(
                                     2, 4, listOf(null, 3.0),
                                     sizeCheck(2, 3),
                                     successAfterFail("$toEqualDescr: 3.0"),
-                                    successAfterFail("$isDescr: null"),
-                                    failAfterFail("$isDescr: null")
+                                    successAfterFail("$toEqualDescr: null"),
+                                    failAfterFail("$toEqualDescr: null")
 
                                 )
                                 toContainSize(4, 5)

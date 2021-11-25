@@ -43,6 +43,7 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     WARNING_MISMATCHES_ADDITIONAL_ELEMENTS("mismatches and additional elements detected"),
     @Deprecated("Use WARNING_MISMATCHES_ADDITIONAL_ELEMENTS; will be removed with 1.0.0 at the latest", ReplaceWith("WARNING_MISMATCHES_ADDITIONAL_ELEMENTS"))
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES(WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()),
+    //TODO 0.18.0 replace with A_NEXT_ELEMENT
     NEXT_ELEMENT("a next element"),
     NO_ELEMENTS("❗❗ cannot be determined, empty Iterable"),
     DUPLICATE_ELEMENTS("duplicate elements"),

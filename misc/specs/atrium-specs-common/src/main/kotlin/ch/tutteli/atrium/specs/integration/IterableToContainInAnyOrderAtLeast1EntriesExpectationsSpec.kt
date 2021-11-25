@@ -194,7 +194,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
                             "$anElementWhich: $separator",
-                            "$isDescr: null",
+                            "$toEqualDescr: null",
                             noSuchEntryDescr
                         )
                     }

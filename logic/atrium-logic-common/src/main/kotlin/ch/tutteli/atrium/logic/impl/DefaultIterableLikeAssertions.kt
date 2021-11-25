@@ -20,7 +20,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
 import ch.tutteli.kbox.mapWithIndex
@@ -42,7 +43,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion =
-        container.createDescriptiveAssertion(DescriptionBasic.HAS, NEXT_ELEMENT) { hasNext(it, converter) }
+        container.createDescriptiveAssertion(TO_HAVE, NEXT_ELEMENT) { hasNext(it, converter) }
 
     private fun <E, T : IterableLike> hasNext(it: T, converter: (T) -> Iterable<E>) =
         converter(it).iterator().hasNext()
@@ -51,7 +52,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion =
-        container.createDescriptiveAssertion(DescriptionBasic.HAS_NOT, NEXT_ELEMENT) { !hasNext(it, converter) }
+        container.createDescriptiveAssertion(NOT_TO_HAVE, NEXT_ELEMENT) { !hasNext(it, converter) }
 
     override fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
@@ -155,7 +156,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
         decorateAssertionWithHasNext(
             createAssertionGroupFromListOfAssertions(
-                DescriptionBasic.HAS_NOT,
+                NOT_TO_HAVE,
                 DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
                 duplicates
             ),

@@ -101,7 +101,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
-                                    "$afterExplanatory$isDescr: null$separator" +
+                                    "$afterExplanatory$toEqualDescr: null$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"

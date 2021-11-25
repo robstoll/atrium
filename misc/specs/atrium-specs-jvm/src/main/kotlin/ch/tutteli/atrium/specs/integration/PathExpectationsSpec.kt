@@ -426,7 +426,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeReadable) {
         val toBeReadableFun = toBeReadable.lambda
-        val expectedMessage = "$isDescr: ${READABLE.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${READABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -545,7 +545,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeReadable) {
         val notToBeReadableFun = notToBeReadable.lambda
-        val expectedMessage = "$isNotDescr: ${READABLE.getDefault()}"
+        val expectedMessage = "$notToBeDescr: ${READABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -654,7 +654,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeWritable) {
         val toBeWritableFun = toBeWritable.lambda
-        val expectedMessage = "$isDescr: ${WRITABLE.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${WRITABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -772,7 +772,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeWritable) {
         val notToBeWritableFun = notToBeWritable.lambda
-        val expectedMessage = "$isNotDescr: ${WRITABLE.getDefault()}"
+        val expectedMessage = "$notToBeDescr: ${WRITABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -881,7 +881,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeExecutable) {
         val toBeExecutableFun = toBeExecutable.lambda
-        val expectedMessage = "$isDescr: ${EXECUTABLE.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${EXECUTABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1020,7 +1020,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeExecutable) {
         val notToBeExecutableFun = notToBeExecutable.lambda
-        val expectedMessage = "$isNotDescr: ${EXECUTABLE.getDefault()}"
+        val expectedMessage = "$notToBeDescr: ${EXECUTABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1129,7 +1129,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeRegularFile) {
         val toBeRegularFileFun = toBeRegularFile.lambda
-        val expectedMessage = "$isDescr: ${A_FILE.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${A_FILE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1171,7 +1171,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeASymbolicLink) {
         val toBeASymbolicLinkFun = toBeASymbolicLink.lambda
-        val expectedMessage = "$isDescr: ${A_SYMBOLIC_LINK.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${A_SYMBOLIC_LINK.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") {
@@ -1224,7 +1224,7 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeADirectory) {
         val toBeADirectoryFun = toBeADirectory.lambda
-        val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1266,7 +1266,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).toBeAbsoluteFun()
             }.toThrow<AssertionError> {
-                messageToContain("$isDescr: ${ABSOLUTE_PATH.getDefault()}")
+                messageToContain("$toBeDescr: ${ABSOLUTE_PATH.getDefault()}")
             }
         }
 
@@ -1284,7 +1284,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).toBeRelativeFun()
             }.toThrow<AssertionError> {
-                messageToContain("$isDescr: ${RELATIVE_PATH.getDefault()}")
+                messageToContain("$toBeDescr: ${RELATIVE_PATH.getDefault()}")
             }
         }
 
@@ -1296,8 +1296,8 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeAnEmptyDirectory) {
         val toBeAnEmptyDirectoryFun = toBeAnEmptyDirectory.lambda
-        val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
-        val expectedEmptyMessage = "$isDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
+        val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
+        val expectedEmptyMessage = "$toBeDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1496,7 +1496,7 @@ abstract class PathExpectationsSpec(
 
         it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
             val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
-            val expectedMessage = "$isDescr: ${A_DIRECTORY.getDefault()}"
+            val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
             expect {
                 expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))

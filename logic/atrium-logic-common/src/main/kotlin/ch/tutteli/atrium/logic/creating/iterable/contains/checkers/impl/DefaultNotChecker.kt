@@ -1,9 +1,10 @@
+//TODO 0.18.0 rename package to iterablelike?
 package ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.NotChecker
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 
 /**
  * Represents a check that an expected entry is not contained in the [Iterable].
@@ -11,5 +12,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class DefaultNotChecker : NotChecker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        assertionBuilder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
+        assertionBuilder.createDescriptive(TO_EQUAL, 0) { foundNumberOfTimes == 0 }
 }

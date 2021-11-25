@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.spekframework.spek2.Spek
 import java.nio.file.Paths
 
@@ -38,7 +38,7 @@ fun Expect<Int>.toBeEven() =
     _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.toBeOdd() =
-    _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.IS, Text("an odd number")) { it % 2 == 1 })
+    _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1 })
 
 fun Expect<Int>.toBeAMultipleOf(base: Int) = _logicAppend { toBeAMultipleOf(base) }
 

@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnly
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented

@@ -260,12 +260,12 @@ inline fun <T, A1, A2, A3, A4> fun4(f: KFunction5<Expect<T>, A1, A2, A3, A4, Exp
 
 fun <T> notImplemented(): T = throw NotImplementedError()
 
-//TODO rename, we only introduced it so that it is easier to migrate specs from JVM to common
+//TODO 0.18.0 rename (or remove?), we only introduced it so that it is easier to migrate specs from JVM to common
 fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
 
 val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
-val isDescr = DescriptionBasic.IS.getDefault()
-val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+val toBeDescr = DescriptionBasic.TO_BE.getDefault()
+val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()
 val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
 
 expect val lineSeparator: String
