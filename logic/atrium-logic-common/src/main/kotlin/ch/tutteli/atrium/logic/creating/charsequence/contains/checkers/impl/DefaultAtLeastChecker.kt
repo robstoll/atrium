@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.AtLeastChecker
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_LEAST
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.AT_LEAST
 
 /**
  * Represents a check that an expected search criterion is contained at least [times] in the search input.

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
 /**
  * Represents still the default search behaviour but a [CharSequenceContains.Checker] should be used which verifies
@@ -11,9 +11,9 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  */
 class NotSearchBehaviourImpl : NotSearchBehaviour {
     /**
-     * Returns [DescriptionCharSequenceAssertion.CONTAINS_NOT].
-     * @return [DescriptionCharSequenceAssertion.CONTAINS_NOT]
+     * Returns [DescriptionCharSequenceExpectation.CONTAINS_NOT].
+     * @return [DescriptionCharSequenceExpectation.CONTAINS_NOT]
      */
     override fun decorateDescription(description: Translatable): Translatable =
-        DescriptionCharSequenceAssertion.CONTAINS_NOT
+        DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
 }

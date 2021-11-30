@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceToContainNotToContainExpectationsSpec(
@@ -30,7 +30,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
     fun Expect<CharSequence>.notToContainFun(t: String, vararg tX: String) = notToContain.invoke(this, t, tX)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
-    val notToContainDescr = CONTAINS_NOT.getDefault()
+    val notToContainDescr = NOT_TO_CONTAIN.getDefault()
 
     describeFun(toContain.name, notToContain.name) {
         context("empty string") {

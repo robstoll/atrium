@@ -418,7 +418,7 @@ expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
-          » starts with: "firstName"        <1234789>
+          » to start with: "firstName"        <1234789>
 ```
 </ex-toThrow3>
 
@@ -549,8 +549,8 @@ Feature assertions follow the common pattern of having two overloads:
   ```text
   expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
   ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:52): "Robert"        <1234789>
-      ◾ starts with: "Pe"        <1234789>
-      ◾ ends with: "er"        <1234789>
+      ◾ to start with: "Pe"        <1234789>
+      ◾ to end with: "er"        <1234789>
   ◆ ▶ its.definedIn(FeatureExtractorSpec.kt:58): "Stoll"        <1234789>
       ◾ to equal: "Dummy"        <1234789>
   ```
@@ -618,8 +618,8 @@ expect(myPerson) { // forms an assertion group block
 ```text
 expected subject: Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorSpec$1$Person <1234789>)
 ◆ ▶ firstName: "Robert"        <1234789>
-    ◾ starts with: "Pe"        <1234789>
-    ◾ ends with: "er"        <1234789>
+    ◾ to start with: "Pe"        <1234789>
+    ◾ to end with: "er"        <1234789>
 ◆ ▶ lastName: "Stoll"        <1234789>
     ◾ to equal: "Dummy"        <1234789>
 ```
@@ -950,7 +950,7 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 ```text
 expected subject: null
 ◆ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
-  » starts with: "atrium"        <1234789>
+  » to start with: "atrium"        <1234789>
 ```
 </ex-nullable-4>
 
@@ -1489,7 +1489,7 @@ expect(mapOf("a" to 1, "b" to 2)) {
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
     ◾ all entries: 
-        » starts with: "a"        <1234789>
+        » to start with: "a"        <1234789>
         ❗❗ following elements were mismatched: 
            ⚬ index 1: "b"        <1234789>
 ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
@@ -1531,7 +1531,7 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
           ◾ to equal: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "b"        <1234789>
-          ◾ starts with: "a"        <1234789>
+          ◾ to start with: "a"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
           ◾ is greater than: 2        (kotlin.Int <1234789>)
 ```
@@ -1619,7 +1619,7 @@ expect("filename?")
 <a name="ex-because-1"></a>
 ```text
 expected subject: "filename?"        <1234789>
-◆ does not contain: 
+◆ not to contain: 
   ⚬ value: "?"        <1234789>
     ⚬ ▶ number of matches: 1
         ◾ to equal: 0        (kotlin.Int <1234789>)
@@ -1751,7 +1751,7 @@ expect("calling myNullableFun with ...") {
 ```text
 expected subject: "calling myNullableFun with ..."        <1234789>
 ◆ ▶ myNullableFun(-2147483648): null
-      » contains: 
+      » to contain: 
         ⚬ value: "min"        <1234789>
             » but no match was found
 ◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
@@ -1899,7 +1899,7 @@ expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
           ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
-          ◾ contains: 
+          ◾ to contain: 
             ⚬ value: "no no no"        <1234789>
                 » but no match was found
     ℹ Properties of the unexpected IllegalArgumentException

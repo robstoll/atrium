@@ -2,7 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.specs.format
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 
@@ -12,18 +12,18 @@ abstract class CharSequenceToContainSpecBase(spec: Root.() -> Unit) : Spek(spec)
         const val text = "Hello my name is Robert"
         const val helloWorld = "Hello World, I am Oskar"
 
-        val toContainDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
+        val toContainDescr = DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault()
         val toContainIgnoringCase = String.format(
-            DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(),
-            DescriptionCharSequenceAssertion.CONTAINS.getDefault()
+            DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault(),
+            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault()
         )
-        val numberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault()
-        val value = DescriptionCharSequenceAssertion.VALUE.getDefault()
-        val stringMatchingRegex = DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX.getDefault()
-        val noMatchFoundDescr = DescriptionCharSequenceAssertion.NOT_FOUND.getDefault()
+        val numberOfOccurrences = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES.getDefault()
+        val value = DescriptionCharSequenceExpectation.VALUE.getDefault()
+        val stringMatchingRegex = DescriptionCharSequenceExpectation.STRING_MATCHING_REGEX.getDefault()
+        val noMatchFoundDescr = DescriptionCharSequenceExpectation.NOT_FOUND.getDefault()
 
-        val atLeast = DescriptionCharSequenceAssertion.AT_LEAST.getDefault()
-        val atMost = DescriptionCharSequenceAssertion.AT_MOST.getDefault()
+        val atLeast = DescriptionCharSequenceExpectation.AT_LEAST.getDefault()
+        val atMost = DescriptionCharSequenceExpectation.AT_MOST.getDefault()
 
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeparator

@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.Ind
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.RegexSearcher
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
 class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
     override fun <T : CharSequence> values(
@@ -47,7 +47,7 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
                 "Searching for an empty CharSequence does not make sense. You probably forgot to specify the search criterion."
             }
         }
-        return createAssertionGroup(checkerStepLogic, searcher, expected, DescriptionCharSequenceAssertion.VALUE)
+        return createAssertionGroup(checkerStepLogic, searcher, expected, DescriptionCharSequenceExpectation.VALUE)
     }
 
     override fun <T : CharSequence> regex(
@@ -57,7 +57,7 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
         checkerStepLogic,
         RegexSearcher(),
         expected,
-        DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX
+        DescriptionCharSequenceExpectation.STRING_MATCHING_REGEX
     )
 
     override fun <T : CharSequence> regexIgnoringCase(
@@ -67,7 +67,7 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
         checkerStepLogic,
         IgnoringCaseRegexSearcher(),
         expected,
-        DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX
+        DescriptionCharSequenceExpectation.STRING_MATCHING_REGEX
     )
 
     private fun <T : CharSequence, SC : CharSequenceOrNumberOrChar, S : SearchBehaviour> createAssertionGroup(

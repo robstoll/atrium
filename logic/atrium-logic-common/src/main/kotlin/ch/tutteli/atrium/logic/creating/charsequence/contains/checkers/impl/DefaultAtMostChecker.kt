@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.AtMostChecker
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.AT_MOST
 
 /**
  * Represents a check that an expected search criterion is contained at most [times] in the search input.

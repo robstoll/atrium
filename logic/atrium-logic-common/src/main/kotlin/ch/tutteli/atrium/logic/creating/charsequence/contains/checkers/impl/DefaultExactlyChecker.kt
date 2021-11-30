@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.ExactlyChecker
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.EXACTLY
 
 /**
  * Represents a check that an expected search criterion is contained exactly [times] in the search input.

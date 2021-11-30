@@ -9,29 +9,29 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Any].
  */
-@Deprecated("Will be removed with latest with 1.0.0")
+@Deprecated("Will be removed with 1.0.0 at the latest")
 enum class DescriptionAnyAssertion(override val value: String) : StringBasedTranslatable {
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.TO_EQUAL"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.TO_EQUAL"))
     TO_BE("ist"),
 
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.NOT_TO_EQUAL"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.NOT_TO_EQUAL"))
     NOT_TO_BE("ist nicht"),
 
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF"))
     IS_A("ist eine Instanz vom Typ"),
 
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.TO_BE_THE_INSTANCE"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.TO_BE_THE_INSTANCE"))
     IS_SAME("ist dieselbe Instanz wie"),
 
     @Deprecated(
-        "Use DescriptionAnyExpectation instead",
+        "Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest",
         ReplaceWith("DescriptionAnyExpectation.NOT_TO_BE_THE_INSTANCE")
     )
     IS_NOT_SAME("ist nicht dieselbe Instanz wie"),
 
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.NOT_TO_EQUAL_ONE_IN"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.NOT_TO_EQUAL_ONE_IN"))
     IS_NONE_OF("ist nicht"),
 
-    @Deprecated("Use DescriptionAnyExpectation instead", ReplaceWith("DescriptionAnyExpectation.BECAUSE"))
+    @Deprecated("Use DescriptionAnyExpectation instead; will be removed with 1.0.0 at the latest", ReplaceWith("DescriptionAnyExpectation.BECAUSE"))
     BECAUSE("denn")
 }
