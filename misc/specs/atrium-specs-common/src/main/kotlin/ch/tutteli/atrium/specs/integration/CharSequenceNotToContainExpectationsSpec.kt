@@ -5,8 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceNotToContainExpectationsSpec(
@@ -34,9 +33,9 @@ abstract class CharSequenceNotToContainExpectationsSpec(
 
     fun Expect<CharSequence>.notToContainIgnoringCaseFun(a: Any, vararg aX: Any) = notToContainIgnoringCase(this, a, aX)
 
-    val notToContainDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
+    val notToContainDescr = DescriptionCharSequenceExpectation.NOT_TO_CONTAIN.getDefault()
     val notToContainIgnoringCaseDescr =
-        String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), notToContainDescr)
+        String.format(DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault(), notToContainDescr)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 

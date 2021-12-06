@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
-
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -7,8 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -39,6 +36,8 @@ abstract class ThrowableExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
+    val valueDescr = DescriptionCharSequenceExpectation.VALUE.getDefault()
+
     describeFun(messageFeature, message, messageToContain) {
         val messageFunctions = unifySignatures(messageFeature, message)
         val messageContainsFun = messageToContain.lambda
@@ -67,11 +66,11 @@ abstract class ThrowableExpectationsSpec(
                 }.toThrow<AssertionError> {
                     messageToContain(
                         toBeAnInstanceOfDescr, String::class.fullName,
-                        CONTAINS.getDefault(),
-                        VALUE.getDefault() + ": 1",
-                        VALUE.getDefault() + ": 2.3",
-                        VALUE.getDefault() + ": 'z'",
-                        VALUE.getDefault() + ": \"hello\""
+                        DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(),
+                        "$valueDescr: 1",
+                        "$valueDescr: 2.3",
+                        "$valueDescr: 'z'",
+                        "$valueDescr: \"hello\""
                     )
                 }
             }
@@ -93,7 +92,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
             it("${messageToContain.name} - throws IllegalArgumentException if empty string is passed") {
                 expect {
@@ -118,7 +117,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(" ", arrayOf())
@@ -143,7 +142,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain(VALUE.getDefault() + ": \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
@@ -177,7 +176,7 @@ abstract class ThrowableExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
-                            VALUE.getDefault() + ": \"WRONG message\""
+                            "$valueDescr: \"WRONG message\""
                         )
                     }
                 }

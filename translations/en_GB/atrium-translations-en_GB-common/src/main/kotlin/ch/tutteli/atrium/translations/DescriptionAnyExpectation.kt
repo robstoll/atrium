@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Any].
+ * Contains the [DescriptiveAssertion.description]s of the expectation functions which are applicable to [Any].
  */
 enum class DescriptionAnyExpectation(override val value: String) : StringBasedTranslatable {
     /** @since 0.18.0 */

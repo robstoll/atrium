@@ -7,8 +7,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionResultAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -49,7 +48,7 @@ abstract class ResultExpectationsSpec(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
         assertionCreatorSpecTriple(
             toBeAFailure.name,
-            "${VALUE.getDefault()}: \"oh no...\"",
+            "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh no...\"",
             { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
             { apply { toBeAFailure.invoke(this) {} } }
         )
@@ -99,8 +98,8 @@ abstract class ResultExpectationsSpec(
                         )
                         if (hasExtraHint) {
                             messageToContain(
-                                CONTAINS.getDefault(),
-                                "${VALUE.getDefault()}: \"oh yes...\""
+                                DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(),
+                                "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
                             )
                         }
                     }
@@ -130,7 +129,7 @@ abstract class ResultExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-                            CONTAINS.getDefault(), "${VALUE.getDefault()}: \"oh yes...\""
+                            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(), "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
                         )
                     }
                 }

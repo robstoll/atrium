@@ -5,7 +5,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.I
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.IGNORING_CASE
 
 /**
  * Represents the search behaviour that a [CharSequenceContains.Searcher] should ignore case
@@ -17,6 +17,6 @@ class IgnoringCaseSearchBehaviourImpl(
 
     override fun decorateDescription(description: Translatable): Translatable {
         val previousDecorated = previousBehaviour.decorateDescription(description)
-        return TranslatableWithArgs(DescriptionCharSequenceAssertion.IGNORING_CASE, previousDecorated)
+        return TranslatableWithArgs(IGNORING_CASE, previousDecorated)
     }
 }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceToContainExactlyExpectationsSpec(
@@ -35,7 +35,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
     fun Expect<CharSequence>.toContainExactlyIgnoringCaseFun(exactly: Int, a: Any, vararg aX: Any) =
         toContainExactlyIgnoringCase(this, exactly, a, aX)
 
-    val exactly = EXACTLY.getDefault()
+    val exactlyDescr = EXACTLY.getDefault()
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(toContainExactly.name, toContainExactlyIgnoringCase.name) {
@@ -88,7 +88,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                 it("${toContainExactlyPair.first("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainExactlyFun(1, 'h')
-                    }.toThrow<AssertionError> { messageToContain("$exactly: 1", "$valueWithIndent: 'h'") }
+                    }.toThrow<AssertionError> { messageToContain("$exactlyDescr: 1", "$valueWithIndent: 'h'") }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'h'", "once")} throws AssertionError") {
                     fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'h')
@@ -99,7 +99,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(1, 'H', 'E')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$exactly: 1", "$valueWithIndent: 'E'")
+                            toContain("$exactlyDescr: 1", "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -113,7 +113,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         fluentHelloWorld.toContainExactlyFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$exactly: 1", "$valueWithIndent: 'E'")
+                            toContain("$exactlyDescr: 1", "$valueWithIndent: 'E'")
                             notToContain("$valueWithIndent: 'H'")
                         }
                     }
@@ -125,7 +125,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                 it("${toContainExactlyPair.first("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainExactlyFun(1, 'H', 'E', 'w')
-                    }.toThrow<AssertionError> { messageToContain(exactly, 'E', 'w') }
+                    }.toThrow<AssertionError> { messageToContain(exactlyDescr, 'E', 'w') }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
@@ -136,7 +136,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                 it("${toContainExactlyPair.first("'o'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.toContainExactlyFun(1, 'o')
-                    }.toThrow<AssertionError> { messageToContain("$exactly: 1", "$valueWithIndent: 'o'") }
+                    }.toThrow<AssertionError> { messageToContain("$exactlyDescr: 1", "$valueWithIndent: 'o'") }
                 }
                 it("${toContainExactlyPair.first("'o'", "twice")} does not throw") {
                     fluentHelloWorld.toContainExactlyFun(2, 'o')
@@ -151,7 +151,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            toEndWith("$exactly: 2")
+                            toEndWith("$exactlyDescr: 2")
                         }
                     }
                 }
@@ -169,7 +169,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            toEndWith("$exactly: 3")
+                            toEndWith("$exactlyDescr: 3")
                         }
                     }
                 }
@@ -190,7 +190,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                                     "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
-                            toEndWith("$exactly: 2")
+                            toEndWith("$exactlyDescr: 2")
                             notToContain("$valueWithIndent: 'o'")
                         }
                     }
@@ -213,7 +213,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                                     "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
-                            toEndWith("$exactly: 3")
+                            toEndWith("$exactlyDescr: 3")
                             notToContain("$valueWithIndent: 'l'")
                         }
                     }

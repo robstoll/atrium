@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.logic.creating
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
+import ch.tutteli.atrium.api.fluent.en_GB.toStartWith
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
@@ -9,7 +12,7 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -22,12 +25,12 @@ object EitherSpec : Spek({
     describe("custom Either<String, Int> with Left \"hello\"") {
         val either: Either<String, Int> =
             Left("hello")
-        it("isLeft does not throw") {
-            expect(either).isLeft { toStartWith("h") }
+        it("toBeLeft does not throw") {
+            expect(either).toBeLeft { toStartWith("h") }
         }
-        it("isRight throws AssertionError containing explanation") {
+        it("toBeRight throws AssertionError containing explanation") {
             expect {
-                expect(either).isRight { toBeLessThan(2) }
+                expect(either).toBeRight { toBeLessThan(2) }
             }.toThrow<AssertionError> {
                 messageToContain(
                     "value of Right: ❗❗ is not a Right",
@@ -40,24 +43,24 @@ object EitherSpec : Spek({
     describe("custom Either<String, Int> with Right 1") {
         val either: Either<String, Int> =
             Right(1)
-        it("isLeft does not throw") {
+        it("toBeLeft does not throw") {
             expect {
-                expect(either).isLeft { toStartWith("h") }
+                expect(either).toBeLeft { toStartWith("h") }
             }.toThrow<AssertionError> {
                 messageToContain(
                     "value of Left: ❗❗ is not a Left",
-                    "${DescriptionCharSequenceAssertion.STARTS_WITH.getDefault()}: \"h\""
+                    "${DescriptionCharSequenceExpectation.TO_START_WITH.getDefault()}: \"h\""
                 )
             }
         }
-        it("isRight throws AssertionError containing explanation") {
-            expect(either).isRight { toBeLessThan(2) }
+        it("toBeRight throws AssertionError containing explanation") {
+            expect(either).toBeRight { toBeLessThan(2) }
         }
     }
 })
 
-fun <A, B> Expect<Either<A, B>>.isLeft(): Expect<A> = extractLeft().transform()
-fun <A, B> Expect<Either<A, B>>.isLeft(assertionCreator: Expect<A>.() -> Unit) =
+fun <A, B> Expect<Either<A, B>>.toBeLeft(): Expect<A> = extractLeft().transform()
+fun <A, B> Expect<Either<A, B>>.toBeLeft(assertionCreator: Expect<A>.() -> Unit) =
     extractLeft().collectAndAppend(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.extractLeft(): FeatureExtractorBuilder.ExecutionStep<Either<A, B>, A> =
@@ -70,8 +73,8 @@ private fun <A, B> Expect<Either<A, B>>.extractLeft(): FeatureExtractorBuilder.E
         .withoutOptions()
         .build()
 
-fun <A, B> Expect<Either<A, B>>.isRight(): Expect<B> = extractRight().transform()
-fun <A, B> Expect<Either<A, B>>.isRight(assertionCreator: Expect<B>.() -> Unit) =
+fun <A, B> Expect<Either<A, B>>.toBeRight(): Expect<B> = extractRight().transform()
+fun <A, B> Expect<Either<A, B>>.toBeRight(assertionCreator: Expect<B>.() -> Unit) =
     extractRight().collectAndAppend(assertionCreator)
 
 private fun <A, B> Expect<Either<A, B>>.extractRight(): FeatureExtractorBuilder.ExecutionStep<Either<A, B>, B> =

@@ -1,36 +1,38 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toEndWith
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceExpectationsSpec(
-    isEmpty: Fun0<CharSequence>,
-    isNotEmpty: Fun0<CharSequence>,
-    isNotBlank: Fun0<CharSequence>,
-    startsWith: Fun1<CharSequence, CharSequence>,
-    startsNotWith: Fun1<CharSequence, CharSequence>,
-    endsWith: Fun1<CharSequence, CharSequence>,
-    endsNotWith: Fun1<CharSequence, CharSequence>,
-    matches: Fun1<CharSequence, Regex>,
-    mismatches: Fun1<CharSequence, Regex>,
+    toBeEmpty: Fun0<CharSequence>,
+    notToBeEmpty: Fun0<CharSequence>,
+    notToBeBlank: Fun0<CharSequence>,
+    toStartWith: Fun1<CharSequence, CharSequence>,
+    notToStartWith: Fun1<CharSequence, CharSequence>,
+    toEndWith: Fun1<CharSequence, CharSequence>,
+    notToEndWith: Fun1<CharSequence, CharSequence>,
+    toMatch: Fun1<CharSequence, Regex>,
+    notToMatch: Fun1<CharSequence, Regex>,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceToContainSpecBase({
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        isEmpty.forSubjectLess(),
-        isNotEmpty.forSubjectLess(),
-        isNotBlank.forSubjectLess(),
-        startsWith.forSubjectLess(""),
-        startsNotWith.forSubjectLess(""),
-        endsWith.forSubjectLess(""),
-        endsNotWith.forSubjectLess(""),
-        matches.forSubjectLess(Regex("")),
-        mismatches.forSubjectLess(Regex(""))
+        toBeEmpty.forSubjectLess(),
+        notToBeEmpty.forSubjectLess(),
+        notToBeBlank.forSubjectLess(),
+        toStartWith.forSubjectLess(""),
+        notToStartWith.forSubjectLess(""),
+        toEndWith.forSubjectLess(""),
+        notToEndWith.forSubjectLess(""),
+        toMatch.forSubjectLess(Regex("")),
+        notToMatch.forSubjectLess(Regex(""))
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
@@ -46,141 +48,141 @@ abstract class CharSequenceExpectationsSpec(
     val blankStringBuilder: CharSequence = StringBuilder(blankString)
     val notBlankStringBuilder: CharSequence = StringBuilder("not blank string")
 
-    describeFun(isEmpty.name, isNotEmpty.name) {
-        val isEmptyFun = isEmpty.lambda
-        val isNotEmptyFun = isNotEmpty.lambda
+    describeFun(toBeEmpty.name, notToBeEmpty.name) {
+        val toBeEmptyFun = toBeEmpty.lambda
+        val notToBeEmptyFun = notToBeEmpty.lambda
 
         context("string is empty") {
-            it("${isEmpty.name} does not throw") {
-                expect(emptyString).isEmptyFun()
-                expect(emptyStringBuilder).isEmptyFun()
+            it("${toBeEmpty.name} does not throw") {
+                expect(emptyString).toBeEmptyFun()
+                expect(emptyStringBuilder).toBeEmptyFun()
             }
-            it("${isNotEmpty.name} throws an AssertionError") {
+            it("${notToBeEmpty.name} throws an AssertionError") {
                 expect {
-                    expect(emptyString).isNotEmptyFun()
+                    expect(emptyString).notToBeEmptyFun()
                 }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
                 expect {
-                    expect(emptyStringBuilder).isNotEmptyFun()
+                    expect(emptyStringBuilder).notToBeEmptyFun()
                 }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
             }
         }
         context("string is not empty") {
 
-            it("${isEmpty.name} throws an AssertionError") {
+            it("${toBeEmpty.name} throws an AssertionError") {
                 expect {
-                    expect(blankString).isEmptyFun()
+                    expect(blankString).toBeEmptyFun()
                 }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
                 expect {
-                    expect(blankStringBuilder).isEmptyFun()
+                    expect(blankStringBuilder).toBeEmptyFun()
                 }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
             }
-            it("${isNotEmpty.name} does not throw") {
-                expect(blankString).isNotEmptyFun()
-                expect(blankStringBuilder).isNotEmptyFun()
+            it("${notToBeEmpty.name} does not throw") {
+                expect(blankString).notToBeEmptyFun()
+                expect(blankStringBuilder).notToBeEmptyFun()
             }
         }
     }
 
-    describeFun(isNotBlank.name) {
-        val isNotBlankFun = isNotBlank.lambda
+    describeFun(notToBeBlank.name) {
+        val notToBeBlankFun = notToBeBlank.lambda
 
         context("string is blank") {
             it("throws an AssertionError") {
 
                 expect {
-                    expect(blankString).isNotBlankFun()
+                    expect(blankString).notToBeBlankFun()
                 }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
                 expect {
-                    expect(blankStringBuilder).isNotBlankFun()
+                    expect(blankStringBuilder).notToBeBlankFun()
                 }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
             }
         }
         context("string is not blank") {
             it("does not throw") {
-                expect(notBlankString).isNotBlankFun()
-                expect(notBlankStringBuilder).isNotBlankFun()
+                expect(notBlankString).notToBeBlankFun()
+                expect(notBlankStringBuilder).notToBeBlankFun()
             }
         }
     }
 
-    describeFun(startsWith.name, startsNotWith.name) {
-        val startsWithFun = startsWith.lambda
-        val startsNotWithFun = startsNotWith.lambda
+    describeFun(toStartWith.name, notToStartWith.name) {
+        val toStartWithFun = toStartWith.lambda
+        val notToStartWithFun = notToStartWith.lambda
 
         context("text '$text'") {
-            it("${startsWith.name} 'Hello' does not throw") {
-                fluent.startsWithFun("Hello")
+            it("${toStartWith.name} 'Hello' does not throw") {
+                fluent.toStartWithFun("Hello")
             }
-            it("${startsNotWith.name} 'Hello' throws an AssertionError") {
+            it("${notToStartWith.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.startsNotWithFun("Hello")
-                }.toThrow<AssertionError> { messageToContain(STARTS_NOT_WITH.getDefault()) }
+                    fluent.notToStartWithFun("Hello")
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_START_WITH.getDefault()) }
             }
 
-            it("${startsWith.name} 'Robert' throws an AssertionError") {
+            it("${toStartWith.name} 'Robert' throws an AssertionError") {
                 expect {
-                    fluent.startsWithFun("goodbye")
-                }.toThrow<AssertionError> { messageToContain(STARTS_WITH.getDefault()) }
+                    fluent.toStartWithFun("goodbye")
+                }.toThrow<AssertionError> { messageToContain(TO_START_WITH.getDefault()) }
             }
-            it("${startsNotWith.name} 'Robert' does not throw") {
-                fluent.startsNotWithFun("goodbye")
+            it("${notToStartWith.name} 'Robert' does not throw") {
+                fluent.notToStartWithFun("goodbye")
             }
         }
     }
 
-    describeFun(endsWith.name, endsNotWith.name) {
-        val endsWithFun = endsWith.lambda
-        val endsNotWithFun = endsNotWith.lambda
+    describeFun(toEndWith.name, notToEndWith.name) {
+        val toEndWithFun = toEndWith.lambda
+        val notToEndWithFun = notToEndWith.lambda
 
         context("text '$text'") {
-            it("${endsWith.name} 'Hello' throws an AssertionError") {
+            it("${toEndWith.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.endsWithFun("Hello")
-                }.toThrow<AssertionError> { messageToContain(ENDS_WITH.getDefault()) }
+                    fluent.toEndWithFun("Hello")
+                }.toThrow<AssertionError> { messageToContain(TO_END_WITH.getDefault()) }
             }
-            it("${endsNotWith.name} 'Hello' does not throw") {
-                fluent.endsNotWithFun("Hello")
+            it("${notToEndWith.name} 'Hello' does not throw") {
+                fluent.notToEndWithFun("Hello")
             }
 
-            it("${endsWith.name} 'Robert' does not throw") {
-                fluent.endsWithFun("Robert")
+            it("${toEndWith.name} 'Robert' does not throw") {
+                fluent.toEndWithFun("Robert")
             }
-            it("${endsNotWith.name} 'Robert' throws an AssertionError") {
+            it("${notToEndWith.name} 'Robert' throws an AssertionError") {
                 expect {
-                    fluent.endsNotWithFun("Robert")
-                }.toThrow<AssertionError> { messageToContain(ENDS_NOT_WITH.getDefault()) }
+                    fluent.notToEndWithFun("Robert")
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_END_WITH.getDefault()) }
             }
         }
     }
 
-    describeFun(matches.name) {
-        val matchesFun = matches.lambda
+    describeFun(toMatch.name) {
+        val toMatchFun = toMatch.lambda
 
         context("text '$text'") {
-            it("${matches.name} '^Hello.+' does not throw") {
-                fluent.matchesFun(Regex("^Hello.+"))
+            it("${toMatch.name} '^Hello.+' does not throw") {
+                fluent.toMatchFun(Regex("^Hello.+"))
             }
 
-            it("${matches.name} 'Hello' throws an AssertionError") {
+            it("${toMatch.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.matchesFun(Regex("Hello"))
-                }.toThrow<AssertionError> { messageToContain(MATCHES.getDefault()) }
+                    fluent.toMatchFun(Regex("Hello"))
+                }.toThrow<AssertionError> { messageToContain(TO_MATCH.getDefault()) }
             }
         }
     }
 
-    describeFun(mismatches.name){
-        val mismatchesFun = mismatches.lambda
+    describeFun(notToMatch.name){
+        val notToMatchFun = notToMatch.lambda
 
         context("text '$text"){
-            it("${mismatches.name} 'Hello' does not throw"){
-                fluent.mismatchesFun(Regex("Hello"))
+            it("${notToMatch.name} 'Hello' does not throw"){
+                fluent.notToMatchFun(Regex("Hello"))
             }
 
-            it("${mismatches.name} 'Hello my name is Robert' throws an AssertionError"){
+            it("${notToMatch.name} 'Hello my name is Robert' throws an AssertionError"){
                 expect {
-                    fluent.mismatchesFun(Regex("Hello my name is Robert"))
-                }.toThrow<AssertionError> { messageToContain(MISMATCHES.getDefault()) }
+                    fluent.notToMatchFun(Regex("Hello my name is Robert"))
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_MATCH.getDefault()) }
             }
         }
     }

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.EntryPo
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerStep
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
 
 class DefaultCharSequenceAssertions : CharSequenceAssertions {
     override fun <T : CharSequence> containsBuilder(
@@ -32,16 +32,16 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
         EntryPointStepImpl(container, NotSearchBehaviourImpl())._logic.notCheckerStep()
 
     override fun <T : CharSequence> startsWith(container: AssertionContainer<T>, expected: CharSequence): Assertion =
-        container.createDescriptiveAssertion(STARTS_WITH, expected) { it.startsWith(expected) }
+        container.createDescriptiveAssertion(TO_START_WITH, expected) { it.startsWith(expected) }
 
     override fun <T : CharSequence> startsNotWith(container: AssertionContainer<T>, expected: CharSequence): Assertion =
-        container.createDescriptiveAssertion(STARTS_NOT_WITH, expected) { !it.startsWith(expected) }
+        container.createDescriptiveAssertion(NOT_TO_START_WITH, expected) { !it.startsWith(expected) }
 
     override fun <T : CharSequence> endsWith(container: AssertionContainer<T>, expected: CharSequence): Assertion =
-        container.createDescriptiveAssertion(ENDS_WITH, expected) { it.endsWith(expected) }
+        container.createDescriptiveAssertion(TO_END_WITH, expected) { it.endsWith(expected) }
 
     override fun <T : CharSequence> endsNotWith(container: AssertionContainer<T>, expected: CharSequence): Assertion =
-        container.createDescriptiveAssertion(ENDS_NOT_WITH, expected) { !it.endsWith(expected) }
+        container.createDescriptiveAssertion(NOT_TO_END_WITH, expected) { !it.endsWith(expected) }
 
     override fun <T : CharSequence> isEmpty(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(TO_BE, EMPTY) { it.isEmpty() }
@@ -53,8 +53,8 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
         container.createDescriptiveAssertion(NOT_TO_BE, BLANK) { it.isNotBlank() }
 
     override fun <T : CharSequence> matches(container: AssertionContainer<T>, expected: Regex): Assertion =
-        container.createDescriptiveAssertion(MATCHES, expected) { it.matches(expected) }
+        container.createDescriptiveAssertion(TO_MATCH, expected) { it.matches(expected) }
 
     override fun <T : CharSequence> mismatches(container: AssertionContainer<T>, expected: Regex): Assertion =
-        container.createDescriptiveAssertion(MISMATCHES, expected) { !it.matches(expected) }
+        container.createDescriptiveAssertion(NOT_TO_MATCH, expected) { !it.matches(expected) }
 }

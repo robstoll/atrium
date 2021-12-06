@@ -1,14 +1,13 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.creators.impl
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
+import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
 /**
  * Represents a creator of sophisticated `contains` assertions for [CharSequence].
@@ -35,10 +34,11 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
     override val groupDescription: Translatable
 ) : ContainsObjectsAssertionCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
 
-    override val descriptionContains: Translatable = DescriptionCharSequenceAssertion.CONTAINS
-    override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
-    override val descriptionNotFound: Translatable = DescriptionCharSequenceAssertion.NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable = DescriptionCharSequenceAssertion.NUMBER_OF_MATCHES_FOUND
+    override val descriptionContains: Translatable = DescriptionCharSequenceExpectation.TO_CONTAIN
+    override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES
+    override val descriptionNotFound: Translatable = DescriptionCharSequenceExpectation.NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable =
+        DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<String> =
         container.changeSubject.unreported { it.toString() }.toAssertionContainer()
