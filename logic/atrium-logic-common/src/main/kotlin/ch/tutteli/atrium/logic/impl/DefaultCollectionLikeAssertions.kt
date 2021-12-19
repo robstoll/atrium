@@ -9,8 +9,8 @@ import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.SIZE
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation.SIZE
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation.EMPTY
 
 class DefaultCollectionLikeAssertions : CollectionLikeAssertions {
 

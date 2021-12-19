@@ -1,4 +1,4 @@
-//TODO remove file with latest with 1.0.0
+//TODO remove file with 1.0.0 at the latest
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.translations

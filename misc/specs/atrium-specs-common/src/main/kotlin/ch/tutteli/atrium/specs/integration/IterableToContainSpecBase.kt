@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -50,7 +50,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
         val noSuchValueDescr = DescriptionIterableAssertion.ELEMENT_NOT_FOUND.getDefault()
 
-        val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
+        val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
         val atLeastDescr = DescriptionIterableAssertion.AT_LEAST.getDefault()
         val atMostDescr = DescriptionIterableAssertion.AT_MOST.getDefault()
 
@@ -61,7 +61,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val emptyInOrderOnlyReportOptions : InOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
-            toContain.exactly(1).regex("${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected")
+            toContain.exactly(1).regex("${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected")
 
         fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)
         private fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)
