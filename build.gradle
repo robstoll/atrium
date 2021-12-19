@@ -281,10 +281,11 @@ configure(subprojects - toolProjects) {
     }
 }
 
+//TODO activate again with 0.19.0 (once we use new tutteli spek plugin with support for new MPP plugin)
 // takes some time to configure since gradle 6.9 so only if CI
-if (Boolean.parseBoolean(System.getenv('CI'))) {
-    apply from: 'gradle/scripts/check-dexer.gradle'
-}
+//if (Boolean.parseBoolean(System.getenv('CI'))) {
+//    apply from: 'gradle/scripts/check-dexer.gradle'
+//}
 apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
