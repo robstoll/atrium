@@ -50,9 +50,6 @@ class CollectionAssertionSamples {
                 .isLessThan(1)    // fails
                 .isGreaterThan(4) // not evaluated/reported because `isLessThan(1)` already fails
             // use `size { ... }` if you want that all assertions are evaluated
-        }.message {
-            contains("is less than: 1")
-            containsNot("is greater than: 4")
         }
     }
 
@@ -76,9 +73,6 @@ class CollectionAssertionSamples {
                     isGreaterThan(4) // still evaluated even though `isLessThan(1)` already fails,
                     // use `.size.` if you want a fail fast behaviour
                 }
-        }.messageToContain(
-            "is less than: 1",
-            "is greater than: 4"
-        )
+        }
     }
 }

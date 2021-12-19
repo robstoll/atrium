@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -21,7 +21,7 @@ abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
-        val toBeLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+        val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
 
         val separator = lineSeparator
 

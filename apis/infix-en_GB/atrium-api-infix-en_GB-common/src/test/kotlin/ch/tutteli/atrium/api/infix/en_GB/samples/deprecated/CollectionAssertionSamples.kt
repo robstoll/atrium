@@ -6,13 +6,9 @@ package ch.tutteli.atrium.api.infix.en_GB.samples.deprecated
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.infix.en_GB.samples.fails
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import kotlin.test.Test
 
 class CollectionAssertionSamples {
-    private val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-    private val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
-
     @Test
     fun isEmpty() {
         expect(listOf<Int>()) toBe empty
@@ -54,9 +50,6 @@ class CollectionAssertionSamples {
                 //|       |              | not reported because `isLessThan 1` already fails
                 //|       | fails
                 //| subject is now of type Int (actually 3)
-        } message {
-            toContain("${isLessThanDescr}: 1")
-            notToContain("${isGreaterThanDescr}: 4")
         }
     }
 
@@ -78,9 +71,6 @@ class CollectionAssertionSamples {
                 it isGreaterThan 4  // isLessThan 1 fails, but isGreaterThan 4 still evaluated
                                     // use `.size.` if you want a fail fast behaviour
             }
-        } messageContains values(
-            "${isLessThanDescr}: 1",
-            "${isGreaterThanDescr}: 4"
-        )
+        }
     }
 }

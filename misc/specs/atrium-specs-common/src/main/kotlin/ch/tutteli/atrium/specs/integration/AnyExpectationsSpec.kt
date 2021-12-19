@@ -10,8 +10,8 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.*
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_GREATER_THAN
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion.IS_LESS_THAN
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -115,6 +115,9 @@ abstract class AnyExpectationsSpec(
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+
+    val toBeGreaterThanDescr = TO_BE_GREATER_THAN.getDefault()
+    val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
 
     val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
 
@@ -563,7 +566,7 @@ abstract class AnyExpectationsSpec(
                 expect {
                     expect(subject).toBeNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
-                    messageToContain(": 1", "${IS_GREATER_THAN.getDefault()}: 1")
+                    messageToContain(": 1", "$toBeGreaterThanDescr: 1")
                 }
             }
             it("throws an AssertionError if null is passed") {
@@ -576,6 +579,7 @@ abstract class AnyExpectationsSpec(
 
         }
     }
+
 
     describeFun(notToBeNullFeature, notToBeNull) {
         val notToBeNullFunctions = unifySignatures(notToBeNullFeature, notToBeNull)
@@ -607,7 +611,7 @@ abstract class AnyExpectationsSpec(
                         expect {
                             expect(1 as Int?).notToBeNullFun { toBeLessThan(0) }
                         }.toThrow<AssertionError> {
-                            messageToContain("${IS_LESS_THAN.getDefault()}: 0")
+                            messageToContain("$toBeLessThanDescr: 0")
                         }
                     }
                 }
@@ -624,8 +628,8 @@ abstract class AnyExpectationsSpec(
                             expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(5) }
                         }.toThrow<AssertionError> {
                             message {
-                                toContain(IS_GREATER_THAN.getDefault())
-                                notToContain(IS_LESS_THAN.getDefault())
+                                toContain(toBeGreaterThanDescr)
+                                notToContain(toBeLessThanDescr)
                             }
                         }
                     }
@@ -635,8 +639,8 @@ abstract class AnyExpectationsSpec(
                             val i: Int? = 1
                             expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(0) }
                         }.toThrow<AssertionError> {
-                            messageToContain(IS_GREATER_THAN.getDefault())
-                            if (hasExtraHint) messageToContain(IS_LESS_THAN.getDefault())
+                            messageToContain(toBeGreaterThanDescr)
+                            if (hasExtraHint) messageToContain(toBeLessThanDescr)
                         }
                     }
                 }
@@ -652,9 +656,9 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             A::class.simpleName!!,
-                            toBeAnInstanceOfDescr + ": Int (kotlin.Int)"
+                            "$toBeAnInstanceOfDescr: Int (kotlin.Int)"
                         )
-                        if (hasExtraHint) messageToContain(toEqualDescr + ": 1")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }
 
@@ -665,8 +669,8 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             A::class.simpleName!!,
-                            toBeAnInstanceOfDescr + ": Int (kotlin.Int)",
-                            IS_LESS_THAN.getDefault()
+                            "$toBeAnInstanceOfDescr: Int (kotlin.Int)",
+                            "${TO_BE_LESS_THAN.getDefault()}: 1"
                         )
                     }
                 }
@@ -704,7 +708,7 @@ abstract class AnyExpectationsSpec(
                         expect {
                             expect(actualValue).toBeAnInstanceOfInt { toBeLessThan(expectedLessThan) }
                         }.toThrow<AssertionError> {
-                            messageToContain(actualValue as Any, IS_LESS_THAN.getDefault(), expectedLessThan)
+                            messageToContain(actualValue as Any, toBeLessThanDescr, expectedLessThan)
                         }
                     }
                 }
@@ -712,7 +716,8 @@ abstract class AnyExpectationsSpec(
         }
 
         context("subject is a subtype") {
-            val toBeAnInstanceOfSuperTypeFunctions = unifySignatures<Any?, SuperType>(toBeAnInstanceOfSuperTypeFeature, toBeAnInstanceOfSuperType)
+            val toBeAnInstanceOfSuperTypeFunctions =
+                unifySignatures<Any?, SuperType>(toBeAnInstanceOfSuperTypeFeature, toBeAnInstanceOfSuperType)
 
             context("it allows to perform sub assertions") {
                 toBeAnInstanceOfSuperTypeFunctions.forEach { (name, toBeAnInstanceOfSuperType, _) ->
@@ -727,7 +732,11 @@ abstract class AnyExpectationsSpec(
                         expect {
                             expect(subject as Any?).toBeAnInstanceOfSuperType { toBeTheInstance(otherSubType) }
                         }.toThrow<AssertionError> {
-                            messageToContain(subject.toString(), TO_BE_THE_INSTANCE.getDefault(), otherSubType.toString())
+                            messageToContain(
+                                subject.toString(),
+                                TO_BE_THE_INSTANCE.getDefault(),
+                                otherSubType.toString()
+                            )
                         }
                     }
                 }
@@ -735,7 +744,8 @@ abstract class AnyExpectationsSpec(
         }
 
         context("subject is a supertype") {
-            val toBeAnInstanceOfSubTypeFunctions = unifySignatures<Any?, SubType>(toBeAnInstanceOfSubTypeFeature, toBeAnInstanceOfSubType)
+            val toBeAnInstanceOfSubTypeFunctions =
+                unifySignatures<Any?, SubType>(toBeAnInstanceOfSubTypeFeature, toBeAnInstanceOfSubType)
             toBeAnInstanceOfSubTypeFunctions.forEach { (name, toBeAnInstanceOfSubType, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
 

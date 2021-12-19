@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -34,7 +34,7 @@ object EitherSpec : Spek({
             }.toThrow<AssertionError> {
                 messageToContain(
                     "value of Right: ❗❗ is not a Right",
-                    "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
+                    "${DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()}: 2"
                 )
             }
         }

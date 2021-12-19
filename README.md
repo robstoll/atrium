@@ -285,7 +285,7 @@ expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
 <a name="ex-single"></a>
 ```text
 expected subject: 10        (kotlin.Int <1234789>)
-◆ is less than: 5        (kotlin.Int <1234789>)
+◆ to be less than: 5        (kotlin.Int <1234789>)
 ```
 </ex-single>
 
@@ -322,8 +322,8 @@ expect(4 + 6) {
 <a name="ex-group"></a>
 ```text
 expected subject: 10        (kotlin.Int <1234789>)
-◆ is less than: 5        (kotlin.Int <1234789>)
-◆ is greater than: 10        (kotlin.Int <1234789>)
+◆ to be less than: 5        (kotlin.Int <1234789>)
+◆ to be greater than: 10        (kotlin.Int <1234789>)
 ```
 </ex-group>
 
@@ -1028,11 +1028,11 @@ expect(listOf(1, 2, 2, 4)).toContain(
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
-      » is less than: 0        (kotlin.Int <1234789>)
+      » to be less than: 0        (kotlin.Int <1234789>)
       » but no such element was found
   ⚬ an element which: 
-      » is greater than: 2        (kotlin.Int <1234789>)
-      » is less than: 4        (kotlin.Int <1234789>)
+      » to be greater than: 2        (kotlin.Int <1234789>)
+      » to be less than: 4        (kotlin.Int <1234789>)
       » but no such element was found
 ```
 </ex-collection-short-2>
@@ -1070,7 +1070,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAny {
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
-      » is less than: 0        (kotlin.Int <1234789>)
+      » to be less than: 0        (kotlin.Int <1234789>)
       » but no such element was found
 ```
 </ex-collection-any>
@@ -1088,7 +1088,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndNone {
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ does not contain: 
   ⚬ an element which: 
-      » is greater than: 2        (kotlin.Int <1234789>)
+      » to be greater than: 2        (kotlin.Int <1234789>)
       ❗❗ following elements were mismatched: 
          ⚬ index 2: 3        (kotlin.Int <1234789>)
          ⚬ index 3: 4        (kotlin.Int <1234789>)
@@ -1107,7 +1107,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAll {
 ```text
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ all entries: 
-    » is greater than: 2        (kotlin.Int <1234789>)
+    » to be greater than: 2        (kotlin.Int <1234789>)
     ❗❗ following elements were mismatched: 
        ⚬ index 0: 1        (kotlin.Int <1234789>)
        ⚬ index 1: 2        (kotlin.Int <1234789>)
@@ -1140,9 +1140,9 @@ expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
     ◾ to equal: 2        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
-      ◾ is less than: 3        (kotlin.Int <1234789>)
+      ◾ to be less than: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
-      ◾ is less than: 2        (kotlin.Int <1234789>)
+      ◾ to be less than: 2        (kotlin.Int <1234789>)
     ❗❗ additional elements detected: 
        ⚬ element 2: 2        (kotlin.Int <1234789>)
        ⚬ element 3: 4        (kotlin.Int <1234789>)
@@ -1186,7 +1186,7 @@ expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
     ◾ to equal: 3        (kotlin.Int <1234789>)
 ◆ contains only, in order: 
   ⚬ ▶ element 1: 2        (kotlin.Int <1234789>)
-      ◾ is less than: 2        (kotlin.Int <1234789>)
+      ◾ to be less than: 2        (kotlin.Int <1234789>)
     ❗❗ additional elements detected: 
        ⚬ element 3: 4        (kotlin.Int <1234789>)
 ```
@@ -1240,7 +1240,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.atLeast(1).butAtMost(2).entries(
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ contains, in any order: 
   ⚬ an element which: 
-      » is less than: 3        (kotlin.Int <1234789>)
+      » to be less than: 3        (kotlin.Int <1234789>)
     ⚬ ▶ number of such entries: 3
         ◾ is at most: 2
 ```
@@ -1332,9 +1332,9 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
-      ◾ is greater than: 2        (kotlin.Int <1234789>)
+      ◾ to be greater than: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
-      ◾ is less than: 2        (kotlin.Int <1234789>)
+      ◾ to be less than: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-2>
 
@@ -1381,9 +1381,9 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
   ✘ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
   ✔ ▶ entry "a": 1        (kotlin.Int <1234789>)
-      ◾ is less than: 2        (kotlin.Int <1234789>)
+      ◾ to be less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ entry "b": 2        (kotlin.Int <1234789>)
-      ◾ is less than: 2        (kotlin.Int <1234789>)
+      ◾ to be less than: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-only-2>
 
@@ -1435,12 +1435,12 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
       ◾ ▶ key: "a"        <1234789>
           ◾ to equal: "a"        <1234789>
       ◾ ▶ value: 1        (kotlin.Int <1234789>)
-          ◾ is less than: 2        (kotlin.Int <1234789>)
+          ◾ to be less than: 2        (kotlin.Int <1234789>)
   ✘ ▶ element 1: b=2        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "b"        <1234789>
           ◾ to equal: "b"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
-          ◾ is less than: 2        (kotlin.Int <1234789>)
+          ◾ to be less than: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-builder-2>
 
@@ -1495,7 +1495,7 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
     ◾ does not contain: 
       ⚬ an element which: 
-          » is greater than: 1        (kotlin.Int <1234789>)
+          » to be greater than: 1        (kotlin.Int <1234789>)
           ❗❗ following elements were mismatched: 
              ⚬ index 1: 2        (kotlin.Int <1234789>)
 ```
@@ -1533,7 +1533,7 @@ expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
       ◾ ▶ key: "b"        <1234789>
           ◾ to start with: "a"        <1234789>
       ◾ ▶ value: 2        (kotlin.Int <1234789>)
-          ◾ is greater than: 2        (kotlin.Int <1234789>)
+          ◾ to be greater than: 2        (kotlin.Int <1234789>)
 ```
 </ex-map-5>
 
@@ -1710,7 +1710,7 @@ expect("calling myFun with ...") {
 ```text
 expected subject: "calling myFun with ..."        <1234789>
 ◆ ▶ myFun(3): 'd'
-    ◾ is greater than: 'e'
+    ◾ to be greater than: 'e'
 ```
 </ex-data-driven-2>
 
@@ -2227,7 +2227,7 @@ expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[
     ◾ to have: a next element
       » all entries: 
           » ▶ age: 
-              ◾ is greater than or equal to: 18        (kotlin.Int <1234789>)
+              ◾ to be greater than or equal to: 18        (kotlin.Int <1234789>)
 ```
 </ex-own-compose-4>
 

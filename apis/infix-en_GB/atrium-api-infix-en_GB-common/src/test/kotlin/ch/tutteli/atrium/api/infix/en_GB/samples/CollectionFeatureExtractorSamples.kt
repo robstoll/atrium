@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.it
+import ch.tutteli.atrium.api.infix.en_GB.size
+import ch.tutteli.atrium.api.infix.en_GB.toBeGreaterThan
+import ch.tutteli.atrium.api.infix.en_GB.toBeLessThan
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import kotlin.test.Test
 
 class CollectionFeatureExtractorSamples {
