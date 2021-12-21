@@ -4,8 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -33,9 +32,9 @@ abstract class CollectionExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
+    val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
     val fluent = expect(listOf(1, 2) as Collection<Int>)
-    val sizeDescr = DescriptionCollectionAssertion.SIZE.getDefault()
+    val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
 
     describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda

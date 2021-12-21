@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -74,12 +74,12 @@ abstract class AssertionFormatterControllerSpec(
 
     val holdingAssertion = assertionBuilder.descriptive
         .holding
-        .withDescriptionAndRepresentation(IS_GREATER_THAN_OR_EQUAL, 1)
+        .withDescriptionAndRepresentation(TO_BE_GREATER_THAN_OR_EQUAL_TO, 1)
         .build()
 
     val failingAssertion = assertionBuilder.descriptive
         .failing
-        .withDescriptionAndRepresentation(IS_LESS_THAN_OR_EQUAL, 2)
+        .withDescriptionAndRepresentation(TO_BE_LESS_THAN_OR_EQUAL_TO, 2)
         .build()
 
     describeFun(testee::format.name) {
@@ -170,7 +170,7 @@ abstract class AssertionFormatterControllerSpec(
                             testee.format(holdingGroup, parameterObject)
                             expect(sb.toString()).toEqual(
                                 lineSeparator +
-                                        "$prefix ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
+                                        "$prefix ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                             )
                         }
 
@@ -178,7 +178,7 @@ abstract class AssertionFormatterControllerSpec(
                             testee.format(failingGroup, parameterObject)
                             expect(sb.toString()).toEqual(
                                 lineSeparator +
-                                    "$prefix ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2"
+                                    "$prefix ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2"
                             )
                         }
                     }
@@ -208,7 +208,7 @@ abstract class AssertionFormatterControllerSpec(
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
                         "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
-                            "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
+                            "$indentBulletPoint$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                     )
                 }
             }
@@ -226,7 +226,7 @@ abstract class AssertionFormatterControllerSpec(
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
                         "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
-                            "$indentBulletPoint$warning ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
+                            "$indentBulletPoint$warning ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                     )
                 }
             }
@@ -250,9 +250,9 @@ abstract class AssertionFormatterControllerSpec(
                     expect(sb.toString()).toEqual(
                         "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
-                            "$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeparator" +
-                            "$indentBulletPoint$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
+                            "$indentBulletPoint$indentArrow$listBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2$lineSeparator" +
+                            "$indentBulletPoint$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                     )
                 }
 
@@ -263,16 +263,16 @@ abstract class AssertionFormatterControllerSpec(
                             .withAssertion(explanatoryAssertionGroup)
                             .build()
                         val rootGroup2 = assertionBuilder.root
-                            .withDescriptionAndRepresentation(IS_LESS_THAN, 10)
+                            .withDescriptionAndRepresentation(TO_BE_LESS_THAN, 10)
                             .withAssertions(failingAssertion, explanatoryAssertionGroup2, holdingAssertion)
                             .build()
                         testee.format(rootGroup2, parameterObject)
                         expect(sb.toString()).toEqual(
-                            "${IS_LESS_THAN.getDefault()}: 10$lineSeparator" +
+                            "${TO_BE_LESS_THAN.getDefault()}: 10$lineSeparator" +
                                 "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
-                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2$lineSeparator" +
-                                "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1"
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                         )
                     }
                 }
@@ -310,8 +310,8 @@ abstract class AssertionFormatterControllerSpec(
                         expect(sb.toString()).toEqual(
                             lineSeparator +
                                 "${AssertionVerb.EXPECT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
-                                "$successfulBulletPoint ${IS_GREATER_THAN_OR_EQUAL.getDefault()}: 1$lineSeparator" +
-                                "$failingBulletPoint ${IS_LESS_THAN_OR_EQUAL.getDefault()}: 2"
+                                "$successfulBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
+                                "$failingBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2"
                         )
                     }
                 }

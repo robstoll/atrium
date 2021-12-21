@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -96,7 +96,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$valueName: 1",
-                            DescriptionComparableAssertion.IS_GREATER_THAN.getDefault() + ": 1"
+                            DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault() + ": 1"
                         )
                     }
                 }

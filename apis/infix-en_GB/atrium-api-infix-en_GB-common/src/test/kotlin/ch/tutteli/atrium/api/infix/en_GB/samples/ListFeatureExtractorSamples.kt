@@ -2,12 +2,12 @@ package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import kotlin.test.Test
 
 class ListFeatureExtractorSamples {
-    private val toBeLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
-    private val toBeGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
+    private val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
+    private val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 
     @Test
     fun getFeature() {

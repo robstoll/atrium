@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -75,7 +75,7 @@ abstract class MapExpectationsSpec(
     val fluent = expect(map)
     val nullableFluent = expect(nullableMap)
 
-    val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
+    val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
     val toContainKeyDescr = DescriptionMapLikeAssertion.CONTAINS_KEY.getDefault()
     val notToContainKeyDescr = DescriptionMapLikeAssertion.CONTAINS_NOT_KEY.getDefault()
     val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()

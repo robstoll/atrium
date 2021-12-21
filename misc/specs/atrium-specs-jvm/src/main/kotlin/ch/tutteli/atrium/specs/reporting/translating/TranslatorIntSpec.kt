@@ -13,7 +13,8 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.text.SimpleDateFormat
@@ -130,7 +131,7 @@ abstract class TranslatorIntSpec(
     val descriptionAnyExpectation= DescriptionAnyExpectation::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
 
-    val descriptionComparableAssertion = DescriptionComparableAssertion::class.simpleName
+    val descriptionComparableAssertion = DescriptionComparableExpectation::class.simpleName
     val toEqual = DescriptionAnyExpectation.TO_EQUAL
     val notToEqual = DescriptionAnyExpectation.NOT_TO_EQUAL
     val notToBeTheInstance = DescriptionAnyExpectation.NOT_TO_BE_THE_INSTANCE
@@ -178,11 +179,11 @@ abstract class TranslatorIntSpec(
                 }
             }
 
-            describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr'") {
-                it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
+            describe("translation for $descriptionComparableAssertion.$TO_BE_LESS_THAN is not provided for 'fr'") {
+                it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.$TO_BE_LESS_THAN") {
                     expect {
                         assertWithDeCh_Fr(1).toBeLessThan(1)
-                    }.toThrow<AssertionError> { messageToContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
+                    }.toThrow<AssertionError> { messageToContain("${TO_BE_LESS_THAN.getDefault()}: 1") }
                 }
             }
 
@@ -240,11 +241,11 @@ abstract class TranslatorIntSpec(
 
     prefixedDescribe("primary locale is 'de_CH', fallback is 'fr' and then 'it'") {
         context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents") {
-            describe("translation for $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is not provided for 'fr' nor for 'it'") {
-                it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
+            describe("translation for $descriptionComparableAssertion.$TO_BE_LESS_THAN is not provided for 'fr' nor for 'it'") {
+                it("throws an AssertionError which message contains the default of $descriptionComparableAssertion.$TO_BE_LESS_THAN") {
                     expect {
                         assertWithDeCh_FrCh_ItCh(1).toBeLessThan(1)
-                    }.toThrow<AssertionError> { messageToContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
+                    }.toThrow<AssertionError> { messageToContain("${TO_BE_LESS_THAN.getDefault()}: 1") }
                 }
             }
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr' and 'it'") {

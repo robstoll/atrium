@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import org.spekframework.spek2.style.specification.Suite
 
 //TODO 0.18.0 include InOrderReportOptions
@@ -59,7 +59,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
         }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
-        "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionAssertion.SIZE.getDefault()}: $actual[^:]+: $expected"
+        "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected"
 
     fun sizeCheck(actual: Int, expected: Int) = size(
         "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow", featureBulletPoint, actual, expected)

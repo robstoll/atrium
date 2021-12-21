@@ -13,7 +13,9 @@ import ch.tutteli.atrium.specs.prefixedDescribeTemplate
 import ch.tutteli.atrium.specs.toBeAnInstanceOfDescr
 import ch.tutteli.atrium.specs.toEqualDescr
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -58,7 +60,7 @@ abstract class VerbSpec(
                         assertionVerb(1) { toEqual(1) }.toBeLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1")
+                            toContain("${TO_BE_LESS_THAN.getDefault()}: 1")
                             notToContain(toEqualDescr)
                         }
                     }
@@ -73,8 +75,8 @@ abstract class VerbSpec(
                         message {
                             toContain(
                                 ": 1",
-                                "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0",
-                                "${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2"
+                                "${TO_BE_LESS_THAN.getDefault()}: 0",
+                                "${TO_BE_GREATER_THAN.getDefault()}: 2"
                             )
                             notToContain(toEqualDescr)
                         }
@@ -93,8 +95,8 @@ abstract class VerbSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain(": 1")
-                        toContain("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 0")
-                        toContain("${DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()}: 2")
+                        toContain("${TO_BE_LESS_THAN.getDefault()}: 0")
+                        toContain("${TO_BE_GREATER_THAN.getDefault()}: 2")
                     }
                 }
             }
@@ -164,8 +166,8 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
         }.toThrow<AssertionError> {
             message {
                 toContain(": 1")
-                toContain("${DescriptionComparableAssertion.IS_LESS_THAN_OR_EQUAL.getDefault()}: 0")
-                notToContain("${DescriptionComparableAssertion.IS_GREATER_THAN_OR_EQUAL.getDefault()}: 2")
+                toContain("${DescriptionComparableExpectation.TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 0")
+                notToContain("${DescriptionComparableExpectation.TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 2")
             }
         }
     }

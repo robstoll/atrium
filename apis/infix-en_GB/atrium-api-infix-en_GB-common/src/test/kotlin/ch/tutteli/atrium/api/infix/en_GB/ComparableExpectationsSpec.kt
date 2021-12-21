@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 
 class ComparableExpectationsSpec: Spek({
@@ -33,8 +33,8 @@ class ComparableExpectationsSpec: Spek({
         fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
         fun1(Expect<DiffEqualsCompareTo>::notToBeLessThan),
 
-        DescriptionComparableAssertion.IS_NOT_GREATER_THAN.getDefault(),
-        DescriptionComparableAssertion.IS_NOT_LESS_THAN.getDefault(),
+        DescriptionComparableExpectation.NOT_TO_BE_GREATER_THAN.getDefault(),
+        DescriptionComparableExpectation.NOT_TO_BE_LESS_THAN.getDefault(),
         describePrefix = "[Atrium][!>] "
     ){})
 })  {
