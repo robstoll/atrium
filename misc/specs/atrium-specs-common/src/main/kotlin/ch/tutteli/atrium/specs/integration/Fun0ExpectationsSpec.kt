@@ -6,7 +6,9 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.NO_EXCEPTION_OCCURRED
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.THROWN_EXCEPTION_WHEN_CALLED
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -88,8 +90,8 @@ abstract class Fun0ExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "${DescriptionFunLikeAssertion.THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
-                                    DescriptionFunLikeAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                                "${THROWN_EXCEPTION_WHEN_CALLED.getDefault()}: " +
+                                    NO_EXCEPTION_OCCURRED.getDefault(),
                                 "$toBeAnInstanceOfDescr: ${IllegalArgumentException::class.simpleName}"
                             )
                             if (hasExtraHint) toContain("$toEqualDescr: ${IllegalArgumentException::class.fullName}")
@@ -160,7 +162,7 @@ abstract class Fun0ExpectationsSpec(
                         message {
                             toContainRegex(
                                 "\\Qinvoke()\\E: ${
-                                    DescriptionFunLikeAssertion.THREW.getDefault()
+                                    DescriptionFunLikeExpectation.THREW.getDefault()
                                         .format(UnsupportedOperationException::class.fullName)
                                 }",
                                 UnsupportedOperationException::class.simpleName + separator +
