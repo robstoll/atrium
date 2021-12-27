@@ -3,13 +3,9 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.CollectingExpect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsAssertionCreator
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -17,8 +13,9 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSe
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.*
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WHICH
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -46,9 +43,12 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
 ),
     IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
-    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
-    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ELEMENT_NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable = DescriptionIterableAssertion.NUMBER_OF_ELEMENTS_FOUND
+    override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    @Suppress("OverridingDeprecatedMember")
+    override val descriptionContains: Translatable = descriptionToContain
+    override val descriptionNotFound: Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable =
+        DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<E?>> =
         turnSubjectToList(container, converter)
@@ -74,7 +74,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
             searchCriterion
         )
 
-        val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
+        val featureAssertion = featureFactory(count, NUMBER_OF_SUCH_ELEMENTS)
         val assertions = mutableListOf<Assertion>(explanatoryGroup)
         if (searchBehaviour is NotSearchBehaviour) {
             val mismatches = createIndexAssertions(list) { (_, element) ->
@@ -85,7 +85,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
             assertions.add(featureAssertion)
         }
         return assertionBuilder.list
-            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH)
+            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH_NEEDS)
             .withAssertions(assertions)
             .build()
     }

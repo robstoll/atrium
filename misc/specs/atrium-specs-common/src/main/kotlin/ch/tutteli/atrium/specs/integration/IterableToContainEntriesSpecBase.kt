@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.dsl.Root
 
 abstract class IterableToContainEntriesSpecBase(
@@ -20,22 +20,22 @@ abstract class IterableToContainEntriesSpecBase(
         var toBeLessThanFun = ""
         var toBeGreaterThanFun = ""
         var toEqualFun = ""
-        val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH.getDefault()
+        val anElementWhichNeedsDescr = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS.getDefault()
         val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
         val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
         fun <T> mismatchedIndex(index: Int, value: T) : String {
-            val indexDescr = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+            val indexDescr = String.format(DescriptionIterableLikeExpectation.INDEX.getDefault(), index)
             return "$indexDescr: ${value.toString()}"
         }
-        val noSuchEntryDescr = DescriptionIterableAssertion.ELEMENT_NOT_FOUND.getDefault()
+        val noSuchElementDescr = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND.getDefault()
 
-        fun index(index: Int) = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
+        fun index(index: Int) = String.format(DescriptionIterableLikeExpectation.INDEX.getDefault(), index)
 
         //@formatter:off
         val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
         val afterExplanatoryIndent = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint"
         val afterMismatchedWarning = "$afterExplanatoryIndent$indentWarningBulletPoint\\Q$listBulletPoint\\E"
-        val hasANextElement = "\\Q$rootBulletPoint\\E$toHaveDescr: $nextElement"
+        val hasANextElement = "\\Q$rootBulletPoint\\E$toHaveDescr: $aNextElement"
         //@formatter:on
 
     }

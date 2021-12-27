@@ -60,9 +60,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                     message {
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
-                            "$anElementWhich: $separator",
+                            "$anElementWhichNeedsDescr: $separator",
                             "$toBeLessThanDescr: 1.0",
-                            noSuchEntryDescr
+                            noSuchElementDescr
                         )
                     }
                 }
@@ -73,8 +73,8 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(2).values(
-                            "$anElementWhich: $separator",
-                            noSuchEntryDescr
+                            "$anElementWhichNeedsDescr: $separator",
+                            noSuchElementDescr
                         )
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -95,10 +95,10 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         message {
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhich: $separator",
+                                "$anElementWhichNeedsDescr: $separator",
                                 "$toBeGreaterThanDescr: 1.0",
                                 "$toBeLessThanDescr: 2.0",
-                                noSuchEntryDescr
+                                noSuchElementDescr
                             )
                         }
                     }
@@ -156,9 +156,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             messageToContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhich: $separator",
+                                "$anElementWhichNeedsDescr: $separator",
                                 "$toEqualDescr: 2.0",
-                                noSuchEntryDescr
+                                noSuchElementDescr
                             )
                         }
                     }
@@ -172,8 +172,8 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(2).values(
-                                    "$anElementWhich: $separator",
-                                    noSuchEntryDescr
+                                    "$anElementWhichNeedsDescr: $separator",
+                                    noSuchElementDescr
                                 )
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrder: $separator",
@@ -193,9 +193,9 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$rootBulletPoint$toContainInAnyOrder: $separator",
-                            "$anElementWhich: $separator",
+                            "$anElementWhichNeedsDescr: $separator",
                             "$toEqualDescr: null",
-                            noSuchEntryDescr
+                            noSuchElementDescr
                         )
                     }
                 }

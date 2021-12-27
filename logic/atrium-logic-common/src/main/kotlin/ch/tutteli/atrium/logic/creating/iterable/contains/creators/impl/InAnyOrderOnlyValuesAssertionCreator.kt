@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have

@@ -1,9 +1,12 @@
+//TODO remove file with 0.19.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.maplike.contains.checkers.AtLeastChecker
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 /**
  * Represents a check that an expected entry is contained at least [times] in the [Iterable].
@@ -21,5 +24,5 @@ class DefaultAtLeastChecker(
 ) : AtLeastChecker, ContainsChecker(times, nameContainsNotFun, atLeastCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        createDescriptiveAssertion(DescriptionIterableAssertion.AT_LEAST) { foundNumberOfTimes >= times }
+        createDescriptiveAssertion(DescriptionIterableLikeExpectation.AT_LEAST) { foundNumberOfTimes >= times }
 }

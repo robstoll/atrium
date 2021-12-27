@@ -108,7 +108,6 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalComponentFactoryContainer::class)
     private fun getMethodCallFormatter(
-        @Suppress(/* don't suppress once we use MethodCallFormatter from container */ "UNUSED_PARAMETER")
         entryPointStepLogic: MapLikeContains.EntryPointStepLogic<*, *, *, *>
     ) = entryPointStepLogic.container.components.build<MethodCallFormatter>()
 
@@ -191,7 +190,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             assertionBuilder.invisibleGroup.withAssertions(
                 entryPointStepLogic.container.collectBasedOnSubject(Some(map)) {
                     _logic
-                        //using CollectionLike.size
+                        // using CollectionLike.size
                         .size { it.entries }
                         .collectAndLogicAppend { toBe(keyValues.size) }
                 },

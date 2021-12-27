@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.ExactlyChecker
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.EXACTLY
 
 /**
  * Represents a check that an expected entry is contained exactly [times] in the [Iterable].
@@ -22,5 +22,5 @@ class DefaultExactlyChecker(
 ) : ExactlyChecker, ContainsChecker(times, nameContainsNotFun, exactlyCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        createDescriptiveAssertion(DescriptionIterableAssertion.EXACTLY) { foundNumberOfTimes == times }
+        createDescriptiveAssertion(EXACTLY) { foundNumberOfTimes == times }
 }

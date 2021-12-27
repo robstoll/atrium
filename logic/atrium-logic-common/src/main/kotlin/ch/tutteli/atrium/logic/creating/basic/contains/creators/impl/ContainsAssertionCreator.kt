@@ -29,19 +29,31 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
 
+
+    /**
+     * Provides the translation for `to contain`.
+     */
+    protected abstract val descriptionToContain: Translatable
+
+    //TODO remove with 0.19.0
     /**
      * Provides the translation for `contains`.
      */
+    @Deprecated(
+        "Use descriptionToContain instead; will be removed with 0.19.0",
+        ReplaceWith("this.descriptionToContain ")
+    )
     protected abstract val descriptionContains: Translatable
 
+
     /**
-     * Provides the translation for when an item is not found in a `contains.atLeast(1)` check.
+     * Provides the translation for when an item is not found in a `toContain.atLeast(1)` check.
      */
     protected abstract val descriptionNotFound: Translatable
 
     /**
      * Provides the translation for `and N such elements were found` when an item is not found in a
-     * `contains.atLeast(1)` check.
+     * `toContain.atLeast(1)` check.
      */
     protected abstract val descriptionNumberOfElementsFound: Translatable
 
@@ -55,7 +67,7 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
                 searchAndCreateAssertion(multiConsumableContainer, it, this::featureFactory)
             }
         }
-        val description = searchBehaviour.decorateDescription(descriptionContains)
+        val description = searchBehaviour.decorateDescription(descriptionToContain)
         val inAnyOrderAssertion = assertionBuilder.list
             .withDescriptionAndEmptyRepresentation(description)
             .withAssertions(assertions)

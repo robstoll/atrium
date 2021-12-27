@@ -13,8 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Defines the contract for sophisticated [MapLike] contains assertion builders.
  *
  * The building process is typically started by the creation of an [EntryPointStep],
- * goes on by specifying a desired [SearchBehaviour],
- * defines which [Checker]s should be applied and
+ * goes on by specifying a desired [SearchBehaviour] and
  * is finalized by one of the [MapLikeContainsAssertions] which usually use a [Creator].
  */
 interface MapLikeContains {
@@ -55,30 +54,6 @@ interface MapLikeContains {
         EntryPointStep<K, V, T, S>,
         EntryPointStepLogic<K, V, T, S>
 
-//    /**
-//     * The step of choosing/defining [Checker]s.
-//     */
-//    interface CheckerStep<K, V, T : MapLike, out S : SearchBehaviour>
-//        : Contains.CheckerStep<T, S, Checker, EntryPointStep<K, V, T, S>>
-//
-//    /**
-//     * The step of choosing/defining [Checker]s on the logic level.
-//     */
-//    interface CheckerStepLogic<K, V, T : MapLike, out S : SearchBehaviour>
-//        : Contains.CheckerStepLogic<T, S, Checker, EntryPointStepLogic<K, V, T, S>>
-//
-//    /**
-//     * Sole purpose of this interface is to hide [CheckerStepLogic] from newcomers which
-//     * usually don't have to deal with this type and to keep the API clean.
-//     *
-//     * Moreover, this keeps the API clean and does not pollute it with things like `times`, `containsBuilder` etc.
-//     *
-//     * See https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas for more information about the personas.
-//     */
-//    interface CheckerStepInternal<K, V, T : MapLike, out S : SearchBehaviour> :
-//        CheckerStep<K, V, T, S>,
-//        CheckerStepLogic<K, V, T, S>
-
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
@@ -100,5 +75,6 @@ interface MapLikeContains {
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
+    @Deprecated("Will be removed with 0.19.0 without replacement")
     interface Checker : Contains.Checker
 }

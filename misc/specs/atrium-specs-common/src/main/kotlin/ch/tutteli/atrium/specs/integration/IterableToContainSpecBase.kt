@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
@@ -24,35 +24,35 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
         val toContainInAnyOrder = String.format(
-            DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(),
-            DescriptionIterableAssertion.CONTAINS.getDefault()
+            DescriptionIterableLikeExpectation.IN_ANY_ORDER.getDefault(),
+            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
         val toContainInAnyOrderOnly = String.format(
-            DescriptionIterableAssertion.IN_ANY_ORDER_ONLY.getDefault(),
-            DescriptionIterableAssertion.CONTAINS.getDefault()
+            DescriptionIterableLikeExpectation.IN_ANY_ORDER_ONLY.getDefault(),
+            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
         val toContainInOrderOnly = String.format(
-            DescriptionIterableAssertion.IN_ORDER_ONLY.getDefault(),
-            DescriptionIterableAssertion.CONTAINS.getDefault()
+            DescriptionIterableLikeExpectation.IN_ORDER_ONLY.getDefault(),
+            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
         val toContainInOrderOnlyGrouped = String.format(
-            DescriptionIterableAssertion.IN_ORDER_ONLY_GROUPED.getDefault(),
-            DescriptionIterableAssertion.CONTAINS.getDefault()
+            DescriptionIterableLikeExpectation.IN_ORDER_ONLY_GROUPED.getDefault(),
+            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
-        val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES.getDefault()
-        val additionalElements = DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS.getDefault()
-        val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()
-        val mismatchesAdditionalElements = DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
-        val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
-        val anElementWhichIs = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
+        val numberOfSuchElements = DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS.getDefault()
+        val additionalElements = DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS.getDefault()
+        val mismatches = DescriptionIterableLikeExpectation.WARNING_MISMATCHES.getDefault()
+        val mismatchesAdditionalElements = DescriptionIterableLikeExpectation.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
+        val sizeExceeded = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
+        val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
         val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
-        val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
-        val notToContainDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
-        val noSuchValueDescr = DescriptionIterableAssertion.ELEMENT_NOT_FOUND.getDefault()
+        val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
+        val notToContainDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
+        val noSuchValueDescr = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND.getDefault()
 
         val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
-        val atLeastDescr = DescriptionIterableAssertion.AT_LEAST.getDefault()
-        val atMostDescr = DescriptionIterableAssertion.AT_MOST.getDefault()
+        val atLeastDescr = DescriptionIterableLikeExpectation.AT_LEAST.getDefault()
+        val atMostDescr = DescriptionIterableLikeExpectation.AT_MOST.getDefault()
 
         val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
@@ -70,11 +70,11 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             describe("$describePrefix nullable cases", body = body)
         }
 
-        fun elementWithIndex(index: Int) = DescriptionIterableAssertion.ELEMENT_WITH_INDEX.getDefault().format(index)
+        fun elementWithIndex(index: Int) = DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault().format(index)
 
-        fun index(index: Int) = DescriptionIterableAssertion.INDEX.getDefault().format(index)
+        fun index(index: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
         fun index(fromIndex: Int, toIndex: Int) =
-            DescriptionIterableAssertion.INDEX_FROM_TO.getDefault().format(fromIndex, toIndex)
+            DescriptionIterableLikeExpectation.INDEX_FROM_TO.getDefault().format(fromIndex, toIndex)
 
         fun <F> Root.nonNullableCases(
             describePrefix: String,

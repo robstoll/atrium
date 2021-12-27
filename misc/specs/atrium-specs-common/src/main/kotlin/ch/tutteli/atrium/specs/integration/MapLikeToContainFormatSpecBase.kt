@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
 import org.spekframework.spek2.dsl.Root
 
@@ -31,8 +32,8 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
         fun Expect<String>.toContainInOrderOnlyDescr() =
             toContain.exactly(1).value(
                 "$rootBulletPoint${
-                    DescriptionMapLikeAssertion.IN_ORDER_ONLY.getDefault()
-                        .format(DescriptionMapLikeAssertion.CONTAINS.getDefault())
+                    DescriptionIterableLikeExpectation.IN_ORDER_ONLY.getDefault()
+                        .format(DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault())
                 }:"
             )
 

@@ -3,11 +3,11 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.ELEMENT_WITH_INDEX
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX
 
 /**
  * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill

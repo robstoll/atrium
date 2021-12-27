@@ -5,12 +5,12 @@ import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     converter: (T) -> Iterable<E>,
@@ -28,7 +28,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
             val currentIndex = index
             val untilIndex = index + group.size
             if (group.size == 1) {
-                _logic.addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableAssertion.INDEX)
+                _logic.addSingleEntryAssertion(currentIndex, group[0], DescriptionIterableLikeExpectation.INDEX)
             } else {
                 _logic.addSublistAssertion(
                     currentIndex,
@@ -49,9 +49,9 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     ) {
         extractFeature
             .withDescription(
-                TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
+                TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX_FROM_TO, currentIndex, untilIndex - 1)
             )
-            .withRepresentationForFailure(DescriptionIterableAssertion.SIZE_EXCEEDED)
+            .withRepresentationForFailure(DescriptionIterableLikeExpectation.SIZE_EXCEEDED)
             .withFeatureExtraction {
                 Option.someIf(currentIndex <= it.size) {
                     val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size

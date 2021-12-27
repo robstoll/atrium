@@ -42,8 +42,8 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
 
 
     //@formatter:off
-    val anEntryAfterSuccess = "$anElementWhich: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anElementWhich: $separator$indentRootBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterSuccess = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterFailing = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     //@formatter:on
 
     nonNullableCases(

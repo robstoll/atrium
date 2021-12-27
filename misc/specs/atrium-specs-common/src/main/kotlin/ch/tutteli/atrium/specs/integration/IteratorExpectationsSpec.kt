@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -25,7 +25,7 @@ abstract class IteratorExpectationsSpec(
 
     val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
     val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
-    val nextElement = DescriptionIterableAssertion.NEXT_ELEMENT.getDefault()
+    val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
 
     describeFun(toHaveNext) {
         val toHaveNextFun = toHaveNext.lambda
@@ -37,7 +37,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).toHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$toHaveDescr: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$toHaveDescr: $aNextElement") }
         }
     }
 
@@ -53,7 +53,7 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).notToHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $nextElement") }
+            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $aNextElement") }
         }
     }
 })
