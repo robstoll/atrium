@@ -25,7 +25,7 @@ object SmokeSpec : Spek({
         expect(1) toEqual 1
     }
 
-    test("see if `Result.isSuccess` can be used") {
+    test("see if `Result toBe aSuccess` can be used") {
         expect(Result.success(1)) toBe aSuccess
     }
 
@@ -35,7 +35,7 @@ object SmokeSpec : Spek({
     }
 
     test("see if own expectation function with i18n can be used") {
-        expect(4) isMultipleOf 2
+        expect(4) toBeMultipleOf 2
     }
 })
 
@@ -50,11 +50,11 @@ infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.append(_logic.createDescriptiveAssertion(DescriptionBasic.TO_BE, Text("an odd number")) { it % 2 == 1 })
 
-infix fun Expect<Int>.isMultipleOf(base: Int): Expect<Int> = _logicAppend { isMultipleOf(base) }
+infix fun Expect<Int>.toBeMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeMultipleOf(base) }
 
-private fun AssertionContainer<Int>.isMultipleOf(base: Int): Assertion =
-    createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
+private fun AssertionContainer<Int>.toBeMultipleOf(base: Int): Assertion =
+    createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
-    IS_MULTIPLE_OF("is multiple of")
+    TO_BE_MULTIPLE_OF("to be multiple of")
 }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
@@ -45,10 +45,10 @@ abstract class ZonedDateTimeExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val fluent = expect(ZonedDateTime.now().withMonth(5).withYear(2009).withDayOfMonth(15))
-    val monthDescr = DescriptionDateTimeLikeAssertion.MONTH.getDefault()
-    val yearDescr = DescriptionDateTimeLikeAssertion.YEAR.getDefault()
-    val dayOfWeekDescr = DescriptionDateTimeLikeAssertion.DAY_OF_WEEK.getDefault()
-    val dayDescr = DescriptionDateTimeLikeAssertion.DAY.getDefault()
+    val monthDescr = DescriptionDateTimeLikeExpectation.MONTH.getDefault()
+    val yearDescr = DescriptionDateTimeLikeExpectation.YEAR.getDefault()
+    val dayDescr = DescriptionDateTimeLikeExpectation.DAY.getDefault()
+    val dayOfWeekDescr = DescriptionDateTimeLikeExpectation.DAY_OF_WEEK.getDefault()
 
     describeFun(yearFeature, year) {
         val yearFunctions = unifySignatures(yearFeature, year)

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.LocalDateAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.manualFeature
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation.*
 import java.time.DayOfWeek
 import java.time.LocalDate
 
