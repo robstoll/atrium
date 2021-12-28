@@ -54,7 +54,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
 
     fun element(prefix: String, bulletPoint: String, indentRootBulletPoint: String, expected: Array<out String>) =
         expected.joinToString(".*$separator") {
-            "$prefix\\Q$bulletPoint$anElementWhich: \\E$separator" +
+            "$prefix\\Q$bulletPoint$anElementWhichNeedsDescr: \\E$separator" +
                 "$prefix$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint$it"
         }
 

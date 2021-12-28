@@ -12,8 +12,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
 
 /**
  * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill
@@ -52,11 +52,14 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, list, assertions)
             if (mismatches == 0 && list.isNotEmpty()) {
                 assertions.add(LazyThreadUnsafeAssertionGroup {
-                    createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ELEMENTS)
+                    createExplanatoryGroupForMismatchesEtc(
+                        list,
+                        WARNING_ADDITIONAL_ELEMENTS
+                    )
                 })
             }
 
-            val description = searchBehaviour.decorateDescription(CONTAINS)
+            val description = searchBehaviour.decorateDescription(TO_CONTAIN)
             val summary = assertionBuilder.summary
                 .withDescription(description)
                 .withAssertions(assertions)
@@ -108,7 +111,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
 
     private fun createExplanatoryGroupForMismatchesEtc(
         list: MutableList<E?>,
-        warning: DescriptionIterableAssertion
+        warning: DescriptionIterableLikeExpectation
     ): AssertionGroup {
         val assertions = list.map { assertionBuilder.explanatory.withExplanation(it).build() }
         val additionalEntries = assertionBuilder.list

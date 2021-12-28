@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.identity
 import ch.tutteli.kbox.mapWithIndex
@@ -62,7 +62,7 @@ internal fun <E> createIndexAssertions(
     .filter { predicate(it) }
     .map { (index, element) ->
         assertionBuilder.createDescriptive(
-            TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+            TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX, index),
             element,
             falseProvider
         )
@@ -76,7 +76,7 @@ internal fun createExplanatoryGroupForMismatches(
         .withWarningType
         .withAssertion(
             assertionBuilder.list
-                .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_MISMATCHES)
+                .withDescriptionAndEmptyRepresentation(DescriptionIterableLikeExpectation.WARNING_MISMATCHES)
                 .withAssertions(mismatches)
                 .build()
         )

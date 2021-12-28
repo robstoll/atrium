@@ -23,7 +23,7 @@ abstract class IterableNotToContainValuesExpectationsSpec(
     fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
         notToContainNullableValues(this, a, aX)
 
-    val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichIs"
+    val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichEquals"
 
     nonNullableCases(
         describePrefix,

@@ -40,5 +40,5 @@ class SampleTest {
 
 
 fun Expect<Int>.toBeEven() =
-    //TODO 0.19.0 replace with _logic.createAndAppend(IS, Text("an even number")) { it % 2 == 0 }
+    //TODO 0.19.0 replace with _logic.createAndAppend(TO_BE, Text("an even number")) { it % 2 == 0 }
     _logic.append(_logic.createDescriptiveAssertion(IS, Text("an even number")) { it % 2 == 0 })

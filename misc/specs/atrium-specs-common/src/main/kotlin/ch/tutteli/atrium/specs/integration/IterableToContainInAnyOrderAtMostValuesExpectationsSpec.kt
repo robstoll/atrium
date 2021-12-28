@@ -66,15 +66,15 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
                 it("${toContainAtMostPair.first("4.0", "twice")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtMostFun(2, 4.0)
-                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 2", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 2", "$anElementWhichEquals: 4.0") }
                 }
                 it("${toContainAtMostPair.first("1.0, 4.0", "twice")} throws AssertionError mentioning only 4.0") {
                     expect {
                         expect(oneToSeven()).toContainAtMostFun(2, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 2", "$anElementWhichIs: 4.0")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 2", "$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -83,8 +83,8 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).toContainAtMostFun(2, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 2", "$anElementWhichIs: 4.0")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 2", "$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -95,11 +95,11 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
                         message {
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 3.1",
-                                "$numberOfOccurrences: 0",
+                                "$anElementWhichEquals: 3.1",
+                                "$numberOfSuchElements: 0",
                                 "$atLeastDescr: 1",
-                                "$anElementWhichIs: 4.0",
-                                "$numberOfOccurrences: 3",
+                                "$anElementWhichEquals: 4.0",
+                                "$numberOfSuchElements: 3",
                                 "$atMostDescr: 2"
                             )
                         }
@@ -111,14 +111,14 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(3).values(
-                                "$numberOfOccurrences: 0",
+                                "$numberOfSuchElements: 0",
                                 "$atLeastDescr: 1"
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 21.1",
-                                "$anElementWhichIs: 34.0",
-                                "$anElementWhichIs: 11.23"
+                                "$anElementWhichEquals: 21.1",
+                                "$anElementWhichEquals: 34.0",
+                                "$anElementWhichEquals: 11.23"
                             )
                         }
                     }
@@ -146,11 +146,11 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 4.0",
-                                "$numberOfOccurrences: 3$separator"
+                                "$anElementWhichEquals: 4.0",
+                                "$numberOfSuchElements: 3$separator"
                             )
                             toEndWith("$atMostDescr: 2")
-                            notToContain("$anElementWhichIs: 5.0")
+                            notToContain("$anElementWhichEquals: 5.0")
                         }
                     }
                 }

@@ -41,7 +41,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     message {
                         toContain(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichIs: 1.0"
+                            "$failingBulletPoint$anElementWhichEquals: 1.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -55,8 +55,8 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     message {
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichIs: 1.0",
-                            "$failingBulletPoint$anElementWhichIs: 4.0"
+                            "$failingBulletPoint$anElementWhichEquals: 1.0",
+                            "$failingBulletPoint$anElementWhichEquals: 4.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 2)
@@ -92,10 +92,10 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 4.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 4.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -111,8 +111,8 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 4.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 4.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
@@ -132,10 +132,10 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
-                                    "$failingBulletPoint$anElementWhichIs: 5.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
+                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -153,9 +153,9 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
-                                    "$failingBulletPoint$anElementWhichIs: 5.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
+                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
                                     "$warningBulletPoint$mismatchesAdditionalElements:",
                                     "${listBulletPoint}2.0"
                                 )
@@ -174,12 +174,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 2.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
-                                    "$failingBulletPoint$anElementWhichIs: 5.0"
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
+                                    "$failingBulletPoint$anElementWhichEquals: 5.0"
                                 )
-                                toContain.exactly(2).value("$successfulBulletPoint$anElementWhichIs: 4.0")
+                                toContain.exactly(2).value("$successfulBulletPoint$anElementWhichEquals: 4.0")
                                 toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
@@ -220,9 +220,9 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichIs: null",
-                                    "$successfulBulletPoint$anElementWhichIs: 1.0",
-                                    "$successfulBulletPoint$anElementWhichIs: 3.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: null",
+                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
+                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
                                     "$warningBulletPoint$additionalElements:",
                                     "${listBulletPoint}null"
                                 )

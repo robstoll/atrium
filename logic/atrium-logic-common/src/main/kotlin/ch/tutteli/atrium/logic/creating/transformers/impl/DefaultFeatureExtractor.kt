@@ -13,7 +13,7 @@ import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
@@ -50,7 +50,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     { listOf<Assertion>() to representationForFailure },
                     { throwable ->
                         listOf(ThrowableThrownFailureHandler.propertiesOfThrowable(throwable)) to
-                            TranslatableWithArgs(DescriptionFunLikeAssertion.THREW, throwable::class.fullName)
+                            TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
                     })
 
                 val subAssertions = maybeSubAssertions.fold({

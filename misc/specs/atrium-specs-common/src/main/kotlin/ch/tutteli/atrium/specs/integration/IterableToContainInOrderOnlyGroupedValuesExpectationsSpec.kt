@@ -40,7 +40,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
 
 
     fun element(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
-        expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anElementWhichIs: $it\\E" }
+        expected.joinToString(".*$separator") { "$prefix\\Q$bulletPoint$anElementWhichEquals: $it\\E" }
 
     fun size(prefix: String, bulletPoint: String, actual: Int, expected: Int) =
         "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected"

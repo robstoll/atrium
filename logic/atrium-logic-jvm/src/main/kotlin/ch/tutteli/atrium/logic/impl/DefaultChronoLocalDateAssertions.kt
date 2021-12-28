@@ -8,7 +8,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation.*
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 
@@ -17,35 +17,35 @@ class DefaultChronoLocalDateAssertions : ChronoLocalDateAssertions {
     override fun <T : ChronoLocalDate> isBefore(
         container: AssertionContainer<T>,
         expected: ChronoLocalDate
-    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_BEFORE, expected) {
         it.isBefore(expected)
     }
 
     override fun <T : ChronoLocalDate> isBeforeOrEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDate
-    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE_OR_EQUAL, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, expected) {
         it.isBefore(expected) || it.isEqual(expected)
     }
 
     override fun <T : ChronoLocalDate> isAfter(
         container: AssertionContainer<T>,
         expected: ChronoLocalDate
-    ): Assertion = container.createDescriptiveAssertion(IS_AFTER, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_AFTER, expected) {
         it.isAfter(expected)
     }
 
     override fun <T : ChronoLocalDate> isAfterOrEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDate
-    ): Assertion = container.createDescriptiveAssertion(IS_AFTER_OR_EQUAL, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, expected) {
         it.isAfter(expected) || it.isEqual(expected)
     }
 
     override fun <T : ChronoLocalDate> isEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDate
-    ): Assertion = container.createDescriptiveAssertion(SAME_DAY, expected) { it.isEqual(expected) }
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_THE_SAME_DAY_AS, expected) { it.isEqual(expected) }
 
     override fun <T : ChronoLocalDate> isBefore(
         container: AssertionContainer<T>,

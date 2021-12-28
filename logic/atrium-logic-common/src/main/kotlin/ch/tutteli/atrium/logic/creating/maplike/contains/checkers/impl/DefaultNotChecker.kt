@@ -1,3 +1,6 @@
+//TODO remove file with 0.19.0
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.maplike.contains.checkers.impl
 
 import ch.tutteli.atrium.assertions.Assertion

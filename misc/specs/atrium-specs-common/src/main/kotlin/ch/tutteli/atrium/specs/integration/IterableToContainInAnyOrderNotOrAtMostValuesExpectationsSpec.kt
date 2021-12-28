@@ -62,15 +62,15 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                 it("${notToContainOrAtMostPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 1", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0") }
                 }
                 it("${notToContainOrAtMostPair.first("1.0, 4.0", "once")} throws AssertionError mentioning only 4.0") {
                     expect {
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 1", "$anElementWhichIs: 4.0")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -84,8 +84,8 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 1", "$anElementWhichIs: 4.0")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -99,10 +99,10 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 5.0",
-                                "$numberOfOccurrences: 2",
-                                "$anElementWhichIs: 4.0",
-                                "$numberOfOccurrences: 3"
+                                "$anElementWhichEquals: 5.0",
+                                "$numberOfSuchElements: 2",
+                                "$anElementWhichEquals: 4.0",
+                                "$numberOfSuchElements: 3"
                             )
                         }
                     }
@@ -122,8 +122,8 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 5.0",
-                                "$numberOfOccurrences: 2$separator"
+                                "$anElementWhichEquals: 5.0",
+                                "$numberOfSuchElements: 2$separator"
                             )
                             toEndWith("$atMostDescr: 1")
                         }
@@ -150,11 +150,11 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 4.0",
-                                "$numberOfOccurrences: 3$separator"
+                                "$anElementWhichEquals: 4.0",
+                                "$numberOfSuchElements: 3$separator"
                             )
                             toEndWith("$atMostDescr: 2")
-                            notToContain("$anElementWhichIs: 5.0")
+                            notToContain("$anElementWhichEquals: 5.0")
                         }
                     }
                 }

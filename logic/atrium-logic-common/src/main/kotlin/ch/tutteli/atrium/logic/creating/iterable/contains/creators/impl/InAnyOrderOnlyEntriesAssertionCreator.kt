@@ -11,7 +11,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.allCreatedAssertionsHold
 import ch.tutteli.atrium.logic.impl.createExplanatoryAssertionGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have
@@ -46,7 +46,7 @@ class InAnyOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
         assertionBuilder.fixedClaimGroup
             .withListType
             .withClaim(found)
-            .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ELEMENT_WHICH)
+            .withDescriptionAndEmptyRepresentation(AN_ELEMENT_WHICH_NEEDS)
             .withAssertion(explanatoryAssertionGroup)
             .build()
 

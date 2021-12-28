@@ -67,9 +67,9 @@ infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
 infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
 
 private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
-    createDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { it % base == 0 }
+    createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
-    IS_MULTIPLE_OF("is multiple of")
+    TO_BE_MULTIPLE_OF("to be multiple of")
 }
 

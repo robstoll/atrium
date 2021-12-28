@@ -22,8 +22,9 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.NEXT_ELEMENT
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.ALL_ELEMENTS
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.A_NEXT_ELEMENT
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -43,7 +44,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion =
-        container.createDescriptiveAssertion(TO_HAVE, NEXT_ELEMENT) { hasNext(it, converter) }
+        container.createDescriptiveAssertion(TO_HAVE, A_NEXT_ELEMENT) { hasNext(it, converter) }
 
     private fun <E, T : IterableLike> hasNext(it: T, converter: (T) -> Iterable<E>) =
         converter(it).iterator().hasNext()
@@ -52,7 +53,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_HAVE, NEXT_ELEMENT) { !hasNext(it, converter) }
+        container.createDescriptiveAssertion(NOT_TO_HAVE, A_NEXT_ELEMENT) { !hasNext(it, converter) }
 
     override fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
@@ -72,7 +73,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     ): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .methodCall(method)
-            .withRepresentationForFailure(DescriptionIterableAssertion.NO_ELEMENTS)
+            .withRepresentationForFailure(DescriptionIterableLikeExpectation.NO_ELEMENTS)
             .withFeatureExtraction {
                 val iterable = converter(it)
                 Option.someIf(iterable.iterator().hasNext()) {
@@ -101,7 +102,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
         decorateAssertionWithHasNext(
             assertionBuilder.list
-                .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.ALL)
+                .withDescriptionAndEmptyRepresentation(ALL_ELEMENTS)
                 .withAssertions(assertions)
                 .build(),
             listAssertionContainer
@@ -140,7 +141,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                             .withDefaultType
                             .withExplanatoryAssertion(
                                 TranslatableWithArgs(
-                                    DescriptionIterableAssertion.DUPLICATED_BY,
+                                    DescriptionIterableLikeExpectation.DUPLICATED_BY,
                                     indices.joinToString(", ")
                                 )
                             )
@@ -148,7 +149,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                     }
                     .showForAnyFailure
                     .withDescriptionAndRepresentation(
-                        TranslatableWithArgs(DescriptionIterableAssertion.INDEX, index),
+                        TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX, index),
                         element
                     )
                     .build()
@@ -157,7 +158,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         decorateAssertionWithHasNext(
             createAssertionGroupFromListOfAssertions(
                 NOT_TO_HAVE,
-                DescriptionIterableAssertion.DUPLICATE_ELEMENTS,
+                DescriptionIterableLikeExpectation.DUPLICATE_ELEMENTS,
                 duplicates
             ),
             listAssertionContainer

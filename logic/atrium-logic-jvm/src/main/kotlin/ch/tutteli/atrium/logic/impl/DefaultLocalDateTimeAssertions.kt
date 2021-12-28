@@ -6,10 +6,10 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.LocalDateTimeAssertions
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.manualFeature
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation.*
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 

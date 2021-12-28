@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableToHaveElementsAndNoneExpectationsSpec(
     toHaveElementsAndNone: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -28,7 +28,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
         toHaveElementsAndNoneNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
     ) {})
 
-    val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
+    val containsNotDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
 
     nonNullableCases(
         describePrefix,
@@ -45,7 +45,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                         toContainRegex(
                             "$hasANextElement$separator" +
                                 "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$containsNotDescr: $separator" +
-                                "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
                                 "$indentListBulletPoint$afterExplanatory$toBeLessThanDescr: 1.0.*"
                         )
                     }
@@ -70,7 +70,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
                                     "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
@@ -100,7 +100,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
                                     "$afterExplanatory$toEqualDescr: null$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
@@ -117,7 +117,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhich: $separator" +
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
                                     "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"

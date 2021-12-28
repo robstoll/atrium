@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.contains
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -82,12 +80,12 @@ abstract class ArrayAsListExpectationsSpec(
     fun doubles(vararg doubles: Double) = doubles
     fun booleans(vararg booleans: Boolean) = booleans
 
-    val anElementWhich = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS.getDefault()
+    val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
     include(object : AssertionCreatorSpec<Array<Int>>(
         "$describePrefix[arr] ", arrayOf(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrWithCreator.invoke(this) { toContain(1) } },
             { arrWithCreator.invoke(this) {} })
     ) {})
@@ -95,7 +93,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrByte] ", bytes(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrByteWithCreator.invoke(this) { toContain(1) } },
             { arrByteWithCreator.invoke(this) {} })
     ) {})
@@ -103,7 +101,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrChar] ", chars('a'),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrCharWithCreator.invoke(this) { toContain('a') } },
             { arrCharWithCreator.invoke(this) {} })
     ) {})
@@ -111,7 +109,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrShort] ", shorts(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrShortWithCreator.invoke(this) { toContain(1) } },
             { arrShortWithCreator.invoke(this) {} })
     ) {})
@@ -119,7 +117,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrInt] ", ints(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrIntWithCreator.invoke(this) { toContain(1) } },
             { arrIntWithCreator.invoke(this) {} })
     ) {})
@@ -127,7 +125,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrLong] ", longs(1),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrLongWithCreator.invoke(this) { toContain(1) } },
             { arrLongWithCreator.invoke(this) {} })
     ) {})
@@ -135,7 +133,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrFloat] ", floats(1.0f),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrFloatWithCreator.invoke(this) { toContain(1.0f) } },
             { arrFloatWithCreator.invoke(this) {} })
     ) {})
@@ -143,7 +141,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrDouble] ", doubles(1.0),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrDoubleWithCreator.invoke(this) { toContain(1.0) } },
             { arrDoubleWithCreator.invoke(this) {} })
     ) {})
@@ -151,7 +149,7 @@ abstract class ArrayAsListExpectationsSpec(
         "$describePrefix[arrBoolean] ", booleans(true),
         assertionCreatorSpecTriple(
             asListFunName,
-            anElementWhich,
+            anElementWhichEquals,
             { arrBooleanWithCreator.invoke(this) { toContain(true) } },
             { arrBooleanWithCreator.invoke(this) {} })
     ) {})

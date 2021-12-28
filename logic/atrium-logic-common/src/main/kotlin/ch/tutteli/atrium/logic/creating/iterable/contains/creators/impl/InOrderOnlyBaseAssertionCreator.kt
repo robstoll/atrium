@@ -15,7 +15,8 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.impl.InOrderOnlyReportingOptionsImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS
 import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
@@ -60,7 +61,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                 }
             }
 
-            val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+            val description = searchBehaviour.decorateDescription(DescriptionIterableLikeExpectation.TO_CONTAIN)
             val options = InOrderOnlyReportingOptionsImpl().apply(reportingOptions)
             val assertionGroup = (if (list.size <= options.numberOfElementsInSummary) {
                 assertionBuilder.summary.withDescription(description)
@@ -92,7 +93,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
             _logic.append(LazyThreadUnsafeAssertionGroup {
                 val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
                     val description = TranslatableWithArgs(
-                        DescriptionIterableAssertion.ELEMENT_WITH_INDEX,
+                        DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX,
                         expectedSize + counter
                     )
                     assertionBuilder.descriptive
@@ -105,7 +106,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
                     .withWarningType
                     .withAssertion(
                         assertionBuilder.list
-                            .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ELEMENTS)
+                            .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ELEMENTS)
                             .withAssertions(additionalEntries)
                             .build()
                     )

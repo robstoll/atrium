@@ -988,7 +988,7 @@ expect(listOf(1, 2, 2, 4)).toContain(2, 3)
 <a name="ex-collection-short-1"></a>
 ```text
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ contains, in any order: 
+◆ to contain, in any order: 
   ⚬ an element which equals: 3        (kotlin.Int <1234789>)
       » but no such element was found
 ```
@@ -1026,11 +1026,11 @@ expect(listOf(1, 2, 2, 4)).toContain(
 <a name="ex-collection-short-2"></a>
 ```text
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ contains, in any order: 
-  ⚬ an element which: 
+◆ to contain, in any order: 
+  ⚬ an element which needs: 
       » to be less than: 0        (kotlin.Int <1234789>)
       » but no such element was found
-  ⚬ an element which: 
+  ⚬ an element which needs: 
       » to be greater than: 2        (kotlin.Int <1234789>)
       » to be less than: 4        (kotlin.Int <1234789>)
       » but no such element was found
@@ -1068,8 +1068,8 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAny {
 <a name="ex-collection-any"></a>
 ```text
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ contains, in any order: 
-  ⚬ an element which: 
+◆ to contain, in any order: 
+  ⚬ an element which needs: 
       » to be less than: 0        (kotlin.Int <1234789>)
       » but no such element was found
 ```
@@ -1086,8 +1086,8 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndNone {
 <a name="ex-collection-none"></a>
 ```text
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ does not contain: 
-  ⚬ an element which: 
+◆ not to contain: 
+  ⚬ an element which needs: 
       » to be greater than: 2        (kotlin.Int <1234789>)
       ❗❗ following elements were mismatched: 
          ⚬ index 2: 3        (kotlin.Int <1234789>)
@@ -1106,7 +1106,7 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAll {
 <a name="ex-collection-all"></a>
 ```text
 expected subject: [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ all entries: 
+◆ elements need all: 
     » to be greater than: 2        (kotlin.Int <1234789>)
     ❗❗ following elements were mismatched: 
        ⚬ index 0: 1        (kotlin.Int <1234789>)
@@ -1138,7 +1138,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, {
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 2        (kotlin.Int <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ to be less than: 3        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
@@ -1184,7 +1184,7 @@ expect(listOf(1, 2, 2, 4)).toContainExactly(
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 3        (kotlin.Int <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ⚬ ▶ element 1: 2        (kotlin.Int <1234789>)
       ◾ to be less than: 2        (kotlin.Int <1234789>)
     ❗❗ additional elements detected: 
@@ -1215,7 +1215,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 5        (kotlin.Int <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ to equal: 1        (kotlin.Int <1234789>)
   ✔ ▶ element 1: 2        (kotlin.Int <1234789>)
@@ -1238,11 +1238,11 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.atLeast(1).butAtMost(2).entries(
 <a name="ex-collection-builder-3"></a>
 ```text
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ contains, in any order: 
-  ⚬ an element which: 
+◆ to contain, in any order: 
+  ⚬ an element which needs: 
       » to be less than: 3        (kotlin.Int <1234789>)
-    ⚬ ▶ number of such entries: 3
-        ◾ is at most: 2
+    ⚬ ▶ number of such elements: 3
+        ◾ must be at most: 2
 ```
 </ex-collection-builder-3>
 <hr/>
@@ -1255,7 +1255,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(1, 2, 3, 4)
 <a name="ex-collection-builder-4"></a>
 ```text
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-◆ contains only, in any order: 
+◆ to contain only, in any order: 
   ✔ an element which equals: 1        (kotlin.Int <1234789>)
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
@@ -1276,7 +1276,7 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(4, 3, 2, 2, 1)
 expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 4        (kotlin.Int <1234789>)
     ◾ to equal: 5        (kotlin.Int <1234789>)
-◆ contains only, in any order: 
+◆ to contain only, in any order: 
   ✔ an element which equals: 4        (kotlin.Int <1234789>)
   ✘ an element which equals: 3        (kotlin.Int <1234789>)
   ✔ an element which equals: 2        (kotlin.Int <1234789>)
@@ -1403,7 +1403,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries("b" to 2, "a" t
 <a name="ex-map-builder-1"></a>
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✘ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
           ◾ to equal: "b"        <1234789>
@@ -1430,7 +1430,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries(
 <a name="ex-map-builder-2"></a>
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
           ◾ to equal: "a"        <1234789>
@@ -1488,13 +1488,13 @@ expect(mapOf("a" to 1, "b" to 2)) {
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
-    ◾ all entries: 
+    ◾ elements need all: 
         » to start with: "a"        <1234789>
         ❗❗ following elements were mismatched: 
            ⚬ index 1: "b"        <1234789>
 ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
-    ◾ does not contain: 
-      ⚬ an element which: 
+    ◾ not to contain: 
+      ⚬ an element which needs: 
           » to be greater than: 1        (kotlin.Int <1234789>)
           ❗❗ following elements were mismatched: 
              ⚬ index 1: 2        (kotlin.Int <1234789>)
@@ -1523,7 +1523,7 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entri
 <a name="ex-map-5"></a>
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✔ ▶ element 0: a=1        (java.util.LinkedHashMap.Entry <1234789>)
       ◾ ▶ key: "a"        <1234789>
           ◾ to equal: "a"        <1234789>
@@ -1842,7 +1842,7 @@ also states which entries were additionally contained in the list:
 expected subject: [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
 ◆ ▶ size: 3        (kotlin.Int <1234789>)
     ◾ to equal: 2        (kotlin.Int <1234789>)
-◆ contains only, in order: 
+◆ to contain only, in order: 
   ✔ ▶ element 0: 1        (kotlin.Int <1234789>)
       ◾ to equal: 1        (kotlin.Int <1234789>)
   ✘ ▶ element 1: 2        (kotlin.Int <1234789>)
@@ -1872,7 +1872,7 @@ But Atrium shows where it goes wrong and even gives a possible hint:
 expected subject: 9.99        (kotlin.Float <1234789>)
 ◆ to equal (error ± 0.01): 10.0        (kotlin.Float <1234789>)
     » failure might be due to using kotlin.Float, see exact check on the next line
-    » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
+    » exact check was |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
 ```
 </exs-add-info-2-output>
 
@@ -2225,7 +2225,7 @@ expect(Person("Susanne", "Whitley", 43, listOf()))
 expected subject: Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
 ◆ ▶ children: []        (kotlin.collections.EmptyList <1234789>)
     ◾ to have: a next element
-      » all entries: 
+      » elements need all: 
           » ▶ age: 
               ◾ to be greater than or equal to: 18        (kotlin.Int <1234789>)
 ```

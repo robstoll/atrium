@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.logic.impl.decorateAssertionWithHasNext
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -36,11 +36,15 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     checkers
 ), IterableLikeContains.Creator<T, SC> {
 
-    override val descriptionContains: Translatable = DescriptionIterableAssertion.CONTAINS
-    override val descriptionNumberOfOccurrences: Translatable = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
-    override val groupDescription: Translatable = DescriptionIterableAssertion.AN_ELEMENT_WHICH_EQUALS
-    override val descriptionNotFound: Translatable = DescriptionIterableAssertion.ELEMENT_NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable = DescriptionIterableAssertion.NUMBER_OF_ELEMENTS_FOUND
+    override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    @Suppress("OverridingDeprecatedMember")
+    override val descriptionContains: Translatable = descriptionToContain
+    override val descriptionNumberOfOccurrences: Translatable =
+        DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
+    override val groupDescription: Translatable = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
+    override val descriptionNotFound: Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
+    override val descriptionNumberOfElementsFound: Translatable =
+        DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
         turnSubjectToList(container, converter)

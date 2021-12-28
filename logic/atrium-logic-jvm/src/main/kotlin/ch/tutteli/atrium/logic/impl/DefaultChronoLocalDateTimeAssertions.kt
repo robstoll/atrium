@@ -8,7 +8,7 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.chrono.ChronoLocalDate
@@ -18,7 +18,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE, expected) { it.isBefore(expected) }
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_BEFORE, expected) { it.isBefore(expected) }
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,
@@ -28,7 +28,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBeforeOrEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = container.createDescriptiveAssertion(IS_BEFORE_OR_EQUAL, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, expected) {
         it.isBefore(expected) || it.isEqual(expected)
     }
 
@@ -40,7 +40,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = container.createDescriptiveAssertion(IS_AFTER, expected) { it.isAfter(expected) }
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_AFTER, expected) { it.isAfter(expected) }
 
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfter(
         container: AssertionContainer<T>,
@@ -50,7 +50,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isAfterOrEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = container.createDescriptiveAssertion(IS_AFTER_OR_EQUAL, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, expected) {
         it.isAfter(expected) || it.isEqual(expected)
     }
 
@@ -62,7 +62,7 @@ class DefaultChronoLocalDateTimeAssertions : ChronoLocalDateTimeAssertions {
     override fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isEqual(
         container: AssertionContainer<T>,
         expected: ChronoLocalDateTime<*>
-    ): Assertion = container.createDescriptiveAssertion(IS_EQUAL_TO, expected) {
+    ): Assertion = container.createDescriptiveAssertion(TO_BE_THE_SAME_POINT_IN_TIME_AS, expected) {
         it.isEqual(expected)
     }
 

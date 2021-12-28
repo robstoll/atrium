@@ -13,7 +13,8 @@ import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailure
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.translations.DescriptionFunLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.NO_EXCEPTION_OCCURRED
+import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.THROWN_EXCEPTION_WHEN_CALLED
 import kotlin.reflect.KClass
 
 class DefaultFun0Assertions : Fun0Assertions {
@@ -32,7 +33,9 @@ class DefaultFun0Assertions : Fun0Assertions {
             @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
             FeatureExpect(
                 previousExpect,
-                FeatureExpectOptions(representationInsteadOfFeature = { it ?: NO_EXCEPTION_OCCURRED })
+                FeatureExpectOptions(representationInsteadOfFeature = {
+                    it ?: NO_EXCEPTION_OCCURRED
+                })
             ).toAssertionContainer().changeSubject.reportBuilder()
                 .downCastTo(expectedType)
                 .withFailureHandler(ThrowableThrownFailureHandler())

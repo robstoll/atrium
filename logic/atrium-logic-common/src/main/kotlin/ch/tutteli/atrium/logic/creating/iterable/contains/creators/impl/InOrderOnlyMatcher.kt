@@ -2,10 +2,13 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.core.*
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 interface InOrderOnlyMatcher<E, SC> {
     fun AssertionContainer<List<E>>.elementAssertionCreator(maybeElement: Option<E>, searchCriterion: SC): Assertion
@@ -13,7 +16,7 @@ interface InOrderOnlyMatcher<E, SC> {
     fun AssertionContainer<List<E>>.addSingleEntryAssertion(
         currentIndex: Int,
         searchCriterion: SC,
-        translatableIndex: DescriptionIterableAssertion
+        translatableIndex: DescriptionIterableLikeExpectation
     ) {
         val maybeElement = maybeSubject.flatMap { list ->
             if (currentIndex < list.size) Some(list[currentIndex]) else None
@@ -37,7 +40,7 @@ interface InOrderOnlyMatcher<E, SC> {
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(
                     TranslatableWithArgs(translatableIndex, currentIndex),
-                    maybeElement.getOrElse { DescriptionIterableAssertion.SIZE_EXCEEDED }
+                    maybeElement.getOrElse { DescriptionIterableLikeExpectation.SIZE_EXCEEDED }
                 )
                 .withAssertion(assertion)
                 .build()

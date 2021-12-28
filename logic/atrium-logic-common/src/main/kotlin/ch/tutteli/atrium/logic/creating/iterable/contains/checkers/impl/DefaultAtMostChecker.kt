@@ -3,7 +3,7 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl.ContainsChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.AtMostChecker
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AT_MOST
 
 /**
  * Represents a check that an expected entry is contained at most [times] in the [Iterable].
@@ -22,5 +22,5 @@ class DefaultAtMostChecker(
 ) : AtMostChecker, ContainsChecker(times, nameContainsNotFun, atMostCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion =
-        createDescriptiveAssertion(DescriptionIterableAssertion.AT_MOST) { foundNumberOfTimes in 0..times }
+        createDescriptiveAssertion(AT_MOST) { foundNumberOfTimes in 0..times }
 }

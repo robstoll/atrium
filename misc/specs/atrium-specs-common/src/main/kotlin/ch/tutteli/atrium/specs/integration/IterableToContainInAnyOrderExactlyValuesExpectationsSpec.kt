@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.EXACTLY
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
@@ -28,7 +28,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
 
     val (notToContain, errorMsgContainsNot) = notToContainPair
 
-    val exactly = EXACTLY.getDefault()
+    val toBeExactlyDescr = EXACTLY.getDefault()
 
     describeFun(toContainExactly) {
         context("throws an $illegalArgumentException") {
@@ -62,7 +62,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                 it("${toContainExactlyPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainExactlyFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageToContain("$exactly: 1", "$anElementWhichIs: 4.0") }
+                    }.toThrow<AssertionError> { messageToContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 4.0") }
                 }
 
                 it("${toContainExactlyPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
@@ -70,8 +70,8 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).toContainExactlyFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$exactly: 1", "$anElementWhichIs: 2.3")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -81,8 +81,8 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).toContainExactlyFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$exactly: 1", "$anElementWhichIs: 2.3")
-                            notToContain("$anElementWhichIs: 1.0")
+                            toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
+                            notToContain("$anElementWhichEquals: 1.0")
                         }
                     }
                 }
@@ -92,15 +92,15 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         expect(oneToSeven()).toContainExactlyFun(1, 1.0, 2.3, 3.1)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(exactly, 2.3, 3.1)
+                            toContain(toBeExactlyDescr, 2.3, 3.1)
                             toContain.exactly(2).values(
-                                "$numberOfOccurrences: 0",
-                                "$exactly: 1"
+                                "$numberOfSuchElements: 0",
+                                "$toBeExactlyDescr: 1"
                             )
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 2.3",
-                                "$anElementWhichIs: 3.1"
+                                "$anElementWhichEquals: 2.3",
+                                "$anElementWhichEquals: 3.1"
                             )
                         }
                     }
@@ -111,7 +111,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                 it("${toContainExactlyPair.first("5.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainExactlyFun(1, 5.0)
-                    }.toThrow<AssertionError> { messageToContain(EXACTLY.getDefault()) }
+                    }.toThrow<AssertionError> { messageToContain(toBeExactlyDescr) }
                 }
                 it("${toContainExactlyPair.first("5.0", "twice")} does not throw") {
                     expect(oneToSeven()).toContainExactlyFun(2, 5.0)
@@ -129,10 +129,10 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 5.0",
-                                "$numberOfOccurrences: 2$separator"
+                                "$anElementWhichEquals: 5.0",
+                                "$numberOfSuchElements: 2$separator"
                             )
-                            toEndWith("$exactly: 3")
+                            toEndWith("$toBeExactlyDescr: 3")
                         }
                     }
                 }
@@ -144,11 +144,11 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 4.0",
-                                "$numberOfOccurrences: 3$separator"
+                                "$anElementWhichEquals: 4.0",
+                                "$numberOfSuchElements: 3$separator"
                             )
-                            toEndWith("$exactly: 2")
-                            notToContain("$anElementWhichIs: 5.0")
+                            toEndWith("$toBeExactlyDescr: 2")
+                            notToContain("$anElementWhichEquals: 5.0")
                         }
                     }
                 }
@@ -167,11 +167,11 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichIs: 5.0",
-                                "$numberOfOccurrences: 2$separator"
+                                "$anElementWhichEquals: 5.0",
+                                "$numberOfSuchElements: 2$separator"
                             )
-                            toEndWith("$exactly: 3")
-                            notToContain("$anElementWhichIs: 4.0")
+                            toEndWith("$toBeExactlyDescr: 3")
+                            notToContain("$anElementWhichEquals: 4.0")
                         }
                     }
                 }
