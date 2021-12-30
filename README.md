@@ -1242,7 +1242,7 @@ expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
   ⚬ an element which needs: 
       » to be less than: 3        (kotlin.Int <1234789>)
     ⚬ ▶ number of such elements: 3
-        ◾ must be at most: 2
+        ◾ is at most: 2
 ```
 </ex-collection-builder-3>
 <hr/>
