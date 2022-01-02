@@ -17,10 +17,10 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     AN_ELEMENT_WHICH_EQUALS("an element which equals"),
 
     /** @since 0.18.0 */
-    AT_LEAST("must be at least"),
+    AT_LEAST("is at least"),
 
     /** @since 0.18.0 */
-    AT_MOST("must be at most"),
+    AT_MOST("is at most"),
 
     /** @since 0.18.0 */
     TO_CONTAIN("to contain"),
@@ -32,7 +32,7 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     ELEMENT_WITH_INDEX("element %s"),
 
     /** @since 0.18.0 */
-    EXACTLY("must be exactly"),
+    EXACTLY("is exactly"),
 
     /** @since 0.18.0 */
     IN_ANY_ORDER("%s, in any order"),
