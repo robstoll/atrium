@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionListAssertion
+import ch.tutteli.atrium.translations.DescriptionListLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -45,7 +45,7 @@ abstract class ListExpectationsSpec(
     val listNullable = listOf(1, null, 3, 4)
     val fluentNullable = expect(listNullable)
 
-    val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
+    val indexOutOfBounds = DescriptionListLikeExpectation.INDEX_OUT_OF_BOUNDS.getDefault()
 
     describeFun(getFeature, get, getFeatureNullable, getNullable) {
         val getFunctions = uncheckedToNonNullable(

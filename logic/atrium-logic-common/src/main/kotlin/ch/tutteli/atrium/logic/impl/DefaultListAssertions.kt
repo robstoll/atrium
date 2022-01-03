@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ListAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.translations.DescriptionListAssertion.INDEX_OUT_OF_BOUNDS
+import ch.tutteli.atrium.translations.DescriptionListLikeExpectation.INDEX_OUT_OF_BOUNDS
 
 class DefaultListAssertions : ListAssertions {
 
