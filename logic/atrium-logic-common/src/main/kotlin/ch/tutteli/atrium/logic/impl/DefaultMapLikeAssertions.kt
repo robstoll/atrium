@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl.EntryPointSt
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation.*
 
 class DefaultMapLikeAssertions : MapLikeAssertions {
     override fun <T : MapLike, K, V> builderContainsInMapLike(
@@ -27,7 +27,7 @@ class DefaultMapLikeAssertions : MapLikeAssertions {
         converter: (T) -> Map<out K, *>,
         key: K
     ): Assertion =
-        container.createDescriptiveAssertion(CONTAINS_KEY, key) {
+        container.createDescriptiveAssertion(TO_CONTAIN_KEY, key) {
             converter(it).containsKey(key)
         }
 
@@ -36,7 +36,7 @@ class DefaultMapLikeAssertions : MapLikeAssertions {
         converter: (T) -> Map<out K, *>,
         key: K
     ): Assertion =
-        container.createDescriptiveAssertion(CONTAINS_NOT_KEY, key) {
+        container.createDescriptiveAssertion(NOT_TO_CONTAIN_KEY, key) {
             converter(it).containsKey(key).not()
         }
 

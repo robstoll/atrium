@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import kotlin.reflect.KFunction3
@@ -20,7 +20,7 @@ fun <K, V, T> mfun2(
 abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
-        val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
+        val keyDoesNotExist = DescriptionMapLikeExpectation.KEY_DOES_NOT_EXIST.getDefault()
         val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
 
         val separator = lineSeparator
@@ -29,7 +29,7 @@ abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
         val emptyMap: Map<out String, Int> = mapOf()
 
-        fun entry(key: String?) = DescriptionMapLikeAssertion.ENTRY_WITH_KEY.getDefault().format(if(key == null) "null" else "\"$key\"")
+        fun entry(key: String?) = DescriptionMapLikeExpectation.ENTRY_WITH_KEY.getDefault().format(if(key == null) "null" else "\"$key\"")
         fun entry(key: String?, value: Any): String = entry(key) + ": " + value
     }
 }
