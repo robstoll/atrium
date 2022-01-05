@@ -6,7 +6,8 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_PROPERTIES
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -175,7 +176,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).causeFun { messageToContain("WRONG message") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
+                            DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
                             "$valueDescr: \"WRONG message\""
                         )
                     }
@@ -192,7 +193,7 @@ abstract class ThrowableExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             String.format(
-                                DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES.getDefault(),
+                                OCCURRED_EXCEPTION_PROPERTIES.getDefault(),
                                 UnsupportedOperationException::class.simpleName!!
                             )
                         )
@@ -210,7 +211,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).causeFun { messageToContain("Hello") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionThrowableAssertion.NOT_CAUSED.getDefault(),
+                            DescriptionThrowableExpectation.HAS_NO_CAUSE.getDefault(),
                             IllegalArgumentException::class.fullName
                         )
                     }
