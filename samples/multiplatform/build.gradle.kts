@@ -20,7 +20,10 @@ repositories {
 }
 
 kotlin {
-    jvm()
+    jvm().compilations.all {
+        // Atrium requires at least jdk 11
+        kotlinOptions.jvmTarget = "11"
+    }
     js().nodejs()
     sourceSets {
         val commonTest by getting {

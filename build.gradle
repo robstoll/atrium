@@ -140,8 +140,6 @@ subprojects {
 
 def commonProjects = getCommonProjects()
 def jsProjects = getJsProjects()
-def jvmProjects = getJvmProjects()
-def multiplatformProjects = commonProjects + jsProjects + jvmProjects
 
 configureCommonProjects()
 configureAndroidProjects()
@@ -151,11 +149,24 @@ configureJvmProjects()
 configure(subprojects.findAll {
     def parentName = it.projectDir.parentFile.name
     it.name != "bc-tests" && parentName != "old" && parentName != "bc-tests"
-} - multiplatformProjects) {
+} - (commonProjects + jsProjects)) {
     apply plugin: 'kotlin'
     dependencies {
-        implementation kotlinStdlib()
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     }
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions{
+            jvmTarget = "11"
+        }
+    }
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
 }
 
 configure(commonProjects) {
@@ -190,7 +201,6 @@ configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
     dokka {
-//        logging.setLevel(LogLevel.QUIET)
         samples = findSamples([subproject])
     }
     compileKotlin {
@@ -200,9 +210,6 @@ configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
             allWarningsAsErrors = false
         }
     }
-
-    sourceCompatibility = 8
-    targetCompatibility = 8
 }
 
 //allow kotlin 1.3 for kotlin_1_3 modules
@@ -246,6 +253,12 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
     spek.version = spek2Version
 
+    // we don't want to have a dependency on dl.bintray anymore (the current version of ch.tutteli.spek (which is old)
+    // still adds it for convenience reasons.
+    repositories.removeAll{
+        it instanceof MavenArtifactRepository && (it as MavenArtifactRepository).url.toString().startsWith("https://dl.bintray.com")
+    }
+
     dependencies {
         testImplementation mockito(), excludeKotlin
     }
@@ -281,11 +294,10 @@ configure(subprojects - toolProjects) {
     }
 }
 
-//TODO activate again with 0.19.0 (once we use new tutteli spek plugin with support for new MPP plugin)
 // takes some time to configure since gradle 6.9 so only if CI
-//if (Boolean.parseBoolean(System.getenv('CI'))) {
-//    apply from: 'gradle/scripts/check-dexer.gradle'
-//}
+if (Boolean.parseBoolean(System.getenv('CI'))) {
+    apply from: 'gradle/scripts/check-dexer.gradle'
+}
 apply from: 'gradle/scripts/gh-pages.gradle'
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 
