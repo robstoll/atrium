@@ -1304,7 +1304,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
 <a name="ex-map-1"></a>
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-◆ contains, in any order: 
+◆ to contain, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "b": 2        (kotlin.Int <1234789>)
@@ -1328,7 +1328,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContain(
 <a name="ex-map-2"></a>
 ```text
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-◆ contains, in any order: 
+◆ to contain, in any order: 
   ⚬ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
   ⚬ ▶ entry "a": 1        (kotlin.Int <1234789>)
@@ -1352,7 +1352,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
     ◾ to equal: 1        (kotlin.Int <1234789>)
-◆ contains only, in any order: 
+◆ to contain only, in any order: 
   ✔ ▶ entry "b": 2        (kotlin.Int <1234789>)
       ◾ to equal: 2        (kotlin.Int <1234789>)
     ❗❗ additional entries detected: 
@@ -1377,7 +1377,7 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
 expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 ◆ ▶ size: 2        (kotlin.Int <1234789>)
     ◾ to equal: 3        (kotlin.Int <1234789>)
-◆ contains only, in any order: 
+◆ to contain only, in any order: 
   ✘ ▶ entry "c": ❗❗ key does not exist
         » to equal: 2        (kotlin.Int <1234789>)
   ✔ ▶ entry "a": 1        (kotlin.Int <1234789>)

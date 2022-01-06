@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionResultAssertion
+import ch.tutteli.atrium.translations.DescriptionResultExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -62,9 +62,9 @@ abstract class ResultExpectationsSpec(
     val resultNullSuccess = Result.success(null as Int?)
     val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no..."))
 
-    val isNotSuccessDescr = DescriptionResultAssertion.IS_NOT_SUCCESS.getDefault()
-    val isNotFailureDescr = DescriptionResultAssertion.IS_NOT_FAILURE.getDefault()
-    val exceptionDescr = DescriptionResultAssertion.EXCEPTION.getDefault()
+    val isNotSuccessDescr = DescriptionResultExpectation.IS_NOT_SUCCESS.getDefault()
+    val isNotFailureDescr = DescriptionResultExpectation.IS_NOT_FAILURE.getDefault()
+    val exceptionDescr = DescriptionResultExpectation.EXCEPTION.getDefault()
 
     describeFun(toBeASuccessFeature, toBeASuccess, toBeASuccessFeatureNullable, toBeASuccessNullable, toBeAFailureFeature, toBeAFailure) {
         val successFunctions = uncheckedToNonNullable(

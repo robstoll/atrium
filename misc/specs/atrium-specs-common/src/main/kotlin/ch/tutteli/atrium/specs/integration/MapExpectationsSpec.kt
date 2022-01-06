@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -76,9 +76,9 @@ abstract class MapExpectationsSpec(
     val nullableFluent = expect(nullableMap)
 
     val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
-    val toContainKeyDescr = DescriptionMapLikeAssertion.CONTAINS_KEY.getDefault()
-    val notToContainKeyDescr = DescriptionMapLikeAssertion.CONTAINS_NOT_KEY.getDefault()
-    val keyDoesNotExist = DescriptionMapLikeAssertion.KEY_DOES_NOT_EXIST.getDefault()
+    val toContainKeyDescr = DescriptionMapLikeExpectation.TO_CONTAIN_KEY.getDefault()
+    val notToContainKeyDescr = DescriptionMapLikeExpectation.NOT_TO_CONTAIN_KEY.getDefault()
+    val keyDoesNotExist = DescriptionMapLikeExpectation.KEY_DOES_NOT_EXIST.getDefault()
 
     describeFun(toContainKey, toContainKeyNullable, notToContainKey, notToContainKeyNullable) {
         val toContainKeyFunctions = uncheckedToNonNullable(toContainKey, toContainKeyNullable)

@@ -15,7 +15,8 @@ import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 
 class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureHandler<T, R> {
 

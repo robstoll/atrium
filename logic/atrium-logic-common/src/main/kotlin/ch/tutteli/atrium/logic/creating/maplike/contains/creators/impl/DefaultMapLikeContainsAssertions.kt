@@ -11,9 +11,9 @@ import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnly
-import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.andOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.inOrder
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsAssertions
 import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
@@ -23,7 +23,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion.*
+import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation.*
 import kotlin.reflect.KClass
 
 class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
@@ -67,7 +67,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             }
             assertionBuilder.list
                 .withDescriptionAndEmptyRepresentation(
-                    entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
+                    entryPointStepLogic.searchBehaviour.decorateDescription(TO_CONTAIN)
                 )
                 .withAssertions(assertions)
                 .build()
@@ -186,7 +186,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
             val assertions = featureAssertions + hints
 
             val description =
-                entryPointStepLogic.searchBehaviour.decorateDescription(CONTAINS)
+                entryPointStepLogic.searchBehaviour.decorateDescription(TO_CONTAIN)
             assertionBuilder.invisibleGroup.withAssertions(
                 entryPointStepLogic.container.collectBasedOnSubject(Some(map)) {
                     _logic

@@ -6,14 +6,14 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
-import ch.tutteli.atrium.translations.DescriptionMapLikeAssertion
+import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation
 import org.spekframework.spek2.dsl.Root
 
 abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeToContainSpecBase(spec) {
 
     companion object {
         val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
-        val additionalEntriesDescr = DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
+        val additionalEntriesDescr = DescriptionMapLikeExpectation.WARNING_ADDITIONAL_ENTRIES.getDefault()
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1)
@@ -23,8 +23,8 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
         fun Expect<String>.toContainInAnyOrderOnlyDescr() =
             toContain.exactly(1).value(
                 "$rootBulletPoint${
-                    DescriptionMapLikeAssertion.IN_ANY_ORDER_ONLY.getDefault()
-                        .format(DescriptionMapLikeAssertion.CONTAINS.getDefault())
+                    DescriptionMapLikeExpectation.IN_ANY_ORDER_ONLY.getDefault()
+                        .format(DescriptionMapLikeExpectation.TO_CONTAIN.getDefault())
                 }:"
             )
 
@@ -68,7 +68,7 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
         fun Expect<String>.additionalEntries(vararg pairs: Pair<String?, Any>): Expect<String> =
             and {
                 val additionalEntries =
-                    "\\Q$warningBulletPoint${DescriptionMapLikeAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()}\\E: $separator"
+                    "\\Q$warningBulletPoint${DescriptionMapLikeExpectation.WARNING_ADDITIONAL_ENTRIES.getDefault()}\\E: $separator"
                 toContain.exactly(1).regex(additionalEntries)
                 pairs.forEach { (key, value) ->
                     toContain.exactly(1)

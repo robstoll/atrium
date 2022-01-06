@@ -6,15 +6,15 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
-import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.logic.kotlin_1_3.ResultAssertions
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionContainer
-import ch.tutteli.atrium.translations.DescriptionResultAssertion.*
+import ch.tutteli.atrium.translations.DescriptionResultExpectation.*
 import kotlin.reflect.KClass
 
 class DefaultResultAssertions : ResultAssertions {

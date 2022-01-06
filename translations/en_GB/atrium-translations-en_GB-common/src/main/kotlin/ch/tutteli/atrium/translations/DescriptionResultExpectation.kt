@@ -6,9 +6,16 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Map].
  */
-enum class DescriptionResultAssertion(override val value: String) : StringBasedTranslatable {
+enum class DescriptionResultExpectation(override val value: String) : StringBasedTranslatable {
+    /** @since 0.18.0 */
     IS_NOT_SUCCESS("❗❗ is not a Success"),
+
+    /** @since 0.18.0 */
     VALUE("value"),
+
+    /** @since 0.18.0 */
     IS_NOT_FAILURE("❗❗ is not failure"),
+
+    /** @since 0.18.0 */
     EXCEPTION("exception")
 }
