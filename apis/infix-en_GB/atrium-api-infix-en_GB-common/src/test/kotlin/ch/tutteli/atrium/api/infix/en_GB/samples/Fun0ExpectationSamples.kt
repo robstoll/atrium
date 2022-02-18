@@ -15,7 +15,7 @@ class Fun0ExpectationSamples {
         fails {
             expect { throw IllegalStateException("abc") }
                 .toThrow<IndexOutOfBoundsException>() messageToContain "abc"
-            // not shown in reporting as `toThrow<IndexOutOfBoundsException>()` already fails
+            //                                        | not shown in reporting as `toThrow<IndexOutOfBoundsException>()` already fails
         }
     }
 
@@ -23,13 +23,13 @@ class Fun0ExpectationSamples {
     fun toThrow() {
         expect { throw IllegalStateException("abc") }
             .toThrow<IllegalStateException> { // subject inside this block is of type IllegalStateException
-                it messageToContain "abc"
+                its messageToContain "abc"
             } // subject keeps type IllegalStateException also after the block
 
         fails { // because wrong type expected (IndexOutOfBoundsException instead of IllegalStateException), but since we use a block...
             expect { throw IllegalStateException("abc") }
                 .toThrow<IndexOutOfBoundsException> {
-                    it messageToContain "abc" // ... reporting mentions that subject's message was expected `to contain: "abc"`
+                    its messageToContain "abc" // ... reporting mentions that subject's message was expected `to contain: "abc"`
                 }
         }
 
