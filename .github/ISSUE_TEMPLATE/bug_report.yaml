@@ -11,7 +11,7 @@ body:
     attributes:
       label: Affected Version
       description: What version of Atrium are you running?
-      placeholder: "0.16.0"
+      placeholder: "0.17.0"
     validations:
       required: true
   - type: dropdown
@@ -33,7 +33,7 @@ body:
         - jvm
         - js
     validations:
-      required: true      
+      required: true
   - type: input
     id: kotlin-version
     attributes:
@@ -41,7 +41,7 @@ body:
       description: What Kotlin version are you using when running Atrium?
       placeholder: "1.5"
     validations:
-      required: false         
+      required: false
   - type: textarea
     id: reproduce
     attributes:
@@ -51,13 +51,13 @@ body:
         expect("this dummy text").wasReplaced.withYourCode()
         ```
     validations:
-      required: true  
+      required: true
   - type: textarea
     id: describe-bug
     attributes:
       label: Describe the bug
     validations:
-      required: true      
+      required: true
   - type: textarea
     id: expected-behviour
     attributes:
