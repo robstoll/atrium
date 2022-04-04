@@ -22,7 +22,7 @@ dependencies {
 }
 
 plugins {
-    kotlin("js") version "1.6.10"
+    kotlin("js") version "1.6.20"
 }
 
 group = "org.atriumlib.samples"
