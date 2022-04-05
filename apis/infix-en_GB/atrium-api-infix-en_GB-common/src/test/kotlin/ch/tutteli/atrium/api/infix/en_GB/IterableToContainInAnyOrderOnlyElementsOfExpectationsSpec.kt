@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
+import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 
 class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
@@ -26,8 +29,17 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun getToContainValues(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect toContain o inAny order but only elementsOf listOf(a, *aX)
+            aX: Array<out Double>,
+            report: InAnyOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> =
+            if (report == emptyInAnyOrderOnlyReportOptions) {
+                expect toContain o inAny order but only elementsOf listOf(a, *aX)
+            } else {
+                expect toContain o inAny order but only the elementsOf(
+                    listOf(a, *aX),
+                    reportOptionsInAnyOrderOnly = report
+                )
+            }
 
         fun getToContainNullablePair() =
             "$toContain $filler $inAnyOrder $butOnly $inAnyOrderOnlyElementsOf" to Companion::getToContainNullableValues
@@ -35,7 +47,42 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun getToContainNullableValues(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect toContain o inAny order but only elementsOf sequenceOf(a, *aX)
+            aX: Array<out Double?>,
+            report: InAnyOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> =
+            if (report == emptyInAnyOrderOnlyReportOptions) {
+                expect toContain o inAny order but only elementsOf listOf(a, *aX)
+            } else {
+                expect toContain o inAny order but only the elementsOf(
+                    listOf(a, *aX),
+                    reportOptionsInAnyOrderOnly = report
+                )
+            }
+    }
+
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list toContain o inAny order but only elementsOf listOf<Int>()
+        nList = nList toContain o inAny order but only elementsOf listOf<Int>()
+        subList = subList toContain o inAny order but only elementsOf listOf<Int>()
+        star = star toContain o inAny order but only elementsOf listOf<Int>()
+
+        list = list toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+        nList = nList toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+        subList =
+            subList toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+        star = star toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+
+        nList = nList toContain o inAny order but only elementsOf listOf<Int?>()
+        star = star toContain o inAny order but only elementsOf listOf<Int?>()
+
+        nList = nList toContain o inAny order but only the elementsOf(listOf<Int?>(), reportOptionsInAnyOrderOnly = {})
+        star = star toContain o inAny order but only the elementsOf(listOf<Int?>(), reportOptionsInAnyOrderOnly = {})
     }
 }

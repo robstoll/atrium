@@ -50,18 +50,18 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  * needs to contain only the expected [values] in the specified order.
  *
  * @param values The values which are expected to be contained within the [IterableLike] plus a lambda configuring
- *   the [InOrderOnlyReportingOptions] -- use the function `values(t, ..., report = { ... })`
+ *   the [InOrderOnlyReportingOptions] -- use the function `values(t, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.18.0
  */
-@JvmName("theValuesWithReportingOption")
+@JvmName("theValuesWithReportingOptions")
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.the(
     values: WithInOrderOnlyReportingOptions<Values<E>>
 ): Expect<T> = _logicAppend {
-    valuesInOrderOnly(values.t.toList(), values.report)
+    valuesInOrderOnly(values.t.toList(), values.options)
 }
 
 /**
@@ -110,20 +110,20 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] is defined as `null`
  *
  * @param entries The entries which are expected to be contained within the [IterableLike] plus a lambda configuring
- *   the [InOrderOnlyReportingOptions] -- use the function `entries(t, ..., report = { ... })`
+ *   the [InOrderOnlyReportingOptions] -- use the function `entries(t, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Entries].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.18.0
  */
-@JvmName("theEntriesWithReportingOption")
+@JvmName("theEntriesWithReportingOptions")
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.the(
     entries: WithInOrderOnlyReportingOptions<Entries<E>>
 ): Expect<T> = _logicAppend {
     entriesInOrderOnly(
         entries.t.toList(),
-        entries.report
+        entries.options
     )
 }
 
@@ -173,9 +173,9 @@ inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyS
  *
  * @since 0.18.0
  */
-@JvmName("theElementsOfsWithReportingOption")
+@JvmName("theElementsOfWithReportingOptions")
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.the(
     elementsOf: WithInOrderOnlyReportingOptions<IterableLike>
 ): Expect<T> = _logic.toVarArg<E>(elementsOf.t).let { (first, rest) ->
-    this the values(first, *rest, report = elementsOf.report)
+    this the values(first, *rest, reportOptionsInOrderOnly = elementsOf.options)
 }

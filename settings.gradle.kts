@@ -85,7 +85,10 @@ fun Settings_gradle.includeBundleAndApisWithExtensionsAndSmokeTest(vararg apiNam
 
 fun Settings_gradle.includeKotlinJvmJs(subPath: String, module: String) {
     include(subPath, "$module-common")
-    include(subPath, "$module-js")
+    // js starts to be annoying on local development. Let's carry this only out on CI
+    if (System.getenv("CI") == "true") {
+        include(subPath, "$module-js")
+    }
     include(subPath, "$module-jvm")
 }
 

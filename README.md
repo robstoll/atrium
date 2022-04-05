@@ -1167,7 +1167,7 @@ then only failing expectations are shown.
 <summary>💬 Show only failing expectations/elements earlier than 10 elements?</summary>
 
 You can use the `report` option to specify when Atrium shall start to show only failing expectations.
-Following an example changing the limit to 3 elements by using `showOnlyFailingIfMoreElementsThan` :
+Following an example changing the limit to 3 elements by using `showOnlyFailingIfMoreExpectedElementsThan` :
 
 <ex-collection-reportOptions-1>
 
@@ -1176,7 +1176,7 @@ expect(listOf(1, 2, 2, 4)).toContainExactly(
     { toBeLessThan(3) },
     { toBeLessThan(2) },
     { toBeGreaterThan(1) },
-    report = { showOnlyFailingIfMoreElementsThan(3) }
+    report = { showOnlyFailingIfMoreExpectedElementsThan(2) }
 )
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L154)</sub> ↓ <sub>[Output](#ex-collection-reportOptions-1)</sub>

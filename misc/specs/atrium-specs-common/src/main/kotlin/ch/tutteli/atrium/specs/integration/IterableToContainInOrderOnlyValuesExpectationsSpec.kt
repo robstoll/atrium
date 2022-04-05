@@ -22,13 +22,6 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         toContainInOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
     ) {})
 
-    fun Expect<Iterable<Double?>>.toContainInOrderOnlyNullableValuesFun(
-        t: Double?,
-        vararg tX: Double?,
-        report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
-    ) =
-        toContainInOrderOnlyNullableValues(this, t, tX, report)
-
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
     val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
@@ -42,10 +35,6 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
 
     fun Expect<String>.elementSuccess(index: Int, expected: Double) = elementSuccess(index, expected.toString())
 
-    fun Expect<String>.notToContainElement(index: Int, expected: Double): Expect<String> {
-        return notToContain.regex("\\Q$featureArrow${elementWithIndex(index)}: ${expected}\\E.*$separator")
-    }
-
     fun Expect<String>.elementFailing(
         index: Int,
         actual: Any,
@@ -57,7 +46,6 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                 "$toBeAfterFailing: $expected"
         )
     }
-
 
     fun Expect<String>.elementNonExisting(
         index: Int,
@@ -81,8 +69,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
             t: Double,
             vararg tX: Double,
             report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
-        ) =
-            toContainValuesFunArr(t, tX.toTypedArray(), report)
+        ) = toContainValuesFunArr(t, tX.toTypedArray(), report)
 
         context("empty collection") {
             it("1.0 throws AssertionError") {
@@ -209,12 +196,17 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         }
                     }
                 }
+            }
+        }
 
+        context("report options") {
+            context("iterable ${oneToFour().toList()}") {
                 it("shows only failing with report option `showOnlyFailing`") {
                     expect {
                         expect(oneToFour()).toContainFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0, report = { showOnlyFailing() })
                     }.toThrow<AssertionError> {
                         message {
+                            toContainSize(5, 6)
                             notToContainElement(0, 1.0)
                             notToContainElement(1, 2.0)
                             notToContainElement(2, 3.0)
@@ -225,7 +217,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         }
                     }
                 }
-                it("shows only failing with report option `showOnlyFailingIfMoreElementsThan(3)` because there are 5") {
+                it("shows only failing with report option `showOnlyFailingIfMoreExpectedElementsThan(5)` because there are 6") {
                     expect {
                         expect(oneToFour()).toContainFun(
                             1.0,
@@ -234,9 +226,10 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                             4.0,
                             4.0,
                             5.0,
-                            report = { showOnlyFailingIfMoreElementsThan(3) })
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(5) })
                     }.toThrow<AssertionError> {
                         message {
+                            toContainSize(5, 6)
                             notToContainElement(0, 1.0)
                             notToContainElement(1, 2.0)
                             notToContainElement(2, 3.0)
@@ -246,70 +239,62 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         }
                     }
                 }
-            }
-        }
-        val oneToEleven = (1..11).map { it.toDouble() }.asIterable()
-        context("iterable $oneToEleven") {
-            it("shows only failing per default as there are more than 10 elements") {
-                expect {
-                    expect(oneToEleven).toContainFun(
-                        1.0,
-                        2.0,
-                        3.0,
-                        4.0,
-                        -1.0,
-                        6.0,
-                        7.0,
-                        -2.0,
-                        9.0,
-                        10.0,
-                        11.0
-                    )
-                }.toThrow<AssertionError> {
-                    message {
-                        notToContainElement(0, 1.0)
-                        notToContainElement(1, 2.0)
-                        notToContainElement(2, 3.0)
-                        notToContainElement(3, 4.0)
-                        elementFailing(4, 5.0, -1.0, withBulletPoint = false)
-                        notToContainElement(5, 6.0)
-                        notToContainElement(6, 7.0)
-                        elementFailing(7, 8.0, -2.0, withBulletPoint = false)
-                        notToContainElement(8, 9.0)
-                        notToContainElement(9, 10.0)
-                        notToContainElement(10, 11.0)
+                it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 2") {
+                    expect {
+                        expect(oneToFour()).toContainFun(
+                            1.0,
+                            2.0,
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(2) }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSize(5, 2)
+                            elementSuccess(0, 1.0)
+                            elementSuccess(1, 2.0)
+                            toContain(
+                                "$warningBulletPoint$additionalElements:",
+                                "$listBulletPoint${elementWithIndex(2)}: 3.0",
+                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            )
+
+                        }
                     }
                 }
-            }
-            it("shows all with report option `showsAlwaysSummary`") {
-                expect {
-                    expect(oneToEleven).toContainFun(
-                        1.0,
-                        2.0,
-                        3.0,
-                        4.0,
-                        -1.0,
-                        6.0,
-                        7.0,
-                        -2.0,
-                        9.0,
-                        10.0,
-                        11.0,
-                        report = { showAlwaysSummary() }
-                    )
-                }.toThrow<AssertionError> {
-                    message {
-                        elementSuccess(0, 1.0)
-                        elementSuccess(1, 2.0)
-                        elementSuccess(2, 3.0)
-                        elementSuccess(3, 4.0)
-                        elementFailing(4, 5.0, -1.0, withBulletPoint = false)
-                        elementSuccess(5, 6.0)
-                        elementSuccess(6, 7.0)
-                        elementFailing(7, 8.0, -2.0, withBulletPoint = false)
-                        elementSuccess(8, 9.0)
-                        elementSuccess(9, 10.0)
-                        elementSuccess(10, 11.0)
+
+                it("shows summary without report option if there are 10 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
+                    expect {
+                        expect(oneToFour()).toContainFun(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            elementSuccess(0, 1.0)
+                            elementSuccess(1, 2.0)
+                            elementSuccess(2, 3.0)
+                            elementSuccess(3, 4.0)
+                            elementFailing(4, 4.0, 5.0)
+                            elementNonExisting(5, 6.0)
+                            elementNonExisting(6, 7.0)
+                            elementNonExisting(7, 8.0)
+                            elementNonExisting(8, 9.0)
+                            elementNonExisting(9, 10.0)
+                            toContainSize(5, 10)
+                        }
+                    }
+                }
+                it("shows only failing without report option if there are 11 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
+                    expect {
+                        expect(oneToFour()).toContainFun(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSize(5, 11)
+                            elementFailing(4, 4.0, 5.0, withBulletPoint = false)
+                            elementNonExisting(5, 6.0, withBulletPoint = false)
+                            elementNonExisting(6, 7.0, withBulletPoint = false)
+                            elementNonExisting(7, 8.0, withBulletPoint = false)
+                            elementNonExisting(8, 9.0, withBulletPoint = false)
+                            elementNonExisting(9, 10.0, withBulletPoint = false)
+                            elementNonExisting(10, 11.0, withBulletPoint = false)
+                        }
                     }
                 }
             }
@@ -318,20 +303,26 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
 
     nullableCases(describePrefix) {
 
+        fun Expect<Iterable<Double?>>.toContainFun(
+            t: Double?,
+            vararg tX: Double?,
+            report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
+        ) = toContainInOrderOnlyNullableValues(this, t, tX, report)
+
         describeFun(toContainInOrderOnlyNullableValues) {
             val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {
                 context("happy cases (do not throw)") {
                     it("null, 1.0, null, 3.0") {
-                        expect(null1null3()).toContainInOrderOnlyNullableValuesFun(null, 1.0, null, 3.0)
+                        expect(null1null3()).toContainFun(null, 1.0, null, 3.0)
                     }
                 }
 
                 context("failing cases") {
                     it("null, 1.0, 3.0 -- null was missing") {
                         expect {
-                            expect(null1null3()).toContainInOrderOnlyNullableValuesFun(null, 1.0, 3.0)
+                            expect(null1null3()).toContainFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")

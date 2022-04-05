@@ -33,6 +33,10 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only the given [keyValuePair] as well as the [otherPairs] in the specified order.
  *
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
+ *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
@@ -41,7 +45,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
     keyValuePair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>,
     report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logicAppend { keyValuePairsInOrderOnly(keyValuePair glue otherPairs,report) }
+): Expect<T> = _logicAppend { keyValuePairsInOrderOnly(keyValuePair glue otherPairs, report) }
 
 
 /**
@@ -68,6 +72,10 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyValue.valueAssertionCreatorOrNull] is defined as `null`.
+ *
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -104,10 +112,15 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
+ * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
+ *
  * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike,
     report: InOrderOnlyReportingOptions.() -> Unit = {}
-): Expect<T> = _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) -> entries(first, *rest, report = report) }
+): Expect<T> =
+    _logic.toVarArgPairs<K, V>(expectedMapLike).let { (first, rest) -> entries(first, *rest, report = report) }
 

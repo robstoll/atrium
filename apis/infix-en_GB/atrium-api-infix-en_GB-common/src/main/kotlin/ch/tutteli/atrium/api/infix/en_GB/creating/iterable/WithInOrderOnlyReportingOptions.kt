@@ -7,4 +7,4 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
  *
  * @since 0.18.0
  */
-data class WithInOrderOnlyReportingOptions<out T>(val report: InOrderOnlyReportingOptions.() -> Unit, val t: T)
+data class WithInOrderOnlyReportingOptions<out T>(val options: InOrderOnlyReportingOptions.() -> Unit, val t: T)

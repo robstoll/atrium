@@ -9,19 +9,21 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.butOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.inAnyOrder
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.kbox.identity
 
 class InOrderOnlyGroupedValuesAssertionCreator<E, T : IterableLike>(
     converter: (T) -> Iterable<E>,
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour,
-    reportingOptions: InOrderOnlyReportingOptions.() -> Unit
-) : InOrderOnlyGroupedAssertionCreator<E, T, E>(converter, searchBehaviour, reportingOptions),
+    inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+    private val inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
+) : InOrderOnlyGroupedAssertionCreator<E, T, E>(converter, searchBehaviour, inOrderOnlyReportingOptions),
     InOrderOnlyMatcher<E, E> by InOrderOnlyValueMatcher() {
 
     override fun Expect<List<E>>.addSublistAssertion(groupOfSearchCriteria: List<E>) {
         _logic.builderContainsInIterableLike(::identity)._logic.inAnyOrder._logic.butOnly._logicAppend {
-            valuesInAnyOrderOnly(groupOfSearchCriteria)
+            valuesInAnyOrderOnly(groupOfSearchCriteria, inAnyOrderOnlyReportingOptions)
         }
     }
 }

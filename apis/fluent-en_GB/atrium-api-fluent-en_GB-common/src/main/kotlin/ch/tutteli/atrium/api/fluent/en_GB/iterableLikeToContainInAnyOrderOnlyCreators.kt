@@ -10,6 +10,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInAnyO
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.values
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInAnyOrderOnly
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
@@ -26,7 +28,7 @@ import ch.tutteli.kbox.glue
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
+fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     values(expected)
 
 /**
@@ -36,15 +38,19 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
  *
  * @param expected The value which is expected to be contained within the subject (an [IterableLike]).
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
+ * @param report The lambda configuring the [InAnyOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InAnyOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.values(
+fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.values(
     expected: E,
-    vararg otherExpected: E
-): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected) }
+    vararg otherExpected: E,
+    report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected, report) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -61,7 +67,7 @@ fun <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.val
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entry(
+fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
 ): Expect<T> = entries(assertionCreatorOrNull)
 
@@ -85,15 +91,19 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each identify (separately) an entry
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
+ * @param report The lambda configuring the [InAnyOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InAnyOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
-fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
+    vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?,
+    report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, report) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -106,6 +116,9 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  * This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
  *
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike]
+ * @param report The lambda configuring the [InAnyOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InAnyOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not
@@ -114,6 +127,7 @@ fun <E : Any, T: IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBeh
  *
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
-inline fun <reified E, T: IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
-    expectedIterableLike: IterableLike
-): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest) }
+inline fun <reified E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
+    expectedIterableLike: IterableLike,
+    noinline report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> values(first, *rest, report = report) }

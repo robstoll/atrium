@@ -9,21 +9,24 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 class DefaultIterableLikeContainsAssertions : IterableLikeContainsAssertions {
     override fun <E, T : IterableLike> valuesInAnyOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InAnyOrderOnlySearchBehaviour>,
-        expected: List<E>
+        expected: List<E>,
+        reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion = createAssertionGroupWithoutCheckerInAnyOrder(
-        entryPointStepLogic, expected, ::InAnyOrderOnlyValuesAssertionCreator
+        entryPointStepLogic, expected, reportingOptions, ::InAnyOrderOnlyValuesAssertionCreator
     )
 
     override fun <E : Any, T : IterableLike> entriesInAnyOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreators: List<(Expect<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>,
+        reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion = createAssertionGroupWithoutCheckerInAnyOrder(
-        entryPointStepLogic, assertionCreators, ::InAnyOrderOnlyEntriesAssertionCreator
+        entryPointStepLogic, assertionCreators, reportingOptions, ::InAnyOrderOnlyEntriesAssertionCreator
     )
 
 
@@ -47,18 +50,39 @@ class DefaultIterableLikeContainsAssertions : IterableLikeContainsAssertions {
     override fun <E, T : IterableLike> valuesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<E>>,
-        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
-    ): Assertion = createAssertionGroupWithoutCheckerInOrder(
-        entryPointStepLogic, groups, reportingOptions, ::InOrderOnlyGroupedValuesAssertionCreator
+        inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+        inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
+    ): Assertion = createAssertionGroupWithoutCheckerInOrderGrouped(
+        entryPointStepLogic,
+        groups,
+        inOrderOnlyReportingOptions,
+        inAnyOrderOnlyReportingOptions,
+        ::InOrderOnlyGroupedValuesAssertionCreator
     )
 
     override fun <E : Any, T : IterableLike> entriesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<(Expect<E>.() -> Unit)?>>,
-        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
-    ): Assertion = createAssertionGroupWithoutCheckerInOrder(
-        entryPointStepLogic, groups, reportingOptions, ::InOrderOnlyGroupedEntriesAssertionCreator
+        inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+        inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
+    ): Assertion = createAssertionGroupWithoutCheckerInOrderGrouped(
+        entryPointStepLogic,
+        groups,
+        inOrderOnlyReportingOptions,
+        inAnyOrderOnlyReportingOptions,
+        ::InOrderOnlyGroupedEntriesAssertionCreator
     )
+
+
+    private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroupWithoutCheckerInAnyOrder(
+        entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, S>,
+        expected: List<SC>,
+        reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit,
+        factory: ((T) -> Iterable<E>, S, InAnyOrderOnlyReportingOptions.() -> Unit) -> IterableLikeContains.Creator<T, SC>
+    ): AssertionGroup {
+        val creator = factory(entryPointStepLogic.converter, entryPointStepLogic.searchBehaviour, reportingOptions)
+        return creator.createAssertionGroup(entryPointStepLogic.container, expected)
+    }
 
     private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroupWithoutCheckerInOrder(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, S>,
@@ -70,12 +94,19 @@ class DefaultIterableLikeContainsAssertions : IterableLikeContainsAssertions {
         return creator.createAssertionGroup(entryPointStepLogic.container, expected)
     }
 
-    private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroupWithoutCheckerInAnyOrder(
+    private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroupWithoutCheckerInOrderGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, S>,
         expected: List<SC>,
-        factory: ((T) -> Iterable<E>, S) -> IterableLikeContains.Creator<T, SC>
+        inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+        inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit,
+        factory: ((T) -> Iterable<E>, S, InOrderOnlyReportingOptions.() -> Unit, InAnyOrderOnlyReportingOptions.() -> Unit) -> IterableLikeContains.Creator<T, SC>
     ): AssertionGroup {
-        val creator = factory(entryPointStepLogic.converter, entryPointStepLogic.searchBehaviour)
+        val creator = factory(
+            entryPointStepLogic.converter,
+            entryPointStepLogic.searchBehaviour,
+            inOrderOnlyReportingOptions,
+            inAnyOrderOnlyReportingOptions
+        )
         return creator.createAssertionGroup(entryPointStepLogic.container, expected)
     }
 }

@@ -46,5 +46,4 @@ class IterableToContainInAnyOrderExactlyValuesExpectationsSpec :
         subList = subList.toContain.inAnyOrder.exactly(2).values(1, 2.2)
         star = star.toContain.inAnyOrder.exactly(2).values(1, 1.2, "asdf")
     }
-
 }

@@ -114,7 +114,7 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
         subList = subList.toContainExactly({}, {})
         star = star.toContainExactly({}, {})
 
-        list = list.toContainExactly({}, {}, report = { showOnlyFailingIfMoreElementsThan(20) })
+        list = list.toContainExactly({}, {}, report = { showOnlyFailingIfMoreExpectedElementsThan(20) })
         nList = nList.toContainExactly({}, {}, report = { showOnlyFailing() })
         subList = subList.toContainExactly({}, {}, report = { showAlwaysSummary() })
         star = star.toContainExactly({}, {}, report = { })

@@ -16,14 +16,17 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.DefaultIterableLikeContainsAssertions
 
 
-fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InAnyOrderOnlySearchBehaviour>.valuesInAnyOrderOnly(expected: List<E>): Assertion = impl.valuesInAnyOrderOnly(this, expected)
+fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InAnyOrderOnlySearchBehaviour>.valuesInAnyOrderOnly(expected: List<E>, reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.valuesInAnyOrderOnly(this, expected, reportingOptions)
 
-fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?, T, InAnyOrderOnlySearchBehaviour>.entriesInAnyOrderOnly(assertionCreators: List<(Expect<E>.() -> Unit)?>): Assertion = impl.entriesInAnyOrderOnly(this, assertionCreators)
+fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?, T, InAnyOrderOnlySearchBehaviour>.entriesInAnyOrderOnly(assertionCreators: List<(Expect<E>.() -> Unit)?>, reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.entriesInAnyOrderOnly(this, assertionCreators, reportingOptions)
 
 
 fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlySearchBehaviour>.valuesInOrderOnly(expected: List<E>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
@@ -33,11 +36,11 @@ fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?,
     impl.entriesInOrderOnly(this, assertionCreators, reportingOptions)
 
 
-fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlyGroupedSearchBehaviour>.valuesInOrderOnlyGrouped(groups: List<List<E>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
-    impl.valuesInOrderOnlyGrouped(this, groups, reportingOptions)
+fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlyGroupedSearchBehaviour>.valuesInOrderOnlyGrouped(groups: List<List<E>>, inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit, inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.valuesInOrderOnlyGrouped(this, groups, inOrderOnlyReportingOptions, inAnyOrderOnlyReportingOptions)
 
-fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>.entriesInOrderOnlyGrouped(groups: List<List<(Expect<E>.() -> Unit)?>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
-    impl.entriesInOrderOnlyGrouped(this, groups, reportingOptions)
+fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>.entriesInOrderOnlyGrouped(groups: List<List<(Expect<E>.() -> Unit)?>>, inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit, inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit): Assertion =
+    impl.entriesInOrderOnlyGrouped(this, groups, inOrderOnlyReportingOptions, inAnyOrderOnlyReportingOptions)
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
 @UseExperimental(ExperimentalNewExpectTypes::class)
