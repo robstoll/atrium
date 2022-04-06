@@ -14,7 +14,7 @@ buildscript {
         kotlin_version = '1.3.72'
 
         // test
-        jacocoToolVersion = '0.8.7'
+        jacocoToolVersion = '0.8.8'
         junitPlatformVersion = '1.8.2'
         jupiterVersion = '5.8.2'
         spek2Version = '2.0.12'
