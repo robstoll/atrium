@@ -1,4 +1,4 @@
-//TODO 0.18.0 rename package to iterablelike?
+//TODO 0.19.0 rename package to iterablelike?
 package ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl
 
 import ch.tutteli.atrium.assertions.Assertion

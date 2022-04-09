@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -192,15 +193,13 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwableWithDifferentCauseType).causeFun { messageToContain("Cause exception") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            String.format(
-                                OCCURRED_EXCEPTION_PROPERTIES.getDefault(),
+                            OCCURRED_EXCEPTION_PROPERTIES.getDefault().format(
                                 UnsupportedOperationException::class.simpleName!!
                             )
                         )
                     }
                 }
             }
-
         }
 
         context("Throwable.cause is null") {

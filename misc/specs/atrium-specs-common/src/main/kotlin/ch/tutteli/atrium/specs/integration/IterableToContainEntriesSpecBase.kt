@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
@@ -24,12 +25,12 @@ abstract class IterableToContainEntriesSpecBase(
         val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
         val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
         fun <T> mismatchedIndex(index: Int, value: T) : String {
-            val indexDescr = String.format(DescriptionIterableLikeExpectation.INDEX.getDefault(), index)
+            val indexDescr = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
             return "$indexDescr: ${value.toString()}"
         }
         val noSuchElementDescr = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND.getDefault()
 
-        fun index(index: Int) = String.format(DescriptionIterableLikeExpectation.INDEX.getDefault(), index)
+        fun index(index: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
 
         //@formatter:off
         val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"

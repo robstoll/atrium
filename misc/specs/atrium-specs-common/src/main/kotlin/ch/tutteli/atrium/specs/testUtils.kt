@@ -272,9 +272,6 @@ inline fun <T, A1, A2, A3, A4, A5> fun5(f: KFunction6<Expect<T>, A1, A2, A3, A4,
 
 fun <T> notImplemented(): T = throw NotImplementedError()
 
-//TODO 0.18.0 rename (or remove?), we only introduced it so that it is easier to migrate specs from JVM to common
-fun String.Companion.format(string: String, arg: Any, vararg otherArgs: Any): String = string.format(arg, *otherArgs)
-
 val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
 val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()

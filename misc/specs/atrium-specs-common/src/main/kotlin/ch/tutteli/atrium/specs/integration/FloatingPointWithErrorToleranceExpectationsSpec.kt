@@ -5,12 +5,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.notToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
 import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.specs.format
 import ch.tutteli.atrium.translations.DescriptionFloatingPointException
 import ch.tutteli.atrium.translations.DescriptionFloatingPointException.*
 import org.spekframework.spek2.Spek
@@ -82,20 +82,15 @@ fun <T : Number> Root.checkFloatingPoint(
                     }
                 }
 
-                val toEqualInclErrorToleranceDescr =
-                    String.format(TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
-                val failureNotice = String.format(
-                    FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(),
-                    subject::class.fullName
-                )
+                val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
+                val failureNotice = FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault().format(subject::class.fullName)
                 failing.forEach { num ->
                     it("... compare to $num throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
                             message {
-                                val exactCheck = String.format(
-                                    TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED.getDefault(),
+                                val exactCheck = TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED.getDefault().format(
                                     @Suppress("DEPRECATION")
                                     formatFloatingPointNumber(subject),
                                     @Suppress("DEPRECATION")

@@ -26,20 +26,16 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val oneToSevenNullable =
             { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
-        val toContainInAnyOrder = String.format(
-            DescriptionIterableLikeExpectation.IN_ANY_ORDER.getDefault(),
+        val toContainInAnyOrder = DescriptionIterableLikeExpectation.IN_ANY_ORDER.getDefault().format(
             DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
-        val toContainInAnyOrderOnly = String.format(
-            DescriptionIterableLikeExpectation.IN_ANY_ORDER_ONLY.getDefault(),
+        val toContainInAnyOrderOnly = DescriptionIterableLikeExpectation.IN_ANY_ORDER_ONLY.getDefault().format(
             DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
-        val toContainInOrderOnly = String.format(
-            DescriptionIterableLikeExpectation.IN_ORDER_ONLY.getDefault(),
+        val toContainInOrderOnly = DescriptionIterableLikeExpectation.IN_ORDER_ONLY.getDefault().format(
             DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
-        val toContainInOrderOnlyGrouped = String.format(
-            DescriptionIterableLikeExpectation.IN_ORDER_ONLY_GROUPED.getDefault(),
+        val toContainInOrderOnlyGrouped = DescriptionIterableLikeExpectation.IN_ORDER_ONLY_GROUPED.getDefault().format(
             DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
         )
         val numberOfSuchElements = DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS.getDefault()
