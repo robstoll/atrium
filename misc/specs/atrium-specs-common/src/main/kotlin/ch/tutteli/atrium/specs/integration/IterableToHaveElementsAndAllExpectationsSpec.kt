@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
@@ -33,7 +34,7 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
 
     val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
-    fun index(index: Int) = listBulletPoint + String.format(DescriptionIterableLikeExpectation.INDEX.getDefault(), index)
+    fun index(index: Int) = listBulletPoint + DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
 
     nonNullableCases(
         describePrefix,

@@ -1,4 +1,4 @@
-//TODO 1.0.0 rename iterable.contains to iterablelike.contains
+//TODO 0.19.0 rename iterable.contains to iterablelike.contains
 package ch.tutteli.atrium.logic.creating.iterable.contains
 
 import ch.tutteli.atrium.assertions.Assertion

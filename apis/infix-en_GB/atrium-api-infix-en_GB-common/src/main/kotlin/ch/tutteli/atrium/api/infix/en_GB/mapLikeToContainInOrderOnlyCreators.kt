@@ -162,7 +162,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
-): Expect<T> = entriesOf(WithInOrderOnlyReportingOptions({}, expectedMapLike))
+): Expect<T> = the(WithInOrderOnlyReportingOptions({}, expectedMapLike))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
@@ -186,7 +186,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  *
  * @since 0.18.0
  */
-infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
+infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.the(
     entriesOf: WithInOrderOnlyReportingOptions<MapLike>
 ): Expect<T> = _logic.toVarArgPairs<K, V>(entriesOf.t).let { (first, rest) ->
     this the pairs(first, *rest, reportOptionsInOrderOnly = entriesOf.options)

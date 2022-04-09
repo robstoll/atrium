@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
@@ -35,7 +36,7 @@ abstract class CharSequenceNotToContainExpectationsSpec(
 
     val notToContainDescr = DescriptionCharSequenceExpectation.NOT_TO_CONTAIN.getDefault()
     val notToContainIgnoringCaseDescr =
-        String.format(DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault(), notToContainDescr)
+        DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault().format(notToContainDescr)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
