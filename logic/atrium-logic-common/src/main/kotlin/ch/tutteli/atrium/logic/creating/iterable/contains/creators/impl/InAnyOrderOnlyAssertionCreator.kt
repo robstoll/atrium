@@ -10,6 +10,8 @@ import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.impl.InAnyOrderOnlyReportingOptionsImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
@@ -33,7 +35,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
  */
 abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     private val converter: (T) -> Iterable<E>,
-    private val searchBehaviour: InAnyOrderOnlySearchBehaviour
+    private val searchBehaviour: InAnyOrderOnlySearchBehaviour,
+    private val reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
 ) : IterableLikeContains.Creator<T, SC> {
 
     final override fun createAssertionGroup(
@@ -41,47 +44,52 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val list = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
+            val listFromWhichMatchesWillBeRemoved = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
+            val initialSize = listFromWhichMatchesWillBeRemoved.size
             val assertions = mutableListOf<Assertion>()
-            val sizeAssertion = container.collectBasedOnSubject(Some(list)) {
+            //TODO 0.19.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            val sizeAssertion = container.collectBasedOnSubject(Some(listFromWhichMatchesWillBeRemoved)) {
                 _logic
                     .size { it }
                     .collectAndLogicAppend { toBe(searchCriteria.size) }
             }
 
-            val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, list, assertions)
-            if (mismatches == 0 && list.isNotEmpty()) {
+            val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, listFromWhichMatchesWillBeRemoved, assertions)
+            if (mismatches == 0 && listFromWhichMatchesWillBeRemoved.isNotEmpty()) {
                 assertions.add(LazyThreadUnsafeAssertionGroup {
                     createExplanatoryGroupForMismatchesEtc(
-                        list,
+                        listFromWhichMatchesWillBeRemoved,
                         WARNING_ADDITIONAL_ELEMENTS
                     )
                 })
             }
 
             val description = searchBehaviour.decorateDescription(TO_CONTAIN)
-            val summary = assertionBuilder.summary
-                .withDescription(description)
-                .withAssertions(assertions)
-                .build()
+            //TODO 0.19.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            val options = InAnyOrderOnlyReportingOptionsImpl().apply(reportingOptions)
+            val assertionGroup = (if (searchCriteria.size <= options.maxNumberOfExpectedElementsForSummary) {
+                assertionBuilder.summary.withDescription(description)
+            } else {
+                assertionBuilder.list.withDescriptionAndEmptyRepresentation(description)
+            }).withAssertions(assertions).build()
 
-            if (mismatches != 0 && list.isNotEmpty()) {
-                val warningDescription = when (list.size) {
-                    mismatches -> WARNING_MISMATCHES
-                    else -> WARNING_MISMATCHES_ADDITIONAL_ELEMENTS
-                }
+            if (mismatches != 0 && listFromWhichMatchesWillBeRemoved.isNotEmpty()) {
+                val warningDescription =
+                    if(listFromWhichMatchesWillBeRemoved.size == mismatches || initialSize < mismatches) WARNING_MISMATCHES
+                    else WARNING_MISMATCHES_ADDITIONAL_ELEMENTS
+
                 assertionBuilder.invisibleGroup
                     .withAssertions(
                         sizeAssertion,
-                        summary,
-                        createExplanatoryGroupForMismatchesEtc(list, warningDescription)
+                        assertionGroup,
+                        createExplanatoryGroupForMismatchesEtc(listFromWhichMatchesWillBeRemoved, warningDescription)
                     )
                     .build()
             } else {
                 assertionBuilder.invisibleGroup
                     .withAssertions(
                         sizeAssertion,
-                        summary
+                        assertionGroup
                     )
                     .build()
             }

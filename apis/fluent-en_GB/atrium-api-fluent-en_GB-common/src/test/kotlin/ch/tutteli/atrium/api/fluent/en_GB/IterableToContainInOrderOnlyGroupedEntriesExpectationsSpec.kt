@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 
@@ -17,8 +19,26 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
             expect: Expect<Iterable<Double?>>,
             a1: Group<(Expect<Double>.() -> Unit)?>,
             a2: Group<(Expect<Double>.() -> Unit)?>,
-            aX: Array<out Group<(Expect<Double>.() -> Unit)?>>
-        ): Expect<Iterable<Double?>> = expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+            aX: Array<out Group<(Expect<Double>.() -> Unit)?>>,
+            report: InOrderOnlyReportingOptions.() -> Unit,
+            reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> =
+            if (report === emptyInOrderOnlyReportOptions && reportInGroup == emptyInAnyOrderOnlyReportOptions) {
+                expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX)
+            } else if (reportInGroup == emptyInAnyOrderOnlyReportOptions) {
+                expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX, report = report)
+            } else if (report == emptyInAnyOrderOnlyReportOptions) {
+                expect.toContain.inOrder.only.grouped.within.inAnyOrder(a1, a2, *aX, reportInGroup = reportInGroup)
+            } else {
+                expect.toContain.inOrder.only.grouped.within.inAnyOrder(
+                    a1,
+                    a2,
+                    *aX,
+                    report = report,
+                    reportInGroup = reportInGroup
+                )
+            }
+
 
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {
@@ -47,7 +67,47 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
         //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number> {}, Entries<Number>({}, {}))
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number> {},
+            Entries<Number>({}, {}),
+            report = {}
+        )
+
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry {}, Entries({}, {}), reportInGroup = {})
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number> {},
+            Entries<Number>({}, {}),
+            reportInGroup = {}
+        )
+
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry {},
+            Entries({}, {}),
+            report = {},
+            reportInGroup = {}
+        )
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry {},
+            Entries({}, {}),
+            report = {},
+            reportInGroup = {}
+        )
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry {},
+            Entries({}, {}),
+            report = {},
+            reportInGroup = {}
+        )
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number> {},
+            Entries<Number>({}, {}),
+            report = {},
+            reportInGroup = {}
+        )
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
         //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
@@ -55,6 +115,32 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null), report = {})
         //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number>(null), Entries<Number>(null, {}))
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number>(null),
+            Entries<Number>(null, {}),
+            report = {})
+
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null),
+            Entries({}, null),
+            reportInGroup = {}
+        )
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number>(null),
+            Entries<Number>(null, {}),
+            reportInGroup = {})
+
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null),
+            Entries({}, null),
+            report = {},
+            reportInGroup = {})
+        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry<Number>(null),
+            Entries<Number>(null, {}),
+            report = {},
+            reportInGroup = {})
     }
 }

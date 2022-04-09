@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
@@ -74,6 +75,30 @@ class IterableToContainInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
             a: Double?,
             aX: Array<out Double?>
         ): Expect<Iterable<Double?>> = expect toContainElementsOf sequenceOf(a, *aX).asIterable()
+    }
 
+
+    @Suppress("unused", "UNUSED_VALUE")
+    private fun ambiguityTest() {
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
+
+        list = list toContain o inAny order atLeast 1 elementsOf listOf(1)
+        nList = nList toContain o inAny order atLeast 1 elementsOf listOf(1)
+        subList = subList toContain o inAny order atLeast 1 elementsOf listOf(1)
+        star = star toContain o inAny order atLeast 1 elementsOf listOf(1)
+
+        list = list toContainElementsOf listOf(1)
+        nList = nList toContainElementsOf listOf(1)
+        subList = subList toContainElementsOf listOf(1)
+        star = star toContainElementsOf listOf(1)
+
+        list = list toContainElementsOf listOf(1, 1.2)
+        nList = nList toContainElementsOf listOf(1, 1.2)
+        subList = subList toContainElementsOf listOf(1, 2.2)
+        subList = subList toContainElementsOf listOf(1)
+        star = star toContainElementsOf listOf(1, 1.2, "asdf")
     }
 }

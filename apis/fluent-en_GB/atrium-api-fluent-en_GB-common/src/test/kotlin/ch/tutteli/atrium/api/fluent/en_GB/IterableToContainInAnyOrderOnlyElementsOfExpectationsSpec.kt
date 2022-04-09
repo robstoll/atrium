@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
@@ -15,11 +17,12 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         (functionDescription to C::toContainElementsOfNullable).withNullableSuffix()
     )
 
-    object BuilderIterableLikeToIterableSpec : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-        functionDescription,
-        listOf(1, 2),
-        { input -> toContain.inAnyOrder.only.elementsOf(input) }
-    )
+    object BuilderIterableLikeToIterableSpec :
+        ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
+            functionDescription,
+            listOf(1, 2),
+            { input -> toContain.inAnyOrder.only.elementsOf(input) }
+        )
 
     companion object : IterableToContainSpecBase() {
         val functionDescription = "$toContain.$inAnyOrder.$only.$elementsOf"
@@ -27,16 +30,23 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         private fun toContainElementsOf(
             expect: Expect<Iterable<Double>>,
             a: Double,
-            aX: Array<out Double>
-        ): Expect<Iterable<Double>> = expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX))
+            aX: Array<out Double>,
+            report: InAnyOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double>> =
+            if (report == emptyInAnyOrderOnlyReportOptions) {
+                expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX))
+            } else expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX), report = report)
 
         private fun toContainElementsOfNullable(
             expect: Expect<Iterable<Double?>>,
             a: Double?,
-            aX: Array<out Double?>
-        ): Expect<Iterable<Double?>> = expect.toContain.inAnyOrder.only.elementsOf(sequenceOf(a, *aX))
+            aX: Array<out Double?>,
+            report: InAnyOrderOnlyReportingOptions.() -> Unit
+        ): Expect<Iterable<Double?>> =
+            if (report == emptyInAnyOrderOnlyReportOptions) {
+                expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX))
+            } else expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX), report = report)
     }
-
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
@@ -49,5 +59,16 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
         subList = subList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
         star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
+
+        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
+        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
+        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
+        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
+
+        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int?>())
+        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int?>())
+
+        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int?>(), report = {})
+        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int?>(), report = {})
     }
 }

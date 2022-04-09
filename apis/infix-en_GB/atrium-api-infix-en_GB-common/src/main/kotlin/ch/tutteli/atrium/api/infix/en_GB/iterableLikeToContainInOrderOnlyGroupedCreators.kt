@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.Order
+import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInOrderOnlyReportingOptions
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
@@ -8,6 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.E
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.Group
@@ -29,7 +31,10 @@ import kotlin.jvm.JvmName
 
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, Group<E>>
-): Expect<T> = inAny(WithInOrderOnlyReportingOptions({}, order))
+): Expect<T> = inAny(withoutReportingOptions(order))
+
+private fun <E> withoutReportingOptions(order: Order<E, Group<E>>) =
+    WithInOrderOnlyReportingOptions({}, WithInAnyOrderOnlyReportingOptions({}, order))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
@@ -37,20 +42,28 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
  * contained in [IterableLike] in the specified order whereas the values within the groups can occur in any order.
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [IterableLike]
- *   plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function
- *   `order(group, group, ..., report = { ... })` to create a [WithInOrderOnlyReportingOptions] with a wrapped [Order]
- *   where group is either `value(e)` or `values(e, ...)`;
+ *   plus one lambda configuring the [InOrderOnlyReportingOptions] and another configuring the
+ *   [InAnyOrderOnlyReportingOptions] -- use the function:
+ *   - `order(group, group, ..., report = { ... })` to create a [WithInOrderOnlyReportingOptions] with a wrapped
+ *   [WithInAnyOrderOnlyReportingOptions] which specifies nothing and in turn wraps an [Order].
+ *   - `order(group, group, ..., reportInGroup = { ... })` to create a [WithInOrderOnlyReportingOptions] which specifies
+ *   nothing but wraps a [WithInOrderOnlyReportingOptions] which is configured via `reportInGroup` and in turn wraps an
+ *   [Order].
+ *   - `order(group, group, ..., report = { ... }, reportInGroup = { ... } )` to create a
+ *   [WithInOrderOnlyReportingOptions] (configured via `report`) with a wrapped  [WithInAnyOrderOnlyReportingOptions]
+ *   (configured via `reportInGroup`) which in turn wraps an [Order].
+ *
+ *   where `group` above (in all examples) is either `value(e)` or `values(e, ...)`;
  *   so a call could look as follows: `inAny order(values(1, 2), value(2), values(3, 2), report = { showOnlyFailing() })
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.18
+ * @since 0.18.0
  */
-
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: WithInOrderOnlyReportingOptions<Order<E, Group<E>>>
+    order: WithInOrderOnlyReportingOptions<WithInAnyOrderOnlyReportingOptions<Order<E, Group<E>>>>
 ): Expect<T> = _logicAppend {
-    valuesInOrderOnlyGrouped(order.t.toList(), order.report)
+    valuesInOrderOnlyGrouped(order.t.t.toList(), order.options, order.t.options)
 }
 
 /**
@@ -78,7 +91,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Expect<E>.() -> Unit)?, Group<(Expect<E>.() -> Unit)?>>
-): Expect<T> = inAny(WithInOrderOnlyReportingOptions({}, order))
+): Expect<T> = inAny(withoutReportingOptions(order))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
@@ -89,6 +102,16 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroup
  * An identification lambda can also be defined as `null` in which case it matches an entry which is `null` as well.
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [IterableLike]
+ *   plus one lambda configuring the [InOrderOnlyReportingOptions] and another configuring the
+ *   [InAnyOrderOnlyReportingOptions] -- use the function:
+ *   - `order(group, group, ..., report = { ... })` to create a [WithInOrderOnlyReportingOptions] with a wrapped
+ *   [WithInAnyOrderOnlyReportingOptions] which specifies nothing and in turn wraps an [Order].
+ *   - `order(group, group, ..., reportInGroup = { ... })` to create a [WithInOrderOnlyReportingOptions] which specifies
+ *   nothing but wraps a [WithInOrderOnlyReportingOptions] which is configured via `reportInGroup` and in turn wraps an
+ *   [Order].
+ *   - `order(group, group, ..., report = { ... }, reportInGroup = { ... } )` to create a
+ *   [WithInOrderOnlyReportingOptions] (configured via `report`) with a wrapped  [WithInAnyOrderOnlyReportingOptions]
+ *   (configured via `reportInGroup`) which in turn wraps an [Order].
  *    plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function
  *   `order(group, group, ..., report = { ... })`  to create a [WithInOrderOnlyReportingOptions] with a wrapped [Order]
  *   where group is either `entry { ... }` or `entries({ ... }, ...)`; so a call could look as follows:
@@ -97,6 +120,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroup
  *     entry { it toEqual 1 },
  *     entries({ it lessThan 2 }, { it toEqual 3 })
  *     report = { showOnlyFailing }
+ *     reportInGroup = { showOnlyFailingIfMoreElementsThan(5) }
  *   )
  *   ```
  *
@@ -106,9 +130,9 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroup
  */
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: WithInOrderOnlyReportingOptions<Order<(Expect<E>.() -> Unit)?, Group<(Expect<E>.() -> Unit)?>>>
+    order: WithInOrderOnlyReportingOptions<WithInAnyOrderOnlyReportingOptions<Order<(Expect<E>.() -> Unit)?, Group<(Expect<E>.() -> Unit)?>>>>
 ): Expect<T> = _logicAppend {
-    entriesInOrderOnlyGrouped(order.t.toList(), order.report)
+    entriesInOrderOnlyGrouped(order.t.t.toList(), order.options, order.t.options)
 }
 
 /**
@@ -121,8 +145,10 @@ fun <E> order(
 ): Order<E, Group<E>> = Order(firstGroup, secondGroup, otherExpectedGroups)
 
 /**
- * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping an [Order] based on the given
- * [firstGroup], [secondGroup] and [otherExpectedGroups] as well as the given [report]-configuration-lambda
+ * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping a [WithInAnyOrderOnlyReportingOptions]
+ * which wraps in turn an [Order] based on the given
+ * [firstGroup], [secondGroup] and [otherExpectedGroups] as well as the given [report]-configuration-lambda for
+ * the [WithInOrderOnlyReportingOptions].
  *
  * @since 0.18.0
  */
@@ -131,5 +157,43 @@ fun <E> order(
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>,
     report: InOrderOnlyReportingOptions.() -> Unit
-): WithInOrderOnlyReportingOptions<Order<E, Group<E>>> =
-    WithInOrderOnlyReportingOptions(report, Order(firstGroup, secondGroup, otherExpectedGroups))
+): WithInOrderOnlyReportingOptions<WithInAnyOrderOnlyReportingOptions<Order<E, Group<E>>>> =
+    order(firstGroup, secondGroup, *otherExpectedGroups, report = report, reportInGroup = { })
+
+/**
+ * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping a [WithInAnyOrderOnlyReportingOptions]
+ * which wraps in turn an [Order] based on the given
+ * [firstGroup], [secondGroup] and [otherExpectedGroups] as well as the given [reportInGroup]-configuration-lambda for
+ * the [WithInAnyOrderOnlyReportingOptions].
+ *
+ * @since 0.18.0
+ */
+@JvmName("orderWithReportInGroup")
+fun <E> order(
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>,
+    reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit
+): WithInOrderOnlyReportingOptions<WithInAnyOrderOnlyReportingOptions<Order<E, Group<E>>>> =
+    order(firstGroup, secondGroup, *otherExpectedGroups, report = {}, reportInGroup = reportInGroup)
+
+/**
+ * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping a [WithInAnyOrderOnlyReportingOptions]
+ * which wraps in turn an [Order] based on the given
+ * [firstGroup], [secondGroup] and [otherExpectedGroups] as well as the given [report]-configuration-lambda for
+ * the [WithInOrderOnlyReportingOptions] and the [reportInGroup]-configuration-lambda for
+ * the [WithInAnyOrderOnlyReportingOptions].
+ *
+ * @since 0.18.0
+ */
+fun <E> order(
+    firstGroup: Group<E>,
+    secondGroup: Group<E>,
+    vararg otherExpectedGroups: Group<E>,
+    report: InOrderOnlyReportingOptions.() -> Unit,
+    reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit
+): WithInOrderOnlyReportingOptions<WithInAnyOrderOnlyReportingOptions<Order<E, Group<E>>>> =
+    WithInOrderOnlyReportingOptions(
+        report,
+        WithInAnyOrderOnlyReportingOptions(reportInGroup, Order(firstGroup, secondGroup, otherExpectedGroups))
+    )

@@ -164,10 +164,10 @@ infix fun <E, T : Iterable<E>> Expect<T>.toContainExactly(values: Values<E>): Ex
  * Expects that the subject of `this` expectation (an [Iterable]) contains only
  * the expected [values] in the defined order.
  *
- * It is a shortcut for `toContain o inGiven order and only the values(..., report = {... })`
+ * It is a shortcut for `toContain o inGiven order and only the values(..., reportOptionsInOrderOnly = {... })`
  *
  * @param values The values which are expected to be contained within the [IterableLike] plus a lambda configuring
- *   the [InOrderOnlyReportingOptions] -- use the function `values(t, ..., report = { ... })`
+ *   the [InOrderOnlyReportingOptions] -- use the function `values(t, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -231,10 +231,10 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toContainExactly(entries: Entrie
  * [entries].t.[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
  *
- * It is a shortcut for `toContain o inGiven order and only the entries(..., report = { ... })`
+ * It is a shortcut for `toContain o inGiven order and only the entries(..., reportOptionsInOrderOnly = { ... })`
  *
  * @param entries The entries which are expected to be contained within the [Iterable] plus a lambda configuring
- *   the [InOrderOnlyReportingOptions] -- use the function `entries(t, ..., report = { ... })`
+ *   the [InOrderOnlyReportingOptions] -- use the function `entries(t, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Entries].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -278,11 +278,11 @@ inline infix fun <reified E, T : Iterable<E>> Expect<T>.toContainExactlyElements
  * [entries].t.[otherAssertionCreatorsOrNulls][Entries.otherAssertionCreatorsOrNulls] (if given)
  * whereas the entries have to appear in the defined order.
  *
- * It is a shortcut for `toContain o inGiven order and only the elementsOf(..., report = { ... })`
+ * It is a shortcut for `toContain o inGiven order and only the elementsOf(..., reportOptionsInOrderOnly = { ... })`
  *
  * @param elementsOf The [IterableLike] whose elements are expected to be contained within
  *   this [IterableLike] plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function
- *   `elementsOf(iterableLike, report = { ... })`
+ *   `elementsOf(iterableLike, reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [IterableLike].
  *
  * @return an [Expect] for the subject of `this` expectation.

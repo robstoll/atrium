@@ -96,9 +96,9 @@ class IterableExpectationSamples {
                 "C",
                 "B",
                 // optional
-                report = { // allows configuring reporting, e.g.
+                reportOptionsInOrderOnly = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful `B`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }
@@ -152,11 +152,11 @@ class IterableExpectationSamples {
         fails {
             expect(listOf(3, 5)) toContainExactly entries(
                 { toEqual(1) },       // fails
-                { toBeLessThan(11) }, // succeeds,
+                { toBeLessThan(11) }, // succeeds
                 // optional
-                report = { // allows configuring reporting, e.g.
+                reportOptionsInOrderOnly = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful `toBeLessThan(11)`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }
@@ -178,9 +178,9 @@ class IterableExpectationSamples {
             // alternative form where you can specify a lambda configuring the InOrderOnlyReportingOptions.
             expect(listOf(1, 2, 2, 4)) toContainExactly elementsOf(
                 listOf(1, 2, 4),
-                report = { // allows configuring reporting, e.g.
+                reportOptionsInOrderOnly = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful first and second `1, 2`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }

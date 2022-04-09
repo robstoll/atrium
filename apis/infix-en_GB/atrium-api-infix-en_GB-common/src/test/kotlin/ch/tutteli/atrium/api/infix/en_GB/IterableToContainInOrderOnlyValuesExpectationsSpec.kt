@@ -38,7 +38,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only value a
                 else expect toContain o inGiven order and only the values(a, *aX)
-            } else expect toContain o inGiven order and only the values(a, *aX, report = report)
+            } else expect toContain o inGiven order and only the values(a, *aX, reportOptionsInOrderOnly = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyValues" to Companion::toContainInOrderOnlyNullableValues
@@ -52,7 +52,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only value a
                 else expect toContain o inGiven order and only the values(a, *aX)
-            } else expect toContain o inGiven order and only the values(a, *aX, report = report)
+            } else expect toContain o inGiven order and only the values(a, *aX, reportOptionsInOrderOnly = report)
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Double, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactly
@@ -68,7 +68,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly a
                 else expect toContainExactly values(a, *aX)
-            } else expect toContainExactly values(a, *aX, report = report)
+            } else expect toContainExactly values(a, *aX, reportOptionsInOrderOnly = report)
 
         private val toContainNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, Double?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactly
@@ -85,7 +85,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly a
                 else expect toContainExactly values(a, *aX)
-            } else expect toContainExactly values(a, *aX, report = report)
+            } else expect toContainExactly values(a, *aX, reportOptionsInOrderOnly = report)
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -106,10 +106,10 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         subList = subList toContain o inGiven order and only the values<Number>(1, 2.2)
         star = star toContain o inGiven order and only the values<Any?>(1, 1.2, "asdf")
 
-        list = list toContain o inGiven order and only the values(1, 1.2, report = {})
-        nList = nList toContain o inGiven order and only the values(1, 1.2, report = {})
-        subList = subList toContain o inGiven order and only the values(1, 2.2, report = {})
-        star = star toContain o inGiven order and only the values(1, 1.2, "asdf", report = {})
+        list = list toContain o inGiven order and only the values(1, 1.2, reportOptionsInOrderOnly = {})
+        nList = nList toContain o inGiven order and only the values(1, 1.2, reportOptionsInOrderOnly = {})
+        subList = subList toContain o inGiven order and only the values(1, 2.2, reportOptionsInOrderOnly = {})
+        star = star toContain o inGiven order and only the values(1, 1.2, "asdf", reportOptionsInOrderOnly = {})
 
         list = list toContainExactly 1
         nList = nList toContainExactly values(1, 1.2)
@@ -119,12 +119,14 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         //TODO we should actually setup proper tests for those cases as we only see it compiles (has no ambiguity)
         // but don't know if it has chosen the correct overload in the end
         // (because we sometimes have Any as param and passing a ParamObject to such a function is not a compile error)
-        list = list toContainExactly values(1, 1.2, report = { showOnlyFailingIfMoreElementsThan(1) })
-        nList = nList toContainExactly values(1, 1.2, report = { showOnlyFailing() })
-        subList = subList toContainExactly values(1, 2.2, report = { showAlwaysSummary() })
+        list = list toContainExactly values(1, 1.2, reportOptionsInOrderOnly = {
+            showOnlyFailingIfMoreExpectedElementsThan(1)
+        })
+        nList = nList toContainExactly values(1, 1.2, reportOptionsInOrderOnly = { showOnlyFailing() })
+        subList = subList toContainExactly values(1, 2.2, reportOptionsInOrderOnly = { showAlwaysSummary() })
         // TODO would wish this does not work, maybe @OnlyInputTypes would help?
-        subList = subList toContainExactly values("asdf", report = {})
-        star = star toContainExactly values(1, 1.2, "asdf", report = {})
+        subList = subList toContainExactly values("asdf", reportOptionsInOrderOnly = {})
+        star = star toContainExactly values(1, 1.2, "asdf", reportOptionsInOrderOnly = {})
     }
 }
 

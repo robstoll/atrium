@@ -381,13 +381,17 @@ def createJsTestTask(String... subprojectNames) {
     }
 }
 
-createJsTestTask(
-    'core-js',
-    'api-fluent-en_GB-js',
-    'api-infix-en_GB-js',
-    'fluent-en_GB-js',
-    'infix-en_GB-js'
-)
+//TODO 0.19.0 enable JS-tests again once we use the new MPP plugins because then they should only re-run if something
+// changed, in contrast to now where they re-run all the time
+if (Boolean.parseBoolean(System.getenv('CI'))) {
+    createJsTestTask(
+        'core-js',
+        'api-fluent-en_GB-js',
+        'api-infix-en_GB-js',
+        'fluent-en_GB-js',
+        'infix-en_GB-js'
+    )
+}
 
 def useJupiter(String... projectNames) {
     configure(projectNamesToProject(projectNames)) {

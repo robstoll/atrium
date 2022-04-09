@@ -9,6 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 /**
@@ -19,12 +20,14 @@ interface IterableLikeContainsAssertions {
 
     fun <E, T : IterableLike> valuesInAnyOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InAnyOrderOnlySearchBehaviour>,
-        expected: List<E>
+        expected: List<E>,
+        reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
     fun <E : Any, T : IterableLike> entriesInAnyOrderOnly(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreators: List<(Expect<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>,
+        reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
 
@@ -44,12 +47,14 @@ interface IterableLikeContainsAssertions {
     fun <E, T : IterableLike> valuesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<E, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<E>>,
-        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
+        inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+        inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 
     fun <E : Any, T : IterableLike> entriesInOrderOnlyGrouped(
         entryPointStepLogic: IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<(Expect<E>.() -> Unit)?>>,
-        reportingOptions: InOrderOnlyReportingOptions.() -> Unit
+        inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit,
+        inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
     ): Assertion
 }

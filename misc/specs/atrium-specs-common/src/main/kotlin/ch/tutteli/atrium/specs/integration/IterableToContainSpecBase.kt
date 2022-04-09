@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.exactly
+import ch.tutteli.atrium.api.fluent.en_GB.notToContain
 import ch.tutteli.atrium.api.fluent.en_GB.regex
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -19,6 +21,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         val oneToFour = { sequenceOf(1.0, 2.0, 3.0, 4.0, 4.0).constrainOnce().asIterable() }
+        val oneToEleven = (1..11).map { it.toDouble() }.asIterable()
         val oneToSeven = { sequenceOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
         val oneToSevenNullable =
             { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
@@ -59,9 +62,13 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val separator = lineSeparator
 
         val emptyInOrderOnlyReportOptions : InOrderOnlyReportingOptions.() -> Unit = {}
+        val emptyInAnyOrderOnlyReportOptions : InAnyOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1).regex("${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected")
+
+        fun Expect<String>.notToContainElement(index: Int, expected: Double): Expect<String> =
+            notToContain.regex("\\Q${elementWithIndex(index)}: ${expected}\\E.*$separator")
 
         fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)
         private fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)

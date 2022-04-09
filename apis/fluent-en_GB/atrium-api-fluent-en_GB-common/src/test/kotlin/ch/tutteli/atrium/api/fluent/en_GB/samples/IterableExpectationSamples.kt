@@ -94,7 +94,7 @@ class IterableExpectationSamples {
                 // optional
                 report = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful `B`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }
@@ -142,7 +142,7 @@ class IterableExpectationSamples {
                 // optional
                 report = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful `toBeLessThan(11)`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }
@@ -166,7 +166,7 @@ class IterableExpectationSamples {
                 // optional
                 report = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful first and second `1, 2`
-                    showOnlyFailingIfMoreElementsThan(10)
+                    showOnlyFailingIfMoreExpectedElementsThan(10)
                 }
             )
         }

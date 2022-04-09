@@ -156,7 +156,7 @@ class MostExamplesSpec : Spek({
             { toBeLessThan(3) },
             { toBeLessThan(2) },
             { toBeGreaterThan(1) },
-            report = { showOnlyFailingIfMoreElementsThan(3) }
+            report = { showOnlyFailingIfMoreExpectedElementsThan(2) }
         )
     }
     test("ex-collection-builder-2") {

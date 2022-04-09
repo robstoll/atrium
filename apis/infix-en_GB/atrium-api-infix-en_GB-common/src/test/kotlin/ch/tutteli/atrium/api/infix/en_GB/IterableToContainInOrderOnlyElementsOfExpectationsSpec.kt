@@ -51,7 +51,7 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double>> =
             if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf listOf(a, *aX)
-            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), report = report)
+            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), reportOptionsInOrderOnly = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderElementsOf" to Companion::toContainInOrderOnlyNullableValues
@@ -63,7 +63,7 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
             report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Iterable<Double?>> =
             if (report === emptyInOrderOnlyReportOptions) expect toContain o inGiven order and only elementsOf sequenceOf(a, *aX)
-            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), report = report)
+            else expect toContain o inGiven order and only the elementsOf(listOf(a, *aX), reportOptionsInOrderOnly = report)
 
         private val toContainExactlyElementsOfShortcutFun: KFunction2<Expect<Iterable<Double>>, Iterable<Double>, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactlyElementsOf
@@ -109,10 +109,10 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         subList = subList toContain o inGiven order and only elementsOf(listOf<Int>())
         star = star toContain o inGiven order and only elementsOf(listOf<Int>())
 
-        list = list toContain o inGiven order and only the elementsOf(listOf<Int>(), report = { showAlwaysSummary() })
-        nList = nList toContain o inGiven order and only the elementsOf(listOf<Int>(), report = { showOnlyFailing()})
-        subList = subList toContain o inGiven order and only the elementsOf(listOf<Int>(), report = {})
-        star = star toContain o inGiven order and only the elementsOf(listOf<Int>(), report = {})
+        list = list toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = { showAlwaysSummary() })
+        nList = nList toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = { showOnlyFailing()})
+        subList = subList toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = {})
+        star = star toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = {})
 
         list = list.toContainExactlyElementsOf(listOf(1))
         nList = nList.toContainExactlyElementsOf(listOf(1))

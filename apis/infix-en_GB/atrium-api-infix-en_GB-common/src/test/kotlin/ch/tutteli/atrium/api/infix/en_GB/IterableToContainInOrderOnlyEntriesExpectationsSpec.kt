@@ -39,7 +39,7 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only entry a
                 else expect toContain o inGiven order and only the entries(a, *aX)
-            } else expect toContain o inGiven order and only the entries(a, *aX, report = report)
+            } else expect toContain o inGiven order and only the entries(a, *aX, reportOptionsInOrderOnly = report)
 
         fun getToContainNullablePair() =
             "$toContain $filler $inOrder $andOnly $inOrderOnlyEntries" to Companion::toContainInOrderOnlyNullableEntriesPair
@@ -53,7 +53,7 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContain o inGiven order and only entry a
                 else expect toContain o inGiven order and only the entries(a, *aX)
-            } else expect toContain o inGiven order and only the entries(a, *aX, report = report)
+            } else expect toContain o inGiven order and only the entries(a, *aX, reportOptionsInOrderOnly = report)
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContainExactly
@@ -69,7 +69,7 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
             if (report === emptyInOrderOnlyReportOptions) {
                 if (aX.isEmpty()) expect toContainExactly { a() }
                 else expect toContainExactly entries(a, *aX)
-            } else expect toContainExactly entries(a, *aX, report = report)
+            } else expect toContainExactly entries(a, *aX, reportOptionsInOrderOnly = report)
 
         private val toContainNullableShortcutFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
             Expect<Iterable<Double?>>::toContainExactly
@@ -91,6 +91,6 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
                 } else {
                     expect toContainExactly entries(a, *aX)
                 }
-            } else expect toContainExactly entries(a, *aX, report = report)
+            } else expect toContainExactly entries(a, *aX, reportOptionsInOrderOnly = report)
     }
 }

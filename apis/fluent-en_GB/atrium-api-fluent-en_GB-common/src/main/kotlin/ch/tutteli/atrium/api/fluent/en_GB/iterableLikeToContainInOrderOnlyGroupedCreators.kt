@@ -9,6 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.E
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.entriesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.valuesInOrderOnlyGrouped
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import kotlin.jvm.JvmName
 
@@ -24,6 +25,10 @@ import kotlin.jvm.JvmName
  *   [IterableLike] whereas the groups have to appear in the given order.
  * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.17.0
+ * @param reportInGroup The lambda configuring the [InAnyOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -33,9 +38,10 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>,
-    report: InOrderOnlyReportingOptions.() -> Unit = {}
+    report: InOrderOnlyReportingOptions.() -> Unit = {},
+    reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {
-    valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report)
+    valuesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report, reportInGroup)
 }
 
 /**
@@ -54,6 +60,10 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
  *   [IterableLike] whereas the groups have to appear in the given order.
  * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.17.0
+ * @param reportInGroup The lambda configuring the [InAnyOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.18.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -64,7 +74,8 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWith
     firstGroup: Group<(Expect<E>.() -> Unit)?>,
     secondGroup: Group<(Expect<E>.() -> Unit)?>,
     vararg otherExpectedGroups: Group<(Expect<E>.() -> Unit)?>,
-    report: InOrderOnlyReportingOptions.() -> Unit = {}
+    report: InOrderOnlyReportingOptions.() -> Unit = {},
+    reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {
-    entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report)
+    entriesInOrderOnlyGrouped(groupsToList(firstGroup, secondGroup, otherExpectedGroups), report, reportInGroup)
 }

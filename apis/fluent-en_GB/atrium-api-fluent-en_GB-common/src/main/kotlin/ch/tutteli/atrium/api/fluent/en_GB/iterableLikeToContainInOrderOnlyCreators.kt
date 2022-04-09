@@ -37,6 +37,7 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value
  * @param otherExpected Additional values which are expected to be contained within [IterableLike].
  * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.17.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -81,6 +82,7 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  *   which we are looking for (see [assertionCreatorOrNull] for more information).
  * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *   since 0.17.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -105,6 +107,7 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehav
  * @param expectedIterableLike The [IterableLike] whose elements are expected to be contained within this [IterableLike].
  * @param report The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
+     since 0.17.0
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an

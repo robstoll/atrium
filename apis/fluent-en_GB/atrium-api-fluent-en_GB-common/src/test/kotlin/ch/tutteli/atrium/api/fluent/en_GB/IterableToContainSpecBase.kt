@@ -5,8 +5,9 @@ import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
-import kotlin.reflect.KFunction5
+import kotlin.reflect.KFunction6
 import kotlin.reflect.KProperty
 
 abstract class IterableToContainSpecBase {
@@ -32,8 +33,8 @@ abstract class IterableToContainSpecBase {
     protected val only = IterableLikeContains.EntryPointStep<Int, List<Int>, InAnyOrderSearchBehaviour>::only.name
     protected val grouped = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::grouped.name
     protected val within = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlyGroupedSearchBehaviour>::within.name
-    private val withinInAnyOrderFun: KFunction5<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, InOrderOnlyReportingOptions.() -> Unit, Expect<Iterable<Int>>> =
-        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour, >::inAnyOrder
+    private val withinInAnyOrderFun: KFunction6<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Int>, Group<Int>, Array<out Group<Int>>, InOrderOnlyReportingOptions.() -> Unit, InAnyOrderOnlyReportingOptions.() -> Unit, Expect<Iterable<Int>>> =
+        IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder
     protected val withinInAnyOrder = withinInAnyOrderFun.name
     //@formatter:on
 }

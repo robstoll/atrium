@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
@@ -23,8 +24,9 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEM
  */
 class InAnyOrderOnlyValuesAssertionCreator<E, T : IterableLike>(
     converter: (T) -> Iterable<E>,
-    searchBehaviour: InAnyOrderOnlySearchBehaviour
-) : InAnyOrderOnlyAssertionCreator<E, T, E>(converter, searchBehaviour) {
+    searchBehaviour: InAnyOrderOnlySearchBehaviour,
+    reportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit
+) : InAnyOrderOnlyAssertionCreator<E, T, E>(converter, searchBehaviour, reportingOptions) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(
         container: AssertionContainer<*>,

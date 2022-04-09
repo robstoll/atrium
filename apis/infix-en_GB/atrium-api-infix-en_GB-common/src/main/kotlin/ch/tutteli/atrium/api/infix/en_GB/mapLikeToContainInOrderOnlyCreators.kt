@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
-import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInOrderOnlyReportingOptions
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
@@ -54,7 +53,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  * needs to contain only the given [pairs] in the specified order.
  *
  * @param pairs The key-value pairs which are expected to be contained within the [MapLike]
- *   plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function `pairs(t, ..., report = { ... })`
+ *   plus a lambda configuring the [InOrderOnlyReportingOptions] -- use the function `pairs(t, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [Pairs].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -65,7 +64,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.the(
     pairs: WithInOrderOnlyReportingOptions<Pairs<K, V>>
 ): Expect<T> = _logicAppend {
-    keyValuePairsInOrderOnly(pairs.t.toList(), pairs.report)
+    keyValuePairsInOrderOnly(pairs.t.toList(), pairs.options)
 }
 
 
@@ -119,7 +118,7 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
  * @param keyValues The [KeyWithValueCreator]s plus a lambda configuring the [InOrderOnlyReportingOptions]
- *   -- use the function `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ..., report = { ... })`
+ *   -- use the function `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -139,7 +138,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
     keyWithValueAssertionsInOrderOnly(
         kClass,
         keyValues.t.toList().map { it.toPair() },
-        keyValues.report
+        keyValues.options
     )
 }
 
@@ -190,5 +189,5 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     entriesOf: WithInOrderOnlyReportingOptions<MapLike>
 ): Expect<T> = _logic.toVarArgPairs<K, V>(entriesOf.t).let { (first, rest) ->
-    this the pairs(first, *rest, report = entriesOf.report)
+    this the pairs(first, *rest, reportOptionsInOrderOnly = entriesOf.options)
 }

@@ -78,13 +78,18 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
         subList = subList.toContain.inOrder.only.values(1, 2.2, report = {})
         star = star.toContain.inOrder.only.values(1, 1.2, "asdf", report = {})
 
+        nList = nList.toContain.inOrder.only.values(null, 1.2)
+        star = star.toContain.inOrder.only.values(null, 1.2, "asdf")
+
+        nList = nList.toContain.inOrder.only.values(null, 1.2, report = {})
+        star = star.toContain.inOrder.only.values(null, 1.2, "asdf", report = {})
 
         list = list.toContainExactly(1)
         nList = nList.toContainExactly(1, 1.2)
         subList = subList.toContainExactly(1)
         star = star.toContainExactly(1, "a", null)
 
-        list = list.toContainExactly(1, report = { showOnlyFailingIfMoreElementsThan(1) })
+        list = list.toContainExactly(1, report = { showOnlyFailingIfMoreExpectedElementsThan(1) })
         nList = nList.toContainExactly(1, 1.2, report = { showOnlyFailing() })
         subList = subList.toContainExactly(1, 2.2, report = { showAlwaysSummary() })
         // TODO would wish this does not work, maybe @OnlyInputTypes would help?
