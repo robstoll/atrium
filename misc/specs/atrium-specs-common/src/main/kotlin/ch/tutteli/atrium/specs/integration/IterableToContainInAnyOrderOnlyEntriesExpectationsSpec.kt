@@ -394,7 +394,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
         fun Expect<Iterable<Double?>>.toContainFun(
             t: (Expect<Double>.() -> Unit)?,
             vararg tX: (Expect<Double>.() -> Unit)?,
-            report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+            report: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
         ) = toContainInAnyOrderOnlyNullableEntries(this, t, tX, report)
 
         describeFun(toContainInAnyOrderOnlyNullableEntries) {

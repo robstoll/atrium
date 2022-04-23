@@ -31,7 +31,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
         fun Expect<Iterable<Double>>.toContainFun(
             t: Double,
             vararg tX: Double,
-            report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+            report: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
         ) = toContainValuesFunArr(t, tX.toTypedArray(), report)
 
         context("empty collection") {
@@ -327,7 +327,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
         fun Expect<Iterable<Double?>>.toContainFun(
             t: Double?,
             vararg tX: Double?,
-            report: InAnyOrderOnlyReportingOptions.() -> Unit = {}
+            report: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
         ) = toContainInAnyOrderOnlyNullableValues(this, t, tX, report)
 
 
