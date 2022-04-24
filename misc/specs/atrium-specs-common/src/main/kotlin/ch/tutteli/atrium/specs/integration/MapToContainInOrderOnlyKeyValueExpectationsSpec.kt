@@ -3,13 +3,15 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nullableCases
 import org.spekframework.spek2.style.specification.Suite
 
-//TODO 0.18.0 include InOrderReportOptions
 abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
-    keyWithValueAssertions: MFun2<String, Int, Expect<Int>.() -> Unit>,
-    keyWithNullableValueAssertions: MFun2<String?, Int?, (Expect<Int>.() -> Unit)?>,
+    keyWithValueAssertions: MFun3<String, Int, Expect<Int>.() -> Unit, InOrderOnlyReportingOptions.() -> Unit>,
+    keyWithNullableValueAssertions: MFun3<String?, Int?, (Expect<Int>.() -> Unit)?, InOrderOnlyReportingOptions.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : MapLikeToContainFormatSpecBase({
 
@@ -17,7 +19,8 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         describePrefix,
         keyWithValueAssertions.forSubjectLess(
             keyValue("a") { toEqual(1) },
-            arrayOf(keyValue("a") { toBeLessThanOrEqualTo(2) })
+            arrayOf(keyValue("a") { toBeLessThanOrEqualTo(2) }),
+            emptyInOrderOnlyReportOptions
         )
     ) {})
 
@@ -25,7 +28,8 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         "$describePrefix[nullable Key] ",
         keyWithNullableValueAssertions.forSubjectLess(
             keyNullableValue(null) { toEqual(1) },
-            arrayOf(keyNullableValue("a", null))
+            arrayOf(keyNullableValue("a", null)),
+            emptyInOrderOnlyReportOptions
         )
     ) {})
 
@@ -36,10 +40,18 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 keyWithValueAssertions(
                     this,
                     keyValue("a") { toBeLessThan(2) },
-                    arrayOf(keyValue("b") { toBeLessThan(3) })
+                    arrayOf(keyValue("b") { toBeLessThan(3) }),
+                    emptyInOrderOnlyReportOptions
                 )
             },
-            { keyWithValueAssertions(this, keyValue("a") { }, arrayOf(keyValue("b") { })) }
+            {
+                keyWithValueAssertions(
+                    this,
+                    keyValue("a") { },
+                    arrayOf(keyValue("b") { }),
+                    emptyInOrderOnlyReportOptions
+                )
+            }
         )
     ) {})
 
@@ -50,15 +62,20 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 keyWithNullableValueAssertions(
                     this,
                     keyNullableValue("a") { toBeLessThan(2) },
-                    arrayOf(keyNullableValue("b", null))
+                    arrayOf(keyNullableValue("b", null)),
+                    emptyInOrderOnlyReportOptions
                 )
             },
-            { keyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf(keyValue("b") { })) }
+            {
+                keyWithNullableValueAssertions(
+                    this,
+                    keyNullableValue("a") { },
+                    arrayOf(keyValue("b") { }),
+                    emptyInOrderOnlyReportOptions
+                )
+            }
         )
     ) {})
-
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun entry(index: Int) = IterableToContainSpecBase.elementWithIndex(index)
 
@@ -129,116 +146,128 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
             }
         }
 
-    describeFun(keyWithValueAssertions, keyWithNullableValueAssertions) {
-        val toContainKeyWithValueAssertionsFunctions = uncheckedToNonNullable(
-            keyWithValueAssertions,
-            keyWithNullableValueAssertions
-        )
+    nonNullableCases(
+        describePrefix,
+        keyWithValueAssertions,
+        keyWithNullableValueAssertions
+    ) { keyWithValueAssertionsFunArr ->
+
+        fun Expect<Map<out String, Int>>.toContainFun(
+            t: Pair<String, Expect<Int>.() -> Unit>,
+            vararg tX: Pair<String, Expect<Int>.() -> Unit>,
+            report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
+        ) = keyWithValueAssertionsFunArr(t, tX, report)
 
         context("empty map") {
-            toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainFun) ->
-                it("$name - a to { toBe(1) } throws AssertionError, reports a") {
-                    expect {
-                        expect(emptyMap).toContainFun(keyValue("a") { toEqual(1) }, arrayOf())
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainInOrderOnlyDescr()
-                            toContainSize(0, 1)
-                            elementOutOfBound(0, "a", "$toEqualDescr: 1")
-                        }
+            it("a to { toBe(1) } throws AssertionError, reports a") {
+                expect {
+                    expect(emptyMap).toContainFun(keyValue("a") { toEqual(1) })
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainInOrderOnlyDescr()
+                        toContainSize(0, 1)
+                        elementOutOfBound(0, "a", "$toEqualDescr: 1")
                     }
                 }
+            }
 
-                it("$name - a to { isLessThan(1) }, b to { toBe(3) }, c to { isLessThan(4) } } throws AssertionError, reports a, b and c") {
-                    expect {
-                        expect(emptyMap).toContainFun(
-                            keyValue("a") { toBeLessThan(1) },
-                            arrayOf(
-                                keyValue("b") { toEqual(3) },
-                                keyValue("c") { toBeLessThan(4) }
-                            ))
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainInOrderOnlyDescr()
-                            toContainSize(0, 3)
-                            elementOutOfBound(0, "a", "$toBeLessThanDescr: 1")
-                            elementOutOfBound(1, "b", "$toEqualDescr: 3")
-                            elementOutOfBound(2, "c", "$toBeLessThanDescr: 4")
-                        }
+            it("a to { isLessThan(1) }, b to { toBe(3) }, c to { isLessThan(4) } } throws AssertionError, reports a, b and c") {
+                expect {
+                    expect(emptyMap).toContainFun(
+                        keyValue("a") { toBeLessThan(1) },
+                        keyValue("b") { toEqual(3) },
+                        keyValue("c") { toBeLessThan(4) }
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainInOrderOnlyDescr()
+                        toContainSize(0, 3)
+                        elementOutOfBound(0, "a", "$toBeLessThanDescr: 1")
+                        elementOutOfBound(1, "b", "$toEqualDescr: 3")
+                        elementOutOfBound(2, "c", "$toBeLessThanDescr: 4")
                     }
                 }
             }
         }
+
 
         context("map $map") {
             val fluent = expect(map)
+            listOf(
+                "a to { toBe(1) }, b to { toBe(2) }" to listOf(
+                    keyValue("a") { toEqual(1) },
+                    keyValue("b") { toEqual(2) }),
+                "a to { isGreaterThan(0) }, b to { isLessThan(3) }" to listOf(
+                    keyValue("a") { toBeGreaterThan(0) },
+                    keyValue("b") { toBeLessThan(3) })
+            ).forEach { (description, list) ->
+                it("$description does not throw") {
+                    expect(map).toContainFun(
+                        list.first(),
+                        *list.drop(1).toTypedArray()
+                    )
+                }
+            }
 
-            toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainFun) ->
-                listOf(
-                    "a to { toBe(1) }, b to { toBe(2) }" to listOf(
-                        keyValue("a") { toEqual(1) },
-                        keyValue("b") { toEqual(2) }),
-                    "a to { isGreaterThan(0) }, b to { isLessThan(3) }" to listOf(
-                        keyValue("a") { toBeGreaterThan(0) },
-                        keyValue("b") { toBeLessThan(3) })
-                ).forEach { (description, list) ->
-                    it("$name - $description does not throw") {
-                        expect(map).toContainFun(list.first(), list.drop(1).toTypedArray())
+            it("a to { toBe(1) } throws AssertionError, missing b") {
+                expect {
+                    fluent.toContainFun(keyValue("a") { toEqual(1) })
+                }.toThrow<AssertionError> {
+                    message {
+                        elementSuccess(0, "a=1", "a", "$toEqualDescr: 1")
+                        additionalEntries(1 to "b=2")
+                        toContainSize(2, 1)
                     }
                 }
+            }
 
-                it("$name - a to { toBe(1) } throws AssertionError, missing b") {
-                    expect {
-                        fluent.toContainFun(
-                            keyValue("a") { toEqual(1) },
-                            arrayOf()
-                        )
-                    }.toThrow<AssertionError> {
-                        message {
-                            elementSuccess(0, "a=1", "a", "$toEqualDescr: 1")
-                            additionalEntries(1 to "b=2")
-                            toContainSize(2, 1)
-                        }
+            it("b to { toBe(2) }, a to { toBe(1) } throws AssertionError, wrong order") {
+                expect {
+                    fluent.toContainFun(
+                        keyValue("b") { toEqual(2) },
+                        keyValue("a") { toEqual(1) }
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        elementFailing(0, "a=1", "b", "$toEqualDescr: 2")
+                        elementFailing(1, "b=2", "a", "$toEqualDescr: 1")
+
+                        notToContain(additionalEntriesDescr, sizeDescr)
                     }
                 }
+            }
 
-                it("$name - b to { toBe(2) }, a to { toBe(1) } throws AssertionError, wrong order") {
-                    expect {
-                        fluent.toContainFun(
-                            keyValue("b") { toEqual(2) },
-                            arrayOf(keyValue("a") { toEqual(1) })
-                        )
-                    }.toThrow<AssertionError> {
-                        message {
-                            elementFailing(0, "a=1", "b", "$toEqualDescr: 2")
-                            elementFailing(1, "b=2", "a", "$toEqualDescr: 1")
-
-                            notToContain(additionalEntriesDescr, sizeDescr)
-                        }
-                    }
-                }
-
-                it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
-                    expect {
-                        fluent.toContainFun(
-                            keyValue("a") { toBeLessThan(3) },
-                            arrayOf(keyValue("b") { toBeLessThan(2) }, keyValue("c") { toBeLessThan(1) })
-                        )
-                    }.toThrow<AssertionError> {
-                        message {
-                            elementSuccess(0, "a=1", "a", "$toBeLessThanDescr: 3")
-                            elementFailing(1, "b=2", "b", "$toBeLessThanDescr: 2")
-                            elementOutOfBound(2, "c", "$toBeLessThanDescr: 1")
-                            notToContain(additionalEntriesDescr)
-                        }
+            it("a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
+                expect {
+                    fluent.toContainFun(
+                        keyValue("a") { toBeLessThan(3) },
+                        keyValue("b") { toBeLessThan(2) },
+                        keyValue("c") { toBeLessThan(1) }
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        elementSuccess(0, "a=1", "a", "$toBeLessThanDescr: 3")
+                        elementFailing(1, "b=2", "b", "$toBeLessThanDescr: 2")
+                        elementOutOfBound(2, "c", "$toBeLessThanDescr: 1")
+                        notToContain(additionalEntriesDescr)
                     }
                 }
             }
         }
+
+        context("report options") {
+            //TODO #1129 add tests, see IterableToContainInOrderOnlyValuesExpectationsSpec -> report options
+        }
     }
 
-    describeFun(keyWithNullableValueAssertions) {
-        val toContainFun = keyWithNullableValueAssertions.lambda
+    nullableCases(describePrefix) {
+
+        fun Expect<Map<out String?, Int?>>.toContainFun(
+            t: Pair<String?, (Expect<Int>.() -> Unit)?>,
+            vararg tX: Pair<String?, (Expect<Int>.() -> Unit)?>,
+            report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
+        ) = keyWithNullableValueAssertions(this, t, tX, report)
+
         val nullableFluent = expect(nullableMap)
 
         context("map $nullableMap") {
@@ -259,14 +288,14 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 it("$description does not throw") {
                     nullableFluent.toContainFun(
                         keyValues.first(),
-                        keyValues.drop(1).toTypedArray()
+                        *keyValues.drop(1).toTypedArray()
                     )
                 }
             }
 
             it("(a, null) throws AssertionError, missing b") {
                 expect {
-                    nullableFluent.toContainFun(keyNullableValue("a", null), arrayOf())
+                    nullableFluent.toContainFun(keyNullableValue("a", null))
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=null", "a", "$toEqualDescr: null")
@@ -280,10 +309,8 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 expect {
                     nullableFluent.toContainFun(
                         keyNullableValue("b") { toEqual(2) },
-                        arrayOf(
-                            keyNullableValue("a", null),
-                            keyNullableValue(null) { toEqual(1) }
-                        )
+                        keyNullableValue("a", null),
+                        keyNullableValue(null) { toEqual(1) }
                     )
                 }.toThrow<AssertionError> {
                     message {
@@ -300,10 +327,9 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
             it("(a, null), c { isLessThan(1) }, b { isLessThan(2) } throws AssertionError, reports b and c") {
                 expect {
                     nullableFluent.toContainFun(
-                        keyNullableValue("a", null), arrayOf(
-                            keyNullableValue("c") { toBeLessThan(1) },
-                            keyNullableValue("b") { toBeLessThan(2) }
-                        )
+                        keyNullableValue("a", null),
+                        keyNullableValue("c") { toBeLessThan(1) },
+                        keyNullableValue("b") { toBeLessThan(2) }
                     )
                 }.toThrow<AssertionError> {
                     message {

@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.mapArguments
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.MapLikeToContainFormatSpecBase
 import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.api.infix.en_GB.MapToContainInOrderOnlyKeyValueExpectationsSpec.Companion as C
 
@@ -22,19 +24,33 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         private fun toContainKeyValues(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Expect<Int>.() -> Unit>,
-            aX: Array<out Pair<String, Expect<Int>.() -> Unit>>
+            aX: Array<out Pair<String, Expect<Int>.() -> Unit>>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ) = mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
-            if (others.isEmpty()) expect toContain o inGiven order and only entry first
-            else expect toContain o inGiven order and only the keyValues(first, *others)
+            if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
+                if (others.isEmpty()) expect toContain o inGiven order and only entry first
+                else expect toContain o inGiven order and only the keyValues(first, *others)
+            } else expect toContain o inGiven order and only the keyValues(
+                first,
+                *others,
+                reportOptionsInOrderOnly = report
+            )
         }
 
         private fun toContainKeyValuesNullable(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, (Expect<Int>.() -> Unit)?>,
-            aX: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>
+            aX: Array<out Pair<String?, (Expect<Int>.() -> Unit)?>>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ) = mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
-            if (others.isEmpty()) expect toContain o inGiven order and only entry first
-            else expect toContain o inGiven order and only the keyValues(first, *others)
+            if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
+                if (others.isEmpty()) expect toContain o inGiven order and only entry first
+                else expect toContain o inGiven order and only the keyValues(first, *others)
+            } else expect toContain o inGiven order and only the keyValues(
+                first,
+                *others,
+                reportOptionsInOrderOnly = report
+            )
         }
     }
 
@@ -61,8 +77,25 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
         nValueMap = nValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
         nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
+        ronKeyValueMap =
+            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
         starMap = starMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
+
+        map = map toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        subMap = subMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        nValueMap = nValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        ronKeyValueMap =
+            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+                reportOptionsInOrderOnly = {})
+        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
 
         map = map toContain o inGiven order and only the keyValues(
             keyValue(1 as Number) { this toEqual "a" },
@@ -104,12 +137,27 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         starMap = starMap toContain o inGiven order and only entry keyValue(null, null)
 
         nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
+        nKeyValueMap =
+            nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
+        ronKeyValueMap =
+            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
         starMap = starMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
 
+        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+        nKeyValueMap =
+            nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+                reportOptionsInOrderOnly = {})
+        ronKeyValueMap =
+            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+                reportOptionsInOrderOnly = {})
+        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+            reportOptionsInOrderOnly = {})
+
         nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
-        nValueMap = nValueMap toContain o inGiven order and only the keyValues(keyValue(1, null), keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap toContain o inGiven order and only the keyValues(
+            keyValue(1, null),
+            keyValue(1) { this toEqual "a" })
         nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
