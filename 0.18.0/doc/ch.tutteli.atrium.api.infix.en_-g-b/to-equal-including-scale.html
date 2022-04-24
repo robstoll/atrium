@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toEqualIncludingScale - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-equal-including-scale.html">toEqualIncludingScale</a><br/>
+<br/>
+<h1>toEqualIncludingScale</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)), ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toEqualIncludingScale</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)), ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-including-scale.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/bigDecimalExpectations.kt#L154">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html">BigDecimal</a>) is equal to <a href="to-equal-including-scale.html#ch.tutteli.atrium.api.infix.en_GB$toEqualIncludingScale(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)), ch.tutteli.atrium.api.infix.en_GB.toEqualIncludingScale.T)/expected">expected</a> including <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>.</p>
+<p>Most of the time you want to use <a href="to-equal-numerically.html">toEqualNumerically</a> which does not compare <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>
+in contrast to this function.
+Following the two functions compared:</p>
+<ul><li><code>expect(BigDecimal("10")).toEqualIncludingScale(BigDecimal("10.0"))</code> does not hold.</li>
+<li><code>expect(BigDecimal("10")).toEqualNumerically(BigDecimal("10.0"))</code> holds.</li>
+</ul>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

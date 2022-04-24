@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PropertiesBasedTranslationSupplier - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="./index.html">PropertiesBasedTranslationSupplier</a><br/>
+<br/>
+<h1>PropertiesBasedTranslationSupplier</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">PropertiesBasedTranslationSupplier</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-jvm/src/main/kotlin/ch/tutteli/atrium/reporting/translating/PropertiesBasedTranslationSupplier.kt#L23">(source)</a>
+<p>A base class for properties based <a href="../-translation-supplier/index.html">TranslationSupplier</a>s which provides a loading
+and caching mechanism of properties files.</p>
+<p>There is no way to purge the cache. This class is intended for a one run process where
+translations do not change in between.</p>
+<p>It is compatible with Java's <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a> - thus properties files should also use ISO-8859-1 as encoding.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - Translations are grouped by a certain aspect (for instance, by <a href="../-locale/index.html">Locale</a>). <a href="index.html#T">T</a> defines the type of it.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PropertiesBasedTranslationSupplier</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A base class for properties based <a href="../-translation-supplier/index.html">TranslationSupplier</a>s which provides a loading
+and caching mechanism of properties files.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-file-name-for.html">getFileNameFor</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFileNameFor</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/baseName">baseName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the name of the properties file without extension -- including the package (as prefixed relative path)
+in which it resides if necessary -- in which we expect to find a translation in the given <a href="get-file-name-for.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</a> for
+<a href="get-file-name-for.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/baseName">baseName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-or-load-properties.html">getOrLoadProperties</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getOrLoadProperties</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/key">key</span><span class="symbol">:</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/fileName">fileName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/keyCreator">keyCreator</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>Gets the cached <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a> content as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> for the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/key">key</a> or
+loads the properties file with the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/fileName">fileName</a> and creates a map out of it using the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/keyCreator">keyCreator</a>
+function to create the keys of the map, based on a key of a property.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-translation-supplier/get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslationSupplier$get(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Locale)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslationSupplier$get(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the translation for the given <a href="../-translation-supplier/get.html#ch.tutteli.atrium.reporting.translating.TranslationSupplier$get(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Locale)/translatable">translatable</a> and the given <a href="../-translation-supplier/get.html#ch.tutteli.atrium.reporting.translating.TranslationSupplier$get(ch.tutteli.atrium.reporting.translating.Translatable, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</a> or <code>null</code> if it does not have
+any translation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-properties-per-entity-and-locale-translation-supplier/index.html">PropertiesPerEntityAndLocaleTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PropertiesPerEntityAndLocaleTranslationSupplier</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PropertiesBasedTranslationSupplier</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="../-translation-supplier/index.html">TranslationSupplier</a> which is based on properties-files which are structured per
+entity (enum, object or class) and <a href="../-locale/index.html">Locale</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-properties-per-locale-translation-supplier/index.html">PropertiesPerLocaleTranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PropertiesPerLocaleTranslationSupplier</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PropertiesBasedTranslationSupplier</span></a><span class="symbol">&lt;</span><a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <a href="../-translation-supplier/index.html">TranslationSupplier</a> which is based on properties-files which are structured per <a href="../-locale/index.html">Locale</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

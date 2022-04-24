@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isGreaterThanOrEqual - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./is-greater-than-or-equal.html">isGreaterThanOrEqual</a><br/>
+<br/>
+<h1>isGreaterThanOrEqual</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$isGreaterThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)), ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-greater-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-greater-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">isGreaterThanOrEqual</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$isGreaterThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)), ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-greater-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-greater-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/deprecatedComparableAssertions.kt#L60">(source)</a><br/>
+<strong>Deprecated:</strong> Use toBeGreaterThanOrEqualTo; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation is greater than or equal <a href="is-greater-than-or-equal.html#ch.tutteli.atrium.api.infix.en_GB$isGreaterThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)), ch.tutteli.atrium.api.infix.en_GB.isGreaterThanOrEqual.T)/expected">expected</a>.
+The comparison is carried out with <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/compare-to.html">Comparable.compareTo</a>.</p>
+<pre><code class="lang-kotlin">expect(2) isEqualComparingTo 2
+
+fails {
+    expect(1) isEqualComparingTo 2
+    expect(2) isEqualComparingTo 1
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

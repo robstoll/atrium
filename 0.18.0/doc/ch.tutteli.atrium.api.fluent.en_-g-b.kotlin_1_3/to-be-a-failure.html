@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBeAFailure - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a>&nbsp;/&nbsp;<a href="./to-be-a-failure.html">toBeAFailure</a><br/>
+<br/>
+<h1>toBeAFailure</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeAFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeAFailure</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultExpectations.kt#L44">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) and
+that it encapsulates an exception of type <a href="to-be-a-failure.html#TExpected">TExpected</a>.</p>
+<pre><code class="lang-kotlin">val message = "wrong argument"
+val failure = Result.failure&lt;Int&gt;(IllegalArgumentException(message))
+
+expect(failure)
+    .toBeAFailure&lt;IllegalArgumentException&gt;() // subject is now of type IllegalArgumentException
+    .messageToContain("argument")
+
+
+fails { // because sub-expectation fails
+    expect(failure)
+        .toBeAFailure&lt;IllegalArgumentException&gt;()
+        .messageToContain("parameter") // fails
+}
+
+fails { // because wrong Expectation type expected
+    expect(failure)
+        .toBeAFailure&lt;ArithmeticException&gt;() // fails
+        .messageToContain("parameter")       // not evaluated/reported because toBeAFailure already fails
+    //                                          use `toBeAFailure&lt;...&gt; { ... }` if you want that all expectations are evaluated
+}
+
+fails { // because it was a Success
+    expect(Result.success(10))
+        .toBeAFailure&lt;IllegalArgumentException&gt;() // fails
+        .messageToContain("parameter")            // not evaluated/reported because toBeAFailure already fails
+    //                                               use `toBeAFailure&lt;...&gt; { ... }` if you want that all expectations are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> with the new type <a href="to-be-a-failure.html#TExpected">TExpected</a></p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeAFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeAFailure.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeAFailure</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeAFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeAFailure.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-failure.html#TExpected"><span class="identifier">TExpected</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultExpectations.kt#L58">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) ,
+that it encapsulates an exception of type <a href="to-be-a-failure.html#TExpected">TExpected</a> and
+that the exception holds all assertions the given <a href="to-be-a-failure.html#ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeAFailure(ch.tutteli.atrium.creating.Expect((kotlin.Result((kotlin.Any)))), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeAFailure.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<pre><code class="lang-kotlin">val errorMessage = "can not divide by zero"
+val failure = Result.failure&lt;Int&gt;(ArithmeticException(errorMessage))
+
+expect(failure).toBeAFailure&lt;ArithmeticException&gt; {  // subject within this block is of type ArithmeticException
+    messageToContain("parameter")
+} // subject here is back to type Result&lt;Int&gt;
+
+fails { // because sub-expectation fails
+    expect(failure).toBeAFailure&lt;IllegalArgumentException&gt; {
+        messageToContain("parameter") // fails
+        message.toStartWith("wrong")  // still evaluated even though messageToContain already fails
+        //                               use `.toBeAFailure.` if you want a fail fast behaviour
+    }
+}
+
+fails { // because wrong Expectation type expected, but since we use a block...
+    expect(failure).toBeAFailure&lt;ArithmeticException&gt; {
+        messageToContain("parameter") // ...reporting mentions that subject's message was expected `to contain: "parameter"``
+        //                               use `.toBeAFailure.` if you want a fail fast behaviour
+    }
+}
+
+fails { // because it was a Success, but since we use a block
+    expect(Result.success(10)).toBeAFailure&lt;IllegalArgumentException&gt; {
+        messageToContain("parameter") // ...reporting mentions that subject's message was expected `to contain: "parameter"``
+        //                               use `.toBeAFailure.` if you want a fail fast behaviour
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> with the new type <a href="to-be-a-failure.html#TExpected">TExpected</a></p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

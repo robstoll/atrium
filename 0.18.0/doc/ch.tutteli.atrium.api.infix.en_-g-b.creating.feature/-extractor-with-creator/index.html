@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExtractorWithCreator - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.api.infix.en_GB.creating.feature</a>&nbsp;/&nbsp;<a href="./index.html">ExtractorWithCreator</a><br/>
+<br/>
+<h1>ExtractorWithCreator</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ExtractorWithCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/creating/feature/ExtractorWithCreator.kt#L18">(source)</a>
+<p>Parameter object which contains an <a href="extractor.html">extractor</a> which extracts a feature out of a subject of an assertion +
+an <a href="assertion-creator.html">assertionCreator</a> which defines assertions for the feature.</p>
+<p>Use <code>feature({ extractorLambda }) { ... }</code> to create this representation where the first argument is the extractor
+and the second an <a href="assertion-creator.html">assertionCreator</a>-lambda.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-creator.html">assertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionCreator</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The <code>assertionCreator</code>-lambda which defines assertions for the feature.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="extractor.html">extractor</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">extractor</span><span class="symbol">: </span><span class="symbol">(</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#R"><span class="identifier">R</span></a></code>
+<p>The extractor which extracts the feature out of the subject of  the expectation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

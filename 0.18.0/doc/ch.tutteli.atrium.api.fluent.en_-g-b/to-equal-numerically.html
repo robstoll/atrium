@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toEqualNumerically - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-equal-numerically.html">toEqualNumerically</a><br/>
+<br/>
+<h1>toEqualNumerically</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toEqualNumerically(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html"><span class="identifier">BigDecimal</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-numerically.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toEqualNumerically</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toEqualNumerically(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-equal-numerically.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-numerically.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/bigDecimalExpectations.kt#L122">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html">BigDecimal</a>) is numerically equal to <a href="to-equal-numerically.html#ch.tutteli.atrium.api.fluent.en_GB$toEqualNumerically(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualNumerically.T)/expected">expected</a>.</p>
+<p>By numerically is meant that it will not compare <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a> (or in other words,
+it uses <code>compareTo(expected) == 0</code>)</p>
+<p>Most of the time you want to use this function instead of <a href="to-equal-including-scale.html">toEqualIncludingScale</a> because
+<a href="to-equal-including-scale.html">toEqualIncludingScale</a> compares <a href="https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#scale()">BigDecimal.scale</a>.
+Following the two functions compared:</p>
+<ul><li><code>expect(BigDecimal("10")).toEqualIncludingScale(BigDecimal("10.0"))</code> does not hold.</li>
+<li><code>expect(BigDecimal("10")).toEqualNumerically(BigDecimal("10.0"))</code> holds.</li>
+</ul>
+<pre><code class="lang-kotlin">expect(BigDecimal("10")).toEqualNumerically(BigDecimal("10.0"))
+expect(BigDecimal("1213669989183")).toEqualNumerically(BigDecimal("1213669989183"))
+expect(BigDecimal("1238126387123")).toEqualNumerically(BigDecimal("1238126387123"))
+
+
+expect(BigDecimal(10)).toEqualNumerically(BigDecimal(10.0))
+expect(BigDecimal(1213669989183)).toEqualNumerically(BigDecimal(1213669989183))
+expect(BigDecimal(1238126387123)).toEqualNumerically(BigDecimal(1238126387123))</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

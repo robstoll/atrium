@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBePresent - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-be-present.html">toBePresent</a><br/>
+<br/>
+<h1>toBePresent</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toBePresent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html"><span class="identifier">Optional</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBePresent</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/optionalExpectations.kt#L43">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">Optional</a>) is present
+and returns an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the inner type <a href="to-be-present.html#E">E</a>.</p>
+<p>Shortcut for more or less something like <code>feature(Optional&lt;T&gt;::get)</code> but with error handling; yet it
+depends on the underlying implementation though.</p>
+<pre><code class="lang-kotlin">expect(Optional.of(1))
+    .toBePresent() // subject is now of type Int (actually 1)
+    .toBeGreaterThan(0)
+
+
+fails { // because sub-expectation fails
+    expect(Optional.of(10))
+        .toBePresent()       // subject is now of type Int (actually 10)
+        .toBeLessThan(5)     // fails
+        .toBeGreaterThan(12) // not evaluated/reported because `toBeLessThan` already fails
+    //                          use `.toBePresent { ... }` if you want that all expectations are evaluated
+}
+
+fails { // because it was empty
+    expect(Optional.empty&lt;Int&gt;())
+        .toBePresent()       // fails
+        .toBeGreaterThan(0)  // not evaluated/reported because `toBePresent` already fails
+    //                          use `.toBePresent { ... }` if you want that all expectations are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the inner type <a href="to-be-present.html#E">E</a>.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toBePresent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html"><span class="identifier">Optional</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBePresent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toBePresent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.E)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-present.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/optionalExpectations.kt#L56">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">Optional</a>) is present and
+that the wrapped value of type <a href="to-be-present.html#E">E</a> holds all assertions the given <a href="to-be-present.html#ch.tutteli.atrium.api.fluent.en_GB$toBePresent(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toBePresent.E)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<pre><code class="lang-kotlin">expect(Optional.of(10)).toBePresent {  // subject within this block is of type Int (actually 10)
+    toBeGreaterThan(0)
+    toBeLessThan(11)
+}
+
+fails { // because sub-expectation fails
+    expect(Optional.of(10)).toBePresent {
+        toBeGreaterThan(15) // fails
+        toBeLessThan(5)     // still evaluated even though `toBeGreaterThan` already fails
+        //                     use `.toBePresent.` if you want a fail fast behaviour
+    }
+}
+
+fails { // because it was empty, but since we use a block...
+    expect(Optional.empty&lt;Int&gt;()).toBePresent {
+        toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
+        //                     use `.toBePresent.` if you want a fail fast behaviour
+    }
+
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

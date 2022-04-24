@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toEqualKeyValue - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-equal-key-value.html">toEqualKeyValue</a><br/>
+<br/>
+<h1>toEqualKeyValue</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toEqualKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.K, ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.V)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="to-equal-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-equal-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-key-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toEqualKeyValue</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toEqualKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.K, ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.V)/key">key</span><span class="symbol">:</span>&nbsp;<a href="to-equal-key-value.html#K"><span class="identifier">K</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toEqualKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.K, ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.V)/value">value</span><span class="symbol">:</span>&nbsp;<a href="to-equal-key-value.html#V"><span class="identifier">V</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-equal-key-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/mapEntryExpectations.kt#L16">(source)</a>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/key.html">Map.Entry.key</a> of the subject of <code>this</code> expectation
+is equal to the given <a href="to-equal-key-value.html#ch.tutteli.atrium.api.fluent.en_GB$toEqualKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.K, ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.V)/key">key</a> and the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/value.html">Map.Entry.value</a> is equal to the given <a href="to-equal-key-value.html#ch.tutteli.atrium.api.fluent.en_GB$toEqualKeyValue(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.T)), ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.K, ch.tutteli.atrium.api.fluent.en_GB.toEqualKeyValue.V)/value">value</a>.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "a")
+
+fails {
+    expect(mapOf(1 to "a").entries.first()).toEqualKeyValue(1, "b")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

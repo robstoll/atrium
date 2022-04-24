@@ -1,0 +1,361 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toContain - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-contain.html">toContain</a><br/>
+<br/>
+<h1>toContain</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.o)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.o)/o">o</span><span class="symbol">:</span>&nbsp;<a href="o.html"><span class="identifier">o</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step.html"><span class="identifier">CharSequenceContains.EntryPointStep</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L26">(source)</a>
+<p>Starts a sophisticated <code>toContain</code> assertion building process based on this <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a>.</p>
+<pre><code class="lang-kotlin">expect("ABC") toContain o exactly 1 value "A"
+
+expect("ABBC") toContain o atLeast 2 value "B"
+
+fails {
+    expect("AAAAAA") toContain o atMost 3 value "A"
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="o"></a>
+<code>o</code> - The filler object <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.o)/o">o</a>.</p>
+<p><strong>Return</strong><br/>
+The newly created builder.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Any)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Any)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char.html"><span class="identifier">CharSequenceOrNumberOrChar</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L62">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains the <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Any)/expected">expected</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation.</p>
+<p>It is a shortcut for <code>toContain o atLeast 1 value expected</code>.</p>
+<p>Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed.
+This function expects <a href="../ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char.html">CharSequenceOrNumberOrChar</a> (which is a typealias for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>) for your convenience,
+so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance.</p>
+<pre><code class="lang-kotlin">expect("ABC") toContain "B"
+
+expect("ABC123") toContain values("AB", 'C', 12)
+
+// holds because `toContain` does not search for unique matches
+// use `toContain o exactly 2 value "A"` to check if the subject contains two "A"s
+expect("ABC") toContain values("A", "A")
+
+fails {
+    expect("ABC") toContain "X"
+}
+
+fails { // because subject does not contain all values
+    expect("ABC") toContain values("A", 99)
+}</code></pre>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Any)/expected">expected</a> is not a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> or <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((kotlin.Any)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((kotlin.Any)))/values">values</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html"><span class="identifier">Values</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char.html"><span class="identifier">CharSequenceOrNumberOrChar</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L97">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html">toString</a> representation of the
+given <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((kotlin.Any)))/values">values</a> using a non-disjoint search.</p>
+<p>It is a shortcut for <code>toContain o atLeast 1 the values(expected, *otherExpected)</code>.</p>
+<p>Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed.
+This function expects <a href="../ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char.html">CharSequenceOrNumberOrChar</a> (which is a typealias for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>) for your convenience,
+so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance.</p>
+<p>By non-disjoint is meant that <code>"aa"</code> in <code>"aaaa"</code> is found three times and not only two times.
+Also notice, that it does not search for unique matches. Meaning, if the input of the search is <code>"a"</code> and
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html">Values</a> is defined as <code>values("a", "a")</code>, then both match,
+even though they match the same sequence in the input of the search.
+Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+<code>toContain o exactly 2 value "a"</code>
+instead of:
+<code>toContain values("a", "a")</code></p>
+<pre><code class="lang-kotlin">expect("ABC") toContain "B"
+
+expect("ABC123") toContain values("AB", 'C', 12)
+
+// holds because `toContain` does not search for unique matches
+// use `toContain o exactly 2 value "A"` to check if the subject contains two "A"s
+expect("ABC") toContain values("A", "A")
+
+fails {
+    expect("ABC") toContain "X"
+}
+
+fails { // because subject does not contain all values
+    expect("ABC") toContain values("A", 99)
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="values"></a>
+<code>values</code> - The values which are expected to be contained within the input of the search
+-- use the function <code>values(t, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html">Values</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case one of the <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((kotlin.Any)))/values">values</a> is not a
+<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> or <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.text.Regex)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.text.Regex)/pattern">pattern</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L170">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given
+regular expression <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.text.Regex)/pattern">pattern</a>.</p>
+<p>It is a shortcut for <code>toContain o atLeast 1 matchFor pattern</code>.</p>
+<pre><code class="lang-kotlin">expect("ABC") toContain "(B)?C".toRegex()
+
+fails {
+    expect("ABC") toContain "X".toRegex()
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="pattern"></a>
+<code>pattern</code> - The pattern which is expected to have a match against the input of the search.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns)/regexPatterns">regexPatterns</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-regex-patterns/index.html"><span class="identifier">RegexPatterns</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L199">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given
+regular expression <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns)/regexPatterns">regexPatterns</a>, using a non-disjoint search.</p>
+<p>It is a shortcut for <code>toContain o atLeast 1 the regexPatterns(pattern, *otherPatterns)</code>.</p>
+<p>By non-disjoint is meant that <code>"aa"</code> in <code>"aaaa"</code> is found three times and not only two times.
+Also notice, that it does not search for unique matches. Meaning, if the input of the search is <code>"ab"</code> and
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-regex-patterns/index.html">RegexPatterns</a> is defined as <code>regexPatterns("a(b)?", "a(b)?")</code> as well, then both match,
+even though they match the same sequence in the input of the search.
+Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+<code>toContain o exactly 2 regex "a(b)?"</code>
+instead of:
+<code>toContain o atLeast 1 the regexPatterns("a(b)?", "a(b)?")</code></p>
+<pre><code class="lang-kotlin">// all regex patterns match
+expect("ABC") toContain regexPatterns("A(B)?", "(B)?C")
+
+// holds because `toContain regexPatterns(...)` does not search for unique matches
+// use `toContain exactly 2 regex "A(B)?"` to check if the subject contains the regex two times
+expect("ABC") toContain regexPatterns("A(B)?", "A(B)?")
+
+fails { // because second regex doesn't match
+    expect("ABC") toContain regexPatterns("A", "X")
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="regexPatterns"></a>
+<code>regexPatterns</code> - The patterns which are expected to have a match against the input of the search --
+use the function <code>regexPatterns(t, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-regex-patterns/index.html">RegexPatterns</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.All((kotlin.text.Regex)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.All((kotlin.text.Regex)))/patterns">patterns</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-all/index.html"><span class="identifier">All</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html"><span class="identifier">Regex</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L229">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given
+regular expression <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.All((kotlin.text.Regex)))/patterns">patterns</a>, using a non-disjoint search.</p>
+<p>It is a shortcut for <code>toContain o atLeast 1 regex All(pattern, *otherPatterns)</code>.</p>
+<p>By non-disjoint is meant that <code>"aa"</code> in <code>"aaaa"</code> is found three times and not only two times.
+Also notice, that it does not search for unique matches. Meaning, if the input of the search is <code>"ab"</code> and
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-all/index.html">All</a> is defined as <code>all(Regex("a(b)?"), Regex("a(b)?"))</code> as well, then both match,
+even though they match the same sequence in the input of the search.
+Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+<code>toContain o exactly 2 regex "a(b)?"</code>
+instead of:
+<code>toContain o atLeast 1 the all(Regex("a(b)?"), Regex("a(b)?"))</code></p>
+<pre><code class="lang-kotlin">// all regex patterns match
+expect("ABC") toContain all("A".toRegex(), "B".toRegex())
+
+// holds because `toContain all(...)` does not search for unique matches
+// use `toContain exactly 2 regex regex` to check if the subject contains the regex two times
+val regex = "A(B)?".toRegex()
+expect("ABC") toContain all(regex, regex)
+
+fails { // because second regex doesn't match
+    expect("ABC") toContain all("A".toRegex(), "X".toRegex())
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="patterns"></a>
+<code>patterns</code> - The patterns which are expected to have a match against the input of the search --
+use the function <code>all(Regex(...), ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-all/index.html">All</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.toContain.E)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.toContain.E)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L59">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains the <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.toContain.E)/expected">expected</a> value.</p>
+<p>It is a shortcut for <code>toContain o inAny order atLeast 1 value expected</code></p>
+<pre><code class="lang-kotlin">expect(listOf("A", "B", "C")) toContain "B"
+
+fails {
+    expect(setOf(4, 2, 1)) toContain 3
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/values">values</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html"><span class="identifier">Values</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L86">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains the expected <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Values((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/values">values</a>.</p>
+<p>It is a shortcut for <code>toContain o inAny order atLeast 1 the values(...)</code></p>
+<p>Notice, that it does not search for unique matches. Meaning, if the iterable is <code>setOf('a', 'b')</code> and
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html">Values</a> is defined as <code>values("a", "a")</code>, then both match,
+even though they match the same sequence in the input of the search.
+Use an option such as <a href="at-least.html">atLeast</a>, <a href="at-most.html">atMost</a> and <a href="exactly.html">exactly</a> to control the number of occurrences you expect.</p>
+<p>Meaning you might want to use:
+    toContain o inAny order exactly 2 value 'a'<code>
+instead of:
+</code>toContain values('a', 'a')`</p>
+<pre><code class="lang-kotlin">expect(listOf("A", "B", "C")) toContain values("B", "C")
+
+fails {
+    expect(setOf(4, 2, 1)) toContain values(3, 5)
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="values"></a>
+<code>values</code> - The values which are expected to be contained within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>
+-- use the function <code>values(t, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-values/index.html">Values</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L106">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains an entry holding the
+assertions created by <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> or an entry which is <code>null</code> in case <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a>
+is defined as <code>null</code>.</p>
+<p>It is a shortcut for <code>toContain o inAny order atLeast 1 entry assertionCreatorOrNull</code></p>
+<pre><code class="lang-kotlin">val list = listOf(1, 2, 2, 4)
+expect(list) toContain {
+    toBeGreaterThan(3)
+}
+
+fails {
+    expect(list) toContain {
+        toBeGreaterThan(4)
+    }
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="assertionCreatorOrNull"></a>
+<code>assertionCreatorOrNull</code> - The identification lambda which creates the assertions which the entry we are looking
+for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+or not. In case it is defined as <code>null</code>, then an entry is identified if it is <code>null</code> as well.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Entries((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Entries((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/entries">entries</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html"><span class="identifier">Entries</span></a><span class="symbol">&lt;</span><a href="to-contain.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L127">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) contains an entry holding the
+assertions created by <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Entries((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/entries">entries</a>.<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/assertion-creator-or-null.html">assertionCreatorOrNull</a> or an entry
+which is <code>null</code> in case <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Entries((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/entries">entries</a>.<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/assertion-creator-or-null.html">assertionCreatorOrNull</a>
+is defined as <code>null</code> -- likewise an entry (can be the same) is searched for each of the
+<a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Entries((ch.tutteli.atrium.api.infix.en_GB.toContain.E)))/entries">entries</a>.<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/other-assertion-creators-or-nulls.html">otherAssertionCreatorsOrNulls</a>.</p>
+<p>It is a shortcut for <code>toContain o inAny order atLeast 1 the entries({ ... }, ...)</code></p>
+<pre><code class="lang-kotlin">expect(listOf(1, 2, 2, 4)) toContain entries(
+    // multiple assertion group entries are evaluated independently
+    { toBeLessThan(2) },
+    { toBeGreaterThan(3) }
+)
+
+
+
+fails {
+    expect(listOf(1, 2, 2, 4)) toContain entries(
+        { toEqual(3) }, // fails because no element in the list equals 3
+        { toEqual(5) }  // still evaluated and also fails
+    )
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="entries"></a>
+<code>entries</code> - The entries which are expected to be contained within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>
+-- use the function <code>entries(t, ...)</code> to create an <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-entries/index.html">Entries</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValuePair">keyValuePair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapExpectations.kt#L36">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains a key as defined by <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValuePair">keyValuePair</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/first.html">Pair.first</a>
+with a corresponding value as defined by <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), kotlin.Pair((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValuePair">keyValuePair</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/second.html">Pair.second</a></p>
+<p>Delegates to 'it toContain o inAny order entry keyValuePair'.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")) toContain (1 to "a")
+
+fails { // because the map does not contain key 1 with value "b"
+    expect(mapOf(1 to "a")) toContain (1 to "b")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Pairs((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Pairs((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/pairs">pairs</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-pairs/index.html"><span class="identifier">Pairs</span></a><span class="symbol">&lt;</span><a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapExpectations.kt#L71">(source)</a>
+<p>Expects the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains for each key-value pair in <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Pairs((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/pairs">pairs</a>,
+a key as defined by that entry's <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/first.html">Pair.first</a> with a corresponding value as defined by entry's <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/second.html">Pair.second</a>.</p>
+<p>Delegates to <code>it toContain o inAny order the pairs</code></p>
+<p>Notice, that it does not search for unique matches. Meaning, if the map is <code>mapOf('a' to 1)</code> and one of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a>
+in <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.Pairs((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/pairs">pairs</a> is defined as <code>'a' to 1</code> and another one is defined as <code>'a' to 1</code> as well, then both match,
+even though they match the same entry.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a", 2 to "b")) toContain pairs(1 to "a", 2 to "b")
+
+fails { // because the map contains key 2 with value "b" and not key 1 with value "b"
+    expect(mapOf(1 to "a", 2 to "b")) toContain pairs(1 to "a", 1 to "b")
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="pairs"></a>
+<code>pairs</code> - The key-value <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-pairs/index.html">Pairs</a> expected to be contained within this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>
+-- use the function <code>pairs(x to y, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating/-pairs/index.html">Pairs</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="keyword">reified</span>&nbsp;<span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValue">keyValue</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html"><span class="identifier">KeyWithValueCreator</span></a><span class="symbol">&lt;</span><a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapExpectations.kt#L109">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains a key as defined by <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValue">keyValue</a>'s <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/key.html">KeyWithValueCreator.key</a>
+with a corresponding value which either holds all assertions <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValue">keyValue</a>'s
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> creates or needs to be <code>null</code> in case
+<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> is defined as <code>null</code></p>
+<p>Delegates to <code>it toContain o inAny order keyValue keyValue</code></p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")) toContain keyValue(1) { // subject inside this block is of type String (actually "a")
+    this toEqual "a"
+}
+
+fails {
+    expect(mapOf(1 to "a")) toContain keyValue(1) {  // subject inside this block is of type String (actually "a")
+        this toEqual "b"          // fails because "a" is not equal to "b"
+    }
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="keyValue"></a>
+<code>keyValue</code> - The <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a> whose key is expected to be contained within this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> and
+where the corresponding value holds all assertions the  <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> creates
+or needs to be <code>null</code> in case <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> is defined as <code>null</code>
+-- use the function <code>keyValue(x) { ... }</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="keyword">reified</span>&nbsp;<span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContain</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValues">keyValues</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-values/index.html"><span class="identifier">KeyValues</span></a><span class="symbol">&lt;</span><a href="to-contain.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapExpectations.kt#L153">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains for each <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a> in <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValues">keyValues</a>,
+a key as defined by <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/key.html">KeyWithValueCreator.key</a> with a corresponding value which either holds all
+assertions <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a>'s <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> creates or needs
+to be <code>null</code> in case <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/value-assertion-creator-or-null.html">KeyWithValueCreator.valueAssertionCreatorOrNull</a> is defined as <code>null</code></p>
+<p>Delegates to <code>it toContain o inAny order the keyValues</code></p>
+<p>Notice, that it does not search for unique matches. Meaning, if the map is <code>mapOf('a' to 1)</code> and
+one <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a> in <a href="to-contain.html#ch.tutteli.atrium.api.infix.en_GB$toContain(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toContain.T)), ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues((ch.tutteli.atrium.api.infix.en_GB.toContain.K, ch.tutteli.atrium.api.infix.en_GB.toContain.V)))/keyValues">keyValues</a> is defined as <code>Key('a') { isGreaterThan(0) }</code> and
+another one is defined as <code>Key('a') { isLessThan(2) }</code>, then both match, even though they match the same entry.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")) toContain keyValues(
+    keyValue(1) { // subject inside this block is of type String (actually "a")
+        this toEqual "a"
+    }
+)
+
+fails {
+    expect(mapOf(1 to "a")) toContain keyValues(
+        keyValue(1) { // subject inside this block is of type String (actually "a")
+            this toEqual "b"
+        }
+    )
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="keyValues"></a>
+<code>keyValues</code> - The <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-with-value-creator/index.html">KeyWithValueCreator</a>s -- use the function
+<code>keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_-g-b.creating.map/-key-values/index.html">KeyValues</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

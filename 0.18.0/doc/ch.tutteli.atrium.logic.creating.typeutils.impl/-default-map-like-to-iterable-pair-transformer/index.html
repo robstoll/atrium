@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DefaultMapLikeToIterablePairTransformer - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.typeutils.impl</a>&nbsp;/&nbsp;<a href="./index.html">DefaultMapLikeToIterablePairTransformer</a><br/>
+<br/>
+<h1>DefaultMapLikeToIterablePairTransformer</h1>
+<code><span class="keyword">class </span><span class="identifier">DefaultMapLikeToIterablePairTransformer</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like-to-iterable-pair-transformer/index.html"><span class="identifier">MapLikeToIterablePairTransformer</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/typeutils/impl/DefaultMapLikeToIterablePairTransformer.kt#L14">(source)</a>
+<p>Transforms all <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> as well as all <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html">IterableLike</a> which have a resulting element type of either <code>[Pair]&lt;*, *&gt;</code>
+or <code>[Map.Entry]&lt;*, *&gt;</code> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <code>[Pair]&lt;K, V&gt;</code>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DefaultMapLikeToIterablePairTransformer</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.typeutils.impl.DefaultMapLikeToIterablePairTransformer$<init>(ch.tutteli.atrium.creating.AssertionContainer((kotlin.Any)))/container">container</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Transforms all <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> as well as all <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html">IterableLike</a> which have a resulting element type of either <code>[Pair]&lt;*, *&gt;</code>
+or <code>[Map.Entry]&lt;*, *&gt;</code> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> with an element type <code>[Pair]&lt;K, V&gt;</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="supported-types.html">supportedTypes</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">supportedTypes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="unsafe-transform.html">unsafeTransform</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span> <span class="identifier">unsafeTransform</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.typeutils.impl.DefaultMapLikeToIterablePairTransformer$unsafeTransform(kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.logic.creating.typeutils/-iterable-like.html"><span class="identifier">IterableLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="unsafe-transform.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="unsafe-transform.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Transforms the given <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like-to-iterable-pair-transformer/unsafe-transform.html#ch.tutteli.atrium.logic.creating.typeutils.MapLikeToIterablePairTransformer$unsafeTransform(kotlin.Any)/mapLike">mapLike</a> to an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Iterable</a><code>&lt;K, V&gt;&gt;</code> where <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like-to-iterable-pair-transformer/unsafe-transform.html#K">K</a> represents the key type
+and <a href="../../ch.tutteli.atrium.logic.creating.typeutils/-map-like-to-iterable-pair-transformer/unsafe-transform.html#V">V</a> the value type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

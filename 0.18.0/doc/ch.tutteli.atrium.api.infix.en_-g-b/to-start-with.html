@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toStartWith - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-start-with.html">toStartWith</a><br/>
+<br/>
+<h1>toStartWith</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toStartWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toStartWith.T)), kotlin.CharSequence)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-start-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toStartWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toStartWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toStartWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-start-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L241">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) starts with <a href="to-start-with.html#ch.tutteli.atrium.api.infix.en_GB$toStartWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toStartWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">expect("ABC") toStartWith "AB"
+
+fails {
+    expect("ABC") toStartWith "X"
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toStartWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toStartWith.T)), java.nio.file.Path)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-start-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toStartWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toStartWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toStartWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-start-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/pathExpectations.kt#L24">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) starts with the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">expected</a>.</p>
+<pre><code class="lang-kotlin">val dir = tempDir.newDirectory("test_dir")
+
+expect(dir) toStartWith dir.parent
+
+fails {
+    expect(dir) toStartWith Paths.get("non_existing_dir")
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

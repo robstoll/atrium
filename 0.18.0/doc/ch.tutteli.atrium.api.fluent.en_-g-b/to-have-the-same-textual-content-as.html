@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHaveTheSameTextualContentAs - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-have-the-same-textual-content-as.html">toHaveTheSameTextualContentAs</a><br/>
+<br/>
+<h1>toHaveTheSameTextualContentAs</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveTheSameTextualContentAs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetPath">targetPath</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/sourceCharset">sourceCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Charsets.UTF_8<span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetCharset">targetCharset</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/charset/Charset.html"><span class="identifier">Charset</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Charsets.UTF_8<span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-the-same-textual-content-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L356">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) has the same textual content
+as <a href="to-have-the-same-textual-content-as.html#ch.tutteli.atrium.api.fluent.en_GB$toHaveTheSameTextualContentAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveTheSameTextualContentAs.T)), java.nio.file.Path, java.nio.charset.Charset, java.nio.charset.Charset)/targetPath">targetPath</a> taking the given encodings into account (UTF-8 if none given).</p>
+<pre><code class="lang-kotlin">val writtenTextInFile = "test_test"
+
+val notEmptyFilePath = tempDir.newFile("test_file_1")
+notEmptyFilePath.writeText(writtenTextInFile)
+
+val expectedFilePath = tempDir.newFile("test_file_2")
+expectedFilePath.writeText(writtenTextInFile)
+
+val emptyFilePath = tempDir.newFile("test_file_3")
+
+expect(notEmptyFilePath).toHaveTheSameTextualContentAs(expectedFilePath)
+
+fails { // because nothing is written inside of `emptyFilePath`
+    expect(emptyFilePath).toHaveTheSameTextualContentAs(expectedFilePath)
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="sourceCharset"></a>
+<code>sourceCharset</code> - source file encoding - UTF-8 per default.</p>
+<p><a name="targetCharset"></a>
+<code>targetCharset</code> - target file encoding - UTF-8 per default.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

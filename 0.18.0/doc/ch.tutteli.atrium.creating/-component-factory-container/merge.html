@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ComponentFactoryContainer.merge - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">ComponentFactoryContainer</a>&nbsp;/&nbsp;<a href="./merge.html">merge</a><br/>
+<br/>
+<h1>merge</h1>
+<a name="ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">merge</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)/componentFactoryContainer">componentFactoryContainer</span><span class="symbol">:</span>&nbsp;<a href="index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">ComponentFactoryContainer</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/ComponentFactoryContainer.kt#L59">(source)</a>
+<p>Merges the given <a href="merge.html#ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)/componentFactoryContainer">componentFactoryContainer</a> (if not <code>null</code>) with <code>this</code> <a href="index.html">ComponentFactoryContainer</a>
+creating a new <a href="index.html">ComponentFactoryContainer</a> where defined dependencies in <a href="merge.html#ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)/componentFactoryContainer">componentFactoryContainer</a>
+will have precedence over dependencies defined in this instance.</p>
+<p>For instance, this object has defined a <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> and
+the given <a href="merge.html#ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)/componentFactoryContainer">componentFactoryContainer</a> as well, then the resulting <a href="index.html">ComponentFactoryContainer</a> will return the <a href="../../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>
+of <a href="merge.html#ch.tutteli.atrium.creating.ComponentFactoryContainer$merge(ch.tutteli.atrium.creating.ComponentFactoryContainer)/componentFactoryContainer">componentFactoryContainer</a> when asked for it.</p>
+</BODY>
+</HTML>

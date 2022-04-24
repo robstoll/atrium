@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBeASuccess - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3</a>&nbsp;/&nbsp;<a href="./to-be-a-success.html">toBeASuccess</a><br/>
+<br/>
+<h1>toBeASuccess</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeASuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeASuccess</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultExpectations.kt#L18">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a success (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-success.html">Result.isSuccess</a>)
+and returns an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the inner type <a href="to-be-a-success.html#E">E</a>.</p>
+<pre><code class="lang-kotlin">expect(Result.success(10))
+    .toBeASuccess() // subject is now of type Int (actually 10)
+    .toEqual(1)
+
+fails { // because sub-expectation fails
+    expect(Result.success(10))
+        .toBeASuccess()      // subject is now of type Int (actually 10)
+        .toBeLessThan(5)     // fails
+        .toBeGreaterThan(12) // not evaluated/reported because `toBeLessThan` already fails
+    //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
+}
+
+fails { // because it was a Failure
+    expect(Result.failure&lt;Int&gt;(ArithmeticException()))
+        .toBeASuccess()      // fails
+        .toBeGreaterThan(12) // not evaluated/reported because `toBeASuccess` already fails
+    //                          use `.toBeASuccess { ... }` if you want that all expectations are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> if the given assertion is a success.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeASuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html"><span class="identifier">Result</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeASuccess</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeASuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.E)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-a-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/extensions/kotlin_1_3/atrium-api-fluent-en_GB-kotlin_1_3-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/kotlin_1_3/resultExpectations.kt#L31">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a success (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-success.html">Result.isSuccess</a>) and
+that it holds all assertions the given <a href="to-be-a-success.html#ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3$toBeASuccess(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess.E)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates.</p>
+<pre><code class="lang-kotlin">expect(Result.success(10)).toBeASuccess { // subject within this block is of type Int (actually 10)
+    toEqual(10)
+    toBeLessThan(15)
+} // subject here is back to type Result&lt;Int&gt;
+
+fails { // because sub-expectation fails
+    expect(Result.success(10)).toBeASuccess {
+        toBeGreaterThan(15) // fails
+        toBeLessThan(5)     // still evaluated even though `toBeGreaterThan` already fails
+        //                     use `.toBeASuccess.` if you want a fail fast behaviour
+    }
+}
+
+fails { // because it was a Failure, but since we use a block...
+    expect(Result.failure&lt;Int&gt;(ArithmeticException())).toBeASuccess {
+        toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
+        //                     use `.toBeASuccess.` if you want a fail fast behaviour
+    }
+
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

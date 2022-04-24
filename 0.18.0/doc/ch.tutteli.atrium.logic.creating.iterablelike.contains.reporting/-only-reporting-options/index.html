@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>OnlyReportingOptions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting</a>&nbsp;/&nbsp;<a href="./index.html">OnlyReportingOptions</a><br/>
+<br/>
+<h1>OnlyReportingOptions</h1>
+<code><span class="keyword">interface </span><span class="identifier">OnlyReportingOptions</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/iterablelike/contains/reporting/OnlyReportingOptions.kt#L7">(source)</a>
+<p>Base interface for OnlyReportingOptions</p>
+<p><strong>Since</strong><br/>
+0.18.0</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="max-number-of-expected-elements-for-summary.html">maxNumberOfExpectedElementsForSummary</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maxNumberOfExpectedElementsForSummary</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Indicates until how many expected elements the summary view shall be used. If there are more expected elements,
+then only failing expectations shall be shown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-always-summary.html">showAlwaysSummary</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showAlwaysSummary</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Always shows a summary where both failing and successful expectations are shown, same as
+<a href="show-only-failing-if-more-expected-elements-than.html">OnlyReportingOptions.showOnlyFailingIfMoreExpectedElementsThan</a><code>(Int.MAX_VALUE)</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-failing.html">showOnlyFailing</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showOnlyFailing</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Always shows only failing expectations, same as <a href="show-only-failing-if-more-expected-elements-than.html">OnlyReportingOptions.showOnlyFailingIfMoreExpectedElementsThan</a><code>(0)</code></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-only-failing-if-more-expected-elements-than.html">showOnlyFailingIfMoreExpectedElementsThan</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">showOnlyFailingIfMoreExpectedElementsThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.OnlyReportingOptions$showOnlyFailingIfMoreExpectedElementsThan(kotlin.Int)/number">number</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Show only failing expectations, i.e. elements which do not match, instead of a summary (which
+lists also successful expectations/elements) if there are more than <a href="show-only-failing-if-more-expected-elements-than.html#ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.OnlyReportingOptions$showOnlyFailingIfMoreExpectedElementsThan(kotlin.Int)/number">number</a> expected elements.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-in-any-order-only-reporting-options.html">InAnyOrderOnlyReportingOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">InAnyOrderOnlyReportingOptions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">OnlyReportingOptions</span></a></code>
+<p>Reporting options for <code>toContain.inAnyOrder.only</code> expectation functions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-in-order-only-reporting-options/index.html">InOrderOnlyReportingOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">InOrderOnlyReportingOptions</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">OnlyReportingOptions</span></a></code>
+<p>Reporting options for <code>toContain.inOrder.only</code> expectation functions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

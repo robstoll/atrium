@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.creating - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.creating</h2>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-container/index.html">AssertionContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionContainer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents the extension point of the logic level for subjects of type <a href="-assertion-container/index.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-collecting-expect/index.html">CollectingExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CollectingExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-collecting-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a container for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this <a href="-expect.html">Expect</a> collects the assertions created this way.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-component-factory/index.html">ComponentFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ComponentFactory</span></code>
+<p>Provides a <a href="-component-factory/build.html">build</a> lambda which produces the component and specifies via <a href="-component-factory/produces-singleton.html">producesSingleton</a> whether this
+component should be treated as singleton or not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-component-factory-container/index.html">ComponentFactoryContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ComponentFactoryContainer</span></code>
+<p>Manages the factories to create the different components of Atrium.
+It takes basically the responsibility of a dependency injection facility, tailored for Atrium.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-delegating-expect/index.html">DelegatingExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DelegatingExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-delegating-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-expect.html">Expect</a> which passes on appended <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s to a given <a href="-expect.html">Expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-error-messages/index.html">ErrorMessages</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ErrorMessages</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html"><span class="identifier">StringBasedTranslatable</span></a></code>
+<p>Contains translations which are used in error like messages.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect.html">Expect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Expect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> functions and sophisticated builders for subjects of type <a href="-expect.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-expect-internal.html">ExpectInternal</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExpectInternal</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-expect-internal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-assertion-container/index.html"><span class="identifier">AssertionContainer</span></a><span class="symbol">&lt;</span><a href="-expect-internal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sole purpose of this interface is to hide <a href="-assertion-container/index.html">AssertionContainer</a> from newcomers which usually don't have to deal with
+this.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-expect/index.html">FeatureExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeatureExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-feature-expect/index.html#R"><span class="identifier">R</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-expect.html">Expect</a> which results due to a feature extraction from he subject of the expectation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feature-expect-options/index.html">FeatureExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FeatureExpectOptions</span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Additional (non-mandatory) options to create a <a href="-feature-expect/index.html">FeatureExpect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-expect/index.html">RootExpect</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RootExpect</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="-root-expect/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the root of an <a href="-expect.html">Expect</a> chain, intended as extension point for functionality
+which should only be available on the root.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-expect-options/index.html">RootExpectOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RootExpectOptions</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Additional (non-mandatory) options to create a <a href="-root-expect/index.html">RootExpect</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Annotations</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-experimental-component-factory-container/index.html">ExperimentalComponentFactoryContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">ExperimentalComponentFactoryContainer</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-please-use-replacement-exception/index.html">PleaseUseReplacementException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PleaseUseReplacementException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html"><span class="identifier">Exception</span></a></code>
+<p>Indicates a problem which was indicated by a <code>@Deprecated</code> annotation but was ignored by you ;-)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">.</span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="build.html#I"><span class="identifier">I</span></a></code>
+<p>Returns the component of type <a href="build.html#I">I</a> using a corresponding factory or throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a>
+in case no factory was found which is able to build a component of the given type.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="build-chained.html">buildChained</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">I</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-component-factory-container/index.html"><span class="identifier">ComponentFactoryContainer</span></a><span class="symbol">.</span><span class="identifier">buildChained</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="build-chained.html#I"><span class="identifier">I</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a chain of components of type <a href="build-chained.html#I">I</a> using a corresponding factory or throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a>
+in case no factory was found which is able to build a chain of components of the given type.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

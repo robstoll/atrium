@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHaveElements - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-have-elements.html">toHaveElements</a><br/>
+<br/>
+<h1>toHaveElements</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toHaveElements(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElements.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-have-elements.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-elements.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveElements</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-elements.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableExpectations.kt#L250">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) has a next element (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/has-next.html">Iterator.hasNext</a> returns true).</p>
+<pre><code class="lang-kotlin">expect(listOf("A", 1, 3f)).toHaveElements()
+
+fails {
+    expect(emptyList&lt;Int&gt;()).toHaveElements()
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

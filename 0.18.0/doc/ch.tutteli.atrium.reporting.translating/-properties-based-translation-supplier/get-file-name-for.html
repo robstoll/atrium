@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PropertiesBasedTranslationSupplier.getFileNameFor - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">PropertiesBasedTranslationSupplier</a>&nbsp;/&nbsp;<a href="./get-file-name-for.html">getFileNameFor</a><br/>
+<br/>
+<h1>getFileNameFor</h1>
+<a name="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)"></a>
+<code><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">getFileNameFor</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/baseName">baseName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="../-locale/index.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-jvm/src/main/kotlin/ch/tutteli/atrium/reporting/translating/PropertiesBasedTranslationSupplier.kt#L77">(source)</a>
+<p>Returns the name of the properties file without extension -- including the package (as prefixed relative path)
+in which it resides if necessary -- in which we expect to find a translation in the given <a href="get-file-name-for.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/locale">locale</a> for
+<a href="get-file-name-for.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getFileNameFor(kotlin.String, ch.tutteli.atrium.reporting.translating.Locale)/baseName">baseName</a>.</p>
+<p>The implementation is based on <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle/Control.html#toBundleName(java.lang.String, java.util.Locale)">ResourceBundle.Control.toBundleName</a>.</p>
+<h3>Parameters</h3>
+<p><a name="baseName"></a>
+<code>baseName</code> - Usually the <a href="../-translatable/index.html">Translatable</a> or another identifier for which we are searching translations. Has to
+contain the package name as well if necessary ('.' will be replaced with '/').</p>
+<p><a name="locale"></a>
+<code>locale</code> - The <a href="../-locale/index.html">Locale</a> for which we are searching a translation.</p>
+<p><strong>Return</strong><br/>
+The name of the properties file.</p>
+</BODY>
+</HTML>

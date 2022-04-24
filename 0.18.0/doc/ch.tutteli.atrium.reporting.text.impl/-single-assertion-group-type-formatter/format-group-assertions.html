@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SingleAssertionGroupTypeFormatter.formatGroupAssertions - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.text.impl</a>&nbsp;/&nbsp;<a href="index.html">SingleAssertionGroupTypeFormatter</a>&nbsp;/&nbsp;<a href="./format-group-assertions.html">formatGroupAssertions</a><br/>
+<br/>
+<h1>formatGroupAssertions</h1>
+<a name="ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)"></a>
+<code><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatGroupAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/formatAssertions">formatAssertions</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/childParameterObject">childParameterObject</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/reporting/text/impl/SingleAssertionGroupTypeFormatter.kt#L107">(source)</a>
+<p>Formats the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> -- has to call the given <a href="format-group-assertions.html#ch.tutteli.atrium.reporting.text.impl.SingleAssertionGroupTypeFormatter$formatGroupAssertions(kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterParameterObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )), ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/formatAssertions">formatAssertions</a> function in order that
+the <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a> can steer the process.</p>
+<h3>Parameters</h3>
+<p><a name="formatAssertions"></a>
+<code>formatAssertions</code> - The function which should be called to format the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a>
+of a given <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>. It itself expects a function which formats single <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s in the context
+of the given <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+<p><a name="childParameterObject"></a>
+<code>childParameterObject</code> - The parameter object which shall be used to format <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> -- contains
+inter alia the <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/sb.html">sb</a> to which the result will be appended.</p>
+</BODY>
+</HTML>

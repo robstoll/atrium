@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.reporting.erroradjusters - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.reporting.erroradjusters</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.reporting.erroradjusters</h2>
+<p>Contains marker interfaces for different kinds of <a href="./ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErroAdjuster</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-filter-atrium-error-adjuster/index.html">FilterAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">FilterAtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-multi-atrium-error-adjuster/index.html">MultiAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">class </span><span class="identifier">MultiAtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which incorporates several <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> and executes one after another
+during adjustment in the given order.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-op-atrium-error-adjuster/index.html">NoOpAtriumErrorAdjuster</a></p>
+</td>
+<td>
+<code><span class="keyword">expect</span> <span class="keyword">object </span><span class="identifier">NoOpAtriumErrorAdjuster</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>An implementation of an <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which adjusts nothing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-op-atrium-error-adjuster-common/index.html">NoOpAtriumErrorAdjusterCommon</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">NoOpAtriumErrorAdjusterCommon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>An implementation of an <a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> which adjusts nothing and can be used by the platforms to provide the
+actual type of <a href="-no-op-atrium-error-adjuster/index.html">NoOpAtriumErrorAdjuster</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remove-atrium-from-atrium-error.html">RemoveAtriumFromAtriumError</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RemoveAtriumFromAtriumError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>Responsible to remove the stacktrace of Atrium from an <a href="../ch.tutteli.atrium.reporting/-atrium-error/index.html">AtriumError</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remove-runner-from-atrium-error.html">RemoveRunnerFromAtriumError</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">RemoveRunnerFromAtriumError</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html"><span class="identifier">AtriumErrorAdjuster</span></a></code>
+<p>Responsible to remove the stacktrace of the test runner(s) from an <a href="../ch.tutteli.atrium.reporting/-atrium-error/index.html">AtriumError</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PropertiesBasedTranslationSupplier.getOrLoadProperties - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">PropertiesBasedTranslationSupplier</a>&nbsp;/&nbsp;<a href="./get-or-load-properties.html">getOrLoadProperties</a><br/>
+<br/>
+<h1>getOrLoadProperties</h1>
+<a name="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))"></a>
+<code><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">getOrLoadProperties</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/key">key</span><span class="symbol">:</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/fileName">fileName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/keyCreator">keyCreator</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-jvm/src/main/kotlin/ch/tutteli/atrium/reporting/translating/PropertiesBasedTranslationSupplier.kt#L44">(source)</a>
+<p>Gets the cached <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a> content as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> for the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/key">key</a> or
+loads the properties file with the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/fileName">fileName</a> and creates a map out of it using the given <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/keyCreator">keyCreator</a>
+function to create the keys of the map, based on a key of a property.</p>
+<h3>Parameters</h3>
+<p><a name="key"></a>
+<code>key</code> - The key which identifies the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a></p>
+<p><a name="fileName"></a>
+<code>fileName</code> - The fileName of the properties file without file extension, including the package in which it resides
+as absolute path (no '../' are allowed). In case it does not start with '/' (which would be a
+relative path), then a '/' is prepended. Hence it is always searched with an
+absolute path -- which is the same behaviour as for a properties based <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html">ResourceBundle</a>.</p>
+<p><a name="keyCreator"></a>
+<code>keyCreator</code> - The function used to create keys of the resulting <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> (in case the properties file needs
+to be loaded). It is called passing in a key of a property of the properties file.</p>
+<p><strong>Return</strong><br/>
+A <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a> containing the resulting keys (based on the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a>, see <a href="get-or-load-properties.html#ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier$getOrLoadProperties(ch.tutteli.atrium.reporting.translating.PropertiesBasedTranslationSupplier.T, kotlin.String, kotlin.Function1((kotlin.String, )))/keyCreator">keyCreator</a>) with its translations.</p>
+</BODY>
+</HTML>

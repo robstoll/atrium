@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FeatureExpectOptionsChooserImpl.withRepresentation - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.logic.creating.impl</a>&nbsp;/&nbsp;<a href="index.html">FeatureExpectOptionsChooserImpl</a>&nbsp;/&nbsp;<a href="./with-representation.html">withRepresentation</a><br/>
+<br/>
+<h1>withRepresentation</h1>
+<a name="ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl$withRepresentation(kotlin.Function1((ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl.R, kotlin.Any)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">withRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl$withRepresentation(kotlin.Function1((ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl.R, kotlin.Any)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="index.html#R"><span class="identifier">R</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/impl/FeatureExpectOptionsChooserImpl.kt#L17">(source)</a>
+<p>Overrides <a href="../../ch.tutteli.atrium.logic.creating/-feature-expect-options-chooser/with-representation.html">FeatureExpectOptionsChooser.withRepresentation</a></p>
+<p>Uses the given <a href="../../ch.tutteli.atrium.logic.creating/-feature-expect-options-chooser/with-representation.html#ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser$withRepresentation(kotlin.Function1((ch.tutteli.atrium.logic.creating.FeatureExpectOptionsChooser.R, kotlin.Any)))/representationProvider">representationProvider</a> to retrieve a representation which can be based on the current
+subject where this provided representation is used as new representation of the subject
+instead of the representation that has been defined so far (which defaults to the subject itself).</p>
+<p>Notice, if you want to use text (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which is treated as raw string in reporting) as representation,
+then wrap it into a <a href="../../ch.tutteli.atrium.reporting/-text/index.html">Text</a> and pass it instead.
+If your text does not include the current subject, then we recommend to use the other overload which expects
+a <code>String</code> and does the wrapping for you.</p>
+<p>In case <a href="../../ch.tutteli.atrium.creating/-assertion-container/maybe-subject.html">AssertionContainer.maybeSubject</a> is not defined i.e. <a href="../../ch.tutteli.atrium.core/-none.html">None</a>, then the previous representation is used.</p>
+</BODY>
+</HTML>

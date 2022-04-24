@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toHaveElementsAndAll - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-have-elements-and-all.html">toHaveElementsAndAll</a><br/>
+<br/>
+<h1>toHaveElementsAndAll</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toHaveElementsAndAll(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="to-have-elements-and-all.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-elements-and-all.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toHaveElementsAndAll</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toHaveElementsAndAll(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-elements-and-all.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-have-elements-and-all.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableExpectations.kt#L309">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) has next element(s) and</p>
+<ul><li>that all of them hold all expectations the <a href="to-have-elements-and-all.html#ch.tutteli.atrium.api.fluent.en_GB$toHaveElementsAndAll(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> creates or</li>
+<li>that all of them are <code>null</code> in case <a href="to-have-elements-and-all.html#ch.tutteli.atrium.api.fluent.en_GB$toHaveElementsAndAll(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toHaveElementsAndAll.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> is defined as <code>null</code>.</li>
+</ul>
+<pre><code class="lang-kotlin">expect(listOf(1, 2, 2, 4)).toHaveElementsAndAll { toBeGreaterThan(0) }
+
+fails {
+    expect(emptyList&lt;Int&gt;()).toHaveElementsAndAll { toBeGreaterThan(0) }
+}
+
+fails {
+    expect(listOf(1, 2, 2, 4)).toHaveElementsAndNone {
+        toBeLessThanOrEqualTo(1)
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

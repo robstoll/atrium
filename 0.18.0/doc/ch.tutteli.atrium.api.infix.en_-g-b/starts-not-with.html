@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>startsNotWith - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./starts-not-with.html">startsNotWith</a><br/>
+<br/>
+<h1>startsNotWith</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.CharSequence)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">startsNotWith</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/deprecatedCharSequenceAssertions.kt#L263">(source)</a><br/>
+<strong>Deprecated:</strong> Use notToStartWith; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) does not start with <a href="starts-not-with.html#ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">expect("ABC") notToStartWith "X"
+
+fails {
+    expect("ABC") notToStartWith "AB"
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.Char)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">startsNotWith</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.Char)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html"><span class="identifier">Char</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/deprecatedCharSequenceAssertions.kt#L279">(source)</a><br/>
+<strong>Deprecated:</strong> Use notToStartWith which expects a String; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) does not start with <a href="starts-not-with.html#ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), kotlin.Char)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">expect("ABC") notToStartWith 'X'.toString()
+
+fails {
+    expect("ABC") notToStartWith 'A'.toString()
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+<a name="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), java.nio.file.Path)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">startsNotWith</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$startsNotWith(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.startsNotWith.T)), java.nio.file.Path)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="starts-not-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-jvm/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/deprecatedPathAssertions.kt#L41">(source)</a><br/>
+<strong>Deprecated:</strong> Use notToStartWith; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>) does not start with the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">expected</a>.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.12.0</p>
+</BODY>
+</HTML>

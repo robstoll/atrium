@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isSameAs - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./is-same-as.html">isSameAs</a><br/>
+<br/>
+<h1>isSameAs</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">isSameAs</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-same-as.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/deprecatedAnyAssertions.kt#L41">(source)</a><br/>
+<strong>Deprecated:</strong> Use toBeTheInstance; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation is the same instance as <a href="is-same-as.html#ch.tutteli.atrium.api.fluent.en_GB$isSameAs(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)), ch.tutteli.atrium.api.fluent.en_GB.isSameAs.T)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">val list = listOf(3)
+expect(list).isSameAs(list)
+
+fails {
+    // fails because isSameAs is based on identity, use toBe for equality
+    expect(listOf(3)).isSameAs(listOf(3))
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

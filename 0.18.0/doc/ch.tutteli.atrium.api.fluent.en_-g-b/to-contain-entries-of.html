@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toContainEntriesOf - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./to-contain-entries-of.html">toContainEntriesOf</a><br/>
+<br/>
+<h1>toContainEntriesOf</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$toContainEntriesOf(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainEntriesOf.T)), kotlin.Any)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="to-contain-entries-of.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="to-contain-entries-of.html#V"><span class="identifier">V</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-entries-of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toContainEntriesOf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$toContainEntriesOf(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainEntriesOf.T)), kotlin.Any)/mapLike">mapLike</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.logic.creating.typeutils/-map-like.html"><span class="identifier">MapLike</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-contain-entries-of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/mapExpectations.kt#L118">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) contains the key-value pairs of the given <a href="to-contain-entries-of.html#ch.tutteli.atrium.api.fluent.en_GB$toContainEntriesOf(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.toContainEntriesOf.T)), kotlin.Any)/mapLike">mapLike</a>.</p>
+<p>Delegates to <code> toContain.inAnyOrder.entriesOf</code></p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")).toContainEntriesOf(mapOf(1 to "a"))
+
+fails { // because the map does not contain entry with key 1 and value "b"
+    expect(mapOf(1 to "a")).toContainEntriesOf(mapOf(1 to "b"))
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

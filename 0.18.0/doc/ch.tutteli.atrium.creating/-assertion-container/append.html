@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionContainer.append - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">AssertionContainer</a>&nbsp;/&nbsp;<a href="./append.html">append</a><br/>
+<br/>
+<h1>append</h1>
+<a name="ch.tutteli.atrium.creating.AssertionContainer$append(ch.tutteli.atrium.assertions.Assertion)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">append</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.AssertionContainer$append(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/AssertionContainer.kt#L61">(source)</a>
+<p>Appends the given <a href="append.html#ch.tutteli.atrium.creating.AssertionContainer$append(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> to this container and returns an <a href="../-expect.html">Expect</a> which includes it.</p>
+<p>Whether the returned <a href="../-expect.html">Expect</a> is the same as the initial one is up to the implementation (i.e. if a mutable
+structure is used or an immutable). Atrium strives for an immutable data structure in the long run and will
+little by little refactor the code accordingly.</p>
+<h3>Parameters</h3>
+<p><a name="assertion"></a>
+<code>assertion</code> - The assertion which will be appended to this container.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are immediately evaluated.</p>
+<p><strong>Return</strong><br/>
+an <a href="../-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

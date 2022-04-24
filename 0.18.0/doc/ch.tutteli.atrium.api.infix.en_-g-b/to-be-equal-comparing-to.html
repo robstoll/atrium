@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBeEqualComparingTo - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-be-equal-comparing-to.html">toBeEqualComparingTo</a><br/>
+<br/>
+<h1>toBeEqualComparingTo</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toBeEqualComparingTo(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)), ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="to-be-equal-comparing-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-equal-comparing-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeEqualComparingTo</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toBeEqualComparingTo(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)), ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-be-equal-comparing-to.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-equal-comparing-to.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/comparableExpectations.kt#L61">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation is equal to <a href="to-be-equal-comparing-to.html#ch.tutteli.atrium.api.infix.en_GB$toBeEqualComparingTo(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)), ch.tutteli.atrium.api.infix.en_GB.toBeEqualComparingTo.T)/expected">expected</a>
+where the comparison is carried out with <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/compare-to.html">Comparable.compareTo</a>.</p>
+<p>Use <a href="to-equal.html">toEqual</a> if you want a comparison based on <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html">Any.equals</a>.</p>
+<pre><code class="lang-kotlin">expect(2) toBeEqualComparingTo 2
+
+fails {
+    expect(1) toBeEqualComparingTo 2
+    expect(2) toBeEqualComparingTo 1
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

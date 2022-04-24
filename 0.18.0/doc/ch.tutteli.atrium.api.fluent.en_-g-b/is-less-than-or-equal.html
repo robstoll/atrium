@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>isLessThanOrEqual - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./is-less-than-or-equal.html">isLessThanOrEqual</a><br/>
+<br/>
+<h1>isLessThanOrEqual</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$isLessThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="is-less-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-less-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">isLessThanOrEqual</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$isLessThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="is-less-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="is-less-than-or-equal.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/deprecatedComparableAssertions.kt#L30">(source)</a><br/>
+<strong>Deprecated:</strong> Use toBeLessThanOrEqualTo; will be removed with 1.0.0 at the latest<br/>
+<br/>
+<p>Expects that the subject of <code>this</code> expectation is less than or equal <a href="is-less-than-or-equal.html#ch.tutteli.atrium.api.fluent.en_GB$isLessThanOrEqual(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)), ch.tutteli.atrium.api.fluent.en_GB.isLessThanOrEqual.T)/expected">expected</a>.
+The comparison is carried out with <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/compare-to.html">Comparable.compareTo</a>.</p>
+<pre><code class="lang-kotlin">expect(1).isLessThanOrEqual(2)
+expect(2).isLessThanOrEqual(2)
+
+fails {
+    expect(2).isLessThanOrEqual(1)
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

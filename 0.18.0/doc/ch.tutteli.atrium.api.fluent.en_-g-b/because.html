@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>because - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./because.html">because</a><br/>
+<br/>
+<h1>because</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">because</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.Unit)))/reason">reason</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="because.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/documentationUtils.kt#L24">(source)</a>
+<p>Allows to state a reason for one or multiple assertions for the current subject.</p>
+<pre><code class="lang-kotlin">expect("filename")
+    .because("? is not allowed in file names on Windows") {
+        notToContain("?")
+    }
+
+data class Person(val age: Int)
+val customers = listOf(Person(21))
+
+expect(customers).toHaveElementsAndAll {
+    because("the legal age of maturity in Switzerland is 18") {
+        feature { f(it::age) }.toBeGreaterThanOrEqualTo(18)
+    }
+}</code></pre>
+<h3>Parameters</h3>
+<p><a name="reason"></a>
+<code>reason</code> - The explanation for the assertion(s) created by <a href="because.html#ch.tutteli.atrium.api.fluent.en_GB$because(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.String, kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.because.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a>.</p>
+<p><a name="assertionCreator"></a>
+<code>assertionCreator</code> - The group of assertions to make.</p>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.15.0</p>
+</BODY>
+</HTML>

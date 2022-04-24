@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>relative - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./relative.html">relative</a><br/>
+<br/>
+<h1>relative</h1>
+<code><span class="keyword">object </span><span class="identifier">relative</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-keyword.html"><span class="identifier">Keyword</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L63">(source)</a>
+<p>A helper construct to allow expressing expectations about a path being relative.
+It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p>
+<pre><code class="lang-kotlin">expect(Paths.get("relative/path")) toBe relative
+
+fails {
+    val s = FileSystems.getDefault().separator
+    val prefix = if (s == "\\") "C:" else "" // if (s == "\\") =&gt; true current os is windows
+    expect(Paths.get("$prefix${s}absolute${s}path")) toBe relative
+}</code></pre>
+<p><strong>Since</strong><br/>
+0.14.0</p>
+</BODY>
+</HTML>

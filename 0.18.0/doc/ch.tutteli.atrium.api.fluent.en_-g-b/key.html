@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>key - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./key.html">key</a><br/>
+<br/>
+<h1>key</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$key#ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.T))"></a>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="key.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">key</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="key.html#K"><span class="identifier">K</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/mapEntryFeatureExtractors.kt#L16">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/key.html">Map.Entry.key</a> of the subject of <code>this</code> expectation,
+so that further fluent calls are assertions about it.</p>
+<pre><code class="lang-kotlin">val entry = mapOf(1 to "a").entries.first()
+
+expect(entry)
+    .key          // subject here is of type Int (actually 1)
+    .toEqual(1)
+
+fails {
+    expect(entry)
+        .key             // subject here is of type Int (actually 1)
+        .toEqual(2)      // fails
+        .toBeLessThan(0) // not evaluated/reported because `toEqual` already fails
+    //                      use `.key { ... }` if you want that all assertions are evaluated
+}</code></pre>
+<p><strong>Return</strong><br/>
+The newly created <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the extracted feature.</p>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$key(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.K)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/index.html"><span class="identifier">Entry</span></a><span class="symbol">&lt;</span><a href="key.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<a href="key.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">key</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$key(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.K)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="key.html#K"><span class="identifier">K</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/mapEntryFeatureExtractors.kt#L28">(source)</a>
+<p>Expects that the property <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/-entry/key.html">Map.Entry.key</a> of the subject of <code>this</code> expectation
+holds all assertions the given <a href="key.html#ch.tutteli.atrium.api.fluent.en_GB$key(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.T)), kotlin.Function1((ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.key.K)), kotlin.Unit)))/assertionCreator">assertionCreator</a> creates for it and
+returns an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the current subject of <code>this</code> expectation.</p>
+<pre><code class="lang-kotlin">val entry = mapOf(1 to "a").entries.first()
+
+expect(entry).key {  // subject inside this block is of type Int (actually 1)
+    toEqual(1)
+} // subject here is back to type Map.Entry&lt;Int, String&gt;
+
+fails {
+    expect(entry).key {  // subject inside this block is of type Int (actually 1)
+        toEqual(2)       // fails
+        toBeLessThan(0)  // still evaluated even though `toEqual` already fails,
+        //                  use `.key.` if you want a fail fast behaviour
+    }
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+</BODY>
+</HTML>

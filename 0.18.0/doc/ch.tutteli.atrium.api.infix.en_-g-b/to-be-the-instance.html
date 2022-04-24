@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>toBeTheInstance - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a>&nbsp;/&nbsp;<a href="./to-be-the-instance.html">toBeTheInstance</a><br/>
+<br/>
+<h1>toBeTheInstance</h1>
+<a name="ch.tutteli.atrium.api.infix.en_GB$toBeTheInstance(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)), ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-the-instance.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBeTheInstance</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.infix.en_GB$toBeTheInstance(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)), ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<a href="to-be-the-instance.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="to-be-the-instance.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/infix-en_GB/atrium-api-infix-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L46">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation is the same instance as <a href="to-be-the-instance.html#ch.tutteli.atrium.api.infix.en_GB$toBeTheInstance(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)), ch.tutteli.atrium.api.infix.en_GB.toBeTheInstance.T)/expected">expected</a>.</p>
+<pre><code class="lang-kotlin">val list = listOf(3)
+expect(list) toBeTheInstance list
+
+fails { // because toBeTheInstance is based on identity, use toEqual for equality
+    expect(listOf(3)) toBeTheInstance listOf(3)
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>

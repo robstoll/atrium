@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RootExpectBuilder.ExpectationVerbStep - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.logic.creating</a>&nbsp;/&nbsp;<a href="../index.html">RootExpectBuilder</a>&nbsp;/&nbsp;<a href="./index.html">ExpectationVerbStep</a><br/>
+<br/>
+<h1>ExpectationVerbStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExpectationVerbStep</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/creating/RootExpectBuilder.kt#L30">(source)</a>
+<p>Step which allows to specify the expectation verb which shall be used.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - the type of the subject.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>The previously specified subject of the expectation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-verb.html">withVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">withVerb</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.ExpectationVerbStep$withVerb(kotlin.String)/verb">verb</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-options-step/index.html"><span class="identifier">RootExpectBuilder.OptionsStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Wraps the given <a href="with-verb.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.ExpectationVerbStep$withVerb(kotlin.String)/verb">verb</a> into an <a href="../../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> and uses it as expectation verb.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withVerb</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.logic.creating.RootExpectBuilder.ExpectationVerbStep$withVerb(ch.tutteli.atrium.reporting.translating.Translatable)/verb">verb</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-options-step/index.html"><span class="identifier">RootExpectBuilder.OptionsStep</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Uses the given <a href="with-verb.html#ch.tutteli.atrium.logic.creating.RootExpectBuilder.ExpectationVerbStep$withVerb(ch.tutteli.atrium.reporting.translating.Translatable)/verb">verb</a> as expectation verb.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.logic.creating.impl/-expectation-verb-step-impl/index.html">ExpectationVerbStepImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExpectationVerbStepImpl</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RootExpectBuilder.ExpectationVerbStep</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.logic.creating.impl/-expectation-verb-step-impl/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

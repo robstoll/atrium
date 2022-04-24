@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>notToContainKey - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a>&nbsp;/&nbsp;<a href="./not-to-contain-key.html">notToContainKey</a><br/>
+<br/>
+<h1>notToContainKey</h1>
+<a name="ch.tutteli.atrium.api.fluent.en_GB$notToContainKey(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.T)), ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.K)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">K</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="not-to-contain-key.html#K"><span class="identifier">K</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-contain-key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToContainKey</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.fluent.en_GB$notToContainKey(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.T)), ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.K)/key">key</span><span class="symbol">:</span>&nbsp;<a href="not-to-contain-key.html#K"><span class="identifier">K</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-expect.html"><span class="identifier">Expect</span></a><span class="symbol">&lt;</span><a href="not-to-contain-key.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.18.0/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/mapExpectations.kt#L159">(source)</a>
+<p>Expects that the subject of <code>this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>) does not contain the given <a href="not-to-contain-key.html#ch.tutteli.atrium.api.fluent.en_GB$notToContainKey(ch.tutteli.atrium.creating.Expect((ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.T)), ch.tutteli.atrium.api.fluent.en_GB.notToContainKey.K)/key">key</a>.</p>
+<pre><code class="lang-kotlin">expect(mapOf(1 to "a")).notToContainKey(2)
+
+fails { // because the map contains a key which equals 1
+    expect(mapOf(1 to "a")).notToContainKey(1)
+}</code></pre>
+<p><strong>Return</strong><br/>
+an <a href="../ch.tutteli.atrium.creating/-expect.html">Expect</a> for the subject of <code>this</code> expectation.</p>
+<p><strong>Since</strong><br/>
+0.17.0</p>
+</BODY>
+</HTML>
