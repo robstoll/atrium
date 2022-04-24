@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
@@ -14,6 +15,8 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
     companion object {
         val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
         val additionalEntriesDescr = DescriptionMapLikeExpectation.WARNING_ADDITIONAL_ENTRIES.getDefault()
+
+        val emptyInOrderOnlyReportOptions : InOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1)
