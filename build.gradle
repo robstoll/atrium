@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.18.0'
+    rootProject.version = '0.19.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
 
     def toolProjectsFun = subprojects.findAll {
@@ -59,7 +59,7 @@ buildscript {
         ghPages_version = rootProject.version
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
-        dokka_sourceMapping = "tree/v0.18.0"
+        dokka_sourceMapping = "tree/main"
 
 
         toolProjects = toolProjectsFun
@@ -444,7 +444,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=0.18.0
-export ATRIUM_VERSION=0.18.0
+export ATRIUM_VERSION=0.19.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -512,7 +512,8 @@ alternatively the manual steps:
     a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype
     b) Log into https://oss.sonatype.org/#stagingRepositories
     c) check if staging repo is ok
-    d) gr closeAndReleaseSonatypeStagingRepository
+    d) close repo
+    e) release repo
 
 4. publish release on github
     1) Log in to github and publish draft
@@ -524,7 +525,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.18.0
-export ATRIUM_NEXT_VERSION=0.18.0
+export ATRIUM_NEXT_VERSION=0.19.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
