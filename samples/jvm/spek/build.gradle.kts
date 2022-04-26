@@ -3,7 +3,7 @@
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-val atriumVersion = "0.17.0"
+val atriumVersion = "0.18.0"
 val spekVersion = "2.0.18"
 
 plugins {
