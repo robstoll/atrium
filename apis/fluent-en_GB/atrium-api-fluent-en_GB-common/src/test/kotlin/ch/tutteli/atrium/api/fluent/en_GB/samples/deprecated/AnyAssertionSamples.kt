@@ -100,7 +100,7 @@ class AnyAssertionSamples {
         }.toBe(1)
 
         fails {
-            // because you forgot to define an assertion in the assertion group block
+            // because you forgot to define an expectation in the expectation-group
             // use `notToBeNull()` if this is all you want to assert
             expect<Int?>(1).notToBeNull { }
         }
@@ -176,9 +176,9 @@ class AnyAssertionSamples {
 
         fails {
             expect(13).isA<Int>().and {
-                // introduces an assertion group block
-                // all assertions are evaluated inside an assertion group block; for more details:
-                // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+                // introduces an expectation-group
+                // all expectations are evaluated inside an expectation-group; for more details:
+                // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
                 // use `.and.` if you want fail fast behaviour
 
                 isNoneOf(1, 2, 13) // fails

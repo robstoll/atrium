@@ -35,13 +35,13 @@ class MapEntryAssertionSamples {
     @Test
     fun key() {
         expect(mapOf(1 to "a").entries.first())
-            .key {  // subject inside this block is of type Int (actually 1)
+            .key {  // subject inside this expectation-group is of type Int (actually 1)
                 toBe(1)
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
-                .key {  // subject inside this block is of type Int (actually 1)
+                .key {  // subject inside this expectation-group is of type Int (actually 1)
                     toBe(2) // fails because 1 is not equal to 2
                 }
         }
@@ -63,13 +63,13 @@ class MapEntryAssertionSamples {
     @Test
     fun value() {
         expect(mapOf(1 to "a").entries.first())
-            .value {    // subject inside this block is of type String (actually "a")
+            .value {    // subject inside this expectation-group is of type String (actually "a")
                 toBe("a")
             }
 
         fails {
             expect(mapOf(1 to "a").entries.first())
-                .value {    // subject inside this block is of type String (actually "a")
+                .value {    // subject inside this expectation-group is of type String (actually "a")
                     toBe("b")   // fails because "a" is not equal to "b"
                 }
         }

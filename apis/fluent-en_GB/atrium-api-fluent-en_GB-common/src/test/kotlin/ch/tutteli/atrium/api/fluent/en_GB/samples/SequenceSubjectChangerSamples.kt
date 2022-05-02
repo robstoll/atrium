@@ -26,7 +26,7 @@ class SequenceSubjectChangerSamples {
     @Test
     fun asIterable() {
         expect(sequenceOf(1, 2, 3))
-            .asIterable { // subject within this block is of type Iterable<Int>
+            .asIterable { // subject within this expectation-group is of type Iterable<Int>
                 toContain(1)
                 toContain(2)
                 toContain(3)
@@ -34,7 +34,7 @@ class SequenceSubjectChangerSamples {
 
         fails {
             expect(sequenceOf(1, 2, 3))
-                .asIterable { // subject within this block is of type Iterable<Int>
+                .asIterable { // subject within this expectation-group is of type Iterable<Int>
                     toContain(4)
                 } // subject here is back to type Sequence<Int>
         }
@@ -50,7 +50,7 @@ class SequenceSubjectChangerSamples {
     @Test
     fun asList() {
         expect(sequenceOf(1, 2, 3))
-            .asList { // subject within this block is of type List<Int>
+            .asList { // subject within this expectation-group is of type List<Int>
                 toEqual(listOf(1, 2, 3))
             } // subject here is back to type Sequence<Int>
     }

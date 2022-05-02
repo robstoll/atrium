@@ -26,14 +26,14 @@ class ZonedDateTimeExpectationSamples {
     @Test
     fun year() {
         expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) year {
-            // subject inside this block is of type Int (actually 2021)
+            // subject inside this expectation-group is of type Int (actually 2021)
             it toEqual 2021
             it toBeGreaterThan 2020
         } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) year {
-                // subject inside this block is of type Int (actually 2021)
+                // subject inside this expectation-group is of type Int (actually 2021)
                 it notToEqual 2021       // fails
                 it toBeGreaterThan 2022  // not evaluated/reported because notToEqual already fails
                 //                          use `.year.` if you want a fail fast behaviour
@@ -60,14 +60,14 @@ class ZonedDateTimeExpectationSamples {
     @Test
     fun month() {
         expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) month {
-            // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
+            // subject inside this expectation-group is of type Int (actually Month.OCTOBER.value i.e. 10)
             it toEqual Month.OCTOBER.value
             it notToEqual Month.SEPTEMBER.value
         } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) month {
-                // subject inside this block is of type Int (actually Month.OCTOBER.value i.e. 10)
+                // subject inside this expectation-group is of type Int (actually Month.OCTOBER.value i.e. 10)
                 it toBeLessThan 9      // fails
                 it toBeGreaterThan 11  // still evaluated even though toBeLessThan already fails
                 //                        use `.month` if you want a fail fast behaviour
@@ -94,14 +94,14 @@ class ZonedDateTimeExpectationSamples {
     @Test
     fun dayOfWeek() {
         expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) dayOfWeek {
-            // subject inside this block is of type DayOfWeek (actually SATURDAY)
+            // subject inside this expectation-group is of type DayOfWeek (actually SATURDAY)
             it toEqual DayOfWeek.SATURDAY
             it notToEqual DayOfWeek.SUNDAY
         } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) dayOfWeek {
-                // subject inside this block is of type DayOfWeek (actually SATURDAY)
+                // subject inside this expectation-group is of type DayOfWeek (actually SATURDAY)
                 it toEqual DayOfWeek.MONDAY       // fails
                 it notToEqual DayOfWeek.SATURDAY  // still evaluated even though toEqual already fails
                 //                                   use `.dayOfWeek.` if you want a fail fast behaviour
@@ -128,14 +128,14 @@ class ZonedDateTimeExpectationSamples {
     @Test
     fun day() {
         expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) day {
-            // subject inside this block is of type Int (actually 9)
+            // subject inside this expectation-group is of type Int (actually 9)
             it toEqual 9
             it toBeGreaterThan 5
         } // subject here is back to type ZonedDateTime
 
         fails {
             expect(ZonedDateTime.of(LocalDateTime.of(2021, Month.OCTOBER, 9, 11, 56), ZoneId.systemDefault())) day {
-                // subject inside this block is of type Int (actually 9)
+                // subject inside this expectation-group is of type Int (actually 9)
                 it toEqual 5       // fails
                 it toBeLessThan 7  // still evaluated even though toEqual already fails
                 //                    use `.day` if you want a fail fast behaviour

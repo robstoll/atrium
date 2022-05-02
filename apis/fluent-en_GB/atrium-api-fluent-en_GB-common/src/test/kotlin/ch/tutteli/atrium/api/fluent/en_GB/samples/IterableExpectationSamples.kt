@@ -18,7 +18,7 @@ class IterableExpectationSamples {
                 .toContain
                 .inAnyOrder // order specifier
                 .atMost(2)
-                .entry { // assertion group about the entry
+                .entry { // expectation-group about the entry
                     toBeGreaterThan(2)
                 }
         }
@@ -33,7 +33,7 @@ class IterableExpectationSamples {
         fails {
             expect(listOf(1, 8, 5))
                 .notToContain
-                .entry { // assertion group about the entry
+                .entry { // expectation-group about the entry
                     toBeGreaterThan(6)
                 }
         }
@@ -61,7 +61,7 @@ class IterableExpectationSamples {
     @Test
     fun toContainAssertions() {
         expect(listOf(1, 2, 2, 4))
-            .toContain( // multiple assertion group entries are evaluated independently
+            .toContain( // multiple expectation-group entries are evaluated independently
                 { toBeLessThan(2) },
                 { toBeGreaterThan(3) }
             )

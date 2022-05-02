@@ -64,7 +64,7 @@ class IterableExpectationSamples {
     @Test
     fun toContainAssertions() {
         expect(listOf(1, 2, 2, 4)) toContain entries(
-            // multiple assertion group entries are evaluated independently
+            // multiple expectation-group entries are evaluated independently
             { toBeLessThan(2) },
             { toBeGreaterThan(3) }
         )

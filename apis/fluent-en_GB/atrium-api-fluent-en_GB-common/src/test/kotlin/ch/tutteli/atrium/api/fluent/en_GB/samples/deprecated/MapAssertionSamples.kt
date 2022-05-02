@@ -45,7 +45,7 @@ class MapAssertionSamples {
     fun containsKeyValue() {
         expect(mapOf(1 to "a"))
             .contains(
-                KeyValue(1) { // subject inside this block is of type String (actually "a")
+                KeyValue(1) { // subject inside this expectation-group is of type String (actually "a")
                     toBe("a")
                 }
             )
@@ -53,7 +53,7 @@ class MapAssertionSamples {
         fails {
             expect(mapOf(1 to "a"))
                 .contains(
-                    KeyValue(1) {   // subject inside this block is of type String (actually "a")
+                    KeyValue(1) {   // subject inside this expectation-group is of type String (actually "a")
                         toBe("b")   // fails because "a" is not equal to "b"
                     }
                 )
@@ -64,7 +64,7 @@ class MapAssertionSamples {
     fun containsOnlyKeyValue() {
         expect(mapOf(1 to "a"))
             .containsOnly(
-                KeyValue(1) {   // subject inside this block is of type String (actually "a")
+                KeyValue(1) {   // subject inside this expectation-group is of type String (actually "a")
                     toBe("a")
                 }
             )
@@ -72,7 +72,7 @@ class MapAssertionSamples {
         fails {
             expect(mapOf(1 to "a", 1 to "b"))
                 .containsOnly(
-                    KeyValue(1) {   // subject inside this block is of type String (actually "a")
+                    KeyValue(1) {   // subject inside this expectation-group is of type String (actually "a")
                         toBe("a")   // fails because the map also contains Pair<1,"b">
                     }
                 )
@@ -138,13 +138,13 @@ class MapAssertionSamples {
     @Test
     fun getExisting() {
         expect(mapOf(1 to "a"))
-            .getExisting(1) {   // subject inside this block is of type String (actually "a")
+            .getExisting(1) {   // subject inside this expectation-group is of type String (actually "a")
                 toBe("a")
             }
 
         fails {
             expect(mapOf(1 to "a"))
-                .getExisting(1) {   // subject inside this block is of type String (actually "a")
+                .getExisting(1) {   // subject inside this expectation-group is of type String (actually "a")
                     toBe("b")   // fails because "a" is not equal to "b"
                 }
         }
@@ -159,18 +159,18 @@ class MapAssertionSamples {
 
     @Test
     fun keysFeature() {
-        // subject inside this block is of type Int
+        // subject inside this expectation-group is of type Int
         expect(mapOf(1 to "a"))
             .keys   //subject is of type Set<Int> (actually <1>)
             .toContain {
-                // subject inside this block is of type Int
+                // subject inside this expectation-group is of type Int
                 toBe(1)
             }
 
         fails {
             expect(mapOf(1 to "a"))
                 .keys   //subject is of type Set<Int> (actually <1>)
-                .contains { // subject inside this block is of type Int
+                .contains { // subject inside this expectation-group is of type Int
                     toBe(2) // fails because 1 is not equal to 2
                 }
         }
@@ -179,13 +179,13 @@ class MapAssertionSamples {
     @Test
     fun keys() {
         expect(mapOf(1 to "a"))
-            .keys { // subject inside this block is of type Set<Int> (actually <1>)
+            .keys { // subject inside this expectation-group is of type Set<Int> (actually <1>)
                 toBe(setOf(1))
             }
 
         fails {
             expect(mapOf(1 to "a"))
-                .keys { // subject inside this block is of type Set<Int> (actually <1>)
+                .keys { // subject inside this expectation-group is of type Set<Int> (actually <1>)
                     toBe(setOf(2))  // fails because <1> is not equal to <2>
                 }
         }
@@ -193,22 +193,22 @@ class MapAssertionSamples {
 
     @Test
     fun valuesFeature() {
-        // subject inside this block is of type String
+        // subject inside this expectation-group is of type String
         expect(mapOf(1 to "a"))
             .values //subject is of type Collection<String> (actually <"a">)
             .toContain {
-                // subject inside this block is of type String
+                // subject inside this expectation-group is of type String
                 toBe("a")
             }
 
         fails {
-            // subject inside this block is of type String
+            // subject inside this expectation-group is of type String
             expect(   // fails because "a" is not equal to "b"
                 mapOf(1 to "a")
             )
                 .values //subject is of type Collection<String> (actually <"a">)
                 .toContain {
-                    // subject inside this block is of type String
+                    // subject inside this expectation-group is of type String
                     toBe("b")   // fails because "a" is not equal to "b"
                 }
         }
@@ -217,13 +217,13 @@ class MapAssertionSamples {
     @Test
     fun values() {
         expect(mapOf(1 to "a"))
-            .values {   // subject inside this block is of type Collection<String> (actually <"a">)
+            .values {   // subject inside this expectation-group is of type Collection<String> (actually <"a">)
                 toBe(setOf("a"))
             }
 
         fails {
             expect(mapOf(1 to "a"))
-                .values {   // subject inside this block is of type Collection<String> (actually <"a">)
+                .values {   // subject inside this expectation-group is of type Collection<String> (actually <"a">)
                     toBe(setOf("b"))    // fails because <"a"> is not equal to <"b">
                 }
         }
@@ -231,22 +231,22 @@ class MapAssertionSamples {
 
     @Test
     fun asEntriesFeature() {
-        // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+        // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
         expect(mapOf(1 to "a")).asEntries()
             .toContain {
-                // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+                // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
                 toBe(mapOf(1 to "a").entries.first())
             }
 
         fails {
-            // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+            // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
             expect(
                 mapOf(
                     1 to "a"
                 )   // fails because <1,"a"> is not equal to <1,"b">
             ).asEntries()
                 .toContain {
-                    // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+                    // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
                     toBe(mapOf(1 to "b").entries.first())   // fails because <1,"a"> is not equal to <1,"b">
                 }
         }
@@ -254,12 +254,12 @@ class MapAssertionSamples {
 
     @Test
     fun asEntries() {
-        expect(mapOf(1 to "a")).asEntries { // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+        expect(mapOf(1 to "a")).asEntries { // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
             toBe(mapOf(1 to "a").entries)
         }
 
         fails {
-            expect(mapOf(1 to "a")).asEntries { // subject inside this block is of type Map.Entry<Int, String> (actually <1,"a">)
+            expect(mapOf(1 to "a")).asEntries { // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
                 toBe(mapOf(1 to "b").entries)   // fails because <1,"a"> is not equal to <1,"b">
             }
         }

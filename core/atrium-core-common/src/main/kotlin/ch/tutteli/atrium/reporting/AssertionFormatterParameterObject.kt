@@ -108,7 +108,7 @@ class AssertionFormatterParameterObject private constructor(
      * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
      * of an [AssertionGroup] of type [DoNotFilterAssertionGroupType].
      *
-     * @return `true` if the formatting process is currently within an do not filter assertion group; `false` otherwise.
+     * @return `true` if the formatting process is currently within an do not filter expectation-group; `false` otherwise.
      */
     fun isNotInDoNotFilterGroup() = numberOfDoNotFilterGroups == 0
 
@@ -117,7 +117,7 @@ class AssertionFormatterParameterObject private constructor(
      * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
      * of an [AssertionGroup] of type [ExplanatoryAssertionGroupType].
      *
-     * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
+     * @return `true` if the formatting process is currently within an explanatory expectation-group; `false` otherwise.
      */
     fun isNotInExplanatoryFilterGroup() = numberOfExplanatoryGroups == 0
 

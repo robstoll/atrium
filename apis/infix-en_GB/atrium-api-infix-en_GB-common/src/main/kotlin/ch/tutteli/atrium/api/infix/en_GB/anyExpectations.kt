@@ -246,7 +246,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _logic.appendAsGroup(assertionCreator)
 
 /**
- * Inline property referring actually to `this` and allows writing infix assertions within an assertion group block
+ * Inline property referring actually to `this` and allows writing infix assertions within an expectation-group
  *
  * For instance, instead of:
  * ```
@@ -270,7 +270,7 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
 inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
 
 /**
- * Inline property referring actually to `this` and allows writing infix assertions within an assertion group block
+ * Inline property referring actually to `this` and allows writing infix assertions within an expectation-group
  *
  * For instance, instead of:
  * ```

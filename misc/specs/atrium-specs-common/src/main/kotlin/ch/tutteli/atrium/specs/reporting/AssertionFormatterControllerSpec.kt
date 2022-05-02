@@ -166,7 +166,7 @@ abstract class AssertionFormatterControllerSpec(
                 ).forEach { (description, factories, prefix) ->
                     val (holdingGroup, failingGroup) = factories
                     context(description) {
-                        it("appends the assertions without group header, if the assertion group holds") {
+                        it("appends the assertions without group header, if the expectation-group holds") {
                             testee.format(holdingGroup, parameterObject)
                             expect(sb.toString()).toEqual(
                                 lineSeparator +
@@ -174,7 +174,7 @@ abstract class AssertionFormatterControllerSpec(
                             )
                         }
 
-                        it("appends the assertions without group header, if the assertion group does not hold") {
+                        it("appends the assertions without group header, if the expectation-group does not hold") {
                             testee.format(failingGroup, parameterObject)
                             expect(sb.toString()).toEqual(
                                 lineSeparator +
@@ -197,7 +197,7 @@ abstract class AssertionFormatterControllerSpec(
             }
 
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
-                it("appends only the explanatory assertion group") {
+                it("appends only the explanatory expectation-group") {
                     val rootGroup = assertionBuilder.root
                         .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertions(
@@ -214,7 +214,7 @@ abstract class AssertionFormatterControllerSpec(
             }
 
             context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
-                it("appends only the explanatory assertion group") {
+                it("appends only the explanatory expectation-group") {
                     val rootGroup = assertionBuilder.root
                         .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertions(
@@ -231,7 +231,7 @@ abstract class AssertionFormatterControllerSpec(
                 }
             }
 
-            context("an assertion group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
+            context("an expectation-group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
                 val assertionGroup = assertionBuilder.list
                     .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2)
                     .withAssertions(holdingAssertion, failingAssertion)
@@ -241,7 +241,7 @@ abstract class AssertionFormatterControllerSpec(
                     .withAssertions(listOf(assertionGroup, holdingAssertion))
                     .build()
 
-                it("appends the explanatory assertion group including all its assertions") {
+                it("appends the explanatory expectation-group including all its assertions") {
                     val rootGroup = assertionBuilder.root
                         .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
                         .withAssertion(explanatoryAssertionGroup)
@@ -257,7 +257,7 @@ abstract class AssertionFormatterControllerSpec(
                 }
 
                 context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
-                    it("appends the explanatory assertion group including all its assertions") {
+                    it("appends the explanatory expectation-group including all its assertions") {
                         val explanatoryAssertionGroup2 = assertionBuilder.explanatoryGroup
                             .withWarningType
                             .withAssertion(explanatoryAssertionGroup)
@@ -293,8 +293,8 @@ abstract class AssertionFormatterControllerSpec(
                 )
             }
 
-            context("an assertion group with type ${SummaryAssertionGroupType::class.simpleName}") {
-                context("an assertion group with type ${InvisibleAssertionGroupType::class.simpleName} with two assertions") {
+            context("an expectation-group with type ${SummaryAssertionGroupType::class.simpleName}") {
+                context("an expectation-group with type ${InvisibleAssertionGroupType::class.simpleName} with two assertions") {
                     it("appends both assertions, no header for group with ${InvisibleAssertionGroupType::class.simpleName}, and prefix holding/failing assertion accordingly") {
                         val invisibleGroup: AssertionGroup = object : AssertionGroup {
                             override val description = Untranslatable("test")

@@ -34,7 +34,7 @@ class ResultExpectationSamples {
     @Test
     fun toBeASuccess() {
 
-        expect(Result.success(10)).toBeASuccess { // subject within this block is of type Int (actually 10)
+        expect(Result.success(10)).toBeASuccess { // subject within this expectation-group is of type Int (actually 10)
             toEqual(10)
             toBeLessThan(15)
         } // subject here is back to type Result<Int>
@@ -47,7 +47,7 @@ class ResultExpectationSamples {
             }
         }
 
-        fails { // because it was a Failure, but since we use a block...
+        fails { // because it was a Failure, but since we use an expectation-group...
             expect(Result.failure<Int>(ArithmeticException())).toBeASuccess {
                 toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
                 //                     use `.toBeASuccess.` if you want a fail fast behaviour
@@ -92,7 +92,7 @@ class ResultExpectationSamples {
         val errorMessage = "can not divide by zero"
         val failure = Result.failure<Int>(ArithmeticException(errorMessage))
 
-        expect(failure).toBeAFailure<ArithmeticException> {  // subject within this block is of type ArithmeticException
+        expect(failure).toBeAFailure<ArithmeticException> {  // subject within this expectation-group is of type ArithmeticException
             messageToContain("parameter")
         } // subject here is back to type Result<Int>
 
@@ -104,7 +104,7 @@ class ResultExpectationSamples {
             }
         }
 
-        fails { // because wrong Expectation type expected, but since we use a block...
+        fails { // because wrong Expectation type expected, but since we use an expectation-group...
             expect(failure).toBeAFailure<ArithmeticException> {
                 messageToContain("parameter") // ...reporting mentions that subject's message was expected `to contain: "parameter"``
                 //                               use `.toBeAFailure.` if you want a fail fast behaviour

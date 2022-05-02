@@ -73,7 +73,7 @@ abstract class SubjectLessSpec<T>(
 }) {
     companion object {
         /**
-         * Calls recursively [AssertionGroup.assertions] on every assertion group contained in [assertions].
+         * Calls recursively [AssertionGroup.assertions] on every expectation-group contained in [assertions].
          */
         private tailrec fun expandAssertionGroups(assertions: List<Assertion>) {
             if (assertions.isEmpty()) return

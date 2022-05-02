@@ -56,7 +56,7 @@ class CollectionAssertionSamples {
     @Test
     fun size() {
         expect(listOf(1, 2, 3))
-            .size { // subject inside this block is of type Int (actually 3)
+            .size { // subject inside this expectation-group is of type Int (actually 3)
                 isGreaterThan(1)
             } // subject here is back to type List<Int, String>
             .size {
@@ -64,8 +64,8 @@ class CollectionAssertionSamples {
             }
 
         fails {
-            // all assertions are evaluated inside an assertion group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations inside an expectation-group are evaluated together; for more details see:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(listOf(1, 2, 3))
                 .size {

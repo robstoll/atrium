@@ -22,9 +22,9 @@ interface AssertionFormatterController {
      *
      * Last but not least, an [AssertionFormatterController] has to take care of [AssertionGroup] with an
      * [InvisibleAssertionGroupType] as its [AssertionGroup.type]. Such groups should not be format as group but instead
-     * each [AssertionGroup.assertions] should be formatted. This also means, that if there are nested assertion groups
+     * each [AssertionGroup.assertions] should be formatted. This also means, that if there are nested expectation-groups
      * with an [InvisibleAssertionGroupType], that their [AssertionGroup.assertions] should be formatted as if they
-     * were all added directly in the surrounding assertion group.
+     * were all added directly in the surrounding expectation-group.
      *
      * @param assertion The assertion which shall be formatted.
      * @param parameterObject Used to share data between this [AssertionFormatterController] and the [register]ed
@@ -48,7 +48,7 @@ interface AssertionFormatterController {
      * Checks whether the given [assertion] is an [AssertionGroup] and if its [type][AssertionGroup.type]
      * is an [ExplanatoryAssertionGroupType].
      *
-     * @return `true` if it is an explanatory assertion group; `false` otherwise.
+     * @return `true` if it is an explanatory expectation-group; `false` otherwise.
      */
     fun isExplanatoryAssertionGroup(assertion: Assertion) =
         assertion is AssertionGroup && assertion.type is ExplanatoryAssertionGroupType

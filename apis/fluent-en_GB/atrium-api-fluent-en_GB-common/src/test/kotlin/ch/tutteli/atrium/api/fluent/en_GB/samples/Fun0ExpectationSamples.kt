@@ -22,11 +22,11 @@ class Fun0ExpectationSamples {
     @Test
     fun toThrow() {
         expect { throw IllegalStateException("abc") }
-            .toThrow<IllegalStateException> { // subject inside this block is of type IllegalStateException
+            .toThrow<IllegalStateException> { // subject inside this expectation-group is of type IllegalStateException
                 messageToContain("abc")
             } // subject keeps type IllegalStateException also after the block
 
-        fails { // because wrong type expected (IndexOutOfBoundsException instead of IllegalStateException), but since we use a block...
+        fails { // because wrong type expected (IndexOutOfBoundsException instead of IllegalStateException), but since we use an expectation-group...
             expect { throw IllegalStateException("abc") }
                 .toThrow<IndexOutOfBoundsException> {
                     messageToContain("abc") // ... reporting mentions that subject's message was expected `to contain: "abc"`
@@ -34,7 +34,7 @@ class Fun0ExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.toThrow()` if this is all you expect
             expect { throw IllegalStateException("abc") }
                 .toThrow<IndexOutOfBoundsException> {}
@@ -60,14 +60,14 @@ class Fun0ExpectationSamples {
                 toEqual("abc")
             } // subject keeps type String also after the block
 
-        fails { // because an exception was thrown, but since we use a block...
+        fails { // because an exception was thrown, but since we use an expectation-group...
             expect<() -> String> { throw IllegalStateException("abc") }
                 .notToThrow {
                     toStartWith("abc") // ... reporting mentions that subject's message was expected `to start with: "abc"`
                 }
         }
 
-        fails { // because an exception was thrown, but since we use a block...
+        fails { // because an exception was thrown, but since we use an expectation-group...
             expect<() -> String> { throw IllegalStateException("abc") }
                 .notToThrow {
                     toStartWith("abc") // ... reporting mentions that subject's message was expected `to start with: "abc"`
@@ -75,7 +75,7 @@ class Fun0ExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.notToThrow()` if this is all you expect
             expect { "abc" }.notToThrow {}
         }

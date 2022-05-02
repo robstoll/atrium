@@ -31,14 +31,14 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - Missing a feature?  
   [Create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
   
-- You would like to write an assertion function but you're having trouble starting?
+- You would like to write an expectation function but you are having trouble starting?
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 
   If you still have trouble starting, then contact us on
   [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/) 
   ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)
   and we will try to give you some additional hints.
 
-- You do not have a particular assertion function in mind but would like to contribute with code?
+- You do not have a particular expectation function in mind but would like to contribute with code?
   Please have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
   -- ping us on 
   [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
@@ -54,7 +54,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - Found spelling mistakes?  
   Nice catch :mag: Please fix it and create a pull request.
     
-- You wrote an assertion function and would like to contribute it to Atrium?  
+- You wrote an expectation function and would like to contribute it to Atrium?  
   Awesome :+1: please review the [pull request checklist](#pull-request-checklist) and create a pull request
 
 - You would like to support the project financially?  

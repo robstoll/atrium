@@ -35,7 +35,7 @@ fun <T> expect(subject: T): RootExpect<T> =
  * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
  *
  * @param subject The subject for which we are going to postulate assertions.
- * @param assertionCreator Assertion group block with a non-fail fast behaviour.
+ * @param assertionCreator expectation-group with a non-fail fast behaviour.
  *
  * @return The newly created [RootExpect].
  * @throws AssertionError in case an assertion does not hold.

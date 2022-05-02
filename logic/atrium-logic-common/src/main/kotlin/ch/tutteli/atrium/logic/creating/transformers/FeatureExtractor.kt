@@ -35,7 +35,7 @@ interface FeatureExtractor {
      * @param representationForFailure Representation in case the extraction cannot be carried out.
      * @param featureExtraction Extracts the feature where it returns the feature wrapped into a [Some] if the
      *   extraction as such can be carried out, otherwise [None].
-     * @param maybeSubAssertions Optionally, subsequent assertions for the feature (the new subject).
+     * @param maybeSubAssertions Optionally, subsequent expectations for the feature (the new subject).
      *   This is especially useful if the extraction cannot be carried out, because this way we can then already
      *   show to you (in error reporting) what you wanted to assert about the feature (which gives you more context to
      *   the error).

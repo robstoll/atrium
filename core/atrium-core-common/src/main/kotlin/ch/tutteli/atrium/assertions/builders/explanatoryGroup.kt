@@ -63,7 +63,7 @@ interface ExplanatoryGroup {
         override val explanatoryAssertions: List<Assertion>
 
         /**
-         * Make the ExplanatoryGroup no longer hold, use this if the explanatory assertion group is a single assertion
+         * Make the ExplanatoryGroup no longer hold, use this if the explanatory expectation-group is a single assertion
          * within a group.
          */
         override val failing: FinalStep get() = create(groupType, explanatoryAssertions, holds = false)
@@ -202,7 +202,7 @@ interface ExplanatoryAssertionGroupFinalStep : AssertionBuilderFinalStep<Asserti
     val explanatoryAssertions: List<Assertion>
 
     /**
-     * Make the ExplanatoryGroup no longer hold, use this if the explanatory assertion group is a single assertion
+     * Make the ExplanatoryGroup no longer hold, use this if the explanatory expectation-group is a single assertion
      * within a group.
      */
     @Suppress("DEPRECATION")

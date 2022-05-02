@@ -59,7 +59,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     // TODO 0.19.0: factor out in common pattern, should not be the concern of the average expectation
                     // function writer
                     container.maybeSubject.fold({
-                        // already in an explanatory assertion group, no need to wrap again
+                        // already in an explanatory expectation-group, no need to wrap again
                         container.collectForCompositionBasedOnSubject(None, assertionCreator)
                     }, {
                         listOf(
@@ -79,7 +79,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 container.maybeSubject.fold({
                     // If the feature extraction fails because the subject is already None, then we don't need/want to
                     // show the fixedClaimGroup in case it is empty because the feature as such will already be shown
-                    // via explanatory assertion group
+                    // via explanatory expectation-group
                     if (featureAssertions.isNotEmpty()) {
                         container.append(fixedClaimGroup)
                     }

@@ -66,7 +66,7 @@ class AnyExpectationSamples {
             expect<Int?>(1).toEqualNullIfNullGivenElse(null)
         }
 
-        expect<Int?>(1).toEqualNullIfNullGivenElse { // subject inside this block is of type Int
+        expect<Int?>(1).toEqualNullIfNullGivenElse { // subject inside this expectation-group is of type Int
             toBeLessThan(2)
         } // subject here is back to type Int?
 
@@ -97,10 +97,10 @@ class AnyExpectationSamples {
             .notToEqualNull { // subject is now of type Int
                 toBeGreaterThan(0)
                 toBeLessThan(10)
-            } // subject remains type Int also after the block
+            } // subject remains type Int also after the expectation-group
             .toEqual(1)
 
-        fails { // because subject is null, but since we use a block...
+        fails { // because subject is null, but since we use an expectation-group...
             expect<Int?>(null).notToEqualNull {
                 toBeGreaterThan(2) // ...reporting mentions that subject was expected `to be greater than: 2`
             }
@@ -115,7 +115,7 @@ class AnyExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.notToEqualNull()` if this is all you expect
             expect<Int?>(1).notToEqualNull { }
         }
@@ -142,10 +142,10 @@ class AnyExpectationSamples {
         expect(n)
             .toBeAnInstanceOf<Int> { // subject is now of type Int
                 toBeGreaterThanOrEqualTo(15)
-            } // subject remains type Int also after the block
+            } // subject remains type Int also after the expectation-group
             .toBeLessThan(20)
 
-        fails { // because wrong type expected (Long instead of String), but since we use a block...
+        fails { // because wrong type expected (Long instead of String), but since we use an expectation-group...
             expect("A").toBeAnInstanceOf<Long> {
                 toEqual(43) // ...reporting mentions that subject was expected `to equal: 43`
             }
@@ -160,7 +160,7 @@ class AnyExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.toBeAnInstanceOf<Int>()` if this is all you expect
             expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
@@ -202,8 +202,8 @@ class AnyExpectationSamples {
 
         fails {
             expect(13).toBeAnInstanceOf<Int>().and {
-                // introduces an expectation group block
-                // all expectations are evaluated inside an expectation group block; for more details:
+                // introduces an expectation-group block where all expectations inside
+                // are evaluated together; for more details see:
                 // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
                 // use `.and.` if you want fail fast behaviour
 
