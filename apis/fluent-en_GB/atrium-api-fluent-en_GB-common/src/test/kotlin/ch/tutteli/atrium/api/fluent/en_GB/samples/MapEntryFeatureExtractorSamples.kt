@@ -27,12 +27,12 @@ class MapEntryFeatureExtractorSamples {
     fun key() {
         val entry = mapOf(1 to "a").entries.first()
 
-        expect(entry).key {  // subject inside this block is of type Int (actually 1)
+        expect(entry).key {  // subject inside this expectation-group is of type Int (actually 1)
             toEqual(1)
         } // subject here is back to type Map.Entry<Int, String>
 
         fails {
-            expect(entry).key {  // subject inside this block is of type Int (actually 1)
+            expect(entry).key {  // subject inside this expectation-group is of type Int (actually 1)
                 toEqual(2)       // fails
                 toBeLessThan(0)  // still evaluated even though `toEqual` already fails,
                 //                  use `.key.` if you want a fail fast behaviour
@@ -61,12 +61,12 @@ class MapEntryFeatureExtractorSamples {
     fun value() {
         val entry = mapOf(1 to "a").entries.first()
 
-        expect(entry).value { // subject inside this block is of type String (actually "a")
+        expect(entry).value { // subject inside this expectation-group is of type String (actually "a")
             toEqual("a")
         } // subject here is back to type Map.Entry<Int, String>
 
         fails {
-            expect(entry).value { // subject inside this block is of type String (actually "a")
+            expect(entry).value { // subject inside this expectation-group is of type String (actually "a")
                 toEqual("b")      // fails
                 toStartWith("z")  // still evaluated even though `toEqual` already fails,
                 //                   use `.value.` if you want a fail fast behaviour

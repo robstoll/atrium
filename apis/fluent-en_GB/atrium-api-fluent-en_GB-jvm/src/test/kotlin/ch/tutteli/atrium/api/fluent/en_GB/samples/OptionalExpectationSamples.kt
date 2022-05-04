@@ -45,7 +45,7 @@ class OptionalExpectationSamples {
     @Test
     fun toBePresent() {
 
-        expect(Optional.of(10)).toBePresent {  // subject within this block is of type Int (actually 10)
+        expect(Optional.of(10)).toBePresent {  // subject within this expectation-group is of type Int (actually 10)
             toBeGreaterThan(0)
             toBeLessThan(11)
         }
@@ -58,7 +58,7 @@ class OptionalExpectationSamples {
             }
         }
 
-        fails { // because it was empty, but since we use a block...
+        fails { // because it was empty, but since we use an expectation-group...
             expect(Optional.empty<Int>()).toBePresent {
                 toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
                 //                     use `.toBePresent.` if you want a fail fast behaviour

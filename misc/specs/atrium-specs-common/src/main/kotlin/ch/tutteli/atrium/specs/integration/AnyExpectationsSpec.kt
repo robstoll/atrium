@@ -662,7 +662,7 @@ abstract class AnyExpectationsSpec(
                     }
                 }
 
-                it("$name - throws an AssertionError which contains subsequent assertions") {
+                it("$name - throws an AssertionError which contains subsequent expectations") {
                     class A(val i: Int? = null)
                     expect {
                         expect(A()).feature(A::i).notToEqualNull { toBeLessThan(1) }

@@ -7,9 +7,8 @@ import ch.tutteli.atrium.logic.*
  * Expects that the property [Map.Entry.key] of the subject of `this` expectation
  * is equal to the given [key] and the property [Map.Entry.value] is equal to the given [value].
  *
- * Kind of a shortcut for `and { key { toEqual(key) }; value { toEqual(value) } }` where `and` denotes an
- * expectation group block.
- * Yet, the actual behaviour depends on implementation - could also be fail fast for instance or augment reporting etc.
+ * Shortcut for `and { key { toEqual(key) }; value { toEqual(value) } }` where `and` denotes an
+ * expectation-group.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

@@ -22,7 +22,7 @@ import java.math.BigDecimal
 class MostExamplesSpec : Spek({
 
     test("ex-single") {
-        // two single assertions, only first evaluated
+        // two single expectations, only first evaluated
         expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
     }
 
@@ -38,7 +38,7 @@ class MostExamplesSpec : Spek({
     }
 
     test("ex-group") {
-        // assertion group with two assertions, both evaluated
+        // expectation-group with two expectations, both evaluated
         expect(4 + 6) {
             toBeLessThan(5)
             toBeGreaterThan(10)
@@ -63,7 +63,7 @@ class MostExamplesSpec : Spek({
 
     test("ex-toThrow1") {
         expect {
-            // this block does something but eventually...
+            // this lambda does something but eventually...
             throw IllegalArgumentException("name is empty")
         }.toThrow<IllegalStateException>()
     }
@@ -71,15 +71,15 @@ class MostExamplesSpec : Spek({
     test("ex-toThrow2") {
         expect {
             throw IllegalArgumentException()
-        }.toThrow<IllegalArgumentException>().message.toStartWith("firstName")
+        }.toThrow<IllegalArgumentException> {
+            message { toStartWith("firstName") }
+        }
     }
 
     test("ex-toThrow3") {
         expect {
             throw IllegalArgumentException()
-        }.toThrow<IllegalArgumentException> {
-            message { toStartWith("firstName") }
-        }
+        }.toThrow<IllegalArgumentException>().message.toStartWith("firstName")
     }
 
     test("ex-notToThrow") {
@@ -89,27 +89,27 @@ class MostExamplesSpec : Spek({
         }.notToThrow()
     }
 
-    test("ex-type-assertions-1") {
-        //snippet-type-assertions-insert
-        expect(x).toBeAnInstanceOf<SubType1>()
-            .feature { f(it::number) }
-            .toEqual(2)
-    }
-    test("ex-type-assertions-2") {
+    test("ex-type-expectations-1") {
+        //snippet-type-expectations-insert
         expect(x).toBeAnInstanceOf<SubType2> {
             feature { f(it::word) }.toEqual("goodbye")
             feature { f(it::flag) }.toEqual(false)
         }
     }
+    test("ex-type-expectations-2") {
+        expect(x).toBeAnInstanceOf<SubType1>()
+            .feature { f(it::number) }
+            .toEqual(2)
+    }
 
 
     test("ex-nullable-1") {
-        val slogan1: String? = "postulating assertions made easy"
+        val slogan1: String? = "postulating expectations made easy"
         expect(slogan1).toEqual(null)
     }
     test("ex-nullable-2") {
         val slogan2: String? = null
-        expect(slogan2).toEqual("postulating assertions made easy")
+        expect(slogan2).toEqual("postulating expectations made easy")
     }
     val slogan2: String? = null
     test("ex-nullable-3") {
@@ -267,12 +267,12 @@ class MostExamplesSpec : Spek({
 })
 
 //@formatter:off
-//snippet-type-assertions-start
+//snippet-type-expectations-start
 interface SuperType
 
 data class SubType1(val number: Int) : SuperType
 data class SubType2(val word: String, val flag: Boolean) : SuperType
 
 val x: SuperType = SubType2("hello", flag = true)
-//snippet-type-assertions-end
+//snippet-type-expectations-end
 //@formatter:on

@@ -64,7 +64,7 @@ class AnyExpectationSamples {
     fun toEqualNullIfNullGivenElse() {
         expect<Int?>(null) toEqualNullIfNullGivenElse null
 
-        expect<Int?>(1) toEqualNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
+        expect<Int?>(1) toEqualNullIfNullGivenElse { // subject inside this expectation-group is of type Int (actually 1)
             it toBeLessThan 2
         } // subject here is back to type Int?
 
@@ -96,7 +96,7 @@ class AnyExpectationSamples {
         */ toEqual 1
 
 
-        fails { // because subject is null, but since we use a block...
+        fails { // because subject is null, but since we use an expectation-group...
             expect<Int?>(null) notToEqualNull {
                 it toBeGreaterThan 2  // ...reporting mentions that subject was expected `to be greater than: 2`
             }
@@ -109,7 +109,7 @@ class AnyExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `notToEqualNull o` if this is all you expect
             expect<Int?>(1) notToEqualNull { }
         }
@@ -135,7 +135,7 @@ class AnyExpectationSamples {
         } /* subject remains type Int also after the block
         */ toBeLessThan 20
 
-        fails { // because wrong type expected (Long instead of String), but since we use a block...
+        fails { // because wrong type expected (Long instead of String), but since we use an expectation-group...
             expect("A").toBeAnInstanceOf<Long> {
                 it toEqual 43 // ...reporting mentions that subject was expected `to equal: 43`
             }
@@ -148,7 +148,7 @@ class AnyExpectationSamples {
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.toBeAnInstanceOf<Int>()` if this is all you expect
             expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
@@ -172,7 +172,7 @@ class AnyExpectationSamples {
 
         fails {
             expect(13).toBeAnInstanceOf<Int>() and {
-                // introduces an expectation group block
+                // introduces an expectation-group block
                 // all expectations are evaluated inside an expectations group block; for more details:
                 // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 

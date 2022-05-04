@@ -25,7 +25,7 @@ infix fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
 /**
  * Extracts a feature out  of the current subject of `this` expectation with the help of the given
  * [extractorWithCreator.extractor][ExtractorWithCreator.extractor],
- * creates a new [Expect] for it, applies an assertion group based on the given
+ * creates a new [Expect] for it, applies an expectation-group based on the given
  * [extractorWithCreator.assertionCreator][ExtractorWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
@@ -65,7 +65,7 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
  * returns it so that subsequent calls are based on the feature.
  *
  * Use `feature of(...)` in case the method requires parameters or in case you want to define
- * an assertion group block for it.
+ * an expectation-group for it.
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
@@ -106,7 +106,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
 /**
  * Extracts a feature out of the current subject of `this` expectation using the given [FeatureWithCreator.extractor],
  * creates a new [Expect] for it,
- * applies an assertion group based on the given [FeatureWithCreator.assertionCreator] for the feature and
+ * applies an expectation-group based on the given [FeatureWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
  * Use `of(K..., ...) { ... }` to create a [FeatureWithCreator] where the first argument is the extractor in
@@ -156,7 +156,7 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  * Extracts a feature out of the current subject of `this` expectation,
  * based on the given [MetaFeatureOptionWithCreator]
  * creates a new [Expect] for it,
- * applies an assertion group based on the given [MetaFeatureOptionWithCreator.assertionCreator] for the feature and
+ * applies an expectation-group based on the given [MetaFeatureOptionWithCreator.assertionCreator] for the feature and
  * returns the initial [Expect] with the current subject.
  *
  * Note that you need to enable the new type inference of Kotlin (or use Kotlin 1.4 and above) in order that Kotlin

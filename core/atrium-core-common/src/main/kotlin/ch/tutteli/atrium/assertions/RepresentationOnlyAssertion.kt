@@ -6,7 +6,7 @@ package ch.tutteli.atrium.assertions
  * This assertion is typically used within an [AssertionGroup] where the description of the group gives enough context
  * so that it is enough if the assertion consists only of a representation of an instance.
  *
- * For instance, representing `isNoneOf(1, 2, 3)` can be achieved with an assertion group and inner
+ * For instance, representing `isNoneOf(1, 2, 3)` can be achieved with an expectation-group and inner
  * [RepresentationOnlyAssertion]s.
  */
 interface RepresentationOnlyAssertion : Assertion {

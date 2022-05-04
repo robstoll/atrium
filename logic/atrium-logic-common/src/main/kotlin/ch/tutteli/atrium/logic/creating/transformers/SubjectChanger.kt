@@ -64,7 +64,7 @@ interface SubjectChanger {
      * @param failureHandler The [FailureHandler] which shall be used in case the subject cannot be transformed.
      *   A failure has the chance to augment the failing assertion representing the failed transformation with further
      *   information.
-     * @param maybeSubAssertions Optionally, subsequent assertions for the new subject. This is especially useful if the
+     * @param maybeSubAssertions Optionally, subsequent expectations for the new subject. This is especially useful if the
      *   change fails since we can then already show to you (in error reporting) what you wanted to assert about
      *   the new subject (which gives you more context to the error).
      *

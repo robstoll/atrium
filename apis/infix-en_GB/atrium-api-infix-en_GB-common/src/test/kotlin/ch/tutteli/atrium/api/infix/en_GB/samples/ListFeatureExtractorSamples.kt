@@ -45,19 +45,19 @@ class ListFeatureExtractorSamples {
     fun get() {
         val list = listOf(1, 2, 3)
 
-        expect(list) get index(0) {  // subject inside this block is of type Int (actually 1)
+        expect(list) get index(0) {  // subject inside this expectation-group is of type Int (actually 1)
             it toBeLessThan 2
             it toBeGreaterThan 0
         }
 
-        expect(list) get index(1) {  // subject inside this block is of type Int (actually 2)
+        expect(list) get index(1) {  // subject inside this expectation-group is of type Int (actually 2)
             it toBeLessThan 3
             it toBeGreaterThan 1
         }
 
         fails {
-            // all expectations are evaluated inside an expectation group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(list) get index(0) {
                 it toBeGreaterThan 2    // fails

@@ -13,7 +13,7 @@ import java.math.BigDecimal
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [BigDecimal].
  */
 enum class DescriptionBigDecimalAssertion(override val value: String) : StringBasedTranslatable {
-    FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL("notice, if you used %s then the assertion would have hold."),
+    FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL("notice, if you used %s then the expectation would have been met."),
     IS_EQUAL_INCLUDING_SCALE("is equal (including scale)"),
     IS_NOT_EQUAL_INCLUDING_SCALE("is not equal (including scale)"),
     IS_NUMERICALLY_EQUAL_TO("is numerically equal to"),

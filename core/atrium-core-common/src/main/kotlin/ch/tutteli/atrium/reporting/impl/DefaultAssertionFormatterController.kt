@@ -31,8 +31,8 @@ class DefaultAssertionFormatterController : AssertionFormatterController {
 
     private fun noNeedToFormat(assertion: Assertion, parameterObject: AssertionFormatterParameterObject): Boolean {
         //assertionFilter only applies if:
-        // - we are not in an assertion group which should not be filtered (e.g. explanatory or summary group) and
-        // - if the given assertion is not an explanatory assertion group either.
+        // - we are not in an expectation-group which should not be filtered (e.g. explanatory or summary group) and
+        // - if the given assertion is not an explanatory expectation-group either.
         return parameterObject.isNotInDoNotFilterGroup()
             && !isExplanatoryAssertionGroup(assertion)
             && !parameterObject.assertionFilter(assertion)

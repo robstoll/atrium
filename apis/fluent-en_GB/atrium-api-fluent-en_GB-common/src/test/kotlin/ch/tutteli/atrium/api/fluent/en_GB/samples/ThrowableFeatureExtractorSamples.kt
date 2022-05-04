@@ -32,12 +32,12 @@ class ThrowableFeatureExtractorSamples {
 
     @Test
     fun message() {
-        expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
+        expect(RuntimeException("abc")).message { // subject inside this expectation-group is of type String (actually "abc")
             toContain("a")
         } // subject here is back to type RuntimeException
 
         fails {
-            expect(RuntimeException("abc")).message { // subject inside this block is of type String (actually "abc")
+            expect(RuntimeException("abc")).message { // subject inside this expectation-group is of type String (actually "abc")
                 toContain("d")   // fails
                 toStartWith("z") // still evaluated even though `toContain` already fails
                 //                  use `.message.` if you want a fail fast behaviour
@@ -66,14 +66,14 @@ class ThrowableFeatureExtractorSamples {
             messageToContain("b")
         }
 
-        fails { // because wrong type expected (IllegalStateException instead of IndexOutOfBoundsException), but since we use a block...
+        fails { // because wrong type expected (IllegalStateException instead of IndexOutOfBoundsException), but since we use an expectation-group...
             expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> {
                 messageToContain("b") // ... reporting mentions that subject's message was expected `to contain: "b"`
             }
         }
 
         fails {
-            // because you forgot to define an expectation in the expectation group block
+            // because you forgot to define an expectation in the expectation-group block
             // use `.cause<...>()` if this is all you expect
             expect(IllegalStateException(IndexOutOfBoundsException("abc"))).cause<IllegalStateException> { }
         }

@@ -89,12 +89,12 @@ class AnyAssertionSamples {
     fun toBeNullIfNullGivenElse() {
         expect<Int?>(null) toBeNullIfNullGivenElse null
 
-        expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
+        expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this expectation-group is of type Int (actually 1)
             it isLessThan 2
         } // subject here is back to type Int?
 
         fails {
-            expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this block is of type Int (actually 1)
+            expect<Int?>(1) toBeNullIfNullGivenElse { // subject inside this expectation-group is of type Int (actually 1)
                 it isLessThan 0
             } // subject here is back to type Int?
         }
@@ -120,20 +120,20 @@ class AnyAssertionSamples {
         } toEqual 1 // subject here remains type Int
 
         fails {
-            // because you forgot to define an assertion in the assertion group block
+            // because you forgot to define an expectation in the expectation-group
             // use `notToBeNull()` if this is all you want to assert
             expect<Int?>(1) notToBeNull { }
         }
 
         fails {
             // notToBeNull already fails, reporting mentions that subject was expected `to be: 2`
-            expect<Int?>(null) notToBeNull { // subject inside this block is of type Int (actually 1)
+            expect<Int?>(null) notToBeNull { // subject inside this expectation-group is of type Int (actually 1)
                 it toEqual 2
             }  // subject here remains type Int
         }
 
         fails {
-            expect<Int?>(1) notToBeNull { // subject inside this block is of type Int (actually 1)
+            expect<Int?>(1) notToBeNull { // subject inside this expectation-group is of type Int (actually 1)
                 it isLessThan 0
             } // subject here remains type Int
         }
@@ -190,8 +190,8 @@ class AnyAssertionSamples {
 
         fails {
             expect(13).toBeAnInstanceOf<Int>() and {
-                // all assertions are evaluated inside an assertion group block; for more details:
-                // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+                // all expectations are evaluated inside an expectation-group; for more details:
+                // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
                 it isNoneOf values(1, 2, 13)  // fails
                 it isLessThan 10  //             still evaluated and included in the error report
                 //                               use `.and.` if you want fail fast behaviour

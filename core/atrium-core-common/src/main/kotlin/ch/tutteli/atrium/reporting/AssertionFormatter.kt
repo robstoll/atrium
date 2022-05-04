@@ -89,7 +89,7 @@ interface AssertionFormatter {
      * to format the given [assertionGroup] without problems. If [canFormat] returns `false` then this method should
      * throw an [UnsupportedOperationException].
      *
-     * @param assertionGroup The assertion group which should be formatted.
+     * @param assertionGroup The expectation-group which should be formatted.
      * @param parameterObject The parameter object which contains inter alia the [sb][AssertionFormatterParameterObject.sb]
      *   to which the result will be appended.
      * @param formatAssertions The function which should be called to format the

@@ -30,26 +30,26 @@ class MapFeatureExtractorSamples {
     @Test
     fun getExisting() {
         expect(mapOf(1 to "a"))
-            .getExisting(1) {   // subject inside this block is of type String (actually "a")
+            .getExisting(1) {   // subject inside this expectation-group is of type String (actually "a")
                 toEqual("a")
             } // subject here is back to type Map<Int, String>
 
         fails {
             expect(mapOf(1 to "a"))
-                .getExisting(1) {    // subject inside this block is of type String (actually "a")
+                .getExisting(1) {    // subject inside this expectation-group is of type String (actually "a")
                     toEqual("b")     // fails because "a" is not equal to "b"
-                    toStartWith("z") // still evaluated because we use an expectation group block
+                    toStartWith("z") // still evaluated because we use an expectation-group block
                     //                  use `.getExisting(key).` if you want a fail fast behaviour
                 }
         }
 
         fails {
-            // all expectations are evaluated inside an expectation group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(mapOf(1 to "a"))
                 .getExisting(2) {   // fails because key 2 does not exist
-                    toEqual("a")    // still evaluated because we use an expectation group block
+                    toEqual("a")    // still evaluated because we use an expectation-group block
                     //                 use `.getExisting(key).` if you want a fail fast behaviour
                 }
         }
@@ -73,18 +73,18 @@ class MapFeatureExtractorSamples {
     @Test
     fun keys() {
         expect(mapOf(1 to "a"))
-            .keys { // subject inside this block is of type Set<Int> (containing 1)
+            .keys { // subject inside this expectation-group is of type Set<Int> (containing 1)
                 toEqual(setOf(1))
             } // subject here is back to type Map<Int, String>
 
         fails {
-            // all expectations are evaluated inside an expectation group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(mapOf(1 to "a"))
-                .keys {                // subject inside this block is of type Set<Int> (containing 1)
+                .keys {                // subject inside this expectation-group is of type Set<Int> (containing 1)
                     toEqual(setOf(2))  // fails because 1 is not equal to 2
-                    toHaveSize(3)      // still evaluated because we use an expectation group block
+                    toHaveSize(3)      // still evaluated because we use an expectation-group block
                     //                    use `.keys.` if you want a fail fast behaviour
                 }
         }
@@ -108,18 +108,18 @@ class MapFeatureExtractorSamples {
     @Test
     fun values() {
         expect(mapOf(1 to "a"))
-            .values { // subject inside this block is of type Collection<String> (containing "a")
+            .values { // subject inside this expectation-group is of type Collection<String> (containing "a")
                 toEqual(setOf("a"))
             }
 
         fails {
-            // all expectations are evaluated inside an expectation group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(mapOf(1 to "a"))
-                .values { // subject inside this block is of type Collection<String> (containing <"a">)
+                .values { // subject inside this expectation-group is of type Collection<String> (containing <"a">)
                     toEqual(setOf("b"))  // fails because "a" is not equal to "b"
-                    toContain("c")       // still evaluated because we use an expectation group block
+                    toContain("c")       // still evaluated because we use an expectation-group block
                     //                      use `.values.` if you want a fail fast behaviour
                 }
         }
@@ -144,16 +144,16 @@ class MapFeatureExtractorSamples {
     @Test
     fun size() {
         expect(mapOf(1 to "a", 2 to "b"))
-            .size { // subject inside this block is of type Int (actually 2)
+            .size { // subject inside this expectation-group is of type Int (actually 2)
                 toEqual(2)
             } // subject here is back to type Map<Int, String>
 
         fails {
-            // all expectations are evaluated inside an expectation group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(mapOf(1 to "a", 2 to "b"))
-                .size {               // subject inside this block is of type Int (containing 2)
+                .size {               // subject inside this expectation-group is of type Int (containing 2)
                     toEqual(5)        // fails because 5 is not equal to 2
                     toBeLessThan(1)   // fails because 2 is not less than 1
                     //                   use `.size.` if you want a fail fast behaviour

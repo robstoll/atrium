@@ -36,13 +36,13 @@ class MapExpectationSamples {
     @Test
     fun toContainKeyValue() {
         expect(mapOf(1 to "a"))
-            .toContain(KeyValue(1) { // subject inside this block is of type String (actually "a")
+            .toContain(KeyValue(1) { // subject inside this expectation-group is of type String (actually "a")
                 toEqual("a")
             })
 
         fails {
             expect(mapOf(1 to "a"))
-                .toContain(KeyValue(1) {  // subject inside this block is of type String (actually "a")
+                .toContain(KeyValue(1) {  // subject inside this expectation-group is of type String (actually "a")
                     toEqual("b")          // fails because "a" is not equal to "b"
                 })
         }
@@ -51,13 +51,13 @@ class MapExpectationSamples {
     @Test
     fun toContainOnlyKeyValue() {
         expect(mapOf(1 to "a"))
-            .toContainOnly(KeyValue(1) { // subject inside this block is of type String (actually "a")
+            .toContainOnly(KeyValue(1) { // subject inside this expectation-group is of type String (actually "a")
                 toEqual("a")
             })
 
         fails {
             expect(mapOf(1 to "a", 2 to "b"))
-                .toContainOnly(KeyValue(1) {  // subject inside this block is of type String (actually "a")
+                .toContainOnly(KeyValue(1) {  // subject inside this expectation-group is of type String (actually "a")
                     toEqual("a")
                 })                            // fails because the map contains key 2 with value "b" in addition
         }

@@ -31,14 +31,14 @@ class FileSubjectChangerSamples {
     fun asPath() {
         val file = tempDir.newFile("target").toFile()
 
-        expect(file).asPath { // subject within this block is of type Path
+        expect(file).asPath { // subject within this expectation-group is of type Path
             toBeARegularFile()
             toStartWith(tempDir)
         } // subject here is back to type File
 
         fails {
-            // all assertions are evaluated inside an assertion group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations inside an expectation-group are evaluated together; for more details see:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(file).asPath {
                 toBeADirectory()        // fails

@@ -29,7 +29,7 @@ class PairFeatureExtractorSamples {
         val pair = 1 to "one"
 
         expect(pair)
-            .first { // subject inside this block is of type Int (actually 1)
+            .first { // subject inside this expectation-group is of type Int (actually 1)
                 toBeLessThan(2)
             } // subject here is back to type Pair<Int, String>
             .first {
@@ -37,8 +37,8 @@ class PairFeatureExtractorSamples {
             }
 
         fails {
-            // all assertions are evaluated inside an assertion group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations inside an expectation-group are evaluated together; for more details see:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(pair)
                 .first {
@@ -72,7 +72,7 @@ class PairFeatureExtractorSamples {
         val pair = "one" to 1
 
         expect(pair)
-            .second { // subject inside this block is of type Int (actually 1)
+            .second { // subject inside this expectation-group is of type Int (actually 1)
                 toBeLessThan(2)
             } // subject here is back to type Pair<Int, String>
             .second {
@@ -80,8 +80,8 @@ class PairFeatureExtractorSamples {
             }
 
         fails {
-            // all assertions are evaluated inside an assertion group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-assertions-or-assertion-groups
+            // all expectations inside an expectation-group are evaluated together; for more details see:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(pair)
                 .second {

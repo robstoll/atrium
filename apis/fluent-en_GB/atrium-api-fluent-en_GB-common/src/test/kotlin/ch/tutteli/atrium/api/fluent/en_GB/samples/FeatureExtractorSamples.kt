@@ -35,7 +35,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .its({ age }) { // subject within this block is of type Int
+            .its({ age }) { // subject within this expectation-group is of type Int
                 toBeGreaterThan(18)
                 toBeLessThan(35)
             } // subject here is back to type Person
@@ -43,8 +43,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .its({ age }) {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toBeGreaterThan(40) // fails
@@ -76,7 +76,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature(Person::name) { // subject within this block is of type String
+            .feature(Person::name) { // subject within this expectation-group is of type String
                 toStartWith("John")
                 toEndWith("Smith")
             } // subject here is back to type Person
@@ -84,8 +84,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(Person::name) {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -130,8 +130,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f) {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -173,7 +173,7 @@ class FeatureExtractorSamples {
             .feature(
                 ::f,
                 "Dr."
-            ) {// subject within this block is of type String (actually the return value of calling `f` with the given argument)
+            ) {// subject within this expectation-group is of type String (actually the return value of calling `f` with the given argument)
                 toStartWith("Dr. John")
                 toEndWith("Smith")
             } // subject here is back type Person
@@ -181,8 +181,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f, "Dr.") {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -227,7 +227,7 @@ class FeatureExtractorSamples {
                 ::f,
                 "Dr.",
                 "PMP"
-            ) { // subject within this block is of type String (actually the return value of calling `f` with the given two arguments)
+            ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given two arguments)
                 toStartWith("Dr. John")
                 toEndWith("Smith, PMP")
             } // subject here is back type Person
@@ -235,8 +235,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f, "Dr.", "PMP") {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -286,7 +286,7 @@ class FeatureExtractorSamples {
                 "Dr.",
                 "PMP",
                 "Native"
-            ) { // subject within this block is of type String (actually the return value of calling `f` with the given three arguments)
+            ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given three arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toEndWith("English level: Native")
@@ -295,8 +295,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native") {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -349,7 +349,7 @@ class FeatureExtractorSamples {
                 "PMP",
                 "Native",
                 "C1"
-            ) { // subject within this block is of type String (actually the return value of calling `f` with the given four arguments)
+            ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given four arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toContain("English level: Native")
@@ -359,8 +359,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1") {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -416,7 +416,7 @@ class FeatureExtractorSamples {
                 "Native",
                 "C1",
                 "B2"
-            ) { // subject within this block is of type String (actually the return value of calling `f` with the given five arguments)
+            ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given five arguments)
                 toStartWith("Dr. John Smith")
                 toContain("PMP")
                 toContain("English level: Native")
@@ -427,8 +427,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature(::f, "Dr.", "PMP", "Native", "C1", "B2") {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toStartWith("Kevin") // fails
@@ -465,7 +465,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature("Actual age", Person::age) { // subject within this block is now of type Int (actually 25)
+            .feature("Actual age", Person::age) { // subject within this expectation-group is now of type Int (actually 25)
                 toBeLessThan(30)
                 toBeGreaterThan(20)
             } // subject here is back type Person
@@ -479,8 +479,8 @@ class FeatureExtractorSamples {
 
             expect(person)
                 .feature("Actual age", Person::age) {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toBeLessThan(20)    // fails
@@ -513,7 +513,7 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature({ f(it::age) }) { // `it` refers to `person`, subject within this block is of type Int (actually 25)
+            .feature({ f(it::age) }) { // `it` refers to `person`, subject within this expectation-group is of type Int (actually 25)
                 toBeGreaterThan(20)
                 toBeLessThan(30)
             } // subject here is back to Person
@@ -521,8 +521,8 @@ class FeatureExtractorSamples {
         fails {
             expect(person)
                 .feature({ f(it::age) }) {
-                    // introduces an expectation group block
-                    // all expectations are evaluated inside an expectation group block; for more details:
+                    // introduces an expectation-group block
+                    // all expectations are evaluated inside an expectation-group block; for more details:
                     // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
 
                     toBeGreaterThan(30) // fails
