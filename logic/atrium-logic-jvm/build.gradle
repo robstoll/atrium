@@ -1,7 +1,7 @@
 description = 'The domain logic of Atrium for the JVM platform.'
 
 dependencies {
-    api prefixedProject('core-jvm')
+    api prefixedProject("core")
 
     implementation niok()
 

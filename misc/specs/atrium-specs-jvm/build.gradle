@@ -2,7 +2,7 @@ description = 'Provides specifications of Atrium (for the JVM platform) which ca
     'APIs and logic/core implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    api prefixedProject('core-jvm')
+    api prefixedProject("core")
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-jvm')
     api prefixedProject('verbs-internal-jvm')
@@ -14,11 +14,11 @@ dependencies {
 
 dependencies {
     //spek2 requires stdlib-jdk8 and kotlin-reflect
-    runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-    api "org.spekframework.spek2:spek-dsl-jvm:$spek2Version", excludeKotlin
-    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spek2Version", excludeKotlin
+    api "org.spekframework.spek2:spek-dsl-jvm:$spekVersion", excludeKotlin
+    runtimeOnly "org.spekframework.spek2:spek-runner-junit5:$spekVersion", excludeKotlin
 
     api mockito(), excludeKotlin
     api niok(), excludeKotlin

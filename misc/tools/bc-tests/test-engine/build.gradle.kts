@@ -3,7 +3,7 @@
 // are included -> alternatively, you can remove the `if` in settings.gradle.kts (search for System.getenv("BC"))
 
 val junitPlatformVersion: String by rootProject.extra
-val spek2Version: String by rootProject.extra
+val spekVersion: String by rootProject.extra
 
 kotlin {
     jvm()
@@ -11,9 +11,9 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 api("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
-                api("org.spekframework.spek2:spek-dsl-jvm:$spek2Version")
-                api("org.spekframework.spek2:spek-runner-junit5:$spek2Version")
-                api("org.spekframework.spek2:spek-runtime-jvm:$spek2Version")
+                api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
+                api("org.spekframework.spek2:spek-runner-junit5:$spekVersion")
+                api("org.spekframework.spek2:spek-runtime-jvm:$spekVersion")
                 api(kotlin("reflect"))
             }
         }

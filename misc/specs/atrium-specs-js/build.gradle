@@ -2,7 +2,7 @@ description = 'Provides specifications of Atrium (for the JS platforms) which ca
     'APIs and logic/core implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    api prefixedProject('core-js')
+    api prefixedProject("core")
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB-js')
     api prefixedProject('verbs-internal-js')
@@ -12,7 +12,7 @@ dependencies {
 }
 
 dependencies {
-    api "org.spekframework.spek2:spek-dsl-js:$spek2Version"
+    api "org.spekframework.spek2:spek-dsl-js:$spekVersion"
 }
 
 compileKotlin2Js.kotlinOptions.languageVersion = '1.3'

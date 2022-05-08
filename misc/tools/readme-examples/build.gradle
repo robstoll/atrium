@@ -3,10 +3,10 @@ description = 'Runs examples, includes the code and the output in README.md'
 apply plugin: 'kotlin'
 dependencies {
     implementation "org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion"
-    implementation "org.spekframework.spek2:spek-dsl-jvm:$spek2Version"
-    implementation "org.spekframework.spek2:spek-runner-junit5:$spek2Version"
-    implementation "org.spekframework.spek2:spek-runtime-jvm:$spek2Version"
-    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
+    implementation "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
+    implementation "org.spekframework.spek2:spek-runtime-jvm:$spekVersion"
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
     implementation kotlinStdlib()
     implementation prefixedProject('fluent-en_GB-jvm')

@@ -4,7 +4,7 @@ ext.jacoco_additional = [
     prefixedProject('verbs-jvm'),
     prefixedProject('translations-en_GB-jvm'),
     prefixedProject('logic-jvm'),
-    prefixedProject('core-jvm'),
+    prefixedProject("core"),
 ]
 
 dependencies {

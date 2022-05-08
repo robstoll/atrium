@@ -1,7 +1,7 @@
 description = 'The domain logic of Atrium as common module.'
 
 dependencies {
-    api prefixedProject('core-common')
+    api prefixedProject("core")
 
     // it is up to the consumer which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-common')

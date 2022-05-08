@@ -7,24 +7,25 @@ buildscript {
     }
     ext {
         // main
-        kbox_version = '0.15.1'
-        kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
+        kboxVersion = '0.15.1'
+        kbox = { "ch.tutteli.kbox:kbox:$kboxVersion" }
         niokVersion = '1.4.7'
         niok = { "ch.tutteli.niok:niok:$niokVersion" }
-        kotlin_version = '1.3.72'
+        // keep in sync with /buildSrc/build.gradle.kts
+        kotlinVersion = '1.3.72'
 
         // test
         jacocoToolVersion = '0.8.8'
         junitPlatformVersion = '1.8.2'
         jupiterVersion = '5.8.2'
-        spek2Version = '2.0.12'
+        spekVersion = '2.0.12'
         spekExtensionsVersion = '1.2.1'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion" }
         mockkVersion = '1.10.0'
 
         //TODO remove with 1.0.0
-        mockito_kotlin_version = '2.2.0'
-        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version" }
+        mockitoKotlinVersion = '2.2.0'
+        mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion" }
 
         // project setup
         tutteli_plugins_version = '0.33.1'
@@ -33,6 +34,9 @@ buildscript {
 
         // release
         gradle_nexus_publish_plugin_version = '1.1.0'
+
+        //TODO 0.19.0 add all modules and remove this afterwards
+        newMultiplatformProjectNames = ["core"]
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
@@ -70,7 +74,9 @@ buildscript {
                 (subprojects - toolProjectsFun).findAll {
                     !it.name.endsWith("-js") &&
                         // would have two classes with the same name if we add it as project as well,
-                        // (clashes with "${project.name}-translations-en_GB-jvm"
+                        // (clashes with "${rootProject.name}-translations-en_GB"
+                        it.name != "${rootProject.name}-translations-de_CH" &&
+                        // TODO 0.19.0 remove once translations is also migrated to new MPP
                         it.name != "${rootProject.name}-translations-de_CH-common" &&
                         it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
@@ -92,7 +98,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "ch.tutteli:tutteli-gradle-dokka:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$tutteli_plugins_version"
@@ -106,7 +112,7 @@ buildscript {
 
 apply plugin: "ch.tutteli.project.utils"
 apply plugin: 'ch.tutteli.kotlin.utils'
-kotlinutils.kotlinVersion = kotlin_version
+kotlinutils.kotlinVersion = kotlinVersion
 
 repositories {
     mavenCentral()
@@ -123,10 +129,10 @@ dependencies {
     dependabot "org.junit.platform:junit-platform-console:$junitPlatformVersion"
     dependabot "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion"
     dependabot "ch.tutteli.niok:niok:$niokVersion"
-    dependabot "ch.tutteli.kbox:kbox:$kbox_version"
+    dependabot "ch.tutteli.kbox:kbox:$kboxVersion"
 
     //TODO remove with 1.0.0
-    dependabot "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+    dependabot "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 
 }
 
@@ -141,6 +147,176 @@ subprojects {
 def commonProjects = getCommonProjects()
 def jsProjects = getJsProjects()
 
+def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
+configure(newMultiplatformProjects) { subproject ->
+    apply plugin: "kotlin-multiplatform"
+
+    //TODO 0.19.0 move sources to default path once all modules have been migrated
+    def oldParent = "../${subproject.name.substring("atrium-".length())}"
+    def oldCommon = "$oldParent/${subproject.name}-common"
+    def oldJvm = "$oldParent/${subproject.name}-jvm"
+    def oldJs = "$oldParent/${subproject.name}-js"
+
+    kotlin {
+        jvm {
+            compilations.main.kotlinOptions {
+                jvmTarget = "11"
+            }
+            compilations.test.kotlinOptions {
+                jvmTarget = "11"
+            }
+
+            //for module-info.java
+            withJava()
+
+            def testProvider = testRuns["test"].executionTask
+            testProvider.configure {
+                useJUnitPlatform {
+                    includeEngines("spek2", "junit-jupiter")
+                }
+            }
+        }
+        //TODO 0.20.0 activate as soon as all modules have been transitioned to new MPP
+//        js {
+//            nodejs()
+//        }
+
+        targets.all {
+            compilations.all {
+                //TODO 0.20.0 or later once we drop support of Kotlin 1.2
+                //kotlinOptions.allWarningsAsErrors = true
+            }
+        }
+
+        sourceSets {
+            commonMain {
+                dependencies {
+                    api(kotlin("stdlib-jdk8"))
+                    api(kotlin("reflect"))
+                }
+            }
+            commonTest {
+                dependencies {
+                    implementation kotlin('test-common')
+                    implementation kotlin('test-annotations-common')
+                }
+            }
+
+            jvmTest {
+                dependencies {
+                    implementation kotlin('test-junit')
+                    runtimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
+                    implementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion") {
+                        exclude group: 'org.jetbrains.kotlin'
+                    }
+                    runtimeOnly("org.spekframework.spek2:spek-runner-junit5:$spekVersion") {
+                        exclude group: 'org.jetbrains.kotlin'
+                    }
+
+                    implementation(kotlin("stdlib-jdk8"))
+                    runtimeOnly(kotlin("reflect"))  //spek requires reflect
+                }
+            }
+            jsTest {
+                dependencies {
+                    implementation kotlin('test-js')
+                }
+            }
+
+            all {
+                languageSettings {
+                    languageVersion = '1.2'
+                    apiVersion = '1.2'
+                    useExperimentalAnnotation('kotlin.Experimental')
+                }
+            }
+            configureEach {
+                if (it.name.endsWith("Test")) {
+                    languageSettings {
+                        languageVersion = '1.3'
+                        apiVersion = '1.3'
+                    }
+                }
+            }
+
+            //TODO 0.19.0 switch to default folder layout once everything is migrated
+            commonMain {
+                kotlin.srcDir("$oldCommon/src/main/kotlin")
+                resources.srcDir("$oldCommon/src/main/resources")
+            }
+            commonTest {
+                kotlin.srcDir("$oldCommon/src/test/kotlin")
+                resources.srcDir("$oldCommon/src/test/resources")
+            }
+            jvmMain {
+                kotlin.srcDir("$oldJvm/src/main/kotlin")
+                resources.srcDir("$oldJvm/src/main/resources")
+            }
+            jvmTest {
+                kotlin.srcDir("$oldJvm/src/test/kotlin")
+                resources.srcDir("$oldJvm/src/test/resources")
+            }
+            jsMain {
+                kotlin.srcDir("$oldJs/src/main/kotlin")
+                resources.srcDir("$oldJs/src/main/resources")
+            }
+            jsTest {
+                kotlin.srcDir("$oldJs/src/test/kotlin")
+                resources.srcDir("$oldJs/src/test/resources")
+            }
+        }
+    }
+
+    //TODO 0.19.0 update tutteli-gradle-plugins and remove as this is handled there
+    // calling the Kotlin extension function in buildSrc
+    ConfigureTestTasksKt.configureTestTasks(subproject)
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
+    //TODO 0.19.0 update tutteli-gradle-plugins and remove as this is handled there and allows to use the normal java/ directory instead of module/
+    def moduleInfoReplaceMe = {
+        if (subproject.components.findByName('java') == null) throw new IllegalStateException("""\
+            Could not find the java component.
+            Did you forget to apply the kotlin plugin? Make sure it is applied before this plugin.
+            """.stripIndent()
+        )
+
+        //TODO 0.19.0 remove oldJvm once we move files to the default folder of jvmMain
+        def srcModule = "$oldJvm/src/module"
+        def moduleInfo = subproject.file("$srcModule/module-info.java")
+
+        if (moduleInfo.exists()) {
+
+            subproject.sourceSets {
+                module {
+                    java {
+                        srcDirs = [srcModule]
+                        compileClasspath = main.compileClasspath
+                    }
+                }
+                main {
+                    kotlin { srcDirs += [srcModule] }
+                }
+            }
+            subproject.compileModuleJava.configure {
+                dependsOn subproject.jvmMainClasses
+
+                //TODO 0.19.0 use this as soon as sources are in default folder for jvmMain
+                destinationDir = subproject.kotlin.jvm().compilations.main.output.classesDirs.getFiles().findAll { it.getPath().contains("kotlin") }[0]
+//                destinationDir = project.compileKotlin.destinationDir
+                doFirst {
+                    options.compilerArgs = ['--module-path', classpath.asPath]
+                    classpath = subproject.files()
+                }
+            }
+            subproject.tasks.getByName('jvmJar').dependsOn subproject.compileModuleJava
+        }
+    }
+    moduleInfoReplaceMe()
+}
+
+//TODO 0.19.0 cleanup this file once we have transitioned all modules to the new MPP plugin
 configureCommonProjects()
 configureAndroidProjects()
 configureJsProjects()
@@ -149,10 +325,10 @@ configureJvmProjects()
 configure(subprojects.findAll {
     def parentName = it.projectDir.parentFile.name
     it.name != "bc-tests" && parentName != "old" && parentName != "bc-tests"
-} - (commonProjects + jsProjects)) {
+} - commonProjects - jsProjects - newMultiplatformProjects) { subproject ->
     apply plugin: 'kotlin'
     dependencies {
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     }
     compileKotlin {
         kotlinOptions {
@@ -196,7 +372,10 @@ configure(jsProjects) { subProject ->
 }
 
 def nonCommonAndJsProjects = subprojects - commonProjects - jsProjects
-configure(nonCommonAndJsProjects - toolProjects) { Project subproject ->
+
+
+//TODO 0.19.0 configure dokka plugins again also for newMultiplatformProjects
+configure(nonCommonAndJsProjects - toolProjects - newMultiplatformProjects) { Project subproject ->
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
@@ -241,7 +420,8 @@ configure(apiProjects) { apiProject ->
 
 def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
 
-configure(subprojects - bundleSmokeTests - toolProjects) { subproject ->
+//TODO 0.19.0 newMultiPlatformProject have to be published differently
+configure(subprojects - bundleSmokeTests - toolProjects - newMultiplatformProjects - jsProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
@@ -249,9 +429,10 @@ configure(subprojects - bundleSmokeTests - toolProjects) { subproject ->
     }
 }
 
-configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
+//TODO 0.19.0 spek is used in another way, see above, but we have not yet applied the jacoco plugin
+configure(jacocoMulti.jacocoProjects + getAndroidProjects() - newMultiplatformProjects) {
     apply plugin: 'ch.tutteli.spek'
-    spek.version = spek2Version
+    spek.version = spekVersion
 
     // we don't want to have a dependency on dl.bintray anymore (the current version of ch.tutteli.spek (which is old)
     // still adds it for convenience reasons.
@@ -284,7 +465,9 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     }
 }
 
-configure(subprojects - toolProjects) {
+
+// this is already configured for newMultiplatformProjects further above, thus the substraction
+configure(subprojects - toolProjects - newMultiplatformProjects) {
     sourceSets {
         all {
             languageSettings {
@@ -381,17 +564,19 @@ def createJsTestTask(String... subprojectNames) {
     }
 }
 
+//TODO 0.19.0 this setup should no longer be necessary with the new js plugin, check once you re-activate JS target
+// if this is true, then remove the definition below including createJsTestTask above
 //TODO 0.19.0 enable JS-tests again once we use the new MPP plugins because then they should only re-run if something
 // changed, in contrast to now where they re-run all the time
-if (Boolean.parseBoolean(System.getenv('CI'))) {
-    createJsTestTask(
-        'core-js',
-        'api-fluent-en_GB-js',
-        'api-infix-en_GB-js',
-        'fluent-en_GB-js',
-        'infix-en_GB-js'
-    )
-}
+//if (Boolean.parseBoolean(System.getenv('CI'))) {
+//    createJsTestTask(
+//        'core-js',
+//        'api-fluent-en_GB-js',
+//        'api-infix-en_GB-js',
+//        'fluent-en_GB-js',
+//        'infix-en_GB-js'
+//    )
+//}
 
 def useJupiter(String... projectNames) {
     configure(projectNamesToProject(projectNames)) {
@@ -407,7 +592,8 @@ def useJupiter(String... projectNames) {
 }
 
 useJupiter(
-    'core-jvm',
+    //TODO 0.19.0 setup jupiter tests in a different way for new MPP
+//    'core-jvm',
     'api-fluent-en_GB-jvm',
     'api-infix-en_GB-jvm',
 )

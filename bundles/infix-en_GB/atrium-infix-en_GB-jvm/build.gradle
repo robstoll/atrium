@@ -4,12 +4,12 @@ ext.jacoco_additional = [
     prefixedProject('verbs-jvm'),
     prefixedProject('translations-en_GB-jvm'),
     prefixedProject('logic-jvm'),
-    prefixedProject('core-jvm'),
+    prefixedProject("core"),
 ]
 
 dependencies {
     api prefixedProject('verbs-jvm')
     api prefixedProject('api-infix-en_GB-jvm')
     api prefixedProject('translations-en_GB-jvm')
-    api prefixedProject('core-jvm')
+    api prefixedProject("core")
 }

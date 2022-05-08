@@ -30,7 +30,7 @@ val niokVersion: String by rootProject.extra
 val jupiterVersion: String by rootProject.extra
 val mockkVersion: String by rootProject.extra
 val junitPlatformVersion: String by rootProject.extra
-val spek2Version: String by rootProject.extra
+val spekVersion: String by rootProject.extra
 val jacocoToolVersion: String by rootProject.extra
 
 description =
@@ -183,7 +183,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api(kotlin("stdlib-common"))
                         api(kotlin("reflect"))
                         api("io.mockk:mockk-common:$mockkVersion")
-                        api("org.spekframework.spek2:spek-dsl-metadata:$spek2Version")
+                        api("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
 
                         api(project(":atrium-verbs-internal-common"))
 
@@ -195,7 +195,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                 val jvmMain by getting {
                     dependencies {
                         api("io.mockk:mockk:$mockkVersion")
-                        api("org.spekframework.spek2:spek-dsl-jvm:$spek2Version")
+                        api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
                         api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                         api("ch.tutteli.niok:niok:$niokVersion")
 
@@ -210,7 +210,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                val jsMain by getting {
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
-//                        api("org.spekframework.spek2:spek-dsl-js:$spek2Version")
+//                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
 //
 //                        api(project(":atrium-verbs-internal-js"))
 //
@@ -513,61 +513,6 @@ fun Project.createJacocoReportTask(
         finalizedBy(jacocoReport)
     }
     return jacocoReport
-}
-
-
-fun Project.configureTestTasks() {
-    fun memoizeTestFile(testTask: Test) =
-        project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
-
-    tasks.withType<Test> {
-        testLogging {
-            events(
-                TestLogEvent.FAILED,
-                TestLogEvent.SKIPPED,
-                TestLogEvent.STANDARD_OUT,
-                TestLogEvent.STANDARD_ERROR
-            )
-            exceptionFormat = TestExceptionFormat.FULL
-            showExceptions = true
-            showCauses = true
-            showStackTraces = true
-        }
-        val testTask = this
-        addTestListener(object : TestListener {
-            override fun beforeSuite(suite: TestDescriptor) {}
-            override fun beforeTest(testDescriptor: TestDescriptor) {}
-            override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
-            override fun afterSuite(suite: TestDescriptor, result: TestResult) {
-                if (suite.parent == null) {
-                    if (result.testCount == 0L) {
-                        throw GradleException("No tests executed, most likely the discovery failed.")
-                    }
-                    println("Result: ${result.resultType} (${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)")
-                    memoizeTestFile(testTask).writeText(result.resultType.toString())
-                }
-            }
-        })
-    }
-
-    tasks.withType<Test>().forEach { testTask ->
-        val failIfTestFailedLastTime =
-            tasks.register("fail-if-${testTask.name}-failed-last-time") {
-                doLast {
-                    if (!testTask.didWork) {
-                        val memoizeTestFile = memoizeTestFile(testTask)
-                        if (memoizeTestFile.exists() && memoizeTestFile.readText() == TestResult.ResultType.FAILURE.toString()) {
-                            val allTests = tasks.getByName("allTests") as TestReport
-                            throw GradleException(
-                                "test failed in last run, execute clean${testTask.name} to force its execution\n" +
-                                    "See the following report for more information:\nfile://${allTests.destinationDir}/index.html"
-                            )
-                        }
-                    }
-                }
-            }
-        testTask.finalizedBy(failIfTestFailedLastTime)
-    }
 }
 
 fun Project.rewriteFile(filePath: String, f: (String) -> String) {

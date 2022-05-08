@@ -3,7 +3,7 @@ description = 'A fluent assertion function API in en_GB with a focus on code com
 ext.jacoco_additional = [
     prefixedProject('translations-en_GB-jvm'),
     prefixedProject('logic-jvm'),
-    prefixedProject('core-jvm'),
+    prefixedProject("core"),
 ]
 
 dependencies {

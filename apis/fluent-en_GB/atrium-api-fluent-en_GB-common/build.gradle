@@ -1,4 +1,4 @@
-description = 'A fluent assertion function API in en_GB with a focus on code completion as common module.'
+description = "A fluent assertion function API in en_GB with a focus on code completion as common module."
 
 dependencies {
     api prefixedProject('logic-common')

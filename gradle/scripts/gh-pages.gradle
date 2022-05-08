@@ -15,7 +15,7 @@ task copyIndex(type: Copy) {
 
 task copyCSS(type: Copy) {
     from "$ghPagesPathWithoutVersion/style.css"
-    into  ghPagesPath
+    into ghPagesPath
 }
 
 task removeGhPages {
@@ -24,8 +24,12 @@ task removeGhPages {
     }
 }
 
+//TODO 0.19.0 configure dokka differently
+def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
+def projectsToConsider = docProjects - newMultiplatformProjects
+
 task ghPages {
-    docProjects.forEach { subProject ->
+    projectsToConsider.forEach { subProject ->
         def jar = subProject.tasks.findByName("jar")
         dependsOn jar
         dokka.mustRunAfter jar
@@ -56,10 +60,10 @@ dokka {
         suffix = '#L'
     }
 
-    samples = findSamples(docProjects)
+    samples = findSamples(projectsToConsider)
 
-    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
-    rootProject.configure(docProjects) { subProject ->
+    sourceDirs = projectsToConsider.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
+    rootProject.configure(projectsToConsider) { subProject ->
         subProject.afterEvaluate {
             classpath += kotlin.target.compilations.getByName("main").compileDependencyFiles.files.collect { file -> file }
         }
