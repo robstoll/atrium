@@ -1,7 +1,8 @@
 module ch.tutteli.atrium.logic {
-    requires ch.tutteli.atrium.core.api;
-    requires ch.tutteli.niok;
-    requires kotlin.stdlib;
+    requires transitive ch.tutteli.atrium.core.api;
+    requires            ch.tutteli.niok;
+    requires static     ch.tutteli.atrium.translations.en_GB;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.logic;
     exports ch.tutteli.atrium.logic.creating;

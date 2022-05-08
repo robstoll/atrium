@@ -1,7 +1,7 @@
 description = 'Specifies the internally used assertion verbs for the JS platform'
 
 dependencies {
-    api prefixedProject('core-js')
+    api prefixedProject("core")
     api prefixedProject('logic-js')
 
     testImplementation prefixedProject('specs-js')

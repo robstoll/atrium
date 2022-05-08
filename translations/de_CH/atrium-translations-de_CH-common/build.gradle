@@ -1,5 +1,5 @@
 description = 'Contains translations for Atrium in de_CH as common module.'
 
 dependencies {
-    api prefixedProject('core-common')
+    api prefixedProject("core")
 }

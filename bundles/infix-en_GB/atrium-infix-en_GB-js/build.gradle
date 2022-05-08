@@ -4,5 +4,5 @@ dependencies {
     api prefixedProject('verbs-js')
     api prefixedProject('api-infix-en_GB-js')
     api prefixedProject('translations-en_GB-js')
-    api prefixedProject('core-js')
+    api prefixedProject("core")
 }

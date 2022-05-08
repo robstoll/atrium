@@ -3,7 +3,7 @@ description = 'An infix API in en_GB with a focus on code completion for JVM.'
 ext.jacoco_additional = [
     prefixedProject('translations-de_CH-jvm'),
     prefixedProject('logic-jvm'),
-    prefixedProject('core-jvm'),
+    prefixedProject("core"),
 ]
 
 dependencies {

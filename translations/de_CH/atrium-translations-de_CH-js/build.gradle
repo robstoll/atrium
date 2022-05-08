@@ -1,5 +1,5 @@
 description = 'Contains translations for Atrium in de_CH for the JS platform.'
 
 dependencies {
-    api prefixedProject('core-js')
+    api prefixedProject("core")
 }

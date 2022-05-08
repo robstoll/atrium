@@ -4,5 +4,5 @@ dependencies {
     api prefixedProject('verbs-common')
     api prefixedProject('api-infix-en_GB-common')
     api prefixedProject('translations-en_GB-common')
-    api prefixedProject('core-common')
+    api prefixedProject("core")
 }

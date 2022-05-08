@@ -14,7 +14,11 @@ def dexerProjects = getJvmProjects().findAll {
 configure(dexerProjects) { subproject ->
     configurations {
         r8
-        d8
+        d8 {
+            attributes {
+                attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+            }
+        }
     }
     repositories {
         google()

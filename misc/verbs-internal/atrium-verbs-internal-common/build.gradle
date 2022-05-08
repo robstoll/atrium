@@ -1,7 +1,7 @@
 description = 'Specifies the internally used assertion verbs as common module'
 
 dependencies {
-    api prefixedProject('core-common')
+    api prefixedProject("core")
     api prefixedProject('logic-common')
 
     testImplementation prefixedProject('specs-common')

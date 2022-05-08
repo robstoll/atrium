@@ -54,7 +54,10 @@ if (System.getenv("BC") != null) {
 }
 
 includeBundleAndApisWithExtensionsAndSmokeTest("fluent-en_GB", "infix-en_GB")
-includeKotlinJvmJs("core", "atrium-core")
+val newMultiplatformPluginProjects = listOf("core")
+newMultiplatformPluginProjects.forEach { name ->
+    include("", "atrium-$name")
+}
 
 includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
 
@@ -85,11 +88,13 @@ fun Settings_gradle.includeBundleAndApisWithExtensionsAndSmokeTest(vararg apiNam
 
 fun Settings_gradle.includeKotlinJvmJs(subPath: String, module: String) {
     include(subPath, "$module-common")
-    // js starts to be annoying on local development. Let's carry this only out on CI
-    if (System.getenv("CI") == "true") {
-        include(subPath, "$module-js")
-    }
     include(subPath, "$module-jvm")
+    //TODO 0.19.0 commented out because js makes trouble in migrating to new MPP
+    // in the end, when all modules use the new MPP we should no longer need this extension function
+    // js starts to be annoying on local development. Let's carry this only out on CI
+    // if (System.getenv("CI") == "true") {
+    //    include(subPath, "$module-js")
+    // }
 }
 
 fun Settings_gradle.includeKotlinJvmJsWithExtensions(subPath: String, module: String) {
