@@ -12,7 +12,7 @@ buildscript {
         niokVersion = '1.4.7'
         niok = { "ch.tutteli.niok:niok:$niokVersion" }
         // keep in sync with /buildSrc/build.gradle.kts
-        kotlinVersion = '1.3.72'
+        kotlinVersion = '1.6.21'
 
         // test
         jacocoToolVersion = '0.8.8'
