@@ -58,6 +58,9 @@ val newMultiplatformPluginProjects = listOf("core")
 newMultiplatformPluginProjects.forEach { name ->
     include("", "atrium-$name")
 }
+listOf("en_GB", "de_CH").forEach{ lang ->
+    include("translations" ,"atrium-translations-$lang")
+}
 
 includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
 
@@ -65,9 +68,6 @@ includeKotlinJvmJs("misc/specs", "atrium-specs")
 includeKotlinJvmJs("misc/verbs", "atrium-verbs")
 includeKotlinJvmJs("misc/verbs-internal", "atrium-verbs-internal")
 include("misc/tools", "readme-examples")
-
-includeKotlinJvmJs("translations/de_CH", "atrium-translations-de_CH")
-includeKotlinJvmJs("translations/en_GB", "atrium-translations-en_GB")
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"

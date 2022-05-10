@@ -319,7 +319,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             dependencies {
                                 implementation(project(":atrium-api-$apiName-jvm"))
                                 if (apiName == "infix-en_GB") {
-                                    implementation(project(":atrium-translations-de_CH-jvm"))
+                                    implementation(project(":atrium-translations-de_CH"))
                                 }
                                 configurations[confName].dependencies.forEach {
                                     implementation(it)
@@ -385,14 +385,14 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             implementation(project(":atrium-api-$apiName-common"))
                             implementation(project(":bc-tests:$oldVersion-specs")) {
                                 if (apiName == "infix-en_GB") {
-                                    exclude(module = "${rootProject.name}-translations-en_GB-common")
-                                    exclude(module = "${rootProject.name}-translations-en_GB-jvm")
+                                    exclude(module = "${rootProject.name}-translations-en_GB")
+                                    exclude(module = "${rootProject.name}-translations-en_GB")
                                 }
                             }
                             if (apiName == "infix-en_GB") {
-                                implementation(project(":atrium-translations-de_CH-common"))
+                                implementation(project(":atrium-translations-de_CH"))
                             } else {
-                                implementation(project(":atrium-translations-en_GB-common"))
+                                implementation(project(":atrium-translations-en_GB"))
                             }
 
                             // for samples
@@ -405,9 +405,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         dependencies {
                             implementation(project(":atrium-api-$apiName-jvm"))
                             if (apiName == "infix-en_GB") {
-                                implementation(project(":atrium-translations-de_CH-jvm"))
+                                implementation(project(":atrium-translations-de_CH"))
                             } else {
-                                implementation(project(":atrium-translations-en_GB-jvm"))
+                                implementation(project(":atrium-translations-en_GB"))
                             }
 
                             // to run forgiving spek tests
@@ -475,8 +475,8 @@ fun Project.createJacocoReportTask(
                     !it.name.contains("translations-en_GB") &&
                         !it.name.contains("fluent-en_GB")
                 } + listOf(
-                    project(":atrium-translations-de_CH-jvm"),
-                    project(":atrium-translations-de_CH-common")
+                    project(":atrium-translations-de_CH"),
+                    project(":atrium-translations-de_CH")
                 )
             }
             else -> throw IllegalStateException("re-adjust jacoco task")

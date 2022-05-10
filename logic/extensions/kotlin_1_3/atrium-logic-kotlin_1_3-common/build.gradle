@@ -4,7 +4,7 @@ dependencies {
     implementation prefixedProject('logic-common')
 
     // it is up to the consumer which atrium-translations module is used at runtime
-    compileOnly prefixedProject('translations-en_GB-common')
+    compileOnly prefixedProject('translations-en_GB')
 
     testImplementation prefixedProject('specs-common')
 }

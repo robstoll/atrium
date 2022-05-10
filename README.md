@@ -2505,10 +2505,10 @@ Typically, you would put `DescriptionIntAssertion` into an own module (jar)
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
 [atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-uses `atrium-translations-en_GB-common` whereas 
+uses `atrium-translations-en_GB` whereas 
 tests of 
 [atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
-uses `atrium-translations-de_CH-common`.  
+uses `atrium-translations-de_CH`.  
 
 <details>
 <summary>💬 Using a TranslationSupplier</summary>
