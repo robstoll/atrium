@@ -10,7 +10,6 @@ object IterableToHaveElementsAndAllExpectationsSpec : ch.tutteli.atrium.specs.in
     fun1(Expect<Iterable<Double?>>::toHaveElementsAndAll).withNullableSuffix()
 ) {
 
-
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
@@ -22,6 +21,10 @@ object IterableToHaveElementsAndAllExpectationsSpec : ch.tutteli.atrium.specs.in
         nList = nList.toHaveElementsAndAll {}
         subList = subList.toHaveElementsAndAll {}
         star = star.toHaveElementsAndAll {}
+
+        nList = nList.toHaveElementsAndAll(null)
+        subList = subList.toHaveElementsAndAll(null)
+        star = star.toHaveElementsAndAll(null)
     }
 }
 

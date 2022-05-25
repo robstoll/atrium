@@ -6,11 +6,9 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 
-class IterableToHaveNextAndNoneExpectationsSpec : Spek({
-
+class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
-
 }) {
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
@@ -39,20 +37,18 @@ class IterableToHaveNextAndNoneExpectationsSpec : Spek({
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Double>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
-
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1.toHaveElementsAndNone {}
-        a1 = a1 notToContain o entry {}
+        list = list toHaveElementsAndNone {}
+        nList = nList toHaveElementsAndNone {}
+        subList = subList toHaveElementsAndNone {}
+        star = star toHaveElementsAndNone {}
 
-        a1b = a1b toHaveElementsAndNone {}
-        a1b = a1b toHaveElementsAndNone null
-        a1b = a1b notToContain o entry {}
-        a1b = a1b notToContain o entry null
-
-        star = star.toHaveElementsAndNone {}
-        star = star notToContain o entry {}
+        nList = nList toHaveElementsAndNone null
+        subList = subList toHaveElementsAndNone null
+        star = star toHaveElementsAndNone null
     }
 }

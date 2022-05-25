@@ -12,16 +12,18 @@ class IterableToHaveElementsAndAllExpectationsSpec : ch.tutteli.atrium.specs.int
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Double>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<out Number>> = notImplemented()
+        var star: Expect<Collection<*>> = notImplemented()
 
-        var star: Expect<Iterable<*>> = notImplemented()
-
-        a1 = a1 toHaveElementsAndAll {}
-
-        a1b = a1b toHaveElementsAndAll {}
-        a1b = a1b toHaveElementsAndAll null
-
+        list = list toHaveElementsAndAll {}
+        nList = nList toHaveElementsAndAll {}
+        subList = subList toHaveElementsAndAll {}
         star = star toHaveElementsAndAll {}
+
+        nList = nList toHaveElementsAndAll null
+        subList = subList toHaveElementsAndAll null
+        star = star toHaveElementsAndAll null
     }
 }

@@ -89,20 +89,18 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
-        var a1: Expect<List<Double>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
-
+        var list: Expect<List<Number>> = notImplemented()
+        var nList: Expect<Set<Number?>> = notImplemented()
+        var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        a1 = a1 toHaveElementsAndAny {}
-        a1 = a1 toContain {}
-
-        a1b = a1b toHaveElementsAndAny {}
-        a1b = a1b toHaveElementsAndAny null
-        a1b = a1b toContain {}
-        a1b = a1b toContain (null as Double?)
-
+        list = list toHaveElementsAndAny {}
+        nList = nList toHaveElementsAndAny {}
+        subList = subList toHaveElementsAndAny {}
         star = star toHaveElementsAndAny {}
-        star = star toContain {}
+
+        nList = nList toHaveElementsAndAny null
+        subList = subList toHaveElementsAndAny null
+        star = star toHaveElementsAndAny null
     }
 }

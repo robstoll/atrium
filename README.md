@@ -1056,9 +1056,9 @@ Notice that you can pass `null` to `toContainExactly` instead of an `assertionCr
 This makes of course only sense if your `Iterable` contains nullable elements.
 
 Atrium provides also a `notToContain` shortcut function. 
-Furthermore, it provides aliases for `toContain` and `notToContain` named `toHaveNextAndAny` and `toHaveNextAndNone`,  
-which might be a better choice if you think in terms of: expect a predicate holds. 
-These two are completed with an `toHaveNextAndAll` expectation function.
+Furthermore, it provides aliases for `toContain` and `notToContain` named `toHaveElementsAndAny` and 
+`toHaveElementsAndNone`, which might be a better choice if you think in terms of: expect a predicate holds. 
+These two are completed with an `toHaveElementsAndAll` expectation function.
 
 Following each in action:
 

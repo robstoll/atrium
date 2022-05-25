@@ -53,7 +53,7 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
 
     /**
      * Provides the translation for `and N such elements were found` when an item is not found in a
-     * `toContain.atLeast(1)` check.
+     * `toContain.atLeast|atMost|...`  check.
      */
     protected abstract val descriptionNumberOfElementsFound: Translatable
 

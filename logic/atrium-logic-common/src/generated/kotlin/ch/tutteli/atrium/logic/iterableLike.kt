@@ -24,12 +24,21 @@ fun <T : IterableLike, E> AssertionContainer<T>.builderContainsInIterableLike(co
 
 fun <T : IterableLike, E> AssertionContainer<T>.builderContainsNotInIterableLike(converter: (T) -> Iterable<E>): NotCheckerStep<E, T, NotSearchBehaviour> = impl.builderContainsNotInIterableLike(this, converter)
 
-fun <T : IterableLike, E : IterableLike> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
+fun <T : IterableLike, E : Any> AssertionContainer<T>.all(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
     impl.all(this, converter, assertionCreatorOrNull)
 
 fun <T : IterableLike, E> AssertionContainer<T>.hasNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNext(this, converter)
 
 fun <T : IterableLike, E> AssertionContainer<T>.hasNotNext(converter: (T) -> Iterable<E>): Assertion = impl.hasNotNext(this, converter)
+
+fun <T : IterableLike, E : Any> AssertionContainer<T>.hasNotNextOrAny(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
+    impl.hasNotNextOrAny(this, converter, assertionCreatorOrNull)
+
+fun <T : IterableLike, E : Any> AssertionContainer<T>.hasNotNextOrAll(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
+    impl.hasNotNextOrAll(this, converter, assertionCreatorOrNull)
+
+fun <T : IterableLike, E : Any> AssertionContainer<T>.hasNotNextOrNone(converter: (T) -> Iterable<E?>, assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Assertion =
+    impl.hasNotNextOrNone(this, converter, assertionCreatorOrNull)
 
 fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.min(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.min(this, converter)
 

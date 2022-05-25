@@ -33,8 +33,8 @@ abstract class IterableToContainEntriesSpecBase(
         fun index(index: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
 
         //@formatter:off
-        val afterExplanatory = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
         val afterExplanatoryIndent = "$indentRootBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint"
+        val afterExplanatory = "$afterExplanatoryIndent\\Q$explanatoryBulletPoint\\E"
         val afterMismatchedWarning = "$afterExplanatoryIndent$indentWarningBulletPoint\\Q$listBulletPoint\\E"
         val hasANextElement = "\\Q$rootBulletPoint\\E$toHaveDescr: $aNextElement"
         //@formatter:on

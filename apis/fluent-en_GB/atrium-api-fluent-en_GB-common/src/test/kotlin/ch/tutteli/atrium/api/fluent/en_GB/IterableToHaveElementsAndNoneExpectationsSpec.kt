@@ -46,5 +46,9 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
         nList = nList.toHaveElementsAndNone {}
         subList = subList.toHaveElementsAndNone {}
         star = star.toHaveElementsAndNone {}
+
+        nList = nList.toHaveElementsAndNone(null)
+        subList = subList.toHaveElementsAndNone(null)
+        star = star.toHaveElementsAndNone(null)
     }
 }

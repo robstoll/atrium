@@ -44,6 +44,10 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
     override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    @Deprecated(
+        "Use descriptionToContain instead; will be removed with 0.19.0",
+        replaceWith = ReplaceWith("this.descriptionToContain ")
+    )
     @Suppress("OverridingDeprecatedMember")
     override val descriptionContains: Translatable = descriptionToContain
     override val descriptionNotFound: Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND

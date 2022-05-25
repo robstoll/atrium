@@ -12,7 +12,7 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(5, 3, 2, 2, 4)) toContain o inAny order atMost 2 entry {
-                toBeGreaterThan(2)
+                it toBeGreaterThan 2
             }
 
         }
@@ -24,7 +24,7 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf(1, 8, 5)) notToContain o entry {
-                toBeGreaterThan(6)
+                it toBeGreaterThan 6
             }
         }
     }
@@ -50,14 +50,10 @@ class IterableExpectationSamples {
     @Test
     fun toContainAssertion() {
         val list = listOf(1, 2, 2, 4)
-        expect(list) toContain {
-            toBeGreaterThan(3)
-        }
+        expect(list) toContain { it toBeGreaterThan 3 }
 
         fails {
-            expect(list) toContain {
-                toBeGreaterThan(4)
-            }
+            expect(list) toContain { it toBeGreaterThan 4 }
         }
     }
 
@@ -65,16 +61,16 @@ class IterableExpectationSamples {
     fun toContainAssertions() {
         expect(listOf(1, 2, 2, 4)) toContain entries(
             // multiple expectation-group entries are evaluated independently
-            { toBeLessThan(2) },
-            { toBeGreaterThan(3) }
+            { it toBeLessThan 2 },
+            { it toBeGreaterThan 3 }
         )
 
 
 
         fails {
             expect(listOf(1, 2, 2, 4)) toContain entries(
-                { toEqual(3) }, // fails because no element in the list equals 3
-                { toEqual(5) }  // still evaluated and also fails
+                { it toEqual 3 }, // fails because no element in the list equals 3
+                { it toEqual 5 }  // still evaluated and also fails
             )
         }
     }
@@ -116,13 +112,13 @@ class IterableExpectationSamples {
     @Test
     fun toContainExactlyAssertion() {
         expect(listOf(4)) toContainExactly {
-            toBeLessThan(5)
-            toBeGreaterThan(3)
+            it toBeLessThan 5
+            it toBeGreaterThan 3
         }
 
         fails {
             expect(listOf("A", "B")) toContainExactly {
-                toEqual("A")
+                it toEqual "A"
             }
         }
 
@@ -137,22 +133,22 @@ class IterableExpectationSamples {
     @Test
     fun toContainExactlyAssertions() {
         expect(listOf(3, 5, null)) toContainExactly entries(
-            { toEqual(3) },
-            { toBeLessThan(11) },
+            { it toEqual 3 },
+            { it toBeLessThan 11 },
             null
         )
 
         fails {
             expect(listOf(3, 5, 7)) toContainExactly entries(
-                { toBeGreaterThan(2) },
-                { toBeLessThan(11) }
+                { it toBeGreaterThan 2 },
+                { it toBeLessThan 11 }
             )
         }
 
         fails {
             expect(listOf(3, 5)) toContainExactly entries(
-                { toEqual(1) },       // fails
-                { toBeLessThan(11) }, // succeeds
+                { it toEqual 1 },       // fails
+                { it toBeLessThan 11 }, // succeeds
                 // optional
                 reportOptionsInOrderOnly = { // allows configuring reporting, e.g.
                     showOnlyFailing() // would not show the successful `toBeLessThan(11)`
@@ -235,49 +231,48 @@ class IterableExpectationSamples {
     @Test
     fun toHaveElementsAndAny() {
         expect(listOf(1, 2, 2, 4)) toHaveElementsAndAny {
-            toBeGreaterThan(1)
-            toBeLessThan(3)
+            it toBeGreaterThan 1
+            it toBeLessThan 3
+        }
+        expect(listOf(null, 2, 3)) toHaveElementsAndAny null
+
+        fails {
+            expect(emptyList<Int>()) toHaveElementsAndAny { it toBeLessThan 11 }
         }
 
         fails {
-            expect(emptyList<Int>()) toHaveElementsAndAny { toBeLessThan(11) }
-        }
-
-        fails {
-            expect(listOf(1, 2, 2, 4)) toHaveElementsAndAny {
-                toBeGreaterThan(5)
-            }
+            expect(listOf(1, 2, 2, 4)) toHaveElementsAndAny { it toBeGreaterThan 5 }
         }
     }
 
     @Test
     fun toHaveElementsAndNone() {
-        expect(listOf(1, 2, 2, 4)) toHaveElementsAndNone {
-            toEqual(3)
-        }
+        expect(listOf(1, 2, 2, 4)) toHaveElementsAndNone { it toEqual 3 }
+        expect(listOf<Int?>(1, 2, 2, 4)) toHaveElementsAndNone null
 
         fails {
-            expect(emptyList<Int>()) toHaveElementsAndNone { toEqual(11) }
+            expect(emptyList<Int>()) toHaveElementsAndNone { it toEqual 11 }
         }
 
         fails {
             expect(listOf(1, 2, 2, 4)) toHaveElementsAndNone {
-                toBeLessThanOrEqualTo(1)
+                it toBeLessThanOrEqualTo 1
             }
         }
     }
 
     @Test
     fun toHaveElementsAndAll() {
-        expect(listOf(1, 2, 2, 4)) toHaveElementsAndAll { toBeGreaterThan(0) }
+        expect(listOf(1, 2, 2, 4)) toHaveElementsAndAll { it toBeGreaterThan 0 }
+        expect(listOf(null, null)) toHaveElementsAndAll null
 
         fails {
-            expect(emptyList<Int>()) toHaveElementsAndAll { toBeGreaterThan(0) }
+            expect(emptyList<Int>()) toHaveElementsAndAll { it toBeGreaterThan 0 }
         }
 
         fails {
-            expect(listOf(1, 2, 2, 4)) toHaveElementsAndNone {
-                toBeLessThanOrEqualTo(1)
+            expect(listOf(1, 2, 2, 4)) toHaveElementsAndAll {
+                it toBeLessThanOrEqualTo 3
             }
         }
     }
@@ -289,6 +284,54 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf("A", "B", "C", "A")) toHaveElementsAnd noDuplicates
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrAny() {
+        // passes as the list is empty
+        expect(emptyList<Int>()) notToHaveElementsOrAny { it toBeGreaterThan 1 }
+
+        // passes as (at least) one element fulfills the sub expectation
+        expect(listOf(2, 3, 4)) notToHaveElementsOrAny { it toBeLessThan 3 }
+        expect(listOf(null, 2, 3)) notToHaveElementsOrAny null
+
+        fails {
+            expect(listOf(1, 2, 2, 4)) notToHaveElementsOrAny {
+                it toBeLessThan 1
+            }
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrAll() {
+        // passes as the list is empty
+        expect(emptyList<Int>()) notToHaveElementsOrAll { it toBeGreaterThan 1 }
+
+        // passes as all elements fulfill the sub expectation
+        expect(listOf(2, 3, 4)) notToHaveElementsOrAll { it toBeGreaterThan 1 }
+        expect(listOf(null, null)) notToHaveElementsOrAll null
+
+        fails {
+            expect(listOf(1, 2, 2, 4)) notToHaveElementsOrAll {
+                it toBeLessThanOrEqualTo 3
+            }
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrNone() {
+        // passes as the list is empty
+        expect(emptyList<Int>()) notToHaveElementsOrNone { it toBeGreaterThan 1 }
+
+        // passes as no element fulfills the sub expectation
+        expect(listOf(2, 3, 4)) notToHaveElementsOrNone { it toBeGreaterThan 4 }
+        expect(listOf<Int?>(2, 3, 4)) notToHaveElementsOrNone null
+
+        fails {
+            expect(listOf(1, 2, 2, 4)) notToHaveElementsOrNone {
+                it toBeLessThanOrEqualTo 1
+            }
         }
     }
 }

@@ -91,5 +91,9 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         nList = nList.toHaveElementsAndAny {}
         subList = subList.toHaveElementsAndAny {}
         star = star.toHaveElementsAndAny {}
+
+        nList = nList.toHaveElementsAndAny(null)
+        subList = subList.toHaveElementsAndAny(null)
+        star = star.toHaveElementsAndAny(null)
     }
 }
