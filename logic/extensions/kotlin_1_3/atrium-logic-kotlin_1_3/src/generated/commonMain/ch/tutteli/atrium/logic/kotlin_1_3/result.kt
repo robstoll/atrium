@@ -1,10 +1,9 @@
 // @formatter:off
 //---------------------------------------------------
 //  Generated content, modify:
-//  logic/generateLogic.gradle
+//  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
-
 package ch.tutteli.atrium.logic.kotlin_1_3
 
 import ch.tutteli.atrium.creating.AssertionContainer

@@ -1,12 +1,12 @@
 description = 'Kotlin 1.3 specific assertion functions and builders for fluent-en_GB -- will be merged into fluent-en_GB with 1.0.0'
 
 ext.jacoco_additional = [
-    prefixedProject('logic-kotlin_1_3-jvm'),
+    prefixedProject('logic-kotlin_1_3'),
 ]
 
 dependencies {
     api prefixedProject('api-fluent-en_GB-jvm')
-    api prefixedProject('logic-kotlin_1_3-jvm')
+    api prefixedProject('logic-kotlin_1_3')
 
     testImplementation prefixedProject('specs-jvm')
 }

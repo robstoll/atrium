@@ -1,18 +1,19 @@
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.the
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.streams.asSequence
-import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 /**
  * Use the function `forTarget` to create this data class.
@@ -32,7 +33,8 @@ fun Project.includingTarget(
 
 
 fun Project.createGenerateLogicTask(
-    vararg targetWithPackages: TargetWithAdditionalPackages
+    vararg targetWithPackages: TargetWithAdditionalPackages,
+    suffix: String = ""
 ): Task {
     val generateLogic = tasks.register("generateLogic") {
         group = "build"
@@ -55,7 +57,7 @@ fun Project.createGenerateLogicTask(
             val task = registerGenerateLogicTaskForPackage(
                 sourceSet.name,
                 generatedFolder,
-                relativePackagePath,
+                relativePackagePath + if (suffix !== "") "/$suffix" else "",
                 mainSrcFolder,
                 f
             )
