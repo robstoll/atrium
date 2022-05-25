@@ -54,15 +54,16 @@ if (System.getenv("BC") != null) {
 }
 
 includeBundleAndApisWithExtensionsAndSmokeTest("fluent-en_GB", "infix-en_GB")
-val newMultiplatformPluginProjects = listOf("core")
-newMultiplatformPluginProjects.forEach { name ->
-    include("", "atrium-$name")
-}
+
+include("", "atrium-core")
+include("logic", "atrium-logic")
+
 listOf("en_GB", "de_CH").forEach{ lang ->
     include("translations" ,"atrium-translations-$lang")
 }
 
-includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
+//includeKotlinJvmJsWithExtensions("logic", "atrium-logic")
+includeKotlinJvmJs("logic/extensions/kotlin_1_3", "atrium-logic-kotlin_1_3")
 
 includeKotlinJvmJs("misc/specs", "atrium-specs")
 includeKotlinJvmJs("misc/verbs", "atrium-verbs")

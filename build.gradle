@@ -36,7 +36,7 @@ buildscript {
         gradle_nexus_publish_plugin_version = '1.1.0'
 
         //TODO 0.19.0 add all modules and remove this afterwards
-        newMultiplatformProjectNames = ["core", "translations-en_GB", "translations-de_CH"]
+        newMultiplatformProjectNames = ["core", "logic", "translations-en_GB", "translations-de_CH"]
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
@@ -149,7 +149,10 @@ configure(newMultiplatformProjects) { subproject ->
     apply plugin: "kotlin-multiplatform"
 
     //TODO 0.19.0 move sources to default path once all modules have been migrated
-    def oldParent = "../" + subproject.name.substring(name.lastIndexOf("-") + 1)
+
+    def oldParentName = subproject.name.substring(name.lastIndexOf("-") + 1)
+    def oldParent = "../" + oldParentName
+    oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent :  "../../" + oldParentName
     def oldCommon = "$oldParent/${subproject.name}-common"
     def oldJvm = "$oldParent/${subproject.name}-jvm"
     def oldJs = "$oldParent/${subproject.name}-js"
@@ -163,7 +166,7 @@ configure(newMultiplatformProjects) { subproject ->
                 jvmTarget = "11"
             }
 
-            //for module-info.java
+            //for module-info.java and Java sources in test
             withJava()
 
             def testProvider = testRuns["test"].executionTask
@@ -236,29 +239,29 @@ configure(newMultiplatformProjects) { subproject ->
 
             //TODO 0.19.0 switch to default folder layout once everything is migrated
             commonMain {
-                kotlin.srcDir("$oldCommon/src/main/kotlin")
-                resources.srcDir("$oldCommon/src/main/resources")
+                kotlin.setSrcDirs(["$oldCommon/src/main/kotlin"])
+                resources.setSrcDirs(["$oldCommon/src/main/resources"])
             }
             commonTest {
-                kotlin.srcDir("$oldCommon/src/test/kotlin")
-                resources.srcDir("$oldCommon/src/test/resources")
+                kotlin.setSrcDirs(["$oldCommon/src/test/kotlin"])
+                resources.setSrcDirs(["$oldCommon/src/test/resources"])
             }
             jvmMain {
-                kotlin.srcDir("$oldJvm/src/main/kotlin")
-                resources.srcDir("$oldJvm/src/main/resources")
+                kotlin.setSrcDirs(["$oldJvm/src/main/kotlin"])
+                resources.setSrcDirs(["$oldJvm/src/main/resources"])
             }
             jvmTest {
-                kotlin.srcDir("$oldJvm/src/test/kotlin")
-                resources.srcDir("$oldJvm/src/test/resources")
+                kotlin.setSrcDirs(["$oldJvm/src/test/kotlin", "${subproject.projectDir}/src/jvmTest/java"])
+                resources.setSrcDirs(["$oldJvm/src/test/resources"])
             }
             //TODO 0.19.0 activate once all are migrated to MPP
 //            jsMain {
-//                kotlin.srcDir("$oldJs/src/main/kotlin")
-//                resources.srcDir("$oldJs/src/main/resources")
+//                kotlin.setSrcDirs(["$oldJs/src/main/kotlin"])
+//                resources.setSrcDirs(["$oldJs/src/main/resources"])
 //            }
 //            jsTest {
-//                kotlin.srcDir("$oldJs/src/test/kotlin")
-//                resources.srcDir("$oldJs/src/test/resources")
+//                kotlin.setSrcDirs(["$oldJs/src/test/kotlin"])
+//                resources.setSrcDirs(["$oldJs/src/test/resources"])
 //            }
         }
     }

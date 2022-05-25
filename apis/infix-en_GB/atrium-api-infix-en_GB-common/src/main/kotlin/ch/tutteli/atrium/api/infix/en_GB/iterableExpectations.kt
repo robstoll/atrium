@@ -435,6 +435,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCr
 infix fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAnd(@Suppress("UNUSED_PARAMETER") noDuplicates: noDuplicates): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
 
+
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
  * - that any of them holds the expectations the [assertionCreatorOrNull] creates or

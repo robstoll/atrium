@@ -1,9 +1,0 @@
-description = 'API of the core of Atrium for the JVM platform.'
-
-dependencies {
-    api kbox(), excludeKotlin
-    api kotlinReflect()
-
-    testImplementation prefixedProject('api-infix-en_GB-jvm')
-    testImplementation prefixedProject('specs-jvm')
-}
