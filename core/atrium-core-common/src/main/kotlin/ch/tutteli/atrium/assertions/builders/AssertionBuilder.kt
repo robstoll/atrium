@@ -68,7 +68,7 @@ interface AssertionBuilder {
     /**
      * Builder to create a [DescriptiveAssertion] -- use it to create a simple assertion consisting of a
      * [DescriptiveAssertion.description] (such as `is less than`) and a [DescriptiveAssertion.representation]
-     * (which most of time corresponds to the expected value).
+     * (which most of the time corresponds to the expected value).
      *
      * Use [representationOnly] in case your assertion does not require a description.
      */

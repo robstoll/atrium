@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionIterableLikeExpectation(override val value: String) : StringBasedTranslatable {
     /** @since 0.18.0 */
-    ALL_ELEMENTS("alle Einträge"),
+    ALL_ELEMENTS("für alle Elemente gilt"),
 
     /** @since 0.18.0 */
     AN_ELEMENT_WHICH_NEEDS("ein Element, welches"),
@@ -86,5 +86,17 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     ELEMENT_NOT_FOUND("aber es konnte kein solches Element gefunden werden"),
 
     /** @since 0.18.0 */
-    NUMBER_OF_ELEMENTS_FOUND("und % Elemente wurden gefunden")
+    NUMBER_OF_ELEMENTS_FOUND("und % Elemente wurden gefunden"),
+
+    /** @since 0.19.0 */
+    NOT_TO_HAVE_ELEMENTS_OR_ANY("hat keine Elemente oder min. eines gilt"),
+
+    /** @since 0.19.0 */
+    NOT_TO_HAVE_ELEMENTS_OR_ALL("hat keine Elemente oder füt alle gilt"),
+
+    /** @since 0.19.0 */
+    NOT_TO_HAVE_ELEMENTS_OR_NONE("hat keine Elemente oder für keines gilt"),
+
+    /** @since 0.19.0 */
+    NEITHER_EMPTY_NOR_ELEMENT_FOUND("aber es hat Elemente und es konnte kein solches Element gefunden werden"),
 }

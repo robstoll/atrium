@@ -182,9 +182,9 @@ inline infix fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assert
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
 
 /**
- * Expects that the subject of `this` expectation is not (equal to) in [values].
+ * Expects that the subject of `this` expectation is not equal to any value of [values].
  *
- * @param values The values which are not expected to be contained within the subject of `this` expectation
+ * @param values The values which are not expected to be equal to the subject of `this` expectation
  *   -- use the function `values(t, ...)` to create a [Values].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -197,7 +197,7 @@ infix fun <T> Expect<T>.notToEqualOneOf(values: Values<T>): Expect<T> =
     _logicAppend { isNotIn(values.toList()) }
 
 /**
- * Expects that the subject of `this` expectation is not (equal to) any value of [expected].
+ * Expects that the subject of `this` expectation is not equal to any value of [expected].
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
@@ -215,7 +215,7 @@ infix fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
 /**
  * Can be used to separate single assertions.
  *
- * For instance `expect(1).isLessThan(2).and.isGreaterThan(0)` creates
+ * For instance `expect(1) toBeLessThan 2 and toBeGreaterThan 0` creates
  * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second
  * asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.
  *
@@ -233,7 +233,7 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
  *
- * For instance `expect(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
+ * For instance `expect(1) toBeLessThan 3 and { it toBe even; it toBeGreaterThan 1 }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
  * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
@@ -252,14 +252,14 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * ```
  * expect("hello world") {
  *   this startsWith "hello"
- *   this ends with "world"
+ *   this endsWith "world"
  * }
  * ```
  * You can write
  * ```
  * expect("hello world") {
  *   it startsWith "hello"
- *   it ends with "world"
+ *   it endsWith "world"
  * }
  * ```
  *
@@ -275,13 +275,13 @@ inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
  * For instance, instead of:
  * ```
  * expect(person) {
- *   this name toBe 1
+ *   this name toEqual 1
  * }
  * ```
  * You can write
  * ```
  * expect("hello world") {
- *   its name toBe 1
+ *   its name toEqual 1
  * }
  * ```
  *

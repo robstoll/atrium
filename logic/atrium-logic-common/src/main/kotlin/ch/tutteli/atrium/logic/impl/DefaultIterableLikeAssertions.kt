@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
@@ -19,12 +20,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointS
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.ALL_ELEMENTS
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.A_NEXT_ELEMENT
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
 import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
@@ -73,7 +73,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     ): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .methodCall(method)
-            .withRepresentationForFailure(DescriptionIterableLikeExpectation.NO_ELEMENTS)
+            .withRepresentationForFailure(NO_ELEMENTS)
             .withFeatureExtraction {
                 val iterable = converter(it)
                 Option.someIf(iterable.iterator().hasNext()) {
@@ -89,24 +89,104 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-    ): Assertion = LazyThreadUnsafeAssertionGroup {
+    ): Assertion = allWithMismatchClauseAndDecorator(
+        container,
+        converter,
+        assertionCreatorOrNull,
+        ALL_ELEMENTS,
+        mismatchIf = { holds -> !holds },
+        decorateAssertion = ::decorateAssertionWithHasNext
+    )
+
+    override fun <T : IterableLike, E: Any> hasNotNextOrAll(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Assertion = allWithMismatchClauseAndDecorator(
+        container,
+        converter,
+        assertionCreatorOrNull,
+        NOT_TO_HAVE_ELEMENTS_OR_ALL,
+        mismatchIf = { holds -> !holds }
+    ) { group, _ -> group }
+
+    override fun <T : IterableLike, E : Any> hasNotNextOrNone(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Assertion = allWithMismatchClauseAndDecorator(
+        container,
+        converter,
+        assertionCreatorOrNull,
+        NOT_TO_HAVE_ELEMENTS_OR_NONE,
+        mismatchIf = { holds -> holds }
+    ) { group, _ -> group }
+
+    private fun <E : Any, T : IterableLike> allWithMismatchClauseAndDecorator(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
+        description: Translatable,
+        mismatchIf: (Boolean) -> Boolean,
+        decorateAssertion: (AssertionGroup, AssertionContainer<List<E?>>) -> AssertionGroup
+    ): LazyThreadUnsafeAssertionGroup = LazyThreadUnsafeAssertionGroup {
         val listAssertionContainer = turnSubjectToList(container, converter)
         val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
         val mismatches = createIndexAssertions(list) { (_, element) ->
-            !allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
+            mismatchIf(allCreatedAssertionsHold(container, element, assertionCreatorOrNull))
         }
         if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
 
-        decorateAssertionWithHasNext(
-            assertionBuilder.list
-                .withDescriptionAndEmptyRepresentation(ALL_ELEMENTS)
+        decorateAssertion(
+            // we need to use a partiallyFixedClaimGroup here and cannot use `.list` because an assertion has to fail
+            // if the subject is absent (checked in SubjectLessSpec). Since we use an emptyList in case the subject is
+            // absent and in contrast to toHaveElementsAnd... (which decorates this AssertionGroup with a toHaveNext)
+            // notToHaveElementsOr... functions don't fail in case of an empty list.
+            // Hence, we need the additional claim
+            assertionBuilder.partiallyFixedClaimGroup
+                .withListType
+                .withClaim(listAssertionContainer.maybeSubject.isDefined())
+                .withDescriptionAndEmptyRepresentation(description)
                 .withAssertions(assertions)
                 .build(),
             listAssertionContainer
         )
+    }
+
+    override fun <T : IterableLike, E : IterableLike> hasNotNextOrAny(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Assertion = LazyThreadUnsafeAssertionGroup {
+        val listAssertionContainer = turnSubjectToList(container, converter)
+        val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
+
+        val assertions = ArrayList<Assertion>(2)
+        assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
+        if (list.isNotEmpty() && !list.any { element ->
+                allCreatedAssertionsHold(container, element, assertionCreatorOrNull)
+            }) {
+            assertions.add(
+                assertionBuilder.explanatoryGroup
+                    .withDefaultType
+                    .withExplanatoryAssertion(NEITHER_EMPTY_NOR_ELEMENT_FOUND)
+                    .failing
+                    .build()
+            )
+        }
+        // we need to use a partiallyFixedClaimGroup here and cannot use `.list` because an assertion has to fail
+        // if the subject is absent (checked in SubjectLessSpec). Since we use an emptyList in case the subject is
+        // absent and in contrast to toHaveElementsAndAny we don't fail in case of an empty list,
+        // we need the additional claim
+        assertionBuilder.partiallyFixedClaimGroup
+            .withListType
+            .withClaim(listAssertionContainer.maybeSubject.isDefined())
+            .withDescriptionAndEmptyRepresentation(NOT_TO_HAVE_ELEMENTS_OR_ANY)
+            .withAssertions(assertions)
+            .build()
     }
 
     override fun <T : IterableLike, E> containsNoDuplicates(
@@ -141,7 +221,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                             .withDefaultType
                             .withExplanatoryAssertion(
                                 TranslatableWithArgs(
-                                    DescriptionIterableLikeExpectation.DUPLICATED_BY,
+                                    DUPLICATED_BY,
                                     indices.joinToString(", ")
                                 )
                             )
@@ -149,7 +229,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                     }
                     .showForAnyFailure
                     .withDescriptionAndRepresentation(
-                        TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX, index),
+                        TranslatableWithArgs(INDEX, index),
                         element
                     )
                     .build()
@@ -158,7 +238,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         decorateAssertionWithHasNext(
             createAssertionGroupFromListOfAssertions(
                 NOT_TO_HAVE,
-                DescriptionIterableLikeExpectation.DUPLICATE_ELEMENTS,
+                DUPLICATE_ELEMENTS,
                 duplicates
             ),
             listAssertionContainer

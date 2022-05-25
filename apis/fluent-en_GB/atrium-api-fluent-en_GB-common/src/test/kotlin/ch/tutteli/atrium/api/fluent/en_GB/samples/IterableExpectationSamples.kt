@@ -215,6 +215,7 @@ class IterableExpectationSamples {
             toBeGreaterThan(1)
             toBeLessThan(3)
         }
+        expect(listOf(null, 2, 3)).toHaveElementsAndAny(null)
 
         fails {
             expect(emptyList<Int>()).toHaveElementsAndAny { toBeLessThan(11) }
@@ -229,9 +230,8 @@ class IterableExpectationSamples {
 
     @Test
     fun toHaveElementsAndNone() {
-        expect(listOf(1, 2, 2, 4)).toHaveElementsAndNone {
-            toEqual(3)
-        }
+        expect(listOf(1, 2, 2, 4)).toHaveElementsAndNone { toEqual(3) }
+        expect(listOf<Int?>(1, 2)).toHaveElementsAndNone(null)
 
         fails {
             expect(emptyList<Int>()).toHaveElementsAndNone { toEqual(11) }
@@ -247,14 +247,15 @@ class IterableExpectationSamples {
     @Test
     fun toHaveElementsAndAll() {
         expect(listOf(1, 2, 2, 4)).toHaveElementsAndAll { toBeGreaterThan(0) }
+        expect(listOf(null, null)).toHaveElementsAndAll(null)
 
         fails {
             expect(emptyList<Int>()).toHaveElementsAndAll { toBeGreaterThan(0) }
         }
 
         fails {
-            expect(listOf(1, 2, 2, 4)).toHaveElementsAndNone {
-                toBeLessThanOrEqualTo(1)
+            expect(listOf(1, 2, 2, 4)).toHaveElementsAndAll {
+                toBeLessThanOrEqualTo(3)
             }
         }
     }
@@ -266,6 +267,54 @@ class IterableExpectationSamples {
 
         fails {
             expect(listOf("A", "B", "C", "A")).toHaveElementsAndNoDuplicates()
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrAny() {
+        // passes as the list is empty
+        expect(emptyList<Int>()).notToHaveElementsOrAny { toBeGreaterThan(1) }
+
+        // passes as (at least) one element fulfills the sub expectation
+        expect(listOf(2, 3, 4)).notToHaveElementsOrAny { toBeLessThan(3) }
+        expect(listOf(null, 2, 3)).notToHaveElementsOrAny(null)
+
+        fails {
+            expect(listOf(1, 2, 2, 4)).notToHaveElementsOrAny {
+                toBeLessThan(1)
+            }
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrAll() {
+        // passes as the list is empty
+        expect(emptyList<Int>()).notToHaveElementsOrAll { toBeGreaterThan(1) }
+
+        // passes as all elements fulfill the sub expectation
+        expect(listOf(2, 3, 4)).notToHaveElementsOrAll { toBeGreaterThan(1) }
+        expect(listOf(null, null)).notToHaveElementsOrAll(null)
+
+        fails {
+            expect(listOf(1, 2, 2, 4)).notToHaveElementsOrAll {
+                toBeLessThanOrEqualTo(3)
+            }
+        }
+    }
+
+    @Test
+    fun notToHaveElementsOrNone() {
+        // passes as the list is empty
+        expect(emptyList<Int>()).notToHaveElementsOrNone { toBeGreaterThan(1) }
+
+        // passes as no element fulfills the sub expectation
+        expect(listOf(2, 3, 4)).notToHaveElementsOrNone { toBeGreaterThan(4) }
+        expect(listOf<Int?>(2, 3, 4)).notToHaveElementsOrNone(null)
+
+        fails {
+            expect(listOf(1, 2, 2, 4)).notToHaveElementsOrNone {
+                toBeLessThanOrEqualTo(1)
+            }
         }
     }
 }

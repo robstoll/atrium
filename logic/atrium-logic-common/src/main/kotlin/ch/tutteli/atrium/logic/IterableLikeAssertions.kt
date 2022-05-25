@@ -26,7 +26,7 @@ interface IterableLikeAssertions {
         converter: (T) -> Iterable<E>
     ): NotCheckerStep<E, T, NotSearchBehaviour>
 
-    fun <T : IterableLike, E : IterableLike> all(
+    fun <T : IterableLike, E : Any> all(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -40,6 +40,24 @@ interface IterableLikeAssertions {
     fun <T : IterableLike, E> hasNotNext(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
+    ): Assertion
+
+    fun <T : IterableLike, E : Any> hasNotNextOrAny(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Assertion
+
+    fun <T : IterableLike, E : Any> hasNotNextOrAll(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    ): Assertion
+
+    fun <T : IterableLike, E : Any> hasNotNextOrNone(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>,
+        assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Assertion
 
     fun <T : IterableLike, E : Comparable<E>> min(

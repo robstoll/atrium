@@ -322,3 +322,46 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorO
  */
 fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAndNoDuplicates(): Expect<T> =
     _logicAppend { containsNoDuplicates(::identity) }
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
+ * - that any of them holds the expectations the [assertionCreatorOrNull] creates or
+ * - that any of them is `null` in case [assertionCreatorOrNull] is defined as `null`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAny
+ *
+ * @since 0.19.0
+ */
+fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    _logicAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
+ * - that all of them hold all expectations the [assertionCreatorOrNull] creates or
+ * - that all of them are `null` in case [assertionCreatorOrNull] is defined as `null`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAll
+ *
+ * @since 0.19.0
+ */
+fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    _logicAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
+
+
+/**
+ * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
+ * - that none of them holds all expectations the [assertionCreatorOrNull] creates or
+ * - that none of them is `null` in case [assertionCreatorOrNull] is defined as `null`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrNone
+ *
+ * @since 0.19.0
+ */
+fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
+    _logicAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }

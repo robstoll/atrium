@@ -118,4 +118,3 @@ internal fun <E> decorateAssertionWithHasNext(
             .build()
     }
 }
-

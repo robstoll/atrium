@@ -6,8 +6,6 @@ import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import kotlin.test.Test
 
 class ListFeatureExtractorSamples {
-    private val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
-    private val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 
     @Test
     fun getFeature() {
@@ -22,9 +20,6 @@ class ListFeatureExtractorSamples {
             //             |        | not reported
             //             | fails because index 3 is out of bound
             // use `get index(elementIndex) { ... }` if you want that all expectations are evaluated
-        } message {
-            toContain("index out of bounds")
-            notToContain("is less than: 0")
         }
 
         fails {
@@ -35,9 +30,6 @@ class ListFeatureExtractorSamples {
             expect(list) get 0 toBeLessThan 0
             // use `get index(elementIndex) { ... }` if you want that all expectations are evaluated
 
-        } message {
-            toContain("${toBeGreaterThanDescr}: 2")
-            notToContain("${toBeLessThanDescr}: 0")
         }
     }
 
@@ -64,9 +56,6 @@ class ListFeatureExtractorSamples {
                 it toBeLessThan 0       // still evaluated even though `isGreaterThan(2)` already fails,
                 //                         use `get index` if you want a fail fast behaviour
             }
-        } messageToContain values(
-            "${toBeGreaterThanDescr}: 2",
-            "${toBeLessThanDescr}: 0"
-        )
+        }
     }
 }

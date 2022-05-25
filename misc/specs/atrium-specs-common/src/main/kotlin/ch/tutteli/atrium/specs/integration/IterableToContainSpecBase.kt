@@ -41,7 +41,8 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val numberOfSuchElements = DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS.getDefault()
         val additionalElements = DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS.getDefault()
         val mismatches = DescriptionIterableLikeExpectation.WARNING_MISMATCHES.getDefault()
-        val mismatchesAdditionalElements = DescriptionIterableLikeExpectation.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
+        val mismatchesAdditionalElements =
+            DescriptionIterableLikeExpectation.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
         val sizeExceeded = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
         val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
         val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
@@ -57,8 +58,8 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeparator
 
-        val emptyInOrderOnlyReportOptions : InOrderOnlyReportingOptions.() -> Unit = {}
-        val emptyInAnyOrderOnlyReportOptions : InAnyOrderOnlyReportingOptions.() -> Unit = {}
+        val emptyInOrderOnlyReportOptions: InOrderOnlyReportingOptions.() -> Unit = {}
+        val emptyInAnyOrderOnlyReportOptions: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
             toContain.exactly(1).regex("${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected")
@@ -73,7 +74,8 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             describe("$describePrefix nullable cases", body = body)
         }
 
-        fun elementWithIndex(index: Int) = DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault().format(index)
+        fun elementWithIndex(index: Int) =
+            DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault().format(index)
 
         fun index(index: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
         fun index(fromIndex: Int, toIndex: Int) =
@@ -83,10 +85,14 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             describePrefix: String,
             nonNullableFun: SpecPair<F>,
             nullableFun: Any,
+            vararg otherFun: Any = arrayOf(),
             action: Suite.(F) -> Unit
         ) {
             describe("$describePrefix non-nullable cases") {
-                val functions = uncheckedToNonNullable(nonNullableFun, nullableFun)
+                @Suppress("UNCHECKED_CAST")
+                val functions: List<SpecPair<F>> = uncheckedToNonNullable(nonNullableFun, nullableFun) +
+                    (otherFun.toList() as List<SpecPair<F>>)
+
                 functions.forEach { (name, funArr) ->
                     describeFun(name) {
                         action(funArr)
