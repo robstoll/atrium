@@ -63,8 +63,10 @@ listOf("en_GB", "de_CH").forEach{ lang ->
     include("translations" ,"atrium-translations-$lang")
 }
 
+include("misc", "atrium-verbs")
+
 includeKotlinJvmJs("misc/specs", "atrium-specs")
-includeKotlinJvmJs("misc/verbs", "atrium-verbs")
+
 includeKotlinJvmJs("misc/verbs-internal", "atrium-verbs-internal")
 include("misc/tools", "readme-examples")
 

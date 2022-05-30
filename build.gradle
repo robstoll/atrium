@@ -36,7 +36,12 @@ buildscript {
         gradle_nexus_publish_plugin_version = '1.1.0'
 
         //TODO 0.19.0 add all modules and remove this afterwards
-        newMultiplatformProjectNames = ["core", "logic", "logic-kotlin_1_3", "translations-en_GB", "translations-de_CH"]
+        newMultiplatformProjectNames = [
+            "core",
+            "logic", "logic-kotlin_1_3",
+            "translations-en_GB", "translations-de_CH",
+            "verbs"
+        ]
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {

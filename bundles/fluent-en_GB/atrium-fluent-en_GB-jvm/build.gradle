@@ -1,14 +1,14 @@
 description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
 
 ext.jacoco_additional = [
-    prefixedProject('verbs-jvm'),
+    prefixedProject('verbs'),
     prefixedProject('translations-en_GB'),
     prefixedProject('logic'),
     prefixedProject("core"),
 ]
 
 dependencies {
-    api prefixedProject('verbs-jvm')
+    api prefixedProject('verbs')
     api prefixedProject('api-fluent-en_GB-jvm')
     api prefixedProject('translations-en_GB')
 }
