@@ -185,7 +185,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("io.mockk:mockk-common:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
 
-                        api(project(":atrium-verbs-internal-common"))
+                        api(project(":atrium-verbs-internal"))
 
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
@@ -199,8 +199,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                         api("ch.tutteli.niok:niok:$niokVersion")
 
-                        api(project(":atrium-verbs-internal-jvm"))
-
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
                         implementation(project(":atrium-fluent-en_GB-jvm"))
@@ -211,8 +209,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
 //                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//
-//                        api(project(":atrium-verbs-internal-js"))
 //
 //                        // required by specs
 //                        //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
@@ -332,7 +328,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                                 // required by specs
                                 implementation(project(":atrium-fluent-en_GB-jvm"))
-                                implementation(project(":atrium-verbs-internal-jvm"))
+                                implementation(project(":atrium-verbs-internal"))
 
                                 // to run forgiving spek tests
                                 runtimeOnly(project(testEngineProjectName))

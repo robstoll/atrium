@@ -5,7 +5,7 @@ dependencies {
     api prefixedProject("core")
     // exclude this dependency in case you want to use another translation
     api prefixedProject('translations-en_GB')
-    api prefixedProject('verbs-internal-jvm')
+    api prefixedProject('verbs-internal')
     api spekExtensions()
     api "io.mockk:mockk:$mockkVersion"
 

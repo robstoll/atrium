@@ -64,11 +64,11 @@ listOf("en_GB", "de_CH").forEach{ lang ->
 }
 
 include("misc", "atrium-verbs")
-
+include("misc", "atrium-verbs-internal")
+include("misc/tools", "readme-examples")
 includeKotlinJvmJs("misc/specs", "atrium-specs")
 
-includeKotlinJvmJs("misc/verbs-internal", "atrium-verbs-internal")
-include("misc/tools", "readme-examples")
+
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"

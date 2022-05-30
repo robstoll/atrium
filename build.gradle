@@ -40,7 +40,8 @@ buildscript {
             "core",
             "logic", "logic-kotlin_1_3",
             "translations-en_GB", "translations-de_CH",
-            "verbs"
+            "verbs",
+            "verbs-internal"
         ]
 
         // gh-pages.gradle
@@ -157,7 +158,10 @@ configure(newMultiplatformProjects) { subproject ->
 
     def oldParentName = subproject.name.substring(name.lastIndexOf("-") + 1)
     def oldParent = "../" + oldParentName
-    oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent :  "../../" + oldParentName
+    if (subproject.name == "atrium-verbs-internal") {
+        oldParent = "../verbs-internal"
+    }
+    oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent : "../../" + oldParentName
     def oldCommon = "$oldParent/${subproject.name}-common"
     def oldJvm = "$oldParent/${subproject.name}-jvm"
     def oldJs = "$oldParent/${subproject.name}-js"
@@ -537,7 +541,7 @@ def createJsTestTask(String... subprojectNames) {
         task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
             from compileKotlin2Js.destinationDir
 
-            prefixedProject('verbs-internal-js').afterEvaluate {
+            prefixedProject('verbs-internal').afterEvaluate {
                 // TODO 0.19.0, check if still required with the new Kotlin MPP plugin
                 configurations.testRuntimeClasspath.allDependencies.withType(ProjectDependency).each {
                     dependsOn(it.dependencyProject.assemble)
