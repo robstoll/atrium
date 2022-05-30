@@ -18,7 +18,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(project(":${rootProject.name}-specs-common")) {
+                implementation(project(":${rootProject.name}-specs")) {
                     exclude(module = "${rootProject.name}-translations-en_GB")
                 }
                 implementation(prefixedProject("translations-de_CH"))
@@ -26,7 +26,7 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(project(":${rootProject.name}-specs-jvm")) {
+                implementation(project(":${rootProject.name}-specs")) {
                     exclude(module = "${rootProject.name}-translations-en_GB")
                 }
             }

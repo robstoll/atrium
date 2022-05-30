@@ -43,7 +43,8 @@ buildscript {
             "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
             "api-infix-en_GB", "api-infix-en_GB-kotlin_1_3",
             "verbs",
-            "verbs-internal"
+            "verbs-internal",
+            "specs"
         ]
 
         // gh-pages.gradle

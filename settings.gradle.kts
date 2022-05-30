@@ -71,10 +71,8 @@ listOf("en_GB", "de_CH").forEach{ lang ->
 
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
+include("misc", "atrium-specs")
 include("misc/tools", "readme-examples")
-includeKotlinJvmJs("misc/specs", "atrium-specs")
-
-
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"
@@ -82,14 +80,6 @@ fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     project(":bc-tests:$projectName").projectDir = file("$bcTestsOldPath/$projectName")
 }
 
-fun Settings_gradle.includeBundleAndApisWithExtensionsAndSmokeTest(vararg apiNames: String) {
-    apiNames.forEach { apiName ->
-        includeKotlinJvmJs("bundles/$apiName", "atrium-$apiName")
-        include("bundles/$apiName/", "atrium-$apiName-smoke-test")
-        include("bundles/$apiName/extensions", "atrium-$apiName-smoke-test-kotlin_1_3")
-        includeKotlinJvmJsWithExtensions("apis/$apiName", "atrium-api-$apiName")
-    }
-}
 
 fun Settings_gradle.includeKotlinJvmJs(subPath: String, module: String) {
     include(subPath, "$module-common")
@@ -100,11 +90,6 @@ fun Settings_gradle.includeKotlinJvmJs(subPath: String, module: String) {
     // if (System.getenv("CI") == "true") {
     //    include(subPath, "$module-js")
     // }
-}
-
-fun Settings_gradle.includeKotlinJvmJsWithExtensions(subPath: String, module: String) {
-    includeKotlinJvmJs(subPath, module)
-    includeKotlinJvmJs("$subPath/extensions/kotlin_1_3", "$module-kotlin_1_3")
 }
 
 fun Settings_gradle.include(subPath: String, projectName: String) {

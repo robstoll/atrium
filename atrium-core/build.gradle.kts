@@ -12,7 +12,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(prefixedProject("api-infix-en_GB"))
-                implementation(prefixedProject("specs-common"))
+                implementation(prefixedProject("specs"))
             }
         }
         val jvmMain by getting {
@@ -23,7 +23,7 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(prefixedProject("api-infix-en_GB"))
-                implementation(prefixedProject("specs-jvm"))
+                implementation(prefixedProject("specs"))
             }
         }
         //TODO 0.19.0 activate again as soon as api-infix has a js module
@@ -35,7 +35,7 @@ kotlin {
 //        val jsTest by getting {
 //            dependencies {
 //                implementation(prefixedProject("api-infix-en_GB"))
-//                implementation(prefixedProject("specs-js"))
+//                implementation(prefixedProject("specs"))
 //            }
 //        }
     }

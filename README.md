@@ -1773,7 +1773,7 @@ Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/mai
 This site contains also a list of all APIs with links to their expectation function catalogs.
 
 You can also have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/main/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
+[specifications](https://github.com/robstoll/atrium/tree/main/misc/atrium-specs/src/commonMain/kotlin/ch/tutteli/atrium/specs) 
 for more examples.
 
 ## Sample Projects
