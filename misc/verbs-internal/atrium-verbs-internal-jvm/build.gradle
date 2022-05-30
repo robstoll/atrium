@@ -2,7 +2,7 @@ description = 'Specifies the internally used assertion verbs'
 
 dependencies {
     api prefixedProject("core")
-    api prefixedProject('logic-jvm')
+    api prefixedProject('logic')
 
     testImplementation prefixedProject('specs-jvm')
 }
