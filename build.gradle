@@ -42,6 +42,8 @@ buildscript {
             "translations-en_GB", "translations-de_CH",
             "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
             "api-infix-en_GB", "api-infix-en_GB-kotlin_1_3",
+            "fluent-en_GB",
+            "infix-en_GB",
             "verbs",
             "verbs-internal",
             "specs"
@@ -163,9 +165,9 @@ configure(newMultiplatformProjects) { subproject ->
     def oldParent = "../" + oldParentName
     if (subproject.name == "atrium-verbs-internal") {
         oldParent = "../verbs-internal"
-    } else if (subproject.name == "atrium-api-fluent-en_GB") {
+    } else if (subproject.name == "atrium-api-fluent-en_GB" || subproject.name == "atrium-fluent-en_GB") {
         oldParent = "../../fluent-en_GB"
-    } else if (subproject.name == "atrium-api-infix-en_GB") {
+    } else if (subproject.name == "atrium-api-infix-en_GB" || subproject.name == "atrium-infix-en_GB") {
         oldParent = "../../infix-en_GB"
     }
     oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent : "../../" + oldParentName
@@ -505,7 +507,7 @@ configure(bundleSmokeTests) {
     def isABundleAndNotExtensionSmokeTest = it.name.endsWith(suffix)
     if (isABundleAndNotExtensionSmokeTest) {
         def bundleUnderTest = it.name.substring(0, it.name.indexOf(suffix))
-        Project bundle = project(":$bundleUnderTest-jvm")
+        Project bundle = project(":$bundleUnderTest")
 
         description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
 

@@ -54,9 +54,9 @@ if (System.getenv("BC") != null) {
 }
 
 listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
-    includeKotlinJvmJs("bundles/$apiName", "atrium-$apiName")
-    include("bundles/$apiName/", "atrium-$apiName-smoke-test")
-    include("bundles/$apiName/extensions", "atrium-$apiName-smoke-test-kotlin_1_3")
+    include("bundles/$apiName", "atrium-$apiName")
+    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
+    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
     include("apis/$apiName",  "atrium-api-$apiName")
     include("apis/$apiName/extensions", "atrium-api-$apiName-kotlin_1_3")
 }
@@ -78,18 +78,6 @@ fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"
     include("bc-tests:$projectName")
     project(":bc-tests:$projectName").projectDir = file("$bcTestsOldPath/$projectName")
-}
-
-
-fun Settings_gradle.includeKotlinJvmJs(subPath: String, module: String) {
-    include(subPath, "$module-common")
-    include(subPath, "$module-jvm")
-    //TODO 0.19.0 commented out because js makes trouble in migrating to new MPP
-    // in the end, when all modules use the new MPP we should no longer need this extension function
-    // js starts to be annoying on local development. Let's carry this only out on CI
-    // if (System.getenv("CI") == "true") {
-    //    include(subPath, "$module-js")
-    // }
 }
 
 fun Settings_gradle.include(subPath: String, projectName: String) {

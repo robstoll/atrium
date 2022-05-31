@@ -189,7 +189,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                        implementation(project(":atrium-fluent-en_GB-common"))
+                        implementation(prefixedProject("fluent-en_GB"))
                     }
                 }
                 val jvmMain by getting {
@@ -198,10 +198,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
                         api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                         api("ch.tutteli.niok:niok:$niokVersion")
-
-                        // required by specs
-                        //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                        implementation(project(":atrium-fluent-en_GB-jvm"))
                     }
                 }
                 // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
@@ -209,10 +205,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
 //                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//
-//                        // required by specs
-//                        //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-//                        implementation(project(":atrium-fluent-en_GB-js"))
 //
 //                        //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
 //                        implementation(kotlin("stdlib-js"))

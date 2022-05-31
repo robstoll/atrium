@@ -9,7 +9,7 @@ dependencies {
     runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
     implementation kotlinStdlib()
-    implementation prefixedProject('fluent-en_GB-jvm')
+    implementation prefixedProject("fluent-en_GB")
     implementation niok()
     implementation spekExtensions()
 }
