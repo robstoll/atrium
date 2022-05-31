@@ -1,18 +1,16 @@
-description = "The domain logic of the Kotlin 1.3 extension for Atrium"
+description = "Kotlin 1.3 specific expectation functions and builders for atrium-api-fluent-en_GB -- will be merged into fluent-en_GB with 1.0.0 at the latest"
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(prefixedProject("logic"))
-                // it is up to the consumer which atrium-translations module is used at runtime
-                compileOnly(prefixedProject("translations-en_GB"))
+                api(prefixedProject("api-fluent-en_GB"))
+                api(prefixedProject("logic-kotlin_1_3"))
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(prefixedProject("api-fluent-en_GB"))
                 implementation(prefixedProject("specs-common"))
             }
         }
@@ -30,8 +28,3 @@ kotlin {
         }
     }
 }
-
-createGenerateLogicTask(
-    includingTarget("common"),
-    suffix = "kotlin_1_3"
-)

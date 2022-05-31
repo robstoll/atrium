@@ -1,6 +1,6 @@
 description = 'Kotlin 1.3 specific assertion functions and builders for infix-en_GB -- will be merged into infix-en_GB with 1.0.0'
 
-ext.jacoco_additional = [
+ext.jacocoAdditional = [
     prefixedProject('logic-kotlin_1_3'),
 ]
 

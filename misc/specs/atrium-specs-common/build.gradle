@@ -8,7 +8,7 @@ dependencies {
     api prefixedProject('verbs-internal')
     api "io.mockk:mockk-common:$mockkVersion"
 
-    implementation prefixedProject('api-fluent-en_GB-common')
+    implementation prefixedProject('api-fluent-en_GB')
 }
 
 dependencies {

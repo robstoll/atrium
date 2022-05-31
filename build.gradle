@@ -40,6 +40,7 @@ buildscript {
             "core",
             "logic", "logic-kotlin_1_3",
             "translations-en_GB", "translations-de_CH",
+            "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
             "verbs",
             "verbs-internal"
         ]
@@ -160,6 +161,10 @@ configure(newMultiplatformProjects) { subproject ->
     def oldParent = "../" + oldParentName
     if (subproject.name == "atrium-verbs-internal") {
         oldParent = "../verbs-internal"
+    } else if (subproject.name == "atrium-api-fluent-en_GB") {
+        oldParent = "../../fluent-en_GB"
+    } else if (subproject.name == "atrium-api-infix-en_GB") {
+        oldParent = "../../infix-en_GB"
     }
     oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent : "../../" + oldParentName
     def oldCommon = "$oldParent/${subproject.name}-common"
@@ -460,8 +465,8 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects() - newMultiplatformPr
             }
 
             jacocoReport {
-                if (project.hasProperty('jacoco_additional')) {
-                    project.jacoco_additional.each { otherProject ->
+                if (project.hasProperty('jacocoAdditional')) {
+                    project.jacocoAdditional.each { otherProject ->
                         sourceSets otherProject.sourceSets.main
                     }
                 }
@@ -505,7 +510,7 @@ configure(bundleSmokeTests) {
         sourceCompatibility = JavaVersion.current()
         targetCompatibility = JavaVersion.current()
 
-        ext.jacoco_additional = [bundle]
+        ext.jacocoAdditional = [bundle]
 
         sourceSets {
             // we are reusing the source from the bundle, so that we do not have to re-invent the spec
@@ -579,7 +584,7 @@ def createJsTestTask(String... subprojectNames) {
 //if (Boolean.parseBoolean(System.getenv('CI'))) {
 //    createJsTestTask(
 //        'core-js',
-//        'api-fluent-en_GB-js',
+//        'api-fluent-en_GB',
 //        'api-infix-en_GB-js',
 //        'fluent-en_GB-js',
 //        'infix-en_GB-js'
@@ -602,7 +607,7 @@ def useJupiter(String... projectNames) {
 useJupiter(
     //TODO 0.19.0 setup jupiter tests in a different way for new MPP
 //    'core-jvm',
-    'api-fluent-en_GB-jvm',
+//    'api-fluent-en_GB',
     'api-infix-en_GB-jvm',
 )
 

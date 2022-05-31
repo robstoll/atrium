@@ -2,6 +2,6 @@ description = 'Represents a convenience module which merely bundles dependencies
 
 dependencies {
     api prefixedProject('verbs')
-    api prefixedProject('api-fluent-en_GB-common')
+    api prefixedProject('api-fluent-en_GB')
     api prefixedProject('translations-en_GB')
 }

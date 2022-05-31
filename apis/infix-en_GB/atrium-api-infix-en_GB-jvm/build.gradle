@@ -1,6 +1,6 @@
 description = 'An infix API in en_GB with a focus on code completion for JVM.'
 
-ext.jacoco_additional = [
+ext.jacocoAdditional = [
     prefixedProject('translations-de_CH'),
     prefixedProject('logic'),
     prefixedProject("core"),

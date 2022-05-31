@@ -9,7 +9,7 @@ dependencies {
     api spekExtensions()
     api "io.mockk:mockk:$mockkVersion"
 
-    implementation prefixedProject('api-fluent-en_GB-jvm')
+    implementation prefixedProject('api-fluent-en_GB')
 }
 
 dependencies {
