@@ -41,6 +41,7 @@ buildscript {
             "logic", "logic-kotlin_1_3",
             "translations-en_GB", "translations-de_CH",
             "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
+            "api-infix-en_GB", "api-infix-en_GB-kotlin_1_3",
             "verbs",
             "verbs-internal"
         ]
@@ -585,7 +586,7 @@ def createJsTestTask(String... subprojectNames) {
 //    createJsTestTask(
 //        'core-js',
 //        'api-fluent-en_GB',
-//        'api-infix-en_GB-js',
+//        'api-infix-en_GB',
 //        'fluent-en_GB-js',
 //        'infix-en_GB-js'
 //    )
@@ -608,7 +609,7 @@ useJupiter(
     //TODO 0.19.0 setup jupiter tests in a different way for new MPP
 //    'core-jvm',
 //    'api-fluent-en_GB',
-    'api-infix-en_GB-jvm',
+//    'api-infix-en_GB',
 )
 
 def getSubprojectTasks(String name) {

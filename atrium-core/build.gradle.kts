@@ -11,7 +11,7 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(prefixedProject("api-infix-en_GB-common"))
+                implementation(prefixedProject("api-infix-en_GB"))
                 implementation(prefixedProject("specs-common"))
             }
         }
@@ -22,7 +22,7 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(prefixedProject("api-infix-en_GB-jvm"))
+                implementation(prefixedProject("api-infix-en_GB"))
                 implementation(prefixedProject("specs-jvm"))
             }
         }
@@ -34,7 +34,7 @@ kotlin {
 //        }
 //        val jsTest by getting {
 //            dependencies {
-//                implementation(prefixedProject("api-infix-en_GB-js"))
+//                implementation(prefixedProject("api-infix-en_GB"))
 //                implementation(prefixedProject("specs-js"))
 //            }
 //        }

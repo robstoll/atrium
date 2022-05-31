@@ -204,7 +204,7 @@ dependencies {
 and for the aforementioned extensions:
 ```
 dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3-js:$atriumVersion")
+    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atriumVersion")
 }
 ```
 <hr/>
