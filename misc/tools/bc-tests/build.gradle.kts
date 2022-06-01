@@ -370,10 +370,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                 sourceSets {
                     val commonTest by getting {
                         dependencies {
-                            implementation(project(":atrium-api-$apiName-common"))
+                            implementation(project(":atrium-api-$apiName"))
                             implementation(project(":bc-tests:$oldVersion-specs")) {
                                 if (apiName == "infix-en_GB") {
-                                    exclude(module = "${rootProject.name}-translations-en_GB")
                                     exclude(module = "${rootProject.name}-translations-en_GB")
                                 }
                             }
@@ -391,13 +390,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     val jvmTest by getting {
 
                         dependencies {
-                            implementation(project(":atrium-api-$apiName-jvm"))
-                            if (apiName == "infix-en_GB") {
-                                implementation(project(":atrium-translations-de_CH"))
-                            } else {
-                                implementation(project(":atrium-translations-en_GB"))
-                            }
-
                             // to run forgiving spek tests
                             runtimeOnly(project(testEngineProjectName))
 
@@ -410,12 +402,11 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //                    val jsTest by getting {
 //                        dependencies {
-//                            implementation(project(":atrium-api-$apiName-js"))
 //                            implementation(kotlin("test-js"))
 //
-//
-//                            api(project(":atrium-core-robstoll-js"))
-//                            api(project(":atrium-domain-robstoll-js"))
+//                            //TODO shouldn't be necessary
+//                            api(project(":atrium-core-robstoll"))
+//                            api(project(":atrium-domain-robstolls"))
 //
 //                            //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
 //                            implementation(kotlin("stdlib-js"))
