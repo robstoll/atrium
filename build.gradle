@@ -180,7 +180,8 @@ configure(newMultiplatformProjects) { subproject ->
     def normalSrcLayout = [
         "atrium-verbs", "atrium-verbs-internal", "atrium-specs",
         "atrium-logic", "atrium-logic-kotlin_1_3",
-        "atrium-core"
+        "atrium-core",
+        "atrium-translations-de_CH","atrium-translations-en_GB",
     ]
 
     kotlin {
