@@ -175,6 +175,8 @@ configure(newMultiplatformProjects) { subproject ->
     def oldJvm = "$oldParent/${subproject.name}-jvm"
     def oldJs = "$oldParent/${subproject.name}-js"
 
+    def normalSrcLayout = ["atrium-verbs", "atrium-verbs-internal", "atrium-specs"]
+
     kotlin {
         jvm {
             compilations.main.kotlinOptions {
@@ -255,24 +257,27 @@ configure(newMultiplatformProjects) { subproject ->
                 }
             }
 
-            //TODO 0.19.0 switch to default folder layout once everything is migrated
-            commonMain {
-                kotlin.setSrcDirs(["$oldCommon/src/main/kotlin"])
-                resources.setSrcDirs(["$oldCommon/src/main/resources"])
-            }
-            commonTest {
-                kotlin.setSrcDirs(["$oldCommon/src/test/kotlin"])
-                resources.setSrcDirs(["$oldCommon/src/test/resources"])
-            }
-            jvmMain {
-                kotlin.setSrcDirs(["$oldJvm/src/main/kotlin"])
-                resources.setSrcDirs(["$oldJvm/src/main/resources"])
-            }
-            jvmTest {
-                kotlin.setSrcDirs(["$oldJvm/src/test/kotlin", "${subproject.projectDir}/src/jvmTest/java"])
-                resources.setSrcDirs(["$oldJvm/src/test/resources"])
-            }
-            //TODO 0.19.0 activate once all are migrated to MPP
+
+            if (!normalSrcLayout.contains(subproject.name)) {
+
+                //TODO 0.19.0 switch to default folder layout once everything is migrated
+                commonMain {
+                    kotlin.setSrcDirs(["$oldCommon/src/main/kotlin"])
+                    resources.setSrcDirs(["$oldCommon/src/main/resources"])
+                }
+                commonTest {
+                    kotlin.setSrcDirs(["$oldCommon/src/test/kotlin"])
+                    resources.setSrcDirs(["$oldCommon/src/test/resources"])
+                }
+                jvmMain {
+                    kotlin.setSrcDirs(["$oldJvm/src/main/kotlin"])
+                    resources.setSrcDirs(["$oldJvm/src/main/resources"])
+                }
+                jvmTest {
+                    kotlin.setSrcDirs(["$oldJvm/src/test/kotlin", "${subproject.projectDir}/src/jvmTest/java"])
+                    resources.setSrcDirs(["$oldJvm/src/test/resources"])
+                }
+                //TODO 0.19.0 activate once all are migrated to MPP
 //            jsMain {
 //                kotlin.setSrcDirs(["$oldJs/src/main/kotlin"])
 //                resources.setSrcDirs(["$oldJs/src/main/resources"])
@@ -281,6 +286,7 @@ configure(newMultiplatformProjects) { subproject ->
 //                kotlin.setSrcDirs(["$oldJs/src/test/kotlin"])
 //                resources.setSrcDirs(["$oldJs/src/test/resources"])
 //            }
+            }
         }
     }
 
@@ -299,8 +305,11 @@ configure(newMultiplatformProjects) { subproject ->
             """.stripIndent()
         )
 
+        def srcModule = "src/module"
         //TODO 0.19.0 remove oldJvm once we move files to the default folder of jvmMain
-        def srcModule = "$oldJvm/src/module"
+        if (!normalSrcLayout.contains(subproject.name)) {
+            srcModule = "$oldJvm/src/module"
+        }
         def moduleInfo = subproject.file("$srcModule/module-info.java")
 
         if (moduleInfo.exists()) {
