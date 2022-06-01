@@ -1,8 +1,0 @@
-description = 'Assertion verbs for Atrium for the JVM platform.'
-
-dependencies {
-    api prefixedProject('logic')
-    api prefixedProject("core")
-
-    testImplementation prefixedProject('specs-jvm')
-}

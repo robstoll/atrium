@@ -19,14 +19,13 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(prefixedProject("api-fluent-en_GB-common"))
-                implementation(prefixedProject("specs-common"))
+                implementation(prefixedProject("api-fluent-en_GB"))
+                implementation(prefixedProject("specs"))
             }
         }
         val jvmTest by getting {
             dependencies {
-                implementation(prefixedProject("api-fluent-en_GB-jvm"))
-                implementation(prefixedProject("specs-jvm"))
+                implementation(prefixedProject("specs"))
             }
         }
     }

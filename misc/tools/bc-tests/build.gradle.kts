@@ -185,11 +185,11 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("io.mockk:mockk-common:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
 
-                        api(project(":atrium-verbs-internal-common"))
+                        api(project(":atrium-verbs-internal"))
 
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                        implementation(project(":atrium-fluent-en_GB-common"))
+                        implementation(prefixedProject("fluent-en_GB"))
                     }
                 }
                 val jvmMain by getting {
@@ -198,12 +198,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
                         api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                         api("ch.tutteli.niok:niok:$niokVersion")
-
-                        api(project(":atrium-verbs-internal-jvm"))
-
-                        // required by specs
-                        //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                        implementation(project(":atrium-fluent-en_GB-jvm"))
                     }
                 }
                 // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
@@ -211,12 +205,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 //                    dependencies {
 //                        api("io.mockk:mockk-dsl-js:$mockkVersion")
 //                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//
-//                        api(project(":atrium-verbs-internal-js"))
-//
-//                        // required by specs
-//                        //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-//                        implementation(project(":atrium-fluent-en_GB-js"))
 //
 //                        //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
 //                        implementation(kotlin("stdlib-js"))
@@ -332,7 +320,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                                 // required by specs
                                 implementation(project(":atrium-fluent-en_GB-jvm"))
-                                implementation(project(":atrium-verbs-internal-jvm"))
+                                implementation(project(":atrium-verbs-internal"))
 
                                 // to run forgiving spek tests
                                 runtimeOnly(project(testEngineProjectName))
@@ -382,10 +370,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                 sourceSets {
                     val commonTest by getting {
                         dependencies {
-                            implementation(project(":atrium-api-$apiName-common"))
+                            implementation(project(":atrium-api-$apiName"))
                             implementation(project(":bc-tests:$oldVersion-specs")) {
                                 if (apiName == "infix-en_GB") {
-                                    exclude(module = "${rootProject.name}-translations-en_GB")
                                     exclude(module = "${rootProject.name}-translations-en_GB")
                                 }
                             }
@@ -403,13 +390,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     val jvmTest by getting {
 
                         dependencies {
-                            implementation(project(":atrium-api-$apiName-jvm"))
-                            if (apiName == "infix-en_GB") {
-                                implementation(project(":atrium-translations-de_CH"))
-                            } else {
-                                implementation(project(":atrium-translations-en_GB"))
-                            }
-
                             // to run forgiving spek tests
                             runtimeOnly(project(testEngineProjectName))
 
@@ -422,12 +402,11 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
 //                    val jsTest by getting {
 //                        dependencies {
-//                            implementation(project(":atrium-api-$apiName-js"))
 //                            implementation(kotlin("test-js"))
 //
-//
-//                            api(project(":atrium-core-robstoll-js"))
-//                            api(project(":atrium-domain-robstoll-js"))
+//                            //TODO shouldn't be necessary
+//                            api(project(":atrium-core-robstoll"))
+//                            api(project(":atrium-domain-robstolls"))
 //
 //                            //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
 //                            implementation(kotlin("stdlib-js"))

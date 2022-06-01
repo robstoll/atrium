@@ -204,7 +204,7 @@ dependencies {
 and for the aforementioned extensions:
 ```
 dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3-js:$atriumVersion")
+    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:$atriumVersion")
 }
 ```
 <hr/>
@@ -1773,7 +1773,7 @@ Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/mai
 This site contains also a list of all APIs with links to their expectation function catalogs.
 
 You can also have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/main/misc/specs/atrium-specs-common/src/main/kotlin/ch/tutteli/atrium/specs) 
+[specifications](https://github.com/robstoll/atrium/tree/main/misc/atrium-specs/src/commonMain/kotlin/ch/tutteli/atrium/specs) 
 for more examples.
 
 ## Sample Projects
@@ -2350,7 +2350,7 @@ Following a quick overview what extension methods could be useful:
 - all expectation functions on the logic level (what you have seen in [Compose expectation functions](#compose-expectation-functions) 
 was the API level) so that you can reuse and compose them in other ways.
 - `changeSubject` which allows to change the subject either:
-   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB-common/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
+   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
    - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `toBeAnInstanceOf` uses it, see [AnyAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultAnyAssertions.kt#L66))
 - `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapAssertions.kt#L49))
 - `extractFeature` for feature extraction where it is not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13))   

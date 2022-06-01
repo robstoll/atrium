@@ -1,4 +1,3 @@
-
 def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     doFirst {
         if (System.getenv('ATRIUM_ANDROID_JAR') == null) {
@@ -8,8 +7,9 @@ def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     }
 }
 
-def dexerProjects = getJvmProjects().findAll {
-    !it.name.contains("-specs-")
+def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
+def dexerProjects = newMultiplatformProjects.findAll {
+    !it.name.contains("-specs")
 }
 configure(dexerProjects) { subproject ->
     configurations {
@@ -17,6 +17,7 @@ configure(dexerProjects) { subproject ->
         d8 {
             attributes {
                 attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+                attribute(Attribute.of("org.jetbrains.kotlin.platform.type", String), "jvm")
             }
         }
     }
@@ -35,9 +36,9 @@ configure(dexerProjects) { subproject ->
 
             def outputPath = "${subproject.buildDir}/d8"
             outputs.dir(outputPath)
-            dependsOn jar
+            dependsOn jvmJar
             dependsOn preCheck_ATRIUM_ANDROID_JAR
-            jar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
+            jvmJar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
 
             classpath subproject.configurations.r8.asPath
             main = "com.android.tools.r8.D8"
@@ -50,9 +51,9 @@ configure(dexerProjects) { subproject ->
 
             // ATRIUM_ANDROID_JAR has to point to something like /android-sdk-linux/platforms/android-XY/android.jar
             // where Xy is the version we want to support
-            def androidJar = androidJarPath != null ? ['--lib', androidJarPath] : []
+            def androidJar = androidJarPath != null ? ['--lib', file(androidJarPath).absolutePath] : []
 
-            args = d8Classpath + androidJar + ['--output', outputPath, jar.archiveFile.get().asFile]
+            args = d8Classpath + androidJar + ['--output', outputPath, jvmJar.archiveFile.get().asFile]
 
             def oldStream = errorOutput
             def outputWritten = false
@@ -60,7 +61,11 @@ configure(dexerProjects) { subproject ->
                 @Override
                 void write(int b) {
                     outputWritten = true
-                    oldStream.write(b)
+                    if (oldStream != null) {
+                        oldStream.write(b)
+                    } else {
+                        System.out.write(b)
+                    }
                 }
             }
             doLast {
@@ -74,7 +79,7 @@ configure(dexerProjects) { subproject ->
 def preCheckDexerProjects = task('preCheckDexerProjects', dependsOn: preCheck_ATRIUM_ANDROID_JAR) {
     doFirst {
         if (dexerProjects.size() == 0) {
-            throw new InvalidUserDataException("env variable CI not set and hence no android projects included. Use e.g. `CI=true gradlew checkDexer`")
+            throw new InvalidUserDataException("No dexerProjects defined. Make sure you have specified env variable CI. Use e.g. `CI=true ./gradlew checkDexer`")
         }
     }
 }

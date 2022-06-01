@@ -36,7 +36,18 @@ buildscript {
         gradle_nexus_publish_plugin_version = '1.1.0'
 
         //TODO 0.19.0 add all modules and remove this afterwards
-        newMultiplatformProjectNames = ["core", "logic", "logic-kotlin_1_3", "translations-en_GB", "translations-de_CH"]
+        newMultiplatformProjectNames = [
+            "core",
+            "logic", "logic-kotlin_1_3",
+            "translations-en_GB", "translations-de_CH",
+            "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
+            "api-infix-en_GB", "api-infix-en_GB-kotlin_1_3",
+            "fluent-en_GB",
+            "infix-en_GB",
+            "verbs",
+            "verbs-internal",
+            "specs"
+        ]
 
         // gh-pages.gradle
         docProjects = (subprojects - toolProjectsFun).findAll {
@@ -152,7 +163,14 @@ configure(newMultiplatformProjects) { subproject ->
 
     def oldParentName = subproject.name.substring(name.lastIndexOf("-") + 1)
     def oldParent = "../" + oldParentName
-    oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent :  "../../" + oldParentName
+    if (subproject.name == "atrium-verbs-internal") {
+        oldParent = "../verbs-internal"
+    } else if (subproject.name == "atrium-api-fluent-en_GB" || subproject.name == "atrium-fluent-en_GB") {
+        oldParent = "../../fluent-en_GB"
+    } else if (subproject.name == "atrium-api-infix-en_GB" || subproject.name == "atrium-infix-en_GB") {
+        oldParent = "../../infix-en_GB"
+    }
+    oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent : "../../" + oldParentName
     def oldCommon = "$oldParent/${subproject.name}-common"
     def oldJvm = "$oldParent/${subproject.name}-jvm"
     def oldJs = "$oldParent/${subproject.name}-js"
@@ -451,8 +469,8 @@ configure(jacocoMulti.jacocoProjects + getAndroidProjects() - newMultiplatformPr
             }
 
             jacocoReport {
-                if (project.hasProperty('jacoco_additional')) {
-                    project.jacoco_additional.each { otherProject ->
+                if (project.hasProperty('jacocoAdditional')) {
+                    project.jacocoAdditional.each { otherProject ->
                         sourceSets otherProject.sourceSets.main
                     }
                 }
@@ -489,14 +507,14 @@ configure(bundleSmokeTests) {
     def isABundleAndNotExtensionSmokeTest = it.name.endsWith(suffix)
     if (isABundleAndNotExtensionSmokeTest) {
         def bundleUnderTest = it.name.substring(0, it.name.indexOf(suffix))
-        Project bundle = project(":$bundleUnderTest-jvm")
+        Project bundle = project(":$bundleUnderTest")
 
         description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
 
         sourceCompatibility = JavaVersion.current()
         targetCompatibility = JavaVersion.current()
 
-        ext.jacoco_additional = [bundle]
+        ext.jacocoAdditional = [bundle]
 
         sourceSets {
             // we are reusing the source from the bundle, so that we do not have to re-invent the spec
@@ -532,7 +550,7 @@ def createJsTestTask(String... subprojectNames) {
         task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
             from compileKotlin2Js.destinationDir
 
-            prefixedProject('verbs-internal-js').afterEvaluate {
+            prefixedProject('verbs-internal').afterEvaluate {
                 // TODO 0.19.0, check if still required with the new Kotlin MPP plugin
                 configurations.testRuntimeClasspath.allDependencies.withType(ProjectDependency).each {
                     dependsOn(it.dependencyProject.assemble)
@@ -570,8 +588,8 @@ def createJsTestTask(String... subprojectNames) {
 //if (Boolean.parseBoolean(System.getenv('CI'))) {
 //    createJsTestTask(
 //        'core-js',
-//        'api-fluent-en_GB-js',
-//        'api-infix-en_GB-js',
+//        'api-fluent-en_GB',
+//        'api-infix-en_GB',
 //        'fluent-en_GB-js',
 //        'infix-en_GB-js'
 //    )
@@ -593,8 +611,8 @@ def useJupiter(String... projectNames) {
 useJupiter(
     //TODO 0.19.0 setup jupiter tests in a different way for new MPP
 //    'core-jvm',
-    'api-fluent-en_GB-jvm',
-    'api-infix-en_GB-jvm',
+//    'api-fluent-en_GB',
+//    'api-infix-en_GB',
 )
 
 def getSubprojectTasks(String name) {

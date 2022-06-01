@@ -3,12 +3,13 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
-import kotlin.js.JsName
+//TODO 0.19.0 complains we are not in common module but we are. Check if error disappears once we use the default src folder
+//import kotlin.js.JsName
 
 class WorstCase {
 
     val propAndFun: Int = 1
-    @JsName("propFun")
+//    @JsName("propFun")
     fun propAndFun(): Int = 1
 
     fun overloaded(): Int = 1

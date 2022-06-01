@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import org.junit.jupiter.api.Test
 import java.util.*
+import kotlin.test.Test
 
 class OptionalExpectationSamples {
 
