@@ -175,7 +175,10 @@ configure(newMultiplatformProjects) { subproject ->
     def oldJvm = "$oldParent/${subproject.name}-jvm"
     def oldJs = "$oldParent/${subproject.name}-js"
 
-    def normalSrcLayout = ["atrium-verbs", "atrium-verbs-internal", "atrium-specs"]
+    def normalSrcLayout = [
+        "atrium-verbs", "atrium-verbs-internal", "atrium-specs",
+        "atrium-logic"
+    ]
 
     kotlin {
         jvm {
