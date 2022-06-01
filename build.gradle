@@ -169,6 +169,8 @@ configure(newMultiplatformProjects) { subproject ->
         oldParent = "../../fluent-en_GB"
     } else if (subproject.name == "atrium-api-infix-en_GB" || subproject.name == "atrium-infix-en_GB") {
         oldParent = "../../infix-en_GB"
+    } else if (subproject.projectDir.parent == "extensions") {
+        oldParent = "../"
     }
     oldParent = file("$oldParent/${subproject.name}-common").exists() ? oldParent : "../../" + oldParentName
     def oldCommon = "$oldParent/${subproject.name}-common"

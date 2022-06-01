@@ -63,7 +63,7 @@ listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
 
 include("", "atrium-core")
 include("logic", "atrium-logic")
-include("logic/extensions/kotlin_1_3", "atrium-logic-kotlin_1_3")
+include("logic/extensions", "atrium-logic-kotlin_1_3")
 
 listOf("en_GB", "de_CH").forEach{ lang ->
     include("translations" ,"atrium-translations-$lang")
