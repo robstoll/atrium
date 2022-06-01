@@ -182,6 +182,8 @@ configure(newMultiplatformProjects) { subproject ->
         "atrium-logic", "atrium-logic-kotlin_1_3",
         "atrium-core",
         "atrium-translations-de_CH","atrium-translations-en_GB",
+        "atrium-api-fluent-en_GB", "atrium-api-infix-en_GB",
+        "atrium-api-fluent-en_GB-kotlin_1_3", "atrium-api-infix-en_GB-kotlin_1_3",
     ]
 
     kotlin {
