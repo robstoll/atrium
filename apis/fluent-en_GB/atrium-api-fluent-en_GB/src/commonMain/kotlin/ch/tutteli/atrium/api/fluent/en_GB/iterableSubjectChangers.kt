@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.changeSubject
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangersSamples.asListFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangerSamples.asListFeature
  *
  * @since 0.14.0
  */
@@ -27,7 +27,7 @@ fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangersSamples.asList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangerSamples.asList
  *
  * @since 0.14.0
  */
