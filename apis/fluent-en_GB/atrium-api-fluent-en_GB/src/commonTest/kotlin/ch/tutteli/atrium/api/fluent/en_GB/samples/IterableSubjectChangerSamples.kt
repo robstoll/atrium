@@ -18,7 +18,7 @@ class IterableSubjectChangerSamples {
                 .asList()  // subject is now of type List<Int>
                 .toContain(3)  // fails
                 .toContain(4)  // not evaluated/reported because above `toContain` already fails
-            //                            use `.asList { ... }` if you want that all expectations are evaluated
+            //                    use `.asList { ... }` if you want that all expectations are evaluated
         }
     }
 
