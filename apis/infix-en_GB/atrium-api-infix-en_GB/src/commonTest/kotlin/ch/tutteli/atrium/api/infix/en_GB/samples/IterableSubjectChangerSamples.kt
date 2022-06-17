@@ -12,7 +12,7 @@ class IterableSubjectChangerSamples {
     @Test
     fun asListFeature() {
         expect(0..2) asList o toEqual listOf(0, 1, 2)
-        //                           | subject is now of type List<Int>
+        //           | subject is now of type List<Int>
 
         fails {
             expect(0..2) asList o toContain 3 toContain 4
@@ -33,7 +33,7 @@ class IterableSubjectChangerSamples {
                 .asList {
                     it toContain 3  // fails
                     it toContain 4  // still evaluated even though above `toContain` already fails
-                    //                   use `asList o` if you want a fail fast behaviour
+                    //                 use `asList o` if you want a fail fast behaviour
                 }
         }
     }

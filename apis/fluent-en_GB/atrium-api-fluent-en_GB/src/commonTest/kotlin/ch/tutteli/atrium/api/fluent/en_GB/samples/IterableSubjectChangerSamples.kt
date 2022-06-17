@@ -18,13 +18,14 @@ class IterableSubjectChangerSamples {
                 .asList()  // subject is now of type List<Int>
                 .toContain(3)  // fails
                 .toContain(4)  // not evaluated/reported because above `toContain` already fails
-            //                      use `.asList { ... }` if you want that all expectations are evaluated
+            //                            use `.asList { ... }` if you want that all expectations are evaluated
         }
     }
 
     @Test
     fun asList() {
-        expect(0..2)  // subject within this expectation-group is of type List<Int>
+        expect(0..2)
+            // subject within this expectation-group is of type List<Int>
             .asList {
                 toEqual(listOf(0, 1, 2))
             }  // subject here is back to type IntRange
@@ -37,7 +38,7 @@ class IterableSubjectChangerSamples {
                 .asList {
                     toContain(3)  // fails
                     toContain(4)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
+                    //               use `.asList().` if you want a fail fast behaviour
                 }
         }
     }
