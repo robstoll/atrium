@@ -12,6 +12,8 @@ import ch.tutteli.atrium.logic.changeSubject
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangerSamples.asListFeature
+ *
  * @since 0.14.0
  */
 fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
@@ -24,6 +26,8 @@ fun <E, T : Iterable<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  * Use `feature of({ f(it::toList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableSubjectChangerSamples.asList
  *
  * @since 0.14.0
  */

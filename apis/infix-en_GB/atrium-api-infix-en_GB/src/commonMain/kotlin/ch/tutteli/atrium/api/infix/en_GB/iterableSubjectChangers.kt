@@ -13,6 +13,8 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableSubjectChangerSamples.asListFeature
+ *
  * @since 0.14.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.asList(
@@ -27,6 +29,8 @@ infix fun <E, T : Iterable<E>> Expect<T>.asList(
  * Use `feature of({ f(it::asList) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableSubjectChangerSamples.asList
  *
  * @since 0.14.0
  */
