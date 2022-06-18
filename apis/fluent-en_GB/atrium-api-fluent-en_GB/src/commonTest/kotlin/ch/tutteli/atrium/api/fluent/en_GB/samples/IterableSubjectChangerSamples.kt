@@ -24,8 +24,7 @@ class IterableSubjectChangerSamples {
 
     @Test
     fun asList() {
-        expect(0..2)
-            // subject within this expectation-group is of type List<Int>
+        expect(0..2)  // subject within this expectation-group is of type List<Int>
             .asList {
                 toEqual(listOf(0, 1, 2))
             }  // subject here is back to type IntRange
