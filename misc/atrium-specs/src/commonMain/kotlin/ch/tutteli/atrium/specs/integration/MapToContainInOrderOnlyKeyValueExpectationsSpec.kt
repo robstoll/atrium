@@ -7,7 +7,6 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nullableCases
-import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun3<String, Int, Expect<Int>.() -> Unit, InOrderOnlyReportingOptions.() -> Unit>,
@@ -257,6 +256,24 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
 
         context("report options") {
             //TODO #1129 add tests, see IterableToContainInOrderOnlyValuesExpectationsSpec -> report options
+            context("") {
+                it("shows only failing with report option `showOnlyFailing`") {
+                    expect {
+                        expect(map).toContainFun(
+                            keyValue("a") {toEqual(1)},
+                            keyValue("b") {toEqual(2)},
+                            keyValue("c") {toEqual(3)},
+                            report = { showOnlyFailing() }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSize(2, 3)
+                            elementOutOfBound(3, "d", "4")
+                            elementSuccess(0, "a", "a", "1")
+                        }
+                    }
+                }
+            }
         }
     }
 
