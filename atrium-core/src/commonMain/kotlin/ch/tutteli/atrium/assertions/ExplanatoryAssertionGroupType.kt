@@ -28,3 +28,9 @@ object WarningAssertionGroupType : ExplanatoryAssertionGroupType
  * the reason for one or multiple assertions.
  */
 data class InformationAssertionGroupType(val withIndent: Boolean) : ExplanatoryAssertionGroupType
+
+/**
+ * The [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] are used to document
+ * a hint about the usage of the chosen function or rules in Atrium
+ */
+object HintAssertionGroupType : ExplanatoryAssertionGroupType

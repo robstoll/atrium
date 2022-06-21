@@ -20,6 +20,9 @@ internal object GroupTypeOptionImpl : ExplanatoryGroup.GroupTypeOption {
         groupType: T
     ): AssertionsOption<T, ExplanatoryGroup.FinalStep> = createAssertionsOption(groupType)
 
+    override val withHintType: AssertionsOption<HintAssertionGroupType, ExplanatoryGroup.FinalStep>
+        get() = createAssertionsOption(HintAssertionGroupType)
+
     private fun <T : ExplanatoryAssertionGroupType> createAssertionsOption(groupType: T) =
         AssertionsOption.withEmptyDescriptionAndRepresentation(
             groupType, GroupTypeOptionImpl::createExplanatoryAssertionGroupFinalStep

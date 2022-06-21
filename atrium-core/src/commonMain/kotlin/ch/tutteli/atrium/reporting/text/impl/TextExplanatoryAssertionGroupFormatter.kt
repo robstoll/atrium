@@ -41,6 +41,7 @@ class TextExplanatoryAssertionGroupFormatter(
     private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class] ?: "❗❗ "
     private val informationBulletPoint = bulletPoints[InformationAssertionGroupType::class] ?: "ℹ "
+    private val hintBulletPoint = bulletPoints[HintAssertionGroupType::class] ?: "\uD83D\uDCA1 "
 
     override fun formatGroupHeaderAndGetChildParameterObject(
         assertionGroup: AssertionGroup,
@@ -61,6 +62,7 @@ class TextExplanatoryAssertionGroupFormatter(
                 assertionGroupType.withIndent
             )
             WarningAssertionGroupType -> withIndent(warningBulletPoint)
+            HintAssertionGroupType -> withIndent(hintBulletPoint)
             else -> withIndent(explanatoryBulletPoint)
         }
     }
