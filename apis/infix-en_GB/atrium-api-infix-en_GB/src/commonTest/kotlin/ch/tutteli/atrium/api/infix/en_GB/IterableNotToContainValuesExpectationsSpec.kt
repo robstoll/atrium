@@ -14,12 +14,14 @@ class IterableNotToContainValuesExpectationsSpec : Spek({
     object BuilderSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
         getNotToContainPair(),
         getNotToContainNullablePair(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     )
 
     object ShortcutSpecToContain : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
         getNotToContainShortcutPair(),
         getNotToContainNullablePair(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Shortcut] "
     )
 

@@ -11,23 +11,31 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 class DefaultIterableLikeContainsInAnyOrderAssertions : IterableLikeContainsInAnyOrderAssertions {
     override fun <E, T : IterableLike> values(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>,
-        expected: List<E>
-    ): Assertion = createAssertionGroup(checkerStepLogic, expected, ::InAnyOrderValuesAssertionCreator)
+        expected: List<E>,
+        notToHaveNextOrNoneFunName: String
+    ): Assertion = createAssertionGroup(
+        checkerStepLogic, expected, notToHaveNextOrNoneFunName, ::InAnyOrderValuesAssertionCreator
+    )
 
     override fun <E : Any, T : IterableLike> entries(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<out E?, T, InAnyOrderSearchBehaviour>,
-        assertionCreators: List<(Expect<E>.() -> Unit)?>
-    ): Assertion = createAssertionGroup(checkerStepLogic, assertionCreators, ::InAnyOrderEntriesAssertionCreator)
+        assertionCreators: List<(Expect<E>.() -> Unit)?>,
+        notToHaveNextOrNoneFunName: String
+    ): Assertion = createAssertionGroup(
+        checkerStepLogic, assertionCreators, notToHaveNextOrNoneFunName, ::InAnyOrderEntriesAssertionCreator
+    )
 
     private fun <E, T : IterableLike, SC, S : IterableLikeContains.SearchBehaviour> createAssertionGroup(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<E, T, S>,
         expected: List<SC>,
-        factory: ((T) -> Iterable<E>, S, List<IterableLikeContains.Checker>) -> IterableLikeContains.Creator<T, SC>
+        notToHaveNextOrNoneFunName: String,
+        factory: ((T) -> Iterable<E>, S, List<IterableLikeContains.Checker>, String) -> IterableLikeContains.Creator<T, SC>
     ): AssertionGroup {
         val creator = factory(
             checkerStepLogic.entryPointStepLogic.converter,
             checkerStepLogic.entryPointStepLogic.searchBehaviour,
-            checkerStepLogic.checkers
+            checkerStepLogic.checkers,
+            notToHaveNextOrNoneFunName
         )
         return creator.createAssertionGroup(checkerStepLogic.entryPointStepLogic.container, expected)
     }

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
@@ -116,5 +117,30 @@ internal fun <E> decorateAssertionWithHasNext(
                     .build()
             )
             .build()
+    }
+}
+internal fun <E> decorateWithHintUseNotToHaveElementsOrNone(
+    assertion: AssertionGroup,
+    listAssertionContainer: AssertionContainer<List<E>>,
+    notToHaveNextOrNoneFunName: String
+): AssertionGroup {
+    val hasNext = listAssertionContainer.hasNext(::identity)
+    return if (!hasNext.holds()) {
+        assertionBuilder.invisibleGroup
+            .withAssertions(
+                assertion,
+                assertionBuilder.explanatoryGroup
+                    .withHintType
+                    .withExplanatoryAssertion(
+                        TranslatableWithArgs(
+                            DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE,
+                            notToHaveNextOrNoneFunName
+                        )
+                    )
+                    .build()
+            )
+            .build()
+    } else {
+        assertion
     }
 }

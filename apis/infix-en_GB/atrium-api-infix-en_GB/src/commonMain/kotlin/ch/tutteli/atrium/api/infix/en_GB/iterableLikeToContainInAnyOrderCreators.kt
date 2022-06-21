@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.impl.StaticNames
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
@@ -51,7 +52,7 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.val
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Expect<T> =
-    _logicAppend { values(values.toList()) }
+    _logicAppend { values(values.toList(), StaticNames.notToHaveElementsOrNone) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -89,7 +90,7 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
  */
 infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.the(
     entries: Entries<E>
-): Expect<T> = _logicAppend { entries(entries.toList()) }
+): Expect<T> = _logicAppend { entries(entries.toList(), StaticNames.notToHaveElementsOrNone) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])

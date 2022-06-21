@@ -7,6 +7,7 @@ class IterableNotToContainEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
         getNotToContainPair(),
         getNotToContainNullablePair().withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     ) {
 
