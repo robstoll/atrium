@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
@@ -10,6 +11,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 abstract class IterableNotToContainEntriesExpectationsSpec(
     notToContainEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     notToContainNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
+    notToHaveElementsOrNoneFunName: String,
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
@@ -69,7 +71,8 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             "$hasANextElement$separator" +
                                 "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
                                 "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.0.*"
+                                "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.0.*",
+                                "$hintBulletPoint${DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault().format(notToHaveElementsOrNoneFunName)}"
                         )
                     }
                 }

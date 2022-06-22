@@ -76,7 +76,7 @@ interface ExplanatoryGroup {
             fun create(
                 groupType: ExplanatoryAssertionGroupType,
                 explanatoryAssertions: List<Assertion>,
-                holds : Boolean = true
+                holds: Boolean = true
             ): FinalStep = FinalStepImpl(groupType, explanatoryAssertions, holds)
         }
     }
@@ -175,6 +175,12 @@ interface ExplanatoryAssertionGroupTypeOption {
      * Builder to create an [AssertionGroup] with a [InformationAssertionGroupType].
      */
     fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+
+    /**
+     * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
+     * @since 0.19.0
+     */
+    val withHintType: AssertionsOption<HintAssertionGroupType, ExplanatoryGroup.FinalStep>
 
     /**
      * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].

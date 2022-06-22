@@ -1944,7 +1944,7 @@ expect(BigDecimal.TEN).toEqualIncludingScale(BigDecimal("10.0"))
 ```text
 I expected subject: 10        (java.math.BigDecimal <1234789>)
 ◆ is equal (including scale): 10.0        (java.math.BigDecimal <1234789>)
-    ℹ notice, if you used toEqualNumerically then the expectation would have been met.
+    💡 notice, if you used toEqualNumerically then the expectation would have been met.
 ```
 </ex-pitfall-1>
 

@@ -2,12 +2,15 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableNotToContainValuesExpectationsSpec(
     notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     notToContainNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
+    notToHaveElementsOrNoneFunName: String,
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
@@ -43,8 +46,12 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     message {
                         toContainRegex(
                             "$hasANextElement$separator" +
-                                    "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*"
+                                "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                                "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*",
+                            "$hintBulletPoint${
+                                DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
+                                    .format(notToHaveElementsOrNoneFunName)
+                            }"
                         )
                     }
                 }

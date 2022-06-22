@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl.StaticNames
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
@@ -52,7 +53,7 @@ fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expe
 fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
     expected: E,
     vararg otherExpected: E
-): Expect<T> = _logicAppend { values(expected glue otherExpected) }
+): Expect<T> = _logicAppend { values(expected glue otherExpected, StaticNames.notToHaveElementsOrNone) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
@@ -93,8 +94,7 @@ fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>
 fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entries(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Expect<E>.() -> Unit)?
-): Expect<T> = _logicAppend { entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls) }
-
+): Expect<T> = _logicAppend { entries(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, StaticNames.notToHaveElementsOrNone) }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])

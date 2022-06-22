@@ -28,6 +28,9 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     /** @since 0.18.0 */
     NOT_TO_CONTAIN("not to contain"),
 
+    /** @since 0.19.0 */
+    USE_NOT_TO_HAVE_ELEMENTS_OR_NONE("use %s if you don't care about the empty case, then the expectation would have been met."),
+
     /** @since 0.18.0 */
     ELEMENT_WITH_INDEX("element %s"),
 

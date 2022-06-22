@@ -11,6 +11,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSe
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.logic.impl.decorateAssertionWithHasNext
+import ch.tutteli.atrium.logic.impl.decorateWithHintUseNotToHaveElementsOrNone
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
@@ -30,13 +31,15 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     private val converter: (T) -> Iterable<SC>,
     searchBehaviour: InAnyOrderSearchBehaviour,
-    checkers: List<IterableLikeContains.Checker>
+    checkers: List<IterableLikeContains.Checker>,
+    private val notToHaveNextOrNoneFunName: String
 ) : ContainsObjectsAssertionCreator<T, List<SC>, SC, InAnyOrderSearchBehaviour, IterableLikeContains.Checker>(
     searchBehaviour,
     checkers
 ), IterableLikeContains.Creator<T, SC> {
 
     override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+
     @Suppress("OverridingDeprecatedMember")
     override val descriptionContains: Translatable = descriptionToContain
     override val descriptionNumberOfOccurrences: Translatable =
@@ -71,8 +74,11 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         inAnyOrderAssertion: AssertionGroup,
         multiConsumableContainer: AssertionContainer<List<SC>>
     ): AssertionGroup {
-        return if (searchBehaviour is NotSearchBehaviour)
-            decorateAssertionWithHasNext(inAnyOrderAssertion, multiConsumableContainer)
-        else inAnyOrderAssertion
+        return if (searchBehaviour is NotSearchBehaviour) {
+            val assertion = decorateAssertionWithHasNext(inAnyOrderAssertion, multiConsumableContainer)
+            decorateWithHintUseNotToHaveElementsOrNone(assertion, multiConsumableContainer, notToHaveNextOrNoneFunName)
+        } else {
+            inAnyOrderAssertion
+        }
     }
 }

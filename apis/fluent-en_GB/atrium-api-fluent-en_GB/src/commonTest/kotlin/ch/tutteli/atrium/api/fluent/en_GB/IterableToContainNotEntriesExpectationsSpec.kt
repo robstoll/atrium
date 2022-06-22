@@ -8,6 +8,7 @@ class IterableNotToContainEntriesExpectationsSpec :
     ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
         functionDescription to Companion::notToContainFun,
         (functionDescription to Companion::notToContainNullableFun).withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     ) {
     companion object : IterableToContainSpecBase() {

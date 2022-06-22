@@ -16,12 +16,14 @@ interface IterableLikeContainsInAnyOrderAssertions {
 
     fun <E, T : IterableLike> values(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>,
-        expected: List<E>
+        expected: List<E>,
+        notToHaveNextOrNoneFunName: String
     ): Assertion
 
     fun <E : Any, T : IterableLike> entries(
         checkerStepLogic: IterableLikeContains.CheckerStepLogic<out E?, T, InAnyOrderSearchBehaviour>,
-        assertionCreators: List<(Expect<E>.() -> Unit)?>
+        assertionCreators: List<(Expect<E>.() -> Unit)?>,
+        notToHaveNextOrNoneFunName: String
     ): Assertion
 }
 

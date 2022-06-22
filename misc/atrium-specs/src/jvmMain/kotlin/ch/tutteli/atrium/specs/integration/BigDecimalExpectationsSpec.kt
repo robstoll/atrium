@@ -198,7 +198,7 @@ abstract class BigDecimalExpectationsSpec(
                         messageToContain(
                             BigDecimal.TEN,
                             "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected",
-                            failureHintNumerically
+                            "${hintBulletPoint}$failureHintNumerically"
                         )
                     }
                 }
