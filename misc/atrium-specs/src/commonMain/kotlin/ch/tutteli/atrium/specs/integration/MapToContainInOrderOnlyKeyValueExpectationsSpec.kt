@@ -268,11 +268,36 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(2, 3)
+                            elementSuccess(0, "1", "a", "1")
+                            elementFailing(0, "2", "a", "1")
                             elementOutOfBound(3, "d", "4")
-                            elementSuccess(0, "a", "a", "1")
                         }
                     }
                 }
+                it("shows only failing with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 3") {
+                    expect {
+                        expect(map).toContainFun(
+                            keyValue("a") {toEqual(1)},
+                            keyValue("b") {toEqual(2)},
+                            keyValue("c") {toEqual(3)},
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(2) }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSize(2, 3)
+                            elementSuccess(0, "1", "a", "1")
+                            elementFailing(0, "2", "a", "1")
+                            elementOutOfBound(3, "d", "4")
+                        }
+                    }
+                }
+                it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 2") {
+
+                }
+                it("shows summary without report option if there are 10 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
+
+                }
+                it("shows only failing without report option if there are 11 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
             }
         }
     }
