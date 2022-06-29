@@ -13,7 +13,8 @@ class ResultExpectationSamples {
 
         expect(Result.success(10))
             .toBeASuccess() // subject is now of type Int (actually 10)
-            .toEqual(1)
+            .toEqual(10)
+            .toBeLessThan(15)
 
         fails { // because sub-expectation fails
             expect(Result.success(10))
@@ -93,7 +94,7 @@ class ResultExpectationSamples {
         val failure = Result.failure<Int>(ArithmeticException(errorMessage))
 
         expect(failure).toBeAFailure<ArithmeticException> {  // subject within this expectation-group is of type ArithmeticException
-            messageToContain("parameter")
+            messageToContain("by zero")
         } // subject here is back to type Result<Int>
 
         fails { // because sub-expectation fails
