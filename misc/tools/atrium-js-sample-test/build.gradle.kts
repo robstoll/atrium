@@ -13,7 +13,7 @@ tasks.register("clean") {
 }
 
 tasks.register("cleanAtrium") {
-    samples.forEach {  projectName ->
+    samples.forEach { projectName ->
         dependsOn(gradle.includedBuild("atrium").task(":clean"))
     }
 }
