@@ -260,9 +260,9 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 it("shows only failing with report option `showOnlyFailing`") {
                     expect {
                         expect(map).toContainFun(
-                            keyValue("a") {toEqual(1)},
-                            keyValue("b") {toEqual(2)},
-                            keyValue("c") {toEqual(3)},
+                            keyValue("a") { toEqual(1) },
+                            keyValue("b") { toEqual(2) },
+                            keyValue("c") { toEqual(3) },
                             report = { showOnlyFailing() }
                         )
                     }.toThrow<AssertionError> {
@@ -277,27 +277,65 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                 it("shows only failing with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 3") {
                     expect {
                         expect(map).toContainFun(
-                            keyValue("a") {toEqual(1)},
-                            keyValue("b") {toEqual(2)},
-                            keyValue("c") {toEqual(3)},
+                            keyValue("a") { toEqual(1) },
+                            keyValue("b") { toEqual(2) },
+                            keyValue("c") { toEqual(3) },
                             report = { showOnlyFailingIfMoreExpectedElementsThan(2) }
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            toContainSize(2, 3)
                             elementSuccess(0, "1", "a", "1")
                             elementFailing(0, "2", "a", "1")
                             elementOutOfBound(3, "d", "4")
+                            toContainSize(2, 3)
                         }
                     }
                 }
                 it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 2") {
-
+                    expect {
+                        expect(map).toContainFun(
+                            keyValue("a") { toEqual(1) },
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(1) }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSize(2, 1)
+                            elementSuccess(0, "1", "a", "1")
+                        }
+                    }
                 }
-                it("shows summary without report option if there are 10 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
-
+                it("shows summary without report option if there are 2 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 2") {
+                    expect {
+                        expect(map).toContainFun(
+                            keyValue("a") { toEqual(1) },
+                            keyValue("b") { toEqual(2) },
+                            keyValue("c") { toEqual(3) }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            elementSuccess(0, "1", "a", "1")
+                            elementFailing(0, "2", "a", "1")
+                            elementOutOfBound(3, "d", "4")
+                            toContainSize(2, 3)
+                        }
+                    }
                 }
-                it("shows only failing without report option if there are 11 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
+                it("shows only failing without report option if there are 3 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 2") {
+                    expect {
+                        expect(map).toContainFun(
+                            keyValue("a") { toEqual(1) },
+                            keyValue("b") { toEqual(2) },
+                            keyValue("c") { toEqual(3) }
+                        )
+                    }.toThrow<AssertionError> {
+                        message {
+                            elementSuccess(0, "1", "a", "1")
+                            elementFailing(0, "2", "a", "1")
+                            elementOutOfBound(3, "d", "4")
+                            toContainSize(2, 3)
+                        }
+                    }
+                }
             }
         }
     }
