@@ -15,7 +15,7 @@ class SequenceSubjectChangerSamples {
 
         fails {
             expect(sequenceOf(1, 2, 3)) asIterable o toContain 4
-            //                                      | subject is now of Iterator<Int>
+            //                                      | subject is now of type Iterable<Int>
         }
     }
 
