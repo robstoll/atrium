@@ -11,7 +11,7 @@ class SequenceSubjectChangerSamples {
         val sequence = sequenceOf(1, 2, 3)
         expect(sequence) asIterable o toContain o inGiven order and only the values(1, 2, 3)
         //                  |                       | order specifier
-        //                  |  subject is now type Iterable<Int>
+        //                  |  subject is now of type Iterable<Int>
 
         fails {
             expect(sequenceOf(1, 2, 3)) asIterable o toContain 4
