@@ -30,7 +30,7 @@ class SequenceSubjectChangerSamples {
 
         fails {
             expect(sequenceOf(1, 2, 3))
-                .asIterable {//subject within this expectation-group is of type Iterable<Int>
+                .asIterable { //subject within this expectation-group is of type Iterable<Int>
 
                     it toContain 4
                 } //subject here is back to type Sequence<Int>
