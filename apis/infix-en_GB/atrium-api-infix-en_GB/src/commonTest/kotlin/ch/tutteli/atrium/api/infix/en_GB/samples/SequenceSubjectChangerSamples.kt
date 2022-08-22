@@ -47,7 +47,7 @@ class SequenceSubjectChangerSamples {
     fun asList() {
         expect(sequenceOf(1, 2, 3))
 
-            .asList {//subject within this expectation group is of type List<Int>
+            .asList { //subject within this expectation group is of type List<Int>
                 toEqual(listOf(1, 2, 3))
             } //subject here is back to type to Sequence<Int>
     }
