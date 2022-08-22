@@ -40,7 +40,7 @@ class SequenceSubjectChangerSamples {
     @Test
     fun asListFeature() {
         expect(sequenceOf(1, 2, 3)) asList o toEqual listOf(1, 2, 3)
-        //                                      |subject is now of type List<Int>
+        //                                      | subject is now of type List<Int>
     }
 
     @Test
