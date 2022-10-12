@@ -6,9 +6,19 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
+
+//Deprecated Overloads for comparableExpectations.kt
+@Deprecated("'toBeLessThan' is now deprecated, use 'isBefore' instead.",
+ReplaceWith("isBefore(expected"))
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "" +
+            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
+            ", use a feature extractor ")
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
@@ -23,6 +33,7 @@ import java.time.chrono.ChronoZonedDateTime
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeBefore(
     expected: ChronoZonedDateTime<*>
 ): Expect<T> = _logicAppend { isBefore(expected) }
+
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
