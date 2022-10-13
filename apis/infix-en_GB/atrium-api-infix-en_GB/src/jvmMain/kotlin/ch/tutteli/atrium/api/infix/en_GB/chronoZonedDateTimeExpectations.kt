@@ -27,8 +27,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 
 @Suppress("UNUSED_PARAMETER", "unused")
@@ -38,8 +37,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): N
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeGreaterThan(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 
 @Suppress("UNUSED_PARAMETER", "unused")
@@ -49,8 +47,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeGreaterThan(expected: T): Noth
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeEqualComparingTo(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 
 @Suppress("UNUSED_PARAMETER", "unused")
@@ -60,8 +57,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeEqualComparingTo(expected: T): No
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 @Suppress("UNUSED_PARAMETER", "unused")
 @Deprecated(
@@ -70,8 +66,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T)
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeLessThan(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 @Suppress("UNUSED_PARAMETER", "unused")
 @Deprecated(
@@ -80,8 +75,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeLessThan(expected: T): Nothing
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThan(expected: T): Nothing =
     throw PleaseUseReplacementException(
-            "If you wish to use deprecated methods for ChronoZonedDateTime functions" +
-            ", use a feature extractor "
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
     )
 
 
