@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-
 /**
  * Expects that the subject of `this` expectation is less than (`<`) [expected].
  * The comparison is carried out with [Comparable.compareTo].
