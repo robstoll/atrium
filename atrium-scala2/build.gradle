@@ -31,6 +31,6 @@ subprojects {
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
-        implementation 'org.scala-lang:scala-library:2.13.2'
+        implementation 'org.scala-lang:scala-library:2.13.10'
     }
 }
