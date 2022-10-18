@@ -20,14 +20,14 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation("io.kotest:kotest-runner-junit5:$kotestVersion") // for kotest framework
+                implementationWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion") // for kotest framework
             }
         }
     }
 }
 
 val jacocoAdditional by extra(
-    listOf (
+    listOf(
         prefixedProject("verbs"),
         prefixedProject("translations-en_GB"),
         prefixedProject("logic"),
