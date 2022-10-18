@@ -19,6 +19,7 @@ buildscript {
         junitPlatformVersion = '1.9.1'
         jupiterVersion = '5.9.1'
         spekVersion = '2.0.12'
+        kotestVersion = '4.3.2'
         spekExtensionsVersion = '1.2.1'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion" }
         mockkVersion = '1.10.0'
@@ -174,7 +175,7 @@ configure(newMultiplatformProjects) { subproject ->
             def testProvider = testRuns["test"].executionTask
             testProvider.configure {
                 useJUnitPlatform {
-                    includeEngines("spek2", "junit-jupiter")
+                    includeEngines("spek2", "junit-jupiter", "kotest")
                 }
             }
         }
