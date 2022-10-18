@@ -15,7 +15,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import io.kotest.core.spec.style.DescribeSpec
 import java.nio.file.Paths
 
-object SmokeSpec : DescribeSpec({
+class SmokeSpec : DescribeSpec({
     describe("Smoke Test") {
         it("see if `toEqual` can be used") {
             expect(1).toEqual(1)
