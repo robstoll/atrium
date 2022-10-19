@@ -4,7 +4,6 @@ description = "Provides specifications of Atrium which can be reused by" +
 val mockkVersion: String by rootProject.extra
 val spekVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
-val kotestVersion: String by rootProject.extra
 val spekExtensionsVersion: String by rootProject.extra
 val mockitoKotlinVersion: String by rootProject.extra
 val kotestVersion: String by rootProject.extra
