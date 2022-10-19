@@ -6,6 +6,7 @@ val spekVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
 val spekExtensionsVersion: String by rootProject.extra
 val mockitoKotlinVersion: String by rootProject.extra
+val kotestVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
@@ -20,6 +21,7 @@ kotlin {
                 implementation(prefixedProject("api-fluent-en_GB"))
 
                 api("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
+                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
             }
         }
 
@@ -30,6 +32,7 @@ kotlin {
                 api("ch.tutteli.niok:niok:$niokVersion")
                 api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                 api("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
             }
         }
         //TODO 0.19.0 activate once all are migrated to MPP

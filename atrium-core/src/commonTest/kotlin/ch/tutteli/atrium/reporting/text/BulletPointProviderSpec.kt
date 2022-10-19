@@ -8,13 +8,12 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.specs.defaultBulletPoints
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
+import io.kotest.core.spec.style.DescribeSpec
 
 @OptIn(ExperimentalWithOptions::class)
 @ExperimentalComponentFactoryContainer
-class BulletPointProviderSpec : Spek({
+class BulletPointProviderSpec : DescribeSpec({
 
     fun <T> expectWitNewBulletPoint(newBulletPoint: Pair<KClass<out BulletPointIdentifier>, String>, t: T) =
         expect(t).withOptions {
