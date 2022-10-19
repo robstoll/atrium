@@ -30,7 +30,7 @@ buildscript {
 
         // project setup
         tutteli_plugins_version = '0.33.1'
-        node_plugin_version = '3.4.0'
+        node_plugin_version = '3.5.0'
         d8_version = '1.6.84'
 
         // release
