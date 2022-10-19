@@ -16,22 +16,24 @@ kotlin {
                 // exclude this dependency in case you want to use another translation
                 api(prefixedProject("translations-en_GB"))
                 api(prefixedProject("verbs-internal"))
-                api("io.mockk:mockk-common:$mockkVersion")
+                apiWithExclude("io.mockk:mockk-common:$mockkVersion")
 
                 implementation(prefixedProject("api-fluent-en_GB"))
 
-                api("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
+                apiWithExclude("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
                 apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
+                // necessary in order that intellij sees the io.kotest symbols (runner-junit5 actually already depends on it)
+                apiWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
             }
         }
 
         val jvmMain by getting {
             dependencies {
-                api("io.mockk:mockk:$mockkVersion")
-                api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
-                api("ch.tutteli.niok:niok:$niokVersion")
-                api("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
-                api("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+                apiWithExclude("io.mockk:mockk:$mockkVersion")
+                apiWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
+                apiWithExclude("ch.tutteli.niok:niok:$niokVersion")
+                apiWithExclude("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
+                apiWithExclude("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
                 apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
             }
         }
