@@ -13,12 +13,13 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import io.kotest.core.spec.style.DescribeSpec
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
-class AdjustStackSpec : Spek({
+class AdjustStackSpec : DescribeSpec({
 
     describe("no-op adjuster") {
         fun <T : Any> assertNoOp(subject: T) =
