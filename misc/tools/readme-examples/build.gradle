@@ -10,7 +10,7 @@ dependencies {
 
     implementation kotlinStdlib()
     implementation prefixedProject("fluent-en_GB")
-    implementation niok()
+    implementation "ch.tutteli.niok:niok:$niokVersion"
     implementation spekExtensions()
 }
 

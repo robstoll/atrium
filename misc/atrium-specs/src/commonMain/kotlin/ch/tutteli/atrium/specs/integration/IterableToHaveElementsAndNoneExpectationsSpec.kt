@@ -30,7 +30,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
 
     val containsNotDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         toHaveElementsAndNone,
         toHaveElementsAndNoneNullable

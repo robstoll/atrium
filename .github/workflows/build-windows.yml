@@ -48,7 +48,7 @@ jobs:
         run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
         shell: bash
 
-      # TODO 0.19.0 re-activate scala API
+      # TODO 0.21.0 re-activate scala API
       #            -   name: composite build atrium-scala2
       #                run: ./gradlew build
       #                working-directory: misc\tools\atrium-scala2-test
@@ -65,10 +65,9 @@ jobs:
           # too many timeout errors, let's not fail at the moment
           #fail_ci_if_error: true
 
-      # TODO 0.19.0 re-activate once we use the new MPP-plugin, might be we no longer run into timeout issues (we still test it on ubuntu)
-      # - name: composite build atrium-samples-test
-      #  run: ./gradlew build
-      #  working-directory: misc\tools\atrium-samples-test
+      - name: composite build atrium-samples-test
+        run: ./gradlew build
+        working-directory: misc\tools\atrium-samples-test
 
       - name: composite build atrium-js-sample-test
         run: ./gradlew build

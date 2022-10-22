@@ -181,7 +181,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     }
 
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         toContainInOrderOnlyGroupedValues,
         toContainInOrderOnlyGroupedNullableValues

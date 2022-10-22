@@ -20,7 +20,12 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementationWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion") // for kotest framework
+                implementationWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
+            }
+        }
+        val jvmTest by getting{
+            dependencies {
+                implementationWithExclude("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
             }
         }
     }

@@ -24,7 +24,7 @@ kotlin {
         // Atrium requires at least jdk 11
         kotlinOptions.jvmTarget = "11"
     }
-    js().nodejs()
+    js(IR).nodejs()
     sourceSets {
         val commonTest by getting {
             dependencies {

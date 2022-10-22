@@ -8,6 +8,12 @@ actual class RemoveRunnerFromAtriumErrorImpl : FilterAtriumErrorAdjuster(), Remo
         stackTrace.takeWhile { !runnerRegex.containsMatchIn(it) }
 
     companion object {
-        val runnerRegex: Regex = Regex("[\\\\|/]node_modules[\\\\|/](mocha|jasmine)[\\\\|/]")
+        val runnerRegex: Regex = Regex(
+            // kotlin 1.6
+            """([\\|/]packages_imported[\\|/]kotlin-test-js-runner[\\|/])"""+
+            // kotlin 1.3
+            """([\\|/]node_modules[\\|/](mocha|jasmine|jest)[\\|/])|"""
+
+        )
     }
 }

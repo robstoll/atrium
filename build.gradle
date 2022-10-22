@@ -1,3 +1,4 @@
+
 buildscript {
     rootProject.version = '0.19.0-SNAPSHOT'
     rootProject.group = 'ch.tutteli.atrium'
@@ -8,18 +9,16 @@ buildscript {
     ext {
         // main
         kboxVersion = '0.15.1'
-        kbox = { "ch.tutteli.kbox:kbox:$kboxVersion" }
         niokVersion = '1.4.7'
-        niok = { "ch.tutteli.niok:niok:$niokVersion" }
-        // keep in sync with /buildSrc/build.gradle.kts
-        kotlinVersion = '1.3.72'
+        // !!! keep in sync with /buildSrc/build.gradle.kts !!!
+        kotlinVersion = "1.6.20"
 
         // test
         jacocoToolVersion = '0.8.8'
         junitPlatformVersion = '1.9.1'
         jupiterVersion = '5.9.1'
         spekVersion = '2.0.12'
-        kotestVersion = '4.3.2'
+        kotestVersion = '4.6.4'
         spekExtensionsVersion = '1.2.1'
         spekExtensions = { "ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion" }
         mockkVersion = '1.10.0'
@@ -30,7 +29,6 @@ buildscript {
 
         // project setup
         tutteli_plugins_version = '0.33.1'
-        node_plugin_version = '3.5.0'
         d8_version = '1.6.84'
 
         // release
@@ -114,7 +112,6 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-project-utils:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-publish:$tutteli_plugins_version"
         classpath "ch.tutteli:tutteli-gradle-spek:$tutteli_plugins_version"
-        classpath "com.github.node-gradle:gradle-node-plugin:$node_plugin_version"
         classpath "io.github.gradle-nexus:publish-plugin:$gradle_nexus_publish_plugin_version"
     }
 }
@@ -153,14 +150,13 @@ subprojects {
     }
 }
 
-def commonProjects = getCommonProjects()
-def jsProjects = getJsProjects()
+
 
 def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
 configure(newMultiplatformProjects) { subproject ->
     apply plugin: "kotlin-multiplatform"
 
-    kotlin {
+    kotlin { k ->
         jvm {
             compilations.main.kotlinOptions {
                 jvmTarget = "11"
@@ -179,10 +175,8 @@ configure(newMultiplatformProjects) { subproject ->
                 }
             }
         }
-        //TODO 0.19.0 activate as soon as all modules have been transitioned to new MPP
-//        js {
-//            nodejs()
-//        }
+        //TODO 0.20.0 switch from LEGACY to IR
+        js(LEGACY) { nodejs() }
 
         targets.all {
             compilations.all {
@@ -194,7 +188,8 @@ configure(newMultiplatformProjects) { subproject ->
         sourceSets {
             commonMain {
                 dependencies {
-                    api(kotlin("stdlib-jdk8"))
+                    // TODO 0.20.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added)
+                    api(kotlin("stdlib-common"))
                     api(kotlin("reflect"))
                 }
             }
@@ -204,7 +199,12 @@ configure(newMultiplatformProjects) { subproject ->
                     implementation kotlin('test-annotations-common')
                 }
             }
-
+            jvmMain {
+                dependencies{
+                    // TODO 0.20.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
+                    api(kotlin("stdlib-jdk8"))
+                }
+            }
             jvmTest {
                 dependencies {
                     implementation kotlin('test-junit')
@@ -217,17 +217,22 @@ configure(newMultiplatformProjects) { subproject ->
                     }
                 }
             }
-            //TODO 0.19.0 activate once all are migrated to MPP
-//            jsTest {
-//                dependencies {
-//                    implementation kotlin('test-js')
-//                }
-//            }
+            jsMain {
+                dependencies{
+                    // TODO 0.20.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
+                    api(kotlin("stdlib-js"))
+                }
+            }
+            jsTest {
+                dependencies {
+                    implementation kotlin('test-js')
+                }
+            }
 
             all {
                 languageSettings {
-                    languageVersion = '1.2'
-                    apiVersion = '1.2'
+                    languageVersion = '1.3'
+                    apiVersion = '1.3'
                     useExperimentalAnnotation('kotlin.Experimental')
                 }
             }
@@ -276,9 +281,7 @@ configure(newMultiplatformProjects) { subproject ->
             subproject.compileModuleJava.configure {
                 dependsOn subproject.jvmMainClasses
 
-                //TODO 0.19.0 use this as soon as sources are in default folder for jvmMain
                 destinationDir = subproject.kotlin.jvm().compilations.main.output.classesDirs.getFiles().findAll { it.getPath().contains("kotlin") }[0]
-//                destinationDir = project.compileKotlin.destinationDir
                 doFirst {
                     options.compilerArgs = ['--module-path', classpath.asPath]
                     classpath = subproject.files()
@@ -291,15 +294,11 @@ configure(newMultiplatformProjects) { subproject ->
 }
 
 //TODO 0.19.0 cleanup this file once we have transitioned all modules to the new MPP plugin
-configureCommonProjects()
-configureAndroidProjects()
-configureJsProjects()
-configureJvmProjects()
 
 configure(subprojects.findAll {
     def parentName = it.projectDir.parentFile.name
     it.name != "bc-tests" && parentName != "old" && parentName != "bc-tests"
-} - commonProjects - jsProjects - newMultiplatformProjects) { subproject ->
+}  - newMultiplatformProjects) { subproject ->
     apply plugin: 'kotlin'
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -318,38 +317,27 @@ configure(subprojects.findAll {
     sourceCompatibility = 11
     targetCompatibility = 11
 }
-
-configure(commonProjects) {
-    compileKotlinCommon {
-        kotlinOptions.languageVersion = '1.2'
-    }
-    compileTestKotlinCommon {
-        //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-30580 is fixed
-        kotlinOptions.allWarningsAsErrors = false
-    }
-}
-configure(jsProjects) { subProject ->
-    compileKotlin2Js {
-        kotlinOptions {
-            if (subProject.name.startsWith("atrium-translations")) {
-                //necessary as the module name is then also called atrium-translations-js and can be shared (the name) by the other translation modules
-                outputFile = "$buildDir/classes/kotlin/main/atrium-translations-js.js"
-            }
-            languageVersion = '1.2'
-        }
-    }
-
-    compileTestKotlin2Js {
-        //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
-        kotlinOptions.allWarningsAsErrors = false
-    }
-}
-
-def nonCommonAndJsProjects = subprojects - commonProjects - jsProjects
+//TODO 0.19.0 I guess this is still a problem when realising. Check new modules
+//configure(jsProjects) { subProject ->
+//    compileKotlin2Js {
+//        kotlinOptions {
+//            if (subProject.name.startsWith("atrium-translations")) {
+//                //necessary as the module name is then also called atrium-translations-js and can be shared (the name) by the other translation modules
+//                outputFile = "$buildDir/classes/kotlin/main/atrium-translations-js.js"
+//            }
+//            languageVersion = '1.2'
+//        }
+//    }
+//
+//    compileTestKotlin2Js {
+//        //TODO activate as soon as https://youtrack.jetbrains.com/issue/KT-21348 is fixed
+//        kotlinOptions.allWarningsAsErrors = false
+//    }
+//}
 
 
 //TODO 0.19.0 configure dokka plugins again also for newMultiplatformProjects
-configure(nonCommonAndJsProjects - toolProjects - newMultiplatformProjects) { Project subproject ->
+configure(subprojects - toolProjects - newMultiplatformProjects) { Project subproject ->
     apply plugin: 'ch.tutteli.dokka'
     apply plugin: 'ch.tutteli.kotlin.module.info'
 
@@ -394,8 +382,8 @@ configure(apiProjects) { apiProject ->
 
 def bundleSmokeTests = subprojects.findAll { it.name.contains('-smoke-test') }
 
-//TODO 0.19.0 newMultiPlatformProject have to be published differently
-configure(subprojects - bundleSmokeTests - toolProjects - newMultiplatformProjects - jsProjects) { subproject ->
+//TODO 0.19.0 newMultiPlatformProject have to be published differently, update to tutteli-gradle-plugins
+configure(subprojects - bundleSmokeTests - toolProjects - newMultiplatformProjects) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 
     tutteliPublish {
@@ -485,7 +473,6 @@ configure(bundleSmokeTests) {
     }
 }
 
-
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
@@ -493,64 +480,6 @@ import java.util.stream.Collectors
 List<Project> projectNamesToProject(String[] names) {
     names.collect { projectName -> prefixedProject(projectName) }
 }
-
-def createJsTestTask(String... subprojectNames) {
-    configure(projectNamesToProject(subprojectNames)) {
-        apply plugin: 'com.github.node-gradle.node'
-
-        compileTestKotlin2Js.configure {
-            kotlinOptions.moduleKind = "commonjs"
-            kotlinOptions.sourceMap = true
-            kotlinOptions.sourceMapEmbedSources = "always"
-        }
-
-        task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
-            from compileKotlin2Js.destinationDir
-
-            prefixedProject('verbs-internal').afterEvaluate {
-                // TODO 0.19.0, check if still required with the new Kotlin MPP plugin
-                configurations.testRuntimeClasspath.allDependencies.withType(ProjectDependency).each {
-                    dependsOn(it.dependencyProject.assemble)
-                }
-
-                configurations.testRuntimeClasspath.each {
-                    from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
-                }
-            }
-
-            into "${buildDir}/node_modules"
-        }
-
-        def nodeModulesParentDir = file("$rootProject.projectDir/gradle/")
-        node {
-            download = true
-            npmVersion = '8.8.0'
-            workDir = file("$rootProject.projectDir/.gradle/nodejs")
-            npmWorkDir = file("$rootProject.projectDir/.gradle/npm")
-            nodeModulesDir = nodeModulesParentDir
-        }
-
-        task runMocha(type: NpxTask, dependsOn: [compileTestKotlin2Js, populateNodeModules]) {
-            command = "mocha"
-            args = [compileTestKotlin2Js.outputFile.toString()]
-        }
-        test.dependsOn runMocha
-    }
-}
-
-//TODO 0.19.0 this setup should no longer be necessary with the new js plugin, check once you re-activate JS target
-// if this is true, then remove the definition below including createJsTestTask above
-//TODO 0.19.0 enable JS-tests again once we use the new MPP plugins because then they should only re-run if something
-// changed, in contrast to now where they re-run all the time
-//if (Boolean.parseBoolean(System.getenv('CI'))) {
-//    createJsTestTask(
-//        'core-js',
-//        'api-fluent-en_GB',
-//        'api-infix-en_GB',
-//        'fluent-en_GB-js',
-//        'infix-en_GB-js'
-//    )
-//}
 
 def useJupiter(String... projectNames) {
     configure(projectNamesToProject(projectNames)) {

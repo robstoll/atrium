@@ -401,7 +401,7 @@ abstract class AnyExpectationsSpec(
         notToEqualOneOfInt,
         notToEqualOneInInt
     ) {
-        checkInt(
+        this.checkInt(
             "primitive",
             expect(1),
             toEqualInt,
@@ -411,7 +411,7 @@ abstract class AnyExpectationsSpec(
             notToEqualOneOfInt,
             notToEqualOneInInt
         )
-        checkInt(
+        this.checkInt(
             "nullable primitive",
             expect(1 as Int?),
             toEqualNullableInt,
@@ -423,7 +423,7 @@ abstract class AnyExpectationsSpec(
         )
 
         val subject = DataClass(true)
-        checkDataClass(
+        this.checkDataClass(
             "class",
             expect(subject),
             toEqualDataClass,
@@ -434,7 +434,7 @@ abstract class AnyExpectationsSpec(
             notToEqualOneInDataClass,
             subject
         )
-        checkDataClass(
+        this.checkDataClass(
             "nullable class",
             expect(subject as DataClass?),
             toEqualNullableDataClass,
@@ -446,7 +446,7 @@ abstract class AnyExpectationsSpec(
             subject
         )
 
-        checkNull(
+        this.checkNull(
             "null as Int?",
             toEqualNullableInt,
             notToEqualNullableInt,
@@ -457,7 +457,7 @@ abstract class AnyExpectationsSpec(
             2,
             emptyArray<Int?>()
         )
-        checkNull(
+        this.checkNull(
             "null as DataClass?",
             toEqualNullableDataClass,
             notToEqualNullableDataClass,

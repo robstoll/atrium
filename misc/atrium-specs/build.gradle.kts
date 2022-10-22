@@ -21,8 +21,6 @@ kotlin {
                 implementation(prefixedProject("api-fluent-en_GB"))
 
                 apiWithExclude("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
-                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
-                // necessary in order that intellij sees the io.kotest symbols (runner-junit5 actually already depends on it)
                 apiWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
             }
         }
@@ -34,15 +32,16 @@ kotlin {
                 apiWithExclude("ch.tutteli.niok:niok:$niokVersion")
                 apiWithExclude("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                 apiWithExclude("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
-                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
+                apiWithExclude("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
             }
         }
-        //TODO 0.19.0 activate once all are migrated to MPP
-//        val jsTest by getting {
-//            api("io.mockk:mockk-dsl-js:$mockkVersion")
-//
-//            api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//        }
+
+        val jsMain by getting {
+            dependencies {
+                api("io.mockk:mockk-dsl-js:$mockkVersion")
+                api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
+            }
+        }
 
         configureEach {
             languageSettings.apply {

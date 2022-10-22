@@ -33,7 +33,7 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
     val notToHaveElementsOrAnyDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ANY.getDefault()
     val noSuchElementDescr = DescriptionIterableLikeExpectation.NEITHER_EMPTY_NOR_ELEMENT_FOUND.getDefault()
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         notToHaveElementsOrAny,
         notToHaveElementsOrAnyNullable

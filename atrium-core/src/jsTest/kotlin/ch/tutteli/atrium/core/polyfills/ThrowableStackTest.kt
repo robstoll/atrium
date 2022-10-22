@@ -23,6 +23,7 @@ class ThrowableStackTest {
     @Test
     fun assertionError() {
         val stack = AssertionError("test").stackBacktrace
+        println("heeeere:\n${stack.joinToString("\n")}\n\n")
         expect(stack.first()) toStartWith "${ThrowableStackTest::class.simpleName}.assertionError"
         expect(stack) {
             toHaveElementsAndNone {

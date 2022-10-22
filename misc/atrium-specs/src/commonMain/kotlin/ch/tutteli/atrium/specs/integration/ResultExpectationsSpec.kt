@@ -60,7 +60,7 @@ abstract class ResultExpectationsSpec(
     val resultSuccess = Result.success(1)
     val resultFailure = Result.failure<Int>(IllegalArgumentException("oh no..."))
     val resultNullSuccess = Result.success(null as Int?)
-    val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no..."))
+    val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no nullable..."))
 
     val isNotSuccessDescr = DescriptionResultExpectation.IS_NOT_SUCCESS.getDefault()
     val isNotFailureDescr = DescriptionResultExpectation.IS_NOT_FAILURE.getDefault()

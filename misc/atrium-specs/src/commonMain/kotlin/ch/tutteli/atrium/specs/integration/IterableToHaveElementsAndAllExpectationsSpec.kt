@@ -36,7 +36,7 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
 
     fun index(index: Int) = listBulletPoint + DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         toHaveElementsAndAll,
         toHaveElementsAndAllNullable

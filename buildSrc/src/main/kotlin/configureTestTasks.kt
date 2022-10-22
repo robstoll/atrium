@@ -1,18 +1,16 @@
 import org.gradle.api.GradleException
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.api.tasks.testing.TestListener
-import org.gradle.api.tasks.testing.*
-import org.gradle.api.tasks.testing.Test
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.withType
 
 // TODO 0.20.0 move to tutteli-gradle-plugin
 fun Project.configureTestTasks() {
-    fun memoizeTestFile(testTask: Test) =
+    fun memoizeTestFile(testTask: AbstractTestTask) =
         project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
 
-    tasks.withType<Test> {
+   tasks.withType<AbstractTestTask> {
         testLogging {
             events(
                 TestLogEvent.FAILED,

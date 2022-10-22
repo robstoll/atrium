@@ -24,7 +24,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
     fun Expect<Iterable<Double?>>.toContainInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =
         toContainInAnyOrderNullableValues(this, t, tX)
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         toContainInAnyOrderValues,
         toContainInAnyOrderNullableValues
