@@ -29,8 +29,7 @@ class DefaultFun0Assertions : Fun0Assertions {
             catchAndAdjustThrowable(container, this)
                 .fold({ it }, { /* use null as subject in case no exception occurred */ null })
         }.transform().let { previousExpect ->
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+                        @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = {
@@ -50,8 +49,7 @@ class DefaultFun0Assertions : Fun0Assertions {
         try {
             Right(act())
         } catch (throwable: Throwable) {
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+                        @OptIn(ExperimentalComponentFactoryContainer::class)
             container.components.build<AtriumErrorAdjuster>().adjust(throwable)
             Left(throwable)
         }

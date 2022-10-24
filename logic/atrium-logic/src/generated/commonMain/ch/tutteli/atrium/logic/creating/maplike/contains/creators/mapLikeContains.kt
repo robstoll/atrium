@@ -39,7 +39,6 @@ fun <K, V, T : MapLike> MapLikeContains.EntryPointStepLogic<K, V, T, InOrderOnly
 fun <K, V : Any, T : MapLike> MapLikeContains.EntryPointStepLogic<K, out V?, T, InOrderOnlySearchBehaviour>.keyWithValueAssertionsInOrderOnly(valueType: KClass<V>, keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>, reportingOptions: InOrderOnlyReportingOptions.() -> Unit): Assertion =
     impl.keyWithValueAssertionsInOrderOnly(this, valueType, keyValues, reportingOptions)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>.impl: MapLikeContainsAssertions
     get() = container.getImpl(MapLikeContainsAssertions::class) { DefaultMapLikeContainsAssertions() }

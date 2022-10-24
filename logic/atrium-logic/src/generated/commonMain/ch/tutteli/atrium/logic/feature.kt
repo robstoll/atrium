@@ -37,7 +37,6 @@ fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2,
 fun <T, R> AssertionContainer<T>.manualFeature(description: Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
     impl.manualFeature(this, description, provider)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: FeatureAssertions
     get() = getImpl(FeatureAssertions::class) { DefaultFeatureAssertions() }

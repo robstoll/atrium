@@ -17,7 +17,6 @@ fun <K, V, T : Map.Entry<K, V>> AssertionContainer<T>.isKeyValue(key: K, value: 
 fun <K, T : Map.Entry<K, *>> AssertionContainer<T>.key(): FeatureExtractorBuilder.ExecutionStep<T, K> = impl.key(this)
 fun <V, T : Map.Entry<*, V>> AssertionContainer<T>.value(): FeatureExtractorBuilder.ExecutionStep<T, V> = impl.value(this)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: MapEntryAssertions
     get() = getImpl(MapEntryAssertions::class) { DefaultMapEntryAssertions() }

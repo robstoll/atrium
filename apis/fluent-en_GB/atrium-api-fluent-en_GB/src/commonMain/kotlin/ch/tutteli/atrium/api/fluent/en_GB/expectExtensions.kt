@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Text
 
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@Experimental
+@RequiresOptIn
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION)
 annotation class ExperimentalWithOptions
@@ -53,8 +53,7 @@ fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Ex
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T> RootExpect<T>.withOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
     withOptions(RootExpectOptions(configuration))
 
@@ -64,8 +63,7 @@ fun <T> RootExpect<T>.withOptions(configuration: RootExpectBuilder.OptionsChoose
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T> RootExpect<T>.withOptions(options: RootExpectOptions<T>): Expect<T> =
     RootExpect(this, options)
 
@@ -79,8 +77,7 @@ fun <T> RootExpect<T>.withOptions(options: RootExpectOptions<T>): Expect<T> =
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): Expect<R> =
     withOptions { withRepresentation(textRepresentation) }
 
@@ -100,8 +97,7 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) -> Any): Expect<R> =
     withOptions { withRepresentation(representationProvider) }
 
@@ -112,8 +108,7 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) ->
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): Expect<R> =
     withOptions(FeatureExpectOptionsChooser(configuration))
 
@@ -123,7 +118,6 @@ fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsCh
  * @return An new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureExpectOptions<R>): Expect<R> =
     FeatureExpect(this, options)

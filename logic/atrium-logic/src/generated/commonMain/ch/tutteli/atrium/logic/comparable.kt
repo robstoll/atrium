@@ -25,7 +25,6 @@ fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isNotLessThan(expect
 
 fun <T1 : Comparable<T2>, T2 : Any?> AssertionContainer<T1>.isGreaterThan(expected: T2): Assertion = impl.isGreaterThan(this, expected)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ComparableAssertions
     get() = getImpl(ComparableAssertions::class) { DefaultComparableAssertions() }

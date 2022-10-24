@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.checkers.impl.DefaultA
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 
 @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T : IterableLike> atLeastChecker(
     container: AssertionContainer<T>,
     times: Int,
@@ -20,7 +20,7 @@ fun <T : IterableLike> atLeastChecker(
 }
 
 @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T : IterableLike> atMostChecker(
     container: AssertionContainer<T>,
     times: Int,

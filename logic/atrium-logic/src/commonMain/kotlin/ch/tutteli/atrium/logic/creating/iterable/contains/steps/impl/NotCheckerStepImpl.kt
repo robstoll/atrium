@@ -12,7 +12,7 @@ internal class NotCheckerStepImpl<E, T : IterableLike, out S : IterableLikeConta
 ) : NotCheckerStep<E, T, S>, IterableLikeContains.CheckerStepInternal<E, T, S> {
 
     @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @OptIn(ExperimentalNewExpectTypes::class)
     override val checkers = listOf(
         entryPointStepLogic.container.getImpl<NotChecker>(NotChecker::class) { DefaultNotChecker() }
     )

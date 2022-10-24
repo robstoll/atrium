@@ -24,8 +24,7 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
     ): CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour> =
         EntryPointStepImpl(container, NoOpSearchBehaviourImpl())
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+        @OptIn(ExperimentalNewExpectTypes::class)
     override fun <T : CharSequence> containsNotBuilder(
         container: AssertionContainer<T>
     ): NotCheckerStep<T, NotSearchBehaviour> =

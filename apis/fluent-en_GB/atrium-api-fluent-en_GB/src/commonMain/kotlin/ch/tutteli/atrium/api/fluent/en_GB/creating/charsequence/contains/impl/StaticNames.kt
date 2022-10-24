@@ -14,9 +14,10 @@ internal object StaticNames {
         f.name
     }
 
-    val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
-    val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
-    val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name
-    val exactly = CharSequenceContains.EntryPointStep<*, *>::exactly.name
-    val notOrAtMost = CharSequenceContains.EntryPointStep<*, *>::notOrAtMost.name
+    //TODO 0.20.0 report regression with Kotlin 1.6.20, before you could use <*,*>
+    val atLeast = CharSequenceContains.EntryPointStep<CharSequence, *>::atLeast.name
+    val butAtMost = AtLeastCheckerStep<CharSequence, *>::butAtMost.name
+    val atMost = CharSequenceContains.EntryPointStep<CharSequence, *>::atMost.name
+    val exactly = CharSequenceContains.EntryPointStep<CharSequence, *>::exactly.name
+    val notOrAtMost = CharSequenceContains.EntryPointStep<CharSequence, *>::notOrAtMost.name
 }

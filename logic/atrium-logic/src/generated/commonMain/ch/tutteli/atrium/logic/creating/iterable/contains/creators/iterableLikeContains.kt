@@ -41,7 +41,6 @@ fun <E, T : IterableLike> IterableLikeContains.EntryPointStepLogic<E, T, InOrder
 fun <E : Any, T : IterableLike> IterableLikeContains.EntryPointStepLogic<out E?, T, InOrderOnlyGroupedSearchBehaviour>.entriesInOrderOnlyGrouped(groups: List<List<(Expect<E>.() -> Unit)?>>, inOrderOnlyReportingOptions: InOrderOnlyReportingOptions.() -> Unit, inAnyOrderOnlyReportingOptions: InAnyOrderOnlyReportingOptions.() -> Unit): Assertion =
     impl.entriesInOrderOnlyGrouped(this, groups, inOrderOnlyReportingOptions, inAnyOrderOnlyReportingOptions)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>.impl: IterableLikeContainsAssertions
     get() = container.getImpl(IterableLikeContainsAssertions::class) { DefaultIterableLikeContainsAssertions() }

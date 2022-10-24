@@ -16,7 +16,6 @@ fun AssertionContainer<Float>.toBeWithErrorTolerance(expected: Float, tolerance:
 fun AssertionContainer<Double>.toBeWithErrorTolerance(expected: Double, tolerance: Double): Assertion =
     impl.toBeWithErrorTolerance(this, expected, tolerance)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: FloatingPointAssertions
     get() = getImpl(FloatingPointAssertions::class) { DefaultFloatingPointAssertions() }

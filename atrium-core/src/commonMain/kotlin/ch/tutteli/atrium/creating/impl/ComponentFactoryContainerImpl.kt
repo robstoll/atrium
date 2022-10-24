@@ -140,11 +140,10 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
                 emptyList()
             )
         },
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalFeatureInfo::class)
-        FeatureInfo::class createVia { _ ->
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalFeatureInfo::class)
+                @OptIn(ExperimentalFeatureInfo::class, ExperimentalComponentFactoryContainer::class)
+        (FeatureInfo::class)
+            .createVia { _ ->
+                        @OptIn(ExperimentalFeatureInfo::class)
             StackTraceBasedFeatureInfo()
         },
 

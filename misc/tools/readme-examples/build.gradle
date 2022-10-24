@@ -15,7 +15,7 @@ dependencies {
 }
 
 compileKotlin {
-    kotlinOptions.languageVersion = '1.3'
+//    kotlinOptions.languageVersion = '1.3'
 }
 
 def readme = task("readme", type: JavaExec, group: 'documentation') {

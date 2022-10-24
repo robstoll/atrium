@@ -58,12 +58,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::minOrNull)
 
     override fun <T : IterableLike, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::maxOrNull)
 
     private fun <T : IterableLike, E : Comparable<E>> collect(
         container: AssertionContainer<T>,

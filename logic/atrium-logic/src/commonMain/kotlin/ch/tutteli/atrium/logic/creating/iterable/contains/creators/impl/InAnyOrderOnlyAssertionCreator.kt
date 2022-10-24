@@ -44,7 +44,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val listFromWhichMatchesWillBeRemoved = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
+            val listFromWhichMatchesWillBeRemoved = container.maybeSubject.fold<MutableList<E?>>({ mutableListOf<E?>() }) { converter(it).toMutableList() }
             val initialSize = listFromWhichMatchesWillBeRemoved.size
             val assertions = mutableListOf<Assertion>()
             //TODO 0.19.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator

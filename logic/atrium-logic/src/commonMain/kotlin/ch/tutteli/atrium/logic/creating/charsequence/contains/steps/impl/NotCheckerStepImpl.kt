@@ -11,7 +11,7 @@ class NotCheckerStepImpl<T : CharSequence, out S : CharSequenceContains.SearchBe
 ) : NotCheckerStep<T, S>, CharSequenceContains.CheckerStepInternal<T, S> {
 
     @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @OptIn(ExperimentalNewExpectTypes::class)
     override val checkers = listOf(
         entryPointStepLogic.container.getImpl(NotChecker::class) { DefaultNotChecker() }
     )

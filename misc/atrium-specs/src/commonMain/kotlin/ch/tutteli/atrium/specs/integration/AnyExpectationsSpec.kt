@@ -401,6 +401,7 @@ abstract class AnyExpectationsSpec(
         notToEqualOneOfInt,
         notToEqualOneInInt
     ) {
+        //TODO 0.20.0 report regression, before kotlin 1.6.20 using `this` was not necessary
         this.checkInt(
             "primitive",
             expect(1),

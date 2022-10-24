@@ -29,15 +29,14 @@ class DefaultResultAssertions : ResultAssertions {
             .withoutOptions()
             .build()
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> isFailureOfType(
         container: AssertionContainer<out Result<*>>,
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> {
         println("heeere and subject is: ${container.maybeSubject.getOrElse { "no subject?" }}")
         return container.manualFeature(EXCEPTION) {
-            println("no here, suddenly no longer a Failure?: $this")
+            println("suddenly no longer a Failure?: $this")
             exceptionOrNull()
         }.transform().let { previousExpect ->
             FeatureExpect(

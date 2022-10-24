@@ -22,8 +22,7 @@ import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
  *
  * TODO 1.0.0 at the latest: use type ExplanatoryGroup.FinalStep when ExplanatoryAssertionGroupFinalStep is removed
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, G : ExplanatoryAssertionGroupType, R: ExplanatoryAssertionGroupFinalStep> AssertionsOption<G, R>.collectAssertions(
     container: AssertionContainer<*>,
     maybeSubject: Option<T>,

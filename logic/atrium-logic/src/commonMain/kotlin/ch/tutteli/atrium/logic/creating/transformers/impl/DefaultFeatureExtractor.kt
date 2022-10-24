@@ -16,8 +16,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <T, R> extract(
         container: AssertionContainer<T>,
         description: Translatable,

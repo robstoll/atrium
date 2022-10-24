@@ -8,7 +8,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl.Defa
 import ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.impl.DefaultAtMostChecker
 
 @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T : CharSequence> atLeastChecker(
     container: AssertionContainer<T>,
     times: Int,
@@ -19,7 +19,7 @@ fun <T : CharSequence> atLeastChecker(
 }
 
 @Suppress( /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2*/ "DEPRECATION")
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T : CharSequence> atMostChecker(
     container: AssertionContainer<T>,
     times: Int,

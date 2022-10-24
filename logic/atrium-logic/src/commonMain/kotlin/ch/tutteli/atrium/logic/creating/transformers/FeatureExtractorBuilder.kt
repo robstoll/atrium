@@ -43,8 +43,7 @@ interface FeatureExtractorBuilder {
          */
         fun methodCall(methodName: String, vararg arguments: Any?): RepresentationInCaseOfFailureStep<T> =
             withDescription(
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalComponentFactoryContainer::class)
+                                @OptIn(ExperimentalComponentFactoryContainer::class)
                 container.components.build<MethodCallFormatter>().formatCall(methodName, arguments)
             )
 
@@ -231,8 +230,7 @@ interface FeatureExtractorBuilder {
         /**
          * Either the previously specified [FeatureExpectOptions] or `null`.
          */
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalNewExpectTypes::class)
+                @OptIn(ExperimentalNewExpectTypes::class)
         val featureExpectOptions: FeatureExpectOptions<R>?
 
         /**

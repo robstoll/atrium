@@ -20,8 +20,7 @@ import kotlin.reflect.KProperty1
  *
  * @since 0.12.0
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalComponentFactoryContainer::class)
 data class FeatureWithCreator<T, R> internal constructor(
     val descriptionProvider: (ComponentFactoryContainer) -> String,
     val extractor: (T) -> R,

@@ -32,7 +32,6 @@ fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.i
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: AnyAssertions
     get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }
