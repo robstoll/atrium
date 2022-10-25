@@ -8,12 +8,12 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.specs.defaultBulletPoints
+import io.kotest.core.spec.style.FunSpec
 import kotlin.reflect.KClass
-import io.kotest.core.spec.style.DescribeSpec
 
 @OptIn(ExperimentalWithOptions::class)
 @ExperimentalComponentFactoryContainer
-class BulletPointProviderSpec : DescribeSpec({
+class BulletPointProviderSpec : FunSpec({
 
     fun <T> expectWitNewBulletPoint(newBulletPoint: Pair<KClass<out BulletPointIdentifier>, String>, t: T) =
         expect(t).withOptions {
@@ -25,7 +25,7 @@ class BulletPointProviderSpec : DescribeSpec({
             }
         }
 
-    describe("specifying a provider allows to override bullet points") {
+    context("specifying a provider allows to override bullet points") {
         val redefinedBulletPoints =
             mapOf<KClass<out BulletPointIdentifier>, Pair<String, (Pair<KClass<out BulletPointIdentifier>, String>) -> Expect<*>>>(
                 RootAssertionGroupType::class to ("* " to { p ->
@@ -88,7 +88,7 @@ class BulletPointProviderSpec : DescribeSpec({
             )
 
         defaultBulletPoints.map { (kClass, defaultBulletPoint) ->
-            it("redefining ${kClass.simpleName}") {
+            test("redefining ${kClass.simpleName}") {
                 val (newBulletPoint, expectBuilder) = redefinedBulletPoints.getOrElse(kClass) {
                     throw AssertionError("case not covered")
                 }

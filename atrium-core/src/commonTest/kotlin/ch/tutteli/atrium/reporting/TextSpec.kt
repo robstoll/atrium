@@ -3,11 +3,11 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.api.infix.en_GB.messageToContain
 import ch.tutteli.atrium.api.infix.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
-import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.core.spec.style.FunSpec
 
-class TextSpec : DescribeSpec({
-    describe("creating a Text") {
-        it("empty string; throws IllegalArgumentException") {
+class TextSpec : FunSpec({
+    context("creating a Text") {
+        test("empty string; throws IllegalArgumentException") {
             expect{
                 Text("")
             }.toThrow<IllegalArgumentException> {
@@ -15,7 +15,7 @@ class TextSpec : DescribeSpec({
             }
         }
 
-        it("blank string; does not throw") {
+        test("blank string; does not throw") {
             Text("  ")
         }
     }
