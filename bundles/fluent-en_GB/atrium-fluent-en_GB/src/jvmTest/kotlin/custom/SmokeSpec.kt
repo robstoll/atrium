@@ -12,25 +12,25 @@ import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
-import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.core.spec.style.FunSpec
 import java.nio.file.Paths
 
-class SmokeSpec : DescribeSpec({
-    describe("Smoke Test") {
-        it("see if `toEqual` can be used") {
+class SmokeSpec : FunSpec({
+    context("Smoke Test") {
+        test("see if `toEqual` can be used") {
             expect(1).toEqual(1)
         }
 
-        it("see if `Path.existsNot` can be used") {
+        test("see if `Path.existsNot` can be used") {
             expect(Paths.get("nonExisting")).notToExist()
         }
 
-        it("see if own expectation function without i18n can be used") {
+        test("see if own expectation function without i18n can be used") {
             expect(2).toBeEven()
             expect(1).toBeOdd()
         }
 
-        it("see if own expectation function with i18n can be used") {
+        test("see if own expectation function with i18n can be used") {
             expect(4).toBeAMultipleOf(2)
         }
     }
