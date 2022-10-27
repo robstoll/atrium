@@ -24,6 +24,7 @@ kotlin {
                 apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
                 // necessary in order that intellij sees the io.kotest symbols (runner-junit5 actually already depends on it)
                 apiWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.3.9")
             }
         }
 
