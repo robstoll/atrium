@@ -11,7 +11,7 @@ buildscript {
         kboxVersion = '0.15.1'
         niokVersion = '1.4.7'
         // !!! keep in sync with /buildSrc/build.gradle.kts !!!
-        kotlinVersion = "1.6.20"
+        kotlinVersion = "1.4.32"
 
         // test
         jacocoToolVersion = '0.8.8'
@@ -231,17 +231,17 @@ configure(newMultiplatformProjects) { subproject ->
 
             all {
                 languageSettings {
-                    languageVersion = '1.6'
-                    apiVersion = '1.6'
-                    optIn("kotlin.RequiresOptIn")
+                    languageVersion = '1.4'
+                    apiVersion = '1.4'
+//                    optIn("kotlin.RequiresOptIn")
 //                    useExperimentalAnnotation('kotlin.Experimental')
                 }
             }
             configureEach {
                 if (it.name.endsWith("Test")) {
                     languageSettings {
-                        languageVersion = '1.6'
-                        apiVersion = '1.6'
+                        languageVersion = '1.4'
+                        apiVersion = '1.4'
                     }
                 }
             }
