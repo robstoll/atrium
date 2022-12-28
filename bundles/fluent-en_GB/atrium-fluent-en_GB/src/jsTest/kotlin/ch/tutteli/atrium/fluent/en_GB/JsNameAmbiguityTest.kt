@@ -2,7 +2,6 @@ package ch.tutteli.atrium.fluent.en_GB
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 /**

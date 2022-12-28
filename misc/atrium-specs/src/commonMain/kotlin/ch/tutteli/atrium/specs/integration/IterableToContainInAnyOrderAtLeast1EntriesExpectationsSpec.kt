@@ -41,7 +41,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
         vararg tX: (Expect<Double>.() -> Unit)?
     ) = toContainInAnyOrderNullableEntries(this, t, tX)
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         toContainInAnyOrderEntries,
         toContainInAnyOrderNullableEntries

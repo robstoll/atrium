@@ -1,18 +1,16 @@
 import org.gradle.api.GradleException
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.*
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.api.tasks.testing.TestListener
-import org.gradle.api.tasks.testing.*
-import org.gradle.api.tasks.testing.Test
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.withType
 
 // TODO 0.20.0 move to tutteli-gradle-plugin
 fun Project.configureTestTasks() {
-    fun memoizeTestFile(testTask: Test) =
+    fun memoizeTestFile(testTask: AbstractTestTask) =
         project.file("${project.buildDir}/test-results/memoize-previous-state-${testTask.name}.txt")
 
-    tasks.withType<Test> {
+    tasks.withType<AbstractTestTask> {
         testLogging {
             events(
                 TestLogEvent.FAILED,
@@ -32,7 +30,9 @@ fun Project.configureTestTasks() {
             override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
             override fun afterSuite(suite: TestDescriptor, result: TestResult) {
                 if (suite.parent == null) {
-                    if (result.testCount == 0L) {
+                    //TODO 0.20.0 remove once we update to kotest 5.5.4, then jsNodeTest should be executed again, until then we ignore that the
+                    // samples for js are not executed
+                    if (result.testCount == 0L && testTask.name != "jsNodeTest") {
                         throw GradleException("No tests executed, most likely the discovery failed.")
                     }
                     println("Result: ${result.resultType} (${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)")
