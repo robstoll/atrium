@@ -31,9 +31,9 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            // TODO 0.19.0 more efficient and pragmatic than turnSubjectToList, use at other places too
+            // TODO 0.20.0 more efficient and pragmatic than turnSubjectToList, use at other places too
             val maybeList = container.maybeSubject.map {
-                //TODO move into when with 1.0.0, update to Kotlin >= 1.4 respectively
+                //TODO move into `when` with the update to Kotlin >= 1.3
                 val iterable = converter(it)
                 when (iterable) {
                     is List -> iterable

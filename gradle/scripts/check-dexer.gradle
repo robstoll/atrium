@@ -7,8 +7,8 @@ def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     }
 }
 
-def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
-def dexerProjects = newMultiplatformProjects.findAll {
+def multiplatformProjects = multiplatformProjectNames.collect { prefixedProject(it) }
+def dexerProjects = multiplatformProjects.findAll {
     !it.name.contains("-specs")
 }
 configure(dexerProjects) { subproject ->

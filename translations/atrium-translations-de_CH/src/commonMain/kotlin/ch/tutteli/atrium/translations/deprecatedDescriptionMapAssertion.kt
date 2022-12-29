@@ -11,9 +11,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 @Deprecated("Will be removed with 1.0.0 at the latest")
 enum class DescriptionMapAssertion(override val value: String) : StringBasedTranslatable {
-    @Deprecated("Will be removed with 1.0.0 at the latest (maybe earlier)")
-    CANNOT_EVALUATE_KEY_DOES_NOT_EXIST("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- der gegebene Key existiert nicht.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-
     @Deprecated("Will be removed with 1.0.0 at the latest")
     CONTAINS_IN_ANY_ORDER("enthält, in beliebiger Reihenfolge"),
 

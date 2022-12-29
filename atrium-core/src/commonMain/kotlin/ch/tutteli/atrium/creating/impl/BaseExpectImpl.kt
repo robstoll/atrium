@@ -18,7 +18,7 @@ abstract class BaseExpectImpl<T>(
 ) : ExpectInternal<T> {
 
 
-    // TODO 0.19.0 not every expect should have an own implFactories but only the root,
+    // TODO 0.20.0 not every expect should have an own implFactories but only the root,
     // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
     private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
 
@@ -36,7 +36,7 @@ abstract class BaseExpectImpl<T>(
         implFactories[kClass] = implFactory
     }
 
-    //TODO 0.19.0 move to RootExpectOptions?
+    //TODO 0.20.0 move to RootExpectOptions?
     inline fun <reified I : Any> withImplFactory(noinline implFactory: (oldFactory: () -> I) -> () -> I) {
         registerImpl(I::class, implFactory)
     }

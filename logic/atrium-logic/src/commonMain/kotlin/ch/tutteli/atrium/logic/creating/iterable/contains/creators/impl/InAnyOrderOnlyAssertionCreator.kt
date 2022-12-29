@@ -44,11 +44,11 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            //TODO 0.19.0 explicit type should not be necessary
+            //TODO 0.20.0 explicit type should not be necessary, report
             val listFromWhichMatchesWillBeRemoved: MutableList<E?> = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
             val initialSize = listFromWhichMatchesWillBeRemoved.size
             val assertions = mutableListOf<Assertion>()
-            //TODO 0.19.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 0.20.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val sizeAssertion = container.collectBasedOnSubject(Some(listFromWhichMatchesWillBeRemoved)) {
                 _logic
                     .size { it }
@@ -66,7 +66,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             }
 
             val description = searchBehaviour.decorateDescription(TO_CONTAIN)
-            //TODO 0.19.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 0.20.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val options = InAnyOrderOnlyReportingOptionsImpl().apply(reportingOptions)
             val assertionGroup = (if (searchCriteria.size <= options.maxNumberOfExpectedElementsForSummary) {
                 assertionBuilder.summary.withDescription(description)

@@ -7,8 +7,6 @@ buildscript {
 
     val allTargets = listOf("common", "jvm", "js")
     val commonJvm = listOf("common", "jvm")
-    //TODO 0.19.0 or 0.20.0 change to allTargets and remove commonJvm once we have transitioned everything to the new MPP plugin
-    val allApisAllTargets = listOf("fluent-en_GB" to commonJvm, "infix-en_GB" to commonJvm)
 
     val bcConfigs: List<Triple<String, List<Pair<String, List<String>>>, Pair<String, Pair<Boolean, String>>>> = listOf()
     (gradle as ExtensionAware).extra.apply {
