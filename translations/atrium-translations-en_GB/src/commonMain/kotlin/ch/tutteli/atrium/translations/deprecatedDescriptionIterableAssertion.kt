@@ -77,10 +77,6 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     )
     ENTRY_WITH_INDEX(ELEMENT_WITH_INDEX.getDefault()),
 
-    //TODO remove with 0.19.0
-    @Deprecated("Will be removed with 0.19.0")
-    HAS_ELEMENT("has at least one element"),
-
     @Deprecated(
         "Use DescriptionIterableLikeExpectation instead; will be removed with 1.0.0 at the latest",
         ReplaceWith("DescriptionIterableLikeExpectation.EXACTLY")
@@ -140,12 +136,6 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
         ReplaceWith("DescriptionIterableLikeExpectation.SIZE_EXCEEDED")
     )
     SIZE_EXCEEDED("❗❗ hasNext() returned false"),
-
-    @Deprecated("Will be removed with 0.19.0")
-    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-
-    @Deprecated("Will be removed with 0.19.0")
-    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
 
     @Deprecated(
         "Use DescriptionIterableLikeExpectation instead; will be removed with 1.0.0 at the latest",
@@ -213,11 +203,3 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     )
     NUMBER_OF_ELEMENTS_FOUND("and %s such elements were found")
 }
-
-//TODO remove with 0.19.0
-@Deprecated("Will be removed with 0.19.0 without replacement")
-internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS = "Could not evaluate the defined assertion(s)"
-
-@Deprecated("Will be removed with 0.19.0 without replacement")
-internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS =
-    "Visit the following site for an explanation: https://docs.atriumlib.org/could-not-evaluate-assertions"

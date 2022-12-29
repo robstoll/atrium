@@ -68,13 +68,4 @@ interface MapLikeContains {
      * @param SC The type of the search criteria.
      */
     interface Creator<T : MapLike, in SC> : Contains.Creator<T, SC>
-
-    /**
-     * Represents a check for the search result such as:
-     * the object is contained exactly once in the input of the search.
-     *
-     * It provides the method [createAssertion] which creates an [Assertion] representing this check.
-     */
-    @Deprecated("Will be removed with 0.19.0 without replacement")
-    interface Checker : Contains.Checker
 }

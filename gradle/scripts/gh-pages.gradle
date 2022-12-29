@@ -25,8 +25,8 @@ task removeGhPages {
 }
 
 //TODO 0.19.0 configure dokka differently
-def newMultiplatformProjects = newMultiplatformProjectNames.collect { prefixedProject(it) }
-def projectsToConsider = docProjects - newMultiplatformProjects
+def multiplatformProjects = multiplatformProjectNames.collect { prefixedProject(it) }
+def projectsToConsider = docProjects - multiplatformProjects
 
 task ghPages {
     projectsToConsider.forEach { subProject ->

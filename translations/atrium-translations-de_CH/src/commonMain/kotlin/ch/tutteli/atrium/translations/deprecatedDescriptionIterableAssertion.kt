@@ -137,12 +137,6 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     )
     SIZE_EXCEEDED("❗❗ hasNext() hat `false` zurückgegeben"),
 
-    @Deprecated("Will be removed with 0.19.0")
-    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt keinen nächsten Eintrag zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-
-    @Deprecated("Will be removed with 0.19.0")
-    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt nur `null` zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-
     @Deprecated(
         "Use DescriptionIterableLikeExpectation instead; will be removed with 1.0.0 at the latest",
         ReplaceWith("DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS")
@@ -209,12 +203,3 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     )
     NUMBER_OF_ELEMENTS_FOUND("und % Elemente wurden gefunden")
 }
-
-//TODO remove with 0.19.0
-@Deprecated("Will be removed with 0.19.0 without replacement")
-internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS =
-    "Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten"
-
-@Deprecated("Will be removed with 0.19.0 without replacement")
-internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS =
-    "Besuchen Sie die folgende Website für weiterführende Informationen (in Englisch): https://docs.atriumlib.org/could-not-evaluate-assertions"

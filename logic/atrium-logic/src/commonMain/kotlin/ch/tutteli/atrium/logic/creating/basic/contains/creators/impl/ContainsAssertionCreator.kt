@@ -35,17 +35,6 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
      */
     protected abstract val descriptionToContain: Translatable
 
-    //TODO remove with 0.19.0
-    /**
-     * Provides the translation for `contains`.
-     */
-    @Deprecated(
-        "Use descriptionToContain instead; will be removed with 0.19.0",
-        ReplaceWith("this.descriptionToContain ")
-    )
-    protected abstract val descriptionContains: Translatable
-
-
     /**
      * Provides the translation for when an item is not found in a `toContain.atLeast(1)` check.
      */

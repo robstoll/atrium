@@ -35,8 +35,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
 ) : ContainsObjectsAssertionCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
 
     override val descriptionToContain: Translatable = DescriptionCharSequenceExpectation.TO_CONTAIN
-    @Suppress("OverridingDeprecatedMember")
-    override val descriptionContains: Translatable = descriptionToContain
+
     override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES
     override val descriptionNotFound: Translatable = DescriptionCharSequenceExpectation.NOT_FOUND
     override val descriptionNumberOfElementsFound: Translatable =

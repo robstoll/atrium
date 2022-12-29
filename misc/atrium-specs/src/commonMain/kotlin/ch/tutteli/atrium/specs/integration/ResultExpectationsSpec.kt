@@ -120,7 +120,7 @@ abstract class ResultExpectationsSpec(
                 }
             }
 
-            //TODO 0.19.0 activate once we have the workaround for #1234 implemented
+            //TODO 0.20.0 activate once we have the workaround for #1234 implemented
 //            failureFunctions.forEach { (name, toBeAFailureFun, _) ->
 //                it("$name - can perform sub-assertion which holds") {
 //                    expect(resultFailure).toBeAFailureFun { messageToContain("oh no...") }

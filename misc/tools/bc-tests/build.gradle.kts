@@ -175,8 +175,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
         the<KotlinMultiplatformExtension>().apply {
             jvm()
-            // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
-//            js().nodejs {}
+            js().nodejs {}
             sourceSets {
                 val commonMain by getting {
                     dependencies {
@@ -200,16 +199,15 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("ch.tutteli.niok:niok:$niokVersion")
                     }
                 }
-                // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
-//                val jsMain by getting {
-//                    dependencies {
-//                        api("io.mockk:mockk-dsl-js:$mockkVersion")
-//                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//
-//                        //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
-//                        implementation(kotlin("stdlib-js"))
-//                    }
-//                }
+                val jsMain by getting {
+                    dependencies {
+                        api("io.mockk:mockk-dsl-js:$mockkVersion")
+                        api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
+
+                        //TODO 0.20.0 should no longer be necessary once updated to kotlin 1.4.x
+                        implementation(kotlin("stdlib-js"))
+                    }
+                }
             }
         }
 
@@ -341,8 +339,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             the<KotlinMultiplatformExtension>().apply {
 
-                // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
-//                js().nodejs {}
+                js().nodejs {}
 
                 jvm {
                     configureTestSetupAndJdkVersion()
@@ -361,7 +358,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         // we want to run the samples as well
                         dependsOn(tasks.named("build"))
                     }
-                    //TODO 0.19.0 not yet sure if it makes more sense to include it into :check as well
+                    //TODO 0.20.0 not yet sure if it makes more sense to include it into :check as well
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
@@ -399,19 +396,18 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         }
                     }
-                    // TODO 0.19.0 reactivate once we have transitioned everything to the new MPP plugin
-//                    val jsTest by getting {
-//                        dependencies {
-//                            implementation(kotlin("test-js"))
-//
-//                            //TODO shouldn't be necessary
-//                            api(project(":atrium-core-robstoll"))
-//                            api(project(":atrium-domain-robstolls"))
-//
-//                            //TODO 1.0.0 should no longer be necessary once updated to kotlin 1.4.x
-//                            implementation(kotlin("stdlib-js"))
-//                        }
-//                    }
+                    val jsTest by getting {
+                        dependencies {
+                            implementation(kotlin("test-js"))
+
+                            //TODO shouldn't be necessary
+                            api(project(":atrium-core-robstoll"))
+                            api(project(":atrium-domain-robstolls"))
+
+                            //TODO 0.20.0 should no longer be necessary once updated to kotlin 1.4.x
+                            implementation(kotlin("stdlib-js"))
+                        }
+                    }
                 }
             }
             configureTestTasks()
@@ -461,7 +457,7 @@ fun Project.createJacocoReportTask(
             else -> throw IllegalStateException("re-adjust jacoco task")
         }
         projects.forEach {
-            //TODO 0.19.0 simplify once all project use new MPP plugin
+            //TODO 0.20.0 simplify once all project use new MPP plugin
             val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
             if (sourceSetContainer != null) {
                 sourceSets(sourceSetContainer["main"])
@@ -504,8 +500,6 @@ fun Project.rewriteFile(filePath: String, f: (String) -> String) {
 // Known source backward compatibility breaks:
 // remove sources if you change something here in order that the changes take effect
 
-// TODO 0.19.0 activate again
-// TODO 0.20.0 remove once we support js again
 //listOf("0.18.0").forEach { version ->
 //    listOf("fluent", "infix").forEach { apiShortName ->
 //        with(project(":bc-tests:$version-api-$apiShortName-en_GB")) {

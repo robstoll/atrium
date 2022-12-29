@@ -40,8 +40,6 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
 
     override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
 
-    @Suppress("OverridingDeprecatedMember")
-    override val descriptionContains: Translatable = descriptionToContain
     override val descriptionNumberOfOccurrences: Translatable =
         DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
     override val groupDescription: Translatable = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
