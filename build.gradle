@@ -11,7 +11,7 @@ buildscript {
         kboxVersion = '0.15.1'
         niokVersion = '1.4.7'
         // !!! keep in sync with /buildSrc/build.gradle.kts !!!
-        kotlinVersion = "1.4.32"
+        kotlinVersion = "1.8.0"
 
         // test
         jacocoToolVersion = '0.8.8'
