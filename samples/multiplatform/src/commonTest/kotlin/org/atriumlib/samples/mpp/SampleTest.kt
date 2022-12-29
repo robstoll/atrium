@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test

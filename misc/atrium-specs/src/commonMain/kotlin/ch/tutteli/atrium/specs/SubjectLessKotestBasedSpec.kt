@@ -23,47 +23,41 @@ fun <T> subjectLessKotestBasedSpec(
     groupPrefix: String,
     vararg assertionCreator: Pair<String, Expect<T>.() -> Unit>
 ) = funSpec {
-    context("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and report without failure") {
-        assertionCreator.forEach { (name, createAssertion) ->
-            test("fun `$name`") {
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-                val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
-                    .appendAsGroup(createAssertion)
-                    .getAssertions()
+    assertionCreator.forEach { (name, createAssertion) ->
+        test("${groupPrefix}fun `$name`: assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and report without failure") {
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+            val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
+                .appendAsGroup(createAssertion)
+                .getAssertions()
 
-                expandAssertionGroups(assertions)
+            expandAssertionGroups(assertions)
 
 
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-                val expect = RootExpectBuilder.forSubject(1.0)
-                    .withVerb("custom assertion verb")
-                    .withOptions {
-                        withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
-                    }
-                    .build()
-
-                val explanatoryGroup = assertionBuilder.explanatoryGroup
-                    .withDefaultType
-                    .withAssertions(assertions)
-                    .build()
-                expect._logic.append(explanatoryGroup)
-            }
-        }
-    }
-
-    context("${groupPrefix}expectation function does not hold if there is no subject") {
-        assertionCreator.forEach { (name, createAssertion) ->
-            test("fun `$name`") {
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-                val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
-                    .appendAsGroup(createAssertion)
-                    .getAssertions()
-                expect(assertions).toHaveElementsAndAll {
-                    feature(Assertion::holds).toEqual(false)
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+            val expect = RootExpectBuilder.forSubject(1.0)
+                .withVerb("custom assertion verb")
+                .withOptions {
+                    withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
                 }
+                .build()
+
+            val explanatoryGroup = assertionBuilder.explanatoryGroup
+                .withDefaultType
+                .withAssertions(assertions)
+                .build()
+            expect._logic.append(explanatoryGroup)
+        }
+
+        test(" ${groupPrefix}fun `$name`: expectation function does not hold if there is no subject"){
+            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
+            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+            val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
+                .appendAsGroup(createAssertion)
+                .getAssertions()
+            expect(assertions).toHaveElementsAndAll {
+                feature(Assertion::holds).toEqual(false)
             }
         }
     }

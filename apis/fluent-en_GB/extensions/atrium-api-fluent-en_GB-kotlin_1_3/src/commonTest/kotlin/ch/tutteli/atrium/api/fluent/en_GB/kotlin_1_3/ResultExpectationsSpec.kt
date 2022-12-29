@@ -19,7 +19,7 @@ class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpecta
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.toBeAFailure<IllegalArgumentException> { assertionCreator() }
 
-        @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
+        @Suppress("unused", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
             var a1b: Expect<Result<Int?>> = notImplemented()

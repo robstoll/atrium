@@ -21,10 +21,10 @@ kotlin {
                 implementation(prefixedProject("api-fluent-en_GB"))
 
                 apiWithExclude("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
-                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
-                // necessary in order that intellij sees the io.kotest symbols (runner-junit5 actually already depends on it)
-                apiWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.3.9")
+                //TODO 0.20.0 I guess we can use a different dependency with kotest 5.x
+                apiWithExclude("io.kotest:kotest-framework-engine:$kotestVersion")
+                //TODO 0.20.0 should no longer be necessary to state that explicitly with update to kotest 5.x I guess
+                implementationWithExclude("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
             }
         }
 
@@ -35,15 +35,23 @@ kotlin {
                 apiWithExclude("ch.tutteli.niok:niok:$niokVersion")
                 apiWithExclude("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                 apiWithExclude("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
-                apiWithExclude("io.kotest:kotest-runner-junit5:$kotestVersion")
+                //TODO 0.20.0 should no longer be necessary to state explicitly with kotlin 1.5.x I guess (unless still necessary due to junit5)
+                apiWithExclude("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+                //TODO 0.20.0 should no longer be necessary to state explicitly with kotlin 1.5.x
+                apiWithExclude("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.3")
             }
         }
-        //TODO 0.19.0 activate once all are migrated to MPP
-//        val jsTest by getting {
-//            api("io.mockk:mockk-dsl-js:$mockkVersion")
-//
-//            api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
-//        }
+
+        val jsMain by getting {
+            dependencies {
+                api("io.mockk:mockk-dsl-js:$mockkVersion")
+                api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
+                //TODO 0.20.0 should no longer be necessary to state explicitly with kotlin 1.5.x I guess (unless still necessary due to junit5)
+                apiWithExclude("io.kotest:kotest-framework-engine-js:$kotestVersion")
+                //TODO 0.20.0 should no longer be necessary to state explicitly with kotlin 1.5.x
+                apiWithExclude("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.4.3")
+            }
+        }
 
         configureEach {
             languageSettings.apply {

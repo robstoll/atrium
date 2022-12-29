@@ -146,7 +146,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
             }
         }
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         keyWithValueAssertions,
         keyWithNullableValueAssertions

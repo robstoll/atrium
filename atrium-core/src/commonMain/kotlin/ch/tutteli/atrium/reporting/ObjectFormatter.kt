@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Represents a formatter for objects.
  *
- * Typically it formats the subject of the formulated expectation including the expected values.
+ * Typically, it formats the subject of the formulated expectation including the expected values.
  */
 interface ObjectFormatter {
 

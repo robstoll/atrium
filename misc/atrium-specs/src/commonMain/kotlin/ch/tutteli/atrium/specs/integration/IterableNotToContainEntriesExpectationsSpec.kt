@@ -48,7 +48,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
 
     val notToContainDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
 
-    nonNullableCases(
+    this.nonNullableCases(
         describePrefix,
         notToContainEntries,
         notToContainNullableEntries

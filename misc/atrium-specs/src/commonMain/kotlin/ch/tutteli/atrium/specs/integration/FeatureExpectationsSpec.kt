@@ -192,7 +192,8 @@ abstract class FeatureExpectationsSpec(
 
     prefixedDescribe("different feature assertion functions") {
 
-        checkGenericNarrowingAssertionWithExceptionMessage(
+        //TODO 0.20.0 report Kotlin regression, using this was not necessary in 1.4.32
+        this.checkGenericNarrowingAssertionWithExceptionMessage(
             "it throws an AssertionError if the assertion does not hold",
             { andWithCheck ->
 
@@ -202,7 +203,7 @@ abstract class FeatureExpectationsSpec(
         )
 
 
-        checkSubjectNotDefinedExceptionMessage(
+        this.checkSubjectNotDefinedExceptionMessage(
             "it throws an AssertionError if the subject is not defined but shows everything in reporting",
             { andWithCheck ->
 
@@ -214,7 +215,7 @@ abstract class FeatureExpectationsSpec(
             *functions, *nullableFailingFunctions
         )
 
-        checkGenericNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
+        this.checkGenericNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
 
             expect(TestData("hello robert", 1)).andWithCheck()
 

@@ -23,7 +23,7 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
      * Usually the error message but an empty string in case of certain test-runners.
      *
      * The Spek plugin for Intellij as well as running JUnit tests in IntelliJ print this message and
-     * printStacktrace in addition which uses localizedMessage which in turn usually calls message,
+     * printStacktrace in addition which uses localizedMessage which in turn typically calls [message],
      * resulting in showing this message twice shortly after each other.
      * This hack combined with the changed behaviour in [getLocalizedMessage] works around this double error message
      * in reporting by setting the message to an empty string in case of the aforementioned runners.

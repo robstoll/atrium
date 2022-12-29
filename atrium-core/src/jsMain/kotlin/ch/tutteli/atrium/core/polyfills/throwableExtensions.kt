@@ -20,7 +20,13 @@ private fun splitStackLines(stack: String): List<String> {
     return stack.substring(firstFrame + searchWord.length)
         .splitToSequence('\n')
         //TODO remove once https://youtrack.jetbrains.com/issue/KT-27920 is fixed
-        .dropWhile { it.contains("init") && it.contains("kotlin.js") }
+        .dropWhile {
+            //kotlin 1.6
+            it.contains("packages_imported/kotlin/") ||
+                it.contains("packages_imported\\kotlin\\") ||
+                // kotlin 1.3
+                it.contains("_init_0")
+        }
         .map { it.substringAfter(searchWord) }
         .toList()
 }

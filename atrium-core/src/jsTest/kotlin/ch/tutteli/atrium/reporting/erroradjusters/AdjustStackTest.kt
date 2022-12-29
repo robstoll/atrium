@@ -22,8 +22,8 @@ class AdjustStackTest {
             assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) toContain entries(
-                { toContain("mocha") },
-                { toContain("atrium-core-js.js") }
+                { it toContain "/node_modules/mocha/" },
+                { it toContain "createAtriumError2" }
             )
         }
     }
@@ -35,9 +35,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it notToContain o entry { it toContain "mocha" }
-                it toContain (fun Expect<String>.() {
-                    it toContain "atrium-core-js.js"
-                })
+                it toContain { it toContain "createAtriumError" }
             }
         }
     }
@@ -51,9 +49,7 @@ class AdjustStackTest {
         adjuster.adjust(throwable)
         expect(throwable.cause!!.stackBacktrace) {
             it notToContain o entry { it toContain "mocha" }
-            it toContain (fun Expect<String>.() {
-                it toContain "atrium-core-js"
-            })
+            it toContain { it toContain "createAtriumError" }
         }
     }
 
@@ -63,10 +59,8 @@ class AdjustStackTest {
             assertRemoveAtrium(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
-                it toContain (fun Expect<String>.() {
-                    it toContain "mocha"
-                })
-                it notToContain o entry { it toContain "atrium-core-js.js" }
+                it toContain { it toContain "mocha" }
+                it notToContain o entry { it toContain "atrium-core" }
             }
         }
     }
@@ -88,7 +82,7 @@ class AdjustStackTest {
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    private fun <T : Any> assertNoOp(subject: T) = createExpect(subject) { _ -> NoOpAtriumErrorAdjuster }
+    private fun <T : Any> assertNoOp(subject: T) = createExpect(subject) { NoOpAtriumErrorAdjuster }
 
     @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
     @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
