@@ -2748,7 +2748,7 @@ for further suggestions and guidelines.
 
 # Sponsors
 We would like to thank the following sponsors for their support:
-- [Tegonal GmbH](https://tegonal.com) for sponsoring Support and PR-Review time.
+- [Tegonal Cooperative](https://tegonal.com) for sponsoring Support and PR-Review time.
 
 Do you want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
 - [robstoll](https://github.com/sponsors/robstoll) (Author and main contributor)
