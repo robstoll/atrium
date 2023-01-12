@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                apiWithExclude("ch.tutteli.kbox:kbox-common:$kboxVersion")
+                apiWithExclude("ch.tutteli.kbox:kbox:$kboxVersion")
             }
         }
         val commonTest by getting {
@@ -17,7 +17,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                apiWithExclude("ch.tutteli.kbox:kbox:$kboxVersion")
+//                apiWithExclude("ch.tutteli.kbox:kbox:$kboxVersion")
             }
         }
         val jvmTest by getting {
@@ -28,7 +28,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                apiWithExclude("ch.tutteli.kbox:kbox-js:$kboxVersion")
+//                apiWithExclude("ch.tutteli.kbox:kbox-js:$kboxVersion")
             }
         }
         val jsTest by getting {

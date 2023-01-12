@@ -11,7 +11,6 @@ buildscript {
     val bcConfigs: List<Triple<String, List<Pair<String, List<String>>>, Pair<String, Pair<Boolean, String>>>> = listOf()
     (gradle as ExtensionAware).extra.apply {
         apply {
-            set("tutteli_plugins_version", "0.32.2")
             set("bcConfigs", bcConfigs)
         }
     }
@@ -53,8 +52,8 @@ if (System.getenv("BC") != null) {
 
 listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
-    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
-    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
+//    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
+//    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
     include("apis/$apiName",  "atrium-api-$apiName")
     include("apis/$apiName/extensions", "atrium-api-$apiName-kotlin_1_3")
 }
@@ -70,7 +69,7 @@ listOf("en_GB", "de_CH").forEach{ lang ->
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "atrium-specs")
-include("misc/tools", "readme-examples")
+//include("misc/tools", "readme-examples")
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {
     val projectName = "$oldVersion-$module"

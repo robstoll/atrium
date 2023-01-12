@@ -86,7 +86,7 @@ fun Project.registerGenerateLogicTaskForPackage(
     return tasks.register("generateLogic_${sourceSetName}_${relativePackagePath.replace('/', '_')}") {
         group = "build"
         description = "generates ext. methods for package $relativePackagePath"
-        val packagePath = "ch/tutteli/atrium/logic" + relativePackagePath
+        val packagePath = "ch/tutteli/atrium/logic$relativePackagePath"
         val srcPath = "${mainSrcFolder.absolutePath}/$packagePath/"
         val generatedPath = "${project.projectDir}/$generatedFolder/$packagePath"
         inputs.dir(srcPath)

@@ -10,6 +10,8 @@ includeBuild('../../../') {
             }
     }
 }
+//TODO https://youtrack.jetbrains.com/issue/KT-43320 merge with atrium-samples-test again
+
 // in an own composite build because yarn (or jetbrain's gradle plugin) does not lock correctly on windows
 // leading to the situation where two concurrent kotlinNpmInstall can cause that two yarn processes try to
 // download the same dependencies at the same time leading to the following error:
