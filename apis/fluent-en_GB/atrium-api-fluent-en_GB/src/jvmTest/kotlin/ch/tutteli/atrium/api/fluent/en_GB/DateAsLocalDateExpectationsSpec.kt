@@ -9,7 +9,7 @@ class DateAsLocalDateExpectationsSpec : DateAsLocalDateExpectationsSpec(
     Expect<Date>::asLocalDate
 ) {
     @Suppress("unused", "UNUSED_VALUE")
-    private fun isEqualToTest() {
+    private fun ambiguityTest() {
         var date: Expect<Date> = notImplemented()
 
         date.asLocalDate()
