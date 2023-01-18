@@ -28,5 +28,5 @@ fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
  *
  * @since 0.20.0
  */
-fun <T:Date> Expect<T>.asLocalDate(assertionCreator:Expect<LocalDate>.()->Unit): Expect<T> =
-    apply{ asLocalDate()._logic.appendAsGroup(assertionCreator) }
+fun <T : Date> Expect<T>.asLocalDate(assertionCreator: Expect<LocalDate>.() -> Unit): Expect<T> =
+    apply { asLocalDate()._logic.appendAsGroup(assertionCreator) }
