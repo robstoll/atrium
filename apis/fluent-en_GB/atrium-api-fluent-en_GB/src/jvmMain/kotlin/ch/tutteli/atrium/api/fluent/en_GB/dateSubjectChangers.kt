@@ -19,7 +19,7 @@ import java.util.Date
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.20.0
+ * @since 0.19.0
  */
 fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
     _logic.changeSubject.unreported { it.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() }
@@ -31,7 +31,7 @@ fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.20.0
+ * @since 0.19.0
  */
 fun <T : Date> Expect<T>.asLocalDate(assertionCreator: Expect<LocalDate>.() -> Unit): Expect<T> =
     apply { asLocalDate()._logic.appendAsGroup(assertionCreator) }
