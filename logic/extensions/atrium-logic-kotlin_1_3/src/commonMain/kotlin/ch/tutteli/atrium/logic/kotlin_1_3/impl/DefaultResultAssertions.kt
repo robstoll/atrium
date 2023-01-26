@@ -27,42 +27,44 @@ class DefaultResultAssertions : ResultAssertions {
             .build()
 
 
-
-        @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> isFailureOfType(
-            container: AssertionContainer<out Result<*>>,
-            expectedType: KClass<TExpected>) : SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> {
+        container: AssertionContainer<out Result<*>>,
+        expectedType: KClass<TExpected>
+    ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> {
 
 
         println("heeere and subject is: ${container.maybeSubject.getOrElse { "no subject?" }}")
 
-        return container.manualFeature(EXCEPTION) {println("suddenly no longer a Failure?: $this")
-            exceptionOrNull()
-        }.transform().let { previousExpect ->
-
-            //performing conversions to maybe subjects
-            val prevMaybeSubj = previousExpect.toAssertionContainer().maybeSubject.getOrElse { null }
-            val kotlinMaybeSubj = container.maybeSubject.getOrElse { null }
-
-            if (prevMaybeSubj == null && kotlinMaybeSubj != null) {
-                //unwrap?
-            }
 
 
 
 
+            return container.manualFeature(EXCEPTION) {
+                println("suddenly no longer a Failure?: $this")
+                if (exceptionOrNull() != null && container.maybeSubject.map { exceptionOrNull() } == null) {
+                    //unwrap
 
 
+                    exceptionOrNull()
 
 
+                } else {
 
-            FeatureExpect(
-                previousExpect,
-                FeatureExpectOptions(representationInsteadOfFeature = { it ?: IS_NOT_FAILURE })
-            )
-        }.toAssertionContainer().changeSubject.reportBuilder()
-            .downCastTo(expectedType)
-            .withFailureHandler(ThrowableThrownFailureHandler())
-            .build()
+                    exceptionOrNull()
+                }
+
+
+            }.transform().let { previousExpect ->
+
+
+                FeatureExpect(
+                    previousExpect,
+                    FeatureExpectOptions(representationInsteadOfFeature = { it ?: IS_NOT_FAILURE })
+                )
+            }.toAssertionContainer().changeSubject.reportBuilder()
+                .downCastTo(expectedType)
+                .withFailureHandler(ThrowableThrownFailureHandler())
+                .build()
     }
 }
