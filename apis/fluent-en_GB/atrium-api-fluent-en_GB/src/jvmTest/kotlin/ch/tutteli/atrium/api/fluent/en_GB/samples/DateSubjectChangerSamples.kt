@@ -21,10 +21,10 @@ class DateSubjectChangerSamples {
 
         fails {
             expect(date)
-                .asLocalDate()                                       // subject is now of type LocalDate
+                .asLocalDate()                                  // subject is now of type LocalDate
                 .toBeAfter(LocalDate.parse("2025-07-17"))       // fails
-                .toBeBefore(LocalDate.parse("1996-07-17"))      // not evaluated/reported because `cause` already fails
-                                                                     // use `.asLocalDate { ... }` if you want all assertions evaluated
+                .toBeBefore(LocalDate.parse("1996-07-17"))      // not evaluated/reported because `toBeAfter` already fails
+                                                                // use `.asLocalDate { ... }` if you want all assertions evaluated
         }
     }
 
