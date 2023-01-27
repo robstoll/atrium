@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.logic.kotlin_1_3.impl
 
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
@@ -43,15 +44,19 @@ class DefaultResultAssertions : ResultAssertions {
             return container.manualFeature(EXCEPTION) {
                 println("suddenly no longer a Failure?: $this")
                 if (exceptionOrNull() != null && container.maybeSubject.map { exceptionOrNull() } == null) {
-                    //unwrap
+                    //unwrap whatever that may be (?)
 
 
+
+
+                    //will change
                     exceptionOrNull()
+
 
 
                 } else {
-
-                    exceptionOrNull()
+                    //will change
+                   exceptionOrNull()
                 }
 
 
