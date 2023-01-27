@@ -333,14 +333,14 @@ An expectation-group throws an `AssertionError` at the end of its block (i.e. at
 hence reports that both expectations do not hold.
 The reporting can be read as `I expected the subject of the expectation, which was 10, to be less than 5 and to be greater than 10`
 
-This is similar to the concept of soft assertions in AssertJ with the difference that you don't need an extra utility,
-you don't have to repeat the subject and most importantly, you don't have to deal with calling `assertAll()`.
+This is similar to the concept of soft assertions in AssertJ with the difference that you do not need an extra utility,
+you do not have to repeat the subject and most importantly, you do not have to deal with calling `assertAll()`.
 The above is the equivalent of the following AssertJ example:
 ```kotlin
 val softly = SoftAssertions()
-softly.asserThat(4+6).isLessThan(5)
-softly.assertThat(4+6).isGreatThan(10)
-// Don't forget to call SoftAssertions global verification !
+softly.asserThat(4 + 6).isLessThan(5)
+softly.assertThat(4 + 6).isGreatThan(10)
+// Do not forget to call SoftAssertions global verification !
 softly.assertAll();
 ```
 
@@ -363,8 +363,8 @@ expect(mansion) {
 }
 ```
 
-And you are free to choose a fail-fast behaviour at any level. For instance, if you don't want to see numOfTables in 
-reporting if status already fails, then you write the above as follows:
+And you are free to choose a fail-fast behaviour at any level. For instance, if you do not want to see `numOfTables` in 
+reporting if the expectation about `status` already fails, then you write the above as follows:
 ```kotlin
 expect(mansion) {
     its { numOfGuests }.toEqual(7)
