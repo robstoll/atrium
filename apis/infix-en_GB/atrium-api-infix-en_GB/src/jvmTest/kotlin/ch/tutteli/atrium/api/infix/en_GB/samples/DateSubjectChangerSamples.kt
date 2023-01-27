@@ -39,7 +39,7 @@ class DateSubjectChangerSamples {
             expect(date) asLocalDate {
                 it toBeAfter(LocalDate.parse("2025-07-17"))            // fails
                 it toBeBefore(LocalDate.parse("1994-07-17"))           // still evaluated even though `toBeAfter` already fails
-                                                                            // use ` asLocalDate().` if you want a fail fast behaviour
+                                                                       // use ` asLocalDate().` if you want a fail fast behaviour
             }
         }
     }
