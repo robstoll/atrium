@@ -35,7 +35,7 @@ class DateSubjectChangerSamples {
         expect(date).asLocalDate { // subject within this expectation-group is of type LocalDate
             toBeAfterOrTheSamePointInTimeAs(LocalDate.parse("1994-07-17"))
             toBeBeforeOrTheSamePointInTimeAs(LocalDate.parse("1996-07-17"))
-        } // subject here is back to type Date
+        } // subject here is back to type java.util.Date
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
