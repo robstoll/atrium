@@ -357,7 +357,7 @@ could be written as follows in Atrium (see also [Feature Extractors](#feature-ex
 expect(mansion) {
     its { numOfGuests }.toEqual(7)
     its({ kitchen }) {
-        its { status }.ToEqual("clean")
+        its { status }.toEqual("clean")
         its { numOfTables }.toEqual(5)
     }
 }
@@ -369,7 +369,7 @@ reporting if the expectation about `status` already fails, then you write the ab
 expect(mansion) {
     its { numOfGuests }.toEqual(7)
     its { kitchen }
-        .its { status }.ToEqual("clean")
+        .its { status }.toEqual("clean")
         .its { numOfTables }.toEqual(5)
 }
 ```
