@@ -308,6 +308,7 @@ The first `expect` statement throws an `AssertionError` as it does not hold.
 In the above example, `toBeLessThan(5)` is already wrong and thus `toBeGreaterThan(10)` was not evaluated at all 
 and correspondingly not reported.
 
+<a name="expecation-groups-are-better-soft-assertions"></a>
 If you want that both expectations are evaluated together, then use the expectation-group syntax as follows:
  
 <ex-group>
@@ -331,6 +332,49 @@ I expected subject: 10        (kotlin.Int <1234789>)
 An expectation-group throws an `AssertionError` at the end of its block (i.e. at the closing `}`); 
 hence reports that both expectations do not hold.
 The reporting can be read as `I expected the subject of the expectation, which was 10, to be less than 5 and to be greater than 10`
+
+This is similar to the concept of soft assertions in AssertJ with the difference that you don't need an extra utility,
+you don't have to repeat the subject and most importantly, you don't have to deal with calling `assertAll()`.
+The above is the equivalent of the following AssertJ example:
+```kotlin
+val softly = SoftAssertions()
+softly.asserThat(4+6).isLessThan(5)
+softly.assertThat(4+6).isGreatThan(10)
+// Don't forget to call SoftAssertions global verification !
+softly.assertAll();
+```
+
+Moreover, in contrast to AssertJ, the block syntax is provided at many places and not only on the top-level. 
+As an example, the following AssertJ example:
+```kotlin
+val softly = SoftAssertions()
+softly.assertThat(mansion.numOfGuests).isEqualTo(7)
+softly.assertThat(mansion.kitchen.stastus).isEqualTo("clean")
+softly.assertThat(mansion.kitchen.numOfTables).isEqualTo(5)
+```
+could be written as follows in Atrium (see also [Feature Extractors](#feature-extractors)). 
+```kotlin
+expect(mansion) {
+    its { numOfGuests }.toEqual(7)
+    its({ kitchen }) {
+        its { status }.ToEqual("clean")
+        its { numOfTables }.toEqual(5)
+    }
+}
+```
+
+And you are free to choose a fail-fast behaviour at any level. For instance, if you don't want to see numOfTables in 
+reporting if status already fails, then you write the above as follows:
+```kotlin
+expect(mansion) {
+    its { numOfGuests }.toEqual(7)
+    its { kitchen }
+        .its { status }.ToEqual("clean")
+        .its { numOfTables }.toEqual(5)
+}
+```
+
+<hr/>
 
 You can use `and` as filling element between single expectations and expectation-groups:
 
@@ -2668,6 +2712,10 @@ So, let us know if you miss something by creating a [feature request](https://gi
 You find frequently asked questions below.
 If your question is not answered below, then please do not hesitate and ask your question in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
 In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](https://slack.kotlinlang.org/). 
+
+# Does Atrium provide something like AssertJ's soft assertion?
+Of course and even more powerful yet less cumbersome to write in our opinion.
+Check out the [comparison of expectation-groups with AssertJ's soft assertions](#expecation-groups-are-better-soft-assertions).
 
 ## Are there toContain/toHaveNextAndAll/None/All expectation functions for `Sequence`/`Array`?
 
