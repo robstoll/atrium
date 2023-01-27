@@ -43,21 +43,7 @@ class DefaultResultAssertions : ResultAssertions {
 
             return container.manualFeature(EXCEPTION) {
                 println("suddenly no longer a Failure?: $this")
-                if (exceptionOrNull() != null && container.maybeSubject.map { exceptionOrNull() } == null) {
-                    //unwrap whatever that may be (?)
-
-
-
-
-                    //will change
-                    exceptionOrNull()
-
-
-
-                } else {
-                    //will change
-                   exceptionOrNull()
-                }
+                exceptionOrNull()
 
 
             }.transform().let { previousExpect ->
