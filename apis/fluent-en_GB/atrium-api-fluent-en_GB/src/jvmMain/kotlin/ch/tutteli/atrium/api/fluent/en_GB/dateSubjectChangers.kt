@@ -19,6 +19,8 @@ import java.util.Date
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.DateSubjectChangerSamples.asLocalDateFeature
+ *
  * @since 0.19.0
  */
 fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
@@ -30,6 +32,8 @@ fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
  * The transformation as such is not reflected in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.DateSubjectChangerSamples.asLocalDate
  *
  * @since 0.19.0
  */

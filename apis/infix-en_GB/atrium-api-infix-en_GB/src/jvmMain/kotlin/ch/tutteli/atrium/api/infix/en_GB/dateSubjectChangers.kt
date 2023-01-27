@@ -19,6 +19,8 @@ import java.util.Date
  *
  * @return The newly created [Expect] for the transformed subject.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.DateSubjectChangerSamples.asLocalDateFeature
+ *
  * @since 0.19.0
  */
 infix fun <T : Date> Expect<T>.asLocalDate(@Suppress("UNUSED_PARAMETER") o : o) : Expect<LocalDate> =
@@ -31,6 +33,8 @@ infix fun <T : Date> Expect<T>.asLocalDate(@Suppress("UNUSED_PARAMETER") o : o) 
  * The transformation as such is not reflected in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.DateSubjectChangerSamples.asLocalDate
  *
  * @since 0.19.0
  */
