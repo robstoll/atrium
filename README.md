@@ -341,7 +341,7 @@ val softly = SoftAssertions()
 softly.asserThat(4 + 6).isLessThan(5)
 softly.assertThat(4 + 6).isGreatThan(10)
 // Do not forget to call SoftAssertions global verification !
-softly.assertAll();
+softly.assertAll()
 ```
 
 Moreover, in contrast to AssertJ, the block syntax is provided at many places and not only on the top-level. 
@@ -350,7 +350,9 @@ As an example, the following AssertJ example:
 val softly = SoftAssertions()
 softly.assertThat(mansion.numOfGuests).isEqualTo(7)
 softly.assertThat(mansion.kitchen.stastus).isEqualTo("clean")
-softly.assertThat(mansion.kitchen.numOfTables).isEqualTo(5)
+softly.assertThat(mansion.kitchen.numOfTables).isGreaterThan(5).isLessThan(10)
+// Do not forget to call SoftAssertions global verification !
+softly.assertAll()
 ```
 could be written as follows in Atrium (see also [Feature Extractors](#feature-extractors)). 
 ```kotlin
@@ -358,21 +360,14 @@ expect(mansion) {
     its { numOfGuests }.toEqual(7)
     its({ kitchen }) {
         its { status }.toEqual("clean")
-        its { numOfTables }.toEqual(5)
+        its { numOfTables }.toBeGreaterThan(5).toBeLessThan(10)
     }
 }
 ```
 
-And you are free to choose a fail-fast behaviour at any level. For instance, if you do not want to see `numOfTables` in 
-reporting if the expectation about `status` already fails, then you write the above as follows:
-```kotlin
-expect(mansion) {
-    its { numOfGuests }.toEqual(7)
-    its { kitchen }
-        .its { status }.toEqual("clean")
-        .its { numOfTables }.toEqual(5)
-}
-```
+Note that you are free to choose a fail-fast behaviour at any level. For instance, above we have used the single
+expectation syntax for `toBeGreaterThan(5).toBeLessThan(10)` and thus `toBeLessThan(10)` will not show up in reporting
+if `toBeGreaterThan(5)` already fails.
 
 <hr/>
 
