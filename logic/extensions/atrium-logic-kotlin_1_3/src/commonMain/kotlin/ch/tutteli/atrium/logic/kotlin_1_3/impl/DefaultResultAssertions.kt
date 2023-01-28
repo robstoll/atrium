@@ -34,7 +34,19 @@ class DefaultResultAssertions : ResultAssertions {
         container: AssertionContainer<out Result<*>>,
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
-        container.manualFeature(EXCEPTION) { exceptionOrNull() }.transform().let { previousExpect ->
+        container.manualFeature(EXCEPTION) {
+
+
+            if(exceptionOrNull() == null && container.maybeSubject.map { exceptionOrNull() } != null){
+                //unwrap
+                exceptionOrNull()
+            } else {
+                exceptionOrNull()
+            }
+
+
+
+        }.transform().let { previousExpect ->
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = { it ?: IS_NOT_FAILURE })
