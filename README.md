@@ -2708,7 +2708,7 @@ You find frequently asked questions below.
 If your question is not answered below, then please do not hesitate and ask your question in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
 In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](https://slack.kotlinlang.org/). 
 
-# Does Atrium provide something like AssertJ's soft assertion?
+## Does Atrium provide something like AssertJ's soft assertion?
 Of course and even more powerful yet less cumbersome to write in our opinion.
 Check out the [comparison of expectation-groups with AssertJ's soft assertions](#expecation-groups-are-better-soft-assertions).
 
