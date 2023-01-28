@@ -38,9 +38,10 @@ class DefaultResultAssertions : ResultAssertions {
 
 
             if(exceptionOrNull() == null && container.maybeSubject.map { exceptionOrNull() } != null){
-                //unwrap
+                //unwrap somehow (?) todo
                 exceptionOrNull()
             } else {
+
                 exceptionOrNull()
             }
 
