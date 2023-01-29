@@ -73,7 +73,7 @@ For instance, the [README of v0.18.0](https://github.com/robstoll/atrium/tree/v0
     - [Own Sophisticated Expectation Builders](#own-sophisticated-expectation-builders)
 - [Use own Expectation Verb](#use-own-expectation-verb)
   - [Use own Components](#use-own-components)
-- [Internationalization](#internationalization-1)
+- [Internationalization](#internationalization)
 - [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
