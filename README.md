@@ -1842,7 +1842,6 @@ The following subsections shall give you a quick overview how Atrium differ from
   - [Prevents you from Pitfalls](#3-prevents-you-from-pitfalls)
 - [Flexibility](#flexibility)
 - [Migration of Deprecated Functionality](#migration-of-deprecated-functionality)
-- [Internationalization](#internationalization)
 
 ## Ready to Help
 Atrium is designed to help you whenever possible.
@@ -2029,22 +2028,6 @@ Moreover, we follow the principle that a user of Atrium has enough time to migra
 We provide this in form of `@Deprecated` annotations with a corresponding `ReplaceWith` 
 as well as migration guides in the [Release Notes](https://github.com/robstoll/atrium/releases).
 This way we hope that we provide a pleasant way to stay up-to-date without the need to migrate everything from one day to the other.
-
-## Internationalization
-The last difference is not yet fully-blown implemented, but the design of Atrium has everything needed to go down the planed [Roadmap](#roadmap).
-Might well be that this topic is not really a concern of yours; unless...  
-
-- you are using domain-driven-design and would like to adopt the ubiquitous language also to your test code.
-- you want to document the results of your defined expectations (in different languages) 
-
-Atrium already supports APIs in two languages, and it is an easy task to translate an API to another language (hello DDD-people 👋 you are good to go).
-Moreover, it is already possible to generate the output in a different language than the used API (e.g. code in English but report in German).
-
-Together with the HTML-Report feature (currently missing but will follow) you will be able to generate reports in different languages.
-Already the HTML-Report feature as such might be of your interest. 
-You can use it to document your user stories etc (almost) for free.
-In case you have clients who speak different languages then the HTML-Report together with the i18n feature will be especially helpful. 
-We should not go on here, the HTML-Report feature is not yet implemented, but you can see what kind of road we plan to go down to.
 
 # Write own Expectation Functions
 
