@@ -18,7 +18,7 @@
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform expectation/assertion library for Kotlin with support for JVM, JS and Android.
-It is designed to support multiple [APIs](#api-styles), different error reporting styles and [Internationalization](#internationalization-1) (i18n). 
+It is designed to support multiple [APIs](#api-styles), focuses on helping developers to understand what went wrong and prevents common pitfalls. 
 The project was inspired by AssertJ at first but moved on and provides now more 
 flexibility, features and hints to its users (so to you 😉).
 
@@ -26,14 +26,11 @@ Atrium is designed to be extensible as well as configurable
 and allows you to extend it with your own expectation functions, customise reporting 
 or even replace core components with your own implementation easily.
 
-Atrium currently provides two [API Styles](#api-styles):
-pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 ---
-❗ You are taking a *sneak peek* at the next version. 
-Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
-For instance, the [README of v0.18.0](https://github.com/robstoll/atrium/tree/v0.18.0/README.md).
+❗ You are taking a *sneak peek* at the next version. It could be that some features you find on this page are not released yet.  
+Please have a look at the README of the corresponding release/git tag -- latest version: [README of v0.18.0](https://github.com/robstoll/atrium/tree/v0.18.0/README.md).
 
 ---
 
