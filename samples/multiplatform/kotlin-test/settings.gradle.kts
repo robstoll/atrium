@@ -1,1 +1,1 @@
-rootProject.name = "multiplatform"
+rootProject.name = "multiplatform-kotlin-test"

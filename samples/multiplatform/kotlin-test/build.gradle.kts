@@ -71,3 +71,10 @@ tasks {
         }
     }
 }
+
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().apply {
+        // fix vulnerable version, use 8.1.0 instead of 7.2.0 which still relies on minimatch 3.0.4
+        resolution("glob", "8.1.0")
+    }
+}
