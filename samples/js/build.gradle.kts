@@ -32,6 +32,7 @@ kotlin {
     // atrium only supports LEGACY for now
     js(LEGACY) {
         nodejs {
+            // optional: not related to Atrium, might be handy for you as well :)
             testTask {
                 testLogging {
                     exceptionFormat = TestExceptionFormat.FULL // Show full exception when an assertion fails
