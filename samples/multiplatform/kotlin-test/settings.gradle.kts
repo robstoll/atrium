@@ -1,1 +1,1 @@
-rootProject.name = "multiplatform-kotlin-test"
+rootProject.name = "atrium-multiplatform-kotlin-test"

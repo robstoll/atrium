@@ -1,2 +1,2 @@
-rootProject.name = "atrium-spek"
+rootProject.name = "atrium-jvm-spek"
 

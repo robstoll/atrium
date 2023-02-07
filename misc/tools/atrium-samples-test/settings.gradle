@@ -12,4 +12,4 @@ includeBuild('../../../') {
 }
 includeBuild '../../../samples/jvm/junit5'
 includeBuild '../../../samples/jvm/spek'
-includeBuild '../../../samples/multiplatform'
+includeBuild '../../../samples/multiplatform/kotlin-test'

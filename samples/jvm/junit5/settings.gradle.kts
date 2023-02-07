@@ -1,1 +1,1 @@
-rootProject.name = "junit5"
+rootProject.name = "atrium-jvm-junit5"

@@ -1,4 +1,4 @@
-val samples = listOf("junit5", "spek", "multiplatform")
+val samples = listOf("junit5", "spek", "kotlin-test")
 
 tasks.register("build") {
     samples.forEach { projectName ->

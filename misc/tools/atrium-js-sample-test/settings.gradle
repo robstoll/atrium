@@ -1,4 +1,4 @@
-rootProject.name = "js-sample-composite"
+rootProject.name = "js-samples-composite"
 
 includeBuild('../../../') {
     dependencySubstitution {
@@ -23,4 +23,4 @@ includeBuild('../../../') {
 //  [2/4] Fetching packages...
 //  info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
 
-includeBuild '../../../samples/js'
+includeBuild '../../../samples/js/kotlin-test'

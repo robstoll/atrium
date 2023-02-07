@@ -1,4 +1,4 @@
-def samples = ['js']
+def samples = ['kotlin-test']
 
 task build {
     samples.forEach { projectName ->
