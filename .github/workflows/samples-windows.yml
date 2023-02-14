@@ -34,7 +34,7 @@ jobs:
 
       - name: build js sample
         run: ./gradlew build
-        working-directory: samples\js
+        working-directory: samples\js\kotlin-test
 
       - name: build Spek sample
         run: ./gradlew build
@@ -46,7 +46,7 @@ jobs:
 
       - name: build MPP sample
         run: ./gradlew build
-        working-directory: samples\multiplatform
+        working-directory: samples\multiplatform\kotlin-test
 
       # Kotlin does not yet support to generate jdk 14 byte code
       - name: determine kotlin compile target
