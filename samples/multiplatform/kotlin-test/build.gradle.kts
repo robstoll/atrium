@@ -24,6 +24,7 @@ kotlin {
         // Atrium requires at least jdk 11
         kotlinOptions.jvmTarget = "11"
     }
+    java.targetCompatibility = JavaVersion.VERSION_11
     // atrium only supports LEGACY for now
     js(LEGACY).nodejs()
     sourceSets {

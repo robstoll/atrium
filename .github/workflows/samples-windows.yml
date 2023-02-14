@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        java_version: [ 11, 14 ]
+        java_version: [ 11, 17 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -48,13 +48,6 @@ jobs:
         run: ./gradlew build
         working-directory: samples\multiplatform\kotlin-test
 
-      # Kotlin does not yet support to generate jdk 14 byte code
-      - name: determine kotlin compile target
-        run: |
-          export KOTLIN_TARGET=$(if [ "${{ matrix.java_version }}" -eq "14" ]; then echo "13"; else echo "${{ matrix.java_version }}"; fi)
-          echo "KOTLIN_TARGET=$KOTLIN_TARGET" >> $GITHUB_ENV
-        shell: bash
-
       - name: build maven sample
-        run: ./mvnw -B clean verify "-Djava.version=${{ env.KOTLIN_TARGET }}"
-        working-directory: samples/maven
+        run: ./mvnw -B clean verify
+        working-directory: samples\jvm\maven
