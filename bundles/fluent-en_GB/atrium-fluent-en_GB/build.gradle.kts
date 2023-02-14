@@ -1,4 +1,4 @@
-description = "Represents a convenience module which merely bundles dependencies."
+description = "Convenience module which depends on atrim-api-fluent and atrium-verbs"
 
 val kotestVersion: String by rootProject.extra
 
