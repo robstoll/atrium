@@ -334,22 +334,26 @@ This is similar to the concept of soft assertions in AssertJ with the difference
 you do not have to repeat the subject and most importantly, you do not have to deal with calling `assertAll()`.
 The above is the equivalent of the following AssertJ example:
 ```kotlin
-val softly = SoftAssertions()
-softly.asserThat(4 + 6).isLessThan(5)
-softly.assertThat(4 + 6).isGreatThan(10)
-// Do not forget to call SoftAssertions global verification !
-softly.assertAll()
+assertSoftly {
+    asserThat(4 + 6).isLessThan(5)
+    assertThat(4 + 6).isGreatThan(10)
+}
+
+fun assertSoftly(body: SoftAssertions.() -> Unit) =
+    SoftAssertions.assertSoftly(body)
 ```
 
 Moreover, in contrast to AssertJ, the block syntax is provided at many places and not only on the top-level. 
 As an example, the following AssertJ example:
 ```kotlin
-val softly = SoftAssertions()
-softly.assertThat(mansion.numOfGuests).isEqualTo(7)
-softly.assertThat(mansion.kitchen.stastus).isEqualTo("clean")
-softly.assertThat(mansion.kitchen.numOfTables).isGreaterThan(5).isLessThan(10)
-// Do not forget to call SoftAssertions global verification !
-softly.assertAll()
+assertSoftly {
+    assertThat(mansion.numOfGuests).isEqualTo(7)
+    assertThat(mansion.kitchen.stastus).isEqualTo("clean")
+    assertThat(mansion.kitchen.numOfTables).isGreaterThan(5).isLessThan(10)
+}
+
+fun assertSoftly(body: SoftAssertions.() -> Unit) =
+    SoftAssertions.assertSoftly(body)
 ```
 could be written as follows in Atrium (see also [Feature Extractors](#feature-extractors)). 
 ```kotlin
