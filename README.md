@@ -331,7 +331,7 @@ hence reports that both expectations do not hold.
 The reporting can be read as `I expected the subject of the expectation, which was 10, to be less than 5 and to be greater than 10`
 
 This is similar to the concept of soft assertions in AssertJ with the difference that you do not need an extra utility,
-you do not have to repeat the subject and most importantly, you do not have to deal with calling `assertAll()`.
+and you do not have to repeat the subject.
 The above is the equivalent of the following AssertJ example:
 ```kotlin
 assertSoftly {
