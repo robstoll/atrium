@@ -335,7 +335,7 @@ you do not have to repeat the subject and most importantly, you do not have to d
 The above is the equivalent of the following AssertJ example:
 ```kotlin
 assertSoftly {
-    asserThat(4 + 6).isLessThan(5)
+    assertThat(4 + 6).isLessThan(5)
     assertThat(4 + 6).isGreatThan(10)
 }
 
