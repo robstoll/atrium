@@ -99,8 +99,7 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
 which provides a pure fluent API (in en_GB) for the JVM platform.   
 
-Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/main/samples/jvm) for a quick setup, or
-[Maven sample project](https://github.com/robstoll/atrium/tree/main/samples/maven) if you prefer Maven to Gradle.
+Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/main/samples/jvm) for a quick setup.
 
 We currently provide the following extensions for the JVM platform: 
 - kotlin_1_3: expectation functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
@@ -140,7 +139,7 @@ dependencies {
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but a 
-[sample maven project](https://github.com/robstoll/atrium/tree/main/samples/maven)
+[sample maven project](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven)
 is provided which shows all necessary setup.
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
@@ -161,7 +160,7 @@ dependencies {
 We have defined a dependency to the bundle `atrium-fluent-en_GB-js` in the above example 
 which provides a pure fluent API (in en_GB) for the JS platform.
 
-Have a look at the [JS sample projects](https://github.com/robstoll/atrium/tree/main/samples/jvm) for a quick setup.
+Have a look at the [JS sample projects](https://github.com/robstoll/atrium/tree/main/samples/js) for a quick setup.
 
 Otherwise, you need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
 This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler for JS.
@@ -1819,10 +1818,11 @@ for more examples.
 ## Sample Projects
 
 Have a look into the [samples](https://github.com/robstoll/atrium/tree/main/samples)
-folder, it currently contains sample projects for 
-- [js](https://github.com/robstoll/atrium/tree/main/samples/js/)
-- [jvm gradle](https://github.com/robstoll/atrium/tree/main/samples/jvm/)
-- [jvm maven](https://github.com/robstoll/atrium/tree/main/samples/maven/)
+folder, it currently contains sample projects for
+- [js - kotlin-test](https://github.com/robstoll/atrium/tree/main/samples/js/kotlin-test)
+- [jvm -- junit5](https://github.com/robstoll/atrium/tree/main/samples/jvm/junit5)
+- [jvm -- spek](https://github.com/robstoll/atrium/tree/main/samples/jvm/spel)
+- [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
 - [multiplatform project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform/)
 
 Are you using a different runner? A PR would be appreciated 😊.
