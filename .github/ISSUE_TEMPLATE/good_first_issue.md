@@ -7,7 +7,7 @@ labels: good first issue, help wanted
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature
-```
+```kotlin
 expect(
 
 //instead of
