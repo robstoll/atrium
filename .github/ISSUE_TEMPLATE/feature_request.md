@@ -8,7 +8,7 @@ about: Suggest an idea for this project
 *Extension* (none, kotlin 1.3): none
 
 ## Code related feature
-```
+```kotlin
 expect(listOf(1, 2)).myDesiredFeature(...)
 ```
 
