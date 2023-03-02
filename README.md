@@ -168,8 +168,8 @@ This is due to the loosely coupled design of Atrium and dead code elimination pe
 Atrium itself is using mocha as well 
 (see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/main/build.gradle#L290))
 and has tests written in JS modules 
-(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/main/core/atrium-core-js/src/test/kotlin/ch/tutteli/atrium/reporting/erroradjusters/AdjustStackTest.kt))
-as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB-common/src/test/kotlin/SmokeTest.kt))
+(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/main/atrium-core/src/jsTest/kotlin/ch/tutteli/atrium/reporting/erroradjusters/AdjustStackTest.kt))
+as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/src/commonTest/kotlin/SmokeTest.kt))
 which are executed on the JS platform as well 
 (actually on all platforms -> JVM uses JUnit for this purpose, see 
 [build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/main/build.gradle#L342)).
@@ -728,7 +728,7 @@ in case you miss a shortcut.
 <summary>💬 Write own feature extractors with additional checks.</summary>
 
 Atrium provides a feature extractor which allows to extract in a safe way in case the extraction is only valid for certain subjects.
-It is inter alia used for [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13)
+It is inter alia used for [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13)
 
 </details>
 
@@ -1811,11 +1811,11 @@ as well as expectation functions which have not been shown in the examples above
 
 Take a look at the sample files which are used i.a. in the KDOC of the corresponding expectation functions:
 
-- [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-+ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 
 ## Sample Projects
@@ -2357,7 +2357,7 @@ it suffices to create an extension function for `ArgumentMapperBuilder`.
 Yet, sometimes we would like to create functions which have a better error reporting than the one we get 
 when we compose expectation functions.
 
-[`_logic`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/logic.kt#L21) 
+[`_logic`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/logic.kt#L23) 
 is the entry point to `AssertionContainer` which is the equivalent of `Expect` but on a lower level.
 
 Following a quick overview what extension methods could be useful:
@@ -2365,15 +2365,15 @@ Following a quick overview what extension methods could be useful:
 was the API level) so that you can reuse and compose them in other ways.
 - `changeSubject` which allows to change the subject either:
    - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
-   - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `toBeAnInstanceOf` uses it, see [AnyAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultAnyAssertions.kt#L66))
-- `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapAssertions.kt#L49))
-- `extractFeature` for feature extraction where it is not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13))   
+   - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `toBeAnInstanceOf` uses it, see [AnyAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultAnyAssertions.kt#L70))
+- `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapEntryAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapEntryAssertions.kt#L11))
+- `extractFeature` for feature extraction where it is not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13))   
 
 Besides, the `assertionBuilder` allows to create different kinds of Assertions 
 (see [AssertionBuilder](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information)
 which can be used to create very specific expectation functions. 
 
-You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/blob/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultFloatingPointAssertions.kt#L72)
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultFloatingPointAssertions.kt#L72)
 which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately we do not have the time to cover all cases, so let us know if you want to know more
@@ -2395,7 +2395,7 @@ Atrium offers the expectation verb `expect` out of the box.
 
 You can also define your own expectation verb if `expect` does not suite you or in case you want to change some default implementation.
 In order to create an own expectation verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/atrium-verbs-internal/src/commonMain/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content 
     -- notice that you can also use a `String` for the expectation verb in case you do not care about [Internationalization](#internationalization-1)
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
@@ -2432,7 +2432,7 @@ What are the drawbacks:
 ## Use own Components
 
 Replacing existing components with your own (or third-party) components can be done when specifying an own expectation verb
-via `withOptions`. See for instance [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt#L31)
+via `withOptions`. See for instance [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/atrium-verbs-internal/src/commonMain/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt#L29)
 which is used internally of Atrium in tests and uses a different `AtriumErrorAdjuster`.
 
 Another example, say you prefer multi-line reporting over single-line reporting,
@@ -2485,7 +2485,7 @@ You prefer another reporting style but Atrium does not yet support it?
 Please let us know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 There are more options to choose from. Take a look at the 
-[DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/main/core/atrium-core-common/src/main/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L121)
+[DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/main/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L118)
 to see the default configuration.
 
 # Internationalization
@@ -2518,10 +2518,10 @@ enum class DescriptionIntAssertion(override val value: String) : StringBasedTran
 Typically, you would put `DescriptionIntAssertion` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
+[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts#L9)
 uses `atrium-translations-en_GB` whereas 
 tests of 
-[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts#L9)
 uses `atrium-translations-de_CH`.  
 
 <details>
@@ -2637,8 +2637,8 @@ However, this is more intended for advanced user with special requirements.
 Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined expectation verbs,
 so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
 
-- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB-common/build.gradle)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB-common/build.gradle)
+- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts)
+- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md)
@@ -2656,15 +2656,15 @@ Therefore, you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with type parameters. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L19)
+- [`nullable`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L189)
   turns a type into a nullable type and a return type of a KFunction into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L40)
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L30)
   turns an `Iterable` into an iterable with nullable element type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L66)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L56)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L79)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L69)
   turns a `Map` into a map with a nullable value type.
-- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L92)
+- [`nullableKeyValueMap`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/utils/nullable.kt#L82)
   turns a `Map` into a map with a nullable key and nullable value type. 
     
  
@@ -2697,8 +2697,8 @@ expect(sequenceOf(1, 2, 3)).asIterable().toContain(2)
 
 Likewise, you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<List<E>>` with `asList`.
 
-See [ArraySubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/ArraySubjectChangerSamples.kt)
-and [SequenceSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/SequenceSubjectChangerSamples.kt).
+See [ArraySubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/ArraySubjectChangerSamples.kt)
+and [SequenceSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/SequenceSubjectChangerSamples.kt).
 
 Feel free vote for [first class support for Array and Sequence in api-fluent](https://github.com/robstoll/atrium/issues/459).
 
@@ -2725,7 +2725,7 @@ Atrium does not provide extension functions applicable to `Expect<File>` directl
 because they would basically duplicate the functions available for `Expect<Path>`.
 However, Atrium provides the subject changer `asPath` so that you can turn an `Expect<File>`
 into an `Expect<Path>`. 
-See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
+See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
 
 ## Where are the expectation functions for java.util.Date?
 
@@ -2734,7 +2734,7 @@ because they would basically duplicate the functions available for `Expect<Local
 However, Atrium provides the subject changer functions: `asLocalDate` and `asLocalDateTime` so that you can turn an `Expect<Date>`
 either into an `Expect<LocalDate>` or `Expect<LocalDateTime>`.
 
-See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/DateSubjectChangerSamples.kt).
+See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/DateSubjectChangerSamples.kt).
 
 ## Where do I find a list of all available functions?
 
@@ -2743,11 +2743,11 @@ Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 A good alternative is to have a look at the sample files:
-- [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-+ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 ## Problems in conjunction with `feature`
 
