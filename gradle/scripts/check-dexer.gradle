@@ -26,7 +26,7 @@ configure(dexerProjects) { subproject ->
         mavenCentral()
     }
     dependencies {
-        r8 "com.android.tools:r8:$d8_version"
+        r8 "com.android.tools:r8:$d8Version"
         d8 subproject
     }
 

@@ -21,11 +21,6 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
-        val jvmTest by getting {
-            dependencies {
-                implementation(prefixedProject("specs"))
-            }
-        }
     }
 }
 
