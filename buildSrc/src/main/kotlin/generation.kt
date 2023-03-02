@@ -15,6 +15,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.streams.asSequence
 
+//TODO consider to switch to Kotlin Symbol Processing (KSP)
 /**
  * Use the function `forTarget` to create this data class.
  */
@@ -86,7 +87,7 @@ fun Project.registerGenerateLogicTaskForPackage(
     return tasks.register("generateLogic_${sourceSetName}_${relativePackagePath.replace('/', '_')}") {
         group = "build"
         description = "generates ext. methods for package $relativePackagePath"
-        val packagePath = "ch/tutteli/atrium/logic" + relativePackagePath
+        val packagePath = "ch/tutteli/atrium/logic$relativePackagePath"
         val srcPath = "${mainSrcFolder.absolutePath}/$packagePath/"
         val generatedPath = "${project.projectDir}/$generatedFolder/$packagePath"
         inputs.dir(srcPath)
