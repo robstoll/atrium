@@ -1860,18 +1860,6 @@ Or in other words, you can always use code completion to get direct help from yo
 This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) 
 for all expectation functions, so that you get the extra help needed.
 
-💩 &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. 
-We try to provide a workaround whenever possible._
-
-<details>
-<summary>💩 There is no KDoc for toEqual</summary>
-
-There is, but IntelliJ will not show it to you due to [this bug](https://youtrack.jetbrains.com/issue/KT-24836) (please upvote it).
-You should be able to see the KDoc of other functions without problems. 
-But in case, you can also browse the online documentation, e.g. [KDoc of toEqual](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/to-be.html).
-
-</details>
-
 ### 2. Additional Information in Failure Reporting
 Atrium adds extra information to error messages so that you get quickly a better idea of what went wrong. 
 For instance, for the following expectation (which fails):
