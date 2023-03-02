@@ -1814,9 +1814,8 @@ Take a look at the sample files which are used i.a. in the KDOC of the correspon
 - [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-
-- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
 
 ## Sample Projects
@@ -2747,9 +2746,8 @@ A good alternative is to have a look at the sample files:
 - [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-
-- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
++ [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
 ## Problems in conjunction with `feature`
 
