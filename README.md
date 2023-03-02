@@ -2689,12 +2689,12 @@ In case you do not have an account for kotlinlang.slack.com yet, then please [In
 Of course and even more powerful yet less cumbersome to write in our opinion.
 Check out the [comparison of expectation-groups with AssertJ's soft assertions](#expecation-groups-are-better-soft-assertions).
 
-## Are there toContain/toHaveNextAndAll/None/All expectation functions for `Sequence`/`Array`?
+## Are there toContain/toHaveElementsAndAll/None/Any expectation functions for `Sequence`/`Array`?
 
-Atrium does not provide extension function applicable to `Expect<Sequence<E>>` (or `Array`) directly,
-because they would basically duplicate the functions available for `Iterable<E>`.  
-However, Atrium provides `asIterable` and `asList` so that you can turn `Expect<Sequence<E>>` 
-into `Expect<Iterable<E>>` or `Expect<List<E>>`. An example:
+Atrium does not provide extension functions applicable to `Expect<Sequence<E>>` (or `Array`) directly,
+because they would basically duplicate the functions available for `Expect<Iterable<E>>`.  
+However, Atrium provides subject changer functions: `asIterable` and `asList` so that you can turn an `Expect<Sequence<E>>` 
+into an `Expect<Iterable<E>>`, `Expect<List<E>>` respectively. An example:
 
 <code-faq-1>
 
@@ -2704,6 +2704,9 @@ expect(sequenceOf(1, 2, 3)).asIterable().toContain(2)
 </code-faq-1>
 
 Likewise, you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<List<E>>` with `asList`.
+
+See [ArraySubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/ArraySubjectChangerSamples.kt)
+and [SequenceSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/SequenceSubjectChangerSamples.kt).
 
 Feel free vote for [first class support for Array and Sequence in api-fluent](https://github.com/robstoll/atrium/issues/459).
 
@@ -2722,6 +2725,24 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.toContain(2)
 </code-faq-2>
 
 </details>
+
+
+## Where are the expectation function for java.io.File?
+
+Atrium does not provide extension functions applicable to `Expect<File>` directly,
+because they would basically duplicate the functions available for `Expect<Path>`.
+However, Atrium provides the subject changer `asPath` so that you can turn an `Expect<File>`
+into an `Expect<Path>`. 
+See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
+
+## Where are the expectation function for java.util.Date?
+
+Atrium does not provide extension functions applicable to `Expect<Date>`/`Expect<DateTime>` directly,
+because they would basically duplicate the functions available for `Expect<LocalDate>`/`Expect<LocalDateTime>`.
+However, Atrium provides the subject changer functions: `asLocalDate` and `asLocalDateTime` so that you can turn an `Expect<Date>`
+either into an `Expect<LocalDate>` or `Expect<LocalDateTime>`.
+
+See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/DateSubjectChangerSamples.kt).
 
 ## Where do I find a list of all available functions?
 
