@@ -2720,7 +2720,7 @@ expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.toContain(2)
 </details>
 
 
-## Where are the expectation function for java.io.File?
+## Where are the expectation functions for java.io.File?
 
 Atrium does not provide extension functions applicable to `Expect<File>` directly,
 because they would basically duplicate the functions available for `Expect<Path>`.
@@ -2728,7 +2728,7 @@ However, Atrium provides the subject changer `asPath` so that you can turn an `E
 into an `Expect<Path>`. 
 See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
 
-## Where are the expectation function for java.util.Date?
+## Where are the expectation functions for java.util.Date?
 
 Atrium does not provide extension functions applicable to `Expect<Date>`/`Expect<DateTime>` directly,
 because they would basically duplicate the functions available for `Expect<LocalDate>`/`Expect<LocalDateTime>`.
