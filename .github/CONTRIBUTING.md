@@ -19,24 +19,20 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - Star Atrium if you like it.
 
 - Need help in using Atrium?  
-  Write your question on 
-  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
+  Ask in the [Q&A Discussion category](https://github.com/robstoll/atrium/discussions/new?category=q-a)
   and we will get back to you.
-  You do not yet have a account on kotlinlang.slack.com? 
-  [Invite yourself](https://slack.kotlinlang.org/) :wink:
   
 - Found a bug?  
   [Open an issue](https://github.com/robstoll/atrium/issues/new?template=bug_report.md).
   
 - Missing a feature?  
-  [Create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
-  
-- You would like to write an expectation function but you are having trouble starting?
-  Please read the section [Your First Code Contribution](#your-first-code-contribution). 
-  If you still have trouble starting, then contact us on
-  [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/) 
-  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)
-  and we will try to give you some additional hints.
+  [Create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+  or in case it is more like a vague idea, post it in the [ideas discussion category](https://github.com/robstoll/atrium/discussions/new?category=ideas)
+
+- You wrote an expectation function and would like to contribute it back to the community?  
+  Awesome :+1:, please read the section [Your First Code Contribution](#your-first-code-contribution).
+  If you still have trouble starting, then ask your question in the
+  [Contributor Q&A discussion category](https://github.com/robstoll/atrium/discussions/new?category=contributor-q-a).  
 
 - You do not have a particular expectation function in mind but would like to contribute with code?
   Please have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
@@ -46,27 +42,21 @@ By participating, you are expected to uphold this code. Please report unacceptab
   if there are not any.  
   
 - You would like to add a new feature to Atrium?  
-  Contact use on 
-  [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
-  ([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet) 
+  Please post your idea in the [ideas discussion category](https://github.com/robstoll/atrium/discussions/new?category=ideas)
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
   Nice catch :mag: Please fix it and create a pull request.
-    
-- You wrote an expectation function and would like to contribute it to Atrium?  
-  Awesome :+1: please review the [pull request checklist](#pull-request-checklist) and create a pull request
 
 - You would like to support the project financially?  
   Cool :sunglasses: this can be done via [GitHub Sponsors](https://github.com/sponsors/robstoll)  
   
 - You have other ideas how Atrium could be improved?  
-  Contact us on 
-  [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/),
+  Please post your idea in the [ideas discussion category](https://github.com/robstoll/atrium/discussions/new?category=ideas),
   we are looking forward to your ideas.
 
-In any case, if you are uncertain how you can contribute, then contact us on 
-[slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
+In any case, if you are uncertain how you can contribute, then write us via
+the [Contributor Q&A discussion category](https://github.com/robstoll/atrium/discussions/new?category=contributor-q-a).
 and we will figure it out together :smile:
 
 ## Your First Code Contribution
@@ -83,8 +73,8 @@ The following are a few guidelines on how we suggest you start.
    - Spek Framework by Spek Team
 3. Import the project (import the build.gradle -> import as project, works more reliably)
 4. Open up a terminal (e.g. Intellij's built in -> usually ALT+F12) and run `./gradlew build` 
-   This builds the project (compile, run tests etc) via gradle
-5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
+   This builds the project (compile, run tests etc.) via gradle
+5. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 4 points).
 
 Note: IntelliJ requires a few workarounds.
 - IntelliJ may warn you about duplicate content roots.
@@ -92,7 +82,7 @@ Note: IntelliJ requires a few workarounds.
 - IntelliJ may warn you about a Symbol being declared in an unnamed module.
   This is an [IntelliJ bug](https://youtrack.jetbrains.com/issue/KT-35343) (feel free to upvote), and can be worked around by using JDK 8, which you can switch to in File &rarr; Project Structure &rarr; Project &rarr; Project SDK.
 
-Perfect, you are setup and ready to go. 
+Perfect, you are set up and ready to go. 
 Have a look at [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 where [good first issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 are easier to start with.
@@ -117,10 +107,8 @@ Dealing with Git for the first time? Here are some recommendations for how to se
 
 You can read more on Git [here](https://git-scm.com/book/).
 
-Contact us on
-[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ/)
-([Invite yourself](https://slack.kotlinlang.org/) in case you do not have an account yet)  
-whenever you need help to get up and running or have questions or simply write in the issue.
+Post a question in the [Contributor Q&A discussion category](https://github.com/robstoll/atrium/discussions/new?category=contributor-q-a)
+whenever you need help to get up and running or have questions. It's also fine if you write down your question in the issue.
 
 We recommend you create a pull request (see [About pull requests](https://help.github.com/en/articles/about-pull-requests) for help)
 in case you are not sure how you should do something. 
@@ -136,12 +124,11 @@ Finally, when you think your PR (short for pull request) is ready, then please:
 ## Coding Conventions
 So far we do not try to enforce too much. We will review your patches and comment if necessary.
 However, here a few hints in order that your pull request is merged quickly.
-1. Make sure the compiler does not generate warnings.
-2. Try to write code in a similar style as the existing 
+1. Try to write code in a similar style as the existing 
    (We suggest you copy something existing and modify it).
-3. Write readable code and express comments with code rather than comments.
-4. Provide tests in form of [Spek](https://spekframework.org/specification/) specifications.
-5. Write your commit message in an [imperative style](https://chris.beams.io/posts/git-commit/).     
+2. Write readable code and express comments with code rather than comments.
+3. Provide tests (see existing tests in src/...Test)
+4. Write your commit message in an [imperative style](https://chris.beams.io/posts/git-commit/).     
 
 ## Pull Request Checklist
 Please make sure you can check every item on the following list before you create a pull request:  
