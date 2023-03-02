@@ -59,7 +59,8 @@ Please have a look at the README of the corresponding release/git tag -- latest 
   - [Path Expectations](#path-expectations)
   - [Attaching a Reason](#attaching-a-reason)
   - [Data Driven Testing](#data-driven-testing)
-  - [Further Examples](#further-examples)  
+  - [Further Examples](#further-examples)
+    - [Expectation functions for Any type](#any-expectations)
   - [Sample Projects](#sample-projects)
 - [Third-party Extensions](#third-party-extensions)    
 - [How is Atrium different from other Expectation/Assertion Libraries](#how-is-atrium-different-from-other-expectationassertion-libraries)
@@ -1807,13 +1808,17 @@ I expected subject: "calling myNullableFun with ..."        <1234789>
 ## Further Examples
 
 Atrium supports further expectation builders (e.g, for `CharSequence`) 
-as well as expectation functions which have not been shown in the examples.
-Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md) for a few more examples.
-This site contains also a list of all APIs with links to their expectation function catalogs.
+as well as expectation functions which have not been shown in the examples above.
 
-You can also have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/main/misc/atrium-specs/src/commonMain/kotlin/ch/tutteli/atrium/specs) 
-for more examples.
+Take a look at the sample files which are used i.a. in the KDOC of the corresponding expectation functions:
+
+- [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+
+
+- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+
 
 ## Sample Projects
 
