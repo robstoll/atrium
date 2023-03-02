@@ -2743,6 +2743,14 @@ Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
 - [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
+A good alternative is to have a look at the sample files:
+- [Samples api-fluent common](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+
+
+- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-infix](https://github.com/robstoll/atrium/blob/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+
 ## Problems in conjunction with `feature`
 
 See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
