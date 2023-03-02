@@ -75,7 +75,6 @@ Please have a look at the README of the corresponding release/git tag -- latest 
 - [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
-- [Known Limitations](#known-limitations)
 - [FAQ](#faq)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
@@ -2673,12 +2672,6 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
 [KDoc of atrium](https://docs.atriumlib.org/)
-
-# Known Limitations
-According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
-library does not yet offer a lot of out-of-the-box expectation functions. 
-More functions will follow but only if they are used somewhere by someone. 
-So, let us know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 # FAQ
 You find frequently asked questions below.
