@@ -5,7 +5,7 @@
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/atrium "See invitation link under section FAQ")
 [![Build Status Ubuntu](https://github.com/robstoll/atrium/workflows/Ubuntu/badge.svg?event=push&branch=main)](https://github.com/robstoll/atrium/actions?query=workflow%3AUbuntu+branch%3Amain)
 [![Build Status Windows](https://github.com/robstoll/atrium/workflows/Windows/badge.svg?event=push&branch=main)](https://github.com/robstoll/atrium/actions?query=workflow%3AWindows+branch%3Amain)
-[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/main/graph/badge.svg)](https://codecov.io/github/robstoll/atrium/branch/main) 
+[![Coverage](https://codecov.io/gh/robstoll/atrium/branch/main/graph/badge.svg)](https://app.codecov.io/github/robstoll/atrium/branch/main) 
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
 
 <!-- for a specific release -->
