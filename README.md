@@ -1517,7 +1517,7 @@ I expected subject: {bernstein=Person(firstName=Leonard, lastName=Bernstein, age
 ```
 </ex-map-3>
 
-In case you hvae only expectations about the keys or values of the `Map` then you can use `keys` or `values`:
+In case you have only expectations about the keys or values of the `Map` then you can use `keys` or `values`:
 
 <ex-map-4>
 
