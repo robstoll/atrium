@@ -63,8 +63,7 @@ abstract class BaseExpectImpl<T>(
             representationInsteadOfFeature?.let { provider ->
                 maybeSubject.fold({ null }) { provider(it) }
             } ?: maybeSubject.getOrElse {
-                // a RootExpect without a defined subject is almost certain a bug
-                Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG)
+                Text.EMPTY
             }
     }
 }

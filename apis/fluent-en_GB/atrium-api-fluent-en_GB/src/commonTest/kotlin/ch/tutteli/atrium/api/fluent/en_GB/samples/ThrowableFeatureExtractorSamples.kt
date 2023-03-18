@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.toContainSize
 import kotlin.test.Test
 
 class ThrowableFeatureExtractorSamples {
@@ -12,6 +13,33 @@ class ThrowableFeatureExtractorSamples {
 
         fails {
             expect(RuntimeException("abc")).messageToContain("d")
+        }
+    }
+
+    @Test
+    fun messageFeature2() {
+        data class User(val login: String, val password: String)
+
+        expect(listOf(User("joe", "qwerty"), User("j", "qwerty1"))) {
+            toHaveElementsAndAll {
+                feature("login", { login })
+                    .feature("size", { length })
+                    .because("login should be longer than one letter") {
+                        toBeGreaterThan(1)
+                    }
+                feature("password", { password })
+                    .because("password should be secure") {
+                        notToEqual("qwerty")
+                    }
+            }
+        }
+
+        expect(listOf(Throwable("abc"))) {
+            toHaveElementsAndAll {
+                message
+                    .toContain("d")
+                    .toStartWith("z")
+            }
         }
     }
 

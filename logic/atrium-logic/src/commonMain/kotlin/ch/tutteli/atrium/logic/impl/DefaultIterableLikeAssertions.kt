@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -20,8 +21,10 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointS
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
@@ -135,9 +138,25 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
 
         val assertions = ArrayList<Assertion>(2)
         assertions.add(createExplanatoryAssertionGroup(container, assertionCreatorOrNull))
-        val mismatches = createIndexAssertions(list) { (_, element) ->
-            mismatchIf(allCreatedAssertionsHold(container, element, assertionCreatorOrNull))
+        val mismatches = list.mapIndexedNotNull { index, e ->
+            val assertion = if (assertionCreatorOrNull != null) {
+                container.collectBasedOnSubject(Some(e as E), assertionCreatorOrNull)
+            } else {
+                // TODO: assertionCreatorOrNull should be non-nullable, and this "to be null" should be a part of expectation
+                assertionBuilder.createDescriptive(DescriptionBasic.TO_BE, Text.NULL) {
+                    e == null
+                }
+            }
+
+            assertion.takeIf { mismatchIf(it.holds()) }?.let {
+                assertionBuilder
+                    .feature
+                    .withDescriptionAndRepresentation(TranslatableWithArgs(INDEX, index), e)
+                    .withAssertion(it)
+                    .build()
+            }
         }
+
         if (mismatches.isNotEmpty()) assertions.add(createExplanatoryGroupForMismatches(mismatches))
 
         decorateAssertion(
