@@ -23,7 +23,7 @@ class AdjustStackTest {
             assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) toContain entries(
-                { it toContain "/node_modules/mocha/" },
+                { it toContain Regex("""[\\|/]node_modules[\\|/]mocha[\\|/]""") },
                 { it toContain "createAtriumError" }
             )
         }
