@@ -173,7 +173,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     }
 
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
-        the<KotlinMultiplatformExtension>().apply {
+        extensions.getByType<KotlinMultiplatformExtension>().apply {
             jvm()
             js().nodejs {}
             sourceSets {
@@ -263,9 +263,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
         if (withBbc) {
             configure(listOf(project(":bc-tests:$oldVersion-api-$apiName-bbc"))) {
-                apply(plugin = "jacoco")
+                apply(plugin = "ch.tutteli.gradle.plugins.junitjacoco")
 
-                the<KotlinMultiplatformExtension>().apply {
+                extensions.getByType<KotlinMultiplatformExtension>().apply {
                     val confName = "confBbc"
 
                     jvm {
@@ -335,9 +335,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
         configure(listOf(project(":bc-tests:$oldVersion-api-$apiName"))) {
 
-            apply(plugin = "jacoco")
+            apply(plugin = "ch.tutteli.gradle.plugins.junitjacoco")
 
-            the<KotlinMultiplatformExtension>().apply {
+            extensions.getByType<KotlinMultiplatformExtension>().apply {
 
                 js().nodejs {}
 
@@ -410,7 +410,6 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     }
                 }
             }
-            configureTestTasks()
 
             createUnzipTasks("api-$apiName", "testsources", "Test", targets)
         }
@@ -462,7 +461,7 @@ fun Project.createJacocoReportTask(
             if (sourceSetContainer != null) {
                 sourceSets(sourceSetContainer["main"])
             } else {
-                it.the<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
+                it.extensions.getByType<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
                     sourceDirectories.from(kotlinSourceSet.kotlin.srcDirs)
                 }
             }
@@ -472,15 +471,15 @@ fun Project.createJacocoReportTask(
 //                            println("list $oldVersion $apiName: ${sourceDirectories.map { it.absolutePath }.joinToString("\n")}\n")
 
         reports {
-            csv.isEnabled = false
-            xml.isEnabled = true
+            csv.required.set(false)
+            xml.required.set(true)
             xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
-            html.isEnabled = true
+            html.required.set(true)
             html.destination = file("${buildDir}/reports/jacoco/$name/html/")
         }
     }
 
-    the<JacocoPluginExtension>().apply {
+    extensions.getByType<JacocoPluginExtension>().apply {
         toolVersion = jacocoToolVersion
         this.applyTo<JavaExec>(runTask)
     }
