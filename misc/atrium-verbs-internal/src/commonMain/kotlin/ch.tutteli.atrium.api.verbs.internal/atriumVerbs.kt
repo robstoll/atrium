@@ -26,6 +26,7 @@ fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb(EXPECT)
         .withOptions {
+            //TOOD 0.20.0 we could at least filter out the runner in most cases, even in tests
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
         }
         .build()

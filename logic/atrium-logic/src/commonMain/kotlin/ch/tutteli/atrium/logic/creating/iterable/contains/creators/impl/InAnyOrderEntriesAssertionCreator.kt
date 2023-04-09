@@ -46,8 +46,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
 ) : ContainsAssertionCreator<T, List<E?>, (Expect<E>.() -> Unit)?, IterableLikeContains.Checker>(
     searchBehaviour,
     checkers
-),
-    IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
+), IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
     override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
 

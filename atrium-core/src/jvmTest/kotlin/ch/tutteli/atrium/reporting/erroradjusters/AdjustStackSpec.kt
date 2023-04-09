@@ -13,22 +13,23 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import io.kotest.core.spec.style.FunSpec
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
-class AdjustStackSpec : FunSpec({
+class AdjustStackSpec : Spek({
 
-    context("no-op adjuster") {
+    describe("no-op adjuster") {
         fun <T : Any> assertNoOp(subject: T) =
             createExpect(subject) { _ -> NoOpAtriumErrorAdjuster }
 
-        test("contains kotest, junit, atrium.creating and atrium.reporting") {
+        it("contains spek, junit, atrium.creating and atrium.reporting") {
             expect {
                 assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
                 feature { f(it::stackBacktrace) } toContain entries(
-                    { it toStartWith "io.kotest.core" },
+                    { it toStartWith "org.spekframework.spek2" },
                     { it toStartWith "ch.tutteli.atrium.creating" },
                     { it toStartWith "ch.tutteli.atrium.reporting" }
                 )
@@ -44,20 +45,20 @@ class AdjustStackSpec : FunSpec({
     mapOf<String, Triple<(ComponentFactoryContainer) -> AtriumErrorAdjuster, List<String>, List<String>>>(
         "remove test runner adjuster" to Triple(
             { c -> c.build<RemoveRunnerFromAtriumError>() },
-            listOf("io.kotest.core", "kotlin.coroutines", "kotlinx.coroutines"),
+            listOf("org.spekframework.spek2", "kotlin.coroutines", "kotlinx.coroutines"),
             listOf("ch.tutteli.atrium")
         ),
         "remove atrium adjuster" to Triple(
             { c -> c.build<RemoveAtriumFromAtriumError>() },
             listOf("ch.tutteli.atrium"),
-            listOf("io.kotest.core")
+            listOf("org.spekframework.spek2")
         )
     ).forEach { (description, triple) ->
         val (factory, containsNot, contains) = triple
         val (containsNotFirst, containsNotRest) = mapStartsWith(containsNot)
         val (containsFirst, containsRest) = mapStartsWith(contains)
-        context(description) {
-            test("does not contain $containsNot in stackBacktrace but $contains") {
+        describe(description) {
+            it("does not contain $containsNot in stackBacktrace but $contains") {
                 expect {
                     createExpect(1, factory) toEqual 2
                 }.toThrow<AssertionError> {
@@ -69,7 +70,7 @@ class AdjustStackSpec : FunSpec({
             }
 
 
-            test("does not contain $containsNot in stackBacktrace of cause, but $contains") {
+            it("does not contain $containsNot in stackBacktrace of cause, but $contains") {
                 val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
@@ -79,7 +80,7 @@ class AdjustStackSpec : FunSpec({
                 }
             }
 
-            test("does not contain $containsNot in stackBacktrace of cause of cause, but $contains") {
+            it("does not contain $containsNot in stackBacktrace of cause of cause, but $contains") {
                 val throwable = IllegalArgumentException(
                     "hello",
                     UnsupportedOperationException("world", IllegalStateException("and good night"))
@@ -92,7 +93,7 @@ class AdjustStackSpec : FunSpec({
                 }
             }
 
-            test("does not contain $containsNot in stackBacktrace of suppressed exception, but $contains") {
+            it("does not contain $containsNot in stackBacktrace of suppressed exception, but $contains") {
                 val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable = IllegalStateException("with suppressed")
@@ -108,7 +109,7 @@ class AdjustStackSpec : FunSpec({
                 })
             }
 
-            test("does not contain $containsNot in stackBacktrace of cause of suppressed exception, but $contains") {
+            it("does not contain $containsNot in stackBacktrace of cause of suppressed exception, but $contains") {
                 val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable = IllegalStateException("with suppressed")
@@ -166,8 +167,8 @@ class AdjustStackSpec : FunSpec({
                 )
             }
     ).forEach { (description, factory) ->
-        context(description) {
-            test("stackBacktrace is empty as we filter out everything") {
+        describe(description) {
+            it("stackBacktrace is empty as we filter out everything") {
                 expect {
                     createExpect(1, factory) toEqual 2
                 }.toThrow<AssertionError> {
@@ -175,14 +176,14 @@ class AdjustStackSpec : FunSpec({
                 }
             }
 
-            test("stackBacktrace of cause is empty as we filter out everything") {
+            it("stackBacktrace of cause is empty as we filter out everything") {
                 val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val adjuster = createExpect(1, factory)._logic.components.build<AtriumErrorAdjuster>()
                 adjuster.adjust(throwable)
                 expect(throwable.cause!!.stackBacktrace) toBe empty
             }
 
-            test("stackBacktrace of suppressed is empty as we filter out everything") {
+            it("stackBacktrace of suppressed is empty as we filter out everything") {
                 val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
                 val throwable = IllegalStateException("with suppressed")

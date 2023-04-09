@@ -10,10 +10,11 @@ actual class RemoveRunnerFromAtriumErrorImpl : FilterAtriumErrorAdjuster(), Remo
     companion object {
         val runnerRegex: Regex = Regex(
             // kotlin 1.6
-            """([\\|/]packages_imported[\\|/]kotlin-test-js-runner[\\|/])"""+
-            // kotlin 1.3
-            """([\\|/]node_modules[\\|/](mocha|jasmine|jest)[\\|/])|"""
-
+            """([\\|/]packages_imported[\\|/]kotlin-test-js-runner[\\|/])|""" +
+                // kotlin 1.3
+                """([\\|/]node_modules[\\|/](mocha|jasmine|jest)[\\|/])|""" +
+                // intellij specific
+                """(node_modules[\\|/]src[\\|/]KotlinTestTeamCityConsoleAdapter\.ts)"""
         )
     }
 }
