@@ -100,6 +100,7 @@ configure(subprojectsWithoutToolProjects) {
 }
 
 configure(multiplatformProjects) {
+    val subproject = this
 
     apply(plugin = "kotlin-multiplatform")
     apply(plugin = "ch.tutteli.gradle.plugins.spek")
@@ -112,7 +113,7 @@ configure(multiplatformProjects) {
             .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
     }
 
-    project.extensions.getByType<KotlinMultiplatformExtension>().apply {
+    extensions.getByType<KotlinMultiplatformExtension>().apply {
         jvm {
             // for module-info.java and Java sources in test
             withJava()
@@ -123,7 +124,7 @@ configure(multiplatformProjects) {
 
         sourceSets {
 
-            configureLanguageSettings()
+            configureLanguageSettings(subproject)
 
             val commonMain by getting {
                 dependencies {
@@ -187,11 +188,11 @@ configure(multiplatformProjects) {
 }
 
 
-fun NamedDomainObjectContainerScope<KotlinSourceSet>.configureLanguageSettings() {
+fun NamedDomainObjectContainerScope<KotlinSourceSet>.configureLanguageSettings(project: Project) {
     configureEach {
         //TODO 0.20.0 remove -kotlin_1_3 (once we drop support for kotlin 1.2) and use 1.4 in tests
-        val languageVersion = if (name.endsWith("Test") || name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
-        val apiVersion = if (name.endsWith("Test")) "1.3" else "1.2"
+        val languageVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
+        val apiVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
         languageSettings.apply {
             this.languageVersion = languageVersion
             this.apiVersion = apiVersion
@@ -204,12 +205,14 @@ configure(subprojects.filter {
     val parentName = it.projectDir.parentFile.name
     it.name != "bc-tests" && parentName != "old" && parentName != "bc-tests"
 } - multiplatformProjects) {
+    val subproject = this
+
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     //TODO 0.23.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
     project.extensions.getByType<KotlinJvmProjectExtension>().apply {
         sourceSets {
-            configureLanguageSettings()
+            configureLanguageSettings(subproject)
 
             val main by getting {
                 dependencies {

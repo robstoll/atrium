@@ -76,7 +76,6 @@ listOf("en_GB", "de_CH").forEach{ lang ->
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "atrium-specs")
-//TODO 0.19.0 re-activate
 include("misc/tools", "readme-examples")
 
 fun Settings_gradle.includeBc(oldVersion: String, module: String) {

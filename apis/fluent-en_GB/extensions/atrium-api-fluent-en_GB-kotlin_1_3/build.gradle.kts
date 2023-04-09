@@ -14,13 +14,5 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
-
-        //TODO 0.19.0 check why this is necessary, should be configured in /build.gradle.kts
-        configureEach {
-            languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
-            }
-        }
     }
 }
