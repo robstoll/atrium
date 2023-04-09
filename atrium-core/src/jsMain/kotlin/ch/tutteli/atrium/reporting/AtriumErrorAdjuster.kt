@@ -4,7 +4,7 @@ package ch.tutteli.atrium.reporting
 /**
  * Responsible to adjust a given [AtriumError] for improved error reporting.
  *
- * Typically this involves filtering `stack` in some way or another.
+ * Typically, this involves filtering `stack` in some way or another.
  */
 actual interface AtriumErrorAdjuster : AtriumErrorAdjusterCommon {
 

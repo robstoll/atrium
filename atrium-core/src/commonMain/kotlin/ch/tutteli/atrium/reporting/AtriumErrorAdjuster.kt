@@ -4,7 +4,7 @@ package ch.tutteli.atrium.reporting
 /**
  * Responsible to adjust a given [Throwable] (usually an [AtriumError]) for improved error reporting.
  *
- * Typically this involves filtering the stack traces (`stackTrace` in JVM, `stack` in JS) in some way
+ * Typically, this involves filtering the stack traces (`stackTrace` in JVM, `stack` in JS) in some way
  * or another (also the stack trace of the cause or suppressed [Throwable]s).
  */
 expect interface AtriumErrorAdjuster : AtriumErrorAdjusterCommon

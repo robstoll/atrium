@@ -77,7 +77,7 @@ abstract class ResultExpectationsSpec(
         context("subject is $resultSuccess") {
             successFunctions.forEach { (name, toBeASuccessFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
-                    expect(resultSuccess).toBeASuccessFun { toEqual(2) }
+                    expect(resultSuccess).toBeASuccessFun { toEqual(1) }
                 }
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {

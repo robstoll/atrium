@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.Expect
@@ -23,7 +24,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) toContain entries(
                 { it toContain "/node_modules/mocha/" },
-                { it toContain "createAtriumError2" }
+                { it toContain "createAtriumError" }
             )
         }
     }
@@ -35,21 +36,24 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it notToContain o entry { it toContain "mocha" }
+                it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
                 it toContain { it toContain "createAtriumError" }
             }
         }
     }
 
-    @ExperimentalComponentFactoryContainer
     @Test
     fun removeRunner_containsAtriumButNotMochaInCause() {
-        val adjuster = assertRemoveRunner(1)._logic.components.build<AtriumErrorAdjuster>()
-        expect(adjuster).toBeAnInstanceOf<RemoveRunnerFromAtriumError>()
-        val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
-        adjuster.adjust(throwable)
-        expect(throwable.cause!!.stackBacktrace) {
-            it notToContain o entry { it toContain "mocha" }
-            it toContain { it toContain "createAtriumError" }
+        assertRemoveRunner {
+            throw IllegalArgumentException("hello", UnsupportedOperationException("world"))
+        }.toThrow<IllegalArgumentException> {
+            cause<UnsupportedOperationException> {
+                it feature of(UnsupportedOperationException::stackBacktrace) {
+                    it notToContain o entry { it toContain "mocha" }
+                    it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
+                    it toContain { it toContain Regex("toThrow.*atrium-logic")}
+                }
+            }
         }
     }
 

@@ -4,11 +4,14 @@ import ch.tutteli.atrium.api.infix.en_GB.feature
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
-import io.kotest.core.spec.style.FunSpec
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 
-class AtriumErrorSpec : FunSpec({
-    test("creating an AtriumError, has `null` as cause - regression for #303") {
-        val e = AtriumError.create("hello world", NoOpAtriumErrorAdjuster)
-        expect(e).feature(Throwable::cause) toEqual null
+class AtriumErrorSpec : Spek({
+    describe("creating an AtriumError") {
+        it("has `null` as cause - regression for #303") {
+            val e = AtriumError.create("hello world", NoOpAtriumErrorAdjuster)
+            expect(e).feature(Throwable::cause) toEqual null
+        }
     }
 })

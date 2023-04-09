@@ -11,9 +11,11 @@ class ThrowableStackTest {
         val stack = IllegalStateException("test").stackBacktrace
         expect(stack.first()) toStartWith "${ThrowableStackTest::class.simpleName}.illegalStateException"
         expect(stack) {
-            toHaveElementsAndNone {
-                this toContain "init"
-            }
+            it notToContain o the entries(
+                { it toContain "init" },
+                { it toContain "[as constructor]" }
+            )
+
             toHaveElementsAndAny {
                 this toContain "mocha"
             }
