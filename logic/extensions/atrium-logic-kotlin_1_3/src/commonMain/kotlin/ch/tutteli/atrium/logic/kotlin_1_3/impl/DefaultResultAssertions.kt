@@ -2,6 +2,7 @@ package ch.tutteli.atrium.logic.kotlin_1_3.impl
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
@@ -37,9 +38,12 @@ class DefaultResultAssertions : ResultAssertions {
         container.manualFeature(EXCEPTION) {
 
 
-            if(exceptionOrNull() == null && container.maybeSubject.map { exceptionOrNull() } != null){
-                //unwrap somehow (?) todo
-                exceptionOrNull()
+            if(exceptionOrNull() == null
+                &&
+                container.maybeSubject.map { exceptionOrNull() }.getOrElse { null } != null){
+
+                container.maybeSubject.map { exceptionOrNull() }.getOrElse { null }
+
             } else {
 
                 exceptionOrNull()
