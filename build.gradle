@@ -32,7 +32,7 @@ buildscript {
         mockito = { "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion" }
 
         // project setup
-        tutteli_plugins_version = '0.33.1'
+        tutteli_plugins_version = '4.7.2'
         d8_version = '1.6.84'
 
         // release
