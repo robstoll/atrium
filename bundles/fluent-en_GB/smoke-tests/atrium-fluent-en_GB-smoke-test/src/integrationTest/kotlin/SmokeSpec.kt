@@ -1,6 +1,5 @@
-package custom
-
 import ch.tutteli.atrium.api.fluent.en_GB.notToExist
+import ch.tutteli.atrium.api.fluent.en_GB.toBePresent
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -16,8 +15,9 @@ import org.spekframework.spek2.Spek
 import java.nio.file.Paths
 
 object SmokeSpec : Spek({
+
     test("see if `toEqual` can be used") {
-        expect(1).toEqual(2)
+        expect(1).toEqual(1)
     }
 
     test("see if `Path.existsNot` can be used") {
@@ -31,6 +31,22 @@ object SmokeSpec : Spek({
 
     test("see if own expectation function with i18n can be used") {
         expect(4).toBeAMultipleOf(2)
+    }
+
+    listOf(
+        "ch.tutteli.atrium.verbs",
+        "ch.tutteli.atrium.api.fluent.en_GB",
+        "ch.tutteli.atrium.logic"
+    ).forEach {
+        test("module $it is loaded") {
+            val boot = ModuleLayer.boot()
+            expect(1).toEqual(1)
+
+            println("modules: ${boot.modules().joinToString("\n")}")
+            println("parents: ${boot.parents().joinToString("\n")}")
+
+            expect(boot.findModule(it)).toBePresent()
+        }
     }
 })
 

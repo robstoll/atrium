@@ -71,11 +71,12 @@ val toolProjects by extra(subprojects.asSequence().filter {
     it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\")
 }.toSet())
 
-val subprojectsWithoutToolProjects = subprojects - toolProjects
+val bundleSmokeTests = subprojects.asSequence().filter {
+    it.name.contains("-smoke-test")
+}.toSet()
 
-val docProjects by extra(subprojectsWithoutToolProjects.asSequence().filter {
-    !it.name.startsWith("${rootProject.name}-specs")
-}.toSet())
+val subprojectsWithoutToolProjects = subprojects - toolProjects
+val subprojectsWithoutToolAndSmokeTestProjects = subprojectsWithoutToolProjects - bundleSmokeTests
 
 extensions.getByType<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension>().apply {
     modeSimple.set(false)
@@ -87,15 +88,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-    }
-}
-
-configure(subprojectsWithoutToolProjects) {
-    apply(plugin = "ch.tutteli.gradle.plugins.dokka")
-
-    // we don't specify a module-info.java in specs (so far)
-    if (name != "atrium-specs") {
-        apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
     }
 }
 
@@ -230,6 +222,12 @@ tasks.withType<KotlinCompile> {
 }
 
 
+configure(subprojectsWithoutToolAndSmokeTestProjects) {
+
+
+}
+
+
 //TODO 0.20.0 re-introduce bcTests again? I am currently not sure if it is actually worth it
 // did not have the need to be binary compatible for a while
 //val apiProjects = subprojects.filter {
@@ -240,15 +238,20 @@ tasks.withType<KotlinCompile> {
 //    createTestSourcesJarTask(apiProject)
 //}
 
-val bundleSmokeTests = subprojects.filter {
-    it.name.contains("-smoke-test")
-}.toSet()
 
-configure(subprojects - bundleSmokeTests - toolProjects) {
+configure(subprojectsWithoutToolAndSmokeTestProjects) {
+    apply(plugin = "ch.tutteli.gradle.plugins.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.publish")
 
     project.extensions.getByType<ch.tutteli.gradle.plugins.publish.PublishPluginExtension>().apply {
         resetLicenses("EUPL-1.2")
+    }
+}
+
+configure(subprojectsWithoutToolAndSmokeTestProjects) {
+    // we don't specify a module-info.java in specs (so far)
+    if (name != "atrium-specs") {
+        apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
     }
 }
 
@@ -267,7 +270,8 @@ subprojects {
                 val additional = subproject.extra.get(jacocoAdditionalExtraName) as List<*>
                 additional.forEach { p ->
                     val otherProject = p as Project
-                    val kotlin = otherProject.extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension>()
+                    val kotlin =
+                        otherProject.extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension>()
                     kotlin?.sourceSets?.filterNot { it.name.contains("Test") }?.forEach {
                         additionalSourceDirs(it.kotlin.sourceDirectories)
                     }
@@ -294,38 +298,41 @@ if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
 }
 
 configure(bundleSmokeTests) {
-    val subproject = this
-    val suffix = "-smoke-test"
-    val isABundleAndNotExtensionSmokeTest = name.endsWith(suffix)
-    if (isABundleAndNotExtensionSmokeTest) {
-        val bundleUnderTest = name.substring(0, name.indexOf(suffix))
-        val bundle = project(":$bundleUnderTest")
 
-        description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
-
-        extensions.getByType<JavaPluginExtension>().apply {
-            sourceCompatibility = JavaVersion.current()
-            targetCompatibility = JavaVersion.current()
-        }
-
-        subproject.extra.set(jacocoAdditionalExtraName, listOf(bundle))
-
-        extensions.getByType<KotlinJvmProjectExtension>().apply {
-            sourceSets {
-                named("test").configure {
-                    with(kotlin) {
-                        // we are reusing the source from the bundle, so that we do not have to re-invent the spec
-                        srcDirs.add(bundle.projectDir.resolve("src/test/kotlin"))
-                    }
-
-                    dependencies {
-                        //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
-                        implementation(bundle)
-                    }
-                }
-            }
-        }
-    }
+//    apply(plugin = "ch.tutteli.gradle.plugins.spek")
+//
+//    val subproject = this
+//    val suffix = "-smoke-test"
+//    val isABundleAndNotExtensionSmokeTest = name.endsWith(suffix)
+//    if (isABundleAndNotExtensionSmokeTest) {
+//        val bundleUnderTest = name.substring(0, name.indexOf(suffix))
+//        val bundle = project(":$bundleUnderTest")
+//
+//        description = "Represents a JDK >= 9 smoke test for $bundleUnderTest"
+//
+//        extensions.getByType<JavaPluginExtension>().apply {
+//            sourceCompatibility = JavaVersion.current()
+//            targetCompatibility = JavaVersion.current()
+//        }
+//
+//        subproject.extra.set(jacocoAdditionalExtraName, listOf(bundle))
+//
+//        extensions.getByType<KotlinJvmProjectExtension>().apply {
+//            sourceSets {
+//                named("test").configure {
+//                    with(kotlin) {
+//                        // we are reusing the source from the bundle, so that we do not have to re-invent the spec
+//                        srcDirs.add(bundle.projectDir.resolve("src/jvmTest/kotlin"))
+//                    }
+//
+//                    dependencies {
+//                        //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
+//                        implementation(bundle)
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 // TODO 0.22.0 reactivate and transform to Kotlin as soon as we tackle the scala API again

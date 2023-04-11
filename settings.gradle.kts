@@ -59,7 +59,7 @@ if (System.getenv("BC") != null) {
 
 listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
-//    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
+    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
 //    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
     include("apis/$apiName",  "atrium-api-$apiName")
     include("apis/$apiName/extensions", "atrium-api-$apiName-kotlin_1_3")
@@ -87,7 +87,7 @@ fun Settings_gradle.includeBc(oldVersion: String, module: String) {
 fun Settings_gradle.include(subPath: String, projectName: String) {
     val dir = file("${rootProject.projectDir}/$subPath/$projectName")
     if (!dir.exists()) {
-        throw GradleException("cannot include project $projectName as its projectDir $dir does not exist")
+        throw GradleException("cannot include project $projectName because its projectDir $dir does not exist")
     }
     include(projectName)
     project(":$projectName").projectDir = dir
