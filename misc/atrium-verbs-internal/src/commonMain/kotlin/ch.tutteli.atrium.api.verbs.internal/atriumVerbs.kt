@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Creates an [Expect] for the given [subject].
  *
- * @param subject The subject for which we are going to postulate assertions.
+ * @param subject The subject for which we are going to postulate expectations.
  *
  * @return The newly created [RootExpect].
  * @throws AssertionError in case an assertion does not hold.
@@ -34,7 +34,7 @@ fun <T> expect(subject: T): RootExpect<T> =
  * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
  * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
  *
- * @param subject The subject for which we are going to postulate assertions.
+ * @param subject The subject for which we are going to postulate expectations.
  * @param assertionCreator expectation-group with a non-fail fast behaviour.
  *
  * @return The newly created [RootExpect].
