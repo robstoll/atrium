@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.Expect
@@ -30,6 +29,21 @@ class AdjustStackTest {
     }
 
     @Test
+    fun noOp_makeSureStackBacktraceIsInOutput_issue1383() {
+        expect{
+            expect {
+                assertNoOp(1) toEqual 2
+            }.toThrow<AssertionError> {
+                feature(AssertionError::stackBacktrace) toContain entries(
+                    { it toContain "createAtriumError2" }
+                )
+            }
+        }.toThrow<AssertionError> {
+            it messageToContain "stackBacktrace"
+        }
+    }
+
+    @Test
     fun removeRunner_containsAtriumButNotMocha() {
         expect {
             assertRemoveRunner(1) toEqual 2
@@ -51,7 +65,7 @@ class AdjustStackTest {
                 it feature of(UnsupportedOperationException::stackBacktrace) {
                     it notToContain o entry { it toContain "mocha" }
                     it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
-                    it toContain { it toContain Regex("toThrow.*atrium-logic")}
+                    it toContain { it toContain Regex("toThrow.*atrium-logic") }
                 }
             }
         }
