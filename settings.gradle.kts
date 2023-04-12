@@ -59,8 +59,8 @@ if (System.getenv("BC") != null) {
 
 listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
-//    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
-//    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
+    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
+    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
     include("apis/$apiName",  "atrium-api-$apiName")
     include("apis/$apiName/extensions", "atrium-api-$apiName-kotlin_1_3")
 }

@@ -1,4 +1,4 @@
-description = "Convenience module which depends on atrim-api-fluent and atrium-verbs"
+description = "Convenience module which depends on atrium-api-fluent and atrium-verbs"
 
 kotlin {
     sourceSets {

@@ -1,4 +1,4 @@
-description = "Convenience module which depends on atrim-api-infix and atrium-verbs"
+description = "Convenience module which depends on atrium-api-infix and atrium-verbs"
 
 val niokVersion: String by rootProject.extra
 
