@@ -14,17 +14,5 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
-        val jvmTest by getting {
-            dependencies {
-                implementation(prefixedProject("specs"))
-            }
-        }
-
-        configureEach {
-            languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
-            }
-        }
     }
 }

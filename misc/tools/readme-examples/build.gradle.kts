@@ -2,7 +2,6 @@ description = "Runs examples, includes the code and the output in README.md"
 
 val junitPlatformVersion: String by rootProject.extra
 val spekVersion: String by rootProject.extra
-val kotlinVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
 
 kotlin {
@@ -13,7 +12,7 @@ kotlin {
                 implementationWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
                 implementationWithExclude("org.spekframework.spek2:spek-runner-junit5:$spekVersion")
                 implementationWithExclude("org.spekframework.spek2:spek-runtime-jvm:$spekVersion")
-                runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+                runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
 
                 implementation(prefixedProject("fluent-en_GB"))
                 implementationWithExclude("ch.tutteli.niok:niok:$niokVersion")

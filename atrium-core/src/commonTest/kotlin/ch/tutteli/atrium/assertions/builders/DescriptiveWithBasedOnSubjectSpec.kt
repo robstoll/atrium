@@ -5,16 +5,16 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.utils.expectLambda
-import ch.tutteli.atrium.specs.subjectLessKotestBasedSpec
-import io.kotest.core.spec.style.FunSpec
+import ch.tutteli.atrium.specs.SubjectLessSpec
+import org.spekframework.spek2.Spek
 
-class DescriptiveWithBasedOnSubjectSpec : FunSpec({
+class DescriptiveWithBasedOnSubjectSpec : Spek({
 
     fun addDescriptive(f: (Expect<Int>, Descriptive.HoldsOption) -> Assertion) = expectLambda<Int> {
         _logic.append(f(this, assertionBuilder.descriptive))
     }
 
-    include(subjectLessKotestBasedSpec("",
+    include(object : SubjectLessSpec<Int>("",
         "withTest" to addDescriptive { expect, builder ->
             builder.withTest(expect) { it < 3 }
                 .withDescriptionAndRepresentation("what ever", 1)
@@ -66,5 +66,5 @@ class DescriptiveWithBasedOnSubjectSpec : FunSpec({
                 .withDescriptionAndRepresentation("what ever", 1)
                 .build()
         }
-    ))
+    ) {})
 })

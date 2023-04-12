@@ -62,8 +62,6 @@ class DefaultFeatureAssertions : FeatureAssertions {
         description: Translatable,
         provider: (T) -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R> {
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalNewExpectTypes::class)
         return container.extractFeature
             .withDescription(description)
             .withRepresentationForFailure(ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED)

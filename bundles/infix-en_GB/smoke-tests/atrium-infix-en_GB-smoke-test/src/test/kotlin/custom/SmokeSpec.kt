@@ -1,7 +1,6 @@
 package custom
 
-import ch.tutteli.atrium.api.fluent.en_GB.notToExist
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -13,38 +12,39 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.spekframework.spek2.Spek
-import java.nio.file.Paths
 
 object SmokeSpec : Spek({
     test("see if `toEqual` can be used") {
-        expect(1).toEqual(1)
-    }
-
-    test("see if `Path.existsNot` can be used") {
-        expect(Paths.get("nonExisting")).notToExist()
+        expect(1) toEqual 1
     }
 
     test("see if own expectation function without i18n can be used") {
-        expect(2).toBeEven()
-        expect(1).toBeOdd()
+        expect(2) toBe even
+        expect(1) toBe odd
     }
 
     test("see if own expectation function with i18n can be used") {
-        expect(4).toBeAMultipleOf(2)
+        expect(4) toBeMultipleOf 2
     }
 })
 
-fun Expect<Int>.toBeEven() =
-    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
+@Suppress("ClassName")
+object even
+@Suppress("ClassName")
+object odd
 
-fun Expect<Int>.toBeOdd() =
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
+    _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an even number")) { it % 2 == 0 })
+
+infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.toBeAMultipleOf(base: Int) = _logicAppend { toBeAMultipleOf(base) }
+infix fun Expect<Int>.toBeMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeMultipleOf(base) }
 
-private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     TO_BE_MULTIPLE_OF("to be multiple of")
 }
+

@@ -1,6 +1,4 @@
-description = "Convenience module which depends on atrim-api-fluent and atrium-verbs"
-
-val kotestVersion: String by rootProject.extra
+description = "Convenience module which depends on atrium-api-fluent and atrium-verbs"
 
 kotlin {
     sourceSets {
@@ -16,16 +14,6 @@ kotlin {
                 api(prefixedProject("verbs"))
                 api(prefixedProject("api-fluent-en_GB"))
                 api(prefixedProject("translations-en_GB"))
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementationWithExclude("io.kotest:kotest-framework-api:$kotestVersion")
-            }
-        }
-        val jvmTest by getting{
-            dependencies {
-                implementationWithExclude("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
             }
         }
     }

@@ -1,3 +1,10 @@
+//pluginManagement {
+//    repositories {
+//        mavenLocal()
+//        gradlePluginPortal()
+//    }
+//}
+
 rootProject.name = "atrium"
 
 buildscript {
@@ -11,7 +18,6 @@ buildscript {
     val bcConfigs: List<Triple<String, List<Pair<String, List<String>>>, Pair<String, Pair<Boolean, String>>>> = listOf()
     (gradle as ExtensionAware).extra.apply {
         apply {
-            set("tutteli_plugins_version", "0.32.2")
             set("bcConfigs", bcConfigs)
         }
     }
