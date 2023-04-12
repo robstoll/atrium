@@ -75,7 +75,7 @@ internal class FeatureExpectImpl<T, R>(
         (previousExpect as AssertionContainer<*>).append(
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(description, representation)
-                .withAssertions(ArrayList(assertions))
+                .withAssertions(assertions.toList())
                 .build()
         )
         assertions.clear()
