@@ -11,77 +11,6 @@ import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'toBeLessThan' is now deprecated, use 'toBeBefore' instead.",
-    ReplaceWith("toBeBefore(expected")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'toBeLessThanOrEqualTo is now deprecated, use 'toBeBeforeOrTheSamePointInTimeAs' instead.",
-    ReplaceWith("toBeBeforeOrTheSamePointInTimeAs(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'notToBeGreaterThan' is now deprecated, use 'toBeBeforeOrTheSamePointInTimeAs' instead.",
-    ReplaceWith("toBeBeforeOrTheSamePointInTimeAs(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeGreaterThan(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'toBeEqualComparingTo' is now deprecated, use 'toBeTheSamePointInTimeAs' instead.",
-    ReplaceWith("toBeTheSamePointInTimeAs(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeEqualComparingTo(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'toBeGreaterThanOrEqualTo' is now deprecated, use 'toBeAfterOrTheSamePointInTimeAs' instead.",
-    ReplaceWith("toBeAfterOrTheSamePointInTimeAs(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'notToBeLessThan' is now deprecated, use 'toBeAfterOrTheSamePointInTimeAs' instead.",
-    ReplaceWith("toBeAfterOrTheSamePointInTimeAs(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeLessThan(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-@Suppress("UNUSED_PARAMETER", "unused")
-@Deprecated(
-    "'toBeGreaterThan' is now deprecated, use 'toBeAfter' instead.",
-    ReplaceWith("toBeAfter(expected)")
-)
-fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThan(expected: T): Nothing =
-    throw PleaseUseReplacementException(
-        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
-    )
-
-
 /**
  * Expects that the subject of `this` expectation (a [ChronoZonedDateTime])
  * is before the [expected] [ChronoZonedDateTime].
@@ -336,3 +265,74 @@ fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
 fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
     expected: String
 ): Expect<T> = _logicAppend { isAfter(expected) }
+
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'toBeLessThan' is now deprecated, use 'toBeBefore' instead.",
+    ReplaceWith("toBeBefore(expected")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'toBeLessThanOrEqualTo is now deprecated, use 'toBeBeforeOrTheSamePointInTimeAs' instead.",
+    ReplaceWith("toBeBeforeOrTheSamePointInTimeAs(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'notToBeGreaterThan' is now deprecated, use 'toBeBeforeOrTheSamePointInTimeAs' instead.",
+    ReplaceWith("toBeBeforeOrTheSamePointInTimeAs(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeGreaterThan(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'toBeEqualComparingTo' is now deprecated, use 'toBeTheSamePointInTimeAs' instead.",
+    ReplaceWith("toBeTheSamePointInTimeAs(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeEqualComparingTo(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'toBeGreaterThanOrEqualTo' is now deprecated, use 'toBeAfterOrTheSamePointInTimeAs' instead.",
+    ReplaceWith("toBeAfterOrTheSamePointInTimeAs(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'notToBeLessThan' is now deprecated, use 'toBeAfterOrTheSamePointInTimeAs' instead.",
+    ReplaceWith("toBeAfterOrTheSamePointInTimeAs(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeLessThan(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
+
+@Suppress("UNUSED_PARAMETER", "unused")
+@Deprecated(
+    "'toBeGreaterThan' is now deprecated, use 'toBeAfter' instead.",
+    ReplaceWith("toBeAfter(expected)")
+)
+fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThan(expected: T): Nothing =
+    throw PleaseUseReplacementException(
+        "If you wish to use deprecated methods for ChronoZonedDateTime functions, use a feature extractor"
+    )
