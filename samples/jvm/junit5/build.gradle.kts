@@ -7,7 +7,7 @@ val atriumVersion = "0.18.0"
 val junitVersion = "5.9.2"
 
 plugins {
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version "1.8.20"
 }
 
 group = "org.atriumlib.samples"
