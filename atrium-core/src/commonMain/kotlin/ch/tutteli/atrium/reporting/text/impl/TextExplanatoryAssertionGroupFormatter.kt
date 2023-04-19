@@ -54,7 +54,7 @@ class TextExplanatoryAssertionGroupFormatter(
             if (withIndent) withIndent(bulletPoint)
             else parameterObject.createForExplanatoryFilterAssertionGroup(bulletPoint)
 
-        //TODO 1.0.0 move val inside when
+        //TODO 1.1.0 move val inside when
         val assertionGroupType = assertionGroup.type
         return when (assertionGroupType) {
             is InformationAssertionGroupType -> withOrWithoutIndent(

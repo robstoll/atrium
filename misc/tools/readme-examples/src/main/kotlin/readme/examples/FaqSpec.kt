@@ -1,7 +1,6 @@
 package readme.examples
 
 import ch.tutteli.atrium.api.fluent.en_GB.asIterable
-import ch.tutteli.atrium.api.fluent.en_GB.contains
 import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import org.spekframework.spek2.Spek

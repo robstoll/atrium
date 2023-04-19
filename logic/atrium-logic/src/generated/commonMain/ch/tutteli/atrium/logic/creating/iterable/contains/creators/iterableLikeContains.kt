@@ -4,8 +4,6 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
-
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion

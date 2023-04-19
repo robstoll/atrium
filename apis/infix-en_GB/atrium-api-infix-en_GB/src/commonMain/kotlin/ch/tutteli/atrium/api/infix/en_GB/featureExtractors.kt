@@ -92,7 +92,7 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  *
  * @since 0.12.0
  */
-//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
+//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.1.0)
 infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
     _logic.manualFeature(
         of.descriptionProvider(
@@ -123,7 +123,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<in T, R>): FeatureExpect<T, R> =
  *
  * @since 0.12.0
  */
-//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.0.0)
+//TODO remove `in` with Kotlin 1.4 (most likely with Atrium 1.1.0)
 infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<in T, R>): Expect<T> =
     _logic.manualFeature(
         of.descriptionProvider(

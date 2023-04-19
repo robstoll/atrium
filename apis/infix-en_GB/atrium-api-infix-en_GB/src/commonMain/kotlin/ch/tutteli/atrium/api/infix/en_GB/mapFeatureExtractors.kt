@@ -39,7 +39,7 @@ infix fun <K, V, T : Map<out K, V>> Expect<T>.getExisting(key: KeyWithCreator<K,
 fun <K, V> key(key: K, assertionCreator: Expect<V>.() -> Unit): KeyWithCreator<K, V> =
     KeyWithCreator(key, assertionCreator)
 
-//TODO consider with 1.0.0 if we should add the filler `o` as well (or in addition)
+//TODO consider with 2.0.0 if we should add the filler `o` as well (or in addition)
 /**
  * Creates an [Expect] for the property [Map.keys] of the subject of `this` expectation,
  * so that further fluent calls are assertions about it.

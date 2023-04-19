@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.specs.reporting.translating
 
-import ch.tutteli.atrium.api.fluent.en_GB.containsExactly
 import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.translating.Locale

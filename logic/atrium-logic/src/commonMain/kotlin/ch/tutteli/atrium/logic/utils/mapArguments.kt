@@ -195,15 +195,6 @@ class ArgumentMapperBuilder<out T> internal constructor(
 fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilder<T> =
     ArgumentToNullOrMapperBuilder(this)
 
-@JsName("deprecatedToNullOr")
-@Suppress("unused")
-@Deprecated(
-    "Since your arguments are not nullable it does not make sense to call this function - use the replacement.",
-    ReplaceWith("toExpect(assertionCreator)")
-)
-fun <T : Any> ArgumentMapperBuilder<T>.toNullOr(): Nothing =
-    throw PleaseUseReplacementException("Since your arguments are not nullable it does not make sense to call this function.")
-
 /**
  * Builder to map variable length arguments formulated as `(first: T, vararg others : T)` to something else.
  *
