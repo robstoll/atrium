@@ -1,14 +1,13 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
 class FormatFloatingPointNumberTest {
 
-    //TODO move to common-tests formatting floating points should be the same on all platforms
-    //TODO formatting should be done via ObjectFormatter where the formatter takes the Locale of the user into account
+    //TODO 1.2.0 move to common-tests formatting floating points should be the same on all platforms
+    //TODO 1.2.0 formatting should be done via ObjectFormatter where the formatter takes the Locale of the user into account
     @Test
     fun float_notRoundedPrecisionNotAlwaysOk() {
         expect(formatFloatingPointNumber(1.0f - 0.01f)) toEqual "0.99"

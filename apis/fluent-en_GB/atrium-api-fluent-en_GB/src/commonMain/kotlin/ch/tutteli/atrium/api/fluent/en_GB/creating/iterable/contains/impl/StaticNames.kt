@@ -1,4 +1,4 @@
-//TODO rename package to iterablelike.toContain with 1.0.0
+//TODO rename package to iterablelike.toContain with 1.1.0
 package ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl
 
 import ch.tutteli.atrium.api.fluent.en_GB.*

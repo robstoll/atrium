@@ -142,7 +142,7 @@ fun <T : MapLike> entriesOf(
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValues
  */
-// TODO 1.0.0: consider to rename to entries once updated to Kotlin 1.4 maybe the type inference is better and there
+// TODO 1.1.0: consider to rename to `entries` once updated to Kotlin 1.4 maybe the type inference is better and there
 // is no longer a clash with Iterable entries
 fun <K, V : Any> keyValues(
     keyValue: KeyWithValueCreator<K, V>,
@@ -157,7 +157,7 @@ fun <K, V : Any> keyValues(
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *   since 0.18.0
  */
-// TODO 1.0.0: consider to rename to entries once updated to Kotlin 1.4 maybe the type inference is better and there
+// TODO 1.1.0: consider to rename to `entries` once updated to Kotlin 1.4 maybe the type inference is better and there
 // is no longer a clash with Iterable entries
 fun <K, V : Any> keyValues(
     keyValue: KeyWithValueCreator<K, V>,
@@ -212,13 +212,6 @@ fun <E> present(assertionCreator: Expect<E>.() -> Unit): PresentWithCreator<E> =
  */
 fun regexPatterns(pattern: String, vararg otherPatterns: String): RegexPatterns =
     RegexPatterns(pattern, otherPatterns)
-
-/**
- * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].
- */
-@Deprecated("Use aSuccess; will be removed with 1.0.0 at the latest", ReplaceWith("aSuccess<E>(assertionCreator)"))
-fun <E> success(assertionCreator: Expect<E>.() -> Unit): SuccessWithCreator<E> =
-    SuccessWithCreator(assertionCreator)
 
 /**
  * Helper function to create a [SuccessWithCreator] based on the given [assertionCreator].

@@ -18,7 +18,6 @@ abstract class TextExplanatoryBasedAssertionGroupFormatterSpec<T : ExplanatoryAs
     withIndent: Boolean = true
 ) : Spek({
 
-    @Suppress("DEPRECATION" /* TODO inline TextIndentBasedAssertionGroupFormatterSpec with 1.0.0 */)
     include(object : TextIndentBasedAssertionGroupFormatterSpec<T>(
         testeeFactory,
         assertionGroupTypeClass,

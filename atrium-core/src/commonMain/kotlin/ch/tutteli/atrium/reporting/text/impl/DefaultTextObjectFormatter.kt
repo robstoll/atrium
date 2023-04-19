@@ -40,7 +40,6 @@ abstract class TextObjectFormatterCommon(
      *
      * @return The formatted [value].
      */
-    @Suppress( /* TODO remove with 1.0.0 */ "DEPRECATION")
     override fun format(value: Any?): String = when (value) {
         null -> Text.NULL.string
         is LazyRepresentation -> format(value.eval())

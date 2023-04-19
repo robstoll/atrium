@@ -53,16 +53,6 @@ object MapArgumentsSpec : Spek({
                         }
                     }
                 }
-
-
-                it("on non-nullable arguments") {
-                    @Suppress("DEPRECATION")
-                    fun it(i: String, vararg iX: String): Nothing = mapArguments(i, iX).toNullOr()
-
-                    expect {
-                        it("a", "b", "c")
-                    }.toThrow<PleaseUseReplacementException>()
-                }
             }
         }
 

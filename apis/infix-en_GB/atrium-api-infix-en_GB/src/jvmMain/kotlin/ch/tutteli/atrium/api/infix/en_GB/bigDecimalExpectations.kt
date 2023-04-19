@@ -87,10 +87,10 @@ infix fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
  * @since 0.17.0
  */
 @Deprecated(
-    "Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
+    "Use `notToEqualNumerically` if you expect that the following assertion is wrong:\n" +
         "`expect(BigDecimal(\"10\")).notToBe(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `notToEqualIncludingScale`.",
-    ReplaceWith("isNotNumericallyEqualTo(expected) or notToEqualIncludingScale(expected)")
+    ReplaceWith("notToEqualNumerically(expected) or notToEqualIncludingScale(expected)")
 )
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Expect<T>.notToEqual(expected: T): Nothing =

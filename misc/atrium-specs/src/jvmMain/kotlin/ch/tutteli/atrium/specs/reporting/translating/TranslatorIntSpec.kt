@@ -96,7 +96,7 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
-//TODO 1.0.0 rename to TranslatorIntSpec
+//TODO 1.1.0 remove when we drop support for translation
 @ExperimentalComponentFactoryContainer
 abstract class TranslatorIntSpec(
     translatorConfiguration: (RootExpectBuilder.OptionsChooser<*>, Locale, List<Locale>) -> Unit,

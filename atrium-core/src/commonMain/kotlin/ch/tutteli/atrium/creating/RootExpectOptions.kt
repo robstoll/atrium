@@ -21,8 +21,6 @@ data class RootExpectOptions<T>(
     val representationInsteadOfSubject: ((T) -> Any)?,
     val componentFactoryContainer: ComponentFactoryContainer?
 ) {
-    @Deprecated("Use expectationVerb; will be removed with 1.0.0 at the latest (maybe earlier)")
-    val assertionVerb = expectationVerb
 
     /**
      * Merges the given [options] with `this` [RootExpectOptions] object creating a new [RootExpectOptions]

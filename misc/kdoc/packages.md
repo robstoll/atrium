@@ -91,7 +91,6 @@ Contains the out-of-the-box expectation verb [expect](./ch.tutteli.atrium.api.ve
 # ch.tutteli.atrium.assertions
 Contains different types of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html),  
 e.g. [DescriptiveAssertion](./ch.tutteli.atrium.assertions/-descriptive-assertion/index.html).
-Currently, it contains also `@Deprecated` types which will be made internal with 0.18.0 or earlier
 
 # ch.tutteli.atrium.assertions.builders
 The [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) 

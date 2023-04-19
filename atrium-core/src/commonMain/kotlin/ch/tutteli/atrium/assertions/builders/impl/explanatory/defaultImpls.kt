@@ -10,6 +10,5 @@ internal object ExplanationOptionImpl : Explanatory.ExplanationOption {
 
 internal class FinalStepImpl(override val explanation: Any?) : Explanatory.FinalStep {
 
-    @Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
     override fun build(): ExplanatoryAssertion = ch.tutteli.atrium.assertions.BasicExplanatoryAssertion(explanation)
 }

@@ -22,16 +22,4 @@ enum class DescriptionBasic(override val value: String) : StringBasedTranslatabl
 
     WAS("war"),
     NONE("kein"),
-
-    @Deprecated("Use TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_BE"))
-    IS("ist"),
-
-    @Deprecated("Use NOT_TO_BE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_BE"))
-    IS_NOT("ist nicht"),
-
-    @Deprecated("Use TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("TO_HAVE"))
-    HAS("hat"),
-
-    @Deprecated("Use NOT_TO_HAVE instead; will be removed with 1.0.0 at the latest", ReplaceWith("NOT_TO_HAVE"))
-    HAS_NOT("hat nicht"),
 }

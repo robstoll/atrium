@@ -48,7 +48,6 @@ internal class FinalStepImpl(
     override val representation: Any
 ) : Descriptive.FinalStep {
 
-    @Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
     override fun build(): DescriptiveAssertion =
         ch.tutteli.atrium.assertions.BasicDescriptiveAssertion(description, representation, test)
 }

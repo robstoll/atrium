@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION" /* TODO remove annotation with 1.0.0 */)
-
 package ch.tutteli.atrium.logic.creating.maplike.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion

@@ -42,28 +42,6 @@ interface Explanatory {
          */
         fun withExplanation(explanation: Any?): FinalStep
 
-
-        @Deprecated(
-            "use withExplanation instead; will be removed with 1.0.0 at the latest",
-            ReplaceWith("this.withExplanation(translatable, arg, *otherArgs)")
-        )
-        fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): FinalStep =
-            withExplanation(translatable, arg, *otherArgs)
-
-
-        @Deprecated(
-            "use withExplanation instead; will be removed with 1.0.0 at the latest",
-            ReplaceWith("this.withExplanation(translatable)")
-        )
-        fun withDescription(translatable: Translatable): FinalStep = withExplanation(translatable)
-
-        @Deprecated(
-            "use withExplanation instead; will be removed with 1.0.0 at the latest",
-            ReplaceWith("this.withExplanation(explanation)")
-        )
-        fun withDescription(explanation: Any?): FinalStep = withExplanation(explanation)
-
-
         companion object {
             /**
              * Factory method to create the [ExplanationOption] step in the building process
