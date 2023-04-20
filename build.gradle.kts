@@ -1,7 +1,11 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.IOException
+import java.net.InetAddress
+import java.net.URL
 
 buildscript {
     rootProject.version = "0.19.0-SNAPSHOT"
@@ -82,6 +86,25 @@ extensions.getByType<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension>().app
     modeSimple.set(false)
 }
 
+// for whatever reason, this is done in the root project and not in the individual subprojects which actually have a
+// JS target.
+tasks.withType<KotlinNpmInstallTask> {
+    doFirst {
+        val isOffline = try {
+            val url = URL("https://www.google.com")
+            val connection = url.openConnection()
+            connection.connect()
+            false
+        } catch (e: IOException) {
+            logger.warn("could not connect to www.google.com (got $e) -- going to use --offline to resolve npm dependencies")
+            true
+        }
+        if (isOffline) {
+            args.add("--offline")
+        }
+    }
+}
+
 subprojects {
     group = rootProject.group
     version = rootProject.version
@@ -99,7 +122,7 @@ configure(multiplatformProjects) {
 
     the<ch.tutteli.gradle.plugins.spek.SpekPluginExtension>().version = spekVersion
 
-    //TODO 0.21.0 remove once we moved away from spec
+    //TODO 0.21.0 remove once we moved away from spec to kotlin-test
     if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {
         the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
             .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
@@ -178,7 +201,6 @@ configure(multiplatformProjects) {
         }
     }
 }
-
 
 fun NamedDomainObjectContainerScope<KotlinSourceSet>.configureLanguageSettings(project: Project) {
     configureEach {
