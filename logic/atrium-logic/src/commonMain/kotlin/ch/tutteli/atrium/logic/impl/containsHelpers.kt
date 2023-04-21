@@ -39,7 +39,7 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
     return assertionBuilder.explanatoryGroup
         .withDefaultType
         .let {
-            //TODO 0.20.0 looks a lot like toBeNullIfNullGiven
+            //TODO 1.1.0 looks a lot like toBeNullIfNullGiven
             if (assertionCreatorOrNull != null) {
                 // we don't use a subject, we will not show it anyway
                 it.collectAssertions(container, None, assertionCreatorOrNull)

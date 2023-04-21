@@ -21,7 +21,7 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      # TODO 0.20.0 re-activate scala API
+      # TODO 1.3.0 re-activate scala API
       #            -   name: composite build atrium-scala2
       #                run: ./gradlew build
       #                working-directory: misc/tools/atrium-scala2-test

@@ -40,7 +40,7 @@ abstract class FloatingPointWithErrorToleranceExpectationsSpec(
         testData: List<TestData<T>>
     ) = this.checkFloatingPoint(describePrefix, pair, withFailureNotice, absDiff, testData)
 
-    //TODO 0.20.0 report Kotlin regression, using this was not necessary in 1.4.32
+    //TODO 1.1.0 report Kotlin regression, using this was not necessary in 1.4.32
     //@formatter:off
     this.describeFun(toEqualWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
         TestData(0.001f, 0.001f, listOf(0.002f, 0.0f, -0.0f, 0.00001f), listOf(0.0021f, -0.0000001f)),

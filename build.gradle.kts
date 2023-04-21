@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.IOException
-import java.net.InetAddress
 import java.net.URL
 
 buildscript {
@@ -23,7 +22,7 @@ val junitPlatformVersion by extra("1.9.2")
 val jupiterVersion by extra("5.9.2")
 // need to use an old version of spek as the newer contains a bug which causes that no tests are discovered and executed
 val spekVersion by extra("2.0.12")
-//TODO v0.20.0 decide whether we drop kotest again or not
+//TODO v1.1.0 decide whether we drop kotest again or not
 //val kotestVersion by extra("4.6.4")
 val spekExtensionsVersion by extra("1.2.1")
 val mockkVersion by extra("1.10.0")
@@ -122,7 +121,7 @@ configure(multiplatformProjects) {
 
     the<ch.tutteli.gradle.plugins.spek.SpekPluginExtension>().version = spekVersion
 
-    //TODO 0.21.0 remove once we moved away from spec to kotlin-test
+    //TODO 1.2.0 remove once we moved away from spec to kotlin-test
     if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {
         the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
             .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
@@ -134,7 +133,7 @@ configure(multiplatformProjects) {
             withJava()
         }
 
-        //TODO 0.20.0 switch from LEGACY to IR once we output Kotlin > 1.4
+        //TODO 1.3.0 switch from LEGACY to IR once we output Kotlin > 1.4
         js(LEGACY) { nodejs() }
 
         sourceSets {
@@ -145,20 +144,20 @@ configure(multiplatformProjects) {
                 dependencies {
                     api(kotlin("reflect"))
 
-                    // TODO 0.20.0 shouldn't be necessary to add stdlib dependency to kotlin with kotlin 1.5.x (is automatically added)
+                    // TODO 1.3.0 shouldn't be necessary to add stdlib dependency to kotlin with kotlin 1.5.x (is automatically added)
                     api(kotlin("stdlib-common"))
                 }
             }
             val commonTest by getting {
                 dependencies {
-                    // TODO 0.20.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
+                    // TODO 1.3.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
                     implementation(kotlin("test-common"))
                     implementation(kotlin("test-annotations-common"))
                 }
             }
             val jvmMain by getting {
                 dependencies {
-                    // TODO 0.20.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
+                    // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
                     api(kotlin("stdlib-jdk8"))
                 }
             }
@@ -166,19 +165,19 @@ configure(multiplatformProjects) {
                 dependencies {
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
 
-                    // TODO  0.20.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
+                    // TODO 1.3.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
                     implementation(kotlin("test-junit5"))
                 }
             }
             val jsMain by getting {
                 dependencies {
-                    // TODO 0.20.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
+                    // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
                     api(kotlin("stdlib-js"))
                 }
             }
             val jsTest by getting {
                 dependencies {
-                    // TODO  0.20.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
+                    // TODO 1.3.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
                     implementation(kotlin("test-js"))
                 }
             }
@@ -192,7 +191,7 @@ configure(multiplatformProjects) {
             jvm {
                 testRuns["test"].executionTask.configure {
                     useJUnitPlatform {
-                        //TODO 0.20.0 decide if we really want to migrate to kotest, without support for hierarchical tests
+                        //TODO 1.1.0 decide if we really want to migrate to kotest, without support for hierarchical tests
                         // there is barely any value for Atrium to switch to kotest and we might be better of with kotlin-test (especially as there are JS issues)
                         includeEngines("spek2", "junit-jupiter")//, "kotest")
                     }
@@ -204,7 +203,7 @@ configure(multiplatformProjects) {
 
 fun NamedDomainObjectContainerScope<KotlinSourceSet>.configureLanguageSettings(project: Project) {
     configureEach {
-        //TODO 0.20.0 remove -kotlin_1_3 (once we drop support for kotlin 1.2) and use 1.4 in tests
+        //TODO 1.1.0 remove -kotlin_1_3 (once we drop support for kotlin 1.2) and use 1.4 in tests
         val languageVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
         val apiVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
         languageSettings.apply {
@@ -244,7 +243,7 @@ tasks.withType<KotlinCompile> {
 }
 
 
-//TODO 0.20.0 re-introduce bcTests again? I am currently not sure if it is actually worth it
+//TODO 1.1.0 re-introduce bcTests again? I am currently not sure if it is actually worth it
 // did not have the need to be binary compatible for a while
 //val apiProjects = subprojects.filter {
 //    it.name.startsWith("${rootProject.name}-api")
@@ -301,7 +300,7 @@ subprojects {
     }
 }
 
-//TODO 0.21.0 remove if we use kotlin 1.7.x should no longer be necessary
+//TODO 2.0.0 remove if we use kotlin 1.7.x should no longer be necessary
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"

@@ -27,7 +27,7 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    // TODO 0.21.0 #722 this will differ once we don't implement the same behaviour for notToContain and none
+    // TODO 1.2.0 #722 this will differ once we don't implement the same behaviour for notToContain and none
     // that's fine and we can simply remove this test here
     object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndAnyExpectationsSpec(
         shortcutDescription to C::toContainEntryShortcut,

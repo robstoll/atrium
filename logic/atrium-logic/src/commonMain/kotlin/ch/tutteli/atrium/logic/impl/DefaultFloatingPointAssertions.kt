@@ -76,7 +76,7 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
     assertionBuilder.descriptive
         .withTest(container.toExpect()) { absDiff(it) <= tolerance }
         .withHelpOnFailureBasedOnDefinedSubject(container.toExpect()) { subject ->
-            //TODO 0.20.0 that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
+            //TODO 1.1.0 that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
             //we do not want to see the failure nor the exact check in the 'an entry which...' part
             //same problematic applies to feature assertions within an identification lambda
             // => yet explanatory assertion should always hold
