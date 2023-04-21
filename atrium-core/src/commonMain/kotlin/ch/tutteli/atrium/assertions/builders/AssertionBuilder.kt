@@ -59,11 +59,7 @@ interface AssertionBuilder {
      *
      * Notice, return type will change to [ExplanatoryGroup.GroupTypeOption] with 1.0.0.
      */
-    @Suppress(
-        "DEPRECATION"
-        /** TODO change to ExplanatoryGroup.GroupTypeOption with 1.0.0 */
-    )
-    val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
+    val explanatoryGroup: ExplanatoryGroup.GroupTypeOption
 
     /**
      * Builder to create a [DescriptiveAssertion] -- use it to create a simple assertion consisting of a

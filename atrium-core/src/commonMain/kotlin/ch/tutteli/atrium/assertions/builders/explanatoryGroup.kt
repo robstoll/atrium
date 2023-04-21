@@ -14,28 +14,33 @@ interface ExplanatoryGroup {
     /**
      * Option step which allows to specify what [ExplanatoryAssertionGroupType] is used as [AssertionGroup.type].
      */
-    @Suppress("DEPRECATION" /* TODO remove super-type with 1.0.0 */)
-    interface GroupTypeOption : ExplanatoryAssertionGroupTypeOption {
+    interface GroupTypeOption {
 
         /**
          * Builder to create an [AssertionGroup] with a [DefaultExplanatoryAssertionGroupType].
          */
-        override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, FinalStep>
+        val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, FinalStep>
 
         /**
          * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
          */
-        override val withWarningType: AssertionsOption<WarningAssertionGroupType, FinalStep>
+        val withWarningType: AssertionsOption<WarningAssertionGroupType, FinalStep>
+
+        /**
+         * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
+         * @since 0.19.0
+         */
+        val withHintType: AssertionsOption<HintAssertionGroupType, FinalStep>
 
         /**
          * Builder to create an [AssertionGroup] with an [InformationAssertionGroupType].
          */
-        override fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, FinalStep>
+        fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, FinalStep>
 
         /**
          * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].
          */
-        override fun <T : ExplanatoryAssertionGroupType> withType(groupType: T): AssertionsOption<T, FinalStep>
+        fun <T : ExplanatoryAssertionGroupType> withType(groupType: T): AssertionsOption<T, FinalStep>
 
         companion object {
             /**
@@ -50,23 +55,22 @@ interface ExplanatoryGroup {
      * Final step which creates an [AssertionGroup] with an [ExplanatoryAssertionGroupType] based on the previously
      * defined [groupType] and the [explanatoryAssertions].
      */
-    @Suppress("DEPRECATION" /* TODO remove super-type with 1.0.0 */)
-    interface FinalStep : AssertionBuilderFinalStep<AssertionGroup>, ExplanatoryAssertionGroupFinalStep {
+    interface FinalStep : AssertionBuilderFinalStep<AssertionGroup> {
         /**
          * The previously defined [AssertionGroup.type].
          */
-        override val groupType: ExplanatoryAssertionGroupType
+        val groupType: ExplanatoryAssertionGroupType
 
         /**
          * The previously defined [AssertionGroup.assertions]
          */
-        override val explanatoryAssertions: List<Assertion>
+        val explanatoryAssertions: List<Assertion>
 
         /**
          * Make the ExplanatoryGroup no longer hold, use this if the explanatory expectation-group is a single assertion
          * within a group.
          */
-        override val failing: FinalStep get() = create(groupType, explanatoryAssertions, holds = false)
+        val failing: FinalStep get() = create(groupType, explanatoryAssertions, holds = false)
 
         companion object {
             /**
@@ -88,10 +92,9 @@ interface ExplanatoryGroup {
  *
  * See [AssertionsOption.withAssertion] for details.
  */
-@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */)
-fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryGroup.FinalStep>.withExplanatoryAssertion(
     translatable: Translatable
-): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withExplanation(translatable).build() }
+): ExplanatoryGroup.FinalStep = withExplanatoryAssertion { it.withExplanation(translatable).build() }
 
 
 /**
@@ -100,10 +103,9 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
  *
  * See [AssertionsOption.withAssertion] for details.
  */
-@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */)
-fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryGroup.FinalStep>.withExplanatoryAssertion(
     representation: Any?
-): ExplanatoryAssertionGroupFinalStep = withExplanatoryAssertion { it.withExplanation(representation).build() }
+): ExplanatoryGroup.FinalStep = withExplanatoryAssertion { it.withExplanation(representation).build() }
 
 /**
  * Defines that an [ExplanatoryAssertion] will be used as single [Assertion] in [AssertionGroup.assertions] where
@@ -112,13 +114,11 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
  *
  * See [AssertionsOption.withAssertion] for details.
  */
-@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */)
-fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryGroup.FinalStep>.withExplanatoryAssertion(
     translatable: Translatable,
     arg: Any,
     vararg otherArgs: Any
-): ExplanatoryAssertionGroupFinalStep =
-    withExplanatoryAssertion { it.withExplanation(translatable, arg, *otherArgs).build() }
+): ExplanatoryGroup.FinalStep = withExplanatoryAssertion { it.withExplanation(translatable, arg, *otherArgs).build() }
 
 
 /**
@@ -127,80 +127,6 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
  *
  * See [AssertionsOption.withAssertion] for details.
  */
-@Suppress("DEPRECATION" /* TODO exchange ExplanatoryAssertionGroupFinalStep with ExplanatoryGroup.FinalStep in 1.0.0 */)
-inline fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
+inline fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryGroup.FinalStep>.withExplanatoryAssertion(
     explanationStep: (Explanatory.ExplanationOption) -> Assertion
-): ExplanatoryAssertionGroupFinalStep = withAssertion(explanationStep(assertionBuilder.explanatory))
-
-
-/**
- * Option step which allows to specify what [ExplanatoryAssertionGroupType] is used as [AssertionGroup.type].
- */
-@Suppress("DEPRECATION" /* TODO remove whole interface with 1.0.0 */)
-@Deprecated(
-    "Use ExplanatoryGroup.GroupTypeOption instead; will be removed with 1.0.0 at the latest",
-    ReplaceWith("ExplanatoryGroup.GroupTypeOption")
-)
-interface ExplanatoryAssertionGroupTypeOption {
-
-    /**
-     * Builder to create an [AssertionGroup] with a [DefaultExplanatoryAssertionGroupType].
-     */
-    val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
-
-    /**
-     * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
-     */
-    val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
-
-    /**
-     * Builder to create an [AssertionGroup] with a [InformationAssertionGroupType].
-     */
-    fun withInformationType(withIndent: Boolean): AssertionsOption<InformationAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
-
-    /**
-     * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
-     * @since 0.19.0
-     */
-    val withHintType: AssertionsOption<HintAssertionGroupType, ExplanatoryGroup.FinalStep>
-
-    /**
-     * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].
-     */
-    fun <T : ExplanatoryAssertionGroupType> withType(groupType: T): AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>
-}
-
-/**
- * Final step which creates an [AssertionGroup] with an [ExplanatoryAssertionGroupType] based on the previously
- * defined [groupType] and the [explanatoryAssertions].
- */
-@Deprecated(
-    "Use ExplanatoryGroup.FinalStep instead; will be removed with 1.0.0 at the latest",
-    ReplaceWith("ExplanatoryGroup.FinalStep")
-)
-interface ExplanatoryAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGroup> {
-    /**
-     * The previously defined [AssertionGroup.type].
-     */
-    val groupType: ExplanatoryAssertionGroupType
-
-    /**
-     * The previously defined [AssertionGroup.assertions]
-     */
-    val explanatoryAssertions: List<Assertion>
-
-    /**
-     * Make the ExplanatoryGroup no longer hold, use this if the explanatory expectation-group is a single assertion
-     * within a group.
-     */
-    @Suppress("DEPRECATION")
-    val failing: ExplanatoryAssertionGroupFinalStep
-
-    @Suppress("DEPRECATION" /* TODO remove whole interface with 1.0.0 */)
-    companion object {
-        fun create(
-            groupType: ExplanatoryAssertionGroupType,
-            explanatoryAssertions: List<Assertion>
-        ): ExplanatoryAssertionGroupFinalStep = FinalStepImpl(groupType, explanatoryAssertions, holds = true)
-    }
-}
+): ExplanatoryGroup.FinalStep = withAssertion(explanationStep(assertionBuilder.explanatory))
