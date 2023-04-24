@@ -3,7 +3,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 
-//TODO 0.20.0 using kotest causes that js-tests are no longer run (neither via Intelij nor via gradle)
+//TODO 1.1.0 using kotest causes that js-tests are no longer run (neither via Intelij nor via gradle)
 // I have something in mind that it is caused by a kotlin bug which popped up in Kotlin 1.4 and was eventually fixed in
 // kotlin 1.6 -- so check in 0.20.0 if it still occurs if we increase the kotlin version
 

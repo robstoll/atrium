@@ -4,7 +4,7 @@ import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.kotlin.dsl.exclude
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 
-//TODO 0.20.0 can this be moved to a plugin as well?
+//TODO 1.1.0 can this be moved to a plugin as well?
 fun Project.prefixedProject(name: String): Project = project(":${rootProject.name}-$name")
 fun KotlinDependencyHandler.apiWithExclude(
     dep: String,

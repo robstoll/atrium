@@ -23,7 +23,7 @@ interface InOrderOnlyMatcher<E, SC> {
         }
         val elementAssertion = elementAssertionCreator(maybeElement, searchCriterion)
         val assertion = maybeElement.map { elementAssertion }.getOrElse {
-            //TODO 0.20.0: extract common pattern
+            //TODO 1.1.0: extract common pattern
             maybeSubject.fold({
                 // already in an explanatory assertion context, no need to wrap it again
                 elementAssertion
