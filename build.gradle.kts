@@ -258,13 +258,63 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
     apply(plugin = "ch.tutteli.gradle.plugins.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.publish")
 
-    project.extensions.getByType<ch.tutteli.gradle.plugins.publish.PublishPluginExtension>().apply {
+    extensions.getByType<ch.tutteli.gradle.plugins.publish.PublishPluginExtension>().apply {
         resetLicenses("EUPL-1.2")
+    }
+
+    val languageSuffixes = setOf("-en_GB", "-de_CH")
+    if (languageSuffixes.any { name.contains(it) }) {
+        extensions.getByType<PublishingExtension>().apply {
+            val pubs = publications.toList()
+            publications {
+                pubs
+                    .filterIsInstance<MavenPublication>()
+                    .forEach { pub ->
+                        val artifactIdWithoutLanguage = languageSuffixes.fold(pub.artifactId) { id, suffix ->
+                            id.replace(suffix, "")
+                        }
+                        pub.artifactId = artifactIdWithoutLanguage
+
+                        //TODO 1.1.0 remove again, consider to rename the project-name and directory
+                        // we did not have a -metadata jar before, so no need for a relocation publication
+                        if (!pub.artifactId.endsWith("metadata")) {
+                            val oldArtifactId = if (pub.artifactId == name) {
+                                "$name-common"
+                            } else if (pub.artifactId.endsWith("-jvm")) {
+                                name
+                            } else {
+                                pub.artifactId
+                            }
+
+                            pub.artifactId = artifactIdWithoutLanguage
+
+                            create<MavenPublication>("${pub.name}-relocation") {
+                                pom {
+                                    // Old artifact coordinates
+                                    groupId = pub.groupId
+                                    artifactId = oldArtifactId
+                                    version = pub.version
+
+                                    distributionManagement {
+                                        relocation {
+                                            // New artifact coordinates
+                                            groupId.set(pub.groupId)
+                                            artifactId.set(artifactIdWithoutLanguage)
+                                            version.set(pub.version)
+                                            message.set("artifactId has changed, removed -en_GB as we drop support for a translated report and jvm has now the suffix -jvm and common no longer has the suffix -common")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 
 configure(subprojectsWithoutToolAndSmokeTestProjects) {
-    // we don't specify a module-info.java in specs (so far)
+// we don't specify a module-info.java in specs (so far)
     if (name != "atrium-specs") {
         apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
     }
