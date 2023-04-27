@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "The domain logic of the Kotlin 1.3 extension for Atrium"
 
 kotlin {

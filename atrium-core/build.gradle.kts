@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Core module of Atrium, containing all contracts/interfaces and default implementations"
 
 val kboxVersion: String by rootProject.extra

@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Kotlin 1.3 specific expectation functions and builders for atrium-api-fluent -- will be merged into fluent with 1.0.0 at the latest"
 
 kotlin {

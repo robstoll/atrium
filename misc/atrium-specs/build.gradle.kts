@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Provides specifications of Atrium which can be reused by" +
     "APIs and logic/core implementations of Atrium, to verify that they fulfill the specification."
 

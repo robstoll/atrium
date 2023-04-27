@@ -5,6 +5,19 @@
 //    }
 //}
 
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    if (System.getenv("CI").toBoolean()) {
+        id("org.gradle.toolchains.foojay-resolver-convention") version ("0.4.0")
+    }
+}
+
 rootProject.name = "atrium"
 
 buildscript {
@@ -23,6 +36,9 @@ buildscript {
         }
     }
 }
+
+includeBuild("build-logic")
+includeBuild("build-logic-commons")
 
 val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
 val bcTestsOldPath = "$bcTestsPath/old"

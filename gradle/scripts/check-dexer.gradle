@@ -7,6 +7,10 @@ def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     }
 }
 
+def prefixedProject(String name) {
+    project(":${rootProject.name}-$name")
+}
+
 def multiplatformProjects = multiplatformProjectNames.collect { prefixedProject(it) }
 def dexerProjects = multiplatformProjects.findAll {
     !it.name.contains("-specs")

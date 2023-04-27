@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.kotlin-jvm")
+}
+
 description = "Runs examples, includes the code and the output in README.md"
 
 val junitPlatformVersion: String by rootProject.extra
