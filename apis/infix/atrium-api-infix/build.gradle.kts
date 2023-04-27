@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "An infix API in en_GB with a focus on code completion."
 
 val niokVersion: String by rootProject.extra

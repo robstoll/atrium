@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Convenience module which depends on atrium-api-infix and atrium-verbs"
 
 val niokVersion: String by rootProject.extra

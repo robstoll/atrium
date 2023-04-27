@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Convenience module which depends on atrium-api-fluent and atrium-verbs"
 
 kotlin {

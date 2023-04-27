@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "The domain logic of Atrium"
 
 val niokVersion: String by rootProject.extra
