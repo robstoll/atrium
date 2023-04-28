@@ -265,50 +265,50 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
     val languageSuffixes = setOf("-en_GB", "-de_CH")
     if (languageSuffixes.any { name.contains(it) }) {
         configure<PublishingExtension> {
-            val pubs = publications.toList()
-            publications {
-                pubs
-                    .filterIsInstance<MavenPublication>()
-                    .forEach { pub ->
-                        val artifactIdWithoutLanguage = languageSuffixes.fold(pub.artifactId) { id, suffix ->
-                            id.replace(suffix, "")
+            publications.withType<MavenPublication>()
+                .matching { !it.name.endsWith("-relocation") }
+                .all {
+                    val artifactIdBeforeLanguageRemoval = artifactId
+                    val artifactIdWithoutLanguage = languageSuffixes.fold(artifactId) { id, suffix ->
+                        id.replace(suffix, "")
+                    }
+
+                    // TODO 1.1.0 consider to remove en_GB from the project name
+                    artifactId = artifactIdWithoutLanguage
+
+                    //TODO 1.1.0 remove again, consider to rename the project-name and directory
+                    // we did not have a -metadata jar before, so no need for a relocation publication
+                    if (!artifactId.endsWith("metadata")) {
+                        val oldArtifactId = if (artifactIdBeforeLanguageRemoval == project.name) {
+                            "${project.name}-common"
+                        } else if (artifactId.endsWith("-jvm")) {
+                            project.name
+                        } else {
+                            artifactIdBeforeLanguageRemoval
                         }
-                        pub.artifactId = artifactIdWithoutLanguage
 
-                        //TODO 1.1.0 remove again, consider to rename the project-name and directory
-                        // we did not have a -metadata jar before, so no need for a relocation publication
-                        if (!pub.artifactId.endsWith("metadata")) {
-                            val oldArtifactId = if (pub.artifactId == name) {
-                                "$name-common"
-                            } else if (pub.artifactId.endsWith("-jvm")) {
-                                name
-                            } else {
-                                pub.artifactId
-                            }
+                        println("old: $oldArtifactId, new: $artifactId")
+                        val pub = this
+                        publications.register<MavenPublication>("${pub.name}-relocation") {
+                            pom {
+                                // Old artifact coordinates
+                                groupId = pub.groupId
+                                artifactId = oldArtifactId
+                                version = pub.version
 
-                            pub.artifactId = artifactIdWithoutLanguage
-
-                            create<MavenPublication>("${pub.name}-relocation") {
-                                pom {
-                                    // Old artifact coordinates
-                                    groupId = pub.groupId
-                                    artifactId = oldArtifactId
-                                    version = pub.version
-
-                                    distributionManagement {
-                                        relocation {
-                                            // New artifact coordinates
-                                            groupId.set(pub.groupId)
-                                            artifactId.set(artifactIdWithoutLanguage)
-                                            version.set(pub.version)
-                                            message.set("artifactId has changed, removed -en_GB as we drop support for a translated report and jvm has now the suffix -jvm and common no longer has the suffix -common")
-                                        }
+                                distributionManagement {
+                                    relocation {
+                                        // New artifact coordinates
+                                        groupId.set(pub.groupId)
+                                        artifactId.set(artifactIdWithoutLanguage)
+                                        version.set(pub.version)
+                                        message.set("artifactId has changed, removed -en_GB as we drop support for a translated report and jvm has now the suffix -jvm and common no longer has the suffix -common")
                                     }
                                 }
                             }
                         }
                     }
-            }
+                }
         }
     }
 }
