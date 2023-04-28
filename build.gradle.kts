@@ -287,7 +287,6 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
                             artifactIdBeforeLanguageRemoval
                         }
 
-                        println("old: $oldArtifactId, new: $artifactId")
                         val pub = this
                         publications.register<MavenPublication>("${pub.name}-relocation") {
                             pom {
