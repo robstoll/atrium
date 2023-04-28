@@ -6,7 +6,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 // for infix-api -> change to 'atrium-infix-en_GB'
 val atriumApi = "atrium-fluent-en_GB"
 val atriumVersion = "0.18.0"
-val junitVersion = "5.9.2"
+val junitVersion = "5.9.3"
 
 plugins {
     kotlin("multiplatform") version "1.8.10"
