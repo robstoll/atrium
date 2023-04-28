@@ -9,7 +9,7 @@ kotlin {
                 api(prefixedProject("translations-en_GB"))
             }
         }
-        val jvmMain by getting{
+        val jvmMain by getting {
             dependencies {
                 api(prefixedProject("verbs"))
                 api(prefixedProject("api-fluent-en_GB"))

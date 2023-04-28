@@ -173,7 +173,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
     }
 
     configure(listOf(project(":bc-tests:$oldVersion-specs"))) {
-        extensions.getByType<KotlinMultiplatformExtension>().apply {
+        configure<KotlinMultiplatformExtension> {
             jvm()
             js().nodejs {}
             sourceSets {
@@ -265,7 +265,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
             configure(listOf(project(":bc-tests:$oldVersion-api-$apiName-bbc"))) {
                 apply(plugin = "ch.tutteli.gradle.plugins.junitjacoco")
 
-                extensions.getByType<KotlinMultiplatformExtension>().apply {
+                configure<KotlinMultiplatformExtension> {
                     val confName = "confBbc"
 
                     jvm {
@@ -337,7 +337,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             apply(plugin = "ch.tutteli.gradle.plugins.junitjacoco")
 
-            extensions.getByType<KotlinMultiplatformExtension>().apply {
+            configure<KotlinMultiplatformExtension> {
 
                 js().nodejs {}
 
@@ -453,15 +453,16 @@ fun Project.createJacocoReportTask(
                     project(":atrium-translations-de_CH")
                 )
             }
+
             else -> throw IllegalStateException("re-adjust jacoco task")
         }
         projects.forEach {
-            //TODO 1.1.0 simplify once all project use new MPP plugin
+            //TODO 1.1.0 simplify, all projects use now the new MPP plugin
             val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
             if (sourceSetContainer != null) {
                 sourceSets(sourceSetContainer["main"])
             } else {
-                it.extensions.getByType<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
+                it.the<KotlinMultiplatformExtension>().sourceSets.forEach { kotlinSourceSet ->
                     sourceDirectories.from(kotlinSourceSet.kotlin.srcDirs)
                 }
             }
@@ -479,7 +480,7 @@ fun Project.createJacocoReportTask(
         }
     }
 
-    extensions.getByType<JacocoPluginExtension>().apply {
+    configure<JacocoPluginExtension> {
         toolVersion = jacocoToolVersion
         this.applyTo<JavaExec>(runTask)
     }

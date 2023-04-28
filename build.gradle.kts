@@ -81,7 +81,7 @@ val bundleSmokeTests = subprojects.asSequence().filter {
 val subprojectsWithoutToolProjects = subprojects - toolProjects
 val subprojectsWithoutToolAndSmokeTestProjects = subprojectsWithoutToolProjects - bundleSmokeTests
 
-extensions.getByType<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension>().apply {
+configure<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension> {
     modeSimple.set(false)
 }
 
@@ -127,7 +127,7 @@ configure(multiplatformProjects) {
             .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
     }
 
-    extensions.getByType<KotlinMultiplatformExtension>().apply {
+    configure<KotlinMultiplatformExtension> {
         jvm {
             // for module-info.java and Java sources in test
             withJava()
@@ -187,7 +187,7 @@ configure(multiplatformProjects) {
     // needs to be in afterEvaluate for now because the tutteli-spek-plugin overwrites it by using useJunitPlatform which
     // apparently reconfigures the TestFramework (even if already useJunitPlatform was used, so it's more a setJUnitPlatformAsTestFramework)
     afterEvaluate {
-        project.extensions.getByType<KotlinMultiplatformExtension>().apply {
+        configure<KotlinMultiplatformExtension> {
             jvm {
                 testRuns["test"].executionTask.configure {
                     useJUnitPlatform {
@@ -258,13 +258,63 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
     apply(plugin = "ch.tutteli.gradle.plugins.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.publish")
 
-    project.extensions.getByType<ch.tutteli.gradle.plugins.publish.PublishPluginExtension>().apply {
+    configure<ch.tutteli.gradle.plugins.publish.PublishPluginExtension> {
         resetLicenses("EUPL-1.2")
+    }
+
+    val languageSuffixes = setOf("-en_GB", "-de_CH")
+    if (languageSuffixes.any { name.contains(it) }) {
+        configure<PublishingExtension> {
+            publications.withType<MavenPublication>()
+                .matching { !it.name.endsWith("-relocation") }
+                .all {
+                    val artifactIdBeforeLanguageRemoval = artifactId
+                    val artifactIdWithoutLanguage = languageSuffixes.fold(artifactId) { id, suffix ->
+                        id.replace(suffix, "")
+                    }
+
+                    // TODO 1.1.0 consider to remove en_GB from the project name
+                    artifactId = artifactIdWithoutLanguage
+
+                    //TODO 1.1.0 remove again, consider to rename the project-name and directory
+                    // we did not have a -metadata jar before, so no need for a relocation publication
+                    if (!artifactId.endsWith("metadata")) {
+                        val oldArtifactId = if (artifactIdBeforeLanguageRemoval == project.name) {
+                            "${project.name}-common"
+                        } else if (artifactId.endsWith("-jvm")) {
+                            project.name
+                        } else {
+                            artifactIdBeforeLanguageRemoval
+                        }
+
+                        println("old: $oldArtifactId, new: $artifactId")
+                        val pub = this
+                        publications.register<MavenPublication>("${pub.name}-relocation") {
+                            pom {
+                                // Old artifact coordinates
+                                groupId = pub.groupId
+                                artifactId = oldArtifactId
+                                version = pub.version
+
+                                distributionManagement {
+                                    relocation {
+                                        // New artifact coordinates
+                                        groupId.set(pub.groupId)
+                                        artifactId.set(artifactIdWithoutLanguage)
+                                        version.set(pub.version)
+                                        message.set("artifactId has changed, removed -en_GB as we drop support for a translated report and jvm has now the suffix -jvm and common no longer has the suffix -common")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        }
     }
 }
 
 configure(subprojectsWithoutToolAndSmokeTestProjects) {
-    // we don't specify a module-info.java in specs (so far)
+// we don't specify a module-info.java in specs (so far)
     if (name != "atrium-specs") {
         apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
     }
