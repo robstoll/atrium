@@ -81,7 +81,7 @@ val bundleSmokeTests = subprojects.asSequence().filter {
 val subprojectsWithoutToolProjects = subprojects - toolProjects
 val subprojectsWithoutToolAndSmokeTestProjects = subprojectsWithoutToolProjects - bundleSmokeTests
 
-extensions.getByType<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension>().apply {
+configure<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension> {
     modeSimple.set(false)
 }
 
@@ -127,7 +127,7 @@ configure(multiplatformProjects) {
             .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
     }
 
-    extensions.getByType<KotlinMultiplatformExtension>().apply {
+    configure<KotlinMultiplatformExtension> {
         jvm {
             // for module-info.java and Java sources in test
             withJava()
@@ -187,7 +187,7 @@ configure(multiplatformProjects) {
     // needs to be in afterEvaluate for now because the tutteli-spek-plugin overwrites it by using useJunitPlatform which
     // apparently reconfigures the TestFramework (even if already useJunitPlatform was used, so it's more a setJUnitPlatformAsTestFramework)
     afterEvaluate {
-        project.extensions.getByType<KotlinMultiplatformExtension>().apply {
+        configure<KotlinMultiplatformExtension> {
             jvm {
                 testRuns["test"].executionTask.configure {
                     useJUnitPlatform {
@@ -258,13 +258,13 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
     apply(plugin = "ch.tutteli.gradle.plugins.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.publish")
 
-    extensions.getByType<ch.tutteli.gradle.plugins.publish.PublishPluginExtension>().apply {
+    configure<ch.tutteli.gradle.plugins.publish.PublishPluginExtension> {
         resetLicenses("EUPL-1.2")
     }
 
     val languageSuffixes = setOf("-en_GB", "-de_CH")
     if (languageSuffixes.any { name.contains(it) }) {
-        extensions.getByType<PublishingExtension>().apply {
+        configure<PublishingExtension> {
             val pubs = publications.toList()
             publications {
                 pubs
