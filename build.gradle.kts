@@ -7,7 +7,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "0.19.0-SNAPSHOT"
+    rootProject.version = "1.0.0-RC1-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -405,23 +405,22 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=0.18.0
-export ATRIUM_VERSION=0.19.0
+export ATRIUM_VERSION=1.0.0-RC1
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
    -pe "s@latest#/doc@$ATRIUM_VERSION/doc@g;"
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
-  -pe "s@dokka_sourceMapping = \"tree/main\"@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@;" \
-  -pe "s/rootProject.version = '$ATRIUM_VERSION-SNAPSHOT'/rootProject.version = '$ATRIUM_VERSION'/;" \
-  ./build.gradle
+  -pe "s/rootProject.version = \"${ATRIUM_VERSION}-SNAPSHOT\"/rootProject.version = \"$ATRIUM_VERSION\"/;" \
+  ./build.gradle.kts
 perl -0777 -i \
   -pe 's/(<!-- for main -->\n)\n([\S\s]*?)(\n<!-- for a specific release -->\n)<!--\n([\S\s]*?)-->\n(\n# <img)/$1<!--\n$2-->$3\n$4\n$5/;' \
   -pe 's/(---\n❗ You are taking[^-]*?---)/<!$1>/;' \
   ./README.md
 git commit -a -m "v$ATRIUM_VERSION"
 
-check changes
+check changes (CONTRIBUTING.md, difference.md, build.gradle.kts, README.md)
 git push
 
 alternatively the manual steps:
@@ -447,7 +446,7 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
 
-gr ghPages
+gr dokkaHtmlMultiModule
 cd ../atrium-gh-pages
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
@@ -486,14 +485,14 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=0.18.0
-export ATRIUM_NEXT_VERSION=0.19.0
+export ATRIUM_NEXT_VERSION=1.0.0-RC1
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
    -pe "s/add \\\`\@since $ATRIUM_VERSION\\\` \(adapt to current/add \\\`\@since $ATRIUM_NEXT_VERSION\\\` \(adapt to current/g;"
 perl -0777 -i \
   -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/main\"@;" \
-  -pe "s/rootProject.version = '$ATRIUM_VERSION'/rootProject.version = '$ATRIUM_NEXT_VERSION-SNAPSHOT'/;" \
+  -pe "s/rootProject.version = \"$ATRIUM_VERSION\"/rootProject.version = \"${ATRIUM_NEXT_VERSION}-SNAPSHOT\"/;" \
   -pe "s/ATRIUM_VERSION=$ATRIUM_VERSION/ATRIUM_VERSION=$ATRIUM_NEXT_VERSION/;" \
   ./build.gradle
 perl -0777 -i \
