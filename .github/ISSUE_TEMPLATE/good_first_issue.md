@@ -25,13 +25,13 @@ Following the things you need to do:
 *api-fluent*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xyExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] add `@since 0.19.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
+- [ ] add `@since 1.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent-en_GB -> commonTest
 
 *api-infix*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt(see yzExpectations.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xyExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] add `@since 0.19.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
+- [ ] add `@since 1.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-infix-en_GB -> commonTest
 
 

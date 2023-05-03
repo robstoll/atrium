@@ -7,7 +7,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "1.0.0-RC1"
+    rootProject.version = "1.0.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -405,7 +405,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=1.0.0-RC1
-export ATRIUM_VERSION=1.0.0-RC1
+export ATRIUM_VERSION=1.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -428,11 +428,10 @@ alternatively the manual steps:
     a) change rootProject.version in build.gradle to X.Y.Z
     b) search for old version in README.md and replace with new
     c) search for `tree/main` in all .md files and replace it with `tree/vX.Y.Z`
-    d) adjust dokka_sourceMapping from `tree/main` to tree/vX.Y.Z
-    e) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
-    f) use the release badges in README (comment out the ones for main and uncomment the ones for the release)
-    g) comment out the warning in README.md about taking a sneak peak
-    h) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
+    d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
+    e) use the release badges in README (comment out the ones for main and uncomment the ones for the release)
+    f) comment out the warning in README.md about taking a sneak peak
+    g) commit & push (modified CONTRIBUTING.md, differences.md, build.gradle and README.md)
 
 2. prepare release on github
     a) git tag "v$ATRIUM_VERSION"
@@ -485,20 +484,19 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=1.0.0-RC1
-export ATRIUM_NEXT_VERSION=1.0.0-RC1
+export ATRIUM_NEXT_VERSION=1.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
    -pe "s/add \\\`\@since $ATRIUM_VERSION\\\` \(adapt to current/add \\\`\@since $ATRIUM_NEXT_VERSION\\\` \(adapt to current/g;"
 perl -0777 -i \
-  -pe "s@dokka_sourceMapping = \"tree/v$ATRIUM_VERSION\"@dokka_sourceMapping = \"tree/main\"@;" \
   -pe "s/rootProject.version = \"$ATRIUM_VERSION\"/rootProject.version = \"${ATRIUM_NEXT_VERSION}-SNAPSHOT\"/;" \
   -pe "s/ATRIUM_VERSION=$ATRIUM_VERSION/ATRIUM_VERSION=$ATRIUM_NEXT_VERSION/;" \
-  ./build.gradle
+  ./build.gradle.kts
 perl -0777 -i \
   -pe 's/(<!-- for main -->\n)<!--\n([\S\s]*?)-->(\n<!-- for a specific release -->)\n([\S\s]*?)\n(\n# <img)/$1\n$2$3\n<!--$4-->\n$5/;' \
   -pe 's/<!(---\n❗ You are taking[^-]*?---)>/$1/;' \
-  -pe "s@(For instance, the \[README of v$ATRIUM_VERSION\].*tree/)main/@\$1v$ATRIUM_VERSION/@;" \
+  -pe "s@(latest version: \[README of v$ATRIUM_VERSION\].*tree/)main/@\$1v$ATRIUM_VERSION/@;" \
   ./README.md
 git commit -a -m "prepare dev cycle of $ATRIUM_NEXT_VERSION"
 
