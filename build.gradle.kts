@@ -7,7 +7,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "1.0.0-RC1"
+    rootProject.version = "1.0.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -405,7 +405,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=1.0.0-RC1
-export ATRIUM_VERSION=1.0.0-RC1
+export ATRIUM_VERSION=1.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
