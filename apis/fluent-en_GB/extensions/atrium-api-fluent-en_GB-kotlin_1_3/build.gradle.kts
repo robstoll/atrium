@@ -22,8 +22,8 @@ kotlin {
 
         configureEach {
             languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
+                languageVersion = "1.4"
+                apiVersion = "1.4"
             }
         }
     }
