@@ -3,13 +3,11 @@ package ch.tutteli.atrium.logic.kotlin_1_3.impl
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
