@@ -57,7 +57,6 @@ class ResultExpectationSamples {
         }
     }
 
-//    TODO 0.20.0 activate once we have the workaround for #1234 implemented
 
 
 //    @Test
