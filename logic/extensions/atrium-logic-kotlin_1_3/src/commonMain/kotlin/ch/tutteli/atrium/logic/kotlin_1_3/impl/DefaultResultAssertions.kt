@@ -3,13 +3,11 @@ package ch.tutteli.atrium.logic.kotlin_1_3.impl
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
-import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.logic.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
@@ -38,39 +36,21 @@ class DefaultResultAssertions : ResultAssertions {
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(EXCEPTION) {
-
-
-            //fix is here for bug in kotlin 1.3, 1.4, 1.5 (fixed in 1.6) => https://youtrack.jetbrains.com/issue/KT-50974
-            //Comments below explain the fix
-            val badResult = exceptionOrNull()
-            //mapping manually to get internal value throwable - exception or null just produced null + we lost the exception
-            val maybeSubjectResult = container.maybeSubject.map {
-                onSuccess { null }
-                onFailure { it.cause }
+            // fix is here for bug in kotlin 1.3, 1.4, 1.5 (fixed in 1.6) => https://youtrack.jetbrains.com/issue/KT-509747
+            // due to the unwrap bug KT-50974, in case of a Failure, `exceptionOrNull` ...
+            val failure = exceptionOrNull()
+            val success = getOrNull()
+            if (failure == null && // ... returns null, even though ...
+                container.maybeSubject
+                    .map { it.exceptionOrNull() }
+                    .getOrElse { null } != null && // ... the container does not ...
+                success is Result<*> // ... and for whatever reason Kotlin instead wraps the Failure into another Success ...
+            ) {
+                //... thus we need to unwrap the success again
+                success.exceptionOrNull()
+            } else {
+                failure
             }
-
-
-            if (maybeSubjectResult.getOrElse { null } != null && badResult == null) {
-                //there is something inside first option type so unwrap
-                val successError = maybeSubjectResult.getOrElse { null }
-
-                if (successError == null) {
-
-                    return@manualFeature exceptionOrNull()
-                }
-                //if the result is a success we have another value to check
-                if (successError.isSuccess) {
-
-                    val valueInsideSuccess = getOrNull() as Result<*>
-                    if (valueInsideSuccess.isFailure) {
-                        return@manualFeature valueInsideSuccess.exceptionOrNull()
-                    }
-                }
-
-            }
-            exceptionOrNull()
-
-
         }.transform().let { previousExpect ->
             FeatureExpect(
                 previousExpect,
