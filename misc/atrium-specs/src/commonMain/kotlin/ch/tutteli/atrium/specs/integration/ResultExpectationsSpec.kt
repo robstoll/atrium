@@ -44,7 +44,6 @@ abstract class ResultExpectationsSpec(
         toBeASuccessNullable.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
-    //TODO 0.20.0 activate once we have the workaround for #1234 implemented
     include(object : AssertionCreatorSpec<Result<Int>>(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
         assertionCreatorSpecTriple(
@@ -120,7 +119,6 @@ abstract class ResultExpectationsSpec(
                 }
             }
 
-            //TODO 0.20.0 activate once we have the workaround for #1234 implemented
             failureFunctions.forEach { (name, toBeAFailureFun, _) ->
                 it("$name - can perform sub-assertion which holds") {
                     expect(resultFailure).toBeAFailureFun { messageToContain("oh no...") }
