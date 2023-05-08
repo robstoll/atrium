@@ -44,16 +44,15 @@ abstract class ResultExpectationsSpec(
         toBeASuccessNullable.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
-    //TODO 1.1.0 activate once we have the workaround for #1234 implemented
-//    include(object : AssertionCreatorSpec<Result<Int>>(
-//        "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
-//        assertionCreatorSpecTriple(
-//            toBeAFailure.name,
-//            "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh no...\"",
-//            { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
-//            { apply { toBeAFailure.invoke(this) {} } }
-//        )
-//    ) {})
+    include(object : AssertionCreatorSpec<Result<Int>>(
+        "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
+        assertionCreatorSpecTriple(
+            toBeAFailure.name,
+            "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh no...\"",
+            { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
+            { apply { toBeAFailure.invoke(this) {} } }
+        )
+    ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
@@ -120,22 +119,21 @@ abstract class ResultExpectationsSpec(
                 }
             }
 
-            //TODO 1.1.0 activate once we have the workaround for #1234 implemented
-//            failureFunctions.forEach { (name, toBeAFailureFun, _) ->
-//                it("$name - can perform sub-assertion which holds") {
-//                    expect(resultFailure).toBeAFailureFun { messageToContain("oh no...") }
-//                }
-//                it("$name - can perform sub-assertion which fails, throws AssertionError") {
-//                    expect {
-//                        expect(resultFailure).toBeAFailureFun { messageToContain("oh yes...") }
-//                    }.toThrow<AssertionError> {
-//                        messageToContain(
-//                            "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-//                            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(), "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
-//                        )
-//                    }
-//                }
-//            }
+            failureFunctions.forEach { (name, toBeAFailureFun, _) ->
+                it("$name - can perform sub-assertion which holds") {
+                    expect(resultFailure).toBeAFailureFun { messageToContain("oh no...") }
+                }
+                it("$name - can perform sub-assertion which fails, throws AssertionError") {
+                    expect {
+                        expect(resultFailure).toBeAFailureFun { messageToContain("oh yes...") }
+                    }.toThrow<AssertionError> {
+                        messageToContain(
+                            "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
+                            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(), "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
+                        )
+                    }
+                }
+            }
         }
     }
 
