@@ -56,7 +56,7 @@ class DateSubjectChangerSamples {
 
         expect(date)
             .asLocalDateTime() // subject is now of type LocalDate
-            .toEqual(LocalDateTime.parse("1995-07-17"))
+            .toEqual(LocalDateTime.parse("1995-07-17T00:00:00"))
 
         fails {
             expect(date)
