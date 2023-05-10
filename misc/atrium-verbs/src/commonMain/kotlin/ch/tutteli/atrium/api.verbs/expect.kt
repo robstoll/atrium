@@ -44,7 +44,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * @return The newly created [Expect].
  * @throws AssertionError in case an assertion does not hold.
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
     _logic.manualFeature(EXPECT) { newSubject }.transform()
@@ -61,7 +61,7 @@ fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
  * @return The newly created [Expect].
  * @throws AssertionError in case an assertion does not hold.
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <T, R> Expect<T>.expect(newSubject: R, assertionCreator: Expect<R>.() -> Unit): Expect<R> =
     _logic.manualFeature(EXPECT) { newSubject }.transformAndAppend(assertionCreator)

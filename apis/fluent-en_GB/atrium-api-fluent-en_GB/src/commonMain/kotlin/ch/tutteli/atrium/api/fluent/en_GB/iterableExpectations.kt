@@ -333,7 +333,7 @@ fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAndNoDuplicates(): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAny
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
@@ -347,7 +347,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreato
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAll
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
@@ -361,7 +361,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreato
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrNone
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }

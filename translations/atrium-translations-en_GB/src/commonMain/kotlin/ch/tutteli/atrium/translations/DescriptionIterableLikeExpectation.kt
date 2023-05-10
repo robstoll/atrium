@@ -28,7 +28,7 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     /** @since 0.18.0 */
     NOT_TO_CONTAIN("not to contain"),
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     USE_NOT_TO_HAVE_ELEMENTS_OR_NONE("use %s if you don't care about the empty case, then the expectation would have been met."),
 
     /** @since 0.18.0 */
@@ -91,15 +91,15 @@ enum class DescriptionIterableLikeExpectation(override val value: String) : Stri
     /** @since 0.18.0 */
     NUMBER_OF_ELEMENTS_FOUND("and %s such elements were found"),
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     NOT_TO_HAVE_ELEMENTS_OR_ANY("not to have elements or any of it needs"),
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     NOT_TO_HAVE_ELEMENTS_OR_ALL("not to have elements or all need"),
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     NOT_TO_HAVE_ELEMENTS_OR_NONE("not to have elements or none"),
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     NEITHER_EMPTY_NOR_ELEMENT_FOUND("but it had next elements and no such element was found"),
 }
