@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ErrorMessages
+import ch.tutteli.atrium.logic._logic
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -20,9 +21,14 @@ abstract class AssertionCreatorSpec<T>(
             describe("fun `$name`") {
                 it("throws and only reports the lambda which was empty") {
                     expect {
-                        expect(subject)
-                            .createAssertionOk()
-                            .createAssertionFail()
+                        try {
+                            expect(subject)
+                                .createAssertionOk()
+                                .createAssertionFail()
+                        }catch(it: Error){
+                            println("err: ${it.message}, ${it.cause}")
+                            throw it
+                        }
                     }.toThrow<AssertionError> {
                         message {
                             toContain(

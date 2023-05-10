@@ -61,6 +61,6 @@ class TextFeatureAssertionGroupFormatter(
         parameterObject: AssertionFormatterParameterObject
     ) : AssertionGroup by assertionGroup {
         override val description: Translatable = newName
-        override val representation: Any = if(parameterObject.isNotInExplanatoryFilterGroup()) assertionGroup.representation else Text.EMPTY
+        override val representation: Any = assertionGroup.representation
     }
 }
