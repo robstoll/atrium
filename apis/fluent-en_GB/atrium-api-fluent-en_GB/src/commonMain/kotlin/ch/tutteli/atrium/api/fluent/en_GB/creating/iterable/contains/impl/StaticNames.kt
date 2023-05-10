@@ -21,6 +21,6 @@ internal object StaticNames {
     val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
     val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
 
-    /** @since 0.19.0 */
+    /** @since 1.0.0 */
     val notToHaveElementsOrNone = Expect<List<Int>>::notToHaveElementsOrNone.name
 }

@@ -21,7 +21,7 @@ import java.util.Date
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.DateSubjectChangerSamples.asLocalDateFeature
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
     _logic.changeSubject.unreported { it.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() }
@@ -35,7 +35,7 @@ fun <T : Date> Expect<T>.asLocalDate(): Expect<LocalDate> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.DateSubjectChangerSamples.asLocalDate
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 fun <T : Date> Expect<T>.asLocalDate(assertionCreator: Expect<LocalDate>.() -> Unit): Expect<T> =
     apply { asLocalDate()._logic.appendAsGroup(assertionCreator) }

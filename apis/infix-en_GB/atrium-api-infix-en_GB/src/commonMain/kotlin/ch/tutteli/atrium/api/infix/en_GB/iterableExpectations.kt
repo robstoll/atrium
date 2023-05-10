@@ -445,7 +445,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAnd(@Suppress("UNUSED_PAR
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAny
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
@@ -459,7 +459,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertion
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrAll
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
@@ -474,7 +474,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertion
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableExpectationSamples.notToHaveElementsOrNone
  *
- * @since 0.19.0
+ * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
     _logicAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }
