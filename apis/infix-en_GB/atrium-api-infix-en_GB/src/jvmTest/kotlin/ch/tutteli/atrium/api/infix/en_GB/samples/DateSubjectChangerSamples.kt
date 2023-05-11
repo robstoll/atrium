@@ -52,8 +52,10 @@ class DateSubjectChangerSamples {
         expect(date) asLocalDateTime o toEqual(LocalDateTime.parse("1995-07-17T00:00:00")) // Subject is now of type LocalDateTime
 
         fails {
-            expect(date) asLocalDateTime
-                o toBeAfter(LocalDateTime.parse("2025-07-17T00:00:00")) toBeBefore(LocalDateTime.parse("1996-07-17T00:00:00"))
+            expect(date) asLocalDateTime                                    // subject is now of type LocalDateTime
+                o toBeAfter LocalDateTime.parse("2025-07-17T00:00:00") and  // fails
+                o toBeBefore LocalDateTime.parse("1996-07-17T00:00:00")     // not evaluated/reported because `toBeAfter` already fails
+            //                                                                 use ` asLocalDateTime { ... }` if you want all expectations evaluated
         }
     }
 
