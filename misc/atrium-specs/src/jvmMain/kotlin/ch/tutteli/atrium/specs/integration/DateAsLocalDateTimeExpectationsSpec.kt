@@ -19,6 +19,11 @@ abstract class DateAsLocalDateTimeExpectationsSpec(
             val date = formatter.parse("1995-07-17")
             expect(date).asLocalDateTime { toEqual(LocalDateTime.parse("1995-07-17T00:00:00")) }
         }
+        it("transformation can be applied where java.util.Date has a defined time and a subsequent assertion made") {
+            val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = formatter.parse("1995-07-17 13:12:11")
+            expect(date).asLocalDateTime { toEqual(LocalDateTime.parse("1995-07-17T13:12:11")) }
+        }
     }
 })
 
