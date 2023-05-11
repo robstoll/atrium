@@ -62,8 +62,8 @@ class DateSubjectChangerSamples {
         val date = formatter.parse("1995-07-17")
 
         expect(date) asLocalDateTime { // subject within this expectation-group is of type LocalDateTime
-            it toBeAfterOrTheSamePointInTimeAs(LocalDateTime.parse("1994-07-17T00:00:00"))
-            it toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.parse("1996-07-17T00:00:00"))
+            it toBeAfterOrTheSamePointInTimeAs LocalDateTime.parse("1994-07-17T00:00:00")
+            it toBeBeforeOrTheSamePointInTimeAs LocalDateTime.parse("1996-07-17T00:00:00")
         } // subject here is back to type java.util.Date
 
         fails {
