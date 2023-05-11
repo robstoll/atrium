@@ -49,7 +49,7 @@ class DateSubjectChangerSamples {
     fun asLocalDateTimeFeature() {
         val date = formatter.parse("1995-07-17")
 
-        expect(date) asLocalDateTime o toEqual(LocalDateTime.parse("1995-07-17T00:00:00")) // Subject is now of type LocalDateTime
+        expect(date) asLocalDateTime o toEqual LocalDateTime.parse("1995-07-17T00:00:00") // Subject is now of type LocalDateTime
 
         fails {
             expect(date) asLocalDateTime                                    // subject is now of type LocalDateTime
