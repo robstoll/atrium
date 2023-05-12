@@ -236,12 +236,13 @@ configure(subprojects.filter {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
+allprojects {
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "11"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
 }
-
 
 //TODO 1.1.0 re-introduce bcTests again? I am currently not sure if it is actually worth it
 // did not have the need to be binary compatible for a while
