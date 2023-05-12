@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        java_version: [ 11, 14 ]
+        java_version: [ 11, 17 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +21,8 @@ jobs:
           java-version: ${{ matrix.java_version }}
 
       - name: build
+        env:
+          JAVA_VERSION: ${{ matrix.java_version }}
         run: ./gradlew build
 
       - name: Cache android jar

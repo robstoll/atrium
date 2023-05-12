@@ -38,7 +38,7 @@ plugins {
     kotlin("jvm") apply false
     //needs to be applied before tutteli's dokka plugin in order that version takes precedence
     id("org.jetbrains.dokka") version "1.8.10"
-    val tutteliGradleVersion = "4.8.0"
+    val tutteliGradleVersion = "4.9.0"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.project.utils") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.publish") version tutteliGradleVersion apply false
@@ -133,7 +133,7 @@ configure(multiplatformProjects) {
             withJava()
         }
 
-        //TODO 1.3.0 switch from LEGACY to IR once we output Kotlin > 1.4
+        //TODO 1.1.0 switch from LEGACY to IR
         js(LEGACY) { nodejs() }
 
         sourceSets {
@@ -237,8 +237,19 @@ configure(subprojects.filter {
 }
 
 allprojects {
+    project.extensions.findByType<JavaPluginExtension>()?.apply {
+        toolchain {
+            // reading JAVA_VERSION from env to enable jdk17 build in CI
+            val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
+            languageVersion.set(JavaLanguageVersion.of(jdkVersion))
+        }
+    }
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
+    tasks.withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"
     }
