@@ -26,5 +26,8 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     NOT_TO_EQUAL_ONE_IN("not to equal one in"),
 
     /** @since 0.18.0 */
-    BECAUSE("because")
+    BECAUSE("because"),
+
+    //#330
+    NOT_TO_BE_NULL_BUT_TO_BE_THE_INSTANCE("not to equal: null but to be an instance of: ") ,
 }
