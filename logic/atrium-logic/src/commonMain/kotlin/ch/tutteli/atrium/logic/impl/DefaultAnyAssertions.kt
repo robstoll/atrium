@@ -4,8 +4,10 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
@@ -61,7 +63,19 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
+    ): SubjectChangerBuilder.ExecutionStep<T?, T> {
+
+        return container.changeSubject.reportBuilder()
+            .withDescriptionAndRepresentation(
+                NOT_TO_BE_NULL_BUT_TO_BE_THE_INSTANCE,
+                subType
+            )
+            .withTransformation {
+                Option.someIf(subType.isInstance(it)){ subType.cast(it) }
+            }.build()
+
+
+    }
 
     override fun <T, TSub : Any> isA(
         container: AssertionContainer<T>,
