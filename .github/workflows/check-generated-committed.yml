@@ -18,6 +18,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+          cache: 'gradle'
 
       - name: check generateLogic committed
         run: ./gradle/scripts/check-generateLogic-committed.sh

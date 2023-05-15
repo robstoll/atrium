@@ -23,6 +23,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java_version }}
+          cache: 'gradle'
 
       - name: Cache maven dependencies
         uses: actions/cache@v3
