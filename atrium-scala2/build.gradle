@@ -5,7 +5,7 @@ buildscript {
         atriumKotlinDep = { name -> "ch.tutteli.atrium:atrium-$name:$rootProject.version" }
 
         // project setup
-        tutteli_plugins_version = '4.7.2'
+        tutteli_plugins_version = '4.9.0'
         kotlinVersion = '1.3.72'
     }
     repositories {
