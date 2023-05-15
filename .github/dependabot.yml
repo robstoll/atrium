@@ -48,30 +48,6 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
-  - package-ecosystem: gradle
-    directory: "/misc/tools/atrium-js-sample-test"
-    schedule:
-      interval: daily
-      time: "06:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-  - package-ecosystem: gradle
-    directory: "/misc/tools/atrium-samples-test"
-    schedule:
-      interval: daily
-      time: "06:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-  - package-ecosystem: gradle
-    directory: "/misc/tools/atrium-scala2-test"
-    schedule:
-      interval: daily
-      time: "06:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
