@@ -22,10 +22,10 @@ class DateSubjectChangerSamples {
 
         fails {
             expect(date)
-                .asLocalDate()                                  // subject is now of type LocalDate
-                .toBeAfter(LocalDate.parse("2025-07-17"))       // fails
-                .toBeBefore(LocalDate.parse("1996-07-17"))      // not evaluated/reported because `toBeAfter` already fails
-                //                                                      use `.asLocalDate { ... }` if you want all assertions evaluated
+                .asLocalDate()                              // subject is now of type LocalDate
+                .toBeAfter(LocalDate.parse("2025-07-17"))   // fails
+                .toBeBefore(LocalDate.parse("1996-07-17"))  // not evaluated/reported because `toBeAfter` already fails
+            //                                                 use `.asLocalDate { ... }` if you want all assertions evaluated
         }
     }
 
@@ -43,9 +43,9 @@ class DateSubjectChangerSamples {
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(date).asLocalDate {
-                toBeAfter(LocalDate.parse("2025-07-17"))            // fails
-                toBeBefore(LocalDate.parse("1994-07-17"))           // still evaluated even though `toBeAfter` already fails
-                //                                                          use `.asLocalDate().` if you want a fail fast behaviour
+                toBeAfter(LocalDate.parse("2025-07-17"))   // fails
+                toBeBefore(LocalDate.parse("1994-07-17"))  // still evaluated even though `toBeAfter` already fails
+                //                                            use `.asLocalDate().` if you want a fail fast behaviour
             }
         }
     }
@@ -60,10 +60,10 @@ class DateSubjectChangerSamples {
 
         fails {
             expect(date)
-                .asLocalDateTime()                                  // subject is now of type LocalDateTime
-                .toBeAfter(LocalDateTime.parse("2025-07-17T00:00:00"))       // fails
-                .toBeBefore(LocalDateTime.parse("1996-07-17T00:00:00"))      // not evaluated/reported because `toBeAfter` already fails
-                //                                                                   use `.asLocalDateTime { ... }` if you want all assertions evaluated
+                .asLocalDateTime()                                       // subject is now of type LocalDateTime
+                .toBeAfter(LocalDateTime.parse("2025-07-17T00:00:00"))   // fails
+                .toBeBefore(LocalDateTime.parse("1996-07-17T00:00:00"))  // not evaluated/reported because `toBeAfter` already fails
+            //                                                              use `.asLocalDateTime { ... }` if you want all assertions evaluated
         }
     }
 
@@ -81,9 +81,9 @@ class DateSubjectChangerSamples {
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(date).asLocalDateTime {
-                toBeAfter(LocalDateTime.parse("2025-07-17T00:00:00"))            // fails
-                toBeBefore(LocalDateTime.parse("1994-07-17T00:00:00"))           // still evaluated even though `toBeAfter` already fails
-                //                                                                       use `.asLocalDateTime().` if you want a fail fast behaviour
+                toBeAfter(LocalDateTime.parse("2025-07-17T00:00:00"))   // fails
+                toBeBefore(LocalDateTime.parse("1994-07-17T00:00:00"))  // still evaluated even though `toBeAfter` already fails
+                //                                                         use `.asLocalDateTime().` if you want a fail fast behaviour
             }
         }
     }
