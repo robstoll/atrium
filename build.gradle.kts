@@ -133,7 +133,7 @@ configure(multiplatformProjects) {
             withJava()
         }
 
-        //TODO 1.3.0 switch from LEGACY to IR once we output Kotlin > 1.4
+        //TODO 1.1.0 switch from LEGACY to IR
         js(LEGACY) { nodejs() }
 
         sourceSets {
@@ -237,8 +237,19 @@ configure(subprojects.filter {
 }
 
 allprojects {
+    project.extensions.findByType<JavaPluginExtension>()?.apply {
+        toolchain {
+            // reading JAVA_VERSION from env to enable jdk17 build in CI
+            val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
+            languageVersion.set(JavaLanguageVersion.of(jdkVersion))
+        }
+    }
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
+    tasks.withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"
     }
