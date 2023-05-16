@@ -324,6 +324,126 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
     }
 }
 
+
+// TODO remove with 1.1.0 again
+// we will publish a relocation for all jars we renamed in the past so that maintainers of projects using it will get
+// that there is a newer version
+listOf(
+    "atrium-fluent-en_GB-android" to "atrium-fluent-en_GB",
+    "atrium-cc-infix-en_GB-robstoll-android" to "atrium-infix-en_GB",
+    "atrium-verbs-android" to "atrium-verbs",
+    "atrium-api-cc-de_CH-android" to "atrium-api-fluent-en_GB",
+    "atrium-core-robstoll-android" to "atrium-core",
+    "atrium-api-cc-infix-en_GB-android" to "atrium-api-infix-en_GB",
+    "atrium-core-robstoll-lib-android" to "atrium-core",
+    "atrium-domain-api-android" to "atrium-logic",
+    "atrium-domain-robstoll-lib-android" to "atrium-logic",
+    "atrium-domain-robstoll-android" to "atrium-logic",
+    "atrium-domain-api-kotlin_1_3-android" to "atrium-logic-kotlin_1_3",
+    "atrium-api-fluent-en_GB-en_GB-kotlin_1_3-android" to "atrium-api-fluent-en_GB-kotlin_1_3",
+    "atrium-domain-builders-android" to "atrium-logic",
+    "atrium-domain-robstoll-kotlin_1_3-android" to "atrium-logic",
+    "atrium-domain-robstoll-lib-kotlin_1_3-android" to "atrium-logic",
+    "atrium-cc-en_GB-robstoll-android" to "atrium-fluent-en_GB",
+    "atrium-cc-de_CH-robstoll-android" to "atrium-fluent-en_GB",
+    "atrium-api-cc-en_GB-android" to "atrium-api-fluent-en_GB",
+    "atrium-api-fluent-en_GB-android" to "atrium-api-fluent-en_GB",
+    "atrium-domain-builders-kotlin_1_3-android" to "atrium-logic",
+    "atrium-verbs-internal-android" to "atrium-verbs-internal",
+    "atrium-specs-android" to "atrium-specs",
+    "atrium-api-fluent-en_GB-jdk8-android" to "atrium-api-fluent-en_GB",
+    "atrium-api-infix-en_GB-jdk8-common" to "atrium-api-infix-en_GB",
+    "atrium-api-infix-en_GB-jdk8" to "atrium-api-infix-en_GB",
+    "atrium-domain-builders-kotlin_1_3-common" to "atrium-logic",
+    "atrium-cc-infix-en_UK-robstoll" to "atrium-infix-en_GB",
+    "atrium-api-fluent-en_GB-jdk8-common" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-infix-en_GB" to "atrium-api-infix-en_GB",
+    "atrium-cc-en_GB-robstoll" to "atrium-fluent-en_GB",
+    "atrium-cc-de_CH-robstoll" to "atrium-fluent-en_GB",
+    "atrium-api-cc-infix-en_GB-common" to "atrium-api-infix-en_GB",
+    "atrium-domain-api-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
+    "atrium-domain-builders-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
+    "atrium-api-fluent-en_GB-jdk8" to "atrium-api-fluent-en_GB",
+    "atrium-spec" to "atrium-specs",
+    "atrium-api-cc-en_GB-common" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-infix-en_UK" to "atrium-api-infix-en_GB",
+    "atrium-domain-builders-kotlin_1_3" to "atrium-logic-kotlin_1_3",
+    "atrium-domain-robstoll-lib-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
+    "atrium-cc-infix-en_GB-robstoll-js" to "atrium-infix-en_GB",
+    "atrium-cc-en_GB-robstoll-common" to "atrium-fluent-en_GB",
+    "atrium-cc-en_GB-robstoll-js" to "atrium-fluent-en_GB",
+    "atrium-api-cc-de_CH" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-de_CH-common" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-infix-en_GB-js" to "atrium-api-infix-en_GB",
+    "atrium-domain-robstoll-kotlin_1_3" to "atrium-logic-kotlin_1_3",
+    "atrium-api-cc-de_CH-js" to "atrium-api-fluent-en_GB",
+    "atrium-domain-api-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
+    "atrium-domain-robstoll-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
+    "atrium-assertions" to "atrium-logic",
+    "atrium-cc-en_UK-robstoll" to "atrium-fluent-en_GB",
+    "atrium-cc-infix-en_GB-robstoll-common" to "atrium-infix-en_GB",
+    "atrium-cc-de_CH-robstoll-js" to "atrium-fluent-en_GB",
+    "atrium-api-cc-en_GB" to "atrium-api-fluent-en_GB",
+    "atrium-domain-robstoll-lib-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
+    "atrium-cc-de_CH-robstoll-common" to "atrium-fluent-en_GB",
+    "atrium-domain-robstoll-lib-kotlin_1_3" to "atrium-logic",
+    "atrium-api-cc-en_UK" to "atrium-fluent-en_GB",
+    "atrium-cc-infix-en_GB-robstoll" to "atrium-infix-en_GB",
+    "atrium-domain-api-kotlin_1_3" to "atrium-logic-kotlin_1_3",
+    "atrium-domain-robstoll-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
+    "atrium-api-cc-en_GB-js" to "atrium-fluent-en_GB",
+    "atrium-core-robstoll-lib" to "atrium-core",
+    "atrium-core-robstoll-lib-js" to "atrium-core",
+    "atrium-domain-robstoll-common" to "atrium-logic",
+    "atrium-domain-api-js" to "atrium-logic",
+    "atrium-domain-robstoll-lib-common" to "atrium-logic",
+    "atrium-domain-builders-common" to "atrium-logic",
+    "atrium-domain-api" to "atrium-logic",
+    "atrium-core-robstoll-common" to "atrium-core",
+    "atrium-core-api-js" to "atrium-core",
+    "atrium-domain-builders" to "atrium-logic",
+    "atrium-domain-robstoll" to "atrium-logic",
+    "atrium-domain-api-common" to "atrium-logic",
+    "atrium-core-api-common" to "atrium-core",
+    "atrium-domain-robstoll-js" to "atrium-logic",
+    "atrium-core-robstoll-js" to "atrium-core",
+    "atrium-core-robstoll" to "atrium-core",
+    "atrium-core-robstoll-lib-common" to "atrium-core",
+    "atrium-core-api" to "atrium-core",
+    "atrium-domain-robstoll-lib" to "atrium-logic"
+).forEach { (oldArtifactId, projectName) ->
+    val newPubName = if(oldArtifactId.endsWith("-common")) "kotlinMultiplatform"
+    else if(oldArtifactId.endsWith("-js")) "js"
+    else if(oldArtifactId.endsWith("-android")) "jvm"
+    else "jvm"
+
+    configure(listOf(project(":$projectName"))) {
+        configure<PublishingExtension> {
+            val pub = publications.getByName(newPubName) as MavenPublication
+            publications.register<MavenPublication>("${oldArtifactId}-to-${pub.artifactId}-relocation") {
+                pom {
+                    // Old artifact coordinates
+                    groupId = pub.groupId
+                    artifactId = oldArtifactId
+                    version = pub.version
+
+                    distributionManagement {
+                        relocation {
+                            // New artifact coordinates
+                            groupId.set(pub.groupId)
+                            artifactId.set(pub.artifactId)
+                            version.set(pub.version)
+                            message.set("artifactId has changed")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 configure(subprojectsWithoutToolAndSmokeTestProjects) {
 // we don't specify a module-info.java in specs (so far)
     if (name != "atrium-specs") {
@@ -382,7 +502,6 @@ configure(bundleSmokeTests) {
             classpath = files()
         }
     }
-
 }
 
 // TODO 0.22.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
