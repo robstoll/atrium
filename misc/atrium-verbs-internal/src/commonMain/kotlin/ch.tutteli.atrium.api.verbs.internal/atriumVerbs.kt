@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.Expect
@@ -10,7 +9,6 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Creates an [Expect] for the given [subject].
@@ -24,7 +22,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
-        .withVerb(EXPECT)
+        .withVerb("I expected subject")
         .withOptions {
             //TOOD 0.20.0 we could at least filter out the runner in most cases, even in tests
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
@@ -32,8 +30,8 @@ fun <T> expect(subject: T): RootExpect<T> =
         .build()
 
 /**
- * Creates an [Expect] for the given [subject] and [Expect.addAssertionsCreatedBy] the
- * given [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
+ * Creates an [Expect] for the given [subject] and appends the assertions create by the given
+ * [assertionCreator]-lambda where the created [Assertion]s are added as a group and reported as a whole.
  *
  * @param subject The subject for which we are going to postulate expectations.
  * @param assertionCreator expectation-group with a non-fail fast behaviour.
@@ -44,11 +42,3 @@ fun <T> expect(subject: T): RootExpect<T> =
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     expect(subject)._logic.appendAsGroup(assertionCreator)
 
-/**
- * Defines the translation used for the assertion verbs used for internal purposes.
- *
- * Might be removed at any time without previous notice or the behaviour could change etc.
- */
-enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
-    EXPECT("I expected subject");
-}

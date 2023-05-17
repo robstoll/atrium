@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting.erroradjusters
 
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
@@ -117,7 +116,7 @@ class AdjustStackTest {
     @ExperimentalComponentFactoryContainer
     private fun <T : Any> createExpect(subject: T, factory: (ComponentFactoryContainer) -> AtriumErrorAdjuster) =
         RootExpectBuilder.forSubject(subject)
-            .withVerb(AssertionVerb.EXPECT)
+            .withVerb("I expected subject")
             .withOptions {
                 withComponent(AtriumErrorAdjuster::class, factory)
             }

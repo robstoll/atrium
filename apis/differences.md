@@ -6,32 +6,29 @@ Hence, it is up to you if you want to mix and match different styles or enforce 
 Atrium provides so called bundle-modules which merely bundle dependencies (they do not provide additional functionality).
 These modules bundle:
 - an API module
+- core and logic module
 - a translation module (the language used in reporting)
 - predefined expectation verbs.
 
 Following a list of the available bundle-modules. 
 The links point to the KDoc of their included API where you find an overview of all available expectation functions of the API.
 
-- [atrium-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-fluent](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-infix](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 ----
 
-Following an excerpt of a build.gradle file which uses twit APIs (see 
+Following an excerpt of a build.gradle file which uses both APIs (see 
 [README#Installation](https://github.com/robstoll/atrium/tree/main/README.md#installation)
 for the rest):
-```
+```kotlin
 dependencies {
-    testCompile "ch.tutteli:atrium-fluent-en_GB:$atrium_version"
-    testCompile "ch.tutteli:atrium-api-infix-en_GB:$atrium_version"
+    testImplementation("ch.tutteli:atrium-fluent:$atriumVersion")
+    testImplementation("ch.tutteli:atrium-api-infix:$atriumVersion")
 }
 ```
 
 The first dependency points to a bundle-module, the second one just adds the infix-API in addition.
-
-:warning: if you want to use the same API in different languages, 
-then you have to make sure that you exclude all translation modules but one (I suggest you keep the one which is your primary language).
-If you forget to dit it, then the compiler will complain that you have the same enums multiple times on your classpath.
 
 # Different API styles
 
@@ -39,11 +36,11 @@ Atrium currently provides two API styles: fluent and infix.
 We will not show every single difference but merely where the APIs differ in naming.
 For instance, the expectation function `Expect<T>.toEqual`:
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toEqual(2)
 ``` 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toEqual 2
 ``` 
@@ -65,13 +62,13 @@ is so similar, we will not list it here (ok, we did now, but I guess you get the
 
 ## Empty CharSequence / Collection
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toBeEmpty()
 expect(x).notToBeEmpty()
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 
 ```kotlin
 expect(x) toBe empty
@@ -80,13 +77,13 @@ expect(x) notToBe empty
 
 ## `and` property
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toBeGreaterThan(1).and.toBeLessThan(10)
 expect(x) { /*...*/ } and { /*...*/ }
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toBeGreaterThan 1 and o toBeLessThan 10
 expect(x) { /*...*/ } and { /*...*/ }
@@ -97,7 +94,7 @@ a method with one parameter and thus make it available as infix method.
 
 ## CharSequence contains
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toContain("hello", "world")
 expect(x).toContain.atLeast(1).butAtMost(2).value("hello")
@@ -114,7 +111,7 @@ are applicable to all shown examples
 (e.g. `exactly(1).values("hello", "robert")` could have been finished with `exactly(1).regex("h(e|a)llo")` as well).
 
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toContain values("hello", "world")
 expect(x) toContain o atLeast 1 butAtMost 2 value "hello"
@@ -134,7 +131,7 @@ are applicable to all shown examples
 
 ### Iterable contains in any order
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toContain(1.2)
 expect(x).toContain(1.2, 5.7)
@@ -156,7 +153,7 @@ in the sophisticated expectation building process
 are applicable to all shown examples
 (e.g. `butAtMost(2).value(3.2)` could have been finished with `entries(...)` as well)
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toContain 1.2
 expect(x) toContain values(1.2, 5.7) // or Objects as alternative
@@ -182,11 +179,11 @@ are applicable to all shown examples
 
 ### Iterable contains in order
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toContainExactly(1.2)
 expect(x).toContainExactly(1.2, 5.7)
-expect(x).toContainExactly({ toBeLessThan(2) })
+expect(x).toContainExactly { toBeLessThan(2) }
 expect(x).toContainExactly({ toBeLessThan(2) }, { toBeGreaterThan 5 })
 
 expect(x).toContain.inOrder.only.value("hello")
@@ -205,7 +202,7 @@ expect(x).toContain.inOrder.only.grouped.within.inAnyOrder(
 )
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toContainExactly 1.2
 expect(x) toContainExactly values(1.2, 5.7) // or Objects as alternative
@@ -233,7 +230,7 @@ a method with one parameter and thus make it available as infix method.
 
 ## Iterable contains not
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).notToContain(1.2)
 expect(x).notToContain(1.2, 5.7)
@@ -244,7 +241,7 @@ expect(x).notToContain.entry { toBeLessThan(2) }
 expect(x).notToContain.entries(null, { toBeLessThan(2) }, { toBeGreaterThan 5 })
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) notToContain 1.2
 expect(x) notToContain values(1.2, 5.7)
@@ -259,7 +256,7 @@ expect(x) notToContain o the entries(null, { it toBeLessThan 2 }, { it toBeGreat
 For more sophisticated expectations such as "there should be two matches", use the sophisticated expectation builder `contains.inAnyOrder` 
 -&gt; see [Iterable contains in any order](#iterable-contains-in-any-order) for more information 
 
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toHaveElementsAndAny { toStartWith("hello") }
 expect(x).toHaveElementsAndNone { toEndWith(".") }
@@ -270,7 +267,7 @@ expect(x).toHaveElementsAndNone(null)
 expect(x).toHaveElementsAndAll(null)
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toHaveElementsAndAny { it toStartWith "hello" }
 expect(x) toHaveElementsAndNone { it toEndWith "." }
@@ -282,7 +279,7 @@ expect(x) toHaveElementsAndAll null
 ```
 
 # List get
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).get(0).toBesLessThan(1)
 expect(x).get(0) { toBeGreaterThan(1) }
@@ -291,7 +288,7 @@ expect(x).get(0) { toBeGreaterThan(1) }
 expect(x).get(0).toEqual(null)
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) get 0 toBeLessThan 1
 expect(x) get index(0) { it toBeGreaterThan 1 }
@@ -301,7 +298,7 @@ expect(x) get 0 toEqual null
 ```
 
 # Map getExisting
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).getExisting("a").toBeLessThan(1)
 expect(x).getExisting("a") { toBeGreaterThan(1) }
@@ -310,7 +307,7 @@ expect(x).getExisting("a") { toBeGreaterThan(1) }
 expect(x).getExisting("a").notToBeNull { toBeGreaterThan(1) }
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) getExisting "a" toBeLessThan 1
 expect(x) getExisting key("a") { it toBeGreaterThan 1 }
@@ -320,7 +317,7 @@ expect(x) getExisting "a" notToBeNull { it toBeGreaterThan 1 }
 ```
 
 # Map contains
-*atrium-api-fluent-en_GB*
+*atrium-api-fluent*
 ```kotlin
 expect(x).toContain("a" to 1)
 expect(x).toContain("a" to 1, "b" to 2)
@@ -337,7 +334,7 @@ expect(x).toContain(
 )
 ```
 
-*atrium-api-infix-en_GB*
+*atrium-api-infix*
 ```kotlin
 expect(x) toContain ("a" to 1)
 expect(x) toContain pairs("a" to 1, "b" to 2)

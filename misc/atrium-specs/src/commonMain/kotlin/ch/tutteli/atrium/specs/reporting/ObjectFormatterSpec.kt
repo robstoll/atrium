@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.specs.describeFunTemplate
@@ -45,10 +46,14 @@ abstract class ObjectFormatterSpec(
         }
 
         context("a ${Translatable::class.simpleName}") {
-            val result = testee.format(ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT)
+            val result = testee.format(DummyTranslation.TRANSLATION_KEY)
             it("returns the translated string") {
                 expect(result).toBeTheInstance(translatedText)
             }
         }
     }
 })
+
+enum class DummyTranslation(override val value: String) : StringBasedTranslatable {
+    TRANSLATION_KEY("dummy translation");
+}

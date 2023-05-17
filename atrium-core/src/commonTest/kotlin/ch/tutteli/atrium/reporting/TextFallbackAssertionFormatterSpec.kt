@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.internal.AssertionVerb.EXPECT
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -15,6 +14,7 @@ import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeparator
+import ch.tutteli.atrium.specs.reporting.DummyTranslation.TRANSLATION_KEY
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.specs.reporting.alwaysTrueAssertionFilter
 import ch.tutteli.atrium.specs.toEqualDescr
@@ -52,7 +52,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::description.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
                 val assertionGroup = with(assertionBuilder) {
-                    assertionBuilder.root.withDescriptionAndRepresentation(EXPECT, "subject")
+                    assertionBuilder.root.withDescriptionAndRepresentation(TRANSLATION_KEY, "subject")
                         .withAssertions(
                             descriptive.failing.withDescriptionAndRepresentation(TO_EQUAL, "bli").build(),
                             descriptive.failing.withDescriptionAndRepresentation(NOT_TO_EQUAL, "bye").build()
@@ -62,7 +62,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 expect(sb.toString()) toEqual
-                        "${EXPECT.getDefault()}: subject$lineSeparator" +
+                        "${TRANSLATION_KEY.getDefault()}: subject$lineSeparator" +
                         "$squarePoint $toEqualDescr: bli$lineSeparator" +
                         "$squarePoint ${NOT_TO_EQUAL.getDefault()}: bye"
             }
