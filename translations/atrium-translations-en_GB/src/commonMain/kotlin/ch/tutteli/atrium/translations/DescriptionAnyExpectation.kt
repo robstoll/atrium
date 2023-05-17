@@ -29,5 +29,5 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     BECAUSE("because"),
 
     //#330
-    NOT_TO_BE_NULL_BUT_TO_BE_THE_INSTANCE("not to equal: null but to be an instance of: ") ,
+    NOT_TO_BE_NULL_BUT_TO_BE_THE_INSTANCE("not to equal: null but to be an instance of") ,
 }
