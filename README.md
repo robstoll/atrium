@@ -1,6 +1,6 @@
 <!-- for main -->
 
-[![Download](https://img.shields.io/badge/Download-1.0.0-RC1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.atrium/atrium-fluent-en_GB/1.0.0-RC1/jar)
+[![Download](https://img.shields.io/badge/Download-1.0.0-RC1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.atrium/atrium-fluent/1.0.0-RC1/jar)
 [![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/atrium "See invitation link under section FAQ")
 [![Build Status Ubuntu](https://github.com/robstoll/atrium/workflows/Ubuntu/badge.svg?event=push&branch=main)](https://github.com/robstoll/atrium/actions?query=workflow%3AUbuntu+branch%3Amain)
@@ -10,7 +10,7 @@
 
 <!-- for a specific release -->
 <!--
-[![Download](https://img.shields.io/badge/Download-1.0.0-RC1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.atrium/atrium-fluent-en_GB/1.0.0-RC1/jar)
+[![Download](https://img.shields.io/badge/Download-1.0.0-RC1-%23007ec6)](https://search.maven.org/artifact/ch.tutteli.atrium/atrium-fluent/1.0.0-RC1/jar)
 [![EUPL](https://img.shields.io/badge/%E2%9A%96-EUPL%201.2-%230b45a6)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12 "License")
 [![atrium @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=atrium&color=blue&logo=slack)](https://kotlinlang.slack.com/messages/C887ZKGCQ "See invitation link under section FAQ")
 [![Newcomers Welcome](https://img.shields.io/badge/%F0%9F%91%8B-Newcomers%20Welcome-blueviolet)](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22 "Ask in slack for help")
@@ -36,10 +36,9 @@ Please have a look at the README of the corresponding release/git tag -- latest 
 
 **Table of Content**
 - [Installation](#installation)
-  - [JVM](#jvm)
-  - [JS](#js)
-  - [Android](#android)
-  - [Common](#common)
+  - [Extensions](#extensions)
+  - [Third-party Extensions](#third-party-extensions)
+  - [Sample Projects](#sample-projects)
 - [Examples](#examples)
   - [Your First Expectation](#your-first-expectation)
   - [Define Single Expectations or an Expectation-Group](#define-single-expectations-or-an-expectation-group)
@@ -60,9 +59,6 @@ Please have a look at the README of the corresponding release/git tag -- latest 
   - [Attaching a Reason](#attaching-a-reason)
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)
-    - [Expectation functions for Any type](#any-expectations)
-  - [Sample Projects](#sample-projects)
-- [Third-party Extensions](#third-party-extensions)    
 - [How is Atrium different from other Expectation/Assertion Libraries](#how-is-atrium-different-from-other-expectationassertion-libraries)
 - [Write own Expectation Functions](#write-own-expectation-functions)
     - [Boolean based Expectation Functions](#boolean-based-expectation-functions)
@@ -71,7 +67,6 @@ Please have a look at the README of the corresponding release/git tag -- latest 
     - [Own Sophisticated Expectation Builders](#own-sophisticated-expectation-builders)
 - [Use own Expectation Verb](#use-own-expectation-verb)
   - [Use own Components](#use-own-components)
-- [Internationalization](#internationalization)
 - [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
@@ -83,66 +78,12 @@ Please have a look at the README of the corresponding release/git tag -- latest 
 
 # Installation
 
-## JVM
-Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium). 
+Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium).
+It has the following minimum requirement:
+- Kotlin: 1.2
+- JVM: 11
 
-*build.gradle.kts*: 
-```kotlin
-repositories {
-    mavenCentral()
-}
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:1.0.0-RC1")
-}
-```
-We have defined a dependency to the bundle `atrium-fluent-en_GB` in the above example 
-which provides a pure fluent API (in en_GB) for the JVM platform.   
-
-Have a look at the [JVM sample projects](https://github.com/robstoll/atrium/tree/main/samples/jvm) for a quick setup.
-
-We currently provide the following extensions for the JVM platform: 
-- kotlin_1_3: expectation functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
-
-You can enable them as follows:
-```kotlin
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3:1.0.0-RC1")
-}
-```
-
-Also take a look at [Third-party Extensions](#third-party-extensions) which might come in handy as well.
-
-<details>
-<summary>click to see how the setup for the infix API looks like</summary>
-
-```kotlin
-repositories {
-    mavenCentral()
-}
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-infix-en_GB:1.0.0-RC1")
-}
-```
-
-And for the aforementioned extensions:
-```kotlin
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:1.0.0-RC1")
-}
-```
-
-<hr/>
-</details>
-<br/>
-
-*maven*:  
-Because maven is a bit more verbose than gradle, the example is not listed here but a 
-[sample maven project](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven)
-is provided which shows all necessary setup.
-
-That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
-
-## JS
+In case you use Kotlin 1.5 or newer, then regardless of the target platform, you can use the following group and artifactId
 
 *build.gradle.kts*:
 ```kotlin
@@ -150,80 +91,87 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB-js:1.0.0-RC1")
+    testImplementation("ch.tutteli.atrium:atrium-fluent:1.0.0-RC1")
 }
 ```
 
-We have defined a dependency to the bundle `atrium-fluent-en_GB-js` in the above example 
-which provides a pure fluent API (in en_GB) for the JS platform.
-
-Have a look at the [JS sample projects](https://github.com/robstoll/atrium/tree/main/samples/js) for a quick setup.
-
-Otherwise, you need to setup an explicit dependency on `atrium-fluent-en_GB-js` in your test code in order that you can use Atrium.
-This is due to the loosely coupled design of Atrium and dead code elimination performed by the Kotlin compiler for JS.
-
-Atrium itself is using mocha as well 
-(see [build.gradle -> createJsTestTask](https://github.com/robstoll/atrium/tree/main/build.gradle#L290))
-and has tests written in JS modules 
-(see [AdjustStackTest](https://github.com/robstoll/atrium/tree/main/atrium-core/src/jsTest/kotlin/ch/tutteli/atrium/reporting/erroradjusters/AdjustStackTest.kt))
-as well as tests written in common modules (e.g. [SmokeTest](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/src/commonTest/kotlin/SmokeTest.kt))
-which are executed on the JS platform as well 
-(actually on all platforms -> JVM uses JUnit for this purpose, see 
-[build.gradle -> useJupiter](https://github.com/robstoll/atrium/tree/main/build.gradle#L342)).
-
-We currently provide the following extensions for the JS platform: 
- - kotlin_1_3: expectation functions for Kotlin 1.3 specific types (e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)). 
-
-You can enable them as follows:
-```kotlin
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-fluent-en_GB-kotlin_1_3-js:1.0.0-RC1")
-}
-```
-
-<details>
-<summary>click to see how the setup for the infix API looks like</summary>
-
+And in case of an MPP project accordingly:
 ```kotlin
 repositories {
     mavenCentral()
 }
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-infix-en_GB-js:1.0.0-RC1")
+kotlin {
+    sourceSets {
+        val commonTest by getting {
+            implementation("ch.tutteli.atrium:atrium-fluent:1.0.0-RC1")
+        }
+        // no need add it to specific targets such as jvmTest, is done automatically starting with Kotlin 1.5
+    }
 }
 ```
 
-and for the aforementioned extensions:
-```kotlin
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-infix-en_GB-kotlin_1_3:1.0.0-RC1")
-}
-```
-<hr/>
-</details>
+Exchange `fluent` with `infix` depending on your taste (see [API styles](#api-styles) for more information).
 
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
 
-## Android
 
-Starting with 0.12.0 we no longer deliver a dedicated `-android` jar. Instead, you can use the same setup as shown in [JVM setup](#jvm).
-We start adding one again in case we have Android specific expectation functions. 
+<a name="installation-prior-to-kotlin-1.5"></a>
+<details>
+<summary>I use a version prior to Kotlin 1.5</summary>
 
-Also take a look at [Third-party Extensions](#third-party-extensions) which might come in handy as well.
+In case you use a version prior to Kotlin 1.5, then use the following depending on the target platform:
+- common: atrium-fluent
+- jvm: atrium-fluent-jvm
+- android: atrium-fluent-jvm
+- js: atrium-fluent-js
 
-## Common
+</details>
 
-The setup for using Atrium in a common module of a multiplatform project is basically the same as for the
-[JVM setup](#jvm), you only need to suffix the dependency with `-common` in addition. 
-For instance `atrium-fluent-en_GB-common` instead of `atrium-fluent-en_GB`.
+I have other problems: please take a look at the [Sample Projects](#sample-projects) for further guidance.
 
-Have a look at [JVM](#jvm), [JS](#js) or [Android](#android) to see how the setup of a specific platform has to be done.
-You might want to have a look at the [Multiplatform sample project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform)
-as well for a quick setup.
+## Extensions
+
+We currently provide the following extensions:
+- kotlin_1_3: expectation functions for Kotlin 1.3 specific types, e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)
+  (minimum requirement for Atrium is currently
+  Kotlin 1.2, that's why it is in a different module -- this module will be merged into Atrium with 1.2.0 where we 
+  drop support for kotlin 1.2)
+ 
+You can enable it as follows:
+```kotlin
+dependencies {
+    testImplementation("ch.tutteli.atrium:atrium-api-fluent-kotlin_1_3:1.0.0-RC1")
+}
+```
+
+<details>
+<summary>I use a version prior to Kotlin 1.5</summary>
+
+Add again the corresponding suffix, see [Installation prior to Kotlin 1.5](#installation-prior-to-kotlin-1.5)
+
+</details>
+
+## Third-party Extensions
+
+Following extensions are maintained outside of this repository.
+
+- [atrium-gradle-testkit](https://github.com/jGleitz/atrium-gradle-testkit): Atrium expectations to test Gradle plugins with TestKit.
+
+## Sample Projects
+
+Have a look into the [samples](https://github.com/robstoll/atrium/tree/main/samples)
+folder, it currently contains sample projects for
+- [js - kotlin-test](https://github.com/robstoll/atrium/tree/main/samples/js/kotlin-test)
+- [jvm -- junit5](https://github.com/robstoll/atrium/tree/main/samples/jvm/junit5)
+- [jvm -- spek](https://github.com/robstoll/atrium/tree/main/samples/jvm/spel)
+- [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
+- [multiplatform project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform/)
+
+Are you using a different runner? A PR would be appreciated 😊.
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+[atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
@@ -257,7 +205,7 @@ where on the first line the actual subject  (`10` in the above example) is shown
 In this sense the report can be read as `I expected the subject of the expectation, which was 10, to equal 9` 
 -- and needlessly to say, this expectation was not met and thus the thrown error.
 
-We are using the bundle [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+We are using the bundle [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
 and the predefined expectation verb `expect` in the examples. 
 Thus, the corresponding `import`s at the beginning of the file in the above example.
 We will omit the `import` statements in the remaining examples for brevity. 
@@ -1580,7 +1528,7 @@ I expected subject: {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
 `toEqualKeyValue` as well as `key` and `value` are expectation functions defined for `Map.Entry<K, V>`.
 
 There are more expectation functions, a full list can be found in 
-[KDoc of atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html).
+[KDoc of atrium-api-fluent](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html).
 
 ## Path Expectations
 
@@ -1813,25 +1761,6 @@ Take a look at the sample files which are used i.a. in the KDOC of the correspon
 + [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 + [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
-
-## Sample Projects
-
-Have a look into the [samples](https://github.com/robstoll/atrium/tree/main/samples)
-folder, it currently contains sample projects for
-- [js - kotlin-test](https://github.com/robstoll/atrium/tree/main/samples/js/kotlin-test)
-- [jvm -- junit5](https://github.com/robstoll/atrium/tree/main/samples/jvm/junit5)
-- [jvm -- spek](https://github.com/robstoll/atrium/tree/main/samples/jvm/spel)
-- [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
-- [multiplatform project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform/)
-
-Are you using a different runner? A PR would be appreciated 😊.
-
-# Third-party Extensions
-
-Following extensions are maintained outside of this repository. 
-
-- [atrium-gradle-testkit](https://github.com/jGleitz/atrium-gradle-testkit): Atrium expectations to test Gradle plugins with TestKit.
-
 # How is Atrium different from other Expectation/Assertion Libraries
 
 The following subsections shall give you a quick overview how Atrium differ from other assertion libraries. 
@@ -2002,9 +1931,9 @@ it continues by providing the possibility to configure the [reporting style](#us
 goes on that you can choose from different [API Styles](#api-styles) 
 and ends that you can [replace almost all components](#use-own-components) by other implementations and hook into existing.
 
-So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix-en_GB`. 
+So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix`. 
 You prefer pure fluent and do not even want to see infix style in your code, 
-then use `atrium-fluent-en_GB` which provides a pure fluent style API. 
+then use `atrium-fluent` which provides a pure fluent style API. 
 
 You are free to choose what fits best without introducing ambiguity etc.
 You could even mix up different API-styles if needed (but not without losing conciseness -- but hey, it is your decision 😉). 
@@ -2069,9 +1998,6 @@ Let us see how we actually defined `toBeAMultipleOf`.
     - the representation of the expected value.
     - and the actual check as lambda where you typically use `it` which refers to the subject of the expectation.
      
-We used a `String` as description in the above example because we are not bothered with internationalization at this point
-(have a look at [Internationalization](#internationalization-1) if you do).
-
 In most cases you probably use the expected value itself as its representation -- so you pass it as second argument.
 And finally you specify the test as such in the lambda passed as third argument.
 
@@ -2392,15 +2318,14 @@ Atrium offers the expectation verb `expect` out of the box.
 You can also define your own expectation verb if `expect` does not suite you or in case you want to change some default implementation.
 In order to create an own expectation verb it is sufficient to:
  1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/atrium-verbs-internal/src/commonMain/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
- 2. Create your own atriumVerbs.kt and paste the previously copied content 
-    -- notice that you can also use a `String` for the expectation verb in case you do not care about [Internationalization](#internationalization-1)
+ 2. Create your own atriumVerbs.kt and paste the previously copied content
  3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
-    ```gradle
+    ```kotlin
     dependencies {
-        testImplementation("ch.tutteli.atrium:atrium-fluent-en_GB:1.0.0-RC1") {
-            exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
+        testImplementation("ch.tutteli.atrium:atrium-fluent:1.0.0-RC1") {
+            exclude(group="ch.tutteli.atrium", module="atrium-verbs")
         }
     }
     ```
@@ -2484,141 +2409,7 @@ There are more options to choose from. Take a look at the
 [DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/main/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L118)
 to see the default configuration.
 
-# Internationalization
 
-We distinguish between two use cases. 
-You might want to generate the [Report](#report) in a different language or/and you might want to use the [API in a different language](#api-in-a-different-language). 
-
-## Report
-Following on the example in [Write own Expectation Functions](#write-own-expectation-functions)
-we show here how you need to write the `toBeAMultipleOf` function, so that it supports i18n. 
-This way the report could be generated in another language.
-
-The difference lies in the first argument passed to `createAndappend`; 
-we do no longer use a `String` but a proper `Translatable`. 
-
-<code-i18n-1>
-
-```kotlin
-import ch.tutteli.atrium.logic.*
-
-fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
-    _logic.createAndAppend(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
-
-enum class DescriptionIntAssertion(override val value: String) : StringBasedTranslatable {
-    TO_BE_A_MULTIPLE_OF("to be a multiple of")
-}
-```
-</code-i18n-1>
-
-Typically, you would put `DescriptionIntAssertion` into an own module (jar) 
-so that it could be replaced (with zero performance cost) by another language representation.
-For instance,
-[atrium-fluent-en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts#L9)
-uses `atrium-translations-en_GB` whereas 
-tests of 
-[atrium-infix_en_GB-common](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts#L9)
-uses `atrium-translations-de_CH`.  
-
-<details>
-<summary>💬 Using a TranslationSupplier</summary>
-
-Next to providing translations via code you can also use a 
-[TranslationSupplier](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
-based [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
-by configuring the [`ReporterBuilder`](#reporterbuilder) accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
-Atrium supports a properties files based `TranslationSupplier` for JVM (a supplier for JS will follow) which is more or less what
-[ResourceBundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
-provides out of the box. 
-Yet, a `Translator` uses a more enhanced fallback mechanism compared to a `ResourceBundle`. 
-For further technical information have a look at the KDoc of [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html).
-Notice though, that we plan to move away from the `ResourceBundle`-inspired approach
-due to encoding problems and missing implementations on other platforms than JVM.
-
-Notice, Atrium does not yet support the generation of multiple reports in the same test run. 
-This might become handy if you want to generate an HTML report in different languages.   
-However, Atrium is designed to support this use case -- if you need this feature, then please let us know it by writing a 
-[feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
-
-<hr/>
-</details><br/>
-
-Let us rewrite the `toBeEven` expectation function from the section [Write own Expectation Functions](#write-own-expectation-functions)
-as second example:
-
-<code-i18n-2>
-
-```kotlin
-import ch.tutteli.atrium.logic.*
-
-fun Expect<Int>.toBeEven(): Expect<Int> =
-    _logic.createAndAppend(DescriptionBasic.TO_BE, DescriptionIntAssertions.EVEN) { it % 2 == 0 }
-
-enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
-    EVEN("an even number")
-}
-```
-</code-i18n-2>
-
-Once again we have to wrap the text which we want to be able to exchange with another language into a `Translatable`. 
-Notice also, that we are reusing a `Translatable` from `DescriptionBasic`.
-
-## API in a different Language
-
-Following on the example in the previous section, 
-we want to write `toBeAMultipleOf` in such a way that one cannot only generate a report in a different language
-but also that one can use the function itself in a different language. 
-Or in other words, provide our API in a different language (the same applies if you want to provide another API style).
-
-We split up the function in two parts: API and logic 
--- whereas the logic creates the expectation and the API provides a function for the user (the API as such) and
-merely appends the expectation created by the logic to the `Expect`.
- 
-Typically, you put the API function in one module (jar) and the logic in another (so that the API can be exchanged).
-In the logic module we define an extension method for [AssertionContainer](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-container/index.html)
-
-<code-i18n-3a>
-
-```kotlin
-import ch.tutteli.atrium.creating.AssertionContainer
-
-fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
-    createDescriptiveAssertion(DescriptionIntAssertion.TO_BE_A_MULTIPLE_OF, base) { it % base == 0 }
-```
-</code-i18n-3a>
-
-In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
-with the help of `createDescriptiveAssertion` defined on AssertionContainer.
-We pass in a description (`TO_BE_A_MULTIPLE_OF`), we use `base` as representation of the expectation 
-and define a lambda which implements a test to define whether the expectation holds or not.
-
-In the API module we define the extension function and append the expectation to the current `Expect`
-by using `logicAppend` and calling the extension function from the logic module within the corresponding lambda. 
-
-<code-i18n-3b>
-
-```kotlin
-import ch.tutteli.atrium.logic.*
-
-fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> =
-    _logicAppend { toBeAMultipleOf(base) }
-```
-</code-i18n-3b>
-
-At first, this looks like a recursive call. But as explained, within the `_logicAppend`-lambda 
-we are on the logic level and thus call the function we defined above (which just turns out to have the same name).
-
-You are ready to go, creating an API in a different language -- e.g. in German -- is now only a routine piece of work:
-
-<code-i18n-3c>
-
-```kotlin
-import ch.tutteli.atrium.logic.*
-
-fun Expect<Int>.istEinVielfachesVon(base: Int): Expect<Int> =
-    _logicAppend { toBeAMultipleOf(base) }
-```
-</code-i18n-3c>
 
 <a name="apis"></a>
 # API Styles
@@ -2631,15 +2422,14 @@ Atrium is
 and it is your choice which implementation you want to use. 
 However, this is more intended for advanced user with special requirements.
 Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined expectation verbs,
-so that you just have to have a dependency on one of those bundles (kind a bit like a BOM pom in the maven world):
+so that you just have to have a dependency on one of those bundles:
 
-- [atrium-fluent-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts)
-- [atrium-infix-en_GB](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts)
+- [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts)
+- [atrium-infix](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md)
 for more information and to see how the API styles differ.
- 
 
 # Java Interoperability
 Atrium provides some helper functions in case you have to deal with Java Code where not all types are non-nullable. 
@@ -2735,15 +2525,15 @@ See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/api
 ## Where do I find a list of all available functions?
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
-- [atrium-api-fluent-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
-- [atrium-api-infix-en_GB](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
+- [atrium-api-fluent](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.fluent.en_-g-b/index.html)
+- [atrium-api-infix](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 A good alternative is to have a look at the sample files:
 - [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-+ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 ## Problems in conjunction with `feature`
 

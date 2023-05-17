@@ -11,7 +11,7 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
 
 object TextObjectFormatterSpec : Spek({
-    include(AtriumsObjectFormatterSpec)
+    include(object : ObjectFormatterSpec(::DefaultTextObjectFormatter) {})
 
     val testee = DefaultTextObjectFormatter(UsingDefaultTranslator())
 
@@ -176,9 +176,7 @@ object TextObjectFormatterSpec : Spek({
             }
         }
     }
-}) {
-    object AtriumsObjectFormatterSpec : ObjectFormatterSpec(::DefaultTextObjectFormatter)
-}
+})
 
 private enum class Color {
     Red //, Blue, Green
