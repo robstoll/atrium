@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Atrium Overview</title>
+    <link href="logo-icon.svg" rel="icon" type="image/svg">
+    <script type="text/javascript">
+        const storage = localStorage.getItem("dokka-dark-mode")
+        if (storage == null) {
+            const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            if (osDarkSchemePreferred === true) {
+                document.getElementsByTagName("html")[0].classList.add("theme-dark")
+            }
+        } else {
+            const savedDarkMode = JSON.parse(storage)
+            if(savedDarkMode === true) {
+                document.getElementsByTagName("html")[0].classList.add("theme-dark")
+            }
+        }
+    </script>
+    <link href="styles/style.css" rel="Stylesheet">
+    <link href="styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="styles/logo-styles.css" rel="Stylesheet">
+    <script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div class="library-name">
+        <a href="">
+            <span>Atrium</span>
+        </a>
+    </div>
+    <nav id="versions">
+        <button type="button">Version<span class="arrow"></span></button>
+        <ul class="dropdown">
+            <li><a href="0.18.0/">0.18.0</a></li>
+            <li><a href="0.17.0/">0.17.0</a></li>
+            <li><a href="0.16.0/">0.16.0</a></li>
+            <li><a href="0.15.0/">0.15.0</a></li>
+            <li><a href="0.14.0/">0.14.0</a></li>
+            <li><a href="0.13.0/">0.13.0</a></li>
+            <li><a href="0.12.0/">0.12.0</a></li>
+            <li><a href="0.11.0/">0.11.0</a></li>
+            <li><a href="0.10.0/">0.10.0</a></li>
+            <li><a href="0.9.0/">0.9.0</a></li>
+            <li><a href="0.8.0/">0.8.0</a></li>
+            <li><a href="0.7.0/">0.7.0</a></li>
+            <li><a href="0.6.0/">0.6.0</a></li>
+            <li><a href="0.6.0/">0.6.0</a></li>
+            <li><a href="0.5.0/">0.5.0</a></li>
+            <li><a href="0.4.0/">0.4.0</a></li>
+            <li><a href="0.3.0/">0.3.0</a></li>
+            <li><a href="0.2.0/">0.2.0</a></li>
+        </ul>
+    </nav>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+    </div>
+</div>
+<div id="container">
+    <div id="main" style="max-width: inherit;">
+        <div class="main-content" id="content">
+            <div class="cover ">
+                <h2 class="">Overview</h2>
+                <ul style="margin-bottom: 2rem">
+                    <li>Atrium is an open-source assertion library for Kotlin.</li>
+                    <li> It is licences under
+                        <a href="https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12">
+                            <span>EUPL 1.2</span><span class="external-indicator"></span>
+                        </a>
+                    </li>
+                    <li>
+                        You can post questions in the
+                        <a href="https://github.com/robstoll/atrium/discussions/new/choose">
+                            <span>Discussion tab</span><span class="external-indicator"></span>
+                        </a>
+                        of the project.
+                    </li>
+                </ul>
+                <ul style="margin-bottom: 2rem">
+                    <li>
+                        Jump straight to the <a style="bolder; font-size:1.5em;" href="0.18.0">latest version (which is
+                        0.18.0)</a>
+                    </li>
+                    <li>... or use the version switcher above to see the documentation of another version.</li>
+                </ul>
+                <p>You are very welcome to contribute to Atrium:</p>
+                <ul>
+                    <li>
+                        star
+                        <a href="https://github.com/robstoll/atrium">
+                            <span>Atrium</span><span class="external-indicator"></span>
+                        </a>
+                        if you like it and spread the word.
+                    </li>
+                    <li>
+                        <a href="https://github.com/robstoll/atrium/issues/new?labels=bug&template=bug_report.yaml">
+                            <span>open a bug</span><span class="external-indicator"></span>
+                        </a>
+                        or
+                        <a href="https://github.com/robstoll/atrium/issues/new?template=feature_request.md">
+                            <span>create a feature request</span><span class="external-indicator"></span>
+                        </a>
+                    </li>
+                    <li>
+                        Take a look at
+                        <a href="https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md">
+                            <span>CONTRIBUTING.md</span><span class="external-indicator"></span>
+                        </a>
+                        for more ideas.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Atrium &copy; Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt; 2017, 2023</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

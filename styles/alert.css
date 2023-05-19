@@ -1,0 +1,41 @@
+/* adopted from https://www.w3schools.com/howto/howto_js_alert.asp */
+
+.alert {
+  padding: 20px;
+  background-color: #daf8fd;
+  color: black;
+  border-radius: 0.5em;
+  margin: 2rem 2% 0rem 2%;
+  display: none;
+}
+.alert.show {
+    display: block;
+}
+.alert .warning{
+    font-family: Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,Android Emoji,EmojiSymbols,EmojiOne Mozilla,Twemoji Mozilla,Segoe UI Symbol,Noto Color Emoji Compat,emoji,noto-emojipedia-fallback;
+    font-size: 1.5em;
+    font-weight:bolder;
+    margin-right: 0.25em;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+}
+.closebtn .x{
+  cursor: pointer;
+}
+.closebtn .hint {
+    font-style: italic;
+    font-weight: lighter;
+    font-size: 0.6em;
+}
+@media screen and (max-width: 950px) {
+    .closebtn .hint {
+        display: none;
+    }
+}

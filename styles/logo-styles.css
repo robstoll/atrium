@@ -1,0 +1,150 @@
+.library-name > a {
+    position: relative;
+    --logo-width: 150px;
+    margin-left: calc(var(--logo-width) + 5px);
+}
+
+.library-name a span {
+    display: none
+}
+.library-name a::before {
+    content: '';
+    background: url("../images/logo.png") center no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: var(--logo-width);
+    height: 50px;
+    top: -27px;
+    left: calc(-1 * var(--logo-width) - 5px);
+}
+
+
+/* adopted from https://blog.logrocket.com/making-dropdown-menus-css/ */
+
+.library-name,
+#versions + div {
+    margin-top: 5px;
+}
+
+#versions  {
+    transform: initial;
+    transition: transform ease 0.2s;
+    position: relative;
+}
+
+#versions * {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#versions .dropdown,
+#versions button {
+    width: 7rem;
+}
+#versions .dropdown {
+    position: absolute;
+    box-shadow: 0 10px 15px -3px rgba(46, 41, 51, 0.08),
+    0 4px 6px -2px rgba(71, 63, 79, 0.16);
+    z-index: 99;
+    padding: 0;
+    background-color: var(--color-dark);
+    border-radius: 0 0 0.5rem 0.5rem;
+    height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: height ease 0.2s;
+    left: auto;
+    right: 0;
+}
+#versions:hover .dropdown {
+    height: auto;
+    max-height: 300px;
+}
+
+#versions ul li {
+    position: relative;
+    list-style: none;
+    font-size: var(--default-font-size);
+}
+:root {
+    --scrollbar-width: calc(100vw - (100vw - 100%));
+}
+
+#versions button {
+    font-size: inherit;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+#versions ul li a, #versions button {
+    padding: 0.4rem 1rem;
+    text-align: center;
+    font-size: var(--default-font-size);
+}
+#versions ul li a {
+   display: block;
+   color: inherit;
+   text-decoration: none;
+   width: 100%;
+}
+
+
+#versions ul li:hover {
+    color: var(--color-dark);
+}
+#versions ul li:hover,
+#versions ul li button:hover {
+    background-color: #f2f2f2;
+}
+
+#versions .arrow {
+    width: 0.5em;
+    height: 0.5em;
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 0.15em solid currentColor;
+    border-bottom: 0.15em solid currentColor;
+    transform: rotate(-45deg);
+    position: absolute;
+    margin-top: 0.25em;
+    right: 0.75em;
+    transition: transform 100ms ease-in-out;
+}
+
+#versions:hover > button > .arrow {
+     transform: rotate(-225deg);
+     margin-top: 0.5em;
+}
+
+/* TODO fix for dokka, wrong colors in dark-mode -- shall be fixed with Dokka 1.9.0, check and adopt if necesary */
+@media screen and (max-width: 759px) {
+    :root.theme-dark #container #leftColumn {
+        background: var(--background-color);
+    }
+    :root.theme-dark #leftToggler {
+        color: var(--default-font-color);
+    }
+}
+/* We want to show the dark mode button also if media is small */
+@media screen and (max-width: 759px) {
+    #theme-toggle-button {
+        display: block;
+    }
+}
+
+/* fix navigation height */
+.navigation-wrapper {
+    height: calc(var(--top-navigation-height) - 19px - 18px);
+}
+
+
+
+/* custom classes */
+.external-indicator {
+    padding-left: 0.5em;
+}
+
+.external-indicator::before {
+    content: url("../images/footer-go-to-link.svg");
+}
+
