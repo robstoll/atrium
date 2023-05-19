@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.empty
 import ch.tutteli.atrium.api.infix.en_GB.notToBe
 import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.infix.en_GB.toHaveSize
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
 class CollectionExpectationSamples {

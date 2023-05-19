@@ -163,7 +163,7 @@ infix fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): E
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toExist
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.toBeExisting
  *
  * @since 0.12.0
  */
@@ -179,7 +179,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToExist
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.PathExpectationSamples.notToBeExisting
  *
  * @since 0.12.0
  */

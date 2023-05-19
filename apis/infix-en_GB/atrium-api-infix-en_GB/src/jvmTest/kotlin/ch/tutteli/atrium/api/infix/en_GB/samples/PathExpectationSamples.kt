@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
@@ -87,7 +87,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun toExist() {
+    fun toBeExisting() {
         val dir = tempDir.newDirectory("test_dir")
 
         expect(dir) toBe existing
@@ -98,7 +98,7 @@ class PathExpectationSamples {
     }
 
     @Test
-    fun notToExist() {
+    fun notToBeExisting() {
         val dir = tempDir.newDirectory("test_dir")
 
         expect(Paths.get("non_existing_dir")) notToBe existing

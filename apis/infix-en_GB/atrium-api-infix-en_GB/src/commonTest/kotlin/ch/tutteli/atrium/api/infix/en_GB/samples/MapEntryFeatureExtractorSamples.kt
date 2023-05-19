@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.key
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.infix.en_GB.toEqualKeyValue
 import ch.tutteli.atrium.api.infix.en_GB.value
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
 class MapEntryFeatureExtractorSamples {

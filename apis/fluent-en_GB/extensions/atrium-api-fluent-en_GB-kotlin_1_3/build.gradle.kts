@@ -12,6 +12,8 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(prefixedProject("specs"))
+                // in order that we can use the correct import in the samples
+                implementation(prefixedProject("verbs"))
             }
         }
     }

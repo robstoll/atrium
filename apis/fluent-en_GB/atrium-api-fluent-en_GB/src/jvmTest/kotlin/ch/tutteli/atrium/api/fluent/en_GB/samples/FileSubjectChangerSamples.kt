@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.niok.newFile
 import java.nio.file.Files
 import kotlin.test.Test
