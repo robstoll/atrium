@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.infix.en_GB.it
 import ch.tutteli.atrium.api.infix.en_GB.o
 import ch.tutteli.atrium.api.infix.en_GB.toContain
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
 class IterableSubjectChangerSamples {

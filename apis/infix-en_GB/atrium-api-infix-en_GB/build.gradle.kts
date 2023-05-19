@@ -22,6 +22,8 @@ kotlin {
                     exclude(module = "${rootProject.name}-translations-en_GB")
                 }
                 implementation(prefixedProject("translations-de_CH"))
+                // in order that we can use the correct import in the samples
+                implementation(prefixedProject("verbs"))
             }
         }
         val jvmTest by getting {

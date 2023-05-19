@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate

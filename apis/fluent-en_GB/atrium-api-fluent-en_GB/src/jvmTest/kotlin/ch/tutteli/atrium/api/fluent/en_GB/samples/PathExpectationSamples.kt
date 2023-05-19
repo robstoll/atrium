@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB.samples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
 import ch.tutteli.niok.*
 import java.nio.file.FileSystems
@@ -122,7 +122,7 @@ class PathExpectationSamples {
 
     @Test
     fun notToBeReadable() {
-        assertIf(ifPosixSupported) {
+        runIf(ifPosixSupported) {
             val writeOnlyPermissions =
                 PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
             val readyWritePermissions =
@@ -166,7 +166,7 @@ class PathExpectationSamples {
 
     @Test
     fun notToBeWritable() {
-        assertIf(ifPosixSupported) {
+        runIf(ifPosixSupported) {
             val readyOnlyPermissions =
                 PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
             val readyWritePermissions =
@@ -206,7 +206,7 @@ class PathExpectationSamples {
 
     @Test
     fun notToBeExecutable() {
-        assertIf(ifPosixSupported) {
+        runIf(ifPosixSupported) {
             val readyOnlyPermissions =
                 PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--"))
             val readyWriteExecutePermissions =

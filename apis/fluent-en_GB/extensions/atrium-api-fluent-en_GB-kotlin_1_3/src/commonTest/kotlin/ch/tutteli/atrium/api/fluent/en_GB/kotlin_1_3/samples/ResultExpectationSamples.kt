@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeAFailure
 import ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.toBeASuccess
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
 class ResultExpectationSamples {

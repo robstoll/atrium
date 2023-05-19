@@ -20,7 +20,7 @@ import java.util.*
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationsSamples.toBeEmpty
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.OptionalExpectationSamples.toBeEmpty
  *
  * @since 0.17.0
  */
