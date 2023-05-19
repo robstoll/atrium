@@ -13,7 +13,7 @@ It is licences under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl
 You are very welcome to contribute:
 - star [Atrium](https://github.com/robstoll/atrium) if you like it
 - [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
-- Have a lookt at [CONTRIBUTING](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md) for more ideas.
+- Have a look at [CONTRIBUTING](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md) for more ideas.
 
 ## Versions
 
