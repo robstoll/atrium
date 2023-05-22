@@ -143,8 +143,11 @@
 .external-indicator {
     padding-left: 0.5em;
 }
-
 .external-indicator::before {
     content: url("../images/footer-go-to-link.svg");
 }
 
+ul li {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+}
