@@ -80,7 +80,7 @@ Note: IntelliJ requires a few workarounds.
 - IntelliJ may warn you about duplicate content roots.
   Simply ignore it (IntelliJ doesn't support sharing of sources).
 - IntelliJ may warn you about a Symbol being declared in an unnamed module.
-  This is an [IntelliJ bug](https://youtrack.jetbrains.com/issue/KT-35343) (feel free to upvote), and can be worked around by using JDK 8, which you can switch to in File &rarr; Project Structure &rarr; Project &rarr; Project SDK.
+  This is an [IntelliJ bug](https://youtrack.jetbrains.com/issue/KT-35343) (feel free to upvote) which can be ignored as well.
 
 Perfect, you are set up and ready to go. 
 Have a look at [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
