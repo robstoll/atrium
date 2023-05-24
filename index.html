@@ -3,25 +3,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Atrium Overview</title>
+    <script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
     <link href="logo-icon.svg" rel="icon" type="image/svg">
-    <script type="text/javascript">
-        const storage = localStorage.getItem("dokka-dark-mode")
-        if (storage == null) {
-            const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            if (osDarkSchemePreferred === true) {
-                document.getElementsByTagName("html")[0].classList.add("theme-dark")
-            }
-        } else {
-            const savedDarkMode = JSON.parse(storage)
-            if(savedDarkMode === true) {
-                document.getElementsByTagName("html")[0].classList.add("theme-dark")
-            }
-        }
-    </script>
     <link href="styles/style.css" rel="Stylesheet">
     <link href="styles/jetbrains-mono.css" rel="Stylesheet">
     <link href="styles/logo-styles.css" rel="Stylesheet">
-    <script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
     <script id="versions-script" type="text/javascript" src="scripts/versions.js" async="async"></script>
 </head>
 <body>

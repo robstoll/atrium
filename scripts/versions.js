@@ -12,7 +12,6 @@ const versions = [
     "0.8.0",
     "0.7.0",
     "0.6.0",
-    "0.6.0",
     "0.5.0",
     "0.4.0",
     "0.3.0",
@@ -55,14 +54,76 @@ if (version != versionPlaceholder && latestVersion != version) {
         }
     });
 }
+const versionsElement = document.createElement("nav");
+const versionsDropdownId = "versions__dropdown";
+
 window.addEventListener('load', () => {
-    const versionsElement = document.createElement("nav");
-    versionsElement.id = "versions" ;
+    versionsElement.id = "versions";
+    versionsElement.tabIndex = -1;
     versionsElement.innerHTML = `
-        <button type="button">${version}<span class="arrow"></span></button>
-        <ul class="dropdown">` +
-            versions.filter(v => v != version).map(v => `<li><a href="${refPath}${v}/">${v}</a></li>`).join('\n') +
+        <button tabindex="1" id="versions__button" type="button">${version}<span class="arrow"></span></button>
+        <ul id="${versionsDropdownId}" class="dropdown" tabindex="-1">` +
+            versions.filter(v => v != version).map((v, index) => `<li><a tabindex="${index + 2}" href="${refPath}${v}/">${v}</a></li>`).join('\n') +
         `</ul>`;
     const libraryNameDiv = document.getElementsByClassName("library-name")[0];
     libraryNameDiv.after(versionsElement);
+    const versionsButton = document.getElementById("versions__button");
+    versionsButton.addEventListener('click', () =>{
+        toggleShowVersionList();
+        event.stopPropagation();
+    });
+
+    versionsElement.addEventListener('keydown', event => navigateVersionListViaKeyboard(event));
 });
+
+function isVersionListOpen() {
+    return versionsElement.classList.contains(showListClassName);
+}
+
+const showListClassName = 'showList';
+function toggleShowVersionList(){
+    if (isVersionListOpen()) {
+        versionsElement.classList.remove(showListClassName)
+        document.removeEventListener('keydown', closeVersionViaEscListener);
+        document.removeEventListener("click", toggleShowVersionList);
+        document.removeEventListener("touchstart", toggleShowVersionList);
+    } else {
+        versionsElement.classList.add(showListClassName);
+        document.addEventListener('keydown', closeVersionViaEscListener);
+        document.addEventListener("click", toggleShowVersionList);
+        document.addEventListener("touchstart", toggleShowVersionList);
+    }
+}
+
+function closeVersionViaEscListener(event) {
+    if (!event.isComposing && event.key === 'Escape') {
+        toggleShowVersionList();
+    }
+}
+
+function navigateVersionListViaKeyboard(event) {
+    let targetToFocus = null;
+    const isVersionOrButton =  event.target == versionsElement || event.target.tagName.toLowerCase() == "button"
+    if (!event.isComposing && event.key == "ArrowUp" && !isVersionOrButton) {
+        targetToFocus = event.target.parentElement.previousElementSibling?.firstChild;
+    } else if (!event.isComposing && event.key == "ArrowDown") {
+        if (isVersionOrButton) {
+            if (!isVersionListOpen()) {
+                toggleShowVersionList();
+            }
+            targetToFocus = document.getElementById(versionsDropdownId).firstElementChild.firstElementChild
+        } else if(event.target.tagName.toLowerCase() == "a") {
+            targetToFocus = event.target.parentElement.nextElementSibling?.firstElementChild;
+        }
+    } else if (!event.isComposing && event.key == "End") {
+        targetToFocus = document.getElementById(versionsDropdownId).lastElementChild.firstElementChild;
+    } else if (!event.isComposing && event.key == "Home") {
+        targetToFocus = document.getElementById(versionsDropdownId).firstElementChild.firstElementChild;
+     }
+
+    if (targetToFocus != null) {
+        targetToFocus.focus();
+        targetToFocus.scrollIntoView({'block': 'center', 'behavior': 'smooth'});
+        event.preventDefault();
+    }
+}

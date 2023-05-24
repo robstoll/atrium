@@ -49,16 +49,16 @@
     padding: 0;
     background-color: var(--color-dark);
     border-radius: 0 0 0.5rem 0.5rem;
-    height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     transition: height ease 0.2s;
     left: auto;
     right: 0;
+    display: none;
 }
-#versions:hover .dropdown {
-    height: auto;
+#versions.showList .dropdown {
     max-height: 300px;
+    display:block;
 }
 
 #versions ul li {
@@ -88,11 +88,12 @@
    width: 100%;
 }
 
-
-#versions ul li:hover {
+#versions ul li:hover,
+#versions ul li a:focus {
     color: var(--color-dark);
 }
-#versions ul li:hover,
+#versions ul li:hover a,
+#versions ul li a:focus,
 #versions ul li button:hover {
     background-color: #f2f2f2;
 }
@@ -111,7 +112,7 @@
     transition: transform 100ms ease-in-out;
 }
 
-#versions:hover > button > .arrow {
+#versions.showList > button > .arrow {
      transform: rotate(-225deg);
      margin-top: 0.5em;
 }
@@ -136,8 +137,6 @@
 .navigation-wrapper {
     height: calc(var(--top-navigation-height) - 19px - 18px);
 }
-
-
 
 /* custom classes */
 .external-indicator {

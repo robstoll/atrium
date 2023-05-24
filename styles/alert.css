@@ -1,41 +1,60 @@
 /* adopted from https://www.w3schools.com/howto/howto_js_alert.asp */
 
 .alert {
-  padding: 20px;
-  background-color: #daf8fd;
-  color: black;
-  border-radius: 0.5em;
-  margin: 2rem 2% 0rem 2%;
-  display: none;
+    padding: 20px;
+    background-color: #daf8fd;
+    color: black;
+    border-radius: 0.5em;
+    margin: 1rem 2% 1rem 2%;
+    line-height: 20px;
+    display: none;
 }
-.alert.show {
+#outdated-warning.show .alert {
     display: block;
 }
-.alert .warning{
-    font-family: Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,Android Emoji,EmojiSymbols,EmojiOne Mozilla,Twemoji Mozilla,Segoe UI Symbol,Noto Color Emoji Compat,emoji,noto-emojipedia-fallback;
-    font-size: 1.5em;
-    font-weight:bolder;
-    margin-right: 0.25em;
+#main .alert a {
+    /* regular border color, i.e. always from the light theme */
+    border-bottom: 1px solid rgba(39, 40, 44, .2);
+}
+#main .alert a:hover {
+    border-bottom-color: unset;
 }
 
 .closebtn {
-  margin-left: 15px;
-  color: black;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
+    margin-left: 15px;
+    color: black;
+    font-weight: bold;
+    float: right;
 }
-.closebtn .x{
-  cursor: pointer;
+#outdated-warning__alert-close {
+    cursor: pointer;
+    font-size: 2em;
+    vertical-align: text-bottom;
 }
 .closebtn .hint {
     font-style: italic;
     font-weight: lighter;
-    font-size: 0.6em;
+    font-size: 0.9em;
+    vertical-align: baseline;
 }
 @media screen and (max-width: 950px) {
     .closebtn .hint {
         display: none;
     }
+}
+
+.info-icon {
+    padding-right: 2.5em;
+}
+.info-icon::before {
+    content: "";
+    width: 1.75em;
+    height: 1.75em;
+    margin-top: -0.25em;
+    position: absolute;
+    mask-image: url("../images/info.svg");
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-color: #3535fb;
 }
