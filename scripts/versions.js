@@ -58,6 +58,10 @@ if (version != versionPlaceholder && latestVersion != version) {
             });
             outdatedWarningElement.classList.add("show");
         }
+        const linkElement = document.createElement('link');
+        linkElement.setAttribute('rel', 'canonical');
+        linkElement.href = `${refPath}$latestVersion`;
+        document.head.appendChild(linkTag);
     });
 }
 const versionsElement = document.createElement("nav");
