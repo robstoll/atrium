@@ -2,25 +2,24 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1280"
    height="640"
    viewBox="0 0 338.66666 169.33333"
    version="1.1"
    id="svg8275"
    sodipodi:docname="logo_social.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    inkscape:export-filename="D:\projects\atrium-gh-pages\logo.png"
    inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96">
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs8269">
     <linearGradient
@@ -35,7 +34,7 @@
        gradientTransform="matrix(0.19563189,0,0,0.19563189,-559.48776,472.28157)" />
     <linearGradient
        id="linearGradient2767"
-       osb:paint="gradient">
+       inkscape:swatch="gradient">
       <stop
          style="stop-color:#6e84d7;stop-opacity:1"
          offset="0"
@@ -54,20 +53,20 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="585.33639"
-     inkscape:cy="207.046"
+     inkscape:cx="585.3834"
+     inkscape:cy="206.5762"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="text1009-8-4-3-8-7-7-5-4-5"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
      units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1378"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="2558"
+     inkscape:window-height="1398"
+     inkscape:window-x="2560"
+     inkscape:window-y="20"
      inkscape:window-maximized="1"
      inkscape:pagecheckerboard="false"
      inkscape:snap-text-baseline="false" />
@@ -79,7 +78,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -153,7 +152,7 @@
          id="text1009-8-4-3-8-7-7-5-4-5">
         <text
            xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.35957718px;line-height:125%;font-family:'Open Sans Extrabold';-inkscape-font-specification:'Open Sans Extrabold, ';letter-spacing:0px;word-spacing:0px;fill:#8b81ab;fill-opacity:1;stroke:none;stroke-width:0.48398942px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.3596px;line-height:125%;font-family:'Open Sans Extrabold';-inkscape-font-specification:'Open Sans Extrabold, ';letter-spacing:0px;word-spacing:0px;fill:#8b81ab;fill-opacity:1;stroke:none;stroke-width:0.483989px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            x="2813.4043"
            y="-1294.5366"
            id="text856"
@@ -162,7 +161,7 @@
              id="tspan854"
              x="2813.4043"
              y="-1294.5366"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.65021515px;font-family:'Open Sans Extrabold';-inkscape-font-specification:'Open Sans Extrabold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#518dff;fill-opacity:1;stroke-width:0.48398942px">A multiplatform assertion library</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.6502px;font-family:'Open Sans Extrabold';-inkscape-font-specification:'Open Sans Extrabold, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#518dff;fill-opacity:1;stroke-width:0.483989px">A multiplatform expectation library</tspan></text>
       </g>
     </g>
   </g>
