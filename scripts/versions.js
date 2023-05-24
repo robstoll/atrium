@@ -58,10 +58,13 @@ if (version != versionPlaceholder && latestVersion != version) {
             });
             outdatedWarningElement.classList.add("show");
         }
-        const linkElement = document.createElement('link');
-        linkElement.setAttribute('rel', 'canonical');
-        linkElement.href = `${refPath}$latestVersion`;
-        document.head.appendChild(linkTag);
+        const urlMatch = window.location.href.match(/\/[0-9]+\.[0-9]+\.[0-9]+\/(k?doc\/)?$/)
+        if (urlMatch.size != 0) {
+            const linkElement = document.createElement('link');
+            linkElement.setAttribute('rel', 'canonical');
+            linkElement.href = `${refPath}${latestVersion}${urlMatch.size = 2 ? 'kdoc': ''}`;
+            document.head.appendChild(linkElement);
+        }
     });
 }
 const versionsElement = document.createElement("nav");
