@@ -25,6 +25,10 @@
 #versions + div {
     margin-top: 5px;
 }
+#versions + div {
+    /* hide default version from dokka */
+    display: none;
+}
 
 #versions  {
     transform: initial;

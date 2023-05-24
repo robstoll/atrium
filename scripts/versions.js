@@ -38,7 +38,13 @@ if (version != versionPlaceholder && latestVersion != version) {
             if (outdatedWarningElement == null) {
                 outdatedWarningElement  = document.createElement("div");
                 outdatedWarningElement.id = "outdated-warning";
-                document.body.prepend(outdatedWarningElement);
+                const container = document.getElementById("container");
+                if (container !== null) {
+                    container.before(outdatedWarningElement);
+                } else {
+                    // for old dokka documentation
+                    document.body.prepend(outdatedWarningElement);
+                }
             }
             const closeAlertId = "outdated-warning__alert-close";
             outdatedWarningElement.innerHTML = `<div class="alert">
@@ -86,12 +92,10 @@ function toggleShowVersionList(){
         versionsElement.classList.remove(showListClassName)
         document.removeEventListener('keydown', closeVersionViaEscListener);
         document.removeEventListener("click", toggleShowVersionList);
-        document.removeEventListener("touchstart", toggleShowVersionList);
     } else {
         versionsElement.classList.add(showListClassName);
         document.addEventListener('keydown', closeVersionViaEscListener);
         document.addEventListener("click", toggleShowVersionList);
-        document.addEventListener("touchstart", toggleShowVersionList);
     }
 }
 
