@@ -21,11 +21,10 @@
 
 /* adopted from https://blog.logrocket.com/making-dropdown-menus-css/ */
 
-.library-name,
-#versions + div {
+.library-name {
     margin-top: 5px;
 }
-#versions + div {
+#versions + div:not(.pull-right) {
     /* hide default version from dokka */
     display: none;
 }
