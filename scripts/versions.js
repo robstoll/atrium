@@ -32,7 +32,8 @@ if (srcAttribute.startsWith("..")) {
 }
 if (version != versionPlaceholder && latestVersion != version) {
     window.addEventListener('load', () => {
-        const remember = sessionStorage.getItem("remember-outdated-0.2.0");
+        const rememberKey = `remember-outdated-${version}`
+        const remember = sessionStorage.getItem(rememberKey);
         if (remember == null) {
             var outdatedWarningElement = document.getElementById("outdated-warning");
             if (outdatedWarningElement == null) {
@@ -53,7 +54,7 @@ if (version != versionPlaceholder && latestVersion != version) {
                 </div>`;
             const closeAlert = document.getElementById(closeAlertId);
             closeAlert.addEventListener('click', () => {
-                sessionStorage.setItem(`remember-outdated-${version}`, true);
+                sessionStorage.setItem(rememberKey, true);
                 outdatedWarningElement.classList.remove("show");
             });
             outdatedWarningElement.classList.add("show");
