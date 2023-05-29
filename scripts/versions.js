@@ -50,7 +50,7 @@ if (version != versionPlaceholder && latestVersion != version) {
             const closeAlertId = "outdated-warning__alert-close";
             outdatedWarningElement.innerHTML = `<div class="alert">
                     <span class="closebtn"><span class="hint">Don't show for the rest of the session &rarr; </span><span id="${closeAlertId}">&times;</span></span>
-                    <span class="info-icon"></span><span class="info">Version ${version} is outdated, latest version is <a href="${refPath}${latestVersion}">${latestVersion}</a>.</span>
+                    <span class="info-icon"></span><span class="info">Version ${version} is outdated, latest version is <a href="${refPath}${latestVersion}">${latestVersion}/</a>.</span>
                 </div>`;
             const closeAlert = document.getElementById(closeAlertId);
             closeAlert.addEventListener('click', () => {
@@ -63,7 +63,7 @@ if (version != versionPlaceholder && latestVersion != version) {
         if (urlMatch.size != 0) {
             const linkElement = document.createElement('link');
             linkElement.setAttribute('rel', 'canonical');
-            linkElement.href = `${refPath}${latestVersion}${urlMatch.size = 2 ? 'kdoc': ''}`;
+            linkElement.href = `${refPath}${latestVersion}/${urlMatch.size = 2 ? 'kdoc': ''}`;
             document.head.appendChild(linkElement);
         }
     });
