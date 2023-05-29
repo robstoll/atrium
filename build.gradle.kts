@@ -10,7 +10,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "1.0.0-SNAPSHOT"
+    rootProject.version = "1.0.0-RC2"
     rootProject.group = "ch.tutteli.atrium"
     dependencies {
         classpath("org.jetbrains.dokka:dokka-base:1.8.10")
@@ -590,8 +590,8 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=0.18.0
-export ATRIUM_VERSION=1.0.0
+export ATRIUM_PREVIOUS_VERSION=1.0.0-RC2
+export ATRIUM_VERSION=1.0.0-RC2
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -611,7 +611,7 @@ git push
 
 alternatively the manual steps:
 
-    a) change rootProject.version in build.gradle to X.Y.Z
+    a) change rootProject.version in build.gradle.kts to X.Y.Z
     b) search for old version in README.md and replace with new
     c) search for `tree/main` in all .md files and replace it with `tree/vX.Y.Z`
     d) search for `latest#/doc` in all .md files and replace with `X.Y.Z/doc`
