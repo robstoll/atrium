@@ -1,0 +1,519 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PathAssertions</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic/PathAssertions///PointingToDeclaration//-1815350570">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-logic</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.logic</a><span class="delimiter">/</span><span class="current">PathAssertions</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Path</span><wbr><span><span>Assertions</span></span></h1>
+    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">PathAssertions</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/logic/atrium-logic/src/jvmMain/kotlin/ch/tutteli/atrium/logic/PathAssertions.kt#L18">source</a>)</span></span></div><p class="paragraph">Collection of assertion functions and builders which are applicable to subjects with a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a> type.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../ch.tutteli.atrium.logic.impl/-default-path-assertions/index.html">DefaultPathAssertions</a></div></span></div><div></div></div></div></div></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2078030667%2FFunctions%2F-1815350570" anchor-label="endsNotWith" id="-2078030667%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-not-with.html"><span>ends</span><wbr><span>Not</span><wbr><span><span>With</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2078030667%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="ends-not-with.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="ends-not-with.html"><span class="token function">endsNotWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="ends-not-with.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">expected<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="943236212%2FFunctions%2F-1815350570" anchor-label="endsWith" id="943236212%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-with.html"><span>ends</span><wbr><span><span>With</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="943236212%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="ends-with.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="ends-with.html"><span class="token function">endsWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="ends-with.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">expected<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1037384919%2FFunctions%2F-1815350570" anchor-label="exists" id="1037384919%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="exists.html"><span><span>exists</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1037384919%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exists.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="exists.html"><span class="token function">exists</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exists.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">linkOption<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/LinkOption.html">LinkOption</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1977293998%2FFunctions%2F-1815350570" anchor-label="existsNot" id="1977293998%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="exists-not.html"><span>exists</span><wbr><span><span>Not</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1977293998%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exists-not.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="exists-not.html"><span class="token function">existsNot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exists-not.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">linkOption<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/LinkOption.html">LinkOption</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-416953769%2FFunctions%2F-1815350570" anchor-label="extension" id="-416953769%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extension.html"><span><span>extension</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-416953769%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="extension.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="extension.html"><span class="token function">extension</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="extension.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html">FeatureExtractorBuilder.ExecutionStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="extension.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1807409251%2FFunctions%2F-1815350570" anchor-label="fileName" id="1807409251%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="file-name.html"><span>file</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1807409251%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="file-name.html"><span class="token function">fileName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html">FeatureExtractorBuilder.ExecutionStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-420086118%2FFunctions%2F-1815350570" anchor-label="fileNameWithoutExtension" id="-420086118%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="file-name-without-extension.html"><span>file</span><wbr><span>Name</span><wbr><span>Without</span><wbr><span><span>Extension</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-420086118%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name-without-extension.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="file-name-without-extension.html"><span class="token function">fileNameWithoutExtension</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name-without-extension.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html">FeatureExtractorBuilder.ExecutionStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="file-name-without-extension.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="165844946%2FFunctions%2F-1815350570" anchor-label="hasDirectoryEntry" id="165844946%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-directory-entry.html"><span>has</span><wbr><span>Directory</span><wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="165844946%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-directory-entry.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="has-directory-entry.html"><span class="token function">hasDirectoryEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-directory-entry.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">entries<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="682208264%2FFunctions%2F-1815350570" anchor-label="hasSameBinaryContentAs" id="682208264%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-same-binary-content-as.html"><span>has</span><wbr><span>Same</span><wbr><span>Binary</span><wbr><span>Content</span><wbr><span><span>As</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="682208264%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-same-binary-content-as.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="has-same-binary-content-as.html"><span class="token function">hasSameBinaryContentAs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-same-binary-content-as.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">targetPath<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="47249054%2FFunctions%2F-1815350570" anchor-label="hasSameTextualContentAs" id="47249054%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-same-textual-content-as.html"><span>has</span><wbr><span>Same</span><wbr><span>Textual</span><wbr><span>Content</span><wbr><span><span>As</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="47249054%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-same-textual-content-as.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="has-same-textual-content-as.html"><span class="token function">hasSameTextualContentAs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="has-same-textual-content-as.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">targetPath<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token punctuation">, </span></span><span class="parameter ">sourceCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a><span class="token punctuation">, </span></span><span class="parameter ">targetCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1968554755%2FFunctions%2F-1815350570" anchor-label="isAbsolute" id="-1968554755%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-absolute.html"><span>is</span><wbr><span><span>Absolute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1968554755%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-absolute.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-absolute.html"><span class="token function">isAbsolute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-absolute.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="766575611%2FFunctions%2F-1815350570" anchor-label="isDirectory" id="766575611%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-directory.html"><span>is</span><wbr><span><span>Directory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="766575611%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-directory.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-directory.html"><span class="token function">isDirectory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-directory.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162224742%2FFunctions%2F-1815350570" anchor-label="isEmptyDirectory" id="162224742%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty-directory.html"><span>is</span><wbr><span>Empty</span><wbr><span><span>Directory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162224742%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-empty-directory.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-empty-directory.html"><span class="token function">isEmptyDirectory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-empty-directory.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="412824464%2FFunctions%2F-1815350570" anchor-label="isExecutable" id="412824464%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-executable.html"><span>is</span><wbr><span><span>Executable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="412824464%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-executable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-executable.html"><span class="token function">isExecutable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-executable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1294514421%2FFunctions%2F-1815350570" anchor-label="isNotExecutable" id="-1294514421%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-executable.html"><span>is</span><wbr><span>Not</span><wbr><span><span>Executable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1294514421%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-executable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-not-executable.html"><span class="token function">isNotExecutable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-executable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1849779697%2FFunctions%2F-1815350570" anchor-label="isNotReadable" id="1849779697%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-readable.html"><span>is</span><wbr><span>Not</span><wbr><span><span>Readable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1849779697%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-readable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-not-readable.html"><span class="token function">isNotReadable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-readable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="151458209%2FFunctions%2F-1815350570" anchor-label="isNotWritable" id="151458209%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-writable.html"><span>is</span><wbr><span>Not</span><wbr><span><span>Writable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="151458209%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-writable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-not-writable.html"><span class="token function">isNotWritable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-not-writable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="850440118%2FFunctions%2F-1815350570" anchor-label="isReadable" id="850440118%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-readable.html"><span>is</span><wbr><span><span>Readable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="850440118%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-readable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-readable.html"><span class="token function">isReadable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-readable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="939674758%2FFunctions%2F-1815350570" anchor-label="isRegularFile" id="939674758%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-regular-file.html"><span>is</span><wbr><span>Regular</span><wbr><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939674758%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-regular-file.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-regular-file.html"><span class="token function">isRegularFile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-regular-file.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2072376722%2FFunctions%2F-1815350570" anchor-label="isRelative" id="2072376722%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-relative.html"><span>is</span><wbr><span><span>Relative</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2072376722%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-relative.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-relative.html"><span class="token function">isRelative</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-relative.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-530246510%2FFunctions%2F-1815350570" anchor-label="isSymbolicLink" id="-530246510%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-symbolic-link.html"><span>is</span><wbr><span>Symbolic</span><wbr><span><span>Link</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-530246510%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-symbolic-link.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-symbolic-link.html"><span class="token function">isSymbolicLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-symbolic-link.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-847881370%2FFunctions%2F-1815350570" anchor-label="isWritable" id="-847881370%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-writable.html"><span>is</span><wbr><span><span>Writable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847881370%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-writable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="is-writable.html"><span class="token function">isWritable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-writable.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1229848026%2FFunctions%2F-1815350570" anchor-label="parent" id="-1229848026%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="parent.html"><span><span>parent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1229848026%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="parent.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="parent.html"><span class="token function">parent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="parent.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html">FeatureExtractorBuilder.ExecutionStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="parent.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="595674793%2FFunctions%2F-1815350570" anchor-label="resolve" id="595674793%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resolve.html"><span><span>resolve</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="595674793%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="resolve.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="resolve.html"><span class="token function">resolve</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="resolve.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">other<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.transformers/-feature-extractor-builder/-execution-step/index.html">FeatureExtractorBuilder.ExecutionStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="resolve.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="386866318%2FFunctions%2F-1815350570" anchor-label="startsNotWith" id="386866318%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-not-with.html"><span>starts</span><wbr><span>Not</span><wbr><span><span>With</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="386866318%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="starts-not-with.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="starts-not-with.html"><span class="token function">startsNotWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="starts-not-with.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">expected<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-803011781%2FFunctions%2F-1815350570" anchor-label="startsWith" id="-803011781%2FFunctions%2F-1815350570" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-with.html"><span>starts</span><wbr><span><span>With</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-803011781%2FFunctions%2F-1815350570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-logic:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-logic:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="starts-with.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="starts-with.html"><span class="token function">startsWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="starts-with.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">expected<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

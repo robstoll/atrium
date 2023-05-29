@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>toContainRegex</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-infix:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-infix::ch.tutteli.atrium.api.infix.en_GB//toContainRegex/ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[kotlin.CharSequence])]#kotlin.String/PointingToDeclaration//105691009">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">toContainRegex</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>to</span><wbr><span>Contain</span><wbr><span><span>Regex</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="to-contain-regex.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="to-contain-regex.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-contain-regex.html"><span class="token function">toContainRegex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="to-contain-regex.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L153">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) contains a sequence which matches the given regular expression <a href="to-contain-regex.html">pattern</a>.</p><p class="paragraph">It is a shortcut for <code class="lang-kotlin">toContain o atLeast 1 regex pattern</code>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>pattern</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The pattern which is expected to have a match against the input of the search.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.samples.fails
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect("ABC") toContainRegex "A(B)?"
+
+fails {
+    expect("ABC") toContainRegex "X"
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>exactly</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-fluent:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-fluent::ch.tutteli.atrium.api.fluent.en_GB//exactly/ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep[TypeParam(bounds=[kotlin.CharSequence]),TypeParam(bounds=[ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour])]#kotlin.Int/PointingToDeclaration//-502025397">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-fluent</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a><span class="delimiter">/</span><span class="current">exactly</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>exactly</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator"> : </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step/index.html">CharSequenceContains.EntryPointStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="exactly.html"><span class="token function">exactly</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-exactly-checker-step/index.html">ExactlyCheckerStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/charSequenceToContainCheckers.kt#L63">source</a>)</span></span></div><p class="paragraph">Restricts a <code class="lang-kotlin">contains</code> assertion by specifying that the number of occurrences of the value which we are looking for occurs <code class="lang-kotlin">exactly</code> number of <a href="exactly.html">times</a> within the search input.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>times</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The number which the check will compare against the actual number of times an expected value is found in the input of the search.</p></div></div></div></div></div><h4 class="">Throws</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">In case <a href="exactly.html">times</a> is zero; use <a href="not-to-contain.html">notToContain</a> instead.</p></div></div></div></div></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token operator"> : </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator"> : </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-search-behaviour/index.html">InAnyOrderSearchBehaviour</a><span class="token operator">&gt; </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-entry-point-step/index.html">IterableLikeContains.EntryPointStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="exactly.html"><span class="token function">exactly</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.steps/-exactly-checker-step/index.html">ExactlyCheckerStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="exactly.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="exactly.html">S</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableLikeToContainCheckers.kt#L71">source</a>)</span></span></div><p class="paragraph">Restricts a <code class="lang-kotlin">contains</code> assertion by specifying that the number of occurrences of the entry which we are looking for occurs <code class="lang-kotlin">exactly</code> number of <a href="exactly.html">times</a> within the <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0 -- API existed for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but not for <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a>.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>times</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The number which the check will compare against the actual number of times an expected entry is found in the <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a>.</p></div></div></div></div></div><h4 class="">Throws</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">In case <a href="exactly.html">times</a> is zero; use <a href="not-to-contain.html">notToContain</a> instead.</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

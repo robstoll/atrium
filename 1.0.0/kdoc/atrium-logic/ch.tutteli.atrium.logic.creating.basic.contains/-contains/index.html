@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Contains</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic.creating.basic.contains/Contains///PointingToDeclaration//1591559200">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-logic</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.logic.creating.basic.contains</a><span class="delimiter">/</span><span class="current">Contains</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Contains</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Contains</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/creating/basic/contains/Contains.kt#L16">source</a>)</span></span></div><p class="paragraph">Defines the basic contract for sophisticated <code class="lang-kotlin">contains</code> assertion builders.</p><p class="paragraph">The entry point for the contract constitutes a <a href="-entry-point-step/index.html">Contains.EntryPointStep</a>. A builder typically allows a user to choose a desired <a href="-search-behaviour/index.html">SearchBehaviour</a>, one or more <a href="-checker/index.html">Checker</a>s and uses an <a href="-creator/index.html">Creator</a> to finish the building process.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="388745130%2FClasslikes%2F1591559200" anchor-label="Checker" id="388745130%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-checker/index.html"><span><span>Checker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="388745130%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-checker/index.html">Checker</a></div><div class="brief "><p class="paragraph">Represents a check for the search result such as: the object is contained exactly once in the input of the search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1117599298%2FClasslikes%2F1591559200" anchor-label="CheckerStep" id="-1117599298%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-checker-step/index.html"><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1117599298%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-checker-step/index.html">CheckerStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step/index.html">S</a><span class="token operator"> : </span><a href="-search-behaviour/index.html">Contains.SearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step/index.html">C</a><span class="token operator"> : </span><a href="-checker/index.html">Contains.Checker</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step/index.html">B</a><span class="token operator"> : </span><a href="-entry-point-step/index.html">Contains.EntryPointStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-checker-step/index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-checker-step/index.html">S</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The step of choosing/defining <a href="-checker/index.html">Checker</a>s.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2041124166%2FClasslikes%2F1591559200" anchor-label="CheckerStepLogic" id="2041124166%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-checker-step-logic/index.html"><span>Checker</span><wbr><span>Step</span><wbr><span><span>Logic</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2041124166%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-checker-step-logic/index.html">CheckerStepLogic</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-checker-step-logic/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step-logic/index.html">S</a><span class="token operator"> : </span><a href="-search-behaviour/index.html">Contains.SearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step-logic/index.html">C</a><span class="token operator"> : </span><a href="-checker/index.html">Contains.Checker</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-checker-step-logic/index.html">B</a><span class="token operator"> : </span><a href="-entry-point-step-logic/index.html">Contains.EntryPointStepLogic</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-checker-step-logic/index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-checker-step-logic/index.html">S</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The step of choosing/defining <a href="-checker/index.html">Checker</a>s on the logic level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1244117779%2FClasslikes%2F1591559200" anchor-label="Creator" id="1244117779%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-creator/index.html"><span><span>Creator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1244117779%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-creator/index.html">Creator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-creator/index.html">T</a><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-creator/index.html">SC</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Represents the final step of a sophisticated <code class="lang-kotlin">contains</code> assertion builder which creates the <a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> as such.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1732910599%2FClasslikes%2F1591559200" anchor-label="EntryPointStep" id="-1732910599%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-entry-point-step/index.html"><span>Entry</span><wbr><span>Point</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1732910599%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-entry-point-step/index.html">EntryPointStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-entry-point-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-entry-point-step/index.html">S</a><span class="token operator"> : </span><a href="-search-behaviour/index.html">Contains.SearchBehaviour</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The entry point of the contract. Use <code class="lang-kotlin">_logic</code> to retrieve the <a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a> counterpart in case you want to extend the building process.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="322103787%2FClasslikes%2F1591559200" anchor-label="EntryPointStepLogic" id="322103787%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-entry-point-step-logic/index.html"><span>Entry</span><wbr><span>Point</span><wbr><span>Step</span><wbr><span><span>Logic</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="322103787%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-entry-point-step-logic/index.html">EntryPointStepLogic</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-entry-point-step-logic/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-entry-point-step-logic/index.html">S</a><span class="token operator"> : </span><a href="-search-behaviour/index.html">Contains.SearchBehaviour</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The entry point of the contract, containing the <a href="-entry-point-step-logic/container.html">container</a> -- i.e. the subject of this expectation for which the sophisticated <code class="lang-kotlin">contain</code> assertion should be created -- as well as the chosen <a href="-entry-point-step-logic/search-behaviour.html">searchBehaviour</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-79511190%2FClasslikes%2F1591559200" anchor-label="SearchBehaviour" id="-79511190%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-search-behaviour/index.html"><span>Search</span><wbr><span><span>Behaviour</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-79511190%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-search-behaviour/index.html">SearchBehaviour</a></div><div class="brief "><p class="paragraph">Represents a search behaviour but leaves it up to the <a href="-creator/index.html">Creator</a> how this behaviour is implemented -- yet, it provides a method to decorate a description (a <a href="../../../atrium-core/ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) in order that it reflects the search behaviour.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

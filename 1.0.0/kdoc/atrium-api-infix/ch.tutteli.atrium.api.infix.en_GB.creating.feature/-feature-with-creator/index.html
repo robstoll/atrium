@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FeatureWithCreator</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-infix:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-api-infix::ch.tutteli.atrium.api.infix.en_GB.creating.feature/FeatureWithCreator///PointingToDeclaration//105691009">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.api.infix.en_GB.creating.feature</a><span class="delimiter">/</span><span class="current">FeatureWithCreator</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Feature</span><wbr><span>With</span><wbr><span><span>Creator</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">FeatureWithCreator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/creating/feature/FeatureWithCreator.kt#L25">source</a>)</span></span></div><p class="paragraph">Parameter object which contains a description of a feature along with an <a href="extractor.html">extractor</a> which actually extracts the feature out of a subject of an assertion + an <a href="assertion-creator.html">assertionCreator</a> which defines assertions for the feature.</p><p class="paragraph">Use <code class="lang-kotlin">of(K..., ...) { ... }</code> to create this representation where the first argument is the extractor in form of a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property1/index.html">KProperty1</a> or a <code class="lang-kotlin">KFunctionX</code>, the last an <a href="assertion-creator.html">assertionCreator</a>-lambda and the remaining arguments in-between the required arguments in case of a <code class="lang-kotlin">KFunctionX</code> where <code class="lang-kotlin">X</code> 1.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.12.0</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-982804323%2FProperties%2F105691009" anchor-label="assertionCreator" id="-982804323%2FProperties%2F105691009" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assertion-creator.html"><span>assertion</span><wbr><span><span>Creator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-982804323%2FProperties%2F105691009"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="assertion-creator.html">assertionCreator</a><span class="token operator">: </span><span class="token keyword"></span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">assertionCreator</code>-lambda which defines assertions for the feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1156809126%2FProperties%2F105691009" anchor-label="descriptionProvider" id="1156809126%2FProperties%2F105691009" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="description-provider.html"><span>description</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1156809126%2FProperties%2F105691009"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="description-provider.html">descriptionProvider</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-component-factory-container/index.html">ComponentFactoryContainer</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Provides the description of the feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1196486895%2FProperties%2F105691009" anchor-label="extractor" id="1196486895%2FProperties%2F105691009" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extractor.html"><span><span>extractor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1196486895%2FProperties%2F105691009"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="extractor.html">extractor</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="index.html">R</a></div><div class="brief "><p class="paragraph">The extractor which extracts the feature out of the subject of  the expectation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

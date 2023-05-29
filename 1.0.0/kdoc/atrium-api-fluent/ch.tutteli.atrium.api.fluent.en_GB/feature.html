@@ -1,0 +1,580 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>feature</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script src="https://unpkg.com/kotlin-playground@1"></script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-fluent:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-fluent::ch.tutteli.atrium.api.fluent.en_GB//feature/ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[kotlin.Any?])]#kotlin.reflect.KProperty1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration//-502025397">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-fluent</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a><span class="delimiter">/</span><span class="current">feature</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>feature</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">property<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property1/index.html">KProperty1</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L60">source</a>)</span></span></div><p class="paragraph">Extracts the <a href="feature.html">property</a> out of the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="feature.html">property</a>.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature(Person::name) // subject is now String
+    .toStartWith("John")
+    .toEndWith("Smith")
+
+fails {
+    expect(person)
+        .feature(Person::name)
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kprop) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">property<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property1/index.html">KProperty1</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L75">source</a>)</span></span></div><p class="paragraph">Extracts the <a href="feature.html">property</a> out of the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature(Person::name) { // subject within this expectation-group is of type String
+        toStartWith("John")
+        toEndWith("Smith")
+    } // subject here is back to type Person
+
+fails {
+    expect(person)
+        .feature(Person::name) {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated, use `.feature(kprop).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L93">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling the method <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person) = person.name
+
+expect(person)
+    .feature(Person::name) // subject is now of type String
+    .toStartWith("John")
+    .toEndWith("Smith")
+
+fails {
+    expect(person)
+        .feature(::f)
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L108">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person) = person.name
+
+expect(person)
+    .feature(::f) { // subject is now String, after function [f] is applied
+        toStartWith("John")
+        toEndWith("Smith")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f) {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated, use `.feature(kfun).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L127">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling the method <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String) = "$title ${person.name}"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr."
+    ) // subject is now String (actually the return value of calling `f` with the given argument)
+    .toStartWith("Dr. John")
+    .toEndWith("Smith")
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.")
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun, arg1) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L145">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String) = "$title ${person.name}"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr."
+    ) {// subject within this expectation-group is of type String (actually the return value of calling `f` with the given argument)
+        toStartWith("Dr. John")
+        toEndWith("Smith")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.") {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+            //                      use `.feature(kfun, arg1).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L165">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with arguments <a href="feature.html">a1</a>, <a href="feature.html">a2</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling the method <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String) = "$title ${person.name}, $suffix"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP"
+    ) // subject is now String (actually the return value of calling `f` with the given two arguments)
+    .toStartWith("Dr. John")
+    .toEndWith("Smith, PMP")
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP")
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun, arg1, arg2) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L183">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a>, <a href="feature.html">a2</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String) = "$title ${person.name}, $suffix"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP"
+    ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given two arguments)
+        toStartWith("Dr. John")
+        toEndWith("Smith, PMP")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP") {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+            //                      use `.feature(kfun, arg1, arg2).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L203">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with arguments <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling the method <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String) =
+    "$title ${person.name}, $suffix. English level: $english"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native"
+    ) // subject is now String (actually the return value of calling `f` with the given three arguments)
+    .toStartWith("Dr. John Smith")
+    .toContain("PMP")
+    .toEndWith("English level: Native")
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native")
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun, a1, a2, a3) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L221">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String) =
+    "$title ${person.name}, $suffix. English level: $english"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native"
+    ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given three arguments)
+        toStartWith("Dr. John Smith")
+        toContain("PMP")
+        toEndWith("English level: Native")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native") {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+            //                      use `.feature(kfun, a1, a2, a3).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">a4<span class="token operator">: </span><a href="feature.html">A4</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L241">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with arguments <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a>, <a href="feature.html">a4</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling the method <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String, german: String) =
+    "$title ${person.name}, $suffix. English level: $english, German level: $german"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native",
+        "C1"
+    ) // subject is now String (actually the return value of calling `f` with the given four arguments)
+    .toStartWith("Dr. John Smith")
+    .toContain("PMP")
+    .toContain("English level: Native")
+    .toEndWith("German level: C1")
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native", "C1")
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun, a1, a2, a3, a4) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">a4<span class="token operator">: </span><a href="feature.html">A4</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L259">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a>, <a href="feature.html">a4</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String, german: String) =
+    "$title ${person.name}, $suffix. English level: $english, German level: $german"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native",
+        "C1"
+    ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given four arguments)
+        toStartWith("Dr. John Smith")
+        toContain("PMP")
+        toContain("English level: Native")
+        toEndWith("German level: C1")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native", "C1") {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+            //                      use `.feature(kfun, a1, a2, a3, a4).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A5</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A5</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">a4<span class="token operator">: </span><a href="feature.html">A4</a><span class="token punctuation">, </span></span><span class="parameter ">a5<span class="token operator">: </span><a href="feature.html">A5</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L278">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with arguments <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a>, <a href="feature.html">a4</a>, <a href="feature.html">a5</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the return value of calling <a href="feature.html">f</a> on the current subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String, german: String, spanish: String) =
+    "$title ${person.name}, $suffix. English level: $english, German level: $german, Spanish level: $spanish"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native",
+        "C1",
+        "B2"
+    ) // subject is now String (actually the return value of calling `f` with the given five arguments)
+    .toStartWith("Dr. John Smith")
+    .toContain("PMP")
+    .toContain("English level: Native")
+    .toContain("German level: C1")
+    .toEndWith("Spanish level: B2")
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native", "C1", "B2")
+        .toStartWith("Kevin") // fails
+        .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
+    //                           use `.feature(kfun, a1, a2, a3, a4, a5) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A5</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A1</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A2</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A3</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A4</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">A5</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">a1<span class="token operator">: </span><a href="feature.html">A1</a><span class="token punctuation">, </span></span><span class="parameter ">a2<span class="token operator">: </span><a href="feature.html">A2</a><span class="token punctuation">, </span></span><span class="parameter ">a3<span class="token operator">: </span><a href="feature.html">A3</a><span class="token punctuation">, </span></span><span class="parameter ">a4<span class="token operator">: </span><a href="feature.html">A4</a><span class="token punctuation">, </span></span><span class="parameter ">a5<span class="token operator">: </span><a href="feature.html">A5</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L296">source</a>)</span></span></div><p class="paragraph">Extracts the value which is returned when calling <a href="feature.html">f</a> with argument <a href="feature.html">a1</a>, <a href="feature.html">a2</a>, <a href="feature.html">a3</a>, <a href="feature.html">a4</a>, <a href="feature.html">a5</a> on the current subject of <code class="lang-kotlin">this</code> expectation, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+fun f(person: Person, title: String, suffix: String, english: String, german: String, spanish: String) =
+    "$title ${person.name}, $suffix. English level: $english, German level: $german, Spanish level: $spanish"
+
+expect(person)
+    .feature(
+        ::f,
+        "Dr.",
+        "PMP",
+        "Native",
+        "C1",
+        "B2"
+    ) { // subject within this expectation-group is of type String (actually the return value of calling `f` with the given five arguments)
+        toStartWith("Dr. John Smith")
+        toContain("PMP")
+        toContain("English level: Native")
+        toContain("German level: C1")
+        toEndWith("Spanish level: B2")
+    } // subject here is back type Person
+
+fails {
+    expect(person)
+        .feature(::f, "Dr.", "PMP", "Native", "C1", "B2") {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toStartWith("Kevin") // fails
+            toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+            //                      use `.feature(kfun, a1, a2, a3, a4, a5).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">provider<span class="token operator">: </span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L318">source</a>)</span></span></div><p class="paragraph">Extracts a feature out of the current subject of <code class="lang-kotlin">this</code> expectation based on the given <a href="feature.html">provider</a> and using the given <a href="feature.html">description</a>, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>provider</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Extracts the feature where the subject of <code class="lang-kotlin">this</code> expectation is available via implicit parameter <code class="lang-kotlin">it</code>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature("Actual age", Person::age) // subject is now Int (actually 25)
+    .toBeLessThan(30)
+    .toBeGreaterThan(20)
+
+fails {
+    // Reporting will include the description:
+    // expected that subject: Person(name=John Smith, age=25)
+    //   * Actual age:        25
+    //     - to be less than: 30
+    expect(person)
+        .feature("Actual age", Person::age)
+        .toBeLessThan(20)    // fails
+        .toBeGreaterThan(30) // not evaluated/reported because `toBeLessThan` already fails
+    //                          use `.feature(descr, kprop) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">provider<span class="token operator">: </span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L337">source</a>)</span></span></div><p class="paragraph">Extracts a feature out of the current subject of <code class="lang-kotlin">this</code> expectation based on the given <a href="feature.html">provider</a> and using the given <a href="feature.html">description</a>, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>provider</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Extracts the feature where the subject of <code class="lang-kotlin">this</code> expectation is available via implicit parameter <code class="lang-kotlin">it</code>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature("Actual age", Person::age) { // subject within this expectation-group is now of type Int (actually 25)
+        toBeLessThan(30)
+        toBeGreaterThan(20)
+    } // subject here is back type Person
+
+fails {
+    // Reporting will include the description:
+    // expected that subject: Person(name=John Smith, age=25)
+    //   * Actual age:           25
+    //     - to be less than:    30
+    //     - to be greater than: 30
+
+    expect(person)
+        .feature("Actual age", Person::age) {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toBeLessThan(20)    // fails
+            toBeGreaterThan(30) // still evaluated even though `toBeLessThan` already fails
+            //                     use `.feature(descr, kprop).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">provider<span class="token operator">: </span><span class="token keyword"></span><a href="../ch.tutteli.atrium.api.fluent.en_GB.creating.feature/-meta-feature-option/index.html">MetaFeatureOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L360">source</a>)</span></span></div><p class="paragraph">Extracts a feature out of the current subject of <code class="lang-kotlin">this</code> expectation, based on the given <a href="feature.html">provider</a>, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it and returns it so that subsequent calls are based on the feature.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>provider</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Creates a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a> where the subject of <code class="lang-kotlin">this</code> expectation is available via implicit parameter <code class="lang-kotlin">it</code>. Usually you use <a href="../ch.tutteli.atrium.api.fluent.en_GB.creating.feature/-meta-feature-option/f.html">f</a> to create a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a>, e.g. <code class="lang-kotlin">feature { f(it::size) }</code></p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature { f(it::age) } // `it` refers to `person`, resulting subject is of type Int (actually 25)
+    .toBeGreaterThan(20)
+    .toBeLessThan(30)
+
+fails {
+    expect(person)
+        .feature { f(it::age) }
+        .toBeGreaterThan(30) // fails
+        .toBeLessThan(20)    // not evaluated/reported because `toBeGreaterThan` already fails
+    //                          use `.feature({ extractor }) { ... }` if you want that all assertions are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="feature.html"><span class="token function">feature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">provider<span class="token operator">: </span><span class="token keyword"></span><a href="../ch.tutteli.atrium.api.fluent.en_GB.creating.feature/-meta-feature-option/index.html">MetaFeatureOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="feature.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/featureExtractors.kt#L379">source</a>)</span></span></div><p class="paragraph">Extracts a feature out of the current subject of <code class="lang-kotlin">this</code> expectation, based on the given <a href="feature.html">provider</a>, creates a new <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for it, applies an expectation-group based on the given <a href="feature.html">assertionCreator</a> for the feature and returns the initial <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the current subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>provider</span></span></u></div></span></div><div><div class="title"><p class="paragraph">You need to create a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a> where the subject of <code class="lang-kotlin">this</code> expectation is available via implicit parameter <code class="lang-kotlin">it</code>. Usually you use <a href="../ch.tutteli.atrium.api.fluent.en_GB.creating.feature/-meta-feature-option/f.html">MetaFeatureOption.f</a> to create a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.feature/-meta-feature/index.html">MetaFeature</a>, e.g. <code class="lang-kotlin">f(it::size)</code></p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val person = Person(name = "John Smith", age = 25)
+
+expect(person)
+    .feature({ f(it::age) }) { // `it` refers to `person`, subject within this expectation-group is of type Int (actually 25)
+        toBeGreaterThan(20)
+        toBeLessThan(30)
+    } // subject here is back to Person
+
+fails {
+    expect(person)
+        .feature({ f(it::age) }) {
+            // introduces an expectation-group block
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+            toBeGreaterThan(30) // fails
+            toBeLessThan(20)    // still evaluated even though `toBeLessThan` already fails
+            //                     use `.feature({ extractor }).` if you want fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

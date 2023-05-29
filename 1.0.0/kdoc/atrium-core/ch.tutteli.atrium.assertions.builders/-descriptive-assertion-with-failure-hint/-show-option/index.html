@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ShowOption</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-core::ch.tutteli.atrium.assertions.builders/DescriptiveAssertionWithFailureHint.ShowOption///PointingToDeclaration//-880026277">
+  <div class="breadcrumbs"><a href="../../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../../index.html">ch.tutteli.atrium.assertions.builders</a><span class="delimiter">/</span><a href="../index.html">DescriptiveAssertionWithFailureHint</a><span class="delimiter">/</span><span class="current">ShowOption</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Show</span><wbr><span><span>Option</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">ShowOption</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/assertions/builders/descriptiveWithFailureHint.kt#L106">source</a>)</span></span></div><p class="paragraph">Option which allows specifying in which situations the failure hint should be shown.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1330251880%2FClasslikes%2F-880026277" anchor-label="Companion" id="-1330251880%2FClasslikes%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1330251880%2FClasslikes%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1009068224%2FFunctions%2F-880026277" anchor-label="showBasedOnDefinedSubjectOnlyIf" id="1009068224%2FFunctions%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-based-on-defined-subject-only-if.html"><span>show</span><wbr><span>Based</span><wbr><span>On</span><wbr><span>Defined</span><wbr><span>Subject</span><wbr><span>Only</span><wbr><span><span>If</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1009068224%2FFunctions%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-based-on-defined-subject-only-if.html">T</a><span class="token operator">&gt; </span><a href="show-based-on-defined-subject-only-if.html"><span class="token function">showBasedOnDefinedSubjectOnlyIf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expect<span class="token operator">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-based-on-defined-subject-only-if.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="show-based-on-defined-subject-only-if.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-descriptive/-description-option/index.html">Descriptive.DescriptionOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-final-step/index.html">DescriptiveAssertionWithFailureHint.FinalStep</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Defines that the failure hint shall be shown if the subject is defined and the given <a href="show-based-on-defined-subject-only-if.html">predicate</a> holds for it</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="902344991%2FFunctions%2F-880026277" anchor-label="showBasedOnSubjectOnlyIf" id="902344991%2FFunctions%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-based-on-subject-only-if.html"><span>show</span><wbr><span>Based</span><wbr><span>On</span><wbr><span>Subject</span><wbr><span>Only</span><wbr><span><span>If</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="902344991%2FFunctions%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-based-on-subject-only-if.html">T</a><span class="token operator">&gt; </span><a href="show-based-on-subject-only-if.html"><span class="token function">showBasedOnSubjectOnlyIf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expect<span class="token operator">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-based-on-subject-only-if.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">showSubStep<span class="token operator">: </span><span class="token keyword"></span><a href="../-show-subject-defined-option/index.html">DescriptiveAssertionWithFailureHint.ShowSubjectDefinedOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-based-on-subject-only-if.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span><span class="token keyword"></span><span class="token punctuation">(</span><span class="token keyword"></span><a href="show-based-on-subject-only-if.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-descriptive/-description-option/index.html">Descriptive.DescriptionOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-final-step/index.html">DescriptiveAssertionWithFailureHint.FinalStep</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Defines that the failure hint shall only be shown based on a predicate influenced by the subject of the expectation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-207778703%2FFunctions%2F-880026277" anchor-label="showOnlyIf" id="-207778703%2FFunctions%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-only-if.html"><span>show</span><wbr><span>Only</span><wbr><span><span>If</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-207778703%2FFunctions%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="show-only-if.html"><span class="token function">showOnlyIf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-descriptive/-description-option/index.html">Descriptive.DescriptionOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-final-step/index.html">DescriptiveAssertionWithFailureHint.FinalStep</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Defines that the failure hint shall only be shown if the given <a href="show-only-if.html">predicate</a> holds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="238850762%2FFunctions%2F-880026277" anchor-label="showOnlyIfSubjectDefined" id="238850762%2FFunctions%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-only-if-subject-defined.html"><span>show</span><wbr><span>Only</span><wbr><span>If</span><wbr><span>Subject</span><wbr><span><span>Defined</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="238850762%2FFunctions%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-only-if-subject-defined.html">T</a><span class="token operator">&gt; </span><a href="show-only-if-subject-defined.html"><span class="token function">showOnlyIfSubjectDefined</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expect<span class="token operator">: </span><a href="../../../ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="show-only-if-subject-defined.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-descriptive/-description-option/index.html">Descriptive.DescriptionOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-final-step/index.html">DescriptiveAssertionWithFailureHint.FinalStep</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Defines that the failure hint shall be shown in any case as long as the subject is defined</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1217609191%2FProperties%2F-880026277" anchor-label="showForAnyFailure" id="1217609191%2FProperties%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-for-any-failure.html"><span>show</span><wbr><span>For</span><wbr><span>Any</span><wbr><span><span>Failure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1217609191%2FProperties%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="show-for-any-failure.html">showForAnyFailure</a><span class="token operator">: </span><a href="../../-descriptive/-description-option/index.html">Descriptive.DescriptionOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-final-step/index.html">DescriptiveAssertionWithFailureHint.FinalStep</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Defines that the failure hint shall be shown in any case.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Translator</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-core::ch.tutteli.atrium.reporting.translating/Translator///PointingToDeclaration//-880026277">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.reporting.translating</a><span class="delimiter">/</span><span class="current">Translator</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Translator</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Translator</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/reporting/translating/Translator.kt#L46">source</a>)</span></span></div><p class="paragraph">Represents a translator of <a href="../-translatable/index.html">Translatable</a>s.</p><p class="paragraph">It shall be more or less compatible with <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html">ResourceBundle</a> in terms of how candidate <a href="../-locale/index.html">Locale</a>s are determined. So, more or less the same rules apply as described in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.Control.html#getCandidateLocales-java.lang.String-java.util.Locale-">ResourceBundle.Control.getCandidateLocales</a>. However, it shall apply an extended fallback mechanism. In case not a single properties file could be found for one of the candidate <a href="../-locale/index.html">Locale</a>s, then instead of falling back to <code class="lang-kotlin">java.util.Locale.getDefault</code> (as <code class="lang-kotlin">ResourceBundle</code> would do per default), one shall be able to specify fallback <a href="../-locale/index.html">Locale</a>s oneself -- whether this includes <code class="lang-kotlin">java.util.Locale.getDefault</code>or not on the JVM platform is up to the user of Atrium. Moreover, the fallback even applies if a properties file for one of the candidate <a href="../-locale/index.html">Locale</a>s is specified but does not contain the property which we are looking for (<code class="lang-kotlin">ResourceBundle</code> would throw a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/MissingResourceException.html">MissingResourceException</a> in such a case). Last but not least, Atrium's <a href="../-locale/index.html">Locale</a> does not have an equivalent of java.util.Locale.ROOT<code class="lang-kotlin">; a user can define fallback locales on its own, so there is no need for </code>ROOT`.</p><p class="paragraph">Following an example. <code class="lang-kotlin">de_CH</code> is used as primary Locale and <code class="lang-kotlin">fr_CH</code> as fallback Locale. We are looking for the translation of <code class="lang-kotlin">DescriptionAnyAssertions.TO_BE</code>. The following files exists:</p><p class="paragraph"><i>DescriptionAnyAssertions_de_CH.properties</i> with NOT_WHAT_WE_ARE_LOOKING_FOR = foo <i>DescriptionAnyAssertions_fr.properties</i> with TO_BE = est</p><p class="paragraph">The resolution would be as follows:</p><ul><li><p class="paragraph">de_CH</p></li><li><p class="paragraph">de</p></li><li><p class="paragraph">fr_CH</p></li><li><p class="paragraph">fr =&gt; found</p></li></ul><p class="paragraph">Notice, that a <a href="index.html">Translator</a> should treat the two special cases Norwegian and Chinese differently than <code class="lang-kotlin">ResourceBundle</code> suggests (the actual implementation for Java is buggy anyway).</p><p class="paragraph">A <a href="index.html">Translator</a> should not support <a href="../-locale/index.html">Locale</a>s with <a href="../-locale/language.html">Locale.language</a> equal to <code class="lang-kotlin">no</code> and should throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> instead. A user has to use either <code class="lang-kotlin">nn</code> (for Nynorsk) or <code class="lang-kotlin">nb</code> (for Bokmål). One can still define the other Locale as fallback if needed (which effectively makes the ambiguous <code class="lang-kotlin">no</code> Locale obsolete). As an example, one can define <code class="lang-kotlin">nn_NO</code> as primary Locale and <code class="lang-kotlin">nb_NO</code> as fallback Locale.</p><p class="paragraph">Furthermore it should throw an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/index.html">IllegalArgumentException</a> in case one has specified <code class="lang-kotlin">zh</code> as language, script <code class="lang-kotlin">Hant</code> or script <code class="lang-kotlin">Hans</code> but did not define a country. A user has to be explicit concerning the country. One is allowed to leave out the script but can also add it to be explicit and avoid confusion (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-arguments-supporting-translator/index.html">ArgumentsSupportingTranslator</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-956313920%2FFunctions%2F-880026277" anchor-label="translate" id="-956313920%2FFunctions%2F-880026277" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate.html"><span><span>translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-956313920%2FFunctions%2F-880026277"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">translatable<span class="token operator">: </span><a href="../-translatable/index.html">Translatable</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the translation of the given <a href="translate.html">translatable</a> or its <a href="../-translatable/get-default.html">getDefault</a> in case there is not a translation defined for it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

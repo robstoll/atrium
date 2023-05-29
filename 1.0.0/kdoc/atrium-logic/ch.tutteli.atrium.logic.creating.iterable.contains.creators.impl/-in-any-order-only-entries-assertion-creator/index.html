@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>InAnyOrderOnlyEntriesAssertionCreator</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/InAnyOrderOnlyEntriesAssertionCreator///PointingToDeclaration//1591559200">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-logic</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl</a><span class="delimiter">/</span><span class="current">InAnyOrderOnlyEntriesAssertionCreator</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>In</span><wbr><span>Any</span><wbr><span>Order</span><wbr><span>Only</span><wbr><span>Entries</span><wbr><span>Assertion</span><wbr><span><span>Creator</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">InAnyOrderOnlyEntriesAssertionCreator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator"> : </span><a href="../../ch.tutteli.atrium.logic.creating.typeutils/index.html#499897345%2FClasslikes%2F1591559200">IterableLike</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">converter<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">searchBehaviour<span class="token operator">: </span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-only-search-behaviour/index.html">InAnyOrderOnlySearchBehaviour</a><span class="token punctuation">, </span></span><span class="parameter ">reportingOptions<span class="token operator">: </span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting/-in-any-order-only-reporting-options/index.html">InAnyOrderOnlyReportingOptions</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span> : <a href="../-in-any-order-only-assertion-creator/index.html">InAnyOrderOnlyAssertionCreator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator">?</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><span class="token keyword"></span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/creating/iterable/contains/creators/impl/InAnyOrderOnlyEntriesAssertionCreator.kt#L31">source</a>)</span></span></div><p class="paragraph">Represents a creator of a sophisticated <code class="lang-kotlin">contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries have to appear in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but in any order -- an entry is identified by holding a group of assertions created by an assertion creator lambda.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>E</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the elements of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> the <a href="../../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl/-in-any-order-only-entries-assertion-creator/converter.html">converter</a> is going to create.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>T</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the subject of this expectation for which the <code class="lang-kotlin">contains</code> assertion is be build.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>search</span><wbr><span><span>Behaviour</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The search behaviour -- in this case representing <code class="lang-kotlin">in any order only</code> which is used to decorate the description (a <a href="../../../atrium-core/ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>) which is used for the <a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-616982302%2FConstructors%2F1591559200" anchor-label="InAnyOrderOnlyEntriesAssertionCreator" id="-616982302%2FConstructors%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-in-any-order-only-entries-assertion-creator.html"><span>In</span><wbr><span>Any</span><wbr><span>Order</span><wbr><span>Only</span><wbr><span>Entries</span><wbr><span>Assertion</span><wbr><span><span>Creator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-616982302%2FConstructors%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">converter<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">searchBehaviour<span class="token operator">: </span><a href="../../ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-any-order-only-search-behaviour/index.html">InAnyOrderOnlySearchBehaviour</a><span class="token punctuation">, </span></span><span class="parameter ">reportingOptions<span class="token operator">: </span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting/-in-any-order-only-reporting-options/index.html">InAnyOrderOnlyReportingOptions</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Represents a creator of a sophisticated <code class="lang-kotlin">contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries have to appear in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but in any order -- an entry is identified by holding a group of assertions created by an assertion creator lambda.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1262853973%2FFunctions%2F1591559200" anchor-label="createAssertionGroup" id="1262853973%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1262853973%2FFunctions%2F1591559200"><span>create</span><wbr><span>Assertion</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1262853973%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#1262853973%2FFunctions%2F1591559200"><span class="token function">createAssertionGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">searchCriteria<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><span class="token keyword"></span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">E</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a></div><div class="brief "><p class="paragraph">Creates an <a href="../../../atrium-core/ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> representing the sophisticated <code class="lang-kotlin">contains</code> assertion for the subject of the given <a href="index.html#1262853973%2FFunctions%2F1591559200">container</a>, based on the given <a href="index.html#1262853973%2FFunctions%2F1591559200">searchCriteria</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

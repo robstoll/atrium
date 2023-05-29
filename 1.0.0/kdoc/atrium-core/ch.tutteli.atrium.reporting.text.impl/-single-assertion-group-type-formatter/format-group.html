@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>formatGroup</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Atrium</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-core::ch.tutteli.atrium.reporting.text.impl/SingleAssertionGroupTypeFormatter/formatGroup/#ch.tutteli.atrium.assertions.AssertionGroup#ch.tutteli.atrium.reporting.AssertionFormatterParameterObject#kotlin.Function2[ch.tutteli.atrium.reporting.AssertionFormatterParameterObject,kotlin.Function1[ch.tutteli.atrium.assertions.Assertion,kotlin.Unit],kotlin.Unit]/PointingToDeclaration//-880026277">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.reporting.text.impl</a><span class="delimiter">/</span><a href="index.html">SingleAssertionGroupTypeFormatter</a><span class="delimiter">/</span><span class="current">formatGroup</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>format</span><wbr><span><span>Group</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="format-group.html"><span class="token function">formatGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionGroup<span class="token operator">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a><span class="token punctuation">, </span></span><span class="parameter ">parameterObject<span class="token operator">: </span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a><span class="token punctuation">, </span></span><span class="parameter ">formatAssertions<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a><span class="token punctuation">, </span><span class="token keyword"></span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/reporting/text/impl/SingleAssertionGroupTypeFormatter.kt#L63">source</a>)</span></span></div><p class="paragraph">Checks whether <a href="format-group.html">assertionGroup</a> is <a href="index.html">T</a> or a sub type and if so, calls <a href="../../../atrium-core/ch.tutteli.atrium.reporting.text.impl/-single-assertion-group-type-formatter/format-group-header-and-get-child-parameter-object.html">formatGroupHeaderAndGetChildParameterObject</a> and uses the resulting child-<a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/index.html">AssertionFormatterParameterObject</a> to format <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p><p class="paragraph">If <a href="format-group.html">assertionGroup</a> is <i>not</i> <a href="index.html">T</a> or a sub type, then it throws an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unsupported-operation-exception/index.html">UnsupportedOperationException</a>.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>assertion</span><wbr><span><span>Group</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The expectation-group which should be formatted.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>parameter</span><wbr><span><span>Object</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The parameter object which contains inter alia the <a href="../../ch.tutteli.atrium.reporting/-assertion-formatter-parameter-object/sb.html">sb</a> to which the result will be appended.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>format</span><wbr><span><span>Assertions</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The function which should be called to format the <a href="../../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> of the given <a href="format-group.html">assertionGroup</a>. It itself expects a function which formats single <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s in the context of the given <a href="format-group.html">assertionGroup</a>.</p></div></div></div></div></div><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../ch.tutteli.atrium.reporting/-assertion-formatter/format-group.html"><span>Assertion</span><wbr><span>Formatter.</span><wbr><span>format</span><wbr><span><span>Group</span></span></a></div></span></div><div><div class="title"><p class="paragraph">.</p></div></div></div></div></div><h4 class="">Throws</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unsupported-operation-exception/index.html"><span>Unsupported</span><wbr><span>Operation</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">if the given <a href="format-group.html">assertionGroup</a> is not <a href="index.html">T</a> or a sub type of it.</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
