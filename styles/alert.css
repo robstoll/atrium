@@ -2,7 +2,6 @@
 
 #outdated-warning {
     position: sticky;
-    z-index: 1000;
 }
 
 #outdated-warning.show + #container {
