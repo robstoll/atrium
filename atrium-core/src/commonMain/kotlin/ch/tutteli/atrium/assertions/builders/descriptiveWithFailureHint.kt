@@ -35,7 +35,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
  * on the subject of the expectation.
  */
 //TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
-// then move to logic and expect ProofContainer with 0.20.0
+// then move to logic and expect ProofContainer with 1.2.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnDefinedSubject(
     expect: Expect<T>,
     failureHintFactory: (T) -> Assertion

@@ -230,7 +230,7 @@ configure(subprojects.filter {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    //TODO 0.23.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
+    //TODO 2.0.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
     project.extensions.getByType<KotlinJvmProjectExtension>().apply {
         sourceSets {
             configureLanguageSettings(subproject)
@@ -559,7 +559,7 @@ configure(bundleSmokeTests) {
     }
 }
 
-// TODO 0.22.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
+// TODO 1.5.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
 //def getSubprojectTasks(String name) {
 //    return subprojects.collect { it.tasks.findByName(name) }.findAll { it != null }
 //}
