@@ -10,7 +10,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "1.0.0"
+    rootProject.version = "1.0.0-RC2"
     rootProject.group = "ch.tutteli.atrium"
     dependencies {
         classpath("org.jetbrains.dokka:dokka-base:1.8.10")
@@ -590,7 +590,7 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=1.0.0-RC2
+export ATRIUM_PREVIOUS_VERSION=0.18.0
 export ATRIUM_VERSION=1.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
@@ -631,26 +631,34 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
 
-export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1"
-export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.1.2"
+export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1.2"
+export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1.1"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.1.3"
+
 gr dokkaHtmlMultiModule
+
 cd ../atrium-gh-pages
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
-  ./latest/index.html
-perl -0777 -i \
-  -pe "s@href=\"$ATRIUM_PREVIOUS_VERSION\">latest version \(which is $ATRIUM_PREVIOUS_VERSION\)@href=\"$ATRIUM_VERSION\">latest version \(which is $ATRIUM_VERSION\)@;" \
   ./index.html
+perl -0777 -i \
+  -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
+  ./latest/index.html
 perl -0777 -i \
   -pe "s/(\s+)\"$ATRIUM_PREVIOUS_VERSION\",/\$1\"$ATRIUM_VERSION\",\$1\"$ATRIUM_PREVIOUS_VERSION\",/;" \
   ./scripts/versions.js
 perl -0777 -i \
   -pe "s@(<div class=\"sideMenu\">)@\${1}\n <div class=\"sideMenuPart\" pageid=\"atrium\"><div class=\"overview\"><a href=\"./\">All modules</a></div></div>@g;" \
   "./$ATRIUM_VERSION/kdoc/navigation.html"
+
 find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
     -pe "s@\"((?:\.\./+)*)styles/logo-styles.css\" rel=\"Stylesheet\">@\"../../\${1}styles/logo-styles.css?v=$ATRIUM_GH_PAGES_LOGO_CSS_VERSION\" rel=\"Stylesheet\">\n<link href=\"../../\${1}styles/alert.css?v=$ATRIUM_GH_PAGES_ALERT_CSS_VERSION\" rel=\"Stylesheet\">\n<script id=\"versions-script\" type=\"text/javascript\" src=\"\../../\${1}scripts/versions.js?v=$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION\" data-version=\"$ATRIUM_VERSION\" async=\"async\"></script>@g;" \
-    -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;"
+    -pe "s@((?:\.\./+)*)images/logo-icon.svg\"([^>]+)>@../../\${1}logo-icon.svg\"\$2>\n<meta name=\"og:image\" content=\"\${1}logo_social.png\"/>@g;" \
+    -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;" \
+    -pe "s@<html>@<html lang=\"en\">@g;" \
+    -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
+    -pe "s@(<title>[^<]+)</title>@\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;"
+
 cp "./$ATRIUM_PREVIOUS_VERSION/index.html" "./$ATRIUM_VERSION/index.html"
 perl -0777 -i \
   -pe "s/$ATRIUM_PREVIOUS_VERSION/$ATRIUM_VERSION/g;" \
