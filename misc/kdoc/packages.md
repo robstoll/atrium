@@ -286,7 +286,7 @@ Contains the default implementations for the interfaces defined in `ch.tutteli.a
 
 
 # Package ch.tutteli.atrium.logic.creating.transformers
-Contains contracts involved in transforming `Expect`, their subject respectively.
+Contains contracts involved in transforming [Expect](ch.tutteli.atrium.creating.Expect), their subject respectively.
 
 # Package ch.tutteli.atrium.logic.creating.transformers.impl
 Contains (default) implementations for the interfaces defined in `ch.tutteli.atrium.logic.transformers`.

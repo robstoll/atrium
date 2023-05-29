@@ -1,3 +1,4 @@
+import ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.*
@@ -10,7 +11,7 @@ import java.io.IOException
 import java.net.URL
 
 buildscript {
-    rootProject.version = "1.0.0"
+    rootProject.version = "1.1.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
     dependencies {
         classpath("org.jetbrains.dokka:dokka-base:1.8.10")
@@ -300,6 +301,20 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
                 suppress.set(true)
             }
             includes.from(kdocDir.resolve("packages.md"))
+
+            //TODO 1.1.0 remove with update to tutteli-gradle 4.10.0
+            externalDocumentationLink {
+                val extension = rootProject.the<DokkaPluginExtension>()
+                url.set(extension.githubUser.flatMap { githubUser ->
+                    extension.modeSimple.map { usesSimpleDocs ->
+                        if (usesSimpleDocs) {
+                            URL("https://$githubUser.github.io/${rootProject.name}/kdoc/${rootProject.name}/")
+                        } else {
+                            URL("https://$githubUser.github.io/${rootProject.name}/${rootProject.version}/kdoc/")
+                        }
+                    }
+                })
+            }
         }
         configurePlugins()
     }
@@ -591,7 +606,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=1.0.0
-export ATRIUM_VERSION=1.0.0
+export ATRIUM_VERSION=1.1.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -634,8 +649,10 @@ Either use the following commands or the manual steps below (assuming ATRIUM_VER
 export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1.2"
 export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1.1"
 export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.1.3"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.2.0"
 
 gr dokkaHtmlMultiModule
+git add . && git commit -m "dokka generation for v$ATRIUM_VERSION"
 
 cd ../atrium-gh-pages
 perl -0777 -i \
@@ -648,7 +665,7 @@ perl -0777 -i \
   -pe "s/(\s+)\"$ATRIUM_PREVIOUS_VERSION\",/\$1\"$ATRIUM_VERSION\",\$1\"$ATRIUM_PREVIOUS_VERSION\",/;" \
   ./scripts/versions.js
 perl -0777 -i \
-  -pe "s@(<div class=\"sideMenu\">)@\${1}\n <div class=\"sideMenuPart\" pageid=\"atrium\"><div class=\"overview\"><a href=\"./\">All modules</a></div></div>@g;" \
+  -pe "s@(<div class=\"sideMenu\">)@\${1}\n <div class=\"sideMenuPart\" pageid=\"Atrium::.ext/allModules///PointingToDeclaration//0\"><div class=\"overview\"><a href=\"./\">All modules</a></div></div>@g;" \
   "./$ATRIUM_VERSION/kdoc/navigation.html"
 
 find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
@@ -657,7 +674,11 @@ find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
     -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;" \
     -pe "s@<html>@<html lang=\"en\">@g;" \
     -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
-    -pe "s@(<title>[^<]+)</title>@\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;"
+    -pe "s@(<title>[^<]+)</title>@\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
+    -pe "s@(<div class=\"library-name\">\n\s*<a href=\"[^\"]+)index.html\"@\${1}\" title=\"Back to Overview Code Documentation of Atrium\"@g;"
+
+find "./" -name "*.html" | xargs perl -0777 -i \
+    -pe "s@(scripts/versions\.js\?v\=)$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION@\${1}$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT@g;"
 
 cp "./$ATRIUM_PREVIOUS_VERSION/index.html" "./$ATRIUM_VERSION/index.html"
 perl -0777 -i \
@@ -697,7 +718,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=1.0.0
-export ATRIUM_NEXT_VERSION=1.0.0
+export ATRIUM_NEXT_VERSION=1.1.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
