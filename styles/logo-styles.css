@@ -152,6 +152,8 @@
 .github::before {
     content: '';
     mask: url("../images/github-mark.svg") no-repeat 50% 50%;
+    -webkit-mask: url("../images/github-mark.svg") no-repeat 50% 50%;
+
     display: inline-block;
     width: 18px;
     height: 18px;
