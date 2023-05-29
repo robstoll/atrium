@@ -150,9 +150,12 @@
 }
 
 .github::before {
-    content: url("../images/github-mark.svg");
+    content: '';
+    mask: url("../images/github-mark.svg") no-repeat 50% 50%;
     display: inline-block;
+    width: 18px;
     height: 18px;
+    background-color: var(--footer-font-color);
     vertical-align: bottom;
 }
 
