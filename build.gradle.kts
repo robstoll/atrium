@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.base.DokkaBase
+import org.jetbrains.dokka.base.DokkaBaseConfiguration
+import org.jetbrains.dokka.gradle.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
@@ -9,6 +12,9 @@ import java.net.URL
 buildscript {
     rootProject.version = "1.0.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-base:1.8.10")
+    }
 }
 
 // kotlin version is configured in buildSrc/build.gradle.kts
@@ -268,9 +274,35 @@ allprojects {
 //}
 
 
+val kdocDir = rootProject.projectDir.resolve("misc/kdoc")
+
+fun AbstractDokkaTask.configurePlugins() {
+    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
+        footerMessage = "Atrium &copy; Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;"
+    }
+}
+
 configure(subprojectsWithoutToolAndSmokeTestProjects) {
+    val subproject = this
     apply(plugin = "ch.tutteli.gradle.plugins.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.publish")
+
+    tasks.withType<DokkaTask> {
+        dokkaSourceSets.configureEach {
+            reportUndocumented.set(true)
+        }
+    }
+    tasks.withType<AbstractDokkaLeafTask> {
+        dokkaSourceSets.configureEach {
+            jdkVersion.set(defaultJdkVersion)
+            perPackageOption {
+                matchingRegex.set("io.mockk")
+                suppress.set(true)
+            }
+            includes.from(kdocDir.resolve("packages.md"))
+        }
+        configurePlugins()
+    }
 
     configure<ch.tutteli.gradle.plugins.publish.PublishPluginExtension> {
         resetLicenses("EUPL-1.2")
@@ -326,6 +358,24 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
                     }
                 }
             }
+    }
+}
+
+tasks.withType<DokkaMultiModuleTask> {
+    moduleName.set("Atrium")
+    configurePlugins()
+
+    // we want to be sure that we don't include spec in dokkaMultiModule
+    dependsOn(prefixedProject("specs").tasks.getByName("cleanDokkaHtmlPartial"))
+    dependsOn(prefixedProject("verbs-internal").tasks.getByName("cleanDokkaHtmlPartial"))
+}
+gradle.taskGraph.whenReady {
+    if (hasTask(":dokkaHtmlMultiModule")) {
+        listOf("specs", "verbs-internal").forEach { projectName ->
+            prefixedProject(projectName).tasks.withType<DokkaTaskPartial> {
+                enabled = false
+            }
+        }
     }
 }
 
@@ -540,7 +590,7 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=1.0.0-RC1
+export ATRIUM_PREVIOUS_VERSION=0.18.0
 export ATRIUM_VERSION=1.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
@@ -581,14 +631,31 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 
 Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
 
+export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1"
+export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.1.2"
 gr dokkaHtmlMultiModule
 cd ../atrium-gh-pages
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
   ./latest/index.html
 perl -0777 -i \
-  -pe "s@(- \[$ATRIUM_PREVIOUS_VERSION\]\($ATRIUM_PREVIOUS_VERSION\))@- \[$ATRIUM_VERSION\]\($ATRIUM_VERSION\)\n\$1@;" \
-  ./README.md
+  -pe "s@href=\"$ATRIUM_PREVIOUS_VERSION\">latest version \(which is $ATRIUM_PREVIOUS_VERSION\)@href=\"$ATRIUM_VERSION\">latest version \(which is $ATRIUM_VERSION\)@;" \
+  ./index.html
+perl -0777 -i \
+  -pe "s/(\s+)\"$ATRIUM_PREVIOUS_VERSION\",/\$1\"$ATRIUM_VERSION\",\$1\"$ATRIUM_PREVIOUS_VERSION\",/;" \
+  ./scripts/versions.js
+perl -0777 -i \
+  -pe "s@(<div class=\"sideMenu\">)@\${1}\n <div class=\"sideMenuPart\" pageid=\"atrium\"><div class=\"overview\"><a href=\"./\">All modules</a></div></div>@g;" \
+  "./$ATRIUM_VERSION/kdoc/navigation.html"
+find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
+    -pe "s@\"((?:\.\./+)*)styles/logo-styles.css\" rel=\"Stylesheet\">@\"../../\${1}styles/logo-styles.css?v=$ATRIUM_GH_PAGES_LOGO_CSS_VERSION\" rel=\"Stylesheet\">\n<link href=\"../../\${1}styles/alert.css?v=$ATRIUM_GH_PAGES_ALERT_CSS_VERSION\" rel=\"Stylesheet\">\n<script id=\"versions-script\" type=\"text/javascript\" src=\"\../../\${1}scripts/versions.js?v=$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION\" data-version=\"$ATRIUM_VERSION\" async=\"async\"></script>@g;" \
+    -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;"
+cp "./$ATRIUM_PREVIOUS_VERSION/index.html" "./$ATRIUM_VERSION/index.html"
+perl -0777 -i \
+  -pe "s/$ATRIUM_PREVIOUS_VERSION/$ATRIUM_VERSION/g;" \
+  -pe "s@Released .*</p>@Released $(date '+%b %d, %Y')</p>@;" \
+  "./$ATRIUM_VERSION/index.html"
 git add . && git commit -m "v$ATRIUM_VERSION"
 
 check changes
@@ -597,10 +664,12 @@ git push
 cd ../atrium
 
 alternatively the manual steps:
-    a) gr ghPages
-    b) change version number in atrium-gh-pages/latest/index.html
-    c) add new version to atrium-gh-pages/README.md
-    d) commit & push changes
+    a) gr gr dokkaHtmlMultiModule
+    b) change version number in atrium-gh-pages/index.html and atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/scripts/versions.js
+    d) replace logo-styles.css with own in root
+    d) search and replace to add version drop down into the header
+    e) commit & push changes
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
