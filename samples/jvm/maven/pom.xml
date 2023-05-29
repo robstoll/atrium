@@ -11,7 +11,7 @@
 
     <properties>
         <!-- @formatter:off -->
-        <atrium.version>0.18.0</atrium.version>
+        <atrium.version>1.0.0-RC2</atrium.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
         <junit.version>5.9.2</junit.version>
@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>ch.tutteli.atrium</groupId>
-            <artifactId>atrium-fluent</artifactId>
+            <artifactId>atrium-fluent-jvm</artifactId>
             <version>${atrium.version}</version>
             <scope>test</scope>
         </dependency>
