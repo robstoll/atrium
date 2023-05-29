@@ -31,7 +31,8 @@ kotlin {
             description = "Runs examples, includes the code and the output in README.md"
 
             classpath = project.sourceSets.main.get().runtimeClasspath
-            environment("README_SOURCETREE", "tree/main")
+            val version = rootProject.version.toString()
+            environment("README_SOURCETREE", if (version.endsWith("-SNAPSHOT")) "tree/main" else "tree/v$version")
 
             this.main = "org.junit.platform.console.ConsoleLauncher"
             args = listOf(
