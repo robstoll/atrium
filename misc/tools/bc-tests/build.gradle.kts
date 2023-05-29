@@ -188,7 +188,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         // required by specs
                         //might be we have to switch to api as we have defined some of the modules as api in atrium-specs
-                        implementation(prefixedProject("fluent-en_GB"))
+                        implementation(prefixedProject("fluent"))
                     }
                 }
                 val jvmMain by getting {
@@ -304,7 +304,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                             dependencies {
                                 implementation(project(":atrium-api-$apiName-jvm"))
-                                if (apiName == "infix-en_GB") {
+                                if (apiName == "infix") {
                                     implementation(project(":atrium-translations-de_CH"))
                                 }
                                 configurations[confName].dependencies.forEach {
@@ -317,7 +317,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                                 }
 
                                 // required by specs
-                                implementation(project(":atrium-fluent-en_GB-jvm"))
+                                implementation(project(":atrium-fluent-jvm"))
                                 implementation(project(":atrium-verbs-internal"))
 
                                 // to run forgiving spek tests
@@ -369,11 +369,11 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         dependencies {
                             implementation(project(":atrium-api-$apiName"))
                             implementation(project(":bc-tests:$oldVersion-specs")) {
-                                if (apiName == "infix-en_GB") {
+                                if (apiName == "infix") {
                                     exclude(module = "${rootProject.name}-translations-en_GB")
                                 }
                             }
-                            if (apiName == "infix-en_GB") {
+                            if (apiName == "infix") {
                                 implementation(project(":atrium-translations-de_CH"))
                             } else {
                                 implementation(project(":atrium-translations-en_GB"))
@@ -443,11 +443,11 @@ fun Project.createJacocoReportTask(
         val jacocoMulti: Map<String, Iterable<Project>> by rootProject.extra
         val sourceProjects = jacocoMulti["sourceProjects"]!!
         val projects = when (apiName) {
-            "fluent-en_GB" -> sourceProjects.filter { !it.name.contains("infix-en_GB") }
-            "infix-en_GB" -> {
+            "fluent" -> sourceProjects.filter { !it.name.contains("infix") }
+            "infix" -> {
                 sourceProjects.filter {
                     !it.name.contains("translations-en_GB") &&
-                        !it.name.contains("fluent-en_GB")
+                        !it.name.contains("fluent")
                 } + listOf(
                     project(":atrium-translations-de_CH"),
                     project(":atrium-translations-de_CH")

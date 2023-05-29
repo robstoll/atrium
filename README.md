@@ -171,7 +171,7 @@ Are you using a different runner? A PR would be appreciated 😊.
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+[atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
@@ -205,7 +205,7 @@ where on the first line the actual subject  (`10` in the above example) is shown
 In this sense the report can be read as `I expected the subject of the expectation, which was 10, to equal 9` 
 -- and needlessly to say, this expectation was not met and thus the thrown error.
 
-We are using the bundle [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle)
+We are using the bundle [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle)
 and the predefined expectation verb `expect` in the examples. 
 Thus, the corresponding `import`s at the beginning of the file in the above example.
 We will omit the `import` statements in the remaining examples for brevity. 
@@ -1755,11 +1755,11 @@ as well as expectation functions which have not been shown in the examples above
 
 Take a look at the sample files which are used i.a. in the KDOC of the corresponding expectation functions:
 
-- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-+ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 # How is Atrium different from other Expectation/Assertion Libraries
 
@@ -2286,7 +2286,7 @@ Following a quick overview what extension methods could be useful:
 - all expectation functions on the logic level (what you have seen in [Compose expectation functions](#compose-expectation-functions) 
 was the API level) so that you can reuse and compose them in other ways.
 - `changeSubject` which allows to change the subject either:
-   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
+   - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
    - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `toBeAnInstanceOf` uses it, see [AnyAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultAnyAssertions.kt#L70))
 - `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapEntryAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapEntryAssertions.kt#L11))
 - `extractFeature` for feature extraction where it is not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13))   
@@ -2424,8 +2424,8 @@ However, this is more intended for advanced user with special requirements.
 Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined expectation verbs,
 so that you just have to have a dependency on one of those bundles:
 
-- [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent-en_GB/atrium-fluent-en_GB/build.gradle.kts)
-- [atrium-infix](https://github.com/robstoll/atrium/tree/main/bundles/infix-en_GB/atrium-infix-en_GB/build.gradle.kts)
+- [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle.kts)
+- [atrium-infix](https://github.com/robstoll/atrium/tree/main/bundles/infix/atrium-infix/build.gradle.kts)
 
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md)
@@ -2483,8 +2483,8 @@ expect(sequenceOf(1, 2, 3)).asIterable().toContain(2)
 
 Likewise, you can turn an `Expect<Array<E>>`, `Expect<DoubleArray>` etc. into an `Expect<List<E>>` with `asList`.
 
-See [ArraySubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/ArraySubjectChangerSamples.kt)
-and [SequenceSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/SequenceSubjectChangerSamples.kt).
+See [ArraySubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/ArraySubjectChangerSamples.kt)
+and [SequenceSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/SequenceSubjectChangerSamples.kt).
 
 Feel free vote for [first class support for Array and Sequence in api-fluent](https://github.com/robstoll/atrium/issues/459).
 
@@ -2511,7 +2511,7 @@ Atrium does not provide extension functions applicable to `Expect<File>` directl
 because they would basically duplicate the functions available for `Expect<Path>`.
 However, Atrium provides the subject changer `asPath` so that you can turn an `Expect<File>`
 into an `Expect<Path>`. 
-See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
+See [FileSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FileSubjectChangerSamples.kt).
 
 ## Where are the expectation functions for java.util.Date?
 
@@ -2520,7 +2520,7 @@ because they would basically duplicate the functions available for `Expect<Local
 However, Atrium provides the subject changer functions: `asLocalDate` and `asLocalDateTime` so that you can turn an `Expect<Date>`
 either into an `Expect<LocalDate>` or `Expect<LocalDateTime>`.
 
-See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/DateSubjectChangerSamples.kt).
+See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/DateSubjectChangerSamples.kt).
 
 ## Where do I find a list of all available functions?
 
@@ -2529,11 +2529,11 @@ Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-infix](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.infix.en_-g-b/index.html)
 
 A good alternative is to have a look at the sample files:
-- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent-en_GB/atrium-api-fluent-en_GB/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
+- [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-+ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix-en_GB/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
++ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 ## Problems in conjunction with `feature`
 

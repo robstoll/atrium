@@ -7,7 +7,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(prefixedProject("verbs"))
-                api(prefixedProject("api-infix-en_GB"))
+                api(prefixedProject("api-infix"))
                 api(prefixedProject("translations-en_GB"))
             }
         }

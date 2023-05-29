@@ -14,7 +14,7 @@ kotlin {
                 implementationWithExclude("org.spekframework.spek2:spek-runtime-jvm:$spekVersion")
                 runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
 
-                implementation(prefixedProject("fluent-en_GB"))
+                implementation(prefixedProject("fluent"))
                 implementationWithExclude("ch.tutteli.niok:niok:$niokVersion")
             }
         }

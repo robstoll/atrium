@@ -12,7 +12,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(prefixedProject("api-fluent-en_GB"))
+                implementation(prefixedProject("api-fluent"))
                 implementation(prefixedProject("specs"))
             }
         }

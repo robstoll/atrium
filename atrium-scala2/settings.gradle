@@ -16,6 +16,6 @@ apply plugin: 'ch.tutteli.settings'
 include {
 
     apis("api-") {
-        _ 'fluent-en_GB'
+        _ 'fluent'
     }
 }

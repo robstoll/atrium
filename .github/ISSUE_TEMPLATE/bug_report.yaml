@@ -11,7 +11,7 @@ body:
     attributes:
       label: Affected Version
       description: What version of Atrium are you running?
-      placeholder: "0.17.0"
+      placeholder: "1.0.0"
     validations:
       required: true
   - type: dropdown
@@ -20,8 +20,8 @@ body:
       label: API
       multiple: true
       options:
-        - fluent-en_GB
-        - infix-en_GB
+        - fluent
+        - infix
     validations:
       required: true
   - type: dropdown

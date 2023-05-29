@@ -3,7 +3,7 @@ Please choose the appropriate template and fill in all sections
 # Bug Report
 
 *Affected Version*:
-*API* (fluent-en_GB, infix-en_GB):
+*API* (fluent, infix):
 *Platform* (jvm, js):
 *Extension* (none, kotlin 1.3): none
 

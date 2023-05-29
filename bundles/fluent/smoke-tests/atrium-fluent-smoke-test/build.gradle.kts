@@ -1,0 +1,3 @@
+dependencies {
+    testImplementation(prefixedProject("fluent"))
+}

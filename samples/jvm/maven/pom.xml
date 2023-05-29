@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>ch.tutteli.atrium</groupId>
-            <artifactId>atrium-fluent-en_GB</artifactId>
+            <artifactId>atrium-fluent</artifactId>
             <version>${atrium.version}</version>
             <scope>test</scope>
         </dependency>

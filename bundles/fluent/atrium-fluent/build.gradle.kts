@@ -5,14 +5,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(prefixedProject("verbs"))
-                api(prefixedProject("api-fluent-en_GB"))
+                api(prefixedProject("api-fluent"))
                 api(prefixedProject("translations-en_GB"))
             }
         }
         val jvmMain by getting {
             dependencies {
                 api(prefixedProject("verbs"))
-                api(prefixedProject("api-fluent-en_GB"))
+                api(prefixedProject("api-fluent"))
                 api(prefixedProject("translations-en_GB"))
             }
         }

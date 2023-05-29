@@ -18,7 +18,7 @@ kotlin {
                 api(prefixedProject("verbs-internal"))
                 apiWithExclude("io.mockk:mockk-common:$mockkVersion")
 
-                implementation(prefixedProject("api-fluent-en_GB"))
+                implementation(prefixedProject("api-fluent"))
 
                 apiWithExclude("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
 

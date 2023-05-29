@@ -15,7 +15,8 @@ buildscript {
     val allTargets = listOf("common", "jvm", "js")
     val commonJvm = listOf("common", "jvm")
 
-    val bcConfigs: List<Triple<String, List<Pair<String, List<String>>>, Pair<String, Pair<Boolean, String>>>> = listOf()
+    val bcConfigs: List<Triple<String, List<Pair<String, List<String>>>, Pair<String, Pair<Boolean, String>>>> =
+        listOf()
     (gradle as ExtensionAware).extra.apply {
         apply {
             set("bcConfigs", bcConfigs)
@@ -57,11 +58,11 @@ if (System.getenv("BC") != null) {
     }
 }
 
-listOf("fluent-en_GB", "infix-en_GB").forEach { apiName ->
+listOf("fluent", "infix").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
     include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
     include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test-kotlin_1_3")
-    include("apis/$apiName",  "atrium-api-$apiName")
+    include("apis/$apiName", "atrium-api-$apiName")
     include("apis/$apiName/extensions", "atrium-api-$apiName-kotlin_1_3")
 }
 
@@ -69,8 +70,8 @@ include("", "atrium-core")
 include("logic", "atrium-logic")
 include("logic/extensions", "atrium-logic-kotlin_1_3")
 
-listOf("en_GB", "de_CH").forEach{ lang ->
-    include("translations" ,"atrium-translations-$lang")
+listOf("en_GB", "de_CH").forEach { lang ->
+    include("translations", "atrium-translations-$lang")
 }
 
 include("misc", "atrium-verbs")

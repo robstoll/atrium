@@ -11,7 +11,7 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(prefixedProject("api-infix-en_GB"))
+                implementation(prefixedProject("api-infix"))
                 implementation(prefixedProject("specs"))
             }
         }

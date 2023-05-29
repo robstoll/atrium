@@ -60,10 +60,10 @@ val multiplatformProjectNames by extra(
         "core",
         "logic", "logic-kotlin_1_3",
         "translations-en_GB", "translations-de_CH",
-        "api-fluent-en_GB", "api-fluent-en_GB-kotlin_1_3",
-        "api-infix-en_GB", "api-infix-en_GB-kotlin_1_3",
-        "fluent-en_GB",
-        "infix-en_GB",
+        "api-fluent", "api-fluent-kotlin_1_3",
+        "api-infix", "api-infix-kotlin_1_3",
+        "fluent",
+        "infix",
         "verbs",
         "verbs-internal",
         "specs"
@@ -276,32 +276,31 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
         resetLicenses("EUPL-1.2")
     }
 
-    val languageSuffixes = setOf("-en_GB", "-de_CH")
-    if (languageSuffixes.any { name.contains(it) }) {
-        configure<PublishingExtension> {
-            publications.withType<MavenPublication>()
-                .matching { !it.name.endsWith("-relocation") }
-                .all {
-                    val artifactIdBeforeLanguageRemoval = artifactId
-                    val artifactIdWithoutLanguage = languageSuffixes.fold(artifactId) { id, suffix ->
-                        id.replace(suffix, "")
+    //TODO 1.1.0 remove relocation publications again
+    val projectsWhichNoLongerContainLanguage = mapOf(
+        "atrium-api-fluent" to "atrium-api-fluent-en_GB",
+        "atrium-api-fluent-kotlin_1_3" to "atrium-api-fluent-en_GB-kotlin_1_3",
+        "atrium-api-infix" to "atrium-api-infix-en_GB",
+        "atrium-api-infix-kotlin_1_3" to "atrium-api-infix-en_GB-kotlin_1_3"
+    )
+    configure<PublishingExtension> {
+        publications.withType<MavenPublication>()
+            .matching { !it.name.endsWith("-relocation") }
+            .all {
+                val pub = this
+                // we did not have a -metadata jar before, so no need for a relocation publication
+                if (!artifactId.endsWith("metadata")) {
+                    val oldProjectName = projectsWhichNoLongerContainLanguage[subproject.name] ?: subproject.name
+                    val oldArtifactId = if (artifactId == subproject.name) {
+                        // before the common platform had a suffix
+                        "$oldProjectName-common"
+                    } else if (artifactId.endsWith("-jvm")) {
+                        // before the jvm platform was the artifact without suffix
+                        oldProjectName
+                    } else {
+                        artifactId.replace(subproject.name, oldProjectName)
                     }
-
-                    // TODO 1.1.0 consider to remove en_GB from the project name
-                    artifactId = artifactIdWithoutLanguage
-
-                    //TODO 1.1.0 remove again, consider to rename the project-name and directory
-                    // we did not have a -metadata jar before, so no need for a relocation publication
-                    if (!artifactId.endsWith("metadata")) {
-                        val oldArtifactId = if (artifactIdBeforeLanguageRemoval == project.name) {
-                            "${project.name}-common"
-                        } else if (artifactId.endsWith("-jvm")) {
-                            project.name
-                        } else {
-                            artifactIdBeforeLanguageRemoval
-                        }
-
-                        val pub = this
+                    if (artifactId != oldArtifactId) {
                         publications.register<MavenPublication>("${pub.name}-relocation") {
                             pom {
                                 // Old artifact coordinates
@@ -313,16 +312,20 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
                                     relocation {
                                         // New artifact coordinates
                                         groupId.set(pub.groupId)
-                                        artifactId.set(artifactIdWithoutLanguage)
+                                        artifactId.set(pub.artifactId)
                                         version.set(pub.version)
-                                        message.set("artifactId has changed, removed -en_GB as we drop support for a translated report and jvm has now the suffix -jvm and common no longer has the suffix -common")
+                                        message.set(
+                                            "artifactId has changed: " +
+                                                if (projectsWhichNoLongerContainLanguage.contains(subproject.name)) " removed -en_GB as we drop support for a translated report /" else "" +
+                                                    if (pub.artifactId == subproject.name || pub.artifactId.endsWith("-jvm")) " jvm has now the suffix -jvm and common no longer has the suffix -common" else ""
+                                        )
                                     }
                                 }
                             }
                         }
                     }
                 }
-        }
+            }
     }
 }
 
@@ -331,69 +334,69 @@ configure(subprojectsWithoutToolAndSmokeTestProjects) {
 // we will publish a relocation for all jars we renamed in the past so that maintainers of projects using it will get
 // that there is a newer version
 listOf(
-    "atrium-fluent-en_GB-android" to "atrium-fluent-en_GB",
-    "atrium-cc-infix-en_GB-robstoll-android" to "atrium-infix-en_GB",
+    "atrium-fluent-en_GB-android" to "atrium-fluent",
+    "atrium-cc-infix-en_GB-robstoll-android" to "atrium-infix",
     "atrium-verbs-android" to "atrium-verbs",
-    "atrium-api-cc-de_CH-android" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-de_CH-android" to "atrium-api-fluent",
     "atrium-core-robstoll-android" to "atrium-core",
-    "atrium-api-cc-infix-en_GB-android" to "atrium-api-infix-en_GB",
+    "atrium-api-cc-infix-en_GB-android" to "atrium-api-infix",
     "atrium-core-robstoll-lib-android" to "atrium-core",
     "atrium-domain-api-android" to "atrium-logic",
     "atrium-domain-robstoll-lib-android" to "atrium-logic",
     "atrium-domain-robstoll-android" to "atrium-logic",
     "atrium-domain-api-kotlin_1_3-android" to "atrium-logic-kotlin_1_3",
-    "atrium-api-fluent-en_GB-en_GB-kotlin_1_3-android" to "atrium-api-fluent-en_GB-kotlin_1_3",
+    "atrium-api-fluent-en_GB-en_GB-kotlin_1_3-android" to "atrium-api-fluent-kotlin_1_3",
     "atrium-domain-builders-android" to "atrium-logic",
     "atrium-domain-robstoll-kotlin_1_3-android" to "atrium-logic",
     "atrium-domain-robstoll-lib-kotlin_1_3-android" to "atrium-logic",
-    "atrium-cc-en_GB-robstoll-android" to "atrium-fluent-en_GB",
-    "atrium-cc-de_CH-robstoll-android" to "atrium-fluent-en_GB",
-    "atrium-api-cc-en_GB-android" to "atrium-api-fluent-en_GB",
-    "atrium-api-fluent-en_GB-android" to "atrium-api-fluent-en_GB",
+    "atrium-cc-en_GB-robstoll-android" to "atrium-fluent",
+    "atrium-cc-de_CH-robstoll-android" to "atrium-fluent",
+    "atrium-api-cc-en_GB-android" to "atrium-api-fluent",
+    "atrium-api-fluent-en_GB-android" to "atrium-api-fluent",
     "atrium-domain-builders-kotlin_1_3-android" to "atrium-logic",
     "atrium-verbs-internal-android" to "atrium-verbs-internal",
     "atrium-specs-android" to "atrium-specs",
-    "atrium-api-fluent-en_GB-jdk8-android" to "atrium-api-fluent-en_GB",
-    "atrium-api-infix-en_GB-jdk8-common" to "atrium-api-infix-en_GB",
-    "atrium-api-infix-en_GB-jdk8" to "atrium-api-infix-en_GB",
+    "atrium-api-fluent-en_GB-jdk8-android" to "atrium-api-fluent",
+    "atrium-api-infix-en_GB-jdk8-common" to "atrium-api-infix",
+    "atrium-api-infix-en_GB-jdk8" to "atrium-api-infix",
     "atrium-domain-builders-kotlin_1_3-common" to "atrium-logic",
-    "atrium-cc-infix-en_UK-robstoll" to "atrium-infix-en_GB",
-    "atrium-api-fluent-en_GB-jdk8-common" to "atrium-api-fluent-en_GB",
-    "atrium-api-cc-infix-en_GB" to "atrium-api-infix-en_GB",
-    "atrium-cc-en_GB-robstoll" to "atrium-fluent-en_GB",
-    "atrium-cc-de_CH-robstoll" to "atrium-fluent-en_GB",
-    "atrium-api-cc-infix-en_GB-common" to "atrium-api-infix-en_GB",
+    "atrium-cc-infix-en_UK-robstoll" to "atrium-infix",
+    "atrium-api-fluent-en_GB-jdk8-common" to "atrium-api-fluent",
+    "atrium-api-cc-infix-en_GB" to "atrium-api-infix",
+    "atrium-cc-en_GB-robstoll" to "atrium-fluent",
+    "atrium-cc-de_CH-robstoll" to "atrium-fluent",
+    "atrium-api-cc-infix-en_GB-common" to "atrium-api-infix",
     "atrium-domain-api-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
     "atrium-domain-builders-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
-    "atrium-api-fluent-en_GB-jdk8" to "atrium-api-fluent-en_GB",
+    "atrium-api-fluent-en_GB-jdk8" to "atrium-api-fluent",
     "atrium-spec" to "atrium-specs",
-    "atrium-api-cc-en_GB-common" to "atrium-api-fluent-en_GB",
-    "atrium-api-cc-infix-en_UK" to "atrium-api-infix-en_GB",
+    "atrium-api-cc-en_GB-common" to "atrium-api-fluent",
+    "atrium-api-cc-infix-en_UK" to "atrium-api-infix",
     "atrium-domain-builders-kotlin_1_3" to "atrium-logic-kotlin_1_3",
     "atrium-domain-robstoll-lib-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
-    "atrium-cc-infix-en_GB-robstoll-js" to "atrium-infix-en_GB",
-    "atrium-cc-en_GB-robstoll-common" to "atrium-fluent-en_GB",
-    "atrium-cc-en_GB-robstoll-js" to "atrium-fluent-en_GB",
-    "atrium-api-cc-de_CH" to "atrium-api-fluent-en_GB",
-    "atrium-api-cc-de_CH-common" to "atrium-api-fluent-en_GB",
-    "atrium-api-cc-infix-en_GB-js" to "atrium-api-infix-en_GB",
+    "atrium-cc-infix-en_GB-robstoll-js" to "atrium-infix",
+    "atrium-cc-en_GB-robstoll-common" to "atrium-fluent",
+    "atrium-cc-en_GB-robstoll-js" to "atrium-fluent",
+    "atrium-api-cc-de_CH" to "atrium-api-fluent",
+    "atrium-api-cc-de_CH-common" to "atrium-api-fluent",
+    "atrium-api-cc-infix-en_GB-js" to "atrium-api-infix",
     "atrium-domain-robstoll-kotlin_1_3" to "atrium-logic-kotlin_1_3",
-    "atrium-api-cc-de_CH-js" to "atrium-api-fluent-en_GB",
+    "atrium-api-cc-de_CH-js" to "atrium-api-fluent",
     "atrium-domain-api-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
     "atrium-domain-robstoll-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
     "atrium-assertions" to "atrium-logic",
-    "atrium-cc-en_UK-robstoll" to "atrium-fluent-en_GB",
-    "atrium-cc-infix-en_GB-robstoll-common" to "atrium-infix-en_GB",
-    "atrium-cc-de_CH-robstoll-js" to "atrium-fluent-en_GB",
-    "atrium-api-cc-en_GB" to "atrium-api-fluent-en_GB",
+    "atrium-cc-en_UK-robstoll" to "atrium-fluent",
+    "atrium-cc-infix-en_GB-robstoll-common" to "atrium-infix",
+    "atrium-cc-de_CH-robstoll-js" to "atrium-fluent",
+    "atrium-api-cc-en_GB" to "atrium-api-fluent",
     "atrium-domain-robstoll-lib-kotlin_1_3-common" to "atrium-logic-kotlin_1_3",
-    "atrium-cc-de_CH-robstoll-common" to "atrium-fluent-en_GB",
+    "atrium-cc-de_CH-robstoll-common" to "atrium-fluent",
     "atrium-domain-robstoll-lib-kotlin_1_3" to "atrium-logic",
-    "atrium-api-cc-en_UK" to "atrium-fluent-en_GB",
-    "atrium-cc-infix-en_GB-robstoll" to "atrium-infix-en_GB",
+    "atrium-api-cc-en_UK" to "atrium-fluent",
+    "atrium-cc-infix-en_GB-robstoll" to "atrium-infix",
     "atrium-domain-api-kotlin_1_3" to "atrium-logic-kotlin_1_3",
     "atrium-domain-robstoll-kotlin_1_3-js" to "atrium-logic-kotlin_1_3",
-    "atrium-api-cc-en_GB-js" to "atrium-fluent-en_GB",
+    "atrium-api-cc-en_GB-js" to "atrium-fluent",
     "atrium-core-robstoll-lib" to "atrium-core",
     "atrium-core-robstoll-lib-js" to "atrium-core",
     "atrium-domain-robstoll-common" to "atrium-logic",
@@ -414,9 +417,9 @@ listOf(
     "atrium-core-api" to "atrium-core",
     "atrium-domain-robstoll-lib" to "atrium-logic"
 ).forEach { (oldArtifactId, projectName) ->
-    val newPubName = if(oldArtifactId.endsWith("-common")) "kotlinMultiplatform"
-    else if(oldArtifactId.endsWith("-js")) "js"
-    else if(oldArtifactId.endsWith("-android")) "jvm"
+    val newPubName = if (oldArtifactId.endsWith("-common")) "kotlinMultiplatform"
+    else if (oldArtifactId.endsWith("-js")) "js"
+    else if (oldArtifactId.endsWith("-android")) "jvm"
     else "jvm"
 
     configure(listOf(project(":$projectName"))) {
