@@ -674,7 +674,7 @@ find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
     -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;" \
     -pe "s@<html>@<html lang=\"en\">@g;" \
     -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
-    -pe "s@(<title>[^<]+)</title>@\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
+    -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
     -pe "s@(<div class=\"library-name\">\n\s*<a href=\"[^\"]+)index.html\"@\${1}\" title=\"Back to Overview Code Documentation of Atrium\"@g;"
 
 find "./" -name "*.html" | xargs perl -0777 -i \
