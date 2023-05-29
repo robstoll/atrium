@@ -64,5 +64,9 @@
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: contain;
+    -webkit-mask-image: url("../images/info.svg");
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
     background-color: #3535fb;
 }
