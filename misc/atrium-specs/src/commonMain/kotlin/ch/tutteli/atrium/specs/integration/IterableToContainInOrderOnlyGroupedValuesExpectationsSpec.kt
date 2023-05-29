@@ -11,7 +11,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
-//TODO 0.18.0 include InOrderReportOptions
+//TODO 1.1.0 include InOrderReportOptions
 abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     toContainInOrderOnlyGroupedValues: Fun5<
         Iterable<Double>, Group<Double>,

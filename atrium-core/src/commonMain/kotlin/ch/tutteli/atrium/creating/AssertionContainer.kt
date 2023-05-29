@@ -28,9 +28,7 @@ interface AssertionContainer<T> {
     val maybeSubject: Option<T>
 
     /**
-     * Do not use yet, this is experimental and will definitely change in 0.17.0 or 0.18.0.
-     *
-     * Might be we completely remove it without prior notice.
+     * Do not use yet, this is experimental and might change or be removed without prior notice.
      */
     //TODO 1.1.0/1.2.0 maybe it would be better to have proofFactories as val like we have components?
     //TODO 1.1.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
