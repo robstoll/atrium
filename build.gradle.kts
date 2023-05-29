@@ -12,6 +12,8 @@ buildscript {
 }
 
 // kotlin version is configured in buildSrc/build.gradle.kts
+val defaultJdkVersion = 11
+
 // main
 val kboxVersion by extra("0.16.0")
 val niokVersion by extra("1.4.7")
@@ -240,18 +242,18 @@ allprojects {
     project.extensions.findByType<JavaPluginExtension>()?.apply {
         toolchain {
             // reading JAVA_VERSION from env to enable jdk17 build in CI
-            val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
+            val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: defaultJdkVersion
             languageVersion.set(JavaLanguageVersion.of(jdkVersion))
         }
     }
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        kotlinOptions.jvmTarget = defaultJdkVersion.toString()
+        sourceCompatibility = defaultJdkVersion.toString()
+        targetCompatibility = defaultJdkVersion.toString()
     }
     tasks.withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        sourceCompatibility = defaultJdkVersion.toString()
+        targetCompatibility = defaultJdkVersion.toString()
     }
 }
 
