@@ -149,7 +149,15 @@
     content: url("../images/footer-go-to-link.svg");
 }
 
+.github::before {
+    content: url("../images/github-mark.svg");
+    display: inline-block;
+    height: 18px;
+    vertical-align: bottom;
+}
+
 ul li {
     padding-top: 0.1em;
     padding-bottom: 0.1em;
 }
+
