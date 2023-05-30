@@ -180,7 +180,15 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): Subj
  */
 inline infix fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
+inline fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(): Expect<Boolean> =
+    notToBeAnInstanceOf(TSub::class).transform()
 
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun <TSub : Any> Expect<*>.notToBeAnInstanceOf(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, Boolean> =
+    _logic.notToBeAnInstanceOf(kClass)
+
+inline infix fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<Boolean> =
+    notToBeAnInstanceOf(TSub::class).transform()
 /**
  * Expects that the subject of `this` expectation is not equal to any value of [values].
  *

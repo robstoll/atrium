@@ -153,6 +153,16 @@ class AnyExpectationSamples {
             expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
     }
+    @Test
+    fun notToBeInstanceOf() {
+        val n: Number = 16
+        expect(n).notToBeAnInstanceOf<String>()
+        fails {
+            // because you forgot to define an expectation in the expectation-group block
+            // use `.toBeAnInstanceOf<Int>()` if this is all you expect
+            expect(n).notToBeAnInstanceOf<Number>()
+        }
+    }
 
     @Test
     fun andFeature() {

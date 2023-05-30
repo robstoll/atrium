@@ -81,7 +81,16 @@ interface SubjectChangerBuilder {
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
                 }
-
+        /**
+         * Uses [DescriptionAnyExpectation.NOT_TO_BE_THE_INSTANCE_OF] as description of the change,
+         * the given [type] as representation and checked agaisnt the container [container]'s
+         * [AssertionContainer.maybeSubject] to the given type [TSub]
+         */
+        fun <TSub : Any> checkCast(type: KClass<TSub>): FailureHandlerStep<T, Boolean> =
+            withDescriptionAndRepresentation(DescriptionAnyExpectation.NOT_TO_BE_THE_INSTANCE_OF, type)
+                .withTransformation {
+                    Option.someIf(!type.isInstance(it)) { !type.isInstance(it) }
+                }
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
          * which expects a [Translatable] instead of a [String].
