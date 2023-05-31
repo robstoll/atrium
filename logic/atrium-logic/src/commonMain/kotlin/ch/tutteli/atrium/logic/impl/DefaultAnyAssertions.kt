@@ -100,9 +100,7 @@ class DefaultAnyAssertions : AnyAssertions {
     }
 
 
-    override fun <T, TSub : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, expected: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, Boolean> =
-        container.changeSubject.reportBuilder()
-            .checkCast(expected)
-            .build()
+    override fun <T, TSub : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, expected: KClass<TSub>): Assertion =
+        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE_OF, expected) { !expected.isInstance(it) }
 
 }

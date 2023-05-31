@@ -156,14 +156,9 @@ class AnyExpectationSamples {
     fun notToBeInstanceOf() {
         val n: Number = 16
         expect(n).notToBeAnInstanceOf<String>()
-        fails {
+        fails{
+            // fails because n is actually instance of number
             expect(n).notToBeAnInstanceOf<Number>()
-        }
-
-        val d = 0.01
-        expect(d).notToBeAnInstanceOf<Int>()
-        fails {
-            expect(d).notToBeAnInstanceOf<Number>()
         }
     }
 

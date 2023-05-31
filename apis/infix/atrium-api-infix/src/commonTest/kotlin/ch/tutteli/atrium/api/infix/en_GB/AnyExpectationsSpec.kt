@@ -80,7 +80,7 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
         private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType>()
         @Suppress("RemoveExplicitTypeArguments")
-        private fun notToBeAnInstanceOfFeature(expect: Expect<out Any?>): Expect<Boolean> =
+        private fun notToBeAnInstanceOfFeature(expect: Expect<*>): Expect<*> =
             expect.notToBeAnInstanceOf<SuperType>()
 
         @Suppress("RemoveExplicitTypeArguments")
@@ -96,10 +96,10 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
             }
         @Suppress("RemoveExplicitTypeArguments")
         private fun notToBeAnInstanceOf(
-            expect: Expect<out Any?>,
+            expect: Expect<*>,
             assertionCreator: Expect<SuperType>.() -> Unit
-        ): Expect<Boolean> =
-            expect.notToBeAnInstanceOf<SuperType> { assertionCreator() }
+        ): Expect<*> =
+            expect.notToBeAnInstanceOf<SuperType> ()
 
         private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
         private fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =

@@ -87,15 +87,16 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
         ): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType> { assertionCreator() }
         @Suppress("RemoveExplicitTypeArguments")
-        private fun notToBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<Boolean> =
+        private fun notToBeAnInstanceOfSubTypeFeature(expect: Expect<*>): Expect<*> =
             expect.notToBeAnInstanceOf<SuperType>()
 
         @Suppress("RemoveExplicitTypeArguments")
         private fun notToBeAnInstanceOfSubType(
-            expect: Expect<out Any?>,
+            expect: Expect<*>,
             assertionCreator: Expect<SuperType>.() -> Unit
-        ): Expect<Boolean> =
-            expect.notToBeAnInstanceOf<SuperType> { assertionCreator() }
+        ): Expect<*> =
+            expect.notToBeAnInstanceOf<SuperType> ()
+
         private val andImmediate: KProperty1<Expect<Int>, Expect<Int>> = Expect<Int>::and
         fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> = andImmediate.name to Expect<Int>::and
 

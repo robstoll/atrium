@@ -166,14 +166,22 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): Subj
  */
 inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
-
-inline fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(): Expect<Boolean> = notToBeAnInstanceOf(TSub::class).transform()
-
-@PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.notToBeAnInstanceOf(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, Boolean> =
-    _logic.notToBeAnInstanceOf(kClass)
-inline fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<Boolean> =
-    notToBeAnInstanceOf(TSub::class).transform()
+/**
+ * Expects that the subject of `this` expectation *is not a* [TSub] (the same type or a sub-type) and returns the initial [Expect] with type `T `.
+ *
+ * Notice,  this function returns [Expect] of the initial type, which was type `T `.
+ * Since [Expect] is invariant it especially means that an assertion function which was not written in a generic way
+ * will not be available. Fixing such a function is easy (in most cases),
+ * you need to transform it into a generic from. Following an example:
+ *
+ *
+ * @return the same [Expect] that was prior to the initiation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToBeTheInstance
+ *
+ * @since 1.1.0
+ */
+inline fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> = _logicAppend { notToBeAnInstanceOf(TSub::class) }
 
 
 /**
