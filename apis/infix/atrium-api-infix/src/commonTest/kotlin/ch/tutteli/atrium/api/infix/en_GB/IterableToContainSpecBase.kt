@@ -17,13 +17,13 @@ abstract class IterableToContainSpecBase {
     private val Entries = "entries"
 
     //@formatter:off
-    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
-    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
-    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
-    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
+    protected val atLeast = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::exactly.name
+    protected val atMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atMost.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::notOrAtMost.name
     protected val inAnyOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
     protected val butOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
     private val theInAnyOrderFun: KFunction2<IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -43,7 +43,7 @@ abstract class IterableToContainSpecBase {
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
 
     protected val inOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
     protected val andOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderSearchBehaviour>::and.name} ${only::class.simpleName}"
     private val theInOrderOnlyFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -54,8 +54,8 @@ abstract class IterableToContainSpecBase {
     protected val inOrderElementsOf =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
     protected val grouped =
-        "${IterableLikeContains.EntryPointStep<*, *, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
-    protected val within = IterableLikeContains.EntryPointStep<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
+    protected val within = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlyGroupedSearchBehaviour>::within.name
     private val withinInAnyOrderFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, Expect<Iterable<Int>>> =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = withinInAnyOrderFun.name
@@ -108,13 +108,11 @@ abstract class IterableToContainSpecBase {
         nullableList notToContain values(1, 2f)
         nullableList notToContain o entry {}
         nullableList notToContain o the entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList toContain null as Number?
+        nullableList toContain null
         nullableList toContain entries(null, {})
         nullableList toContain entries({}, null)
         nullableList toContain entries(null, null)
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList notToContain null as Number?
+        nullableList notToContain null
         nullableList notToContain o the entries(null, {})
         nullableList notToContain o the entries({}, null)
         nullableList notToContain o the entries(null, null)
@@ -129,13 +127,11 @@ abstract class IterableToContainSpecBase {
         star notToContain values(1, 2f)
         star notToContain o entry {}
         star notToContain o the entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star toContain (null as Number?)
+        star toContain null
         star toContain entries(null, {})
         star toContain entries({}, null)
         star toContain entries(null, null)
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star notToContain (null as Number?)
+        star notToContain null
         star notToContain o the entries(null, {})
         star notToContain o the entries({}, null)
         star notToContain o the entries(null, null)
@@ -154,8 +150,7 @@ abstract class IterableToContainSpecBase {
         nullableList toContainExactly values(1, 2f)
         nullableList toContainExactly {}
         nullableList toContainExactly entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList toContainExactly (null as (Expect<Number>.() -> Unit)?)
+        nullableList toContainExactly null
         nullableList toContainExactly entries({}, null)
         nullableList toContainExactly entries(null, {})
         nullableList toContainExactly entries(null, null)
@@ -164,8 +159,7 @@ abstract class IterableToContainSpecBase {
         star toContainExactly values(1, 2f)
         star toContainExactly {}
         star toContainExactly entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star toContainExactly (null as (Expect<Number>.() -> Unit)?)
+        star toContainExactly null
         star toContainExactly entries({}, null)
         star toContainExactly entries(null, {})
         star toContainExactly entries(null, null)
@@ -284,8 +278,7 @@ abstract class IterableToContainSpecBase {
         list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
             values(1f),
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            values<Number>(1f, 1)
+            values(1f, 1)
         )
         subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
@@ -315,27 +308,27 @@ abstract class IterableToContainSpecBase {
         )
 
         list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number> {},
+            entry {},
             entries({}),
             entries({}, {})
         )
         subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number> {},
+            entry {},
             entries({}),
             entries({}, {})
         )
         nullableList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number>(null),
+            entry(null),
             entries(null),
             entries(null, {}),
             entries({}, null),
             entries(null, null)
         )
         star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO this should fail IMO
+            //TODO 1.1.0 this should fail IMO
+            // re-check don't remember why I thought this but most likely I was thinking about it being invariant
+            // which means we should need to to provide Any and not Number (or Int or any other sub-type of Any)
+            // as type argument. Right now we cannot pass Any or leave it out which is strange
             entry<Number>(null),
             entries(null),
             entries(null, {}),
@@ -343,8 +336,7 @@ abstract class IterableToContainSpecBase {
             entries(null, null)
         )
         any toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Any>(null),
+            entry(null),
             entries(null),
             entries(null, {}),
             entries({}, null),

@@ -37,8 +37,7 @@ interface CollectingExpect<T> : Expect<T> {
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
     companion object {
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+        @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
         operator fun <T> invoke(
             maybeSubject: Option<T>,
             componentFactoryContainer: ComponentFactoryContainer

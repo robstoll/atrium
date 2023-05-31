@@ -18,16 +18,16 @@ abstract class IterableToContainSpecBase {
     protected val value = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::value.name
     protected val values = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::values.name
     protected val entry = IterableLikeContains.EntryPointStep<Int, List<Int>, InOrderOnlySearchBehaviour>::entry.name
-    protected val entries = IterableLikeContains.EntryPointStep<*, *, InOrderOnlySearchBehaviour>::entries.name
+    protected val entries = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlySearchBehaviour>::entries.name
     protected val elementsOf =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
 
     //@formatter:off
-    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
-    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
-    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
-    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
+    protected val atLeast = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::exactly.name
+    protected val atMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atMost.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::notOrAtMost.name
     protected val inAnyOrder = IterableLikeContains.EntryPointStep<Int, List<Int>, NoOpSearchBehaviour>::inAnyOrder.name
     protected val inOrder = IterableLikeContains.EntryPointStep<Int, List<Int>, NoOpSearchBehaviour>::inOrder.name
     protected val only = IterableLikeContains.EntryPointStep<Int, List<Int>, InAnyOrderSearchBehaviour>::only.name

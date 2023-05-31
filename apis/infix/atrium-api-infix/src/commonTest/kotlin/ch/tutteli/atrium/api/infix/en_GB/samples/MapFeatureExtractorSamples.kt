@@ -92,7 +92,7 @@ class MapFeatureExtractorSamples {
     @Test
     fun values() {
         expect(mapOf(1 to "a")) values {   // subject inside this expectation-group is of type Collection<String> (containing "a")
-            this toEqual setOf("a")
+            this toContain "a"
         }
 
         fails {

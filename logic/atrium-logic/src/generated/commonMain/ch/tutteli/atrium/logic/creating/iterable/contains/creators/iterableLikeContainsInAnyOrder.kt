@@ -21,7 +21,6 @@ fun <E, T : IterableLike> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrder
 fun <E : Any, T : IterableLike> IterableLikeContains.CheckerStepLogic<out E?, T, InAnyOrderSearchBehaviour>.entries(assertionCreators: List<(Expect<E>.() -> Unit)?>, notToHaveNextOrNoneFunName: String): Assertion =
     impl.entries(this, assertionCreators, notToHaveNextOrNoneFunName)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>.impl: IterableLikeContainsInAnyOrderAssertions
     get() = entryPointStepLogic.container.getImpl(IterableLikeContainsInAnyOrderAssertions::class) { DefaultIterableLikeContainsInAnyOrderAssertions() }

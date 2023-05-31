@@ -35,8 +35,7 @@ private fun <T, R> genericFeature(
     metaFeature: MetaFeature<R>
 ): FeatureExtractorBuilder.ExecutionStep<T, R> {
     val representation: Any = metaFeature.representation ?: Text.NULL
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @OptIn(ExperimentalNewExpectTypes::class)
     return container.extractFeature
         .withDescription(metaFeature.description)
         .withRepresentationForFailure(representation)

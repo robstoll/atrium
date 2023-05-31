@@ -28,8 +28,7 @@ abstract class SubjectLessSpec<T>(
     describe("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and report without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+                @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
                     .appendAsGroup(createAssertion)
                     .getAssertions()
@@ -37,8 +36,7 @@ abstract class SubjectLessSpec<T>(
                 expandAssertionGroups(assertions)
 
 
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+                @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
                 val expect = RootExpectBuilder.forSubject(1.0)
                     .withVerb("custom assertion verb")
                     .withOptions {
@@ -58,8 +56,7 @@ abstract class SubjectLessSpec<T>(
     describe("${groupPrefix}expectation function does not hold if there is no subject") {
         assertionCreator.forEach { (name, createAssertion) ->
             it("fun `$name`") {
-                @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+                @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
                 val assertions = CollectingExpect<T>(None, expect(1)._logic.components)
                     .appendAsGroup(createAssertion)
                     .getAssertions()

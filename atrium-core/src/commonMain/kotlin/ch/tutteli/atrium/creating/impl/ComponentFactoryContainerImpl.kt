@@ -115,6 +115,7 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 
 
 @ExperimentalComponentFactoryContainer
+@OptIn(ExperimentalFeatureInfo::class)
 internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
     mapOf(
         Reporter::class createSingletonVia { c ->
@@ -140,11 +141,8 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
                 emptyList()
             )
         },
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalFeatureInfo::class)
+
         FeatureInfo::class createVia { _ ->
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalFeatureInfo::class)
             StackTraceBasedFeatureInfo()
         },
 

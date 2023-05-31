@@ -28,7 +28,6 @@ fun <T : ChronoLocalDate> AssertionContainer<T>.isAfter(expected: String): Asser
 fun <T : ChronoLocalDate> AssertionContainer<T>.isAfterOrEqual(expected: String): Assertion = impl.isAfterOrEqual(this, expected)
 fun <T : ChronoLocalDate> AssertionContainer<T>.isEqual(expected: String): Assertion = impl.isEqual(this, expected)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ChronoLocalDateAssertions
     get() = getImpl(ChronoLocalDateAssertions::class) { DefaultChronoLocalDateAssertions() }

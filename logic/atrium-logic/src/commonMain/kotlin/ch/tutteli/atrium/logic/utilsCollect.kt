@@ -97,8 +97,7 @@ inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
  * @return The collected assertions as a `List<[Assertion]>`.
  */
 //TODO 1.1.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
-@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalComponentFactoryContainer::class)
 inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
     maybeSubject: Option<T>,
     noinline assertionCreator: Expect<T>.() -> Unit

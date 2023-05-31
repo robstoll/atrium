@@ -5,8 +5,7 @@ import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import kotlin.reflect.KClass
 import ch.tutteli.atrium.reporting.Reporter
 
-@Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@Experimental
+@RequiresOptIn
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.LOCAL_VARIABLE)
 annotation class ExperimentalComponentFactoryContainer
