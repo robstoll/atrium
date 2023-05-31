@@ -167,7 +167,7 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): Subj
 inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
 /**
- * Expects that the subject of `this` expectation *is not a* [TSub] (the same type or a sub-type) and returns the initial [Expect] with type `T `.
+ * Expects that the subject of `this` expectation *is not a* [TNotExpected] (the same type or a sub-type) and returns the initial [Expect] with type `T `.
  *
  * Notice,  this function returns [Expect] of the initial type, which was type `T `.
  * Since [Expect] is invariant it especially means that an assertion function which was not written in a generic way
@@ -181,7 +181,7 @@ inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCre
  *
  * @since 1.1.0
  */
-inline fun <reified TSub : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> = _logicAppend { notToBeAnInstanceOf(TSub::class) }
+inline fun <reified TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> = _logicAppend { notToBeAnInstanceOf(TNotExpected::class) }
 
 
 /**

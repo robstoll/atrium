@@ -32,7 +32,7 @@ fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.i
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)
 
-fun <T, TSub : Any> AssertionContainer<T>.notToBeAnInstanceOf(expected: KClass<TSub>): Assertion = impl.notToBeAnInstanceOf(this, expected)
+fun <T, TNotExpected : Any> AssertionContainer<T>.notToBeAnInstanceOf(notExpectedClass: KClass<TNotExpected>): Assertion = impl.notToBeAnInstanceOf(this, notExpectedClass)
 
 
 @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)

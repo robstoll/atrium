@@ -40,6 +40,6 @@ interface AnyAssertions {
         assertionCreator: (Expect<T>.() -> Unit)
     ): Assertion
 
-    fun <T, TSub : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, expected: KClass<TSub>): Assertion
+    fun <T, TNotExpected : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, notExpectedClass: KClass<TNotExpected>): Assertion
 
 }

@@ -100,7 +100,7 @@ class DefaultAnyAssertions : AnyAssertions {
     }
 
 
-    override fun <T, TSub : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, expected: KClass<TSub>): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE_OF, expected) { !expected.isInstance(it) }
+    override fun <T, TNotExpected : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, notExpectedClass: KClass<TNotExpected>): Assertion =
+        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE_OF, notExpectedClass) { !notExpectedClass.isInstance(it) }
 
 }
