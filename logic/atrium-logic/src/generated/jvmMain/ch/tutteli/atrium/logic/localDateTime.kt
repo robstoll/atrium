@@ -26,7 +26,6 @@ fun AssertionContainer<LocalDateTime>.day(): FeatureExtractorBuilder.ExecutionSt
 
 fun AssertionContainer<LocalDateTime>.dayOfWeek(): FeatureExtractorBuilder.ExecutionStep<LocalDateTime, DayOfWeek> = impl.dayOfWeek(this)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: LocalDateTimeAssertions
     get() = getImpl(LocalDateTimeAssertions::class) { DefaultLocalDateTimeAssertions() }

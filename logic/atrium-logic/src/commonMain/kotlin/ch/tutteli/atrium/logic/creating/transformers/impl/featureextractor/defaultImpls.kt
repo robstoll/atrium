@@ -50,8 +50,7 @@ class OptionsStepImpl<T, R>(
     override fun withOptions(expectOptions: FeatureExpectOptions<R>): FeatureExtractorBuilder.FinalStep<T, R> =
         createFinalStep(expectOptions)
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
+    @OptIn(ExperimentalNewExpectTypes::class)
     override fun withoutOptions(): FeatureExtractorBuilder.FinalStep<T, R> = createFinalStep(FeatureExpectOptions())
 
     @ExperimentalNewExpectTypes
@@ -63,11 +62,10 @@ class OptionsStepImpl<T, R>(
         )
 }
 
+@OptIn(ExperimentalNewExpectTypes::class)
 class FinalStepImpl<T, R>(
     override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
     override val featureExtraction: (T) -> Option<R>,
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class)
     override val featureExpectOptions: FeatureExpectOptions<R>
 ) : FeatureExtractorBuilder.FinalStep<T, R> {
 

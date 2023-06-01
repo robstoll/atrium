@@ -38,7 +38,6 @@ fun <T : CharSequence> AssertionContainer<T>.isNotBlank(): Assertion = impl.isNo
 fun <T : CharSequence> AssertionContainer<T>.matches(expected: Regex): Assertion = impl.matches(this, expected)
 fun <T : CharSequence> AssertionContainer<T>.mismatches(expected: Regex): Assertion = impl.mismatches(this, expected)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: CharSequenceAssertions
     get() = getImpl(CharSequenceAssertions::class) { DefaultCharSequenceAssertions() }

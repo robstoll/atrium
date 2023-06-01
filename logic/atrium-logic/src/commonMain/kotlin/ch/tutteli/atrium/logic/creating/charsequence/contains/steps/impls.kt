@@ -54,14 +54,7 @@ fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.atMostChec
     this
 )
 
-
-@Suppress(
-    // unchecked ok as the SearchBehaviour is only relevant during compile time (defines extension point)
-    "UNCHECKED_CAST",
-    // OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2
-    "DEPRECATION"
-)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T : CharSequence, S : SearchBehaviour> EntryPointStepLogic<T, S>.exactlyCheckerStep(
     times: Int,
     nameContainsNotFun: String,

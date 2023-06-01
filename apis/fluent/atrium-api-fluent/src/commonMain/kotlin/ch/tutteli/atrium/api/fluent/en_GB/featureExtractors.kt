@@ -41,8 +41,7 @@ fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
 fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): Expect<T>  =
     itsInternal(extractor).collectAndAppend(assertionCreator)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
+@OptIn(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
 private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
     _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
 

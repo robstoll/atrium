@@ -11,8 +11,7 @@ import kotlin.reflect.*
 
 class MetaFeatureOption<T>(expect: Expect<T>) {
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalComponentFactoryContainer::class)
     private val methodCallFormatter = expect._logic.components.build<MethodCallFormatter>()
 
     /**

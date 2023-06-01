@@ -58,12 +58,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : IterableLike, E : Comparable<E>> min(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::min)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "min", Iterable<E>::minOrNull)
 
     override fun <T : IterableLike, E : Comparable<E>> max(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
-    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::max)
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> = collect(container, converter, "max", Iterable<E>::maxOrNull)
 
     private fun <T : IterableLike, E : Comparable<E>> collect(
         container: AssertionContainer<T>,
@@ -98,7 +98,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         decorateAssertion = ::decorateAssertionWithHasNext
     )
 
-    override fun <T : IterableLike, E: Any> hasNotNextOrAll(
+    override fun <T : IterableLike, E : Any> hasNotNextOrAll(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -204,7 +204,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             .forEach { (index, element) ->
                 lookupHashMap[element]?.let {
                     duplicateIndices.getOrPut(it) {
-                        Pair(element, mutableListOf<Int>())
+                        Pair(element, mutableListOf())
                     }.second.add(index)
                 } ?: let {
                     lookupHashMap[element] = index

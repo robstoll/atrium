@@ -29,8 +29,7 @@ class DefaultResultAssertions : ResultAssertions {
             .withoutOptions()
             .build()
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> isFailureOfType(
         container: AssertionContainer<out Result<*>>,
         expectedType: KClass<TExpected>

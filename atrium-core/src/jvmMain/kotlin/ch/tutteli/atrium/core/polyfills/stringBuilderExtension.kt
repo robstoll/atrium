@@ -1,5 +1,4 @@
 package ch.tutteli.atrium.core.polyfills
 
-import kotlin.text.appendln as kotlinAppendLn
-
-actual fun StringBuilder.appendln(): StringBuilder = this.kotlinAppendLn()
+private val lineSeparator = System.getProperty("line.separator") ?: '\n'
+actual fun StringBuilder.appendln(): StringBuilder = append(lineSeparator)

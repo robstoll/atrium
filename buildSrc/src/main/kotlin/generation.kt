@@ -3,11 +3,9 @@ import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -39,7 +37,7 @@ fun Project.createGenerateLogicTask(
 ): Task {
     val generateLogic = tasks.register("generateLogic") {
         group = "build"
-        description = "generates extention methods for AssertionContainer based on interfaces"
+        description = "generates extension methods for AssertionContainer based on interfaces"
         outputs.dir("src/generated/")
     }.get()
 
@@ -64,14 +62,9 @@ fun Project.createGenerateLogicTask(
             )
             generateLogic.dependsOn(task)
         }
-        when (sourceSet.name) {
-            "commonMain" -> tasks.withType<KotlinCommonCompile>()
-            "jvmMain" -> tasks.withType<KotlinJvmCompile>()
-            "jsMain" -> tasks.withType<KotlinJsCompile>()
-            else -> throw UnsupportedOperationException("unsupported kotlin source set name ${sourceSet.name}, please modify buildSrc/generation.kt")
-        }.configureEach {
-            dependsOn(generateLogic)
-        }
+    }
+    tasks.withType<KotlinCompile>{
+        dependsOn(generateLogic)
     }
     return generateLogic
 }
@@ -157,8 +150,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 output.appendText(
                     """
 
-                    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-                    @UseExperimental(ExperimentalNewExpectTypes::class)
+                    @OptIn(ExperimentalNewExpectTypes::class)
                     private inline val ${extensionTypeSignature}.impl: ${type}Assertions
                         get() = $getImpl(${type}Assertions::class) { Default${type}Assertions() }
 

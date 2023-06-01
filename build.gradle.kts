@@ -212,16 +212,19 @@ configure(multiplatformProjects) {
 
 fun NamedDomainObjectContainerScope<KotlinSourceSet>.configureLanguageSettings(project: Project) {
     configureEach {
-        //TODO 1.1.0 remove -kotlin_1_3 (once we drop support for kotlin 1.2) and use 1.4 in tests
-        val languageVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
-        val apiVersion = if (name.endsWith("Test") || project.name.endsWith("-kotlin_1_3")) "1.3" else "1.2"
+        // TODO 1.1.0 make this configurable so that we can use a higher version in Tests. This will reveal kotlin
+        // regressions sooner which means we could already test beta versions in the hope that less regressions
+        // are released in the end, because they also hinder Atrium users in the end using Atrium at its full potential
+        val languageVersion = if (name.endsWith("Test")) "1.4" else "1.4"
+        val apiVersion = if (name.endsWith("Test")) "1.4" else "1.4"
         languageSettings.apply {
             this.languageVersion = languageVersion
             this.apiVersion = apiVersion
-            useExperimentalAnnotation("kotlin.Experimental")
+            optIn("kotlin.RequiresOptIn")
         }
     }
 }
+
 
 configure(subprojects.filter {
     val parentName = it.projectDir.parentFile.name
@@ -255,8 +258,6 @@ allprojects {
     }
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = defaultJdkVersion.toString()
-        sourceCompatibility = defaultJdkVersion.toString()
-        targetCompatibility = defaultJdkVersion.toString()
     }
     tasks.withType<JavaCompile> {
         sourceCompatibility = defaultJdkVersion.toString()

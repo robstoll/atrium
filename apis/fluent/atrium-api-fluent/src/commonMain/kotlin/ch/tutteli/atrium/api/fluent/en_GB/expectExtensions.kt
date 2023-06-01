@@ -9,7 +9,7 @@ import ch.tutteli.atrium.logic.creating.RootExpectOptions
 import ch.tutteli.atrium.reporting.Text
 
 @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@Experimental
+@RequiresOptIn
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION)
 annotation class ExperimentalWithOptions
@@ -21,7 +21,7 @@ annotation class ExperimentalWithOptions
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> =
@@ -40,7 +40,7 @@ fun <T> RootExpect<T>.withRepresentation(textRepresentation: String): Expect<T> 
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
 fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Expect<T> =
@@ -50,22 +50,20 @@ fun <T> RootExpect<T>.withRepresentation(representationProvider: (T) -> Any): Ex
  * Uses the given [configuration]-lambda to create an [RootExpectOptions] which in turn is used
  * to re-define (parts) of the existing configuration.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T> RootExpect<T>.withOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): Expect<T> =
     withOptions(RootExpectOptions(configuration))
 
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T> RootExpect<T>.withOptions(options: RootExpectOptions<T>): Expect<T> =
     RootExpect(this, options)
 
@@ -76,11 +74,10 @@ fun <T> RootExpect<T>.withOptions(options: RootExpectOptions<T>): Expect<T> =
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): Expect<R> =
     withOptions { withRepresentation(textRepresentation) }
 
@@ -97,11 +94,10 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(textRepresentation: String): E
  * In case the subject of `this` expectation is not defined (i.e. `_logic.maybeSubject` is [None]),
  * then the previous representation is used.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) -> Any): Expect<R> =
     withOptions { withRepresentation(representationProvider) }
 
@@ -109,21 +105,19 @@ fun <T, R> FeatureExpect<T, R>.withRepresentation(representationProvider: (R) ->
  * Uses the given [configuration]-lambda to create a [FeatureExpectOptions] which in turn is used
  * to re-define (parts) of the existing configuration.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): Expect<R> =
     withOptions(FeatureExpectOptionsChooser(configuration))
 
 /**
  * Uses the given [options] to override (parts) of the existing configuration.
  *
- * @return An new [Expect] with the specified options for subject of `this` expectation.
+ * @return A new [Expect] with the specified options for subject of `this` expectation.
  */
 @ExperimentalWithOptions
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T, R> FeatureExpect<T, R>.withOptions(options: FeatureExpectOptions<R>): Expect<R> =
     FeatureExpect(this, options)

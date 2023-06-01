@@ -24,7 +24,6 @@ fun <T : BigDecimal> AssertionContainer<T>.isEqualIncludingScale(expected: T, na
 
 fun <T : BigDecimal> AssertionContainer<T>.isNotEqualIncludingScale(expected: T): Assertion = impl.isNotEqualIncludingScale(this, expected)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: BigDecimalAssertions
     get() = getImpl(BigDecimalAssertions::class) { DefaultBigDecimalAssertions() }

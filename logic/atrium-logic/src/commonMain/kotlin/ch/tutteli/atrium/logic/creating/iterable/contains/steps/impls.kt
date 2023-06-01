@@ -55,13 +55,7 @@ fun <E, T : IterableLike, S : SearchBehaviour> EntryPointStepLogic<E, T, S>.atMo
 )
 
 
-@Suppress(
-    // unchecked ok as the SearchBehaviour is only relevant during compile time (defines extension point)
-    "UNCHECKED_CAST",
-    // OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2
-    "DEPRECATION"
-)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 fun <E, T : IterableLike, S : SearchBehaviour> EntryPointStepLogic<E, T, S>.exactlyCheckerStep(
     times: Int,
     nameContainsNotFun: String,

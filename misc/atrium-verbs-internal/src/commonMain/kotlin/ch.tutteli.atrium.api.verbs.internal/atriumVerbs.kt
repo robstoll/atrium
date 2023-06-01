@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
@@ -18,13 +19,12 @@ import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
  * @return The newly created [RootExpect].
  * @throws AssertionError in case an assertion does not hold.
  */
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+@OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb("I expected subject")
         .withOptions {
-            //TOOD 1.1.0 we could at least filter out the runner in most cases, even in tests
+            //TODO 1.1.0 we could at least filter out the runner in most cases, even in tests
             withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
         }
         .build()
