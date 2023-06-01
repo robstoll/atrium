@@ -1,9 +1,9 @@
-//pluginManagement {
-//    repositories {
+pluginManagement {
+    repositories {
 //        mavenLocal()
-//        gradlePluginPortal()
-//    }
-//}
+        gradlePluginPortal()
+    }
+}
 
 rootProject.name = "atrium"
 

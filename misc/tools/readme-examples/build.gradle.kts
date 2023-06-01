@@ -34,7 +34,7 @@ kotlin {
             val version = rootProject.version.toString()
             environment("README_SOURCETREE", if (version.endsWith("-SNAPSHOT")) "tree/main" else "tree/v$version")
 
-            this.main = "org.junit.platform.console.ConsoleLauncher"
+            this.mainClass.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", project.sourceSets.main.get().output.classesDirs.asPath,
                 "--disable-banner",
