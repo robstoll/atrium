@@ -52,6 +52,7 @@ plugins {
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion apply false
 
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion apply false
+    // to download jdk for toolchain, see https://docs.gradle.org/current/userguide/toolchains.html#sub:download_repositories
 }
 
 repositories {
