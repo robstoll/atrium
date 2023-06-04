@@ -37,10 +37,6 @@ val spekExtensionsVersion by extra("1.2.1")
 val mockkVersion by extra("1.10.0")
 val mockitoKotlinVersion by extra("2.2.0")
 
-// project setup
-val d8Version by extra("1.6.84")
-
-
 plugins {
     // kotlin version is defined in buildSrc/build.gradle.kts
     kotlin("multiplatform") apply false
