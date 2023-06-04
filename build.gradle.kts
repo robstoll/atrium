@@ -230,7 +230,7 @@ configure(subprojects.filter {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    //TODO 2.0.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
+    //TODO 1.1.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
     project.extensions.getByType<KotlinJvmProjectExtension>().apply {
         sourceSets {
             configureLanguageSettings(subproject)
@@ -552,6 +552,7 @@ subprojects {
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-Xsuppress-version-warnings"
     }
 }
 
