@@ -6,9 +6,11 @@
 //}
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // kotlinNodeJsSetup configures ivy repository 'Node Distributions at https://nodejs.org/dist'
+    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
+        google()
     }
 }
 
