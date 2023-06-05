@@ -242,7 +242,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             classpath = compilations["test"].runtimeDependencyFiles
 
-            main.set("org.junit.platform.console.ConsoleLauncher")
+            mainClass.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", scanClassPath,
                 "--disable-banner",
