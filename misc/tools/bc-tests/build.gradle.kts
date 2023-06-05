@@ -164,7 +164,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     doFirst {
                         if (this is AbstractCompile) {
                             // we don't want to see all the deprecation errors during compilation
-                            this.logging.level = LogLevel.QUIET
+                            // TODO: Gradle's logging level is no longer writable
+                            // this.logging.level = LogLevel.QUIET
                         }
                     }
                 }
@@ -241,7 +242,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             classpath = compilations["test"].runtimeDependencyFiles
 
-            main = "org.junit.platform.console.ConsoleLauncher"
+            main.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", scanClassPath,
                 "--disable-banner",
@@ -474,9 +475,9 @@ fun Project.createJacocoReportTask(
         reports {
             csv.required.set(false)
             xml.required.set(true)
-            xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
+            xml.outputLocation.set(file("${buildDir}/reports/jacoco/$name/report.xml"))
             html.required.set(true)
-            html.destination = file("${buildDir}/reports/jacoco/$name/html/")
+            html.outputLocation.set(file("${buildDir}/reports/jacoco/$name/html/"))
         }
     }
 
