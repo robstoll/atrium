@@ -98,9 +98,10 @@ gradle.taskGraph.whenReady {
 }
 
 // takes some time to configure since gradle 6.9 so only if CI
-if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
-    apply(from = "gradle/scripts/check-dexer.gradle")
-}
+// TODO: rework into build-logic/...
+//if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
+//    apply(from = "gradle/scripts/check-dexer.gradle")
+//}
 
 
 // TODO 1.5.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
