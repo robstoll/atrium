@@ -34,17 +34,25 @@ fun Project.includingTarget(
 fun Project.createGenerateLogicTask(
     vararg targetWithPackages: TargetWithAdditionalPackages,
     suffix: String = ""
-): Task {
+): TaskProvider<*> {
     val generateLogic = tasks.register("generateLogic") {
         group = "build"
         description = "generates extension methods for AssertionContainer based on interfaces"
         outputs.dir("src/generated/")
-    }.get()
+    }
 
     targetWithPackages.forEach { (sourceSet, additionalPackages) ->
         val mainSrcFolder = sourceSet.kotlin.srcDirs.first()
         val generatedFolder = "src/generated/${sourceSet.name}/"
-        sourceSet.kotlin.srcDirs(generatedFolder)
+
+        val generateLogicForSourceSet = tasks.register("_generateLogic_${sourceSet.name}") {
+            outputs.dir(generatedFolder)
+        }
+        sourceSet.kotlin.srcDir(generateLogicForSourceSet)
+
+        generateLogic.configure {
+            dependsOn(generateLogicForSourceSet)
+        }
 
         val all = mapOf<String, (Path) -> Pair<String, String>>("" to { _ ->
             Pair(
@@ -60,7 +68,9 @@ fun Project.createGenerateLogicTask(
                 mainSrcFolder,
                 f
             )
-            generateLogic.dependsOn(task)
+            generateLogicForSourceSet.configure {
+                dependsOn(task)
+            }
             tasks.withType<AbstractKotlinCompile<*>>{
                 dependsOn(task)
             }
