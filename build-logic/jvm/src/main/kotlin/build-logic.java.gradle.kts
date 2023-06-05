@@ -11,7 +11,7 @@ plugins {
 java {
     toolchain {
         // reading JAVA_VERSION from env to enable jdk17 build in CI
-        val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: 11
+        val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: buildParameters.defaultJdkVersion
         languageVersion.set(JavaLanguageVersion.of(jdkVersion))
     }
     consistentResolution {
