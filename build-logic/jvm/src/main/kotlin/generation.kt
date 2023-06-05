@@ -45,14 +45,8 @@ fun Project.createGenerateLogicTask(
         val mainSrcFolder = sourceSet.kotlin.srcDirs.first()
         val generatedFolder = "src/generated/${sourceSet.name}/"
 
-        val generateLogicForSourceSet = tasks.register("_generateLogic_${sourceSet.name}") {
-            outputs.dir(generatedFolder)
-        }
-        sourceSet.kotlin.srcDir(generateLogicForSourceSet)
-
-        generateLogic.configure {
-            dependsOn(generateLogicForSourceSet)
-        }
+        val generatedFiles = project.files(generatedFolder)
+        sourceSet.kotlin.srcDir(generatedFiles)
 
         val all = mapOf<String, (Path) -> Pair<String, String>>("" to { _ ->
             Pair(
@@ -68,7 +62,8 @@ fun Project.createGenerateLogicTask(
                 mainSrcFolder,
                 f
             )
-            generateLogicForSourceSet.configure {
+            generatedFiles.builtBy(task)
+            generateLogic.configure {
                 dependsOn(task)
             }
             tasks.withType<AbstractKotlinCompile<*>>{
