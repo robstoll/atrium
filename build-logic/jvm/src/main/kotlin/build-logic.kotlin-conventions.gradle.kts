@@ -5,6 +5,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("build-logic.build-params")
     id("build-logic.jacoco-conventions")
+    // Even though Kotlin does not use Java, we need to set javaCompile.targetCompatibility
+    // to avoid Kotlin compilation failures
+    id("build-logic.java")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
