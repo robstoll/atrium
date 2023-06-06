@@ -5,7 +5,7 @@ import org.gradle.kotlin.dsl.the
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -61,10 +61,10 @@ fun Project.createGenerateLogicTask(
                 f
             )
             generateLogic.dependsOn(task)
+            tasks.withType<AbstractKotlinCompile<*>>{
+                dependsOn(task)
+            }
         }
-    }
-    tasks.withType<KotlinCompile>{
-        dependsOn(generateLogic)
     }
     return generateLogic
 }

@@ -37,10 +37,6 @@ val spekExtensionsVersion by extra("1.2.1")
 val mockkVersion by extra("1.10.0")
 val mockitoKotlinVersion by extra("2.2.0")
 
-// project setup
-val d8Version by extra("1.6.84")
-
-
 plugins {
     // kotlin version is defined in buildSrc/build.gradle.kts
     kotlin("multiplatform") apply false
@@ -56,6 +52,7 @@ plugins {
     id("ch.tutteli.gradle.plugins.kotlin.module.info") version tutteliGradleVersion apply false
 
     id("ch.tutteli.gradle.plugins.spek") version tutteliGradleVersion apply false
+    // to download jdk for toolchain, see https://docs.gradle.org/current/userguide/toolchains.html#sub:download_repositories
 }
 
 repositories {
@@ -234,7 +231,7 @@ configure(subprojects.filter {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    //TODO 2.0.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
+    //TODO 1.1.0 should no longer be necessary with kotlin 1.8.x where stdlib-jdk8 is added automatically
     project.extensions.getByType<KotlinJvmProjectExtension>().apply {
         sourceSets {
             configureLanguageSettings(subproject)
@@ -556,6 +553,7 @@ subprojects {
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-Xsuppress-version-warnings"
     }
 }
 
