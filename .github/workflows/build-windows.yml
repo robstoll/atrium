@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: 11
+          java-version: ${{ matrix.java_version }}
           cache: 'gradle'
 
       - name: "build using jdk ${{ matrix.java_version }}"
