@@ -46,7 +46,7 @@ plugins {
     kotlin("multiplatform") apply false
     kotlin("jvm") apply false
     //needs to be applied before tutteli's dokka plugin in order that version takes precedence
-    id("org.jetbrains.dokka") version "1.8.10"
+    id("org.jetbrains.dokka") version "1.8.20"
     val tutteliGradleVersion = "4.9.0"
     id("ch.tutteli.gradle.plugins.dokka") version tutteliGradleVersion
     id("ch.tutteli.gradle.plugins.project.utils") version tutteliGradleVersion
