@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import java.io.IOException
 import java.net.URL
 
@@ -549,11 +550,13 @@ subprojects {
     }
 }
 
-//TODO 2.0.0 remove if we use kotlin 1.7.x should no longer be necessary
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-Xsuppress-version-warnings"
+allprojects {
+    tasks.withType<KotlinCompilationTask<*>>().configureEach {
+        compilerOptions {
+            //TODO 1.1.0 re-activate again if possible
+//            allWarningsAsErrors.set(true)
+            freeCompilerArgs.add("-Xsuppress-version-warnings")
+        }
     }
 }
 
