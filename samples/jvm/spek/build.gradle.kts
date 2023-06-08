@@ -42,11 +42,4 @@ tasks.test {
     }
 }
 
-// Atrium requires at least jdk 11
-kotlin {
-    target.compilations.all {
-        kotlinOptions.jvmTarget = "11"
-    }
-}
-java.targetCompatibility = JavaVersion.VERSION_11
 
