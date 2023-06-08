@@ -7,6 +7,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
     api("ch.tutteli.niok:niok:1.4.7")
 }
