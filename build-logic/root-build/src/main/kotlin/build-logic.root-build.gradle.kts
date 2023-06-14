@@ -6,5 +6,4 @@ plugins {
 
 tutteliDokka {
     modeSimple.set(false)
-    githubUser.set("test")
 }

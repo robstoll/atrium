@@ -2,13 +2,20 @@ import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.*
 
+buildscript {
+    // needs to be defined in here so that the tutteli publish plugin can setup conventions based on the group
+    // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
+    rootProject.version = "1.1.0-SNAPSHOT"
+    rootProject.group = "ch.tutteli.atrium"
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-base:1.8.10")
+    }
+}
+
 plugins {
     id("build-logic.root-build")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
-
-version = "1.1.0-SNAPSHOT"
-group = "ch.tutteli.atrium"
 
 // main
 val kboxVersion by extra("0.16.0")
