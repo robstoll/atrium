@@ -13,6 +13,8 @@ java {
         // reading JAVA_VERSION from env to enable jdk17 build in CI
         val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: buildParameters.defaultJdkVersion
         languageVersion.set(JavaLanguageVersion.of(jdkVersion))
+        //TODO 1.1.0 build-logic misses to set source/targetVersion, we always want to use defualtJdkVersion regardless
+        // with what jdk we compile
     }
     consistentResolution {
         useCompileClasspathVersions()
