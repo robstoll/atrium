@@ -164,7 +164,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     doFirst {
                         if (this is AbstractCompile) {
                             // we don't want to see all the deprecation errors during compilation
-                            // TODO: Gradle's logging level is no longer writable
+                            // TODO 1.1.0: Gradle's logging level is no longer writable
                             // this.logging.level = LogLevel.QUIET
                         }
                     }
