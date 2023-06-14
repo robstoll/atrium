@@ -11,10 +11,16 @@ def prefixedProject(String name) {
     project(":${rootProject.name}-$name")
 }
 
-def multiplatformProjects = multiplatformProjectNames.collect { prefixedProject(it) }
-def dexerProjects = multiplatformProjects.findAll {
-    !it.name.contains("-specs")
-}
+
+def dexerProjects = ["core",
+                     "logic", "logic-kotlin_1_3",
+                     "translations-en_GB", "translations-de_CH",
+                     "api-fluent", "api-fluent-kotlin_1_3",
+                     "api-infix", "api-infix-kotlin_1_3",
+                     "fluent",
+                     "infix",
+                     "verbs",
+                     "verbs-internal",].collect { prefixedProject(it) }
 configure(dexerProjects) { subproject ->
     configurations {
         r8
@@ -61,7 +67,7 @@ configure(dexerProjects) { subproject ->
         // where Xy is the version we want to support
         def androidJar = androidJarPath != null ? ['--lib', file(androidJarPath).absolutePath] : []
 
-            args = d8Classpath + androidJar + ['--output', outputPath, jvmJar.archiveFile.get().asFile]
+        args = d8Classpath + androidJar + ['--output', outputPath, jvmJar.archiveFile.get().asFile]
 
         def oldStream = errorOutput
         def outputWritten = false

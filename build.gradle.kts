@@ -26,35 +26,6 @@ val spekExtensionsVersion by extra("1.2.1")
 val mockkVersion by extra("1.10.0")
 val mockitoKotlinVersion by extra("2.2.0")
 
-
-val multiplatformProjectNames by extra(
-    setOf(
-        "core",
-        "logic", "logic-kotlin_1_3",
-        "translations-en_GB", "translations-de_CH",
-        "api-fluent", "api-fluent-kotlin_1_3",
-        "api-infix", "api-infix-kotlin_1_3",
-        "fluent",
-        "infix",
-        "verbs",
-        "verbs-internal",
-        "specs"
-    )
-)
-val multiplatformProjects by extra(
-    multiplatformProjectNames.asSequence().map { prefixedProject(it) }.toSet()
-)
-val toolProjects by extra(subprojects.asSequence().filter {
-    it.projectDir.path.contains("/misc/tools/") || it.projectDir.path.contains("\\misc\\tools\\")
-}.toSet())
-
-val bundleSmokeTests = subprojects.asSequence().filter {
-    it.name.contains("-smoke-test")
-}.toSet()
-
-val subprojectsWithoutToolProjects = subprojects - toolProjects
-val subprojectsWithoutToolAndSmokeTestProjects = subprojectsWithoutToolProjects - bundleSmokeTests
-
 subprojects {
     group = rootProject.group
     version = rootProject.version
@@ -69,6 +40,10 @@ subprojects {
 //    createTestJarTask(apiProject)
 //    createTestSourcesJarTask(apiProject)
 //}
+
+configure<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension> {
+    modeSimple.set(false)
+}
 
 fun AbstractDokkaTask.configurePlugins() {
     pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
