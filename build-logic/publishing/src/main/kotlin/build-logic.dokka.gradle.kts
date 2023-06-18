@@ -19,13 +19,13 @@ fun AbstractDokkaTask.configurePlugins() {
 
 val kdocDir = rootProject.projectDir.resolve("misc/kdoc")
 
-tasks.withType<DokkaTask> {
+tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
         reportUndocumented.set(true)
     }
 }
 
-tasks.withType<AbstractDokkaLeafTask> {
+tasks.withType<AbstractDokkaLeafTask>().configureEach {
     dokkaSourceSets.configureEach {
         jdkVersion.set(buildParameters.defaultJdkVersion)
         perPackageOption {

@@ -2,28 +2,10 @@ import com.github.vlsi.gradle.dsl.configureEach
 
 plugins {
     id("java")
-    id("ch.tutteli.gradle.plugins.junitjacoco")
     id("com.github.vlsi.crlf")
-    id("com.github.vlsi.gradle-extensions")
+    //TODO 1.1.0 enable again once we have a way to disable per test report
+//    id("com.github.vlsi.gradle-extensions")
     id("build-logic.build-params")
-}
-
-java {
-    toolchain {
-        // reading JAVA_VERSION from env to enable jdk17 build in CI
-        val jdkVersion = System.getenv("JAVA_VERSION")?.toIntOrNull() ?: buildParameters.defaultJdkVersion
-        languageVersion.set(JavaLanguageVersion.of(jdkVersion))
-        //TODO 1.1.0 build-logic misses to set source/targetVersion, we always want to use defualtJdkVersion regardless
-        // with what jdk we compile
-    }
-    consistentResolution {
-        useCompileClasspathVersions()
-    }
-}
-
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
 }
 
 tasks.register<DependencyInsightReportTask>("allDependencyInsight") {
@@ -32,7 +14,18 @@ tasks.register<DependencyInsightReportTask>("allDependencyInsight") {
         "Shows insights where the dependency is used. For instance: allDependencyInsight --configuration compile --dependency org.jsoup:jsoup"
 }
 
-tasks.configureEach<JavaCompile> {
+java {
+    toolchain {
+        // reading JAVA_VERSION from env to enable jdk17 build in CI
+        languageVersion.set(JavaLanguageVersion.of(buildParameters.java.version))
+    }
+    consistentResolution {
+        useCompileClasspathVersions()
+    }
+}
+
+
+tasks.withType<JavaCompile>().configureEach {
     inputs.property("java.version", System.getProperty("java.version"))
     inputs.property("java.vm.version", System.getProperty("java.vm.version"))
     sourceCompatibility = buildParameters.defaultJdkVersion.toString()
@@ -40,8 +33,9 @@ tasks.configureEach<JavaCompile> {
     options.apply {
         encoding = "UTF-8"
         compilerArgs.add("-Xlint:deprecation")
-        if (buildParameters.werror) {
-            compilerArgs.add("-Werror")
+        if (buildParameters.java.werror) {
+            //TODO 1.2.0 enable again once we drop the kotlin_1_3 modules (end with a digit and that generates a warning
+//            compilerArgs.add("-Werror")
         }
     }
 }

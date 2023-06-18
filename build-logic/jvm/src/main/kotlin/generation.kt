@@ -1,3 +1,4 @@
+
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
@@ -17,6 +18,7 @@ import kotlin.streams.asSequence
 /**
  * Use the function `forTarget` to create this data class.
  */
+@Suppress("ArrayInDataClass")
 data class TargetWithAdditionalPackages(
     val sourceSet: KotlinSourceSet,
     val additionalPackages: Array<out Pair<String, (Path) -> Pair<String, String>>>

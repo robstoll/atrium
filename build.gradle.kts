@@ -1,3 +1,4 @@
+import com.github.vlsi.gradle.dsl.configureEach
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.*
@@ -58,7 +59,7 @@ fun AbstractDokkaTask.configurePlugins() {
     }
 }
 
-tasks.withType<DokkaMultiModuleTask> {
+tasks.withType<DokkaMultiModuleTask>().configureEach {
     moduleName.set("Atrium")
     configurePlugins()
 
@@ -71,7 +72,7 @@ tasks.withType<DokkaMultiModuleTask> {
 gradle.taskGraph.whenReady {
     if (hasTask(":dokkaHtmlMultiModule")) {
         listOf("specs", "verbs-internal").forEach { projectName ->
-            prefixedProject(projectName).tasks.withType<DokkaTaskPartial> {
+            prefixedProject(projectName).tasks.withType<DokkaTaskPartial>().configureEach {
                 enabled = false
             }
         }

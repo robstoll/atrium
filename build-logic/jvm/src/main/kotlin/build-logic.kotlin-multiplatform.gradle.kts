@@ -1,9 +1,9 @@
-import kotlinmpp.configureLanguageSettings
-
 plugins {
     kotlin("multiplatform")
     id("build-logic.kotlin-conventions")
     id("ch.tutteli.gradle.plugins.spek")
+    //TODO 1.1.0 -- enable for all but spek
+    // id("ch.tutteli.gradle.plugins.kotlin.module.info")
 }
 
 val spekVersion: String by rootProject.extra
@@ -39,7 +39,7 @@ kotlin {
 
         configureLanguageSettings(project)
 
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(kotlin("reflect"))
 
@@ -47,7 +47,7 @@ kotlin {
                 api(kotlin("stdlib-common"))
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 // TODO 1.3.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
                 implementation(kotlin("test-common"))
