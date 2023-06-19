@@ -1,20 +1,11 @@
 import ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
-import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
-    id("build-logic.build-params")
+    id("build-logic.gradle-conventions")
     id("ch.tutteli.gradle.plugins.dokka")
-}
-
-fun AbstractDokkaTask.configurePlugins() {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        footerMessage = "Atrium &copy; Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;"
-    }
 }
 
 val kdocDir = rootProject.projectDir.resolve("misc/kdoc")

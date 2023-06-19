@@ -1,15 +1,14 @@
 import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.api.Project
-import org.gradle.api.artifacts.ExternalModuleDependency
-import org.gradle.api.artifacts.ProjectDependency
-import org.gradle.kotlin.dsl.exclude
-import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
-//TODO 1.1.0 can this be moved to a plugin as well?
-fun Project.prefixedProject(name: String): Project = project(":${rootProject.name}-$name")
+fun KotlinProjectExtension.configureKotlinJvm(){
+    // Require explicit access modifiers and require explicit types for public APIs.
+    // See https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
+//    explicitApi()
+}
 
-fun NamedDomainObjectContainer<KotlinSourceSet>.configureLanguageSettings(project: Project) {
+fun NamedDomainObjectContainer<KotlinSourceSet>.configureLanguageSettings() {
     configureEach {
         // TODO 1.1.0 make this configurable so that we can use a higher version in Tests. This will reveal kotlin
         // regressions sooner which means we could already test beta versions in the hope that less regressions

@@ -7,7 +7,7 @@ plugins {
 buildParameters {
     pluginId("build-logic.build-params")
 
-    // Other plugins can contribute parameters, so below list is not exhaustive, hencew we disable the validation
+    // Other plugins can contribute parameters, so below list is not exhaustive, hence we disable the validation
     enableValidation.set(false)
 
     val defaultJdkVersion = 11

@@ -4,13 +4,10 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.*
 
 buildscript {
-    // needs to be defined in here so that the tutteli publish plugin can setup conventions based on the group
+    // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
     rootProject.version = "1.1.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:1.8.10")
-    }
 }
 
 plugins {
@@ -49,35 +46,6 @@ subprojects {
 //    createTestSourcesJarTask(apiProject)
 //}
 
-configure<ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension> {
-    modeSimple.set(false)
-}
-
-fun AbstractDokkaTask.configurePlugins() {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        footerMessage = "Atrium &copy; Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;"
-    }
-}
-
-tasks.withType<DokkaMultiModuleTask>().configureEach {
-    moduleName.set("Atrium")
-    configurePlugins()
-
-    // we want to be sure that we don't include spec in dokkaMultiModule
-    // TODO 1.1.0 build-logic we still want KDoc for those to as we publish them as well
-     //dependsOn(prefixedProject("specs").tasks.getByName("cleanDokkaHtmlPartial"))
-     //dependsOn(prefixedProject("verbs-internal").tasks.getByName("cleanDokkaHtmlPartial"))
-}
-
-gradle.taskGraph.whenReady {
-    if (hasTask(":dokkaHtmlMultiModule")) {
-        listOf("specs", "verbs-internal").forEach { projectName ->
-            prefixedProject(projectName).tasks.withType<DokkaTaskPartial>().configureEach {
-                enabled = false
-            }
-        }
-    }
-}
 
 // takes some time to configure since gradle 6.9 so only if CI
 if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {

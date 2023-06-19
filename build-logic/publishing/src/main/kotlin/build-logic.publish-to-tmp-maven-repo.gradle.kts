@@ -2,7 +2,7 @@ plugins {
     id("maven-publish")
 }
 
-val localRepoElements by configurations.creating {
+val localRepoElements: Configuration by configurations.creating {
     isCanBeConsumed = true
     isCanBeResolved = false
     description =
@@ -13,7 +13,7 @@ val localRepoElements by configurations.creating {
     }
 }
 
-val localRepoDir = layout.buildDirectory.dir("local-maven-repo")
+val localRepoDir: Provider<Directory> = layout.buildDirectory.dir("local-maven-repo")
 
 publishing {
     repositories {
@@ -24,9 +24,13 @@ publishing {
     }
 }
 
-localRepoElements.outgoing.artifact(localRepoDir) {
-    builtBy(tasks.named("publishAllPublicationsToTmp-mavenRepository"))
-}
+//TODO this causes that publishAllPublicationsToTmp is included when running `./gradlew build`
+// comment out in case you want to publish to tmp or even better, fix this configuration so that it does
+// what it should (when required or find a way that it is not included when but we only want it when explicitly
+// called
+//localRepoElements.outgoing.artifact(localRepoDir) {
+//    builtBy(tasks.named("publishAllPublicationsToTmp-mavenRepository"))
+//}
 
 val cleanLocalRepository by tasks.registering(Delete::class) {
     description = "Clears local-maven-repo so timestamp-based snapshot artifacts do not consume space"

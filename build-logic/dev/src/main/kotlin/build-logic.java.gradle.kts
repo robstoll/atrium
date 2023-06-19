@@ -2,10 +2,7 @@ import com.github.vlsi.gradle.dsl.configureEach
 
 plugins {
     id("java")
-    id("com.github.vlsi.crlf")
-    //TODO 1.1.0 enable again once we have a way to disable per test report
-//    id("com.github.vlsi.gradle-extensions")
-    id("build-logic.build-params")
+    id("build-logic.gradle-conventions")
 }
 
 tasks.register<DependencyInsightReportTask>("allDependencyInsight") {
@@ -25,7 +22,7 @@ java {
 }
 
 
-tasks.withType<JavaCompile>().configureEach {
+tasks.configureEach<JavaCompile> {
     inputs.property("java.version", System.getProperty("java.version"))
     inputs.property("java.vm.version", System.getProperty("java.vm.version"))
     sourceCompatibility = buildParameters.defaultJdkVersion.toString()

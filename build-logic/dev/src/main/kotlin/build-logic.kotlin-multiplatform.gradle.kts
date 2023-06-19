@@ -2,9 +2,12 @@ plugins {
     kotlin("multiplatform")
     id("build-logic.kotlin-conventions")
     id("ch.tutteli.gradle.plugins.spek")
-    //TODO 1.1.0 -- enable for all but spek
-    // id("ch.tutteli.gradle.plugins.kotlin.module.info")
 }
+
+if (name != "atrium-specs") {
+    apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
+}
+
 
 val spekVersion: String by rootProject.extra
 
@@ -12,10 +15,6 @@ spek {
     if (rootProject.name != "gradle-kotlin-dsl-accessors") {
         version = spekVersion
     }
-}
-
-if (name != "atrium-specs") {
-    apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
 }
 
 //TODO 1.2.0 remove once we moved away from spec to kotlin-test
@@ -30,14 +29,14 @@ kotlin {
     jvm {
         // for module-info.java and Java sources in test
         withJava()
+        configureKotlinJvm()
     }
 
     //TODO 1.1.0 switch from LEGACY to IR
     js(LEGACY) { nodejs() }
 
     sourceSets {
-
-        configureLanguageSettings(project)
+        configureLanguageSettings()
 
         commonMain {
             dependencies {
@@ -47,6 +46,7 @@ kotlin {
                 api(kotlin("stdlib-common"))
             }
         }
+
         commonTest {
             dependencies {
                 // TODO 1.3.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
@@ -54,6 +54,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
+
         val jvmMain by getting {
             dependencies {
                 // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)

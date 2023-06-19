@@ -1,9 +1,13 @@
+import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import java.io.IOException
 import java.net.URL
+import com.github.vlsi.gradle.dsl.configureEach
+
 
 plugins {
-    id("build-logic.build-params")
+    id("build-logic.gradle-conventions")
     id("org.jetbrains.dokka")
     id("ch.tutteli.gradle.plugins.dokka")
 }
@@ -12,10 +16,33 @@ tutteliDokka {
     modeSimple.set(false)
 }
 
+tasks.configureEach<DokkaMultiModuleTask> {
+    moduleName.set("Atrium")
+    configurePlugins()
+
+    // we want to be sure that we don't include those projects in dokkaHtmlMultiModule
+    dependsOn(prefixedProject("specs").tasks.getByName("cleanDokkaHtmlPartial"))
+    dependsOn(prefixedProject("verbs-internal").tasks.getByName("cleanDokkaHtmlPartial"))
+}
+
+gradle.taskGraph.whenReady {
+    println("heeere ${project.name} / ${hasTask(":dokkaHtmlMultiModule")}")
+    if (hasTask(":dokkaHtmlMultiModule")) {
+        listOf("specs", "verbs-internal").forEach { projectName ->
+            prefixedProject(projectName)
+                .tasks.configureEach<DokkaTaskPartial> {
+                    println("heeere1 $enabled")
+                    enabled = false
+                    println("heeere2 $enabled")
+                }
+        }
+    }
+}
+
 
 // for whatever reason, this is needs to be configured in the root project and not in the individual subprojects
 // which actually have a JS target.
-tasks.withType<KotlinNpmInstallTask>().configureEach {
+tasks.configureEach<KotlinNpmInstallTask> {
     doFirst {
         val isOffline = try {
             val url = URL("https://www.google.com")

@@ -7,9 +7,8 @@ allprojects {
     version = "1.0.0"
 }
 
-//open TODOs:
-//- testing samples still works?
-//- stdlib jdk8 added by default?
+//TODO 1.1.0 check the following still works as expected:
 //- module info still works? => not yet, plugin was not applied
-//- dokka still works?
-//- publishing still works?
+//- publishing still works? => not yet, looks like tutteli-publish plugin has a gradle 8.x issue
+//    // publishJsToMavenLocal does not explicitly depend on sign but it needs to
+//- stdlib jdk8 added by default?
