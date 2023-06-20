@@ -9,3 +9,12 @@ includeBuild("../../../samples/multiplatform/kotlin-test") {
 includeBuild("../../../samples/js/kotlin-test") {
     name = "js-kotlin-test"
 }
+
+pluginManagement {
+    repositories {
+//        mavenLocal()
+        gradlePluginPortal()
+    }
+    includeBuild("../../../gradle/build-logic")
+    includeBuild("../../../gradle/build-logic-conventions")
+}
