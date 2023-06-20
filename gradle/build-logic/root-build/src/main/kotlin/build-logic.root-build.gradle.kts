@@ -3,7 +3,6 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import java.io.IOException
 import java.net.URL
-import com.github.vlsi.gradle.dsl.configureEach
 
 
 plugins {

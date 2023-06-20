@@ -1,4 +1,3 @@
-import com.github.vlsi.gradle.dsl.configureEach
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
