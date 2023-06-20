@@ -3,6 +3,8 @@ pluginManagement {
 //        mavenLocal()
         gradlePluginPortal()
     }
+    includeBuild("build-logic")
+    includeBuild("build-logic-conventions")
 }
 
 dependencyResolutionManagement {
@@ -38,9 +40,6 @@ buildscript {
         }
     }
 }
-
-includeBuild("build-logic")
-includeBuild("build-logic-commons")
 
 val bcTestsPath = "${rootProject.projectDir}/misc/tools/bc-tests"
 val bcTestsOldPath = "$bcTestsPath/old"

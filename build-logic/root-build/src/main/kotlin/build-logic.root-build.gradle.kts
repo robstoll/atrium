@@ -26,14 +26,11 @@ tasks.configureEach<DokkaMultiModuleTask> {
 }
 
 gradle.taskGraph.whenReady {
-    println("heeere ${project.name} / ${hasTask(":dokkaHtmlMultiModule")}")
     if (hasTask(":dokkaHtmlMultiModule")) {
         listOf("specs", "verbs-internal").forEach { projectName ->
             prefixedProject(projectName)
                 .tasks.configureEach<DokkaTaskPartial> {
-                    println("heeere1 $enabled")
                     enabled = false
-                    println("heeere2 $enabled")
                 }
         }
     }

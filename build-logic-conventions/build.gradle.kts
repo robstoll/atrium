@@ -4,12 +4,14 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "ch.tutteli.atrium.build-logic"
+allprojects {
+    group = "ch.tutteli.atrium.build-logic"
+}
 
 dependencies {
     // We use precompiled script plugins (== plugins written as src/kotlin/build-logic.*.gradle.kts files,
     // and we need to declare dependency on org.gradle.kotlin.kotlin-dsl:org.gradle.kotlin.kotlin-dsl.gradle.plugin
-    // to make it work.
+    // in order to be able to specify tasks.validatePlugins
     // See https://github.com/gradle/gradle/issues/17016 regarding expectedKotlinDslPluginsVersion
     implementation("org.gradle.kotlin.kotlin-dsl:org.gradle.kotlin.kotlin-dsl.gradle.plugin:$expectedKotlinDslPluginsVersion")
 }

@@ -3,7 +3,6 @@ plugins {
     id("ch.tutteli.gradle.plugins.publish")
     id("build-logic.publish-to-tmp-maven-repo")
     id("build-logic.dokka")
-
 }
 
 tutteliPublish {

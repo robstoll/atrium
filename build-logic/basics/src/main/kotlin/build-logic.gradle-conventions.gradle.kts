@@ -1,5 +1,5 @@
 plugins {
-    // plugins we use in all convention plugins
+    // plugins we use in all gradle projects
     id("build-logic.build-params")
     id("com.github.vlsi.gradle-extensions")
     id("com.github.vlsi.crlf")

@@ -4,7 +4,6 @@ plugins {
 
 allprojects {
     group = "ch.tutteli.atrium.build-logic"
-    version = "1.0.0"
 }
 
 //TODO 1.1.0 check the following still works as expected:
