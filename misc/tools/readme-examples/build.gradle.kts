@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.kotlin-jvm")
+}
+
 description = "Runs examples, includes the code and the output in README.md"
 
 val junitPlatformVersion: String by rootProject.extra
@@ -6,7 +10,7 @@ val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val main by getting {
+        main {
             dependencies {
                 implementation("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
                 implementationWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -20,8 +24,8 @@ kotlin {
         }
         configureEach {
             languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
+                languageVersion = "1.8"
+                apiVersion = "1.8"
             }
         }
     }

@@ -1,3 +1,4 @@
+
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
@@ -11,12 +12,14 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.*
 import kotlin.streams.asSequence
 
 //TODO consider to switch to Kotlin Symbol Processing (KSP)
 /**
  * Use the function `forTarget` to create this data class.
  */
+@Suppress("ArrayInDataClass")
 data class TargetWithAdditionalPackages(
     val sourceSet: KotlinSourceSet,
     val additionalPackages: Array<out Pair<String, (Path) -> Pair<String, String>>>
@@ -34,17 +37,19 @@ fun Project.includingTarget(
 fun Project.createGenerateLogicTask(
     vararg targetWithPackages: TargetWithAdditionalPackages,
     suffix: String = ""
-): Task {
+): TaskProvider<*> {
     val generateLogic = tasks.register("generateLogic") {
         group = "build"
         description = "generates extension methods for AssertionContainer based on interfaces"
         outputs.dir("src/generated/")
-    }.get()
+    }
 
     targetWithPackages.forEach { (sourceSet, additionalPackages) ->
         val mainSrcFolder = sourceSet.kotlin.srcDirs.first()
         val generatedFolder = "src/generated/${sourceSet.name}/"
-        sourceSet.kotlin.srcDirs(generatedFolder)
+
+        val generatedFiles = project.files(generatedFolder)
+        sourceSet.kotlin.srcDir(generatedFiles)
 
         val all = mapOf<String, (Path) -> Pair<String, String>>("" to { _ ->
             Pair(
@@ -60,7 +65,11 @@ fun Project.createGenerateLogicTask(
                 mainSrcFolder,
                 f
             )
-            generateLogic.dependsOn(task)
+            generatedFiles.builtBy(task)
+            generateLogic.configure {
+                dependsOn(task)
+            }
+            //TODO 1.1.0 build-logic, check if we no longer need this
             tasks.withType<AbstractKotlinCompile<*>>{
                 dependsOn(task)
             }
@@ -128,7 +137,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 val type = getType(interfacePath)
                 val (extensionTypeSignature, getImpl) = pair
 
-                val decapitalized = type.decapitalize()
+                val decapitalized = type.replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 val output = File("$generatedPath/${decapitalized}.kt")
                 val content = interfacePath.toFile().readText(StandardCharsets.UTF_8)
                 val interfaceName = "${type}Assertions"

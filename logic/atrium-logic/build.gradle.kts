@@ -1,29 +1,33 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "The domain logic of Atrium"
 
 val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("core"))
                 // it is up to the consumer which atrium-translations module is used at runtime
                 compileOnly(prefixedProject("translations-en_GB"))
             }
         }
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 implementation("ch.tutteli.niok:niok:$niokVersion")
             }
         }
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(prefixedProject("api-fluent"))
                 implementation(prefixedProject("specs"))
             }
         }
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation(prefixedProject("specs"))
             }

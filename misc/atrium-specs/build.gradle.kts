@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "Provides specifications of Atrium which can be reused by" +
     "APIs and logic/core implementations of Atrium, to verify that they fulfill the specification."
 
@@ -10,7 +14,7 @@ val kotestVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("core"))
                 // exclude this dependency in case you want to use another translation
@@ -32,7 +36,7 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 apiWithExclude("io.mockk:mockk:$mockkVersion")
                 apiWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -50,7 +54,7 @@ kotlin {
             }
         }
 
-        val jsMain by getting {
+        jsMain {
             dependencies {
                 api("io.mockk:mockk-dsl-js:$mockkVersion")
                 api("org.spekframework.spek2:spek-dsl-js:$spekVersion")

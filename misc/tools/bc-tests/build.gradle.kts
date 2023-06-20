@@ -164,7 +164,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     doFirst {
                         if (this is AbstractCompile) {
                             // we don't want to see all the deprecation errors during compilation
-                            this.logging.level = LogLevel.QUIET
+                            // TODO 1.1.0: Gradle's logging level is no longer writable
+                            // this.logging.level = LogLevel.QUIET
                         }
                     }
                 }
@@ -191,7 +192,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         implementation(prefixedProject("fluent"))
                     }
                 }
-                val jvmMain by getting {
+                jvmMain {
                     dependencies {
                         api("io.mockk:mockk:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -199,7 +200,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("ch.tutteli.niok:niok:$niokVersion")
                     }
                 }
-                val jsMain by getting {
+                jsMain {
                     dependencies {
                         api("io.mockk:mockk-dsl-js:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
@@ -241,7 +242,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             classpath = compilations["test"].runtimeDependencyFiles
 
-            main = "org.junit.platform.console.ConsoleLauncher"
+            mainClass.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", scanClassPath,
                 "--disable-banner",
@@ -300,7 +301,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             kotlin.setSrcDirs(listOf<File>())
                             resources.setSrcDirs(listOf<File>())
                         }
-                        val jvmTest by getting {
+                        jvmTest {
 
                             dependencies {
                                 implementation(project(":atrium-api-$apiName-jvm"))
@@ -384,7 +385,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             implementation(kotlin("test-annotations-common"))
                         }
                     }
-                    val jvmTest by getting {
+                    jvmTest {
 
                         dependencies {
                             // to run forgiving spek tests
@@ -396,7 +397,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         }
                     }
-                    val jsTest by getting {
+                    jsTest {
                         dependencies {
                             implementation(kotlin("test-js"))
 
@@ -474,9 +475,9 @@ fun Project.createJacocoReportTask(
         reports {
             csv.required.set(false)
             xml.required.set(true)
-            xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
+            xml.outputLocation.set(file("${buildDir}/reports/jacoco/$name/report.xml"))
             html.required.set(true)
-            html.destination = file("${buildDir}/reports/jacoco/$name/html/")
+            html.outputLocation.set(file("${buildDir}/reports/jacoco/$name/html/"))
         }
     }
 
