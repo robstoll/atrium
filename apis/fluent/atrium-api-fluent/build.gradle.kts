@@ -8,19 +8,19 @@ val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("logic"))
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 implementation("ch.tutteli.niok:niok:$niokVersion")
             }
         }
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(prefixedProject("specs"))
                 // in order that we can use the correct import in the samples

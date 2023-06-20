@@ -6,14 +6,14 @@ description = "Kotlin 1.3 specific expectation functions and builders for atrium
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("api-fluent"))
                 api(prefixedProject("logic-kotlin_1_3"))
             }
         }
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(prefixedProject("specs"))
                 // in order that we can use the correct import in the samples

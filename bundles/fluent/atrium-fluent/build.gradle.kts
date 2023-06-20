@@ -6,14 +6,14 @@ description = "Convenience module which depends on atrium-api-fluent and atrium-
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("verbs"))
                 api(prefixedProject("api-fluent"))
                 api(prefixedProject("translations-en_GB"))
             }
         }
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 api(prefixedProject("verbs"))
                 api(prefixedProject("api-fluent"))

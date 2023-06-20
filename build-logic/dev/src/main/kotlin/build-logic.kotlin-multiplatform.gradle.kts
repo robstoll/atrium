@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+
 plugins {
     kotlin("multiplatform")
     id("build-logic.kotlin-conventions")
@@ -24,6 +26,16 @@ if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-in
 }
 
 val jupiterVersion: String by rootProject.extra
+
+val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
+    get() = named("jvmMain")
+val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
+    get() = named("jvmTest")
+
+val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: NamedDomainObjectProvider<KotlinSourceSet>
+    get() = named("jsMain")
+val NamedDomainObjectContainer<KotlinSourceSet>.jsTest: NamedDomainObjectProvider<KotlinSourceSet>
+    get() = named("jsTest")
 
 kotlin {
     jvm {
@@ -55,13 +67,13 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
                 api(kotlin("stdlib-jdk8"))
             }
         }
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 if (rootProject.name != "gradle-kotlin-dsl-accessors") {
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
@@ -71,13 +83,13 @@ kotlin {
                 implementation(kotlin("test-junit5"))
             }
         }
-        val jsMain by getting {
+        jsMain {
             dependencies {
                 // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
                 api(kotlin("stdlib-js"))
             }
         }
-        val jsTest by getting {
+        jsTest {
             dependencies {
                 // TODO  1.3.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
                 implementation(kotlin("test-js"))
@@ -85,6 +97,9 @@ kotlin {
         }
     }
 }
+
+//TODO 1.1.0 the below was actually a bug in gradle and should have been fixed since 6.9.4
+// check if it works no so that we don't have to define it in an afterEvaluate
 
 // needs to be in afterEvaluate for now because the tutteli-spek-plugin overwrites it by using useJunitPlatform which
 // apparently reconfigures the TestFramework (even if already useJunitPlatform was used, so it's more a setJUnitPlatformAsTestFramework)

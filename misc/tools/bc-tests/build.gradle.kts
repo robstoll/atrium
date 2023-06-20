@@ -192,7 +192,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         implementation(prefixedProject("fluent"))
                     }
                 }
-                val jvmMain by getting {
+                jvmMain {
                     dependencies {
                         api("io.mockk:mockk:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -200,7 +200,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("ch.tutteli.niok:niok:$niokVersion")
                     }
                 }
-                val jsMain by getting {
+                jsMain {
                     dependencies {
                         api("io.mockk:mockk-dsl-js:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
@@ -301,7 +301,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             kotlin.setSrcDirs(listOf<File>())
                             resources.setSrcDirs(listOf<File>())
                         }
-                        val jvmTest by getting {
+                        jvmTest {
 
                             dependencies {
                                 implementation(project(":atrium-api-$apiName-jvm"))
@@ -385,7 +385,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             implementation(kotlin("test-annotations-common"))
                         }
                     }
-                    val jvmTest by getting {
+                    jvmTest {
 
                         dependencies {
                             // to run forgiving spek tests
@@ -397,7 +397,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
                         }
                     }
-                    val jsTest by getting {
+                    jsTest {
                         dependencies {
                             implementation(kotlin("test-js"))
 

@@ -6,7 +6,7 @@ description = "The domain logic of the Kotlin 1.3 extension for Atrium"
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("logic"))
                 // it is up to the consumer which atrium-translations module is used at runtime
@@ -14,13 +14,13 @@ kotlin {
             }
         }
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(prefixedProject("api-fluent"))
                 implementation(prefixedProject("specs"))
             }
         }
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation(prefixedProject("specs"))
             }

@@ -10,7 +10,7 @@ val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val main by getting {
+        main {
             dependencies {
                 implementation("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
                 implementationWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")

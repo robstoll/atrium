@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.*
 import kotlin.streams.asSequence
 
 //TODO consider to switch to Kotlin Symbol Processing (KSP)
@@ -136,7 +137,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 val type = getType(interfacePath)
                 val (extensionTypeSignature, getImpl) = pair
 
-                val decapitalized = type.decapitalize()
+                val decapitalized = type.replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 val output = File("$generatedPath/${decapitalized}.kt")
                 val content = interfacePath.toFile().readText(StandardCharsets.UTF_8)
                 val interfaceName = "${type}Assertions"

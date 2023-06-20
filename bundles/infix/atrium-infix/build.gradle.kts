@@ -8,7 +8,7 @@ val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("verbs"))
                 api(prefixedProject("api-infix"))

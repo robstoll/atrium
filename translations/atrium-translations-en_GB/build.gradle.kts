@@ -6,7 +6,7 @@ description = "Contains translations for Atrium in en_GB"
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("core"))
             }
