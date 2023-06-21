@@ -10,5 +10,5 @@ dependencies {
 
     api("org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:1.8.10")
     api("org.jetbrains.dokka:dokka-base:1.8.10")
-    api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+    api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
 }
