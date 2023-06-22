@@ -15,13 +15,18 @@ tutteliDokka {
     modeSimple.set(false)
 }
 
+val rootProject = this
+listOf("specs", "verbs-internal").forEach { projectName ->
+    prefixedProject(projectName).afterEvaluate {
+        val subproject = this
+        rootProject.tasks.configureEach<DokkaMultiModuleTask> {
+            dependsOn(subproject.tasks.named("cleanDokkaHtmlPartial"))
+        }
+    }
+}
 tasks.configureEach<DokkaMultiModuleTask> {
     moduleName.set("Atrium")
     configurePlugins()
-
-    // we want to be sure that we don't include those projects in dokkaHtmlMultiModule
-    dependsOn(prefixedProject("specs").tasks.getByName("cleanDokkaHtmlPartial"))
-    dependsOn(prefixedProject("verbs-internal").tasks.getByName("cleanDokkaHtmlPartial"))
 }
 
 gradle.taskGraph.whenReady {
