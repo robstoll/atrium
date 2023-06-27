@@ -291,7 +291,7 @@ As an example, the following AssertJ example:
 ```kotlin
 assertSoftly {
     assertThat(mansion.numOfGuests).isEqualTo(7)
-    assertThat(mansion.kitchen.stastus).isEqualTo("clean")
+    assertThat(mansion.kitchen.status).isEqualTo("clean")
     assertThat(mansion.kitchen.numOfTables).isGreaterThan(5).isLessThan(10)
 }
 
