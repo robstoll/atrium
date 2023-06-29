@@ -10,13 +10,13 @@ plugins {
 
 val kdocDir = rootProject.projectDir.resolve("misc/kdoc")
 
-tasks.withType<DokkaTask>().configureEach {
+tasks.configureEach<DokkaTask> {
     dokkaSourceSets.configureEach {
         reportUndocumented.set(true)
     }
 }
 
-tasks.withType<AbstractDokkaLeafTask>().configureEach {
+tasks.configureEach<AbstractDokkaLeafTask> {
     dokkaSourceSets.configureEach {
         jdkVersion.set(buildParameters.defaultJdkVersion)
         perPackageOption {

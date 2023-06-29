@@ -1,5 +1,3 @@
-import com.github.vlsi.gradle.dsl.configureEach
-
 plugins {
     id("java")
     id("build-logic.gradle-conventions")
