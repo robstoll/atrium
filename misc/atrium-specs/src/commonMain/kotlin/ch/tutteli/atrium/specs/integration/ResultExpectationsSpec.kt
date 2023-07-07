@@ -62,6 +62,7 @@ abstract class ResultExpectationsSpec(
     val resultNullSuccess = Result.success(null as Int?)
     val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no nullable..."))
 
+    val valueDescr = DescriptionResultExpectation.VALUE.getDefault()
     val isNotSuccessDescr = DescriptionResultExpectation.IS_NOT_SUCCESS.getDefault()
     val isNotFailureDescr = DescriptionResultExpectation.IS_NOT_FAILURE.getDefault()
     val exceptionDescr = DescriptionResultExpectation.EXCEPTION.getDefault()
@@ -82,7 +83,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: 1", "$toEqualDescr: 2")
+                        messageToContain("$valueDescr: 1", "$toEqualDescr: 2")
                     }
                 }
             }
@@ -93,7 +94,7 @@ abstract class ResultExpectationsSpec(
                         expect(resultSuccess).toBeAFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            "exception: $isNotFailureDescr",
+                            "$exceptionDescr: $isNotFailureDescr",
                             "$toBeAnInstanceOfDescr: ${IllegalArgumentException::class.simpleName}"
                         )
                         if (hasExtraHint) {
@@ -113,7 +114,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: $isNotSuccessDescr")
+                        messageToContain("$valueDescr: $isNotSuccessDescr")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }
@@ -149,7 +150,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: null", "$toEqualDescr: 2")
+                        messageToContain("$valueDescr: null", "$toEqualDescr: 2")
                     }
                 }
             }
@@ -159,7 +160,7 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullableFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("value: $isNotSuccessDescr")
+                        messageToContain("$valueDescr: $isNotSuccessDescr")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }

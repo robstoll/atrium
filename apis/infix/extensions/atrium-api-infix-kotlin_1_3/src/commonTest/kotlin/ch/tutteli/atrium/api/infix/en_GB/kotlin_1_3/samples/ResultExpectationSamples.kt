@@ -1,10 +1,19 @@
 package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.samples
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.aSuccess
+import ch.tutteli.atrium.api.infix.en_GB.toEqual
+import ch.tutteli.atrium.api.infix.en_GB.toBeLessThan
+import ch.tutteli.atrium.api.infix.en_GB.toBeGreaterThan
+import ch.tutteli.atrium.api.infix.en_GB.messageToContain
+import ch.tutteli.atrium.api.infix.en_GB.message
+import ch.tutteli.atrium.api.infix.en_GB.toStartWith
+import ch.tutteli.atrium.api.infix.en_GB.it
+import ch.tutteli.atrium.api.infix.en_GB.its
 import ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.*
 import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
+@Suppress("DEPRECATION")
 class ResultExpectationSamples {
 
     @Test
@@ -57,67 +66,66 @@ class ResultExpectationSamples {
         }
     }
 
-    //TODO 1.1.0 activate once we have the workaround for #1234 implemented
-//    @Test
-//    fun toBeAFailureFeature() {
-//        val message = "wrong argument"
-//        val failure = Result.failure<Int>(IllegalArgumentException(message))
-//
-//        expect(failure)
-//            .toBeAFailure<IllegalArgumentException>() messageToContain "argument"
-//        //      | subject is now of type IllegalArgumentException
-//
-//
-//        fails { // because sub-expectation fails
-//            expect(failure).toBeAFailure<IllegalArgumentException>() messageToContain "parameter"
-//        }
-//
-//        fails { // because wrong Expectation type expected
-//            expect(failure)
-//                .toBeAFailure<ArithmeticException>() messageToContain "parameter"
-//            //     |                                  | not evaluated/reported because toBeAFailure already fails
-//            //     |                                  | use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
-//            //     | fails
-//        }
-//
-//        fails { // because it was a Success
-//            expect(Result.success(10))
-//                .toBeAFailure<IllegalArgumentException>() messageToContain "parameter"
-//            //       |                                      | not evaluated/reported because toBeAFailure already fails
-//            //       |                                      | use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
-//            //       | fails
-//        }
-//    }
-//
-//    @Test
-//    fun toBeAFailure() {
-//        val errorMessage = "can not divide by zero"
-//        val failure = Result.failure<Int>(ArithmeticException(errorMessage))
-//
-//        expect(failure).toBeAFailure<ArithmeticException> {  // subject within this expectation-group is of type ArithmeticException
-//            messageToContain("by zero")
-//        } // subject here is back to type Result<Int>
-//
-//        fails { // because sub-expectation fails
-//            expect(failure).toBeAFailure<IllegalArgumentException> {
-//                its messageToContain "parameter" // fails
-//                its.message toStartWith "wrong"  // still evaluated even though messageToContain already fails
-//                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
-//            }
-//        }
-//
-//        fails { // because wrong Expectation type expected, but since we use an expectation-group...
-//            expect(failure).toBeAFailure<ArithmeticException> {
-//                its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
-//                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
-//            }
-//        }
-//
-//        fails { // because it was a Success, but since we use a block
-//            expect(Result.success(10)).toBeAFailure<IllegalArgumentException> {
-//                its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
-//                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
-//            }
-//        }
-//    }
+    @Test
+    fun toBeAFailureFeature() {
+        val message = "wrong argument"
+        val failure = Result.failure<Int>(IllegalArgumentException(message))
+
+        expect(failure)
+            .toBeAFailure<IllegalArgumentException>() messageToContain "argument"
+        //      | subject is now of type IllegalArgumentException
+
+
+        fails { // because sub-expectation fails
+            expect(failure).toBeAFailure<IllegalArgumentException>() messageToContain "parameter"
+        }
+
+        fails { // because wrong Expectation type expected
+            expect(failure)
+                .toBeAFailure<ArithmeticException>() messageToContain "parameter"
+            //     |                                  | not evaluated/reported because toBeAFailure already fails
+            //     |                                  | use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
+            //     | fails
+        }
+
+        fails { // because it was a Success
+            expect(Result.success(10))
+                .toBeAFailure<IllegalArgumentException>() messageToContain "parameter"
+            //       |                                      | not evaluated/reported because toBeAFailure already fails
+            //       |                                      | use `toBeAFailure<...> { ... }` if you want that all expectations are evaluated
+            //       | fails
+        }
+    }
+
+    @Test
+    fun toBeAFailure() {
+        val errorMessage = "can not divide by zero"
+        val failure = Result.failure<Int>(ArithmeticException(errorMessage))
+
+        expect(failure).toBeAFailure<ArithmeticException> {  // subject within this expectation-group is of type ArithmeticException
+            messageToContain("by zero")
+        } // subject here is back to type Result<Int>
+
+        fails { // because sub-expectation fails
+            expect(failure).toBeAFailure<IllegalArgumentException> {
+                its messageToContain "parameter" // fails
+                its.message toStartWith "wrong"  // still evaluated even though messageToContain already fails
+                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+            }
+        }
+
+        fails { // because wrong Expectation type expected, but since we use an expectation-group...
+            expect(failure).toBeAFailure<ArithmeticException> {
+                its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
+                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+            }
+        }
+
+        fails { // because it was a Success, but since we use a block
+            expect(Result.success(10)).toBeAFailure<IllegalArgumentException> {
+                its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
+                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+            }
+        }
+    }
 }
