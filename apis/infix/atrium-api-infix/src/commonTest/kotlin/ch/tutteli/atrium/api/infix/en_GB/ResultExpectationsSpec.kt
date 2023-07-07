@@ -1,13 +1,11 @@
-package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
+package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.aSuccess
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.ResultExpectationsSpec
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-@Suppress("DEPRECATION")
 class ResultExpectationsSpec : ResultExpectationsSpec(
     ("toBe ${aSuccess::class::simpleName}" to (Companion::toBeASuccessFeature)).withFeatureSuffix(),
     "toBe ${aSuccess::class::simpleName}" to Companion::toBeASuccess,
@@ -38,7 +36,7 @@ class ResultExpectationsSpec : ResultExpectationsSpec(
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.toBeAFailure<IllegalArgumentException> { assertionCreator() }
 
-        @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
+        @Suppress("unused", "UNUSED_VARIABLE")
         private fun ambiguityTest() {
             var a1: Expect<Result<Int>> = notImplemented()
             var a1b: Expect<Result<Int?>> = notImplemented()

@@ -1,19 +1,9 @@
-package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.samples
+package ch.tutteli.atrium.api.infix.en_GB.samples
 
-import ch.tutteli.atrium.api.infix.en_GB.aSuccess
-import ch.tutteli.atrium.api.infix.en_GB.toEqual
-import ch.tutteli.atrium.api.infix.en_GB.toBeLessThan
-import ch.tutteli.atrium.api.infix.en_GB.toBeGreaterThan
-import ch.tutteli.atrium.api.infix.en_GB.messageToContain
-import ch.tutteli.atrium.api.infix.en_GB.message
-import ch.tutteli.atrium.api.infix.en_GB.toStartWith
-import ch.tutteli.atrium.api.infix.en_GB.it
-import ch.tutteli.atrium.api.infix.en_GB.its
-import ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3.*
+import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
-@Suppress("DEPRECATION")
 class ResultExpectationSamples {
 
     @Test
