@@ -45,7 +45,18 @@ kotlin {
     }
 
     //TODO 1.1.0 switch from LEGACY to IR
-    js(LEGACY) { nodejs() }
+    js(LEGACY) {
+        nodejs {
+            testTask {
+                useMocha {
+                    // timeout in milliseconds,
+                    // Windows regularly has a timeout with the default which
+                    // at the time of writting was 2000
+                    timeout = "10000"
+                }
+            }
+        }
+    }
 
     sourceSets {
         configureLanguageSettings()
