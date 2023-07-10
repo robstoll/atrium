@@ -1,9 +1,0 @@
-{
-    "description": "Atrium",
-    "license": "EUPL-1.2",
-    "repository": "https://github.com/robstoll/atrium",
-    "devDependencies": {
-        "jasmine": "^4.1.0",
-        "mocha": "^10.0.0"
-    }
-}
