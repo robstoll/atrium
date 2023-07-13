@@ -1,7 +1,7 @@
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.0.0-IR-preview"
+    rootProject.version = "1.1.0-IR-alpha"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -79,8 +79,8 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=1.0.0
-export ATRIUM_VERSION=1.1.0
+export ATRIUM_PREVIOUS_VERSION=1.1.0-IR-alpha
+export ATRIUM_VERSION=1.1.0-IR-alpha
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -176,7 +176,7 @@ alternatively the manual steps:
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype
+    a) CI=true gr clean publishToSonatype
     b) Log into https://oss.sonatype.org/#stagingRepositories
     c) check if staging repo is ok
     d) close repo
@@ -191,7 +191,7 @@ Prepare next dev cycle
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=1.0.0
+export ATRIUM_VERSION=1.1.0-IR-alpha
 export ATRIUM_NEXT_VERSION=1.1.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
