@@ -44,14 +44,13 @@ kotlin {
         configureKotlinJvm()
     }
 
-    //TODO 1.1.0 switch from LEGACY to IR
-    js(LEGACY) {
+    js(IR) {
         nodejs {
             testTask {
                 useMocha {
                     // timeout in milliseconds,
                     // Windows regularly has a timeout with the default which
-                    // at the time of writting was 2000
+                    // at the time of writing was 2000
                     timeout = "10000"
                 }
             }

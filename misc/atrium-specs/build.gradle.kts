@@ -56,8 +56,8 @@ kotlin {
 
         jsMain {
             dependencies {
-                api("io.mockk:mockk-dsl-js:$mockkVersion")
-                api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
+//                api("io.mockk:mockk-dsl-js:$mockkVersion")
+//                api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
 
                 //TODO 1.1.0 decide if we want to really migrate to kotest, we already have problems now that JS
                 // tests are no longer run
@@ -66,13 +66,6 @@ kotlin {
 //                apiWithExclude("io.kotest:kotest-framework-engine-js:$kotestVersion")
                 //TODO 1.1.0 should no longer be necessary to state explicitly with kotlin 1.5.x
 //                apiWithExclude("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.4.3")
-            }
-        }
-
-        configureEach {
-            languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
             }
         }
     }

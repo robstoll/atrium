@@ -1,12 +1,7 @@
-import com.github.vlsi.gradle.dsl.configureEach
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import org.jetbrains.dokka.gradle.*
-
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.1.0-SNAPSHOT"
+    rootProject.version = "1.0.0-IR-preview"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -16,7 +11,7 @@ plugins {
 }
 
 // main
-val kboxVersion by extra("0.16.0")
+val kboxVersion by extra("1.0.0")
 val niokVersion by extra("1.4.7")
 
 // test
