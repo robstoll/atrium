@@ -127,7 +127,20 @@ In case you use a version prior to Kotlin 1.5, then use the following depending 
 
 </details>
 
+<details>
+<summary>I use JS IR but Atrium 1.0.0 was built with LEGACY</summary>
+
+Atrium will support JS IR once we drop kotlin 1.3 entirely. The plan is to deprecate the kotlin_1_3 extension with
+Atrium 1.1.0 and drop it with Atrium 1.2.0 and at the same time switch to JS IR.
+
+In the meantime you can use the special version: 1.0.0-IR-alpha. See https://github.com/robstoll/atrium/releases/tag/v1.1.0-IR-alpha
+for further information
+
+</details>
+
 I have other problems: please take a look at the [Sample Projects](#sample-projects) for further guidance.
+
+
 
 ## Extensions
 
