@@ -13,10 +13,10 @@ def prefixedProject(String name) {
 
 
 def dexerProjects = ["core",
-                     "logic", "logic-kotlin_1_3",
+                     "logic",// "logic-kotlin_1_3",
                      "translations-en_GB", "translations-de_CH",
-                     "api-fluent", "api-fluent-kotlin_1_3",
-                     "api-infix", "api-infix-kotlin_1_3",
+                     "api-fluent",// "api-fluent-kotlin_1_3",
+                     "api-infix",// "api-infix-kotlin_1_3",
                      "fluent",
                      "infix",
                      "verbs",

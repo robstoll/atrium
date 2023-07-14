@@ -167,7 +167,7 @@ git push
 cd ../atrium
 
 alternatively the manual steps:
-    a) gr gr dokkaHtmlMultiModule
+    a) gr dokkaHtmlMultiModule
     b) change version number in atrium-gh-pages/index.html and atrium-gh-pages/latest/index.html
     c) add new version to atrium-gh-pages/scripts/versions.js
     d) replace logo-styles.css with own in root
