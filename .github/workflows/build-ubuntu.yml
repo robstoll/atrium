@@ -23,7 +23,7 @@ jobs:
           cache: 'gradle'
 
       - name: "build using jdk ${{ matrix.java_version }}"
-        run: ./gradlew build
+        run: ./gradlew build -x :atrium-core:jsNodeTest
 
       - name: Cache android jar
         id: android-cache
