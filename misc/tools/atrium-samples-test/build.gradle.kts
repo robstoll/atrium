@@ -2,7 +2,7 @@ plugins {
     id("build-logic.gradle-conventions")
 }
 
-//TODO 1.1.0 include ...-kotlin-test again once we use IR for JS
+//TODO 1.2.0 include ...-kotlin-test again once we use IR for JS
 val samples = listOf("junit5", "spek")//, "js-kotlin-test", "multiplatform-kotlin-test")
 
 tasks.register("build") {
