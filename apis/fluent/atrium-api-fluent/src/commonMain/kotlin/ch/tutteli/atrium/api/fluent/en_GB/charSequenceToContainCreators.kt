@@ -15,7 +15,6 @@ import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
-import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 /**
@@ -220,7 +219,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  *
  * @since 0.9.0
  */
-//TODO rename to `matchFor` with 0.18.0
+//TODO rename to `matchFor` with 1.1.0
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex

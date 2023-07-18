@@ -75,6 +75,7 @@ interface SubjectChangerBuilder {
          * the given [subType] as representation and tries to perform a down-cast of [container]'s
          * [AssertionContainer.maybeSubject] to the given type [TSub]
          */
+        //TODO 1.1.0 check if kotlin 1.4 supports `where TSub : T, TSub: Any` via suppression of a warning
         //TODO once kotlin supports to have type parameters as upper bounds of another type parameter next to `: Any` we should restrict TSub : T & Any
         fun <TSub : Any> downCastTo(subType: KClass<TSub>): FailureHandlerStep<T, TSub> =
             withDescriptionAndRepresentation(DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF, subType)

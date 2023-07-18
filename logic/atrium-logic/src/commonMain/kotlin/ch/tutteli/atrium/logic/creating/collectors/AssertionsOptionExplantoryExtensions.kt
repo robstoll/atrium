@@ -15,14 +15,14 @@ import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 /**
  * Collects the assertions [assertionCreator] creates and uses them as [AssertionGroup.assertions].
  */
-//TODO 1.1.0 in case we somehow incorporate the current container in AssertionsOptions, then remove container as parameter
+//TODO 1.3.0 in case we somehow incorporate the current container in AssertionsOptions, then remove container as parameter
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, G : ExplanatoryAssertionGroupType, R : ExplanatoryGroup.FinalStep> AssertionsOption<G, R>.collectAssertions(
     container: AssertionContainer<*>,
     maybeSubject: Option<T>,
     assertionCreator: Expect<T>.() -> Unit
 ): ExplanatoryGroup.FinalStep {
-    //TODO 1.1.0 simplify with new ProofContainer where we intend to return a flag for collectForCompositionBasedOnSubject which indicates whether
+    //TODO 1.3.0 simplify with new ProofContainer where we intend to return a flag for collectForCompositionBasedOnSubject which indicates whether
     // no proof was created or not, this way we don't have to collect twice.
     val collectingExpect = CollectingExpect<T>(None, container.components)
     // not using addAssertionsCreatedBy on purpose so that we don't append a failing assertion

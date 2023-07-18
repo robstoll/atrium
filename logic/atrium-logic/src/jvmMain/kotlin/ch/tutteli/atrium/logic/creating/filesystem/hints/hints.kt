@@ -65,7 +65,8 @@ fun explainForResolvedLink(
     val resolvedPathAssertion = resolvedPathAssertionProvider(realPath)
     return if (hintList.isNotEmpty()) {
         when (resolvedPathAssertion) {
-            //TODO 1.1.0 this should be done differently - see isEmptyDirectory `!! directory contains` is suddenly `>> directory contains.`
+            //TODO 1.3.0 this should be done differently - see isEmptyDirectory `!! directory contains` is suddenly `>> directory contains.`
+            // take into account when introducing ProofContainer and new ways to create Proofs
             is AssertionGroup -> hintList.addAll(resolvedPathAssertion.assertions)
             else -> hintList.add(resolvedPathAssertion)
         }

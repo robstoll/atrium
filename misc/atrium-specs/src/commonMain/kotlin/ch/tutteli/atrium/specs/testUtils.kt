@@ -253,7 +253,7 @@ internal inline fun <T, R, A1, A2, A3> Feature3<T, A1, A2, A3, R>.withSubAsserti
 //@formatter:off
 inline fun <T, R> property(f: KProperty1<Expect<T>, Expect<R>>): Feature0<T, R> = (f.name to f).withFeatureSuffix()
 
-//TODO simplify further instead of adjustName { "$it nullable" } once https://youtrack.jetbrains.com/issue/KT-35992 is fixed
+//TODO 1.1.0 simplify further instead of adjustName { "$it nullable" } once https://youtrack.jetbrains.com/issue/KT-35992 is fixed
 //@JvmName("feature0Nullable")
 //inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>): Feature0<T, R> = "${f.name} (nullable feature)" to f
 inline fun <T, R> feature0(f: KFunction1<Expect<T>, Expect<R>>): Feature0<T, R> = (f.name to f).withFeatureSuffix()

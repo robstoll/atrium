@@ -23,5 +23,4 @@ class InOrderOnlyValuesAssertionCreator<E, T : IterableLike>(
     searchBehaviour: InOrderOnlySearchBehaviour,
     reportingOptions: InOrderOnlyReportingOptions.() -> Unit
 ) : InOrderOnlyAssertionCreator<E, T, E>(converter, searchBehaviour, reportingOptions),
-    //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, E> by InOrderOnlyValueMatcher()

@@ -671,7 +671,7 @@ abstract class AnyExpectationsSpec(
                         messageToContain(
                             A::class.simpleName!!,
                             "$toBeAnInstanceOfDescr: Int (kotlin.Int)",
-                            //TODO use $toBeLessThanDescr with Kotlin 1.6 and report to https://youtrack.jetbrains.com/issue/KT-50388
+                            //TODO 1.1.0 use $toBeLessThanDescr with Kotlin 1.6 and report to https://youtrack.jetbrains.com/issue/KT-50388
                             "${TO_BE_LESS_THAN.getDefault()}: 1"
                         )
                     }

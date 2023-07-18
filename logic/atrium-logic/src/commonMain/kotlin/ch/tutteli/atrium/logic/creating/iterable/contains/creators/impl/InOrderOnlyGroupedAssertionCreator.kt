@@ -17,7 +17,6 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour,
     reportingOptions: InOrderOnlyReportingOptions.() -> Unit
 ) : InOrderOnlyBaseAssertionCreator<E, T, List<SC>>(converter, searchBehaviour, reportingOptions),
-    //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
     InOrderOnlyMatcher<E, SC> {
 
     final override fun Expect<List<E>>.addAssertionsAndReturnIndex(
