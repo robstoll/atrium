@@ -44,7 +44,7 @@ kotlin {
         configureKotlinJvm()
     }
 
-    //TODO 1.1.0 switch from LEGACY to IR
+    //TODO 1.2.0 switch from LEGACY to IR
     js(LEGACY) {
         nodejs {
             testTask {
