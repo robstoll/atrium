@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
-import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.contains.impl.StaticNames
+import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.toContain.impl.StaticNames
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend

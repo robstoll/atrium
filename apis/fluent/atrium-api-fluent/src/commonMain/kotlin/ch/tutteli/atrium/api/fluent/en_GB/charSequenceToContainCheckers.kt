@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticNames
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charSequence.toContain.impl.StaticNames
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour

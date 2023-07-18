@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.contains.impl.StaticNames
+import ch.tutteli.atrium.api.fluent.en_GB.creating.iterable.toContain.impl.StaticNames
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
