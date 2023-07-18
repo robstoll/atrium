@@ -3,7 +3,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
-//TODO 1.1.0 we are in a common module but it fails due to bug https://youtrack.jetbrains.com/issue/KT-52906. Check if this bug is fixed with Kotlin 1.5.30
 import kotlin.js.JsName
 
 class WorstCase {

@@ -65,14 +65,14 @@ kotlin {
             dependencies {
                 api(kotlin("reflect"))
 
-                // TODO 1.3.0 shouldn't be necessary to add stdlib dependency to kotlin with kotlin 1.5.x (is automatically added)
+                // TODO 1.1.0 shouldn't be necessary to add stdlib dependency to kotlin with kotlin 1.5.x (is automatically added)
                 api(kotlin("stdlib-common"))
             }
         }
 
         commonTest {
             dependencies {
-                // TODO 1.3.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
+                // TODO 1.1.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
@@ -80,7 +80,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
+                // TODO 1.1.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
                 api(kotlin("stdlib-jdk8"))
             }
         }
@@ -90,19 +90,19 @@ kotlin {
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
                 }
 
-                // TODO  1.3.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
+                // TODO  1.1.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
                 implementation(kotlin("test-junit5"))
             }
         }
         jsMain {
             dependencies {
-                // TODO 1.3.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
+                // TODO 1.1.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
                 api(kotlin("stdlib-js"))
             }
         }
         jsTest {
             dependencies {
-                // TODO  1.3.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
+                // TODO  1.1.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
                 implementation(kotlin("test-js"))
             }
         }
@@ -110,7 +110,7 @@ kotlin {
 }
 
 //TODO 1.1.0 the below was actually a bug in gradle and should have been fixed since 6.9.4
-// check if it works no so that we don't have to define it in an afterEvaluate
+// check if it works now so that we don't have to define it in an afterEvaluate
 
 // needs to be in afterEvaluate for now because the tutteli-spek-plugin overwrites it by using useJunitPlatform which
 // apparently reconfigures the TestFramework (even if already useJunitPlatform was used, so it's more a setJUnitPlatformAsTestFramework)

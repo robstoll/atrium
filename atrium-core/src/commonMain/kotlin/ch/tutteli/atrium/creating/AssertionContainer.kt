@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-//TODO 1.1.0 introduce ProofContainer
+//TODO 1.3.0 introduce ProofContainer
 interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
@@ -30,8 +30,8 @@ interface AssertionContainer<T> {
     /**
      * Do not use yet, this is experimental and might change or be removed without prior notice.
      */
-    //TODO 1.1.0/1.2.0 maybe it would be better to have proofFactories as val like we have components?
-    //TODO 1.1.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
+    //TODO 1.3.0 maybe it would be better to have proofFactories as val like we have components?
+    //TODO 1.3.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
     // however, check if extensibility for a library author is still given. We don't want that a consumer of a third-party
     // expectation function collection-library needs to use an own expectation verb
     @ExperimentalNewExpectTypes
@@ -97,7 +97,7 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
-    //TODO remove SUPPRESS with 1.1.0 once the toExpect function is in core
+    //TODO remove SUPPRESS with 1.3.0 once the toExpect function is in core
     @Suppress("UNCHECKED_CAST")
     fun createAndAppend(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
         append(

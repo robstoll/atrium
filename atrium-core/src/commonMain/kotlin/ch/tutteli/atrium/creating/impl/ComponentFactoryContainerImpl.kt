@@ -79,7 +79,7 @@ internal abstract class ComponentFactoryContainerImpl : ComponentFactoryContaine
             redefiningFactoryContainer.getFactoryOrNull(kClass) ?: previousFactoryContainer.getFactoryOrNull(kClass)
 
         override fun getFactoryForChainedOrNull(kClass: KClass<*>): Sequence<ComponentFactory>? {
-            //TODO 1.1.0 rewrite to sequence { ... }
+            //TODO 1.3.0 rewrite to sequence { ... }
             val previousSequence = previousFactoryContainer.getFactoryForChainedOrNull(kClass)
             return redefiningFactoryContainer.getFactoryForChainedOrNull(kClass)?.let { redefinedSequence ->
                 if (previousSequence != null) {

@@ -21,5 +21,11 @@ import ch.tutteli.atrium.creating.Expect
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
-@Suppress("NOTHING_TO_INLINE" /* inline so that one does not actually call `it` on binary level */)
+
+@Suppress(
+    /* inline so that one does not actually call `it` on binary level */ "NOTHING_TO_INLINE",
+    "DeprecatedCallableAddReplaceWith"
+)
+//TODO 1.2.0 remove
+@Deprecated("Should no longer be necessary with Kotlin 1.4 which will be the minimum requirement for Atrium v1.2.0, will be removed without replacement")
 inline infix fun <T> Expect<T>.it(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> = and(assertionCreator)
