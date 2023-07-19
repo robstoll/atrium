@@ -9,7 +9,6 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import java.time.chrono.ChronoLocalDate
-import java.time.chrono.ChronoLocalDateTime
 import java.time.chrono.ChronoZonedDateTime
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultChronoZonedDateTimeAssertions
