@@ -6,25 +6,33 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the expectation functions which are applicable to [Any].
  */
+@Deprecated("We drop translation-support with Atrium v1.2.0")
 enum class DescriptionAnyExpectation(override val value: String) : StringBasedTranslatable {
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     TO_EQUAL("entspricht"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     NOT_TO_EQUAL("entspricht nicht"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     TO_BE_AN_INSTANCE_OF("ist eine Instanz vom Typ"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     TO_BE_THE_INSTANCE("ist dieselbe Instanz wie"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     NOT_TO_BE_THE_INSTANCE("ist nicht dieselbe Instanz wie"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     NOT_TO_EQUAL_ONE_IN("entspricht keinem in"),
 
     /** @since 0.18.0 */
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     BECAUSE("denn")
 }

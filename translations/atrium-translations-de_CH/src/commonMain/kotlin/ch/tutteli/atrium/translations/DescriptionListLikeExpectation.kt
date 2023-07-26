@@ -6,7 +6,9 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Map].
  */
+@Deprecated("We drop translation-support with Atrium v1.2.0")
 enum class DescriptionListLikeExpectation(override val value: String) : StringBasedTranslatable {
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     INDEX_OUT_OF_BOUNDS("❗❗ Index ausserhalb der Grenzen (index out of bounds)")
 }

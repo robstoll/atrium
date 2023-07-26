@@ -6,34 +6,45 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Map].
  */
+@Deprecated("We drop translation-support with Atrium v1.2.0")
 enum class DescriptionMapLikeExpectation(override val value: String) : StringBasedTranslatable {
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     TO_CONTAIN("enthält"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     TO_CONTAIN_KEY("enthält Key"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     NOT_TO_CONTAIN_KEY("enthält nicht den Key"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     ENTRY_WITH_KEY("Eintrag %s"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     IN_ANY_ORDER("%s, in beliebiger Reihenfolge"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     IN_ANY_ORDER_ONLY("%s ausschliesslich, in beliebiger Reihenfolge"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     IN_ORDER("%, in gegebener Reihenfolge"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     IN_ORDER_ONLY("%s ausschliesslich, in gegebener Reihenfolge"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     KEY_DOES_NOT_EXIST("❗❗ Key existiert nicht"),
 
+    @Deprecated("We drop translation-support with Atrium v1.2.0")
     /** @since 0.18.0 */
     WARNING_ADDITIONAL_ENTRIES("zusätzliche Einträge entdeckt"),
 }
