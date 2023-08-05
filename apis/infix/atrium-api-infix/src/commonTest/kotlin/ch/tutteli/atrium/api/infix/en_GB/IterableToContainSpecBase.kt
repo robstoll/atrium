@@ -69,6 +69,7 @@ abstract class IterableToContainSpecBase {
         Expect<Iterable<Int>>::notToContain
     protected val notToContain = "${notToContainProp.name} $Values"
 
+    //TODO move to specific specs
     @Suppress("unused")
     private fun ambiguityTest() {
         val list: Expect<List<Number>> = notImplemented()
@@ -138,31 +139,18 @@ abstract class IterableToContainSpecBase {
 
         list toContainExactly 1
         list toContainExactly values(1, 2f)
-        list toContainExactly {}
-        list toContainExactly entries({}, {})
 
         subList toContainExactly 1
         subList toContainExactly values(1, 2f)
-        subList toContainExactly {}
-        subList toContainExactly entries({}, {})
 
         nullableList toContainExactly 1
         nullableList toContainExactly values(1, 2f)
-        nullableList toContainExactly {}
-        nullableList toContainExactly entries({}, {})
         nullableList toContainExactly null
-        nullableList toContainExactly entries({}, null)
-        nullableList toContainExactly entries(null, {})
-        nullableList toContainExactly entries(null, null)
 
         star toContainExactly 1
         star toContainExactly values(1, 2f)
-        star toContainExactly {}
-        star toContainExactly entries({}, {})
         star toContainExactly null
-        star toContainExactly entries({}, null)
-        star toContainExactly entries(null, {})
-        star toContainExactly entries(null, null)
+
 
         list toContain o inAny order atLeast 1 value 1
         list toContain o inAny order atLeast 1 the values(2, 1)
@@ -240,107 +228,30 @@ abstract class IterableToContainSpecBase {
 
         list toContain o inGiven order and only value 1
         list toContain o inGiven order and only the values(2, 1)
-        list toContain o inGiven order and only entry {}
-        list toContain o inGiven order and only the entries({}, {})
+
         list toContain o inGiven order and only elementsOf listOf(1, 2)
         subList toContain o inGiven order and only value 1
         subList toContain o inGiven order and only the values(2, 1)
-        subList toContain o inGiven order and only entry {}
-        subList toContain o inGiven order and only the entries({}, {})
+
         subList toContain o inGiven order and only elementsOf listOf(1, 2)
         nullableList toContain o inGiven order and only value 1
         nullableList toContain o inGiven order and only the values(2, 1)
-        nullableList toContain o inGiven order and only entry {}
-        nullableList toContain o inGiven order and only the entries({}, {})
+
         nullableList toContain o inGiven order and only elementsOf listOf(1, 2)
         nullableList toContain o inGiven order and only value null
         nullableList toContain o inGiven order and only the values(null, 1)
         nullableList toContain o inGiven order and only the values(2, null)
         nullableList toContain o inGiven order and only the values(null, null)
-        nullableList toContain o inGiven order and only entry null
-        nullableList toContain o inGiven order and only the entries(null, {})
-        nullableList toContain o inGiven order and only the entries({}, null)
-        nullableList toContain o inGiven order and only the entries(null, null)
+
         star toContain o inGiven order and only value 1
         star toContain o inGiven order and only the values(2, 1)
-        star toContain o inGiven order and only entry {}
-        star toContain o inGiven order and only the entries({}, {})
+
+
         star toContain o inGiven order and only elementsOf listOf(1, 2)
         star toContain o inGiven order and only value null
         star toContain o inGiven order and only the values(null, 1)
         star toContain o inGiven order and only the values(2, null)
         star toContain o inGiven order and only the values(null, null)
-        star toContain o inGiven order and only entry null
-        star toContain o inGiven order and only the entries(null, {})
-        star toContain o inGiven order and only the entries({}, null)
-        star toContain o inGiven order and only the entries(null, null)
 
-        list toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(1f),
-            values(1f, 1)
-        )
-        subList toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(1f),
-            values<Number>(1f, 1)
-        )
-        nullableList toContain o inGiven order and only grouped entries within group inAny order(
-            value(null),
-            values(null),
-            values(null, 2),
-            values(1, null),
-            values(null, null)
-        )
-        star toContain o inGiven order and only grouped entries within group inAny order(
-            value(null),
-            values(null),
-            values(null, 2),
-            values(1, null),
-            values(null, null)
-        )
-        any toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(2),
-            values(1f, 2),
-            values(1, 1),
-            values("je", 'a')
-        )
-
-        list toContain o inGiven order and only grouped entries within group inAny order(
-            entry {},
-            entries({}),
-            entries({}, {})
-        )
-        subList toContain o inGiven order and only grouped entries within group inAny order(
-            entry {},
-            entries({}),
-            entries({}, {})
-        )
-        nullableList toContain o inGiven order and only grouped entries within group inAny order(
-            entry(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
-        star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO 1.1.0 this should fail IMO
-            // re-check don't remember why I thought this but most likely I was thinking about it being invariant
-            // which means we should need to to provide Any and not Number (or Int or any other sub-type of Any)
-            // as type argument. Right now we cannot pass Any or leave it out which is strange
-            entry<Number>(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
-        any toContain o inGiven order and only grouped entries within group inAny order(
-            entry(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
     }
 }

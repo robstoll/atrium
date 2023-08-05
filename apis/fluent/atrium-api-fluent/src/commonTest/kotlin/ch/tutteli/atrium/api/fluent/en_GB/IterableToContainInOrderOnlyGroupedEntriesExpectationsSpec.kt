@@ -45,6 +45,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
                 0 -> object : Group<(Expect<Double>.() -> Unit)?> {
                     override fun toList() = listOf<Expect<Double>.() -> Unit>()
                 }
+
                 1 -> Entry(groups[0])
                 else -> Entries(groups[0], *groups.drop(1).toTypedArray())
             }
@@ -60,29 +61,25 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number> {}, Entries<Number>({}, {}))
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(Entry {}, Entry {})
 
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-            Entry<Number> {},
-            Entries<Number>({}, {}),
-            report = {}
-        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(Entry {},
+            Entries({}, {}),
+            report = {})
 
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
         subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
             Entry {}, Entries({}, {}), reportInGroup = {})
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-            Entry<Number> {},
-            Entries<Number>({}, {}),
-            reportInGroup = {}
-        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(Entry {},
+            Entries({}, {}),
+            reportInGroup = {})
 
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
             Entry {},
@@ -102,19 +99,20 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
             report = {},
             reportInGroup = {}
         )
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-            Entry<Number> {},
-            Entries<Number>({}, {}),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<*>>(
+            Entry {},
+            Entries({}, {}),
             report = {},
             reportInGroup = {}
         )
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
         star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number>(null), Entries<Number>(null, {}))
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null), report = {})
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
         star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
             Entry<Number>(null),
             Entries<Number>(null, {}),
@@ -125,10 +123,10 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
             Entries({}, null),
             reportInGroup = {}
         )
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-            Entry<Number>(null),
-            Entries<Number>(null, {}),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry(null),
+            Entries(null, {}),
             reportInGroup = {})
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
@@ -136,10 +134,11 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
             Entries({}, null),
             report = {},
             reportInGroup = {})
-        //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-            Entry<Number>(null),
-            Entries<Number>(null, {}),
+
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry(null),
+            Entries(null, {}),
             report = {},
             reportInGroup = {})
     }

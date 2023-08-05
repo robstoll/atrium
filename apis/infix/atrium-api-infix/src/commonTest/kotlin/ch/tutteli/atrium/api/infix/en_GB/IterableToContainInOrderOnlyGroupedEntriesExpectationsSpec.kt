@@ -48,6 +48,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
                 0 -> object : Group<(Expect<Double>.() -> Unit)?> {
                     override fun toList() = listOf<Expect<Double>.() -> Unit>()
                 }
+
                 1 -> entry(groups[0])
                 else -> entries(groups[0], *groups.drop(1).toTypedArray())
             }
@@ -62,155 +63,139 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         var star: Expect<Collection<*>> = notImplemented()
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {})
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {})
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {})
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry {},
             entries({}, {})
-        )
+        ))
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry {},
             entries({}, {}),
             report = {}
-        )
+        ))
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             reportInGroup = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             reportInGroup = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry {},
             entries({}, {}),
             reportInGroup = {}
-        )
+        ))
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {},
             reportInGroup = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {},
             reportInGroup = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+            entry {},
             entries({}, {}),
             report = {},
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number> {},
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry {},
             entries({}, {}),
             report = {},
             reportInGroup = {}
-        )
+        ))
 
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+            entry(null),
             entries({}, null)
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry(null),
             entries(null, {})
-        )
+        ))
 
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+            entry(null),
             entries({}, null),
             report = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry(null),
             entries(null, {}),
             report = {}
-        )
+        ))
 
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+            entry(null),
             entries({}, null),
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry(null),
             entries(null, {}),
             reportInGroup = {}
-        )
+        ))
 
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+            entry(null),
             entries({}, null),
             report = {},
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            entry<Number>(null),
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = (star toContain o inGiven order and only grouped entries within group).inAny<Any, Collection<*>>(order(
+            entry(null),
             entries(null, {}),
             report = {},
             reportInGroup = {}
-        )
+        ))
     }
 }
