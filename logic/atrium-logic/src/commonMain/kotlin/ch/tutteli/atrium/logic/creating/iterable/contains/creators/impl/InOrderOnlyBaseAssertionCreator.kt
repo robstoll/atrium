@@ -33,9 +33,7 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         return LazyThreadUnsafeAssertionGroup {
             // TODO 1.1.0 more efficient and pragmatic than turnSubjectToList, use at other places too
             val maybeList = container.maybeSubject.map {
-                //TODO move into `when` with the update to Kotlin >= 1.3
-                val iterable = converter(it)
-                when (iterable) {
+                when (val iterable = converter(it)) {
                     is List -> iterable
                     else -> iterable.toList()
                 }

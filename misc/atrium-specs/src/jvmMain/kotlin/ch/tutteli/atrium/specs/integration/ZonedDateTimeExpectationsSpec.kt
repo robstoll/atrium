@@ -23,13 +23,13 @@ abstract class ZonedDateTimeExpectationsSpec(
 ) : Spek({
 
     include(object : SubjectLessSpec<ZonedDateTime>(describePrefix,
-        yearFeature.forSubjectLess().adjustName { "$it feature" },
+        yearFeature.forSubjectLess(),
         year.forSubjectLess { toBeGreaterThan(2000) },
-        monthFeature.forSubjectLess().adjustName { "$it feature" },
+        monthFeature.forSubjectLess(),
         month.forSubjectLess { toBeLessThan(12) },
-        dayFeature.forSubjectLess().adjustName { "$it feature" },
+        dayFeature.forSubjectLess(),
         day.forSubjectLess { toBeLessThanOrEqualTo(20) },
-        dayOfWeekFeature.forSubjectLess().adjustName { "$it feature" },
+        dayOfWeekFeature.forSubjectLess(),
         dayOfWeek.forSubjectLess { toBeLessThanOrEqualTo(DayOfWeek.SUNDAY) }
     ) {})
 

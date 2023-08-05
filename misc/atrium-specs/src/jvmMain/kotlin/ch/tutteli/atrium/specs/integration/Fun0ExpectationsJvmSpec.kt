@@ -18,12 +18,6 @@ abstract class Fun0ExpectationsJvmSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    @Suppress("NAME_SHADOWING")
-    val toThrow = toThrow.adjustName { it.substringBefore(" (feature)") }
-
-    @Suppress("NAME_SHADOWING")
-    val notToThrow = notToThrow.adjustName { it.substringBefore(" (feature)") }
-
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 

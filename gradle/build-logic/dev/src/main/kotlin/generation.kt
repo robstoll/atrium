@@ -69,10 +69,10 @@ fun Project.createGenerateLogicTask(
             generateLogic.configure {
                 dependsOn(task)
             }
-            //TODO 1.1.0 build-logic, check if we no longer need this
-            tasks.withType<AbstractKotlinCompile<*>>{
-                dependsOn(task)
-            }
+//            //TODO 1.1.0 build-logic, check if we no longer need this
+//            tasks.withType<AbstractKotlinCompile<*>>{
+//                dependsOn(task)
+//            }
         }
     }
     return generateLogic

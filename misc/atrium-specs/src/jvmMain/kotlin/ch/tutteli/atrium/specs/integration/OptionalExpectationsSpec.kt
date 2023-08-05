@@ -21,7 +21,7 @@ abstract class OptionalExpectationsSpec(
     include(object : SubjectLessSpec<Optional<Int>>(
         "$describePrefix[Path] ",
         toBeEmpty.forSubjectLess(),
-        toBePresentFeature.forSubjectLess().adjustName { "$it feature" },
+        toBePresentFeature.forSubjectLess(),
         toBePresent.forSubjectLess { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<Optional<Int>>(
