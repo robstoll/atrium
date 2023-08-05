@@ -12,13 +12,13 @@ import ch.tutteli.atrium.core.polyfills.appendln
  * @property sb The [StringBuilder] to which the formatted [Assertion] will be appended.
  * @property prefix The current prefix per assertion.
  * @property indentLevel The current indentation level.
- * @property assertionFilter Can be used used to filter out [Assertion]s which should not be formatted.
+ * @property assertionFilter Can be used to filter out [Assertion]s which should not be formatted.
  *
  * @constructor A parameter object used for interactions between [AssertionFormatterController] and [AssertionFormatter].
  * @param sb The [StringBuilder] to which the formatted [Assertion] will be appended.
  * @param prefix The current prefix per assertion.
  * @param indentLevel The current indentation level.
- * @param assertionFilter Can be used used to filter out [Assertion]s which should not be formatted.
+ * @param assertionFilter Can be used to filter out [Assertion]s which should not be formatted.
  */
 class AssertionFormatterParameterObject private constructor(
     val sb: StringBuilder,
