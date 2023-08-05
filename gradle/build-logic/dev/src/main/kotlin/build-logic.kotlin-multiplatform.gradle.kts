@@ -119,9 +119,7 @@ afterEvaluate {
         jvm {
             testRuns["test"].executionTask.configure {
                 useJUnitPlatform {
-                    // TODO 1.1.0 decide if we really want to migrate to kotest, without support for hierarchical tests
-                    // there is barely any value for Atrium to switch to kotest and we might be better of with kotlin-test (especially as there are JS issues)
-                    includeEngines("spek2", "junit-jupiter")//, "kotest")
+                    includeEngines("spek2", "junit-jupiter")
                 }
             }
         }
