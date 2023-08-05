@@ -8,7 +8,10 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.SpecPair
+import ch.tutteli.atrium.specs.lineSeparator
+import ch.tutteli.atrium.specs.name
+import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
