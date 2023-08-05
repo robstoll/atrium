@@ -164,7 +164,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     doFirst {
                         if (this is AbstractCompile) {
                             // we don't want to see all the deprecation errors during compilation
-                            // TODO 1.1.0: Gradle's logging level is no longer writable
+                            // TODO 1.2.0: Gradle's logging level is no longer writable
                             // this.logging.level = LogLevel.QUIET
                         }
                     }
@@ -205,7 +205,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("io.mockk:mockk-dsl-js:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
 
-                        //TODO 1.1.0 should no longer be necessary once updated to kotlin 1.4.x
+                        //TODO 1.2.0 should no longer be necessary once updated to kotlin 1.4.x
                         implementation(kotlin("stdlib-js"))
                     }
                 }
@@ -359,7 +359,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         // we want to run the samples as well
                         dependsOn(tasks.named("build"))
                     }
-                    //TODO 1.1.0 not yet sure if it makes more sense to include it into :check as well
+                    //TODO 1.2.0 not yet sure if it makes more sense to include it into :check as well
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
@@ -405,7 +405,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             api(project(":atrium-core-robstoll"))
                             api(project(":atrium-domain-robstolls"))
 
-                            //TODO 1.1.0 should no longer be necessary once updated to kotlin 1.4.x
+                            //TODO 1.2.0 should no longer be necessary once updated to kotlin 1.4.x
                             implementation(kotlin("stdlib-js"))
                         }
                     }
@@ -458,7 +458,7 @@ fun Project.createJacocoReportTask(
             else -> throw IllegalStateException("re-adjust jacoco task")
         }
         projects.forEach {
-            //TODO 1.1.0 simplify, all projects use now the new MPP plugin
+            //TODO 1.2.0 simplify, all projects use now the new MPP plugin
             val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
             if (sourceSetContainer != null) {
                 sourceSets(sourceSetContainer["main"])

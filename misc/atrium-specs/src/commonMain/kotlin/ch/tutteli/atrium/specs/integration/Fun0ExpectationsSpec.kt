@@ -21,20 +21,14 @@ abstract class Fun0ExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    @Suppress("NAME_SHADOWING")
-    val toThrow = toThrow.adjustName { it.substringBefore(" (feature)") }
-
-    @Suppress("NAME_SHADOWING")
-    val notToThrow = notToThrow.adjustName { it.substringBefore(" (feature)") }
-
     include(object : SubjectLessSpec<() -> Any?>(
         "$describePrefix[toThrow] ",
-        toThrowFeature.forSubjectLess().adjustName { "$it feature" },
+        toThrowFeature.forSubjectLess(),
         toThrow.forSubjectLess { messageToContain("bla") }
     ) {})
 
     include(object : SubjectLessSpec<() -> Int>(describePrefix,
-        notToThrowFeature.forSubjectLess().adjustName { "$it feature" },
+        notToThrowFeature.forSubjectLess(),
         notToThrow.forSubjectLess { toEqual(2) }
     ) {})
 

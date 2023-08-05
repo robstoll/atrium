@@ -95,7 +95,7 @@ class FeatureExpectationsBoundedReferenceSpec : ch.tutteli.atrium.specs.integrat
         }
         val propertyLazyWithNestedLazy: F = {
             its feature of<TestData, String>({ f(it::nonNullValue) }) {
-                feature { f(it::length) } it { it toEqual 12 }
+                it feature of({ f(it::length) }) { it toEqual 12 }
             }
         }
 
@@ -117,13 +117,13 @@ class FeatureExpectationsBoundedReferenceSpec : ch.tutteli.atrium.specs.integrat
         val star: Expect<Collection<*>> = notImplemented()
 
         a1 feature { f(it::size) }
-        a1 feature { f(it::size) } it {}
+        a1 feature of({ f(it::size) }) {}
 
         a1b feature { f(it::size) }
-        a1b feature { f(it::size) } it {}
+        a1b feature of({ f(it::size) }) {}
 
         star feature { f(it::size) }
-        star feature { f(it::size) } it {}
+        star feature of({ f(it::size) }) {}
     }
 }
 

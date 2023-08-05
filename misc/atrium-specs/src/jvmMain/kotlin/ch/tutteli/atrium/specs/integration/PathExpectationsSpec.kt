@@ -88,13 +88,13 @@ abstract class PathExpectationsSpec(
         toHaveTheSameBinaryContentAs.forSubjectLess(Paths.get("a")),
         toHaveTheSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
         toHaveTheSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a")),
-        parentFeature.forSubjectLess().adjustName { "$it feature" },
+        parentFeature.forSubjectLess(),
         parent.forSubjectLess { },
-        resolveFeature.forSubjectLess("test").adjustName { "$it feature" },
+        resolveFeature.forSubjectLess("test"),
         resolve.forSubjectLess("test") { toEqual(Paths.get("a/my.txt")) },
-        fileNameFeature.forSubjectLess().adjustName { "$it feature" },
+        fileNameFeature.forSubjectLess(),
         fileName.forSubjectLess { },
-        fileNameWithoutExtensionFeature.forSubjectLess().adjustName { "$it feature" },
+        fileNameWithoutExtensionFeature.forSubjectLess(),
         fileNameWithoutExtension.forSubjectLess { }
     ) {})
 

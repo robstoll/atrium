@@ -87,13 +87,13 @@ class FeatureExpectationsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.spe
         //@formatter:on
 
         val propertyLazyWithNestedImmediate: F = {
-            its feature { p(it::nonNullValue) } it {
+            its feature of({ p(it::nonNullValue) }) {
                 feature { p(it::length) } toEqual 12
             }
         }
         val propertyLazyWithNestedLazy: F = {
-            it feature { p(it::nonNullValue) } it {
-                feature { p(it::length) } it { this toEqual 12 }
+            it feature of({ p(it::nonNullValue) }) {
+                it feature of({ p(it::length) }) { this toEqual 12 }
             }
         }
 
@@ -115,12 +115,12 @@ class FeatureExpectationsBoundedReferenceAlternativeSpec : ch.tutteli.atrium.spe
         val star: Expect<Collection<*>> = notImplemented()
 
         a1 feature { p(it::size) }
-        a1 feature { p(it::size) } it {}
+        a1 feature of({ p(it::size) }) {}
 
         a1b feature { p(it::size) }
-        a1b feature { p(it::size) } it {}
+        a1b feature of({ p(it::size) }) {}
 
         star feature { p(it::size) }
-        star feature { p(it::size) } it {}
+        star feature of({ p(it::size) }) {}
     }
 }
