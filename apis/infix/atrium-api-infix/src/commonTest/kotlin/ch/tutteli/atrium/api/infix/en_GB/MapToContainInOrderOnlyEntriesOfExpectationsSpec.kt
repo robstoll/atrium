@@ -65,5 +65,35 @@ class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
         nKeyValueMap = nKeyValueMap toContain o inGiven order and only entriesOf listOf(1 to "a")
         ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only entriesOf listOf(1 to "a")
         starMap = starMap toContain o inGiven order and only entriesOf listOf(1 to "a")
+
+
+        map = map toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        subMap = subMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        nKeyMap = nKeyMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        nValueMap = nValueMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
+        starMap = starMap toContain o inGiven order and only the entriesOf(
+            listOf(1 to "a"),
+            reportOptionsInOrderOnly = {}
+        )
     }
 }

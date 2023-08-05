@@ -75,7 +75,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `the keyValues(keyValue)`.
+ * Delegates to `the entries(keyValue)`.
  *
  * @param keyValue The [KeyWithValueCreator] whose key is expected to be contained within this [MapLike] and
  *   where the corresponding value holds all assertions the  [KeyWithValueCreator.valueAssertionCreatorOrNull] creates
@@ -88,37 +88,37 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entry(
     keyValue: KeyWithValueCreator<K, V>
-): Expect<T> = this the keyValues(keyValue)
+): Expect<T> = this the entries(keyValue)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValues] in the specified order -- an entry
+ * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it has a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * @param keyValues The [KeyWithValueCreator]s -- use the function
- *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
+ * @param entries The [KeyWithValueCreator]s -- use the function
+ *   `entries(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.the(
-    keyValues: KeyValues<K, V>
-): Expect<T> = the(WithInOrderOnlyReportingOptions({}, keyValues))
+    entries: KeyValues<K, V>
+): Expect<T> = the(WithInOrderOnlyReportingOptions({}, entries))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValues] in the specified order -- an entry
+ * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it has a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * @param keyValues The [KeyWithValueCreator]s plus a lambda configuring the [InOrderOnlyReportingOptions]
- *   -- use the function `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ..., reportOptionsInOrderOnly = { ... })`
+ * @param entries The [KeyWithValueCreator]s plus a lambda configuring the [InOrderOnlyReportingOptions]
+ *   -- use the function `entries(keyValue(key1) { ... }, keyValue(key2) { ... }, ..., reportOptionsInOrderOnly = { ... })`
  *   to create a [WithInOrderOnlyReportingOptions] with a wrapped [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -127,26 +127,24 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  */
 @JvmName("theKeyValuesWithReportingOption")
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.the(
-    keyValues: WithInOrderOnlyReportingOptions<KeyValues<K, V>>
-): Expect<T> = entries(V::class, keyValues)
+    entries: WithInOrderOnlyReportingOptions<KeyValues<K, V>>
+): Expect<T> = entries(V::class, entries)
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entries(
     kClass: KClass<V>,
-    keyValues: WithInOrderOnlyReportingOptions<KeyValues<K, V>>
+    entries: WithInOrderOnlyReportingOptions<KeyValues<K, V>>
 ): Expect<T> = _logicAppend {
     keyWithValueAssertionsInOrderOnly(
         kClass,
-        keyValues.t.toList().map { it.toPair() },
-        keyValues.options
+        entries.t.toList().map { it.toPair() },
+        entries.options
     )
 }
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only and all entries of the given [expectedMapLike] in the specified order.
- *
- * Delegates to [keyValue].
  *
  * Notice that a runtime check applies which assures that only [Map] and [IterableLike]
  * (i.e. [Iterable], [Sequence] or one of the [Array] types) are passed (this can be changed via
@@ -168,7 +166,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
  * needs to contain only and all entries of the given [MapLike] in the specified order.
  *
- * Delegates to [keyValue].
+ * Delegates to `the pairs`
  *
  * Notice that a runtime check applies which assures that only [Map] and [IterableLike]
  * (i.e. [Iterable], [Sequence] or one of the [Array] types) are passed (this can be changed via

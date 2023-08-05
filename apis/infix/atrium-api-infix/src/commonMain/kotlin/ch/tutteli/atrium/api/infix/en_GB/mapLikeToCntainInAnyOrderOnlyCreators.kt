@@ -24,8 +24,9 @@ import kotlin.reflect.KClass
  *
  * @since 0.15.0
  */
-infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
-    this the pairs(keyValuePair)
+infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(
+    keyValuePair: Pair<K, V>
+): Expect<T> = this the pairs(keyValuePair)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
@@ -63,18 +64,18 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehavi
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entry(
     keyValue: KeyWithValueCreator<K, V>
-): Expect<T> = this the keyValues(keyValue)
+): Expect<T> = this the entries(keyValue)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
- * needs to contain only the given [keyValues] where it does not matter
+ * needs to contain only the given [entries] where it does not matter
  * in which order they appear -- an entry is contained if it has
  * a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`.
  *
- * @param keyValues The [KeyWithValueCreator]s -- use the function
+ * @param entries The [KeyWithValueCreator]s -- use the function
  *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
  * @return an [Expect] for the subject of `this` expectation.
@@ -82,15 +83,15 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * @since 0.15.0
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.the(
-    keyValues: KeyValues<K, V>
-): Expect<T> = entries(V::class, keyValues.toList())
+    entries: KeyValues<K, V>
+): Expect<T> = entries(V::class, entries.toList())
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entries(
     kClass: KClass<V>,
-    keyValues: List<KeyWithValueCreator<K, V>>
+    entries: List<KeyWithValueCreator<K, V>>
 ): Expect<T> = _logicAppend {
-    keyWithValueAssertionsInAnyOrderOnly(kClass, keyValues.map { it.toPair() })
+    keyWithValueAssertionsInAnyOrderOnly(kClass, entries.map { it.toPair() })
 }
 
 /**
@@ -98,8 +99,8 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
  * needs to contain only and all entries of the given [expectedMapLike] where it does not matter
  * in which order they appear.
  *
- * Delegates to [keyValue] which also means that it does not search for unique matches
- * (see [keyValue] for more information).
+ * Delegates to `the pairs` which also means that it does not search for unique matches
+ * (see `the pairs` for more information).
  *
  * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
  * are passed. This function expects [MapLike] (which is a typealias for [Any]) to avoid cluttering the API.
