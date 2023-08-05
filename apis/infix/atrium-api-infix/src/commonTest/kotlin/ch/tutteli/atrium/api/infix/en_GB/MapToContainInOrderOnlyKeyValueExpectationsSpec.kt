@@ -72,56 +72,56 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only entry keyValue(1) { this toEqual "a" }
         starMap = starMap toContain o inGiven order and only entry keyValue(1) { this toEqual "a" }
 
-        map = map toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        subMap = subMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        nValueMap = nValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
+        map = map toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
+        subMap = subMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
         ronKeyValueMap =
-            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
-        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" })
+            ronKeyValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
+        starMap = starMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" })
 
-        map = map toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        map = map toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
-        subMap = subMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        subMap = subMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
-        nValueMap = nValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        nValueMap = nValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
-        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
         ronKeyValueMap =
-            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+            ronKeyValueMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
                 reportOptionsInOrderOnly = {})
-        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(1) { this toEqual "a" },
+        starMap = starMap toContain o inGiven order and only the entries(keyValue(1) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
 
-        map = map toContain o inGiven order and only the keyValues(
+        map = map toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        subMap = subMap toContain o inGiven order and only the keyValues(
+        subMap = subMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nValueMap = nValueMap toContain o inGiven order and only the keyValues(
+        nValueMap = nValueMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the keyValues(
+        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        starMap = starMap toContain o inGiven order and only the keyValues(
+        starMap = starMap toContain o inGiven order and only the entries(
             keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
@@ -136,42 +136,45 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         starMap = starMap toContain o inGiven order and only entry keyValue(null) { this toEqual "a" }
         starMap = starMap toContain o inGiven order and only entry keyValue(null, null)
 
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" })
         nKeyValueMap =
-            nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
+            nKeyValueMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" })
         ronKeyValueMap =
-            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
-        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
+            ronKeyValueMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" })
+        starMap = starMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" })
 
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
         nKeyValueMap =
-            nKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+            nKeyValueMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" },
                 reportOptionsInOrderOnly = {})
         ronKeyValueMap =
-            ronKeyValueMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+            ronKeyValueMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" },
                 reportOptionsInOrderOnly = {})
-        starMap = starMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" },
+        starMap = starMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" },
             reportOptionsInOrderOnly = {})
 
-        nKeyMap = nKeyMap toContain o inGiven order and only the keyValues(keyValue(null) { this toEqual "a" })
-        nValueMap = nValueMap toContain o inGiven order and only the keyValues(
+        nKeyMap = nKeyMap toContain o inGiven order and only the entries(keyValue(null) { this toEqual "a" })
+        nValueMap = nValueMap toContain o inGiven order and only the entries(
             keyValue(1, null),
             keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the keyValues(
+        nKeyValueMap = nKeyValueMap toContain o inGiven order and only the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the keyValues(
+        ronKeyValueMap = ronKeyValueMap toContain o inGiven order and only the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        starMap = starMap toContain o inGiven order and only the keyValues(
+        starMap = starMap toContain o inGiven order and only the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
+
+        starMap =
+            starMap toContain o inGiven order and only the entriesOf(mapOf("a" to 1), reportOptionsInOrderOnly = {})
     }
 }
