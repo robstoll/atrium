@@ -239,9 +239,9 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: R
  * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains o exactly 2 regex "a(b)?"`
+ *   `contains o exactly 2 matchFor "a(b)?"`
  * instead of:
- *   `contains o atLeast 1 the all(Regex("a(b)?"), Regex("a(b)?"))`
+ *   `contains o atLeast 1 matchFor all(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param patterns The patterns which are expected to have a match against the input of the search --
  *   use the function `all(Regex(...), ...)` to create a [All].
@@ -278,7 +278,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(p
  * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains o ignoring case exactly 2 the regex "a(b)?"`
+ *   `contains o ignoring case exactly 2 regex "a(b)?"`
  * instead of:
  *   `contains o ignoring case atLeast 1 the regexPatterns("a(b)?", "a(b)?")`
  *

@@ -141,8 +141,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
-    atLeast(1).value(expected)
+fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
+    expected: CharSequenceOrNumberOrChar
+): Expect<T> = atLeast(1).value(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -219,8 +220,38 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  *
  * @since 0.9.0
  */
-//TODO rename to `matchFor` with 1.1.0
+@Deprecated(
+    "Use matchFor instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("this.matchFor(pattern, *otherPatterns)")
+)
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
+    pattern: Regex,
+    vararg otherPatterns: Regex
+): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
+ * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
+ *
+ * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `"ab"` and [pattern]
+ * is defined as `"a(b)?"` and one of the [otherPatterns] is defined as `"a(b)?"` as well, then both match, even though
+ * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
+ * control the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `contains.exactly(2).matchFor(Regex("a(b)?"))`
+ * instead of:
+ *   `contains.atLeast(1).matchFor(Regex("a(b)?"), Regex("a(b)?"))`
+ *
+ * @param pattern The pattern which is expected to have a match against the input of the search.
+ * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 1.1.0
+ */
+fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex,
     vararg otherPatterns: Regex
 ): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
