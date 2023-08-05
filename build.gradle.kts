@@ -25,8 +25,6 @@ val junitPlatformVersion by extra("1.9.2")
 val jupiterVersion by extra("5.9.2")
 // need to use an old version of spek as the newer contains a bug which causes that no tests are discovered and executed
 val spekVersion by extra("2.0.12")
-//TODO v1.1.0 decide whether we drop kotest again or not
-//val kotestVersion by extra("4.6.4")
 val spekExtensionsVersion by extra("1.2.1")
 val mockkVersion by extra("1.10.0")
 val mockitoKotlinVersion by extra("2.2.0")
