@@ -1,7 +1,5 @@
-import ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.URL
 
 plugins {
     id("build-logic.gradle-conventions")
@@ -24,20 +22,6 @@ tasks.configureEach<AbstractDokkaLeafTask> {
             suppress.set(true)
         }
         includes.from(kdocDir.resolve("packages.md"))
-
-        //TODO 1.1.0 remove with update to tutteli-gradle 4.10.0
-        externalDocumentationLink {
-            val extension = rootProject.the<DokkaPluginExtension>()
-            url.set(extension.githubUser.flatMap { githubUser ->
-                extension.modeSimple.map { usesSimpleDocs ->
-                    if (usesSimpleDocs) {
-                        URL("https://$githubUser.github.io/${rootProject.name}/kdoc/${rootProject.name}/")
-                    } else {
-                        URL("https://$githubUser.github.io/${rootProject.name}/${rootProject.version}/kdoc/")
-                    }
-                }
-            })
-        }
     }
     configurePlugins()
 }
