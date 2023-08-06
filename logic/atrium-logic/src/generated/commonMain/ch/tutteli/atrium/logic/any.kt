@@ -23,11 +23,8 @@ fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrN
 
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)
 
-    //TODO 1.2.0 consider to suppress the warning of using type parameters as upper bound of other type parameters and
-    // resolve the following TODO this way (until it has proper support at least)
-    //TODO restrict TSub with T once type parameter for upper bounds are supported:
-    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, TSub> = impl.isA(this, subType)
+    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
+fun <T, TSub> AssertionContainer<T>.isA(subType: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, TSub> where TSub : Any, TSub : T = impl.isA(this, subType)
 
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
 
