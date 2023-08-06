@@ -35,24 +35,24 @@ internal fun <E : Any> allCreatedAssertionsHold(
 internal fun <E : Any> createExplanatoryAssertionGroup(
     container: AssertionContainer<*>,
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
-): AssertionGroup {
-    return assertionBuilder.explanatoryGroup
-        .withDefaultType
-        .let {
-            //TODO 1.1.0 looks a lot like toBeNullIfNullGiven
-            if (assertionCreatorOrNull != null) {
-                // we don't use a subject, we will not show it anyway
-                it.collectAssertions(container, None, assertionCreatorOrNull)
-            } else {
-                it.withAssertion(
-                    // it is for an explanatoryGroup where it does not matter if the assertion holds or not
-                    // thus it is OK to use trueProvider
-                    assertionBuilder.createDescriptive(TO_EQUAL, Text.NULL, trueProvider)
-                )
-            }
+): AssertionGroup = assertionBuilder
+    .explanatoryGroup
+    .withDefaultType
+    .let {
+        // we don't use toBeNullOrNullGivenElse because we want to report an empty assertionCreatorOrNull and
+        // since we use None as subject and are already inside an explanatory assertion group, it would not be reported
+        if (assertionCreatorOrNull != null) {
+            // we don't use a subject, we will not show it anyway
+            it.collectAssertions(container, None, assertionCreatorOrNull)
+        } else {
+            it.withAssertion(
+                // it is for an explanatoryGroup where it does not matter if the assertion holds or not
+                // thus it is OK to use trueProvider
+                assertionBuilder.createDescriptive(TO_EQUAL, Text.NULL, trueProvider)
+            )
         }
-        .build()
-}
+    }
+    .build()
 
 internal fun <E> createIndexAssertions(
     list: List<E>,
@@ -119,6 +119,7 @@ internal fun <E> decorateAssertionWithHasNext(
             .build()
     }
 }
+
 internal fun <E> decorateWithHintUseNotToHaveElementsOrNone(
     assertion: AssertionGroup,
     listAssertionContainer: AssertionContainer<List<E>>,
