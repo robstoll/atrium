@@ -12,7 +12,7 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultListAssertions
 
-    //TODO 1.1.0 change to ListLike in order that it works as well for arrays
+    //TODO 1.3.0 change to ListLike in order that it works as well for arrays
 fun <E, T : List<E>> AssertionContainer<T>.get(index: Int): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.get(this, index)
 
 @OptIn(ExperimentalNewExpectTypes::class)

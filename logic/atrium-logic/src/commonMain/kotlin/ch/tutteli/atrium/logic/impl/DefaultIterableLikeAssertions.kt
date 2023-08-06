@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
-import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.turnSubjectToList
+import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.mapSubjectToList
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.impl.NoOpSearchBehaviourImpl
@@ -107,8 +107,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter,
         assertionCreatorOrNull,
         NOT_TO_HAVE_ELEMENTS_OR_ALL,
-        mismatchIf = { holds -> !holds }
-    ) { group, _ -> group }
+        mismatchIf = { holds -> !holds },
+        decorateAssertion = { assertionGroup, _ ->
+            // no decoration necessary, return assertionGroup as is
+            assertionGroup
+        }
+    )
 
     override fun <T : IterableLike, E : Any> hasNotNextOrNone(
         container: AssertionContainer<T>,
@@ -119,8 +123,12 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter,
         assertionCreatorOrNull,
         NOT_TO_HAVE_ELEMENTS_OR_NONE,
-        mismatchIf = { holds -> holds }
-    ) { group, _ -> group }
+        mismatchIf = { holds -> holds },
+        decorateAssertion = { assertionGroup, _ ->
+            // no decoration necessary, return assertionGroup as is
+            assertionGroup
+        }
+    )
 
     private fun <E : Any, T : IterableLike> allWithMismatchClauseAndDecorator(
         container: AssertionContainer<T>,
@@ -130,7 +138,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         mismatchIf: (Boolean) -> Boolean,
         decorateAssertion: (AssertionGroup, AssertionContainer<List<E?>>) -> AssertionGroup
     ): LazyThreadUnsafeAssertionGroup = LazyThreadUnsafeAssertionGroup {
-        val listAssertionContainer = turnSubjectToList(container, converter)
+        val listAssertionContainer = container.mapSubjectToList(converter)
         val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
         val assertions = ArrayList<Assertion>(2)
@@ -161,7 +169,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?
     ): Assertion = LazyThreadUnsafeAssertionGroup {
-        val listAssertionContainer = turnSubjectToList(container, converter)
+        val listAssertionContainer = container.mapSubjectToList(converter)
         val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
         val assertions = ArrayList<Assertion>(2)
@@ -193,7 +201,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): Assertion = LazyThreadUnsafeAssertionGroup {
-        val listAssertionContainer = turnSubjectToList(container, converter)
+        val listAssertionContainer = container.mapSubjectToList(converter)
         val list = listAssertionContainer.maybeSubject.getOrElse { emptyList() }
 
         val lookupHashMap = HashMap<E, Int>()

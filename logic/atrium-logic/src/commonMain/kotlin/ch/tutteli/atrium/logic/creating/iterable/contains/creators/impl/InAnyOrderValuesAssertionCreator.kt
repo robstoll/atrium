@@ -48,7 +48,7 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
         DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
-        turnSubjectToList(container, converter)
+        container.mapSubjectToList(converter)
 
     override fun search(multiConsumableContainer: AssertionContainer<List<SC>>, searchCriterion: SC): Int =
         multiConsumableContainer.maybeSubject.fold({ -1 }) { subject -> subject.filter { it == searchCriterion }.size }
