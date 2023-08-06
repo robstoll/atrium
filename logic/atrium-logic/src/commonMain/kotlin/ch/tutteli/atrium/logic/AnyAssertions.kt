@@ -25,14 +25,11 @@ interface AnyAssertions {
         subType: KClass<T>
     ): SubjectChangerBuilder.ExecutionStep<T?, T>
 
-    //TODO 1.2.0 consider to suppress the warning of using type parameters as upper bound of other type parameters and
-    // resolve the following TODO this way (until it has proper support at least)
-    //TODO restrict TSub with T once type parameter for upper bounds are supported:
-    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-    fun <T, TSub : Any> isA(
+    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
+    fun <T, TSub> isA(
         container: AssertionContainer<T>,
         subType: KClass<TSub>
-    ): SubjectChangerBuilder.ExecutionStep<T, TSub>
+    ): SubjectChangerBuilder.ExecutionStep<T, TSub> where TSub : Any, TSub : T
 
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 
