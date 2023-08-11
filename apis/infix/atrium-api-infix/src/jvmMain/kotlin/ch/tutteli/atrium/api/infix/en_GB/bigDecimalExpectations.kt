@@ -23,7 +23,7 @@ import java.math.BigDecimal
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `toEqualIncludingScale`.",
     ReplaceWith("toEqualNumerically(expected) or toEqualIncludingScale(expected)")
 )
-@Suppress("UNUSED_PARAMETER", "unused")
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 infix fun <T : BigDecimal> Expect<T>.toEqual(expected: T): Nothing =
     throw PleaseUseReplacementException(
         "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
@@ -42,7 +42,7 @@ infix fun <T : BigDecimal> Expect<T>.toEqual(expected: T): Nothing =
  *
  * @since 0.17.0
  */
-@Suppress("UNUSED_PARAMETER", "unused")
+//TODO rename to toEqualNullable with 2.0.0
 @JvmName("toBeNullable")
 @Deprecated(
     "Use `toEqualNumerically` if you expect that the following assertion holds:\n" +
@@ -50,6 +50,7 @@ infix fun <T : BigDecimal> Expect<T>.toEqual(expected: T): Nothing =
         "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `toEqualIncludingScale`.",
     ReplaceWith("toEqualNumerically(expected) or toEqualIncludingScale(expected)")
 )
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 infix fun <T : BigDecimal?> Expect<T>.toEqual(expected: T): Nothing =
     throw PleaseUseReplacementException(
         "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
@@ -61,10 +62,11 @@ infix fun <T : BigDecimal?> Expect<T>.toEqual(expected: T): Nothing =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.toEqual
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.toEqualNull
  *
  * @since 0.17.0
  */
+//TODO rename to toEqualNul with 2.0.0
 @JvmName("toBeNull")
 infix fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
     _logicAppend { toBe(expected) }
@@ -87,12 +89,26 @@ infix fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
         "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `notToEqualIncludingScale`.",
     ReplaceWith("notToEqualNumerically(expected) or notToEqualIncludingScale(expected)")
 )
-@Suppress("UNUSED_PARAMETER", "unused")
-infix fun <T : BigDecimal> Expect<T>.notToEqual(expected: T): Nothing =
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
+infix fun <T : BigDecimal?> Expect<T>.notToEqual(expected: T): Nothing =
     throw PleaseUseReplacementException(
         "BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
             "If you know it and want that `scale` is included in the comparison, then use `notToEqualIncludingScale`."
     )
+
+/**
+ * Expects that the subject of `this` expectation (a [BigDecimal]) is not `null`.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.notToEqualNull
+ *
+ * @since 1.1.0
+ */
+@JvmName("notToEqualNull")
+infix fun <T : BigDecimal> Expect<T?>.notToEqual(expected: Nothing?): Expect<T> =
+    _logicAppend { notToBe(expected) }._logic.changeSubject.unreported { it!! }
+
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is numerically equal to [expected].
