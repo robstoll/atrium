@@ -1,12 +1,6 @@
 import org.gradle.api.NamedDomainObjectContainer
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
-fun KotlinProjectExtension.configureKotlinJvm(){
-    // Require explicit access modifiers and require explicit types for public APIs.
-    // See https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
-//    explicitApi()
-}
 
 fun NamedDomainObjectContainer<KotlinSourceSet>.configureLanguageSettings() {
     configureEach {

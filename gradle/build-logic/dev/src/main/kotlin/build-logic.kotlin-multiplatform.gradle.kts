@@ -41,7 +41,11 @@ kotlin {
     jvm {
         // for module-info.java and Java sources in test
         withJava()
-        configureKotlinJvm()
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform {
+                includeEngines("spek2", "junit-jupiter")
+            }
+        }
     }
 
     //TODO 1.2.0 switch from LEGACY to IR
@@ -51,7 +55,7 @@ kotlin {
                 useMocha {
                     // timeout in milliseconds,
                     // Windows regularly has a timeout with the default which
-                    // at the time of writting was 2000
+                    // at the time of writing was 2000
                     timeout = "10000"
                 }
             }
@@ -64,62 +68,19 @@ kotlin {
         commonMain {
             dependencies {
                 api(kotlin("reflect"))
-
-                // TODO 1.1.0 shouldn't be necessary to add stdlib dependency to kotlin with kotlin 1.5.x (is automatically added)
-                api(kotlin("stdlib-common"))
             }
         }
 
         commonTest {
             dependencies {
-                // TODO 1.1.0 switch to kotlin(test) with update to kotlin > 1.4, dependency to test-annotations-common should then no longer be necessary
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
             }
         }
 
-        jvmMain {
-            dependencies {
-                // TODO 1.1.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x (is automatically added, but check, maybe stdlib is added automatically but not stdlib-jdk8)
-                api(kotlin("stdlib-jdk8"))
-            }
-        }
         jvmTest {
             dependencies {
                 if (rootProject.name != "gradle-kotlin-dsl-accessors") {
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
-                }
-
-                // TODO  1.1.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
-                implementation(kotlin("test-junit5"))
-            }
-        }
-        jsMain {
-            dependencies {
-                // TODO 1.1.0 shouldn't be necessary to add the dependency to kotlin with kotlin 1.5.x
-                api(kotlin("stdlib-js"))
-            }
-        }
-        jsTest {
-            dependencies {
-                // TODO  1.1.0 should no longer be necessary with kotlin 1.5, adding kotlin("test") to common should be enough
-                implementation(kotlin("test-js"))
-            }
-        }
-    }
-}
-
-//TODO 1.1.0 the below was actually a bug in gradle and should have been fixed since 6.9.4
-// check if it works now so that we don't have to define it in an afterEvaluate
-
-// needs to be in afterEvaluate for now because the tutteli-spek-plugin overwrites it by using useJunitPlatform which
-// apparently reconfigures the TestFramework (even if already useJunitPlatform was used, so it's more a setJUnitPlatformAsTestFramework)
-afterEvaluate {
-    kotlin {
-        jvm {
-            testRuns["test"].executionTask.configure {
-                useJUnitPlatform {
-                    includeEngines("spek2", "junit-jupiter")
                 }
             }
         }
