@@ -25,8 +25,6 @@ if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-in
         .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
 }
 
-val jupiterVersion: String by rootProject.extra
-
 val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
     get() = named("jvmMain")
 val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
@@ -74,14 +72,6 @@ kotlin {
         commonTest {
             dependencies {
                 implementation(kotlin("test"))
-            }
-        }
-
-        jvmTest {
-            dependencies {
-                if (rootProject.name != "gradle-kotlin-dsl-accessors") {
-                    runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
-                }
             }
         }
     }
