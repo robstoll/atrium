@@ -3,10 +3,8 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.the
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -58,21 +56,19 @@ fun Project.createGenerateLogicTask(
             )
         }) + additionalPackages
         all.forEach { (relativePackagePath, f) ->
+            val relativePackagePathWithSlash = relativePackagePath + if (suffix !== "") "/$suffix" else ""
             val task = registerGenerateLogicTaskForPackage(
                 sourceSet.name,
                 generatedFolder,
-                relativePackagePath + if (suffix !== "") "/$suffix" else "",
+                relativePackagePathWithSlash,
                 mainSrcFolder,
                 f
             )
-            generatedFiles.builtBy(task)
+            val generatedPackageFiles = project.files("$generatedFolder/${prefixPackagePath(relativePackagePathWithSlash)}")
+            generatedPackageFiles.builtBy(task)
             generateLogic.configure {
                 dependsOn(task)
             }
-//            //TODO 1.1.0 build-logic, check if we no longer need this
-//            tasks.withType<AbstractKotlinCompile<*>>{
-//                dependsOn(task)
-//            }
         }
     }
     return generateLogic
@@ -89,7 +85,7 @@ fun Project.registerGenerateLogicTaskForPackage(
     return tasks.register("generateLogic_${sourceSetName}_${relativePackagePath.replace('/', '_')}") {
         group = "build"
         description = "generates ext. methods for package $relativePackagePath"
-        val packagePath = "ch/tutteli/atrium/logic$relativePackagePath"
+        val packagePath = prefixPackagePath(relativePackagePath)
         val srcPath = "${mainSrcFolder.absolutePath}/$packagePath/"
         val generatedPath = "${project.projectDir}/$generatedFolder/$packagePath"
         inputs.dir(srcPath)
@@ -170,6 +166,7 @@ fun Project.registerGenerateLogicTaskForPackage(
         }
     }
 }
+fun prefixPackagePath(relativePackagePath: String) = "ch/tutteli/atrium/logic$relativePackagePath"
 
 
 fun getInterfaces(path: String): List<Path> =
