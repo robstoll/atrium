@@ -25,7 +25,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
     )
 
     companion object : MapToContainSpecBase() {
-        val toContainKeyValue_s = "$toContain $filler $inAnyOrder $keyValue/$keyValues"
+        val toContainKeyValue_s = "$toContain $filler $inAnyOrder $keyValue/$theEntries"
 
         private fun toContainKeyValues(
             expect: Expect<Map<out String, Int>>,
@@ -34,7 +34,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         ): Expect<Map<out String, Int>> =
             mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
                 if (others.isEmpty()) expect toContain o inAny order entry first
-                else expect toContain o inAny order the keyValues(first, *others)
+                else expect toContain o inAny order the entries(first, *others)
             }
 
         private fun toContainKeyValuesNullable(
@@ -44,7 +44,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         ): Expect<Map<out String?, Int?>> =
             mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
                 if (others.isEmpty()) expect toContain o inAny order entry first
-                else expect toContain o inAny order the keyValues(first, *others)
+                else expect toContain o inAny order the entries(first, *others)
             }
 
         private fun toContain(
@@ -55,7 +55,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
             if (aX.isEmpty()) expect toContain keyValue(a.first, a.second)
             else mapArguments(a, aX)
                 .to { keyValue(it.first, it.second) }
-                .let { (first, others) -> expect toContain keyValues(first, *others) }
+                .let { (first, others) -> expect toContain entries(first, *others) }
 
         @JvmName("toContainNullable")
         private fun toContain(
@@ -66,7 +66,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
             if (aX.isEmpty()) expect toContain keyValue(a.first, a.second)
             else mapArguments(a, aX)
                 .to { keyValue(it.first, it.second) }
-                .let { (first, others) -> expect toContain keyValues(first, *others) }
+                .let { (first, others) -> expect toContain entries(first, *others) }
     }
 
 
@@ -88,40 +88,33 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         ronKeyValueMap = ronKeyValueMap toContain o inAny order entry keyValue(1) { this toEqual "a" }
         starMap = starMap toContain o inAny order entry keyValue(1) { this toEqual "a" }
 
-        map = map toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        subMap = subMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        nKeyMap = nKeyMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        nValueMap = nValueMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
-        starMap = starMap toContain o inAny order the keyValues(keyValue(1) { this toEqual "a" })
+        map = map toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        subMap = subMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
+        starMap = starMap toContain o inAny order the entries(keyValue(1) { this toEqual "a" })
 
-        map = map toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        map = map toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        subMap = subMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        subMap = subMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyMap = nKeyMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nKeyMap = nKeyMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nValueMap = nValueMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nValueMap = nValueMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyValueMap = nKeyValueMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nKeyValueMap = nKeyValueMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        ronKeyValueMap = ronKeyValueMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        ronKeyValueMap = ronKeyValueMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        starMap = starMap toContain o inAny order the keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        starMap = starMap toContain o inAny order the entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
 
@@ -135,24 +128,24 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         starMap = starMap toContain o inAny order entry keyValue(null) { this toEqual "a" }
         starMap = starMap toContain o inAny order entry keyValue(null, null)
 
-        nKeyMap = nKeyMap toContain o inAny order the keyValues(keyValue(null) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inAny order the keyValues(keyValue(null) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain o inAny order the keyValues(keyValue(null) { this toEqual "a" })
-        starMap = starMap toContain o inAny order the keyValues(keyValue(null) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain o inAny order the entries(keyValue(null) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain o inAny order the entries(keyValue(null) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap toContain o inAny order the entries(keyValue(null) { this toEqual "a" })
+        starMap = starMap toContain o inAny order the entries(keyValue(null) { this toEqual "a" })
 
-        nKeyMap = nKeyMap toContain o inAny order the keyValues(keyValue(null) { this toEqual "a" })
-        nValueMap = nValueMap toContain o inAny order the keyValues(keyValue(1, null), keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain o inAny order the keyValues(
+        nKeyMap = nKeyMap toContain o inAny order the entries(keyValue(null) { this toEqual "a" })
+        nValueMap = nValueMap toContain o inAny order the entries(keyValue(1, null), keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain o inAny order the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        ronKeyValueMap = ronKeyValueMap toContain o inAny order the keyValues(
+        ronKeyValueMap = ronKeyValueMap toContain o inAny order the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        starMap = starMap toContain o inAny order the keyValues(
+        starMap = starMap toContain o inAny order the entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
@@ -168,40 +161,33 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         ronKeyValueMap = ronKeyValueMap toContain keyValue(1) { this toEqual "a" }
         starMap = starMap toContain keyValue(1) { this toEqual "a" }
 
-        map = map toContain keyValues(keyValue(1) { this toEqual "a" })
-        subMap = subMap toContain keyValues(keyValue(1) { this toEqual "a" })
-        nKeyMap = nKeyMap toContain keyValues(keyValue(1) { this toEqual "a" })
-        nValueMap = nValueMap toContain keyValues(keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain keyValues(keyValue(1) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain keyValues(keyValue(1) { this toEqual "a" })
-        starMap = starMap toContain keyValues(keyValue(1) { this toEqual "a" })
+        map = map toContain entries(keyValue(1) { this toEqual "a" })
+        subMap = subMap toContain entries(keyValue(1) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain entries(keyValue(1) { this toEqual "a" })
+        nValueMap = nValueMap toContain entries(keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain entries(keyValue(1) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap toContain entries(keyValue(1) { this toEqual "a" })
+        starMap = starMap toContain entries(keyValue(1) { this toEqual "a" })
 
-        map = map toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        map = map toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        subMap = subMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        subMap = subMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyMap = nKeyMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nKeyMap = nKeyMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nValueMap = nValueMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nValueMap = nValueMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        nKeyValueMap = nKeyValueMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        nKeyValueMap = nKeyValueMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        ronKeyValueMap = ronKeyValueMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        ronKeyValueMap = ronKeyValueMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
-        starMap = starMap toContain keyValues(
-            keyValue(1 as Number) { this toEqual "a" },
+        starMap = starMap toContain entries(keyValue(1 as Number) { this toEqual "a" },
             keyValue(1.2) { this toEqual "b" }
         )
 
@@ -214,24 +200,24 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         starMap = starMap toContain keyValue(null) { this toEqual "a" }
         starMap = starMap toContain keyValue(null, null)
 
-        nKeyMap = nKeyMap toContain keyValues(keyValue(null) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain keyValues(keyValue(null) { this toEqual "a" })
-        ronKeyValueMap = ronKeyValueMap toContain keyValues(keyValue(null) { this toEqual "a" })
-        starMap = starMap toContain keyValues(keyValue(null) { this toEqual "a" })
+        nKeyMap = nKeyMap toContain entries(keyValue(null) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain entries(keyValue(null) { this toEqual "a" })
+        ronKeyValueMap = ronKeyValueMap toContain entries(keyValue(null) { this toEqual "a" })
+        starMap = starMap toContain entries(keyValue(null) { this toEqual "a" })
 
-        nKeyMap = nKeyMap toContain keyValues(keyValue(null) { this toEqual "a" })
-        nValueMap = nValueMap toContain keyValues(keyValue(1, null), keyValue(1) { this toEqual "a" })
-        nKeyValueMap = nKeyValueMap toContain keyValues(
+        nKeyMap = nKeyMap toContain entries(keyValue(null) { this toEqual "a" })
+        nValueMap = nValueMap toContain entries(keyValue(1, null), keyValue(1) { this toEqual "a" })
+        nKeyValueMap = nKeyValueMap toContain entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        ronKeyValueMap = ronKeyValueMap toContain keyValues(
+        ronKeyValueMap = ronKeyValueMap toContain entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)
         )
-        starMap = starMap toContain keyValues(
+        starMap = starMap toContain entries(
             keyValue(null) { this toEqual "a" },
             keyValue(null, null),
             keyValue(1, null)

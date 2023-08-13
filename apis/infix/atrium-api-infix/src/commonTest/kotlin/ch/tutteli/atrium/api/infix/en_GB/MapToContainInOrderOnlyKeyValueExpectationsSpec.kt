@@ -19,7 +19,7 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
     )
 
     companion object : MapToContainSpecBase() {
-        val toContainKeyValue_s = "$toContain $filler $inOrder $andOnly $keyValue/$keyValues"
+        val toContainKeyValue_s = "$toContain $filler $inOrder $andOnly $keyValue/$theEntries"
 
         private fun toContainKeyValues(
             expect: Expect<Map<out String, Int>>,
@@ -29,8 +29,8 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         ) = mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
             if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
                 if (others.isEmpty()) expect toContain o inGiven order and only entry first
-                else expect toContain o inGiven order and only the keyValues(first, *others)
-            } else expect toContain o inGiven order and only the keyValues(
+                else expect toContain o inGiven order and only the entries(first, *others)
+            } else expect toContain o inGiven order and only the entries(
                 first,
                 *others,
                 reportOptionsInOrderOnly = report
@@ -45,8 +45,8 @@ class MapToContainInOrderOnlyKeyValueExpectationsSpec : Spek({
         ) = mapArguments(a, aX).to { keyValue(it.first, it.second) }.let { (first, others) ->
             if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
                 if (others.isEmpty()) expect toContain o inGiven order and only entry first
-                else expect toContain o inGiven order and only the keyValues(first, *others)
-            } else expect toContain o inGiven order and only the keyValues(
+                else expect toContain o inGiven order and only the entries(first, *others)
+            } else expect toContain o inGiven order and only the entries(
                 first,
                 *others,
                 reportOptionsInOrderOnly = report
