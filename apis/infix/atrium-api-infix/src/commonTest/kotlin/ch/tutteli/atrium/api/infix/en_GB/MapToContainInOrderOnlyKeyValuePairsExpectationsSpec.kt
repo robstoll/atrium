@@ -17,7 +17,7 @@ class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec : Spek({
     )
 
     companion object : MapToContainSpecBase() {
-        val toContainKeyValuePair_s = "$toContain $filler $inOrder $andOnly $keyValuePair/$keyValuePairs"
+        val toContainKeyValuePair_s = "$toContain $filler $inOrder $andOnly $keyValuePair/$theKeyValuePairs"
 
         private fun toContainKeyValuePairs(
             expect: Expect<Map<out String, Int>>,

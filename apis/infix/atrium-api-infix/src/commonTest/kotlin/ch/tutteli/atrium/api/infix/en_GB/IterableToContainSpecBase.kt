@@ -76,7 +76,6 @@ abstract class IterableToContainSpecBase {
         val nullableList: Expect<Set<Number?>> = notImplemented()
         val subList: Expect<ArrayList<out Number>> = notImplemented()
         val star: Expect<Collection<*>> = notImplemented()
-        val any: Expect<Collection<Any>> = notImplemented()
 
         list toContain 1
         list toContain 1f

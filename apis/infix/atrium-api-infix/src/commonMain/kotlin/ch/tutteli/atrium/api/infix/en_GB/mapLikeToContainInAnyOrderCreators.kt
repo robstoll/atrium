@@ -67,7 +67,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entry(
     keyValue: KeyWithValueCreator<K, V>
-): Expect<T> = this the keyValues(keyValue)
+): Expect<T> = this the entries(keyValue)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])

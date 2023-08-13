@@ -29,15 +29,15 @@ abstract class MapToContainSpecBase {
 
     private val keyValuePairsF: KFunction2<MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>, Pairs<String,Int>, Expect<Map<String, Int>>> =
         MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::the
-    protected val keyValuePairs = "${keyValuePairsF.name} pairs"
+    protected val theKeyValuePairs = "${keyValuePairsF.name} pairs"
 
     private val keyValueF: KFunction2<MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>, KeyWithValueCreator<String,Int>, Expect<Map<String, Int>>> =
         MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::entry
     protected val keyValue = keyValueF.name
 
-    private val keyValuesF: KFunction2<MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>, KeyValues<String,Int>, Expect<Map<String, Int>>> =
+    private val entriesF: KFunction2<MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>, KeyValues<String,Int>, Expect<Map<String, Int>>> =
         MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::the
-    protected val keyValues = "${keyValuesF.name} keyValues"
+    protected val theEntries = "${entriesF.name} entries"
 
     protected val entriesOf = MapLikeContains.EntryPointStep<String, Int, Map<String, Int>, InAnyOrderSearchBehaviour>::entriesOf.name
     //@formatter:on
