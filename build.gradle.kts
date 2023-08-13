@@ -22,7 +22,6 @@ val niokVersion by extra("1.4.7")
 // test
 val jacocoToolVersion by extra("0.8.9")
 val junitPlatformVersion by extra("1.9.2")
-val jupiterVersion by extra("5.9.2")
 // need to use an old version of spek as the newer contains a bug which causes that no tests are discovered and executed
 val spekVersion by extra("2.0.12")
 val spekExtensionsVersion by extra("1.2.1")

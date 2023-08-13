@@ -27,7 +27,6 @@ buildscript {
 
 val spekExtensionsVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
-val jupiterVersion: String by rootProject.extra
 val mockkVersion: String by rootProject.extra
 val junitPlatformVersion: String by rootProject.extra
 val spekVersion: String by rootProject.extra
@@ -325,8 +324,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                                 runtimeOnly(project(testEngineProjectName))
 
                                 // to run samples
-                                implementation(kotlin("test-junit5"))
-                                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+                                // TODO 1.2.0 should both no longer be necessary if we depend on kotlin("test")
+//                                implementation(kotlin("test-junit5"))
+//                                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
                             }
                         }
                     }
@@ -392,8 +392,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             runtimeOnly(project(testEngineProjectName))
 
                             // for Samples
-                            implementation(kotlin("test-junit5"))
-                            runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+                            // TODO 1.2.0 should both no longer be necessary if we depend on kotlin("test")
+//                            implementation(kotlin("test-junit5"))
+//                            runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
 
                         }
                     }
