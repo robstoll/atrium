@@ -64,7 +64,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
     ): Expect<String> =
         elementFailing(index, sizeExceeded, expected, explaining = true, withBulletPoint = withBulletPoint)
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toContainInOrderOnlyEntries,
         toContainInOrderOnlyNullableEntries
