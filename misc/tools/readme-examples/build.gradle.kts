@@ -19,12 +19,7 @@ kotlin {
                 implementationWithExclude("ch.tutteli.niok:niok:$niokVersion")
             }
         }
-        configureEach {
-            languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
-            }
-        }
+
     }
     tasks {
         register<JavaExec>("readme") {

@@ -17,13 +17,13 @@ abstract class IterableToContainSpecBase {
     private val Entries = "entries"
 
     //@formatter:off
-    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
-    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
-    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
-    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
+    protected val atLeast = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::exactly.name
+    protected val atMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atMost.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::notOrAtMost.name
     protected val inAnyOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
     protected val butOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
     private val theInAnyOrderFun: KFunction2<IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -43,7 +43,7 @@ abstract class IterableToContainSpecBase {
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
 
     protected val inOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
     protected val andOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderSearchBehaviour>::and.name} ${only::class.simpleName}"
     private val theInOrderOnlyFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -54,8 +54,8 @@ abstract class IterableToContainSpecBase {
     protected val inOrderElementsOf =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
     protected val grouped =
-        "${IterableLikeContains.EntryPointStep<*, *, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
-    protected val within = IterableLikeContains.EntryPointStep<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
+    protected val within = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlyGroupedSearchBehaviour>::within.name
     private val withinInAnyOrderFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, Expect<Iterable<Int>>> =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = withinInAnyOrderFun.name

@@ -52,12 +52,5 @@ kotlin {
                 apiWithExclude("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.4.3")
             }
         }
-
-        configureEach {
-            languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
-            }
-        }
     }
 }

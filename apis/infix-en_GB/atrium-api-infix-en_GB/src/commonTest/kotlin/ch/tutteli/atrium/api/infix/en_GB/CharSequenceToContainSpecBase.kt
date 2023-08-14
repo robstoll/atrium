@@ -23,22 +23,23 @@ abstract class CharSequenceToContainSpecBase {
     private val notToContainFun: KFunction2<Expect<String>, Any, Expect<String>> = Expect<String>::notToContain
     protected val notToContainValues = "${notToContainFun.name} values"
     protected val toContainRegex = fun1<String, String>(Expect<String>::toContainRegex).name
-    protected val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
-    protected val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name
-    protected val exactly = CharSequenceContains.EntryPointStep<*, *>::exactly.name
-    protected val notOrAtMost = CharSequenceContains.EntryPointStep<*, *>::notOrAtMost.name
+    protected val atLeast = CharSequenceContains.EntryPointStep<CharSequence, *>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<CharSequence, *>::butAtMost.name
+    protected val atMost = CharSequenceContains.EntryPointStep<CharSequence, *>::atMost.name
+    protected val exactly = CharSequenceContains.EntryPointStep<CharSequence, *>::exactly.name
+    protected val notOrAtMost = CharSequenceContains.EntryPointStep<CharSequence, *>::notOrAtMost.name
     private val regexKFun: KFunction2<
-        CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
+        CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>,
         String,
         Expect<*>
-        > = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::regex
+        > = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
     protected val ignoringCase =
-        "${CharSequenceContains.EntryPointStep<*, NoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
-    protected val value = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::value.name
+        "${CharSequenceContains.EntryPointStep<CharSequence, NoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
+    protected val value = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::value.name
     protected val values = "the values"
     protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
+
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

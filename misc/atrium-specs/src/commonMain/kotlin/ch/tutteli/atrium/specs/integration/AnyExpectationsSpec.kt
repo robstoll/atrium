@@ -402,7 +402,7 @@ abstract class AnyExpectationsSpec(
         notToEqualOneInInt
     ) {
         //TODO 0.20.0 report Kotlin regression, using this was not necessary in 1.4.32
-        this.checkInt(
+        checkInt(
             "primitive",
             expect(1),
             toEqualInt,
@@ -412,7 +412,7 @@ abstract class AnyExpectationsSpec(
             notToEqualOneOfInt,
             notToEqualOneInInt
         )
-        this.checkInt(
+        checkInt(
             "nullable primitive",
             expect(1 as Int?),
             toEqualNullableInt,
@@ -424,7 +424,7 @@ abstract class AnyExpectationsSpec(
         )
 
         val subject = DataClass(true)
-        this.checkDataClass(
+        checkDataClass(
             "class",
             expect(subject),
             toEqualDataClass,
@@ -435,7 +435,7 @@ abstract class AnyExpectationsSpec(
             notToEqualOneInDataClass,
             subject
         )
-        this.checkDataClass(
+        checkDataClass(
             "nullable class",
             expect(subject as DataClass?),
             toEqualNullableDataClass,
@@ -447,7 +447,7 @@ abstract class AnyExpectationsSpec(
             subject
         )
 
-        this.checkNull(
+        checkNull(
             "null as Int?",
             toEqualNullableInt,
             notToEqualNullableInt,
@@ -458,7 +458,7 @@ abstract class AnyExpectationsSpec(
             2,
             emptyArray<Int?>()
         )
-        this.checkNull(
+        checkNull(
             "null as DataClass?",
             toEqualNullableDataClass,
             notToEqualNullableDataClass,

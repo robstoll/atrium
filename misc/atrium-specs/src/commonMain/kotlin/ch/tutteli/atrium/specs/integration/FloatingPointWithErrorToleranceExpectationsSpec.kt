@@ -42,13 +42,13 @@ abstract class FloatingPointWithErrorToleranceExpectationsSpec(
 
     //TODO 0.20.0 report Kotlin regression, using this was not necessary in 1.4.32
     //@formatter:off
-    this.describeFun(toEqualWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
+    describeFun(toEqualWithErrorToleranceFloat, true, { a: Float, b: Float -> (a - b).absoluteValue }, listOf(
         TestData(0.001f, 0.001f, listOf(0.002f, 0.0f, -0.0f, 0.00001f), listOf(0.0021f, -0.0000001f)),
         TestData(9.999f, 0.001f, listOf(9.998f, 9.9989f, 9.9988f), listOf(1.1f, 1.001f, 1.001f, 9.997f, /* due to precision */ 10.0f)),
         //should give out scientific notation
         TestData(0.000_000_01f, 0.000_000_002f, listOf(0.000_000_011f, 0.000_000_009f), listOf(0.000_000_013f, 0.000_000_007f, /* due to precision */ 0.000_000_012f, 0.000_000_008f))
     ))
-    this.describeFun(toEqualWithErrorToleranceDouble, true, { a, b -> (a - b).absoluteValue }, listOf(
+    describeFun(toEqualWithErrorToleranceDouble, true, { a, b -> (a - b).absoluteValue }, listOf(
         TestData(1.0, 0.01, listOf(1.009), listOf(0.98, 1.02, 1.011, /* due to precision */ 1.01, 0.99)),
         TestData(0.001, 0.001, listOf(0.002, 0.0, -0.0, 0.00001), listOf(0.0021, -0.0000001)),
         TestData(9.99999, 0.00001, listOf(10.0, 9.99998), listOf(1.1, 1.001, 1.001, 9.99997)),
