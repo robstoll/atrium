@@ -28,7 +28,7 @@ abstract class IterableNotToContainValuesExpectationsSpec(
 
     val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichEquals"
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         notToContainValues,
         notToContainNullableValues
