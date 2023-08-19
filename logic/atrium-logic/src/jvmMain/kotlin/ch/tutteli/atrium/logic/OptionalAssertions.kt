@@ -10,6 +10,6 @@ import java.util.*
  */
 interface OptionalAssertions {
     fun <T : Optional<*>> isEmpty(container: AssertionContainer<T>): Assertion
-    fun <E, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
+    fun <E: Any, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
 }
 
