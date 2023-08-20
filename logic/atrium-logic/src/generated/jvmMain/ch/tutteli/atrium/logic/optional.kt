@@ -14,7 +14,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultOptionalAssertions
 
 fun <T : Optional<*>> AssertionContainer<T>.isEmpty(): Assertion = impl.isEmpty(this)
-fun <E, T : Optional<E>> AssertionContainer<T>.isPresent(): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.isPresent(this)
+fun <E: Any, T : Optional<E>> AssertionContainer<T>.isPresent(): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.isPresent(this)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: OptionalAssertions

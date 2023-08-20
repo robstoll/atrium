@@ -33,7 +33,7 @@ infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: 
  *
  * @since 0.12.0
  */
-infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: present): FeatureExpect<T, E> =
+infix fun <E: Any, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") present: present): FeatureExpect<T, E> =
     _logic.isPresent().transform()
 
 /**
@@ -44,5 +44,5 @@ infix fun <E, T : Optional<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") pres
  *
  * @since 0.12.0
  */
-infix fun <E, T : Optional<E>> Expect<T>.toBe(present: PresentWithCreator<E>): Expect<T> =
+infix fun <E: Any, T : Optional<E>> Expect<T>.toBe(present: PresentWithCreator<E>): Expect<T> =
     _logic.isPresent().collectAndAppend(present.assertionCreator)

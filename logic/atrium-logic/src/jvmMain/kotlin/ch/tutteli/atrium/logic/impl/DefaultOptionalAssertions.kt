@@ -16,7 +16,7 @@ class DefaultOptionalAssertions : OptionalAssertions {
     override fun <T : Optional<*>> isEmpty(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(TO_BE, EMPTY) { !it.isPresent }
 
-    override fun <E, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
+    override fun <E: Any, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .withDescription(GET)
             .withRepresentationForFailure(IS_NOT_PRESENT)
