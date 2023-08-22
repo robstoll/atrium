@@ -12,8 +12,8 @@ dependencyResolutionManagement {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include("basics")
-include("gradle-plugin-convention")
 include("build-parameters")
 include("dev")
 include("publishing")

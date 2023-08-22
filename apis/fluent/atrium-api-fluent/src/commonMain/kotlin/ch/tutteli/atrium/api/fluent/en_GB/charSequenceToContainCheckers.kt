@@ -16,6 +16,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.atLeast
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
     times: Int

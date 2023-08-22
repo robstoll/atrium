@@ -33,6 +33,8 @@ import kotlin.jvm.JvmName
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.value
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
     values(expected)
