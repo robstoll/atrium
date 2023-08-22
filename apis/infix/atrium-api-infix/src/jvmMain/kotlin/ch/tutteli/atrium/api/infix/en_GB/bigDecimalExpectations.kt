@@ -124,6 +124,8 @@ infix fun <T : BigDecimal> Expect<T?>.notToEqual(expected: Nothing?): Expect<T> 
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.toEqualNumerically
+ *
  * @since 0.17.0
  */
 infix fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
@@ -143,6 +145,8 @@ infix fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> 
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.notToEqualNumerically
+ *
  * @since 0.17.0
  */
 infix fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<T> =
@@ -160,6 +164,8 @@ infix fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.toEqualIncludingScale
+ *
  * @since 0.17.0
  */
 infix fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<T> =
@@ -175,6 +181,8 @@ infix fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<
  * - `expect(BigDecimal("10")).notToEqualNumerically(BigDecimal("10.0"))`  does not hold.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.BigDecimalExpectationSamples.notToEqualIncludingScale
  *
  * @since 0.17.0
  */
