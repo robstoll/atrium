@@ -13,6 +13,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerSt
  * Defines that the v behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainSearchBehaviourSamples.ignoringCase
  */
 val <T : CharSequence> EntryPointStep<T, NoOpSearchBehaviour>.ignoringCase: EntryPointStep<T, IgnoringCaseSearchBehaviour>
     get() = _logic.ignoringCase

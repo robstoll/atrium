@@ -228,7 +228,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * For instance `expect(1).toBeLessThan(3).and { toBeEven(); toBeGreaterThan(1) }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
+ * Hence, the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
