@@ -7,7 +7,7 @@ dependencies {
 
     api("org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:1.8.20")
     api("org.jetbrains.dokka:dokka-base:1.8.20")
-    api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22")
+    api("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
 
     api("ch.tutteli.gradle.plugins.junitjacoco:ch.tutteli.gradle.plugins.junitjacoco.gradle.plugin:4.10.0")
     api("ch.tutteli.gradle.plugins.kotlin.module.info:ch.tutteli.gradle.plugins.kotlin.module.info.gradle.plugin:4.10.0")
