@@ -36,7 +36,7 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
             mismatchedIndex(index, value)
         }"
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         notToHaveElementsOrNone,
         notToHaveElementsOrNoneNullable

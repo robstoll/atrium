@@ -31,7 +31,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
         toHaveElementsAndAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toHaveElementsAndAny,
         toHaveElementsAndAnyNullable

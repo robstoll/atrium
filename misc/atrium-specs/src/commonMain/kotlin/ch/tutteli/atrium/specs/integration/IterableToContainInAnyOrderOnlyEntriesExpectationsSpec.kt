@@ -42,7 +42,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
     val anEntryAfterFailing = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     //@formatter:on
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toContainInAnyOrderOnlyEntries,
         toContainInAnyOrderOnlyNullableEntries
