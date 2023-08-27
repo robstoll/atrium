@@ -38,6 +38,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.butAtMost
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
     times: Int
