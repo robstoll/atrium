@@ -2,6 +2,7 @@ rootProject.name = "samples-composite"
 
 includeBuild("../../../")
 includeBuild("../../../samples/jvm/junit5")
+includeBuild("../../../samples/jvm/kotest")
 includeBuild("../../../samples/jvm/spek")
 includeBuild("../../../samples/multiplatform/kotlin-test") {
     name = "multiplatform-kotlin-test"
