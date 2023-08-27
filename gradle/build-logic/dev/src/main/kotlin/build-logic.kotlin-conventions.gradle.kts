@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+//import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -13,10 +13,10 @@ tasks.configureEach<KotlinCompile> {
         jvmTarget = buildParameters.defaultJdkVersion.toString()
     }
 }
-
-tasks.configureEach<KotlinCompilationTask<*>> {
-    compilerOptions {
-        // suppress warnings about kotlin 1.4 beeing deprecated
-        freeCompilerArgs.add("-Xsuppress-version-warnings")
-    }
-}
+//
+//tasks.configureEach<KotlinCompilationTask<*>> {
+//    compilerOptions {
+//        // suppress warnings about kotlin 1.4 beeing deprecated
+//        freeCompilerArgs.add("-Xsuppress-version-warnings")
+//    }
+//}

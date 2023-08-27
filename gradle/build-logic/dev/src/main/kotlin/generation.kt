@@ -133,7 +133,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 val type = getType(interfacePath)
                 val (extensionTypeSignature, getImpl) = pair
 
-                val decapitalized = type.replaceFirstChar { it.lowercase(Locale.getDefault()) }
+                val decapitalized = type.decapitalize()
                 val output = File("$generatedPath/${decapitalized}.kt")
                 val content = interfacePath.toFile().readText(StandardCharsets.UTF_8)
                 val interfaceName = "${type}Assertions"
