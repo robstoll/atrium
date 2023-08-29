@@ -23,4 +23,13 @@ class CharSequenceToContainCheckerSamples {
             expect("ABBBBCD").toContain.atLeast(2).butAtMost(3).value("B")
         }
     }
+
+    @Test
+    fun exactly() {
+        expect("ABCBAC").toContain.exactly(2).value("C")
+
+        fails {
+            expect("ABBBBCD").toContain.exactly(3).value("B")
+        }
+    }
 }
