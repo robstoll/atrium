@@ -153,4 +153,49 @@ class CharSequenceToContainCreatorSamples {
             expect("AAAAAABBBB").toContain.atLeast(3).matchFor(Regex("A"), Regex("B"), Regex("C"))
         }
     }
+
+
+    @Test
+    fun elementsOf() {
+        expect("ABC").toContain.exactly(1).elementsOf(listOf("A", "B", "C"))
+        expect("AAABC").toContain.atMost(3).elementsOf(listOf("A", "B", "C"))
+        expect("ABBBCD").toContain.atLeast(1).elementsOf(listOf("A", "B", "C", "D"))
+        fails {
+            expect("AAAAAABBBB").toContain.atMost(3).elementsOf(listOf("A", "B"))
+        }
+
+        fails {
+            expect("AAABBBB").toContain.exactly(3).elementsOf(listOf("A", "B"))
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.atLeast(3).elementsOf(listOf("A", "B", "C"))
+        }
+    }
+
+    @Test
+    fun elementsOfIgnoreCase() {
+        expect("AbC").toContain.ignoringCase.elementsOf(listOf("A", "B", "c"))
+        fails {
+            expect("aabaabbb").toContain.ignoringCase.elementsOf(listOf("A", "B", "C"))
+        }
+    }
+
+    @Test
+    fun elementsOfIgnoringCaseWithChecker() {
+        expect("ABc").toContain.ignoringCase.exactly(1).elementsOf(listOf("A", "b", "C"))
+        expect("AaaBC").toContain.ignoringCase.atMost(3).elementsOf(listOf("A", "B", "c"))
+        expect("ABBBcD").toContain.ignoringCase.atLeast(1).elementsOf(listOf("a", "b", "C", "d"))
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atMost(3).elementsOf(listOf("a", "b"))
+        }
+
+        fails {
+            expect("AAABBBB").toContain.ignoringCase.exactly(3).elementsOf(listOf("A", "b"))
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atLeast(3).elementsOf(listOf("a", "b", "C"))
+        }
+    }
 }
