@@ -91,4 +91,66 @@ class CharSequenceToContainCreatorSamples {
             expect("AAAAAABBBB").toContain.ignoringCase.atLeast(3).values("a", "b", "C")
         }
     }
+
+    @Test
+    fun regex() {
+        expect("ABC").toContain.exactly(1).regex("A", "B", "C")
+        expect("AAABC").toContain.atMost(3).regex("A", "B", "C")
+        expect("ABBBCD").toContain.atLeast(1).regex("A", "B", "C", "D")
+        fails {
+            expect("AAAAAABBBB").toContain.atMost(3).regex("A", "B")
+        }
+
+        fails {
+            expect("AAABBBB").toContain.exactly(3).regex("A", "B")
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.atLeast(3).regex("A", "B", "C")
+        }
+    }
+
+    @Test
+    fun regexIgnoringCase() {
+        expect("AbC").toContain.ignoringCase.regex("A", "B", "c")
+        fails {
+            expect("aabaabbb").toContain.ignoringCase.regex("A", "B", "C")
+        }
+    }
+
+    @Test
+    fun regexIgnoringCaseWithChecker() {
+        expect("ABc").toContain.ignoringCase.exactly(1).regex("A", "b", "C")
+        expect("AaaBC").toContain.ignoringCase.atMost(3).regex("A", "B", "c")
+        expect("ABBBcD").toContain.ignoringCase.atLeast(1).regex("a", "b", "C", "d")
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atMost(3).regex("a", "b")
+        }
+
+        fails {
+            expect("AAABBBB").toContain.ignoringCase.exactly(3).regex("A", "b")
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atLeast(3).regex("a", "b", "C")
+        }
+    }
+
+    @Test
+    fun matchFor() {
+        expect("ABC").toContain.exactly(1).matchFor(Regex("A"), Regex("B"), Regex("C"))
+        expect("AAABC").toContain.atMost(3).matchFor(Regex("A"), Regex("B"), Regex("C"))
+        expect("ABBBCD").toContain.atLeast(1).matchFor(Regex("A"), Regex("B"), Regex("C"), Regex("D"))
+        fails {
+            expect("AAAAAABBBB").toContain.atMost(3).matchFor(Regex("A"), Regex("B"))
+        }
+
+        fails {
+            expect("AAABBBB").toContain.exactly(3).matchFor(Regex("A"), Regex("B"))
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.atLeast(3).matchFor(Regex("A"), Regex("B"), Regex("C"))
+        }
+    }
 }

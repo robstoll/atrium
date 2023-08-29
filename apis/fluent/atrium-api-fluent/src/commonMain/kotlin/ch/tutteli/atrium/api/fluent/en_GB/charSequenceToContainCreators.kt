@@ -210,6 +210,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regex
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: String,
@@ -268,6 +271,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 1.1.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.matchFor
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex,
@@ -293,6 +299,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCaseWithChecker
+ *
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
@@ -322,6 +331,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
