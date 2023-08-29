@@ -14,4 +14,13 @@ class CharSequenceToContainCheckerSamples {
             expect("ABB").toContain.atLeast(2).value("A")
         }
     }
+
+    @Test
+    fun butAtMost() {
+        expect("ABBC").toContain.atLeast(1).butAtMost(2).value("B")
+
+        fails {
+            expect("ABBBBCD").toContain.atLeast(2).butAtMost(3).value("B")
+        }
+    }
 }
