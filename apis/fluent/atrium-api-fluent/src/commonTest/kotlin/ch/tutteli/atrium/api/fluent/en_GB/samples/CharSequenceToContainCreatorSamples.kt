@@ -21,6 +21,34 @@ class CharSequenceToContainCreatorSamples {
     }
 
     @Test
+    fun valueIgnoringCase() {
+        expect("ABC").toContain.ignoringCase.value("a")
+        expect("AbbbC").toContain.ignoringCase.value("B")
+
+        fails {
+            expect("AAAAAA").toContain.ignoringCase.value("B")
+        }
+    }
+
+    @Test
+    fun valueIgnoringCaseWithChecker() {
+        expect("ABC").toContain.ignoringCase.exactly(1).value("A")
+        expect("AAABBC").toContain.ignoringCase.atMost(3).value("b")
+        expect("aBBBCD").toContain.ignoringCase.atLeast(1).value("A")
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atMost(3).value("A")
+        }
+
+        fails {
+            expect("AAABBBb").toContain.ignoringCase.exactly(3).value("b")
+        }
+
+        fails {
+            expect("AAAAAABBBB").toContain.ignoringCase.atLeast(3).value("D")
+        }
+    }
+
+    @Test
     fun values() {
         expect("ABC").toContain.exactly(1).values("A", "B", "C")
         expect("AAABC").toContain.atMost(3).values("A", "B", "C")

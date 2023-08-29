@@ -35,6 +35,7 @@ import kotlin.jvm.JvmName
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.value
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
     values(expected)
@@ -90,6 +91,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ *  @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCaseWithChecker
+ *
  */
 @JvmName("valueIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
@@ -148,6 +152,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
