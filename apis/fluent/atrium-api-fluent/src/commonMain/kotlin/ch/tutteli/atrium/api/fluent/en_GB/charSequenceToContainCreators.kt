@@ -64,6 +64,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.values
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
@@ -118,6 +121,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCaseWithChecker
+ *
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
@@ -169,6 +175,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
