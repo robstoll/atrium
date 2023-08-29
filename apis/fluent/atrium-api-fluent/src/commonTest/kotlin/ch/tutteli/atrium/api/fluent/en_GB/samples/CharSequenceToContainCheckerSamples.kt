@@ -25,6 +25,16 @@ class CharSequenceToContainCheckerSamples {
     }
 
     @Test
+    fun notOrAtMost() {
+        expect("ABBC").toContain.notOrAtMost(2).value("D")
+        expect("ABBC").toContain.notOrAtMost(2).value("B")
+
+        fails {
+            expect("AABBAA").toContain.notOrAtMost(3).value("A")
+        }
+    }
+
+    @Test
     fun butAtMost() {
         expect("ABBC").toContain.atLeast(1).butAtMost(2).value("B")
 

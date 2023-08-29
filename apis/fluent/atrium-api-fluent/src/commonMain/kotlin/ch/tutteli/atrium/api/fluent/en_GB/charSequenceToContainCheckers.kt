@@ -112,6 +112,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.notOrAtMost
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
     times: Int
