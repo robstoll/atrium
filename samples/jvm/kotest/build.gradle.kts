@@ -30,8 +30,8 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+kotlin {
+    jvmToolchain(11)
 }
 
 tasks.test {
