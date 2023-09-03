@@ -3,9 +3,8 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.*
+import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
@@ -61,7 +60,17 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
+    ): SubjectChangerBuilder.ExecutionStep<T?, T>
+     = container.changeSubject.reportBuilder()
+        .withDescriptionAndRepresentation(description = NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE, representation = subType)
+        .withTransformation {
+            Option.someIf(subType.isInstance(it)) { subType.cast(it) }
+        }
+        .build()
+
+
+
+
 
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
     override fun <T, TSub> isA(
