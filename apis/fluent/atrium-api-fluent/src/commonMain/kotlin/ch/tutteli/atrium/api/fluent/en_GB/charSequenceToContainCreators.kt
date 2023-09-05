@@ -55,9 +55,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value("a")`
+ *   `toContain.exactly(2).value("a")`
  * instead of:
- *   `contains.atLeast(1).values("a", "a")`
+ *   `toContain.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
@@ -115,9 +115,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).value("a")`
+ *   `toContain.ignoringCase.exactly(2).value("a")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).values("a", "a")`
+ *   `toContain.ignoringCase.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
@@ -202,9 +202,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex("a(b)?")`
+ *   `toContain.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -230,9 +230,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex(Regex("a(b)?"))`
+ *   `toContain.exactly(2).regex(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
+ *   `toContain.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -261,9 +261,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).matchFor(Regex("a(b)?"))`
+ *   `toContain.exactly(2).matchFor(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).matchFor(Regex("a(b)?"), Regex("a(b)?"))`
+ *   `toContain.atLeast(1).matchFor(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -291,9 +291,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
+ *   `toContain.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -323,9 +323,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
  * to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
+ *   `toContain.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
