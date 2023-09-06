@@ -69,9 +69,6 @@ class DefaultAnyAssertions : AnyAssertions {
         .build()
 
 
-
-
-
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
     override fun <T, TSub> isA(
         container: AssertionContainer<T>,
