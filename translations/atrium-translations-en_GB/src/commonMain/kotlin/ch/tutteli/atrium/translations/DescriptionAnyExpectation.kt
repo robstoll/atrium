@@ -13,8 +13,8 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     /** @since 0.18.0 */
     NOT_TO_EQUAL("not to equal"),
 
-    /** @since todo v num */
-    NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE("not to equal: null but to be an instance of"),
+    /** @since 1.1.0 */
+    NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE("not to equal: null but to be an instance of type"),
 
     /** @since 0.18.0 */
     TO_BE_AN_INSTANCE_OF("to be an instance of type"),
