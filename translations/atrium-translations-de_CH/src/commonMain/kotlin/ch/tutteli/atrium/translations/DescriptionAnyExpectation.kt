@@ -19,6 +19,8 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     /** @since 0.18.0 */
     TO_BE_THE_INSTANCE("ist dieselbe Instanz wie"),
 
+    NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE("entsprich nicht: null sondern ist eine Instanz vom Typ"),
+
     /** @since 0.18.0 */
     NOT_TO_BE_THE_INSTANCE("ist nicht dieselbe Instanz wie"),
 
