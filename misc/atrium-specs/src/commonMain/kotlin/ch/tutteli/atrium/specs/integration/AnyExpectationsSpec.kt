@@ -656,7 +656,7 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             A::class.simpleName!!,
-                            "$toBeAnInstanceOfDescr: Int (kotlin.Int)"
+                            "$notToEqualNullButBeOfTypeDescr: Int (kotlin.Int)"
                         )
                         if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }

@@ -273,6 +273,7 @@ val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
 val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()
 val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
+val notToEqualNullButBeOfTypeDescr= DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE.getDefault()
 
 expect val lineSeparator: String
 
