@@ -30,9 +30,6 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
-kotlin {
-    jvmToolchain(11)
-}
 
 tasks.test {
     useJUnitPlatform()
