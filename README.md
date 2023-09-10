@@ -178,6 +178,7 @@ folder, it currently contains sample projects for
 - [jvm -- junit5](https://github.com/robstoll/atrium/tree/main/samples/jvm/junit5)
 - [jvm -- spek](https://github.com/robstoll/atrium/tree/main/samples/jvm/spel)
 - [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
+- [jvm -- kotest](https://github.com/robstoll/atrium/tree/main/samples/jvm/kotest)
 - [multiplatform project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform/)
 
 Are you using a different runner? A PR would be appreciated 😊.
