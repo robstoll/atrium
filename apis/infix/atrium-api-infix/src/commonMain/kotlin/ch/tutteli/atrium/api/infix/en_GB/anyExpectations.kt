@@ -145,6 +145,10 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
     return assertionContainer.isA(kClass)
 }
 
+@PublishedApi // in order that _logic does not become part of the API we have this extra function
+internal fun  <TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(notExpectedClass: KClass<TNotExpected>): Expect<*> =
+    _logicAppend { notToBeAnInstanceOf(notExpectedClass) }
+
 /**
  * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type) and
  * that it holds all assertions the given [assertionCreator] creates.
@@ -191,6 +195,20 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
  */
 inline infix fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
+
+/**
+ * Expects that the subject of `this` expectation *is not a* [TNotExpected] (the same type or a sub-type) and
+ * that it holds all assertions the given [assertionCreator] creates.
+ *
+ * @return the calling [Expect] with the same type [T] (see wildcard).
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToBeInstanceOf
+ *
+ * @since 1.1.0
+ */
+inline fun <reified TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> =
+    notToBeAnInstanceOf(TNotExpected::class)
+
 
 /**
  * Expects that the subject of `this` expectation is not equal to any value of [values].

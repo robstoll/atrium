@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.creating.Expect
 import kotlin.test.Test
 
 class AnyExpectationSamples {
@@ -151,6 +150,15 @@ class AnyExpectationSamples {
             // because you forgot to define an expectation in the expectation-group block
             // use `.toBeAnInstanceOf<Int>()` if this is all you expect
             expect<Number>(1).toBeAnInstanceOf<Int> { }
+        }
+    }
+    @Test
+    fun notToBeInstanceOf() {
+        val n: Number = 16
+        expect(n).notToBeAnInstanceOf<String>()
+        fails{
+            // fails because n is actually instance of number
+            expect(n).notToBeAnInstanceOf<Number>()
         }
     }
 

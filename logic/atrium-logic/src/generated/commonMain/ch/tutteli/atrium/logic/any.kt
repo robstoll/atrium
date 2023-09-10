@@ -31,6 +31,8 @@ fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.i
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)
 
+fun <T, TNotExpected : Any> AssertionContainer<T>.notToBeAnInstanceOf(notExpectedClass: KClass<TNotExpected>): Assertion = impl.notToBeAnInstanceOf(this, notExpectedClass)
+
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: AnyAssertions
     get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }

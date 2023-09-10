@@ -81,7 +81,6 @@ interface SubjectChangerBuilder {
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
                 }
-
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
          * which expects a [Translatable] instead of a [String].

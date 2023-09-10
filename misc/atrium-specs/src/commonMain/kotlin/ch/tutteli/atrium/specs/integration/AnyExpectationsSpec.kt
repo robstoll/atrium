@@ -53,6 +53,8 @@ abstract class AnyExpectationsSpec(
     toBeAnInstanceOfSuperType: Feature1<out Any?, Expect<SuperType>.() -> Unit, SuperType>,
     toBeAnInstanceOfSubTypeFeature: Feature0<out Any?, SubType>,
     toBeAnInstanceOfSubType: Feature1<out Any?, Expect<SubType>.() -> Unit, SubType>,
+    notToBeInstanceOfFeature:Feature0<out Any?, out Any?>,
+    notToBeAnInstanceOf: Feature1<out Any?, Expect<SuperType>.() -> Unit, out Any?>,
 
     notToBeNullFeature: Feature0<Int?, Int>,
     notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
