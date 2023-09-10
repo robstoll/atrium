@@ -174,9 +174,7 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
 }
 
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-// does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verb here
+// does not make sense to test the verbs with the verbs themselves. Thus, we create our own assertion verb here
 private fun <R> assert(act: () -> R): Expect<() -> R> =
     RootExpectBuilder.forSubject(act)
         .withVerb(AssertionVerb.EXPECT_THROWN)

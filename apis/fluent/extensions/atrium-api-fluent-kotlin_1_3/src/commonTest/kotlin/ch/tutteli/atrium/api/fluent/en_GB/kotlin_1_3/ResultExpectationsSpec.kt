@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
+@Suppress("DEPRECATION")
 class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpectationsSpec(
     feature0<Result<Int>, Int>(Expect<Result<Int>>::toBeASuccess),
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::toBeASuccess),

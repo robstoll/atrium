@@ -94,9 +94,9 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         var star: Expect<Collection<*>> = notImplemented()
 
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
-        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2))
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1.2, 2))
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1.2), Values(1, 2))
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1f), Values(1L, 2, 'a', "hello"))
 
         list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(1), Values(1, 2), report = {})
@@ -129,7 +129,8 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
             report = {},
             reportInGroup = {})
 
-        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null))
+        val value1 = Value<Int?>(null)
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(value1, Values(1, null))
         star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(null, 2))
 
         nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Value(null), Values(1, null), report = {})

@@ -79,7 +79,7 @@ internal abstract class ComponentFactoryContainerImpl : ComponentFactoryContaine
             redefiningFactoryContainer.getFactoryOrNull(kClass) ?: previousFactoryContainer.getFactoryOrNull(kClass)
 
         override fun getFactoryForChainedOrNull(kClass: KClass<*>): Sequence<ComponentFactory>? {
-            //TODO 1.1.0 rewrite to sequence { ... }
+            //TODO 1.3.0 rewrite to sequence { ... }
             val previousSequence = previousFactoryContainer.getFactoryForChainedOrNull(kClass)
             return redefiningFactoryContainer.getFactoryForChainedOrNull(kClass)?.let { redefinedSequence ->
                 if (previousSequence != null) {
@@ -115,6 +115,7 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 
 
 @ExperimentalComponentFactoryContainer
+@OptIn(ExperimentalFeatureInfo::class)
 internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
     mapOf(
         Reporter::class createSingletonVia { c ->
@@ -140,11 +141,8 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
                 emptyList()
             )
         },
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalFeatureInfo::class)
+
         FeatureInfo::class createVia { _ ->
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalFeatureInfo::class)
             StackTraceBasedFeatureInfo()
         },
 

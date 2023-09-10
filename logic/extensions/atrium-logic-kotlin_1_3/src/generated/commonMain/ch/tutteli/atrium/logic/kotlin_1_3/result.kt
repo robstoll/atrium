@@ -17,7 +17,6 @@ fun <E, T : Result<E>> AssertionContainer<T>.isSuccess(): FeatureExtractorBuilde
 
 fun <TExpected : Throwable> AssertionContainer<out Result<*>>.isFailureOfType(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = impl.isFailureOfType(this, expectedType)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ResultAssertions
     get() = getImpl(ResultAssertions::class) { DefaultResultAssertions() }

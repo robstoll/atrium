@@ -127,7 +127,20 @@ In case you use a version prior to Kotlin 1.5, then use the following depending 
 
 </details>
 
+<details>
+<summary>I use JS IR but Atrium 1.0.0 was built with LEGACY</summary>
+
+Atrium will support JS IR once we drop kotlin 1.3 entirely. The plan is to deprecate the kotlin_1_3 extension with
+Atrium 1.1.0 and drop it with Atrium 1.2.0 and at the same time switch to JS IR.
+
+In the meantime you can use the special version: 1.0.0-IR-alpha. See https://github.com/robstoll/atrium/releases/tag/v1.1.0-IR-alpha
+for further information
+
+</details>
+
 I have other problems: please take a look at the [Sample Projects](#sample-projects) for further guidance.
+
+
 
 ## Extensions
 
@@ -291,7 +304,7 @@ As an example, the following AssertJ example:
 ```kotlin
 assertSoftly {
     assertThat(mansion.numOfGuests).isEqualTo(7)
-    assertThat(mansion.kitchen.stastus).isEqualTo("clean")
+    assertThat(mansion.kitchen.status).isEqualTo("clean")
     assertThat(mansion.kitchen.numOfTables).isGreaterThan(5).isLessThan(10)
 }
 
@@ -342,16 +355,16 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L64)</sub> ↓ <sub>[Output](#ex-toThrow1)</sub>
 <a name="ex-toThrow1"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
+I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$5$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "name is empty"        <1234789>
       » stacktrace: 
-        ⚬ readme.examples.MostExamplesSpec$1$7$1.invoke(MostExamplesSpec.kt:67)
-        ⚬ readme.examples.MostExamplesSpec$1$7$1.invoke(MostExamplesSpec.kt:22)
-        ⚬ readme.examples.MostExamplesSpec$1$7.invoke(MostExamplesSpec.kt:280)
-        ⚬ readme.examples.MostExamplesSpec$1$7.invoke(MostExamplesSpec.kt:22)
+        ⚬ readme.examples.MostExamplesSpec$1$5$1.invoke(MostExamplesSpec.kt:67)
+        ⚬ readme.examples.MostExamplesSpec$1$5$1.invoke(MostExamplesSpec.kt:65)
+        ⚬ readme.examples.MostExamplesSpec$1$5.invoke(MostExamplesSpec.kt:280)
+        ⚬ readme.examples.MostExamplesSpec$1$5.invoke(MostExamplesSpec.kt:64)
 ```
 </ex-toThrow1>
 
@@ -381,7 +394,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L71)</sub> ↓ <sub>[Output](#ex-toThrow2)</sub>
 <a name="ex-toThrow2"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$8$1 <1234789>)
+I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$6$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -402,7 +415,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L79)</sub> ↓ <sub>[Output](#ex-toThrow3)</sub>
 <a name="ex-toThrow3"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$9$1 <1234789>)
+I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ to be an instance of type: String (kotlin.String) -- Class: java.lang.String
@@ -425,19 +438,19 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-notToThrow)</sub>
 <a name="ex-notToThrow"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$10$1 <1234789>)
+I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$8$1 <1234789>)
 ◆ ▶ invoke(): ❗❗ threw java.lang.IllegalArgumentException
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "name is empty"        <1234789>
       » stacktrace: 
-        ⚬ readme.examples.MostExamplesSpec$1$10$1.invoke(MostExamplesSpec.kt:88)
-        ⚬ readme.examples.MostExamplesSpec$1$10$1.invoke(MostExamplesSpec.kt:22)
-        ⚬ readme.examples.MostExamplesSpec$1$10.invoke(MostExamplesSpec.kt:89)
-        ⚬ readme.examples.MostExamplesSpec$1$10.invoke(MostExamplesSpec.kt:22)
+        ⚬ readme.examples.MostExamplesSpec$1$8$1.invoke(MostExamplesSpec.kt:88)
+        ⚬ readme.examples.MostExamplesSpec$1$8$1.invoke(MostExamplesSpec.kt:86)
+        ⚬ readme.examples.MostExamplesSpec$1$8.invoke(MostExamplesSpec.kt:89)
+        ⚬ readme.examples.MostExamplesSpec$1$8.invoke(MostExamplesSpec.kt:85)
       » cause: java.lang.RuntimeException
           » message: "a cause"        <1234789>
           » stacktrace: 
-            ⚬ readme.examples.MostExamplesSpec$1$10$1.invoke(MostExamplesSpec.kt:88)
+            ⚬ readme.examples.MostExamplesSpec$1$8$1.invoke(MostExamplesSpec.kt:88)
 ```
 </ex-notToThrow>
 
@@ -1855,7 +1868,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/MostExamplesSpec.kt#L251)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
 <a name="ex-add-info-3"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$40$1 <1234789>)
+I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$38$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
@@ -1866,14 +1879,14 @@ I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpe
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "no no no..."        <1234789>
       » stacktrace: 
-        ⚬ readme.examples.MostExamplesSpec$1$40$1.invoke(MostExamplesSpec.kt:256)
-        ⚬ readme.examples.MostExamplesSpec$1$40$1.invoke(MostExamplesSpec.kt:22)
-        ⚬ readme.examples.MostExamplesSpec$1$40.invoke(MostExamplesSpec.kt:280)
-        ⚬ readme.examples.MostExamplesSpec$1$40.invoke(MostExamplesSpec.kt:22)
+        ⚬ readme.examples.MostExamplesSpec$1$38$1.invoke(MostExamplesSpec.kt:256)
+        ⚬ readme.examples.MostExamplesSpec$1$38$1.invoke(MostExamplesSpec.kt:252)
+        ⚬ readme.examples.MostExamplesSpec$1$38.invoke(MostExamplesSpec.kt:280)
+        ⚬ readme.examples.MostExamplesSpec$1$38.invoke(MostExamplesSpec.kt:251)
       » cause: java.lang.UnsupportedOperationException
           » message: "not supported"        <1234789>
           » stacktrace: 
-            ⚬ readme.examples.MostExamplesSpec$1$40$1.invoke(MostExamplesSpec.kt:254)
+            ⚬ readme.examples.MostExamplesSpec$1$38$1.invoke(MostExamplesSpec.kt:254)
 ```
 </ex-add-info-3>
 

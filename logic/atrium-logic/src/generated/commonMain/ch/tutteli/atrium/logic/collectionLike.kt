@@ -19,7 +19,6 @@ fun <T : CollectionLike> AssertionContainer<T>.isNotEmpty(converter: (T) -> Coll
 
 fun <T : CollectionLike> AssertionContainer<T>.size(converter: (T) -> Collection<*>): FeatureExtractorBuilder.ExecutionStep<T, Int> = impl.size(this, converter)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: CollectionLikeAssertions
     get() = getImpl(CollectionLikeAssertions::class) { DefaultCollectionLikeAssertions() }

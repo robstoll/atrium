@@ -45,7 +45,6 @@ fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.max(converter: (
 
 fun <T : IterableLike, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = impl.containsNoDuplicates(this, converter)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: IterableLikeAssertions
     get() = getImpl(IterableLikeAssertions::class) { DefaultIterableLikeAssertions() }

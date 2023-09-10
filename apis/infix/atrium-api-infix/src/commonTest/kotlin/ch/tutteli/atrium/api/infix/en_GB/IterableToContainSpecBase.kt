@@ -17,13 +17,13 @@ abstract class IterableToContainSpecBase {
     private val Entries = "entries"
 
     //@formatter:off
-    protected val atLeast = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *, InAnyOrderSearchBehaviour>::butAtMost.name
-    protected val exactly = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::exactly.name
-    protected val atMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::atMost.name
-    protected val notOrAtMost = IterableLikeContains.EntryPointStep<*, *, InAnyOrderSearchBehaviour>::notOrAtMost.name
+    protected val atLeast = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val exactly = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::exactly.name
+    protected val atMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::atMost.name
+    protected val notOrAtMost = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InAnyOrderSearchBehaviour>::notOrAtMost.name
     protected val inAnyOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
     protected val butOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
     private val theInAnyOrderFun: KFunction2<IterableLikeContains.CheckerStep<Int, Iterable<Int>, InAnyOrderSearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -43,7 +43,7 @@ abstract class IterableToContainSpecBase {
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InAnyOrderOnlySearchBehaviour>::elementsOf.name
 
     protected val inOrder =
-        "${IterableLikeContains.EntryPointStep<*, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
     protected val andOnly =
         "${IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderSearchBehaviour>::and.name} ${only::class.simpleName}"
     private val theInOrderOnlyFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>, Values<Int>, Expect<Iterable<Int>>> =
@@ -54,8 +54,8 @@ abstract class IterableToContainSpecBase {
     protected val inOrderElementsOf =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlySearchBehaviour>::elementsOf.name
     protected val grouped =
-        "${IterableLikeContains.EntryPointStep<*, *, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
-    protected val within = IterableLikeContains.EntryPointStep<*, *, InOrderOnlyGroupedSearchBehaviour>::within.name
+        "${IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
+    protected val within = IterableLikeContains.EntryPointStep<Any, Iterable<*>, InOrderOnlyGroupedSearchBehaviour>::within.name
     private val withinInAnyOrderFun: KFunction2<IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Int, Group<Int>>, Expect<Iterable<Int>>> =
         IterableLikeContains.EntryPointStep<Int, Iterable<Int>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
     protected val withinInAnyOrder = withinInAnyOrderFun.name
@@ -69,13 +69,13 @@ abstract class IterableToContainSpecBase {
         Expect<Iterable<Int>>::notToContain
     protected val notToContain = "${notToContainProp.name} $Values"
 
+    //TODO move to specific specs
     @Suppress("unused")
     private fun ambiguityTest() {
         val list: Expect<List<Number>> = notImplemented()
         val nullableList: Expect<Set<Number?>> = notImplemented()
         val subList: Expect<ArrayList<out Number>> = notImplemented()
         val star: Expect<Collection<*>> = notImplemented()
-        val any: Expect<Collection<Any>> = notImplemented()
 
         list toContain 1
         list toContain 1f
@@ -108,13 +108,11 @@ abstract class IterableToContainSpecBase {
         nullableList notToContain values(1, 2f)
         nullableList notToContain o entry {}
         nullableList notToContain o the entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList toContain null as Number?
+        nullableList toContain null
         nullableList toContain entries(null, {})
         nullableList toContain entries({}, null)
         nullableList toContain entries(null, null)
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList notToContain null as Number?
+        nullableList notToContain null
         nullableList notToContain o the entries(null, {})
         nullableList notToContain o the entries({}, null)
         nullableList notToContain o the entries(null, null)
@@ -129,46 +127,29 @@ abstract class IterableToContainSpecBase {
         star notToContain values(1, 2f)
         star notToContain o entry {}
         star notToContain o the entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star toContain (null as Number?)
+        star toContain null
         star toContain entries(null, {})
         star toContain entries({}, null)
         star toContain entries(null, null)
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star notToContain (null as Number?)
+        star notToContain null
         star notToContain o the entries(null, {})
         star notToContain o the entries({}, null)
         star notToContain o the entries(null, null)
 
         list toContainExactly 1
         list toContainExactly values(1, 2f)
-        list toContainExactly {}
-        list toContainExactly entries({}, {})
 
         subList toContainExactly 1
         subList toContainExactly values(1, 2f)
-        subList toContainExactly {}
-        subList toContainExactly entries({}, {})
 
         nullableList toContainExactly 1
         nullableList toContainExactly values(1, 2f)
-        nullableList toContainExactly {}
-        nullableList toContainExactly entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        nullableList toContainExactly (null as (Expect<Number>.() -> Unit)?)
-        nullableList toContainExactly entries({}, null)
-        nullableList toContainExactly entries(null, {})
-        nullableList toContainExactly entries(null, null)
+        nullableList toContainExactly null
 
         star toContainExactly 1
         star toContainExactly values(1, 2f)
-        star toContainExactly {}
-        star toContainExactly entries({}, {})
-        //TODO should work without cast, remove as soon as KT-6591 is fixed - (with Kotlin 1.4)
-        star toContainExactly (null as (Expect<Number>.() -> Unit)?)
-        star toContainExactly entries({}, null)
-        star toContainExactly entries(null, {})
-        star toContainExactly entries(null, null)
+        star toContainExactly null
+
 
         list toContain o inAny order atLeast 1 value 1
         list toContain o inAny order atLeast 1 the values(2, 1)
@@ -246,109 +227,30 @@ abstract class IterableToContainSpecBase {
 
         list toContain o inGiven order and only value 1
         list toContain o inGiven order and only the values(2, 1)
-        list toContain o inGiven order and only entry {}
-        list toContain o inGiven order and only the entries({}, {})
+
         list toContain o inGiven order and only elementsOf listOf(1, 2)
         subList toContain o inGiven order and only value 1
         subList toContain o inGiven order and only the values(2, 1)
-        subList toContain o inGiven order and only entry {}
-        subList toContain o inGiven order and only the entries({}, {})
+
         subList toContain o inGiven order and only elementsOf listOf(1, 2)
         nullableList toContain o inGiven order and only value 1
         nullableList toContain o inGiven order and only the values(2, 1)
-        nullableList toContain o inGiven order and only entry {}
-        nullableList toContain o inGiven order and only the entries({}, {})
+
         nullableList toContain o inGiven order and only elementsOf listOf(1, 2)
         nullableList toContain o inGiven order and only value null
         nullableList toContain o inGiven order and only the values(null, 1)
         nullableList toContain o inGiven order and only the values(2, null)
         nullableList toContain o inGiven order and only the values(null, null)
-        nullableList toContain o inGiven order and only entry null
-        nullableList toContain o inGiven order and only the entries(null, {})
-        nullableList toContain o inGiven order and only the entries({}, null)
-        nullableList toContain o inGiven order and only the entries(null, null)
+
         star toContain o inGiven order and only value 1
         star toContain o inGiven order and only the values(2, 1)
-        star toContain o inGiven order and only entry {}
-        star toContain o inGiven order and only the entries({}, {})
+
+
         star toContain o inGiven order and only elementsOf listOf(1, 2)
         star toContain o inGiven order and only value null
         star toContain o inGiven order and only the values(null, 1)
         star toContain o inGiven order and only the values(2, null)
         star toContain o inGiven order and only the values(null, null)
-        star toContain o inGiven order and only entry null
-        star toContain o inGiven order and only the entries(null, {})
-        star toContain o inGiven order and only the entries({}, null)
-        star toContain o inGiven order and only the entries(null, null)
 
-        list toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(1f),
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            values<Number>(1f, 1)
-        )
-        subList toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(1f),
-            values<Number>(1f, 1)
-        )
-        nullableList toContain o inGiven order and only grouped entries within group inAny order(
-            value(null),
-            values(null),
-            values(null, 2),
-            values(1, null),
-            values(null, null)
-        )
-        star toContain o inGiven order and only grouped entries within group inAny order(
-            value(null),
-            values(null),
-            values(null, 2),
-            values(1, null),
-            values(null, null)
-        )
-        any toContain o inGiven order and only grouped entries within group inAny order(
-            value(1),
-            values(2),
-            values(1f, 2),
-            values(1, 1),
-            values("je", 'a')
-        )
-
-        list toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number> {},
-            entries({}),
-            entries({}, {})
-        )
-        subList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number> {},
-            entries({}),
-            entries({}, {})
-        )
-        nullableList toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Number>(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
-        star toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO this should fail IMO
-            entry<Number>(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
-        any toContain o inGiven order and only grouped entries within group inAny order(
-            //TODO check if this is resolved correctly with kotlin 1.4 otherwise report an issue
-            entry<Any>(null),
-            entries(null),
-            entries(null, {}),
-            entries({}, null),
-            entries(null, null)
-        )
     }
 }

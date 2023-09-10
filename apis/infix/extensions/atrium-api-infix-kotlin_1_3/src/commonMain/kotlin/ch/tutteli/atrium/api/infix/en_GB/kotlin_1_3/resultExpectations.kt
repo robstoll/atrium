@@ -15,6 +15,10 @@ import ch.tutteli.atrium.logic.kotlin_1_3.isSuccess
  *
  * @since 0.17.0
  */
+@Deprecated(
+    "The whole kotlin_1_3 extension will be removed with 1.2.0, use the function from the ch.tutteli.atrium.api.fluent.en_GB package",
+    ReplaceWith("this toBe aSuccess", "ch.tutteli.atrium.api.fluent.en_GB.toBe")
+)
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSuccess: aSuccess): Expect<E> =
     _logic.isSuccess().transform()
 
@@ -28,6 +32,10 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSucce
  *
  * @since 0.12.0
  */
+@Deprecated(
+    "The whole kotlin_1_3 extension will be removed with 1.2.0, use the function from the ch.tutteli.atrium.api.fluent.en_GB package",
+    ReplaceWith("this toBe success", "ch.tutteli.atrium.api.fluent.en_GB.toBe")
+)
 infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
     _logic.isSuccess().collectAndAppend(success.assertionCreator)
 
@@ -39,6 +47,10 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Exp
  *
  * @since 0.17.0
  */
+@Deprecated(
+    "The whole kotlin_1_3 extension will be removed with 1.2.0, use the function from the ch.tutteli.atrium.api.fluent.en_GB package",
+    ReplaceWith("this.toBeAFailure<TExpected>()", "ch.tutteli.atrium.api.fluent.en_GB.toBeASuccess")
+)
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
 
@@ -51,6 +63,10 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure():
  *
  * @since 0.17.0
  */
+@Deprecated(
+    "The whole kotlin_1_3 extension will be removed with 1.2.0, use the function from the ch.tutteli.atrium.api.fluent.en_GB package",
+    ReplaceWith("this.toBeAFailure<TExpected>(assertionCreator)", "ch.tutteli.atrium.api.fluent.en_GB.toBeAFailure")
+)
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)

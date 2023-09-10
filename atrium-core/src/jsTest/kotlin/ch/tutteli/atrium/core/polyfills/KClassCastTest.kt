@@ -50,7 +50,6 @@ class KClassCastTest {
     }
 
 
-    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun classAndObject() {
         expect("dummy subject, see sub assertions") {
@@ -83,7 +82,6 @@ class KClassCastTest {
         }
     }
 
-    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun illegalCasts_privateAndClass_throwsClassCastException() {
         expect {

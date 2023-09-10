@@ -97,7 +97,10 @@ fun <T : Any> entries(
     vararg otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?,
     reportOptionsInOrderOnly: InOrderOnlyReportingOptions.() -> Unit
 ): WithInOrderOnlyReportingOptions<Entries<T>> =
-    WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls))
+    WithInOrderOnlyReportingOptions(
+        reportOptionsInOrderOnly,
+        Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)
+    )
 
 /**
  * Helper function to create a [WithInAnyOrderOnlyReportingOptions] wrapping an [Entries] based on the given
@@ -120,7 +123,10 @@ fun <T : Any> entries(
     vararg otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?,
     reportOptionsInAnyOrderOnly: InAnyOrderOnlyReportingOptions.() -> Unit
 ): WithInAnyOrderOnlyReportingOptions<Entries<T>> =
-    WithInAnyOrderOnlyReportingOptions(reportOptionsInAnyOrderOnly, Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls))
+    WithInAnyOrderOnlyReportingOptions(
+        reportOptionsInAnyOrderOnly,
+        Entries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)
+    )
 
 /**
  * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping an [MapLike]
@@ -142,8 +148,10 @@ fun <T : MapLike> entriesOf(
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValues
  */
-// TODO 1.1.0: consider to rename to `entries` once updated to Kotlin 1.4 maybe the type inference is better and there
-// is no longer a clash with Iterable entries
+@Deprecated(
+    "Use entries instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("entries(keyValue, *otherKeyValues)", "ch.tutteli.atrium.api.infix.en_GB.entries")
+)
 fun <K, V : Any> keyValues(
     keyValue: KeyWithValueCreator<K, V>,
     vararg otherKeyValues: KeyWithValueCreator<K, V>
@@ -153,18 +161,55 @@ fun <K, V : Any> keyValues(
  * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
  * -- allows expressing `Pair<K, (Expect<V>.() -> Unit)?>, vararg Pair<K, (Expect<V>.() -> Unit)?>`.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.toContainKeyValues
+ *
+ * @since 1.1.0
+ */
+fun <K, V : Any> entries(
+    keyValue: KeyWithValueCreator<K, V>,
+    vararg otherKeyValues: KeyWithValueCreator<K, V>
+): KeyValues<K, V> = KeyValues(keyValue, otherKeyValues)
+
+
+/**
+ * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
+ * -- allows expressing `Pair<K, (Expect<V>.() -> Unit)?>, vararg Pair<K, (Expect<V>.() -> Unit)?>`.
+ *
  * @param reportOptionsInOrderOnly The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
- *   since 0.18.0
+ *
+ * @since 0.18.0
  */
-// TODO 1.1.0: consider to rename to `entries` once updated to Kotlin 1.4 maybe the type inference is better and there
-// is no longer a clash with Iterable entries
+@Deprecated(
+    "Use entries instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "entries(keyValue, *otherKeyValues, reportOptionsInOrderOnly)",
+        "ch.tutteli.atrium.api.infix.en_GB.entries"
+    )
+)
 fun <K, V : Any> keyValues(
     keyValue: KeyWithValueCreator<K, V>,
     vararg otherKeyValues: KeyWithValueCreator<K, V>,
     reportOptionsInOrderOnly: InOrderOnlyReportingOptions.() -> Unit
 ): WithInOrderOnlyReportingOptions<KeyValues<K, V>> =
     WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, KeyValues(keyValue, otherKeyValues))
+
+/**
+ * Helper function to create a [KeyValues] based on the given [keyValue] and [otherKeyValues]
+ * -- allows expressing `Pair<K, (Expect<V>.() -> Unit)?>, vararg Pair<K, (Expect<V>.() -> Unit)?>`.
+ *
+ * @param reportOptionsInOrderOnly The lambda configuring the [InOrderOnlyReportingOptions] -- it is optional where
+ *   the default [InOrderOnlyReportingOptions] apply if not specified.
+ *
+ * @since 1.1.0
+ */
+fun <K, V : Any> entries(
+    keyValue: KeyWithValueCreator<K, V>,
+    vararg otherKeyValues: KeyWithValueCreator<K, V>,
+    reportOptionsInOrderOnly: InOrderOnlyReportingOptions.() -> Unit
+): WithInOrderOnlyReportingOptions<KeyValues<K, V>> =
+    WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, KeyValues(keyValue, otherKeyValues))
+
 
 /**
  * Helper function to create a [KeyWithValueCreator] based on the given [key] and [valueAssertionCreatorOrNull]
@@ -196,7 +241,8 @@ fun <K, V> pairs(
     pair: Pair<K, V>,
     vararg otherPairs: Pair<K, V>,
     reportOptionsInOrderOnly: InOrderOnlyReportingOptions.() -> Unit
-): WithInOrderOnlyReportingOptions<Pairs<K, V>> = WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, Pairs(pair, otherPairs))
+): WithInOrderOnlyReportingOptions<Pairs<K, V>> =
+    WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, Pairs(pair, otherPairs))
 
 /**
  * Helper function to create a [PresentWithCreator] based on the given [assertionCreator].
@@ -247,7 +293,8 @@ fun <T> values(
     value: T,
     vararg otherValues: T,
     reportOptionsInOrderOnly: InOrderOnlyReportingOptions.() -> Unit
-): WithInOrderOnlyReportingOptions<Values<T>> = WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, Values(value, otherValues))
+): WithInOrderOnlyReportingOptions<Values<T>> =
+    WithInOrderOnlyReportingOptions(reportOptionsInOrderOnly, Values(value, otherValues))
 
 /**
  * Helper function to create a [WithInOrderOnlyReportingOptions] wrapping a [Values] based on the given
@@ -264,4 +311,5 @@ fun <T> values(
     value: T,
     vararg otherValues: T,
     reportOptionsInAnyOrderOnly: InAnyOrderOnlyReportingOptions.() -> Unit
-): WithInAnyOrderOnlyReportingOptions<Values<T>> = WithInAnyOrderOnlyReportingOptions(reportOptionsInAnyOrderOnly, Values(value, otherValues))
+): WithInAnyOrderOnlyReportingOptions<Values<T>> =
+    WithInAnyOrderOnlyReportingOptions(reportOptionsInAnyOrderOnly, Values(value, otherValues))

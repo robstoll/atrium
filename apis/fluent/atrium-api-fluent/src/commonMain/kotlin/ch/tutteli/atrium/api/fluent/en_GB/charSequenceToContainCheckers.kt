@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.fluent.en_GB.creating.charsequence.contains.impl.StaticNames
+import ch.tutteli.atrium.api.fluent.en_GB.creating.charSequence.toContain.impl.StaticNames
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
@@ -16,6 +16,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.atLeast
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
     times: Int
@@ -36,6 +38,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.butAtMost
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
     times: Int
@@ -59,6 +64,9 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.exactly
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.exactly(
     times: Int
@@ -80,6 +88,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.atMost
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atMost(
     times: Int
@@ -101,6 +112,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.notOrAtMost
+ *
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
     times: Int

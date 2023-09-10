@@ -27,7 +27,6 @@ buildscript {
 
 val spekExtensionsVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
-val jupiterVersion: String by rootProject.extra
 val mockkVersion: String by rootProject.extra
 val junitPlatformVersion: String by rootProject.extra
 val spekVersion: String by rootProject.extra
@@ -164,7 +163,8 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                     doFirst {
                         if (this is AbstractCompile) {
                             // we don't want to see all the deprecation errors during compilation
-                            this.logging.level = LogLevel.QUIET
+                            // TODO 1.2.0: Gradle's logging level is no longer writable
+                            // this.logging.level = LogLevel.QUIET
                         }
                     }
                 }
@@ -191,7 +191,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         implementation(prefixedProject("fluent"))
                     }
                 }
-                val jvmMain by getting {
+                jvmMain {
                     dependencies {
                         api("io.mockk:mockk:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -199,12 +199,12 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         api("ch.tutteli.niok:niok:$niokVersion")
                     }
                 }
-                val jsMain by getting {
+                jsMain {
                     dependencies {
                         api("io.mockk:mockk-dsl-js:$mockkVersion")
                         api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
 
-                        //TODO 1.1.0 should no longer be necessary once updated to kotlin 1.4.x
+                        //TODO 1.2.0 should no longer be necessary once updated to kotlin 1.4.x
                         implementation(kotlin("stdlib-js"))
                     }
                 }
@@ -241,7 +241,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
 
             classpath = compilations["test"].runtimeDependencyFiles
 
-            main = "org.junit.platform.console.ConsoleLauncher"
+            mainClass.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", scanClassPath,
                 "--disable-banner",
@@ -300,7 +300,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             kotlin.setSrcDirs(listOf<File>())
                             resources.setSrcDirs(listOf<File>())
                         }
-                        val jvmTest by getting {
+                        jvmTest {
 
                             dependencies {
                                 implementation(project(":atrium-api-$apiName-jvm"))
@@ -324,8 +324,9 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                                 runtimeOnly(project(testEngineProjectName))
 
                                 // to run samples
-                                implementation(kotlin("test-junit5"))
-                                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+                                // TODO 1.2.0 should both no longer be necessary if we depend on kotlin("test")
+//                                implementation(kotlin("test-junit5"))
+//                                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
                             }
                         }
                     }
@@ -358,7 +359,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                         // we want to run the samples as well
                         dependsOn(tasks.named("build"))
                     }
-                    //TODO 1.1.0 not yet sure if it makes more sense to include it into :check as well
+                    //TODO 1.2.0 not yet sure if it makes more sense to include it into :check as well
 //                    tasks.named("check").configure {
 //                        dependsOn(bcTest)
 //                    }
@@ -384,19 +385,20 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             implementation(kotlin("test-annotations-common"))
                         }
                     }
-                    val jvmTest by getting {
+                    jvmTest {
 
                         dependencies {
                             // to run forgiving spek tests
                             runtimeOnly(project(testEngineProjectName))
 
                             // for Samples
-                            implementation(kotlin("test-junit5"))
-                            runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+                            // TODO 1.2.0 should both no longer be necessary if we depend on kotlin("test")
+//                            implementation(kotlin("test-junit5"))
+//                            runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
 
                         }
                     }
-                    val jsTest by getting {
+                    jsTest {
                         dependencies {
                             implementation(kotlin("test-js"))
 
@@ -404,7 +406,7 @@ bcConfigs.forEach { (oldVersion, apis, pair) ->
                             api(project(":atrium-core-robstoll"))
                             api(project(":atrium-domain-robstolls"))
 
-                            //TODO 1.1.0 should no longer be necessary once updated to kotlin 1.4.x
+                            //TODO 1.2.0 should no longer be necessary once updated to kotlin 1.4.x
                             implementation(kotlin("stdlib-js"))
                         }
                     }
@@ -457,7 +459,7 @@ fun Project.createJacocoReportTask(
             else -> throw IllegalStateException("re-adjust jacoco task")
         }
         projects.forEach {
-            //TODO 1.1.0 simplify, all projects use now the new MPP plugin
+            //TODO 1.2.0 simplify, all projects use now the new MPP plugin
             val sourceSetContainer = it.extensions.findByType<SourceSetContainer>()
             if (sourceSetContainer != null) {
                 sourceSets(sourceSetContainer["main"])
@@ -474,9 +476,9 @@ fun Project.createJacocoReportTask(
         reports {
             csv.required.set(false)
             xml.required.set(true)
-            xml.destination = file("${buildDir}/reports/jacoco/$name/report.xml")
+            xml.outputLocation.set(file("${buildDir}/reports/jacoco/$name/report.xml"))
             html.required.set(true)
-            html.destination = file("${buildDir}/reports/jacoco/$name/html/")
+            html.outputLocation.set(file("${buildDir}/reports/jacoco/$name/html/"))
         }
     }
 

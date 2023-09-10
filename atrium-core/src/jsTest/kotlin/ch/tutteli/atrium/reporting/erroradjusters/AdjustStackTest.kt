@@ -97,17 +97,14 @@ class AdjustStackTest {
         }
     }
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     private fun <T : Any> assertNoOp(subject: T) = createExpect(subject) { NoOpAtriumErrorAdjuster }
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     private fun <T : Any> assertRemoveRunner(subject: T) =
         createExpect(subject) { c -> c.build<RemoveRunnerFromAtriumError>() }
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     private fun <T : Any> assertRemoveAtrium(subject: T) =
         createExpect(subject) { c -> c.build<RemoveAtriumFromAtriumError>() }
 

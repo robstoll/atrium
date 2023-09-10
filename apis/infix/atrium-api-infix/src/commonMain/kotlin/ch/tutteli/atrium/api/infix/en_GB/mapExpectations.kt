@@ -152,7 +152,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnl
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
     keyValues: KeyValues<K, V>
-): Expect<T> = it toContain o inAny order the keyValues(keyValues.expected, *keyValues.otherExpected)
+): Expect<T> = it toContain o inAny order the entries(keyValues.expected, *keyValues.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains only (in any order) for each [KeyWithValueCreator]
@@ -172,7 +172,7 @@ inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContain(
  */
 inline infix fun <K, reified V : Any, T : Map<out K, V?>> Expect<T>.toContainOnly(
     keyValues: KeyValues<K, V>
-): Expect<T> = it toContain o inAny order but only the keyValues(keyValues.expected, *keyValues.otherExpected)
+): Expect<T> = it toContain o inAny order but only the entries(keyValues.expected, *keyValues.otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) contains the key-value pairs of the given [mapLike].

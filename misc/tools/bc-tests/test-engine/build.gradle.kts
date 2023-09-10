@@ -8,7 +8,7 @@ val spekVersion: String by rootProject.extra
 kotlin {
     jvm()
     sourceSets {
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 api("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
                 api("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")

@@ -6,7 +6,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 // for infix-api -> change to 'atrium-infix'
 val atriumApi = "atrium-fluent"
-val atriumVersion = "1.0.0-RC2"
+val atriumVersion = "1.0.0"
 val junitVersion = "5.9.3"
 
 plugins {
@@ -21,13 +21,11 @@ repositories {
 }
 
 kotlin {
-    jvm().compilations.all {
-        // Atrium requires at least jdk 11
-        kotlinOptions.jvmTarget = "11"
-    }
-    java.targetCompatibility = JavaVersion.VERSION_11
+    jvm()
+
     // atrium only supports LEGACY for now
     js(LEGACY).nodejs()
+
     sourceSets {
         val commonTest by getting {
             dependencies {
@@ -57,7 +55,7 @@ project.tasks.withType(AbstractTestTask::class.java) {
     }
 }
 
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin>().configureEach {
     rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().apply {
         // fix vulnerable version, use 8.1.0 instead of 7.2.0 which still relies on minimatch 3.0.4
         resolution("glob", "8.1.0")

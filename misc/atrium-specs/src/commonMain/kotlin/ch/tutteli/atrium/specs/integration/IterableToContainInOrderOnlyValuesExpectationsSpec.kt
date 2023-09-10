@@ -59,7 +59,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
     }
 
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toContainInOrderOnlyValues,
         toContainInOrderOnlyNullableValues

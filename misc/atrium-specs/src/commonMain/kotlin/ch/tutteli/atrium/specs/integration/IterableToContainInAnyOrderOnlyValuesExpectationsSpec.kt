@@ -22,7 +22,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
         toContainInAnyOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf(), emptyInAnyOrderOnlyReportOptions)
     ) {})
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toContainInAnyOrderOnlyValues,
         toContainInAnyOrderOnlyNullableValues

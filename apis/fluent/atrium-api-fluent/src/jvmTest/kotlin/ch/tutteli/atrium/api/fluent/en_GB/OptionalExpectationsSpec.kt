@@ -21,11 +21,9 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
         o1b = o1b.toBeEmpty()
         star = star.toBeEmpty()
         o1.toBePresent()
-        o1b.toBePresent()
         // the following is not supported on purpose as we don't know what type of the element is in such a case
         // star.toBePresent()
         o1.toBePresent {}
-        o1b.toBePresent {}
         // the following is not supported on purpose as we don't know what type of the element is in such a case
         // star.toBePresent {}
     }

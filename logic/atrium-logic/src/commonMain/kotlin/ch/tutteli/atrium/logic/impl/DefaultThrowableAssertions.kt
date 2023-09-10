@@ -16,14 +16,13 @@ import kotlin.reflect.KClass
 
 class DefaultThrowableAssertions : ThrowableAssertions {
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> causeIsA(
         container: AssertionContainer<out Throwable>,
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(DescriptionThrowableExpectation.CAUSE) { cause }.transform().let { previousExpect ->
-            //TODO 1.1.0 factor out a pattern, we are doing this more than once, in API we have withOptions
+            //TODO 1.3.0 factor out a pattern, we are doing this more than once, in API we have withOptions
             FeatureExpect(
                 previousExpect,
                 FeatureExpectOptions(representationInsteadOfFeature = {

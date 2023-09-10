@@ -96,7 +96,7 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
  * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
-//TODO 1.1.0 remove when we drop support for translation
+//TODO 1.2.0 remove (when we drop support for translation)
 @ExperimentalComponentFactoryContainer
 abstract class TranslatorIntSpec(
     translatorConfiguration: (RootExpectBuilder.OptionsChooser<*>, Locale, List<Locale>) -> Unit,
@@ -108,8 +108,7 @@ abstract class TranslatorIntSpec(
     fun prefixedDescribe(description: String, body: Suite.() -> Unit) =
         prefixedDescribeTemplate(describePrefix, description, body)
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     fun <T : Any> assertWithDeCh_Fr(subject: T) =
         RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.EXPECT)
@@ -118,8 +117,7 @@ abstract class TranslatorIntSpec(
             }
             .build()
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     fun <T : Any> assertWithDeCh_FrCh_ItCh(subject: T) =
         RootExpectBuilder.forSubject(subject)
             .withVerb(AssertionVerb.EXPECT)
@@ -288,8 +286,7 @@ abstract class TranslatorIntSpec(
             val locale = Locale("zh", country)
 
 
-            @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+            @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
             val assert = RootExpectBuilder.forSubject(1)
                 .withVerb(AssertionVerb.EXPECT)
                 .withOptions {

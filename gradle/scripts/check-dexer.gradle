@@ -1,4 +1,4 @@
-def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
+def preCheck_ATRIUM_ANDROID_JAR = tasks.register('preCheck_ATRIUM_ANDROID_JAR') {
     doFirst {
         if (System.getenv('ATRIUM_ANDROID_JAR') == null) {
             throw new InvalidUserDataException("env variable ATRIUM_ANDROID_JAR not set. Point it to the android SDK android.jar path (e.g. /android-sdk-linux/platforms/android-26/android.jar")
@@ -7,10 +7,20 @@ def preCheck_ATRIUM_ANDROID_JAR = task('preCheck_ATRIUM_ANDROID_JAR') {
     }
 }
 
-def multiplatformProjects = multiplatformProjectNames.collect { prefixedProject(it) }
-def dexerProjects = multiplatformProjects.findAll {
-    !it.name.contains("-specs")
+def prefixedProject(String name) {
+    project(":${rootProject.name}-$name")
 }
+
+
+def dexerProjects = ["core",
+                     "logic", "logic-kotlin_1_3",
+                     "translations-en_GB", "translations-de_CH",
+                     "api-fluent", "api-fluent-kotlin_1_3",
+                     "api-infix", "api-infix-kotlin_1_3",
+                     "fluent",
+                     "infix",
+                     "verbs",
+                     "verbs-internal",].collect { prefixedProject(it) }
 configure(dexerProjects) { subproject ->
     configurations {
         r8
@@ -26,70 +36,78 @@ configure(dexerProjects) { subproject ->
         mavenCentral()
     }
     dependencies {
-        r8 "com.android.tools:r8:$d8Version"
+        // we could update it but in the end I think it is actually good that we use an old version
+        // this way we know that it even works with an old one
+        r8 "com.android.tools:r8:1.6.84"
         d8 subproject
     }
 
-    afterEvaluate {
-        task('checkDexer', type: JavaExec, description: 'compiles android class files into dex bytecode') {
-            inputs.property 'ATRIUM_ANDROID_JAR', System.getenv('ATRIUM_ANDROID_JAR')
+    tasks.register('checkDexer', JavaExec) {
+        description('compiles android class files into dex bytecode')
+        inputs.property 'ATRIUM_ANDROID_JAR', System.getenv('ATRIUM_ANDROID_JAR')
 
-            def outputPath = "${subproject.buildDir}/d8"
-            outputs.dir(outputPath)
-            dependsOn jvmJar
-            dependsOn preCheck_ATRIUM_ANDROID_JAR
-            jvmJar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
+        def outputPath = "${subproject.buildDir}/d8"
+        outputs.dir(outputPath)
+        dependsOn(jvmJar)
+        dependsOn(preCheck_ATRIUM_ANDROID_JAR)
+        jvmJar.mustRunAfter(preCheck_ATRIUM_ANDROID_JAR)
 
-            classpath subproject.configurations.r8.asPath
-            main = "com.android.tools.r8.D8"
+        classpath(subproject.configurations.r8.asPath)
 
-            def d8Classpath = subproject.configurations.d8.files.collect {
-                ["--classpath", it.getAbsolutePath()]
-            }.flatten()
+        mainClass.set("com.android.tools.r8.D8")
 
-            def androidJarPath = System.getenv('ATRIUM_ANDROID_JAR')
 
-            // ATRIUM_ANDROID_JAR has to point to something like /android-sdk-linux/platforms/android-XY/android.jar
-            // where Xy is the version we want to support
-            def androidJar = androidJarPath != null ? ['--lib', file(androidJarPath).absolutePath] : []
+        def d8Classpath = subproject.configurations.d8.files.collect {
+            ["--classpath", it.getAbsolutePath()]
+        }.flatten()
 
-            args = d8Classpath + androidJar + ['--output', outputPath, jvmJar.archiveFile.get().asFile]
+        def androidJarPath = System.getenv('ATRIUM_ANDROID_JAR')
 
-            def oldStream = errorOutput
-            def outputWritten = false
-            errorOutput = new OutputStream() {
-                @Override
-                void write(int b) {
-                    outputWritten = true
-                    if (oldStream != null) {
-                        oldStream.write(b)
-                    } else {
-                        System.out.write(b)
-                    }
-                }
-            }
-            doLast {
-                if (outputWritten) {
-                    throw new GradleException("checkDexer failed due to output, see above.")
+        // ATRIUM_ANDROID_JAR has to point to something like /android-sdk-linux/platforms/android-XY/android.jar
+        // where Xy is the version we want to support
+        def androidJar = androidJarPath != null ? ['--lib', file(androidJarPath).absolutePath] : []
+
+        args = d8Classpath + androidJar + ['--output', outputPath, jvmJar.archiveFile.get().asFile]
+
+        def oldStream = errorOutput
+        def outputWritten = false
+        errorOutput = new OutputStream() {
+            @Override
+            void write(int b) {
+                outputWritten = true
+                if (oldStream != null) {
+                    oldStream.write(b)
+                } else {
+                    System.out.write(b)
                 }
             }
         }
+        doLast {
+            if (outputWritten) {
+                throw new GradleException("checkDexer failed due to output, see above.")
+            }
+        }
     }
+
 }
-def preCheckDexerProjects = task('preCheckDexerProjects', dependsOn: preCheck_ATRIUM_ANDROID_JAR) {
+def preCheckDexerProjects = tasks.register('preCheckDexerProjects') {
+    dependsOn(preCheck_ATRIUM_ANDROID_JAR)
     doFirst {
         if (dexerProjects.size() == 0) {
             throw new InvalidUserDataException("No dexerProjects defined. Make sure you have specified env variable CI. Use e.g. `CI=true ./gradlew checkDexer`")
         }
     }
 }
-task('checkDexer', description: 'executes all checkDexer tasks', dependsOn: 'preCheckDexerProjects') {
+tasks.register('checkDexer') {
+    def self = it
+    description('executes all checkDexer tasks')
+    dependsOn('preCheckDexerProjects')
 
     dexerProjects.forEach { subproject ->
-        subproject.afterEvaluate {
-            Task subprojectCheckDexer = subproject.tasks.getByName("checkDexer")
-            dependsOn subprojectCheckDexer
-            subprojectCheckDexer.mustRunAfter(preCheckDexerProjects)
+        def subprojectCheckDexer = subproject.tasks.named("checkDexer")
+        self.dependsOn(subprojectCheckDexer)
+        subprojectCheckDexer.configure {
+            mustRunAfter(preCheckDexerProjects)
         }
     }
 }

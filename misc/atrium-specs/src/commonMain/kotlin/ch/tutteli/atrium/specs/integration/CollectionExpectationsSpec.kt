@@ -20,7 +20,7 @@ abstract class CollectionExpectationsSpec(
         describePrefix,
         isEmpty.forSubjectLess(),
         isNotEmpty.forSubjectLess(),
-        sizeFeature.forSubjectLess().adjustName { "$it feature" },
+        sizeFeature.forSubjectLess().withFeatureSuffix(),
         size.forSubjectLess { toBeGreaterThan(2) }
     ) {})
 

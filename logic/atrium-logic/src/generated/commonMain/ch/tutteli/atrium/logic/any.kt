@@ -23,9 +23,8 @@ fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrN
 
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)
 
-    //TODO restrict TSub with T once type parameter for upper bounds are supported:
-    // https://youtrack.jetbrains.com/issue/KT-33262 is implemented
-fun <T, TSub : Any> AssertionContainer<T>.isA(subType: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, TSub> = impl.isA(this, subType)
+    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
+fun <T, TSub> AssertionContainer<T>.isA(subType: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<T, TSub> where TSub : Any, TSub : T = impl.isA(this, subType)
 
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
 
@@ -34,8 +33,6 @@ fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<
 
 fun <T, TNotExpected : Any> AssertionContainer<T>.notToBeAnInstanceOf(notExpectedClass: KClass<TNotExpected>): Assertion = impl.notToBeAnInstanceOf(this, notExpectedClass)
 
-
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: AnyAssertions
     get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }

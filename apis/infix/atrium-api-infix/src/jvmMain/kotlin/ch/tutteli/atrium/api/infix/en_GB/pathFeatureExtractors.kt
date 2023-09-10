@@ -1,16 +1,8 @@
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
-
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithCreator
-import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
-import java.nio.charset.Charset
 import java.nio.file.Path
 
 /**

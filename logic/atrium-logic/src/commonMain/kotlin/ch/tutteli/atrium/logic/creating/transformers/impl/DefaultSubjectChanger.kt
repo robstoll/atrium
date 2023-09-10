@@ -14,7 +14,7 @@ class DefaultSubjectChanger : SubjectChanger {
     override fun <T, R> unreported(container: AssertionContainer<T>, transformation: (T) -> R): Expect<R> =
         DelegatingExpect(
             container,
-            //TODO wrap transformation with error handling.
+            //TODO https://github.com/robstoll/atrium/issues/387 wrap transformation with error handling.
             // Could be interesting to see the exception in the context of the assertion
             container.maybeSubject.map(transformation)
         )
@@ -29,7 +29,7 @@ class DefaultSubjectChanger : SubjectChanger {
     ): Expect<R> {
         val expect = DelegatingExpect(
             container,
-            // TODO wrap transformation with error handling.
+            // TODO https://github.com/robstoll/atrium/issues/387 wrap transformation with error handling.
             //  Could be interesting to see the exception in the context of the assertion
             container.maybeSubject.flatMap(transformation)
         )

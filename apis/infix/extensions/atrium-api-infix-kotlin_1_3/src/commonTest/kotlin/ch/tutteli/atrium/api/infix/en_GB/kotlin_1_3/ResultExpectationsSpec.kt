@@ -7,6 +7,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
 
+@Suppress("DEPRECATION")
 class ResultExpectationsSpec : ResultExpectationsSpec(
     ("toBe ${aSuccess::class::simpleName}" to (Companion::toBeASuccessFeature)).withFeatureSuffix(),
     "toBe ${aSuccess::class::simpleName}" to Companion::toBeASuccess,

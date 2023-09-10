@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
@@ -131,8 +132,18 @@ inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
-    _logic.isA(kClass)
+internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
+    kClass: KClass<TSub>
+): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> {
+    @Suppress(
+        // AssertionContainer is invariant hence the cast from `out Any?` to `Any?` is unsafe but in this case it is
+        // safe as the only action we carry out here is down-casting from whatever to TSub if the subject is actually
+        // a TSub
+        "UNCHECKED_CAST"
+    )
+    val assertionContainer = _logic as AssertionContainer<Any?>
+    return assertionContainer.isA(kClass)
+}
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun  <TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(notExpectedClass: KClass<TNotExpected>): Expect<*> =

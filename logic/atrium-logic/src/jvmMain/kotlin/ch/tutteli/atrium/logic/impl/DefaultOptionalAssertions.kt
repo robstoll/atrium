@@ -1,8 +1,3 @@
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
-
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -21,7 +16,7 @@ class DefaultOptionalAssertions : OptionalAssertions {
     override fun <T : Optional<*>> isEmpty(container: AssertionContainer<T>): Assertion =
         container.createDescriptiveAssertion(TO_BE, EMPTY) { !it.isPresent }
 
-    override fun <E, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
+    override fun <E: Any, T : Optional<E>> isPresent(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
             .withDescription(GET)
             .withRepresentationForFailure(IS_NOT_PRESENT)

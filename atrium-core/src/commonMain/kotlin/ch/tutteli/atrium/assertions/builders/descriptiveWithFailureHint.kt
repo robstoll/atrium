@@ -34,7 +34,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
  * Or use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
  */
-//TODO if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
+//TODO if we introduce Proof or something else as replacement for Assertion then not but if we keep Assertion
 // then move to logic and expect ProofContainer with 1.2.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnDefinedSubject(
     expect: Expect<T>,

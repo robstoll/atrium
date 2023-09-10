@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
@@ -75,7 +76,8 @@ fun <T : Any> Expect<T?>.toEqualNullIfNullGivenElse(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualNullFeature
  */
-inline fun <reified T : Any> Expect<T?>.notToEqualNull(): Expect<T> = notToEqualNullButToBeAnInstanceOf(T::class).transform()
+inline fun <reified T : Any> Expect<T?>.notToEqualNull(): Expect<T> =
+    notToEqualNullButToBeAnInstanceOf(T::class).transform()
 
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
@@ -92,6 +94,7 @@ internal fun <T : Any> Expect<T?>.notToEqualNullButToBeAnInstanceOf(kClass: KCla
  */
 inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     notToEqualNullButToBeAnInstanceOf(T::class).transformAndAppend(assertionCreator)
+
 /**
  * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type)
  * and changes the subject to this type.
@@ -117,8 +120,18 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
 inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(): Expect<TSub> = toBeAnInstanceOf(TSub::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(kClass: KClass<TSub>): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> =
-    _logic.isA(kClass)
+internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
+    kClass: KClass<TSub>
+): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> {
+    @Suppress(
+        // AssertionContainer is invariant hence the cast from `out Any?` to `Any?` is unsafe but in this case it is
+        // safe as the only action we carry out here is down-casting from whatever to TSub if the subject is actually
+        // a TSub
+        "UNCHECKED_CAST"
+    )
+    val assertionContainer = _logic as AssertionContainer<Any?>
+    return assertionContainer.isA(kClass)
+}
 
 /**
  * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type) and
@@ -231,7 +244,7 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  * For instance `expect(1).toBeLessThan(3).and { toBeEven(); toBeGreaterThan(1) }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
+ * Hence, the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *

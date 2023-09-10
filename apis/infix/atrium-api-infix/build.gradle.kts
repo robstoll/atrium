@@ -1,22 +1,26 @@
+plugins {
+    id("build-logic.published-kotlin-multiplatform")
+}
+
 description = "An infix API in en_GB with a focus on code completion."
 
 val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(prefixedProject("logic"))
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
                 implementation("ch.tutteli.niok:niok:$niokVersion")
             }
         }
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(project(":${rootProject.name}-specs")) {
                     exclude(module = "${rootProject.name}-translations-en_GB")
@@ -26,7 +30,7 @@ kotlin {
                 implementation(prefixedProject("verbs"))
             }
         }
-        val jvmTest by getting {
+        jvmTest{
             dependencies {
                 implementation(project(":${rootProject.name}-specs")) {
                     exclude(module = "${rootProject.name}-translations-en_GB")

@@ -1,3 +1,7 @@
+plugins {
+    id("build-logic.kotlin-jvm")
+}
+
 description = "Runs examples, includes the code and the output in README.md"
 
 val junitPlatformVersion: String by rootProject.extra
@@ -6,7 +10,7 @@ val niokVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
-        val main by getting {
+        main {
             dependencies {
                 implementation("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
                 implementationWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
@@ -20,8 +24,8 @@ kotlin {
         }
         configureEach {
             languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
+                languageVersion = "1.8"
+                apiVersion = "1.8"
             }
         }
     }
@@ -34,7 +38,7 @@ kotlin {
             val version = rootProject.version.toString()
             environment("README_SOURCETREE", if (version.endsWith("-SNAPSHOT")) "tree/main" else "tree/v$version")
 
-            this.main = "org.junit.platform.console.ConsoleLauncher"
+            this.mainClass.set("org.junit.platform.console.ConsoleLauncher")
             args = listOf(
                 "--scan-class-path", project.sourceSets.main.get().output.classesDirs.asPath,
                 "--disable-banner",

@@ -58,7 +58,7 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
         ) = expect.toContain.atLeast(atLeast).regex(a, *aX)
 
         private fun toContainAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
-            expect.toContain.atLeast(atLeast).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+            expect.toContain.atLeast(atLeast).matchFor(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun getAtLeastIgnoringCaseTripleString() =
             { what: String, times: String -> "$toContain $ignoringCase $what $atLeast $times" } to
@@ -102,7 +102,7 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
                 ("$toContain.$ignoringCase.$atMost.$regex" to ::toContainAtMostIgnoringCase)
 
         private fun toContainAtMostRegex(expect: Expect<CharSequence>, atMost: Int, a: String, aX: Array<out String>) =
-            expect.toContain.atMost(atMost).regex(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+            expect.toContain.atMost(atMost).matchFor(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun toContainAtMostIgnoringCase(
             expect: Expect<CharSequence>,

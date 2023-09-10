@@ -9,7 +9,7 @@ updates:
     labels:
       - "dependencies"
   - package-ecosystem: gradle
-    directory: "/samples/js/"
+    directory: "/samples/js/kotlin-test"
     schedule:
       interval: daily
       time: "04:00"
@@ -24,6 +24,14 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
+  - package-ecosystem: maven
+    directory: "/samples/jvm/maven"
+    schedule:
+      interval: daily
+      time: "04:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
   - package-ecosystem: gradle
     directory: "/samples/jvm/spek"
     schedule:
@@ -32,16 +40,8 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
-  - package-ecosystem: maven
-    directory: "/samples/maven"
-    schedule:
-      interval: daily
-      time: "04:00"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
   - package-ecosystem: gradle
-    directory: "/samples/multiplatform"
+    directory: "/samples/multiplatform/kotlin-test"
     schedule:
       interval: daily
       time: "04:00"

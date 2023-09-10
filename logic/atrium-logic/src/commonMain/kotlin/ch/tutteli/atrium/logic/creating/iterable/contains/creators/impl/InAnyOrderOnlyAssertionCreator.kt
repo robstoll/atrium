@@ -44,18 +44,24 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
         searchCriteria: List<SC>
     ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            //TODO 1.1.0 explicit type should not be necessary, report
-            val listFromWhichMatchesWillBeRemoved: MutableList<E?> = container.maybeSubject.fold({ mutableListOf<E?>() }) { converter(it).toMutableList() }
+            val listFromWhichMatchesWillBeRemoved: MutableList<E?> =
+                container.maybeSubject.fold({ mutableListOf() }) { converter(it).toMutableList() }
+
             val initialSize = listFromWhichMatchesWillBeRemoved.size
             val assertions = mutableListOf<Assertion>()
-            //TODO 1.1.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 1.2.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val sizeAssertion = container.collectBasedOnSubject(Some(listFromWhichMatchesWillBeRemoved)) {
                 _logic
                     .size { it }
                     .collectAndLogicAppend { toBe(searchCriteria.size) }
             }
 
-            val mismatches = createAssertionsForAllSearchCriteria(container, searchCriteria, listFromWhichMatchesWillBeRemoved, assertions)
+            val mismatches = createAssertionsForAllSearchCriteria(
+                container,
+                searchCriteria,
+                listFromWhichMatchesWillBeRemoved,
+                assertions
+            )
             if (mismatches == 0 && listFromWhichMatchesWillBeRemoved.isNotEmpty()) {
                 assertions.add(LazyThreadUnsafeAssertionGroup {
                     createExplanatoryGroupForMismatchesEtc(
@@ -66,7 +72,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             }
 
             val description = searchBehaviour.decorateDescription(TO_CONTAIN)
-            //TODO 1.1.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 1.2.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val options = InAnyOrderOnlyReportingOptionsImpl().apply(reportingOptions)
             val assertionGroup = (if (searchCriteria.size <= options.maxNumberOfExpectedElementsForSummary) {
                 assertionBuilder.summary.withDescription(description)
@@ -76,7 +82,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
 
             if (mismatches != 0 && listFromWhichMatchesWillBeRemoved.isNotEmpty()) {
                 val warningDescription =
-                    if(listFromWhichMatchesWillBeRemoved.size == mismatches || initialSize < mismatches) WARNING_MISMATCHES
+                    if (listFromWhichMatchesWillBeRemoved.size == mismatches || initialSize < mismatches) WARNING_MISMATCHES
                     else WARNING_MISMATCHES_ADDITIONAL_ELEMENTS
 
                 assertionBuilder.invisibleGroup

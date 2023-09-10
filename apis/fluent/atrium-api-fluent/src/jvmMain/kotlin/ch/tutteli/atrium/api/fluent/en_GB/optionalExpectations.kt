@@ -1,8 +1,3 @@
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -40,7 +35,7 @@ fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
  *
  * @since 0.17.0
  */
-fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
+fun <E: Any, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
     _logic.isPresent().transform()
 
 /**
@@ -53,5 +48,5 @@ fun <E, T : Optional<E>> Expect<T>.toBePresent(): Expect<E> =
  *
  * @since 0.17.0
  */
-fun <E, T : Optional<E>> Expect<T>.toBePresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+fun <E: Any, T : Optional<E>> Expect<T>.toBePresent(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.isPresent().collectAndAppend(assertionCreator)

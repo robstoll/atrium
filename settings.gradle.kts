@@ -1,9 +1,26 @@
-//pluginManagement {
-//    repositories {
+pluginManagement {
+    repositories {
 //        mavenLocal()
-//        gradlePluginPortal()
-//    }
-//}
+        gradlePluginPortal()
+    }
+    includeBuild("gradle/build-logic")
+    includeBuild("gradle/build-logic-conventions")
+}
+
+dependencyResolutionManagement {
+    // kotlinNodeJsSetup configures ivy repository 'Node Distributions at https://nodejs.org/dist'
+    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+
+plugins {
+    if (System.getenv("CI").toBoolean()) {
+        id("org.gradle.toolchains.foojay-resolver-convention") version ("0.4.0")
+    }
+}
 
 rootProject.name = "atrium"
 

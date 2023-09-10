@@ -156,8 +156,7 @@ interface RootExpectBuilder {
 
         companion object {
             @ExperimentalNewExpectTypes
-            @Suppress("DEPRECATION" /* RequiresOptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-            @UseExperimental(ExperimentalComponentFactoryContainer::class)
+            @OptIn(ExperimentalComponentFactoryContainer::class)
             operator fun <T> invoke(configuration: OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
                 RootExpectOptionsChooserImpl<T>().apply(configuration).build()
         }
@@ -183,8 +182,7 @@ interface RootExpectBuilder {
         /**
          * Either the previously specified [RootExpectOptions] or `null`.
          */
-        @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-        @UseExperimental(ExperimentalNewExpectTypes::class)
+        @OptIn(ExperimentalNewExpectTypes::class)
         val options: RootExpectOptions<T>?
 
         /**

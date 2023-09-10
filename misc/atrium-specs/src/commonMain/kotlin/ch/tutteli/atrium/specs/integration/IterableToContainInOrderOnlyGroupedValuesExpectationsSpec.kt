@@ -11,7 +11,6 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
-//TODO 1.1.0 include InOrderReportOptions
 abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     toContainInOrderOnlyGroupedValues: Fun5<
         Iterable<Double>, Group<Double>,
@@ -181,7 +180,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     }
 
 
-    this.nonNullableCases(
+    nonNullableCases(
         describePrefix,
         toContainInOrderOnlyGroupedValues,
         toContainInOrderOnlyGroupedNullableValues
@@ -566,7 +565,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             indexSuccess(7, 8.0)
                             indexSuccess(
                                 8, 9, listOf(9.0, 10.0),
-                                //TODO 1.1.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
+                                //TODO 1.2.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
                                 sizeCheck(2, 2),
                                 successAfterSuccess(10.0),
                                 successAfterSuccess(9.0)

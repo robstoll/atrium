@@ -17,21 +17,21 @@ abstract class CharSequenceToContainSpecBase {
     private val notToContainProp: KProperty<*> = Expect<String>::notToContain
     protected val toContainNot = notToContainProp.name
     protected val toContainRegex = fun2<String, String, Array<out String>>(Expect<String>::toContainRegex).name
-    protected val atLeast = CharSequenceContains.EntryPointStep<*, *>::atLeast.name
-    protected val butAtMost = AtLeastCheckerStep<*, *>::butAtMost.name
-    protected val atMost = CharSequenceContains.EntryPointStep<*, *>::atMost.name
-    protected val exactly = CharSequenceContains.EntryPointStep<*, *>::exactly.name
-    protected val notOrAtMost = CharSequenceContains.EntryPointStep<*, *>::notOrAtMost.name
+    protected val atLeast = CharSequenceContains.EntryPointStep<CharSequence, *>::atLeast.name
+    protected val butAtMost = AtLeastCheckerStep<CharSequence, *>::butAtMost.name
+    protected val atMost = CharSequenceContains.EntryPointStep<CharSequence, *>::atMost.name
+    protected val exactly = CharSequenceContains.EntryPointStep<CharSequence, *>::exactly.name
+    protected val notOrAtMost = CharSequenceContains.EntryPointStep<CharSequence, *>::notOrAtMost.name
     private val regexKFun: KFunction3<
-        CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>,
+        CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>,
         String,
         Array<out String>,
         Expect<*>
-        > = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::regex
+        > = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
-    protected val ignoringCase = CharSequenceContains.EntryPointStep<*, NoOpSearchBehaviour>::ignoringCase.name
-    protected val value = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::value.name
-    protected val values = CharSequenceContains.CheckerStep<*, NoOpSearchBehaviour>::values.name
+    protected val ignoringCase = CharSequenceContains.EntryPointStep<CharSequence, NoOpSearchBehaviour>::ignoringCase.name
+    protected val value = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::value.name
+    protected val values = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::values.name
     protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -42,15 +42,15 @@ abstract class CharSequenceToContainSpecBase {
         a1.toContain.atMost(2).values("a", 1)
         a1.toContain.notOrAtMost(2).regex("h|b")
         a1.toContain.exactly(2).regex("h|b", "b")
-        a1.toContain.atLeast(2).regex(Regex("bla"))
-        a1.toContain.atLeast(2).regex(Regex("bla"), Regex("b"))
+        a1.toContain.atLeast(2).matchFor(Regex("bla"))
+        a1.toContain.atLeast(2).matchFor(Regex("bla"), Regex("b"))
         a1.toContain.atLeast(2).elementsOf(listOf("a", 2))
 
         a1.notToContain.value(1)
         a1.notToContain.values("a", 1)
         a1.notToContain.regex("h|b", "b")
-        a1.notToContain.regex(Regex("bla"))
-        a1.notToContain.regex(Regex("bla"), Regex("b"))
+        a1.notToContain.matchFor(Regex("bla"))
+        a1.notToContain.matchFor(Regex("bla"), Regex("b"))
         a1.notToContain.elementsOf(listOf("a", 2))
 
         a1.toContain.ignoringCase.atLeast(1).value("a")

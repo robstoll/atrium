@@ -38,7 +38,7 @@ class DefaultAnyAssertions : AnyAssertions {
             val assertion = container.collectBasedOnSubject(collectSubject) {
                 _logic.appendAsGroup(assertionCreatorOrNull)
             }
-            //TODO 1.1.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            //TODO 1.3.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
             container.maybeSubject.fold(
                 {
                     // already in an explanatory assertion context, no need to wrap it again
@@ -63,10 +63,11 @@ class DefaultAnyAssertions : AnyAssertions {
         subType: KClass<T>
     ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.isA(subType)
 
-    override fun <T, TSub : Any> isA(
+    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
+    override fun <T, TSub> isA(
         container: AssertionContainer<T>,
         subType: KClass<TSub>
-    ): SubjectChangerBuilder.ExecutionStep<T, TSub> =
+    ): SubjectChangerBuilder.ExecutionStep<T, TSub> where TSub : Any, TSub : T =
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()

@@ -16,6 +16,7 @@ coverage:
 codecov:
   branch: main
   notify:
-    after_n_builds: 5
+    wait_for_ci: true
+
 comment:
-  after_n_builds: 5
+  after_n_builds: 2

@@ -33,11 +33,9 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
         o1b = o1b toBe empty
         star = star toBe empty
         o1 toBe present
-        o1b toBe present
         // following is not supported on purpose as we don't know what type the element is in this case
         //star toBe Present
         o1 toBe present {}
-        o1b toBe present {}
         // following is not supported on purpose as we don't know what type the element is in this case
         //star toBe present {}
     }

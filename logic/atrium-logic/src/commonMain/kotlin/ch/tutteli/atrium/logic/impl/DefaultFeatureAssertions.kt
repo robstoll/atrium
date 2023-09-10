@@ -40,8 +40,7 @@ class DefaultFeatureAssertions : FeatureAssertions {
         extractFeature(container, buildMethodCallFormatter(container).formatCall(f.name, arrayOf(a1, a2, a3, a4, a5))) { f(it, a1, a2, a3, a4, a5) }
     //@formatter:on
 
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalComponentFactoryContainer::class)
     private fun <T> buildMethodCallFormatter(container: AssertionContainer<T>) =
         container.components.build<MethodCallFormatter>()
 

@@ -60,7 +60,6 @@ class KClassFullNameTest {
         }
     }
 
-    @Suppress(/* TODO remove with 1.0.0 and import EmptyNameAndRepresentationAssertionGroup  */ "DEPRECATION")
     @Test
     fun fun_classObject() {
         expect("dummy subject, see sub assertions") {

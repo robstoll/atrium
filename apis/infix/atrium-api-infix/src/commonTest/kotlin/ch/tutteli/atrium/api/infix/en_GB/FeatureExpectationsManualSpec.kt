@@ -92,7 +92,7 @@ class FeatureExpectationsManualSpec : ch.tutteli.atrium.specs.integration.Featur
         }
         val propertyLazyWithNestedLazy: F = {
             it feature of<TestData, String>({ f("nonNullValue", it.nonNullValue) }) {
-                feature { f("length", it.length) } it { it toEqual 12 }
+                it feature of({ f("length", it.length) }) { it toEqual 12 }
             }
         }
 

@@ -3,8 +3,6 @@ package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -13,14 +11,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.logic.impl.*
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
-import ch.tutteli.kbox.identity
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -55,7 +50,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
         DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<E?>> =
-        turnSubjectToList(container, converter)
+        container.mapSubjectToList(converter)
 
     override fun decorateInAnyOrderAssertion(
         inAnyOrderAssertion: AssertionGroup,

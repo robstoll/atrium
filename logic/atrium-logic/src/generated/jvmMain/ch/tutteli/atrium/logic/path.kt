@@ -4,11 +4,6 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
-@file:Suppress(
-    // TODO remove once https://youtrack.jetbrains.com/issue/KT-35343 is fixed
-    "JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE"
-)
-
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -54,7 +49,6 @@ fun <T : Path> AssertionContainer<T>.fileNameWithoutExtension(): FeatureExtracto
 fun <T : Path> AssertionContainer<T>.parent(): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.parent(this)
 fun <T : Path> AssertionContainer<T>.resolve(other: String): FeatureExtractorBuilder.ExecutionStep<T, Path> = impl.resolve(this, other)
 
-@Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-@UseExperimental(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: PathAssertions
     get() = getImpl(PathAssertions::class) { DefaultPathAssertions() }

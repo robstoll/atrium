@@ -145,7 +145,7 @@ fun <T : CharSequence> Expect<T>.toContainRegex(pattern: String, vararg otherPat
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.toContainRegex(pattern: Regex, vararg otherPatterns: Regex): Expect<T> =
-    toContain.atLeast(1).regex(pattern, *otherPatterns)
+    toContain.atLeast(1).matchFor(pattern, *otherPatterns)
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) starts with [expected].

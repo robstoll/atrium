@@ -8,15 +8,12 @@ class CharSequenceExpectationSamples {
 
     @Test
     fun toContainBuilder() {
-        expect("ABC")
-            .toContain.exactly(1).value("A")
+        expect("ABC").toContain.exactly(1).value("A")
 
-        expect("ABBC")
-            .toContain.atLeast(2).value("B")
+        expect("ABBC").toContain.atLeast(2).value("B")
 
         fails {
-            expect("AAAAAA")
-                .toContain.atMost(3).value("A")
+            expect("AAAAAA").toContain.atMost(3).value("A")
         }
     }
 
@@ -71,13 +68,11 @@ class CharSequenceExpectationSamples {
             expect("ABC").toContainRegex("X")
         }
 
-        expect("ABC")
-            .toContainRegex("A(B)?", "(B)?C") // all regex patterns match
+        expect("ABC").toContainRegex("A(B)?", "(B)?C") // all regex patterns match
 
         // holds because `toContainRegex` does not search for unique matches
         // use `toContain.exactly(2).regex("A(B)?")` to check if the subject contains the regex two times
-        expect("ABC")
-            .toContainRegex("A(B)?", "A(B)?")
+        expect("ABC").toContainRegex("A(B)?", "A(B)?")
 
         fails { // because second regex doesn't match
             expect("ABC").toContainRegex("A", "X")
@@ -92,8 +87,7 @@ class CharSequenceExpectationSamples {
             expect("ABC").toContainRegex("X".toRegex())
         }
 
-        expect("ABC")
-            .toContainRegex("A".toRegex(), "B".toRegex()) // all regex patterns match
+        expect("ABC").toContainRegex("A".toRegex(), "B".toRegex()) // all regex patterns match
 
         // holds because `toContainRegex` does not search for unique matches
         // use `toContain.exactly(2).regex(regex)` to check if the subject contains the regex two times

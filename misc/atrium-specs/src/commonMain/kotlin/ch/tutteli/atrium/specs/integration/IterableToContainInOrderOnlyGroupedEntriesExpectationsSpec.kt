@@ -680,7 +680,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                                 indexSuccess(7, 8.0, "$toEqualDescr: 8.0")
                                 indexSuccess(
                                     8, 9, listOf(9.0, 10.0),
-                                    //TODO 1.1.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
+                                    //TODO 1.2.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
                                     sizeCheck(2, 2),
                                     successAfterSuccess("$toEqualDescr: 10.0"),
                                     successAfterSuccess("$toEqualDescr: 9.0")

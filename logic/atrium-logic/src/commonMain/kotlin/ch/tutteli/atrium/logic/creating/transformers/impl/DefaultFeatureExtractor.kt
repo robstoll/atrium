@@ -16,8 +16,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
-    @Suppress("DEPRECATION" /* OptIn is only available since 1.3.70 which we cannot use if we want to support 1.2 */)
-    @UseExperimental(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
+    @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <T, R> extract(
         container: AssertionContainer<T>,
         description: Translatable,
@@ -54,9 +53,9 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     })
 
                 val subAssertions = maybeSubAssertions.fold({
-                    listOf<Assertion>()
+                    listOf()
                 }) { assertionCreator ->
-                    // TODO 1.1.0: factor out in common pattern, should not be the concern of the average expectation
+                    // TODO 1.3.0: factor out in common pattern, should not be the concern of the average expectation
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory expectation-group, no need to wrap again

@@ -97,23 +97,19 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            values<Number>(1, 2.2)
+            values(1, 2.2)
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            values<Number>(1, 2.2)
+            values(1, 2.2)
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            values<Number>(1, 2.2)
+            values(1, 2.2)
         )
         star = star toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            values<Number>(1, 2.2)
+            values(1, 2.2)
         )
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
@@ -186,8 +182,7 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
             values(1, null),
-            //TODO check if <Number> is still necessary with kotlin 1.4, if so, report a bug
-            values<Number?>(1.2, null)
+            values(1.2, null)
         )
         star = star toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
