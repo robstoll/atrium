@@ -29,5 +29,5 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     BECAUSE("denn"),
 
     /** @since 1.1.0 */
-    NOT_TO_BE_THE_INSTANCE_OF("ist nicht eine Instanz vom Typ")
+    NOT_TO_BE_AN_INSTANCE_OF("ist nicht eine Instanz vom Typ")
 }

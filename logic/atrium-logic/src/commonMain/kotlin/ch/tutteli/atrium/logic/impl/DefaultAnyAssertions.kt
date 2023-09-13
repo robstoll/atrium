@@ -91,17 +91,27 @@ class DefaultAnyAssertions : AnyAssertions {
         assertionCreator: Expect<T>.() -> Unit
     ): Assertion {
         val assertion = container.collect(assertionCreator)
-        return assertionBuilder.invisibleGroup.withAssertions(
-            assertion,
-            assertionBuilder.explanatoryGroup
-                .withInformationType(withIndent = false)
-                .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
-                .build()
-        ).build()
+        return assertionBuilder.invisibleGroup
+            .withAssertions(
+                assertion,
+                assertionBuilder.explanatoryGroup
+                    .withInformationType(withIndent = false)
+                    .withAssertion(assertionBuilder.createDescriptive(BECAUSE, Text(reason), falseProvider))
+                    .build()
+            ).build()
     }
 
-
-    override fun <T, TNotExpected : Any> notToBeAnInstanceOf(container: AssertionContainer<T>, notExpectedClass: KClass<TNotExpected>): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE_OF, notExpectedClass) { !notExpectedClass.isInstance(it) }
+    override fun <T> notToBeAnInstanceOf(
+        container: AssertionContainer<T>,
+        notExpectedTypes: List<KClass<*>>
+    ): Assertion = assertionBuilder.invisibleGroup
+        .withAssertions(
+            notExpectedTypes.map { notExpectedType ->
+                container.createDescriptiveAssertion(
+                    NOT_TO_BE_AN_INSTANCE_OF,
+                    notExpectedType
+                ) { !notExpectedType.isInstance(it) }
+            }
+        ).build()
 
 }

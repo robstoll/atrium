@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
@@ -14,6 +15,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GRE
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
+import kotlin.reflect.KClass
 
 abstract class AnyExpectationsSpec(
     toEqualInt: Fun1<Int, Int>,
@@ -53,8 +55,9 @@ abstract class AnyExpectationsSpec(
     toBeAnInstanceOfSuperType: Feature1<out Any?, Expect<SuperType>.() -> Unit, SuperType>,
     toBeAnInstanceOfSubTypeFeature: Feature0<out Any?, SubType>,
     toBeAnInstanceOfSubType: Feature1<out Any?, Expect<SubType>.() -> Unit, SubType>,
-    notToBeInstanceOfFeature:Feature0<out Any?, out Any?>,
-    notToBeAnInstanceOf: Feature1<out Any?, Expect<SuperType>.() -> Unit, out Any?>,
+    notToBeInstanceOfSuperType: Feature0<Any, out Any?>,
+    notToBeInstanceOfKClass: Feature1<Any, KClass<*>, Any>,
+    notToBeInstanceOfKClasses: Feature2<Any, KClass<*>, Array<out KClass<*>>, Any>,
 
     notToBeNullFeature: Feature0<Int?, Int>,
     notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
@@ -90,6 +93,18 @@ abstract class AnyExpectationsSpec(
         toBeAnInstanceOfInt.forSubjectLess { toEqual(1) },
         notToBeNullFeature.forSubjectLess(),
         notToBeNull.forSubjectLess { toEqual(1) }
+    ) {})
+    include(object : SubjectLessSpec<Any>(
+        "$describePrefix[Any] ",
+        notToBeInstanceOfSuperType.let {
+            it.name to expectLambda { it.lambda.invoke(this) }
+        },
+        notToBeInstanceOfKClass.let {
+            it.name to expectLambda { it.lambda.invoke(this, Int::class) }
+        },
+        notToBeInstanceOfKClasses.let {
+            it.name to expectLambda { it.lambda.invoke(this, Int::class, arrayOf(Long::class, String::class)) }
+        },
     ) {})
 
     include(object : AssertionCreatorSpec<Int>(
@@ -766,6 +781,162 @@ abstract class AnyExpectationsSpec(
         }
     }
 
+    describeFun(notToBeInstanceOfSuperType) {
+        val notToBeInstanceOfSuperTypeFun = notToBeInstanceOfSuperType.lambda
+        val notToBeInstanceOfKClassFun = notToBeInstanceOfKClass.lambda
+        val notToBeInstanceOfKClassesFun = notToBeInstanceOfKClasses.lambda
+        context("subject is not in type hierarchy") {
+            it("${notToBeInstanceOfSuperType.name} -- does not throw") {
+                expect(1 as Any).notToBeInstanceOfSuperTypeFun()
+            }
+            it("${notToBeInstanceOfKClass.name} -- does not throw") {
+                expect(1 as Any).notToBeInstanceOfKClassFun(String::class)
+            }
+            it("${notToBeInstanceOfKClasses.name} -- does not throw") {
+                expect(1 as Any).notToBeInstanceOfKClassesFun(String::class, arrayOf(Long::class, Double::class))
+            }
+        }
+
+        context("subject is the same type") {
+            it("${notToBeInstanceOfSuperType.name} -- throws") {
+                expect {
+                    expect(SuperType() as Any).notToBeInstanceOfSuperTypeFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClass.name} -- throws") {
+                expect {
+                    expect(SuperType() as Any).notToBeInstanceOfKClassFun(SuperType::class)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClasses.name} -- throws if first type is SuperType") {
+                expect {
+                    expect(SuperType() as Any).notToBeInstanceOfKClassesFun(
+                        SuperType::class,
+                        arrayOf(Long::class, Double::class)
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                        notToContain(Long::class.simpleName!!)
+                        notToContain(Double::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClasses.name} -- throws if one of the other types is SuperType") {
+                expect {
+                    expect(SuperType() as Any).notToBeInstanceOfKClassesFun(
+                        Int::class,
+                        arrayOf(Long::class, SuperType::class)
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                        notToContain(Int::class.simpleName!!)
+                        notToContain(Long::class.simpleName!!)
+                    }
+                }
+            }
+        }
+
+        context("subject is a subtype") {
+            it("${notToBeInstanceOfSuperType.name} -- throws") {
+                expect {
+                    expect(SubType() as Any).notToBeInstanceOfSuperTypeFun()
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClass.name} -- throws") {
+                expect {
+                    expect(SubType() as Any).notToBeInstanceOfKClassFun(SuperType::class)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClasses.name} -- throws if first type is a sub-type") {
+                expect {
+                    expect(SubType() as Any).notToBeInstanceOfKClassesFun(
+                        SuperType::class,
+                        arrayOf(Long::class, Double::class)
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                        notToContain(Long::class.simpleName!!)
+                        notToContain(Double::class.simpleName!!)
+                    }
+                }
+            }
+            it("${notToBeInstanceOfKClasses.name} -- throws if one of the other types is a sub-type ") {
+                expect {
+                    expect(SubType() as Any).notToBeInstanceOfKClassesFun(
+                        Int::class,
+                        arrayOf(SuperType::class, Double::class)
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperType::class.simpleName!!)
+                        notToContain(Int::class.simpleName!!)
+                        notToContain(Long::class.simpleName!!)
+                    }
+                }
+            }
+
+            it("${notToBeInstanceOfKClasses.name} -- throws and lists all types which violates the expectation") {
+                expect {
+                    expect(SubType() as Any).notToBeInstanceOfKClassesFun(
+                        SuperInterface::class,
+                        arrayOf(Double::class, SuperType::class, SubType::class, Long::class)
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(NOT_TO_BE_AN_INSTANCE_OF.getDefault())
+                        toContain(SuperInterface::class.simpleName!!)
+                        toContain(SuperType::class.simpleName!!)
+                        toContain(SubType::class.simpleName!!)
+                        notToContain(Double::class.simpleName!!)
+                        notToContain(Long::class.simpleName!!)
+                    }
+                }
+            }
+        }
+
+        context("subject is a supertype") {
+            it("${notToBeInstanceOfSuperType.name} -- does not throw") {
+                expect(object : SuperInterface {} as Any).notToBeInstanceOfSuperTypeFun()
+            }
+            it("${notToBeInstanceOfKClass.name} -- does not throw") {
+                expect(object : SuperInterface {} as Any).notToBeInstanceOfKClassFun(SuperType::class)
+            }
+            it("${notToBeInstanceOfKClasses.name} -- does not throw") {
+                expect(object : SuperInterface {} as Any).notToBeInstanceOfKClassesFun(
+                    SubType::class,
+                    arrayOf(Long::class, Double::class)
+                )
+            }
+        }
+    }
+
     prefixedDescribe("property `${andPair.name}` immediate") {
         it("returns the same container") {
             val container = expect(1)
@@ -825,6 +996,7 @@ abstract class AnyExpectationsSpec(
 
 }) {
     data class DataClass(val isWhatever: Boolean)
-    open class SuperType
+    interface SuperInterface
+    open class SuperType : SuperInterface
     class SubType : SuperType()
 }

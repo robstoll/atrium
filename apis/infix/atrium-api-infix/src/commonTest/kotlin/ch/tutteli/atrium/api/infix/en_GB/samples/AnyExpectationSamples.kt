@@ -1,4 +1,3 @@
-
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
@@ -152,13 +151,34 @@ class AnyExpectationSamples {
             expect<Number>(1).toBeAnInstanceOf<Int> { }
         }
     }
+
     @Test
-    fun notToBeInstanceOf() {
-        val n: Number = 16
-        expect(n).notToBeAnInstanceOf<String>()
-        fails{
-            // fails because n is actually instance of number
-            expect(n).notToBeAnInstanceOf<Number>()
+    fun notToBeAnInstanceOf() {
+        val n: Number = 16L
+        expect(n).notToBeAnInstanceOf<Int>()
+        fails {
+            // fails because n is actually instance of Long
+            expect(n).notToBeAnInstanceOf<Long>()
+        }
+    }
+
+    @Test
+    fun notToBeAnInstanceOfKClass() {
+        val n: Number = 16L
+        expect(n) notToBeAnInstanceOf Int::class
+        fails {
+            // fails because n is actually instance of Long
+            expect(n) notToBeAnInstanceOf Long::class
+        }
+    }
+
+    @Test
+    fun notToBeAnInstanceOfKClasses() {
+        val n: Number = 16L
+        expect(n) notToBeAnInstanceOf types(Int::class, Float::class, Double::class)
+        fails {
+            // fails because n is actually instance of Long
+            expect(n) notToBeAnInstanceOf types(Int::class, Long::class)
         }
     }
 
