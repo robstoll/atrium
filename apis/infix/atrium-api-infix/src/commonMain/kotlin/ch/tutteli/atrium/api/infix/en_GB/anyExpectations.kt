@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.infix.en_GB.creating.Types
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -191,6 +192,57 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
  */
 inline infix fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
     toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
+
+
+/**
+ * Expects that the subject of `this` expectation *is not a* [TNotExpected] (the same type or a sub-type).
+ *
+ * Notice, this function has only one type parameter in order that you do not have to restate the type of the current
+ * subject. But that also means that we need to return `Expect<*>` or in other words, we loose the type of the subject.
+ * Which means, if you want to state a further expectation after [notToBeAnInstanceOf] then you most likely want to
+ * use the overload which expects one (or more) [KClass] instead which keeps the type of the initial subject.
+ *
+ * @param TNotExpected the type which we do not expect to be the same or a super-type of the subject of `this`
+ *        expectation.
+ * @return an [Expect] for the subject of `this` expectation but untyped (with a star projection).
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToBeAnInstanceOf
+ *
+ * @since 1.1.0
+ */
+inline fun <reified TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> =
+    notToBeAnInstanceOf(TNotExpected::class)
+
+/**
+ * Expects that the subject of `this` expectation *is not* one of the given [types]
+ * (the same type or a sub-type).
+ *
+ * @param type the type which we do not expect to be the same or a super-type of the subject of `this`
+ *        expectation.
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToBeAnInstanceOfKClass
+ *
+ * @since 1.1.0
+ */
+infix fun <T> Expect<T>.notToBeAnInstanceOf(type: KClass<*>): Expect<T> =
+    notToBeAnInstanceOf(types(type))
+
+/**
+ * Expects that the subject of `this` expectation *is not* one of the given [types]
+ * (the same type or a sub-type).
+ *
+ * @param types the types which we do not expect to be the same or a super-type of the subject of `this`
+ *        expectation.
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.AnyExpectationSamples.notToBeAnInstanceOfKClasses
+ *
+ * @since 1.1.0
+ */
+infix fun <T> Expect<T>.notToBeAnInstanceOf(types: Types): Expect<T> =
+    _logicAppend { notToBeAnInstanceOf(types.toList()) }
+
 
 /**
  * Expects that the subject of `this` expectation is not equal to any value of [values].

@@ -166,6 +166,28 @@ class AnyExpectationSamples {
         }
     }
 
+
+    @Test
+    fun notToBeAnInstanceOf() {
+        val n: Number = 16L
+        expect(n).notToBeAnInstanceOf<Int>()
+        fails {
+            // fails because n is actually instance of Long
+            expect(n).notToBeAnInstanceOf<Long>()
+        }
+    }
+
+
+    @Test
+    fun notToBeAnInstanceOfKClasses() {
+        val n: Number = 16L
+        expect(n).notToBeAnInstanceOf(Int::class, Float::class, Double::class)
+        fails {
+            // fails because n is actually instance of Long
+            expect(n).notToBeAnInstanceOf(Int::class, Long::class)
+        }
+    }
+
     @Test
     fun notToEqualOneOf() {
         expect(99).notToEqualOneOf(1, 2, 3, 4)

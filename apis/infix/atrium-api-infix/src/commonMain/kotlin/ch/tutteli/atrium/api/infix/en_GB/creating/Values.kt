@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating
 
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
-
+//TODO 1.1.0 check if Note is still valid, I think we don't make it invariant, so remove the note again
 /**
  * Represents a [Group] of multiple values.
  *

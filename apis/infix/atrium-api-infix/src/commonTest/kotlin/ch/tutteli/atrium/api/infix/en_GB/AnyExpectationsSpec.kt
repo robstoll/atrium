@@ -6,6 +6,7 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 
 class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsSpec(
@@ -44,6 +45,9 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSuperType,
     ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubTypeFeature).withFeatureSuffix(),
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubType,
+    "notToBeAnInstanceOf" to Companion::notToBeAnInstanceOf,
+    "notToBeAnInstanceOf with kClass" to Companion::notToBeAnInstanceOfKClass,
+    "notToBeAnInstanceOf with kClasses" to Companion::notToBeAnInstanceOfKClasses,
 
     ("notToEqualNull" to Companion::notToEqualNullFeature).withFeatureSuffix(),
     "notToEqualNull" to Companion::notToEqualNull,
@@ -55,30 +59,24 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     companion object {
         private fun toEqualNull(expect: Expect<Int?>) = expect toEqual null
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfIntFeature(expect: Expect<out Any?>): Expect<Int> =
             expect.toBeAnInstanceOf()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfInt(expect: Expect<out Any?>, assertionCreator: Expect<Int>.() -> Unit): Expect<Int> =
             expect.toBeAnInstanceOf<Int> { assertionCreator() }
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSuperTypeFeature(expect: Expect<out Any?>): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType>()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSuperType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SuperType>.() -> Unit
         ): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType> { assertionCreator() }
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType>()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSubType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SubType>.() -> Unit
@@ -89,6 +87,18 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
             "and o" to { e: Expect<Int> ->
                 e and o
             }
+
+        private fun notToBeAnInstanceOf(expect: Expect<Any>): Expect<*> =
+            expect notToBeAnInstanceOf SuperType::class
+
+        private fun notToBeAnInstanceOfKClass(expect: Expect<Any>, kClass: KClass<*>): Expect<Any> =
+            expect notToBeAnInstanceOf kClass
+
+        private fun notToBeAnInstanceOfKClasses(
+            expect: Expect<Any>,
+            kClass: KClass<*>,
+            otherTypes: Array<out KClass<*>>
+        ): Expect<Any> = expect notToBeAnInstanceOf types(kClass, *otherTypes)
 
         private val andLazyName: KFunction2<Expect<Int>, Expect<Int>.() -> Unit, Expect<Int>> = Expect<Int>::and
         private fun getAndLazyPair(): Pair<String, Expect<Int>.(Expect<Int>.() -> Unit) -> Expect<Int>> =
@@ -148,6 +158,9 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
         a1 notToBeTheInstance 1.2
         a1.toBeAnInstanceOf<Int>()
         a1.toBeAnInstanceOf<Int> {}
+        a1.notToBeAnInstanceOf<Int>()
+        a1 notToBeAnInstanceOf Int::class
+        a1 notToBeAnInstanceOf types(Int::class, Double::class)
         a1 notToEqualOneOf values(1, 2)
         a1 notToEqualOneIn listOf(1, 1.2)
         a1 because of("hello") { toEqual(1) }
@@ -162,6 +175,9 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
         a1b notToBeTheInstance 1.2
         a1b.toBeAnInstanceOf<Int>()
         a1b.toBeAnInstanceOf<Int> {}
+        a1b.notToBeAnInstanceOf<Int>()
+        a1b notToBeAnInstanceOf Int::class
+        a1b notToBeAnInstanceOf types(Int::class, Double::class)
         a1b notToEqualOneOf values(1, 2)
         a1b notToEqualOneIn listOf(1, 1.2)
 
