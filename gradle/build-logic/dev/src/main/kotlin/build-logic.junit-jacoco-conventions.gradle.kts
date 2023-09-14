@@ -27,6 +27,13 @@ plugins.withId("jacoco") {
     tasks.withType<JacocoReport>()
         .matching { it.name == "jacocoTestReport" }
         .configureEach {
+            val coverageSourceDirs = arrayOf(
+                "src/commonMain",
+                "src/jvmMain"
+            )
+            //TODO 1.2.0 remove again, should be fixed in tutteli-gradle-plugins by now
+            sourceDirectories.from(project.files(coverageSourceDirs))
+            classDirectories.from(project.layout.buildDirectory.map { it.dir("classes/kotlin/jvm/main").asFileTree })
 
 //            //TODO 1.2.0 translate to convention-plugin (or add to tutteli-plugin directly)
 //            if (project.extra.has(jacocoAdditionalExtraName)) {
