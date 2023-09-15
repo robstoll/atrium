@@ -6,6 +6,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.withNullableSuffix
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
@@ -45,7 +46,9 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSuperType,
     ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubTypeFeature).withFeatureSuffix(),
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubType,
-
+    "notToBeAnInstanceOf" to Companion::notToBeAnInstanceOf,
+    "notToBeAnInstanceOf with kClass" to Companion::notToBeAnInstanceOfKClass,
+    "notToBeAnInstanceOf with kClasses" to Companion::notToBeAnInstanceOfKClasses,
     feature0<Int?, Int>(Expect<Int?>::notToEqualNull),
     "notToEqualNull" to Companion::notToEqualNull,
 
@@ -56,35 +59,45 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     companion object {
         private fun toEqualNull(expect: Expect<Int?>) = expect.toEqual(null)
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfIntFeature(expect: Expect<out Any?>): Expect<Int> =
             expect.toBeAnInstanceOf<Int>()
 
-        @Suppress("RemoveExplicitTypeArguments")
-        private fun toBeAnInstanceOfInt(expect: Expect<out Any?>, assertionCreator: Expect<Int>.() -> Unit): Expect<Int> =
+        private fun toBeAnInstanceOfInt(
+            expect: Expect<out Any?>,
+            assertionCreator: Expect<Int>.() -> Unit
+        ): Expect<Int> =
             expect.toBeAnInstanceOf<Int> { assertionCreator() }
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSuperTypeFeature(expect: Expect<out Any?>): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType>()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSuperType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SuperType>.() -> Unit
         ): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType> { assertionCreator() }
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType>()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun toBeAnInstanceOfSubType(
             expect: Expect<out Any?>,
             assertionCreator: Expect<SubType>.() -> Unit
         ): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType> { assertionCreator() }
+
+        private fun notToBeAnInstanceOf(expect: Expect<Any>): Expect<*> =
+            expect.notToBeAnInstanceOf<SuperType>()
+
+        private fun notToBeAnInstanceOfKClass(expect: Expect<Any>, kClass: KClass<*>): Expect<Any> =
+            expect.notToBeAnInstanceOf(kClass)
+
+        private fun notToBeAnInstanceOfKClasses(
+            expect: Expect<Any>,
+            kClass: KClass<*>,
+            otherTypes: Array<out KClass<*>>
+        ): Expect<Any> = expect.notToBeAnInstanceOf(kClass, *otherTypes)
+
 
         private val andImmediate: KProperty1<Expect<Int>, Expect<Int>> = Expect<Int>::and
         fun getAndImmediatePair(): Pair<String, Expect<Int>.() -> Expect<Int>> = andImmediate.name to Expect<Int>::and

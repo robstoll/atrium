@@ -16,11 +16,39 @@ class CharSequenceToContainCheckerSamples {
     }
 
     @Test
+    fun atMost() {
+        expect("ABBC").toContain.atMost(2).value("B")
+
+        fails {
+            expect("AABBAA").toContain.atMost(3).value("A")
+        }
+    }
+
+    @Test
+    fun notOrAtMost() {
+        expect("ABBC").toContain.notOrAtMost(2).value("D")
+        expect("ABBC").toContain.notOrAtMost(2).value("B")
+
+        fails {
+            expect("AABBAA").toContain.notOrAtMost(3).value("A")
+        }
+    }
+
+    @Test
     fun butAtMost() {
         expect("ABBC").toContain.atLeast(1).butAtMost(2).value("B")
 
         fails {
             expect("ABBBBCD").toContain.atLeast(2).butAtMost(3).value("B")
+        }
+    }
+
+    @Test
+    fun exactly() {
+        expect("ABCBAC").toContain.exactly(2).value("C")
+
+        fails {
+            expect("ABBBBCD").toContain.exactly(3).value("B")
         }
     }
 }

@@ -11,6 +11,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrd
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
+import kotlin.reflect.KClass
 
 /**
  * Helper function to create an [All] based on the given [t] and [ts]
@@ -313,3 +314,15 @@ fun <T> values(
     reportOptionsInAnyOrderOnly: InAnyOrderOnlyReportingOptions.() -> Unit
 ): WithInAnyOrderOnlyReportingOptions<Values<T>> =
     WithInAnyOrderOnlyReportingOptions(reportOptionsInAnyOrderOnly, Values(value, otherValues))
+
+
+/**
+ * Helper function to create a [Types] based on the given [type] and [otherTypes]
+ * -- allows expressing `KClass<*>, vararg KClass<*>`.
+ *
+ * @since 1.1.0
+ */
+fun types(
+    type: KClass<*>,
+    vararg otherTypes: KClass<*>,
+): Types = Types(type, otherTypes)

@@ -17,7 +17,7 @@ jobs:
         java_version: [ 11, 17 ]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: "Set up JDK ${{ matrix.java_version }}"
         uses: actions/setup-java@v3
         with:
@@ -52,3 +52,7 @@ jobs:
       - name: build maven sample
         run: ./mvnw -B clean verify
         working-directory: samples\jvm\maven
+
+      - name: build kotest sample
+        run: ./gradlew build
+        working-directory: samples\jvm\kotest

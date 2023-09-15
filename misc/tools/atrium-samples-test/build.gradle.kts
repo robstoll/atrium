@@ -3,7 +3,7 @@ plugins {
 }
 
 //TODO 1.2.0 include ...-kotlin-test again once we use IR for JS
-val samples = listOf("junit5", "spek")//, "js-kotlin-test", "multiplatform-kotlin-test")
+val samples = listOf("junit5", "spek", "kotest")//, "js-kotlin-test", "multiplatform-kotlin-test")
 
 tasks.register("build") {
     samples.forEach { projectName ->

@@ -35,6 +35,7 @@ import kotlin.jvm.JvmName
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.value
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharSequenceOrNumberOrChar): Expect<T> =
     values(expected)
@@ -54,9 +55,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value("a")`
+ *   `toContain.exactly(2).value("a")`
  * instead of:
- *   `contains.atLeast(1).values("a", "a")`
+ *   `toContain.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
@@ -64,6 +65,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.values
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
@@ -87,6 +91,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ *  @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCaseWithChecker
+ *
  */
 @JvmName("valueIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
@@ -108,9 +115,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).value("a")`
+ *   `toContain.ignoringCase.exactly(2).value("a")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).values("a", "a")`
+ *   `toContain.ignoringCase.atLeast(1).values("a", "a")`
  *
  * @param expected The value which is expected to be contained within the input of the search.
  * @param otherExpected Additional values which are expected to be contained within the input of the search.
@@ -118,6 +125,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCaseWithChecker
+ *
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
@@ -142,6 +152,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
@@ -169,6 +182,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
@@ -186,14 +202,17 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex("a(b)?")`
+ *   `toContain.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regex
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: String,
@@ -211,9 +230,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex(Regex("a(b)?"))`
+ *   `toContain.exactly(2).regex(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
+ *   `toContain.atLeast(1).regex(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -242,9 +261,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).matchFor(Regex("a(b)?"))`
+ *   `toContain.exactly(2).matchFor(Regex("a(b)?"))`
  * instead of:
- *   `contains.atLeast(1).matchFor(Regex("a(b)?"), Regex("a(b)?"))`
+ *   `toContain.atLeast(1).matchFor(Regex("a(b)?"), Regex("a(b)?"))`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
@@ -252,6 +271,9 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 1.1.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.matchFor
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex,
@@ -269,14 +291,17 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
+ *   `toContain.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCaseWithChecker
+ *
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
@@ -298,14 +323,17 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
  * to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.ignoringCase.exactly(2).regex("a(b)?")`
+ *   `toContain.ignoringCase.exactly(2).regex("a(b)?")`
  * instead of:
- *   `contains.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
+ *   `toContain.ignoringCase.atLeast(1).regex("a(b)?", "a(b)?")`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCase
+ *
  */
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
@@ -331,6 +359,9 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
  * [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOf
+ *
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
@@ -356,6 +387,8 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expectedIterableLike] is not an [Iterable], [Sequence] or one of the [Array] types or the given
  * [expectedIterableLike] does not have elements (is empty).
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOfIgnoringCaseWithChecker
  *
  * @since 0.13.0
  */
@@ -385,6 +418,9 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
  * [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOfIgnoreCase
+ *
  */
 @JvmName("elementsOfIgnoringCase")
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(

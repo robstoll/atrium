@@ -2,7 +2,6 @@
 
 package ch.tutteli.atrium.specs
 
-import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
@@ -181,6 +180,20 @@ fun <T, R> unifySignatures(
         Triple(f1.name, f1.lambda, true)
     )
 }
+
+// TODO I cant make this work any way I try, it seems to me like I wont be able to unify like this
+//@JvmName("unifySignatures0Feature")
+//fun <T, R> unifySignatures(
+//    f0: Feature0<T, T>,
+//    f1: Feature1<T, Expect<R>.() -> Unit, T>
+//): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, Boolean>> {
+//    val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
+//        { f: Expect<R>.() -> Unit -> (f0.lambda)() }
+//    return listOf(
+//        Triple(f0.name, f0WithSubAssertion, false),
+//        Triple(f1.name, f1.lambda, true)
+//    )
+//}
 
 @JvmName("unifySignatures1Feature")
 fun <T, A1, R> unifySignatures(
