@@ -17,9 +17,17 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(TO_EQUAL, expected) { it == expected }
 
-    //TODO make null handled here
-    override fun <T> notToBe(container: AssertionContainer<T?>, expected: T?): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_EQUAL, expected) { it != expected }
+    override fun <T> notToBe(container: AssertionContainer<T?>, expected: T?): Assertion {
+
+        if (container.maybeSubject.getOrElse { null } == null || expected == null) {
+            return container.createDescriptiveAssertion(
+                description = NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE, representation = expected, test = {
+                    it != null
+                }
+            )
+        }
+        return container.createDescriptiveAssertion(NOT_TO_EQUAL, expected) { it != expected }
+    }
 
     override fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(TO_BE_THE_INSTANCE, expected) { it === expected }
@@ -61,8 +69,7 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ): SubjectChangerBuilder.ExecutionStep<T?, T>
-     = container.changeSubject.reportBuilder()
+    ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.changeSubject.reportBuilder()
         .withDescriptionAndRepresentation(description = NOT_TO_EQUAL_NULL_BUT_BE_OF_TYPE, representation = subType)
         .withTransformation {
             Option.someIf(subType.isInstance(it)) { subType.cast(it) }
