@@ -1,6 +1,5 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.findByType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
@@ -15,33 +14,23 @@ dependencies {
 }
 
 val jacocoToolVersion: String by rootProject.extra
-
 plugins.withId("jacoco") {
     configure<JacocoPluginExtension> {
         if (rootProject.name != "gradle-kotlin-dsl-accessors") {
             toolVersion = jacocoToolVersion
         }
     }
-//
-    val jacocoAdditionalExtraName = "jacocoAdditional"
+
     tasks.withType<JacocoReport>()
         .matching { it.name == "jacocoTestReport" }
         .configureEach {
-            val coverageSourceDirs = arrayOf(
-                "src/commonMain",
-                "src/jvmMain"
-            )
-            //TODO 1.2.0 remove again, should be fixed in tutteli-gradle-plugins by now
-            sourceDirectories.from(project.files(coverageSourceDirs))
-            classDirectories.from(project.layout.buildDirectory.map { it.dir("classes/kotlin/jvm/main").asFileTree })
 
-            //TODO 1.2.0 translate to convention-plugin (or add to tutteli-plugin directly)
+            val jacocoAdditionalExtraName = "jacocoAdditional"
             if (project.extra.has(jacocoAdditionalExtraName)) {
-                val additional = project.extra.get(jacocoAdditionalExtraName) as List<*>
-                additional.forEach { p ->
-                    val otherProject = p as Project
-                    sourceDirectories.from(otherProject.files(coverageSourceDirs))
-                    classDirectories.from(otherProject.layout.buildDirectory.map { it.dir("classes/kotlin/jvm/main").asFileTree })
+                @Suppress("UNCHECKED_CAST")
+                val additional = project.extra.get(jacocoAdditionalExtraName) as List<Project>
+                junitjacoco {
+                    additionalProjectSources.set(additional)
                 }
             }
 
