@@ -13,7 +13,7 @@ import ch.tutteli.kbox.glue
 import kotlin.reflect.KClass
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain the given [keyValuePair].
  *
  * Delegates to [entries].
@@ -26,7 +26,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entry
     entries(keyValuePair)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain the given [keyValuePair] as well as the [otherPairs] where it does not matter
  * in which order they appear.
  *
@@ -44,7 +44,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entri
 ): Expect<T> = _logicAppend { keyValuePairsInAnyOrder(keyValuePair glue otherPairs) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain an entry with a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
@@ -61,7 +61,7 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyO
 ): Expect<T> = entries(keyValue)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain the given [keyValue] as well as the [otherKeyValues] where it does not matter
  * in which order they appear -- an entry is contained if it has a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
@@ -91,7 +91,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSe
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain all entries of the given [expectedMapLike] where it does not matter
  * in which order they appear.
  *

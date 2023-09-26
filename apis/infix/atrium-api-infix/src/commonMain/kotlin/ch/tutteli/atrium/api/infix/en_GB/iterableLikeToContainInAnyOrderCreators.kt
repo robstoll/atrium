@@ -15,7 +15,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLikeToIterableTransfor
 import ch.tutteli.atrium.logic.utils.toVarArg
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain the [expected] value.
  *
  * Delegates to `the values(expected)`.
@@ -30,7 +30,7 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.val
     this the values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain the expected [values] where it does not matter
  * in which order they appear.
  *
@@ -55,7 +55,7 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the
     _logicAppend { values(values.toList(), StaticNames.notToHaveElementsOrNone) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain an entry which either holds all assertions [assertionCreatorOrNull] creates or
  * needs to be `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -74,7 +74,7 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
 ): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain an entry for each in [entries] where it does not matter
  * in which order they appear -- an entry is contained if it either
  * holds all assertions [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or
@@ -93,7 +93,7 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
 ): Expect<T> = _logicAppend { entries(entries.toList(), StaticNames.notToHaveElementsOrNone) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain all elements of the [expectedIterableLike] where it does not matter in which order they appear.
  *
  * Delegates to [values] which also means that it does not search for unique matches

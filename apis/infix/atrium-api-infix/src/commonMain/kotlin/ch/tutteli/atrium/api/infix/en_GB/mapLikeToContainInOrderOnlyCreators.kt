@@ -21,7 +21,7 @@ import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain exactly one entry where key and value have to equal the given [keyValuePair].
  *
  * Delegates to `the pairs(keyValuePair)`.
@@ -34,7 +34,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
     this the pairs(keyValuePair)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given key-value [pairs] in the specified order.
  *
  * @param pairs The key-value pairs which are expected to be contained within the [MapLike]
@@ -49,7 +49,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
 ): Expect<T> = the(WithInOrderOnlyReportingOptions({}, pairs))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given [pairs] in the specified order.
  *
  * @param pairs The key-value pairs which are expected to be contained within the [MapLike]
@@ -69,7 +69,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain exactly one entry with a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyWithValueCreator.valueAssertionCreatorOrNull] creates or needs to be `null` in case
@@ -91,7 +91,7 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
 ): Expect<T> = this the entries(keyValue)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it has a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
@@ -110,7 +110,7 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
 ): Expect<T> = the(WithInOrderOnlyReportingOptions({}, entries))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it has a key as defined by [keyValue]'s [KeyWithValueCreator.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
@@ -143,7 +143,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only and all entries of the given [expectedMapLike] in the specified order.
  *
  * Notice that a runtime check applies which assures that only [Map] and [IterableLike]
@@ -163,7 +163,7 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
 ): Expect<T> = the(WithInOrderOnlyReportingOptions({}, expectedMapLike))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only and all entries of the given [MapLike] in the specified order.
  *
  * Delegates to `the pairs`

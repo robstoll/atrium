@@ -11,8 +11,8 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
  */
 class NotSearchBehaviourImpl : NotSearchBehaviour {
     /**
-     * Returns [DescriptionCharSequenceExpectation.CONTAINS_NOT].
-     * @return [DescriptionCharSequenceExpectation.CONTAINS_NOT]
+     * Returns [DescriptionCharSequenceExpectation.NOT_TO_CONTAIN].
+     * @return [DescriptionCharSequenceExpectation.NOT_TO_CONTAIN]
      */
     override fun decorateDescription(description: Translatable): Translatable =
         DescriptionCharSequenceExpectation.NOT_TO_CONTAIN

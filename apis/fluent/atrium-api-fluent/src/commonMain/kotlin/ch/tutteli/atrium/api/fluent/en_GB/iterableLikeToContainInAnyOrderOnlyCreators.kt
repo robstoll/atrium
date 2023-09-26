@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the [expected] value.
  *
  * Delegates to [values].
@@ -31,7 +31,7 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.va
     values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the [expected] value as well as the [otherExpected] values
  * where it does not matter in which order.
  *
@@ -52,7 +52,7 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.va
 ): Expect<T> = _logicAppend { valuesInAnyOrderOnly(expected glue otherExpected, report) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -71,7 +71,7 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBe
 ): Expect<T> = entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only an entry for [assertionCreatorOrNull] as well as for the [otherAssertionCreatorsOrNulls]
  * where it does not matter in which order they appear -- an entry is contained if it either
  * holds all assertions [assertionCreatorOrNull] creates or
@@ -105,7 +105,7 @@ fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBe
 ): Expect<T> = _logicAppend { entriesInAnyOrderOnly(assertionCreatorOrNull glue otherAssertionCreatorsOrNulls, report) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only and all elements of [expectedIterableLike] where it does not matter in which order.
  *
  * Delegates to [values].
