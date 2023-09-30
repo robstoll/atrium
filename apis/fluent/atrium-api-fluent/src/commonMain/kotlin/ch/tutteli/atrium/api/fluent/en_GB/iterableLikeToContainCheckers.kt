@@ -66,6 +66,8 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerStep<E, T,
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainCheckerSamples.exactly
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.exactly(
