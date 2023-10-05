@@ -192,6 +192,13 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
                 }
             },
             { c ->
+                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                TextAssertionFormatterFactory { controller ->
+                    TextGroupingAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+                }
+            },
+            { c ->
                 val objectFormatter = c.build<TextObjectFormatter>()
                 val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
                 val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()

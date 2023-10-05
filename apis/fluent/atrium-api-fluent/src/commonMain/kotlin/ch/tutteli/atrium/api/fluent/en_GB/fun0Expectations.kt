@@ -8,7 +8,8 @@ import ch.tutteli.atrium.logic.toThrow
 import kotlin.reflect.KClass
 
 /**
- * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type).
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
+ * (the same type or a sub-type).
  *
  * Notice, that asserting a generic type is [flawed](https://youtrack.jetbrains.com/issue/KT-27826).
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
@@ -27,8 +28,8 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
 ): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
 
 /**
- * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type) and
- * that it holds all assertions the given [assertionCreator] creates.
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
+ * (the same type or a sub-type) and that it holds all assertions the given [assertionCreator] creates.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was `Throwable?` but an [Expect] of the specified type [TExpected].
@@ -66,7 +67,7 @@ inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
 
 
 /**
- * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
+ * Expects that no [Throwable] is thrown at all when invoking the subject (a function with arity 0, i.e. without arguments)
  * and changes the subject of `this` expectation to the return value of type [R].
  *
  * @return An [Expect] with the new type [R].
@@ -77,7 +78,7 @@ fun <R, T : () -> R> Expect<T>.notToThrow(): Expect<R> =
     _logic.notToThrow().transform()
 
 /**
- * Expects that no [Throwable] is thrown at all when calling the subject (a lambda with arity 0, i.e. without arguments)
+ * Expects that no [Throwable] is thrown at all when invoking the subject (a function with arity 0, i.e. without arguments)
  * and that the corresponding return value holds all assertions the given [assertionCreator] creates.
  *
  * @return An [Expect] with the new type [R].

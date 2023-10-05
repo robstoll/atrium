@@ -8,7 +8,8 @@ import ch.tutteli.atrium.logic.toThrow
 import kotlin.reflect.KClass
 
 /**
- * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type).
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
+ * (the same type or a sub-type).
  *
  * Notice, that asserting a generic type is [flawed](https://youtrack.jetbrains.com/issue/KT-27826).
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
@@ -25,8 +26,8 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
 ): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
 
 /**
- * Expects that the thrown [Throwable] *is a* [TExpected] (the same type or a sub-type) and
- * that it holds all assertions the given [assertionCreator] creates.
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
+ * (the same type or a sub-type) and that it holds all assertions the given [assertionCreator] creates.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
  * [Expect] of the initial type, which was `Throwable?` but an [Expect] of the specified type [TExpected].

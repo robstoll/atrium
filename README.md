@@ -42,6 +42,7 @@ Please have a look at the README of the corresponding release/git tag -- latest 
 - [Examples](#examples)
   - [Your First Expectation](#your-first-expectation)
   - [Define Single Expectations or an Expectation-Group](#define-single-expectations-or-an-expectation-group)
+    - [Soft-Expectations](#soft-expectations)
   - [Expect an Exception](#expect-an-exception)
   - [Feature Extractors](#feature-extractors)
     - [Property and Method](#property-and-methods)
@@ -287,9 +288,32 @@ An expectation-group throws an `AssertionError` at the end of its block (i.e. at
 hence reports that both expectations do not hold.
 The reporting can be read as `I expected the subject of the expectation, which was 10, to be less than 5 and to be greater than 10`
 
-This is similar to the concept of soft assertions in AssertJ with the difference that you do not need an extra utility,
-and you do not have to repeat the subject.
-The above is the equivalent of the following AssertJ example:
+<hr/>
+
+You can use `and` as filling element between single expectations and expectation-groups:
+
+<code-and>
+
+```kotlin
+expect(5).toBeGreaterThan(2).and.toBeLessThan(10)
+
+expect(5) {
+    // ...
+} and { // if the previous block fails, then this one is not evaluated
+    // ...
+}
+```
+</code-and>
+
+### Soft-Expectations
+
+An [expectation-group](#define-single-expectations-or-an-expectation-group) is similar to the concept of 
+soft assertions in AssertJ although with a few differences:
+- you do not need an extra utility such as `assertSoftly` if you define expectations about the same subject,  
+  you can just use `expect` as always.
+- you do not have to repeat the subject
+
+The [above example](#ex-group) is the equivalent of the following AssertJ example:
 ```kotlin
 assertSoftly {
     assertThat(4 + 6).isLessThan(5)
@@ -323,26 +347,18 @@ expect(mansion) {
 }
 ```
 
-Note that you are free to choose a fail-fast behaviour at any level. For instance, above we have used the single
-expectation syntax for `toBeGreaterThan(5).toBeLessThan(10)` and thus `toBeLessThan(10)` will not show up in reporting
-if `toBeGreaterThan(5)` already fails.
+<details>
+<summary>💬 fail-fast in expectation-groups </summary>
 
-<hr/>
+Note that you are free to choose the dot-notation (e.g. `toBeGreaterThan(5).toBeLessThan(10)`) at any level, however
+once you are within an expectation-group block, all of them are evaluated (no more fail-fast behaviour applies).
+In other words, `toBeLessThan(10)` is still reported, even though `toBeGreaterThan(5)` already fails 
+in the above example.
 
-You can use `and` as filling element between single expectations and expectation-groups:
+</details>
 
-<code-and>
-
-```kotlin
-expect(5).toBeGreaterThan(2).and.toBeLessThan(10)
-
-expect(5) {
-    // ...
-} and { // if the previous block fails, then this one is not evaluated
-    // ...
-}
-```
-</code-and>
+If you want to state expectations about multiple unrelated subjects and want to report them together (or introduce groups),
+then you might be interested in using `expectGrouped` instead of `expect` -> take a look at the [data driven testing](#data-driven-testing) section.
  
 ## Expect an Exception
 <ex-toThrow1>
@@ -1655,37 +1671,47 @@ In this sense it can be used for data driven testing.
 This is especially helpful in case your test runner does not support data driven testing (or other mechanisms like hierarchical or dynamic tests).
 As an example, Atrium can help you to write data driven tests in a common module of a multiplatform-project.
 
-The trick is to wrap your expectations into an [expectation-group](#define-single-expectations-or-an-expectation-group),
-use [Feature Extractors](#feature-extractors) and state expectations about those feautres. Following an example:
+Use `expectGrouped` (a pre-defined expectation verb which ships along with `expect`) instead and then define multiple 
+`expect` in it. Following an example:
 
 <ex-data-driven-1>
 
 ```kotlin
 fun myFun(i: Int) = (i + 97).toChar()
 
-expect("calling myFun with...") {
+expectGrouped {
     mapOf(
         1 to 'a',
         2 to 'c',
         3 to 'e'
     ).forEach { (arg, result) ->
-        feature { f(::myFun, arg) }.toEqual(result)
+        group("calling myFun with $arg") {
+            expect(myFun(arg)).toEqual(result)
+        }
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L35)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L32)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
 <a name="ex-data-driven-1"></a>
 ```text
-I expected subject: "calling myFun with..."        <1234789>
-◆ ▶ myFun(1): 'b'
-    ◾ to equal: 'a'
-◆ ▶ myFun(3): 'd'
-    ◾ to equal: 'e'
+my expectations: 
+# calling myFun with 1: 
+  ◆ ▶ I expected subject: 'b'
+      ◾ to equal: 'a'
+# calling myFun with 3: 
+  ◆ ▶ I expected subject: 'd'
+      ◾ to equal: 'e'
 ```
 </ex-data-driven-1>
 
 Per default, only failing expectations are shown.
 This is also the reason why the call of `myFun(2)` is not listed (as the result is `c` as expected).
+
+`expectGrouped` creates an ExpectGrouping-Block which is very similar to an expectation-group block 
+(see [Define an expectation-group](#define-single-expectations-or-an-expectation-group)) just that you have not yet 
+defined a subject. It also specifies that all expectations specified in it are evaluated and reported together 
+and this is also the reason why we see `calling myFun with 3` in the above [Output](#ex-data-driven-1) even though 
+calling it with `2` failed.
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 if you want to see a summary, meaning also successful expectations -- we happily add more functionality if it is of use for someone.
@@ -1696,32 +1722,81 @@ We are going to reuse the `myFun` from above:
 <ex-data-driven-2>
 
 ```kotlin
-import ch.tutteli.atrium.logic.utils.expectLambda
-
-expect("calling myFun with ...") {
-    mapOf(
-        1 to expectLambda<Char> { toBeLessThan('f') },
-        2 to expectLambda { toEqual('c') },
-        3 to expectLambda { toBeGreaterThan('e') }
+expectGrouped {
+    mapOf<Int, ExpectationCreator<Char>>(
+        1 to { toBeLessThan('f') },
+        2 to { toEqual('c') },
+        3 to { toBeGreaterThan('e') }
     ).forEach { (arg, assertionCreator) ->
-        feature({ f(::myFun, arg) }, assertionCreator)
+        group("calling myFun with $arg") {
+            expect(myFun(arg), assertionCreator)
+        }
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L49)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L48)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
 <a name="ex-data-driven-2"></a>
 ```text
-I expected subject: "calling myFun with ..."        <1234789>
-◆ ▶ myFun(3): 'd'
-    ◾ to be greater than: 'e'
+my expectations: 
+# calling myFun with 3: 
+  ◆ ▶ I expected subject: 'd'
+      ◾ to be greater than: 'e'
 ```
 </ex-data-driven-2>
 
 The example should be self-explanatory.
-One detail to note though is the usage of `expectLambda`. 
-It is a helper function which circumvents certain [Kotlin type inference bugs](https://github.com/robstoll/atrium/wiki/Kotlin-Bugs-and-missing-features) (upvote them please).
-Writing the same as `mapOf<Int, Expect<Char>.() -> Unit>( 1 to { ... } )` would not work as the type for a lambda 
-involved in a `Pair` is not (yet) inferred correctly by Kotlin.
+One detail to note though is the usage of `ExpectationCreator`.
+It's a `typealias` for `Expect<T>.() -> Unit` and reduces some verbosity. Its usage is of course optional.
+In case you should run into type inference issues, then prepend your lambda with `expectLambda` 
+(for instance `expectLambda { toBeLessThan('f') }`), it's a helper function which gives Kotlin an additional hint.
+
+So far we have not shown it but you can also nest groups and even use groups within `expect`. For instance:
+
+<ex-data-driven-nesting>
+
+```kotlin
+val x1 = 1
+val x2 = 3
+val y = 6
+
+expectGrouped {
+    group("first group") {
+        expect(x1).toEqual(2)
+        group("sub-group") {
+            expect(x2).toBeGreaterThan(5)
+        }
+    }
+    group("second group") {
+        expect(y) {
+            group("sub-group 1") {
+                toBeGreaterThan(0)
+                toBeLessThan(5)
+            }
+            group("sub-group 2") {
+                notToEqual(6)
+            }
+        }
+    }
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-data-driven-nesting)</sub>
+<a name="ex-data-driven-nesting"></a>
+```text
+my expectations: 
+# first group: 
+  ◆ ▶ I expected subject: 1        (kotlin.Int <1234789>)
+      ◾ to equal: 2        (kotlin.Int <1234789>)
+  # sub-group: 
+    ◆ ▶ I expected subject: 3        (kotlin.Int <1234789>)
+        ◾ to be greater than: 5        (kotlin.Int <1234789>)
+# second group: 
+  ◆ ▶ I expected subject: 6        (kotlin.Int <1234789>)
+      # sub-group 1: 
+        ◆ to be less than: 5        (kotlin.Int <1234789>)
+      # sub-group 2: 
+        ◆ not to equal: 6        (kotlin.Int <1234789>)
+```
+</ex-data-driven-nesting>
 
 There is one last function worth mentioning here which comes in handy in data-driven testing in case the subject has a 
 [nullable type]((https://kotlinlang.org/docs/reference/null-safety.html).)
@@ -1736,29 +1811,33 @@ Following another fictional example which illustrates `toEqualNullIfNullGivenEls
 ```kotlin
 fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
 
-expect("calling myNullableFun with ...") {
-    mapOf(
-        Int.MIN_VALUE to expectLambda<String> { toContain("min") },
+expectGrouped {
+    mapOf<Int, ExpectationCreator<String>?>(
+        Int.MIN_VALUE to { toContain("min") },
         -1 to null,
         0 to null,
-        1 to expectLambda { toEqual("1") },
-        2 to expectLambda { toEndWith("2") },
-        Int.MAX_VALUE to expectLambda { toEqual("max") }
+        1 to { toEqual("1") },
+        2 to { toEndWith("2") },
+        Int.MAX_VALUE to { toEqual("max") }
     ).forEach { (arg, assertionCreatorOrNull) ->
-        feature { f(::myNullableFun, arg) }.toEqualNullIfNullGivenElse(assertionCreatorOrNull)
+        group("calling myFun with $arg") {
+            expect(myNullableFun(arg)).toEqualNullIfNullGivenElse(assertionCreatorOrNull)
+        }
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L67)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L66)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
 <a name="ex-data-driven-3"></a>
 ```text
-I expected subject: "calling myNullableFun with ..."        <1234789>
-◆ ▶ myNullableFun(-2147483648): null
-      » to contain: 
-        ⚬ value: "min"        <1234789>
-            » but no match was found
-◆ ▶ myNullableFun(2147483647): "2147483647"        <1234789>
-    ◾ to equal: "max"        <1234789>
+my expectations: 
+# calling myFun with -2147483648: 
+  ◆ ▶ I expected subject: null
+        » to contain: 
+          ⚬ value: "min"        <1234789>
+              » but no match was found
+# calling myFun with 2147483647: 
+  ◆ ▶ I expected subject: "2147483647"        <1234789>
+      ◾ to equal: "max"        <1234789>
 ```
 </ex-data-driven-3>
 
@@ -1932,7 +2011,7 @@ expect(listOf(1)).get(0) {}
 I expected subject: [1]        (java.util.Collections.SingletonList <1234789>)
 ◆ ▶ get(0): 1        (kotlin.Int <1234789>)
     ◾ at least one expectation defined: false
-        » You forgot to define expectations in the expectationCreator-lambda
+        » You forgot to define expectations in the assertionCreator-lambda
         » Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
 ```
 </ex-pitfall-2>
@@ -2326,13 +2405,14 @@ In the meantime we might help you via slack, please post your questions in the [
 
 # Use own Expectation Verb
 
-Atrium offers the expectation verb `expect` out of the box. 
+Atrium offers the expectation verbs `expect` and `expectGrouped` out of the box. 
 
-You can also define your own expectation verb if `expect` does not suite you or in case you want to change some default implementation.
+You can also define your own expectation verb if the pre-defined verbs do not suite you or 
+in case you want to change some default implementation.
 In order to create an own expectation verb it is sufficient to:
  1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/main/misc/atrium-verbs-internal/src/commonMain/kotlin/ch.tutteli.atrium.api.verbs.internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content
- 3. Adjust package name and `import`s and rename `expect` as desired (you can also leave it that way of course).
+ 3. Adjust package name and `import`s and rename `expect`/`expectGrouped` as desired (you can also leave it that way of course).
  4. exclude `atrium-verbs` from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section for the JVM platform, you would replace the `dependencies` block as follows:
     ```kotlin
@@ -2346,14 +2426,15 @@ In order to create an own expectation verb it is sufficient to:
 What are the benefits of creating an own expectation verb:
 - you can encapsulate the reporting style. <br/>
   This is especially useful if you have multiple projects and want to have a consistent reporting style.  
-  For instance, you could change from same-line to multi-line reporting or report not only failing but also successful expectations, change the output language etc.
+  For instance, you could change from same-line to multi-line reporting or report not only failing but also successful expectations etc.
   
     <details>
     <summary>💬 where should I put the atriumVerbs.kt?</summary>
     
     We suggest you create an adapter project for Atrium where you specify the expectation verb. 
-    And most likely you will accumulate them with expectation functions which are so common 
-    that they appear in multiple projects -- please share them with us (get in touch with us via issue or slack) if they are not of an internal nature 😉
+    And most likely you will accumulate them with expectation functions which are so common,
+    that they appear in multiple of your projects -- please share them with us 
+    (get in touch with us via issue/discussion/slack if you need help) if they are not of an internal nature 😉
     
     <hr/>
     </details>

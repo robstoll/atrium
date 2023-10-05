@@ -13,13 +13,13 @@ import kotlin.reflect.KClass
  * [AssertionGroup]s of one specific [AssertionGroupType] and does nothing special when it comes to formatting
  * [AssertionGroup.assertions] (merely delegates to [assertionFormatterController]).
  *
- * @param T The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
+ * @param T The [AssertionGroupType] which the concrete subclass [canFormat][AssertionFormatter.canFormat].
  *
- * @property clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
+ * @property clazz The [AssertionGroupType] which the concrete subclass [canFormat][AssertionFormatter.canFormat].
  *
  * @constructor A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
  *   [AssertionGroup]s of one specific [AssertionGroupType].
- * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
+ * @param clazz The [AssertionGroupType] which the concrete subclass [canFormat][AssertionFormatter.canFormat].
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *   when it comes to format children of an [AssertionGroup].
  */
@@ -28,7 +28,7 @@ abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : 
     private val assertionFormatterController: AssertionFormatterController
 ) : SingleAssertionGroupTypeFormatter<T>(clazz) {
 
-    override fun formatGroupAssertions(
+    final override fun formatGroupAssertions(
         formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit,
         childParameterObject: AssertionFormatterParameterObject
     ) {

@@ -10,11 +10,14 @@ val spekVersion: String by rootProject.extra
 val niokVersion: String by rootProject.extra
 val spekExtensionsVersion: String by rootProject.extra
 val mockitoKotlinVersion: String by rootProject.extra
+val junitPlatformVersion: String by rootProject.extra
 
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api(kotlin("test"))
+
                 api(prefixedProject("core"))
                 // exclude this dependency in case you want to use another translation
                 api(prefixedProject("translations-en_GB"))
@@ -34,6 +37,8 @@ kotlin {
                 apiWithExclude("ch.tutteli.niok:niok:$niokVersion")
                 apiWithExclude("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
                 apiWithExclude("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+                api(kotlin("test-junit5"))
+                apiWithExclude("org.junit.platform:junit-platform-commons:$junitPlatformVersion")
             }
         }
 
