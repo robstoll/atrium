@@ -34,6 +34,7 @@ val jacocoAdditional: List<Project> by extra(
     listOf(
         prefixedProject("translations-en_GB"),
         prefixedProject("logic"),
-        prefixedProject("core")
+        prefixedProject("core"),
+        prefixedProject("verbs"),
     )
 )
