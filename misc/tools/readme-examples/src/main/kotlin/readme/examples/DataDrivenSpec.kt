@@ -1,15 +1,12 @@
 package readme.examples
 
-//@formatter:off
-//snippet-expectLambda-start
-import ch.tutteli.atrium.logic.utils.expectLambda
-//snippet-expectLambda-end
-//@formatter:on
+
 
 import readme.examples.utils.expect
+import readme.examples.utils.expectGrouped
 import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.creating.ExpectationCreator
 import org.spekframework.spek2.Spek
-
 
 
 /**
@@ -35,27 +32,29 @@ class DataDrivenSpec : Spek({
     test("ex-data-driven-1") {
         //snippet-data-driven-1-insert
 
-        expect("calling myFun with...") {
+        expectGrouped {
             mapOf(
                 1 to 'a',
                 2 to 'c',
                 3 to 'e'
             ).forEach { (arg, result) ->
-                feature { f(::myFun, arg) }.toEqual(result)
+                group("calling myFun with $arg") {
+                    expect(myFun(arg)).toEqual(result)
+                }
             }
         }
     }
 
     test("ex-data-driven-2") {
-        //snippet-expectLambda-insert
-
-        expect("calling myFun with ...") {
-            mapOf(
-                1 to expectLambda<Char> { toBeLessThan('f') },
-                2 to expectLambda { toEqual('c') },
-                3 to expectLambda { toBeGreaterThan('e') }
+        expectGrouped {
+            mapOf<Int, ExpectationCreator<Char>>(
+                1 to { toBeLessThan('f') },
+                2 to { toEqual('c') },
+                3 to { toBeGreaterThan('e') }
             ).forEach { (arg, assertionCreator) ->
-                feature({ f(::myFun, arg) }, assertionCreator)
+                group("calling myFun with $arg") {
+                    expect(myFun(arg), assertionCreator)
+                }
             }
         }
     }
@@ -67,17 +66,47 @@ class DataDrivenSpec : Spek({
     test("ex-data-driven-3") {
         //snippet-data-driven-3-insert
 
-        expect("calling myNullableFun with ...") {
-            mapOf(
-                Int.MIN_VALUE to expectLambda<String> { toContain("min") },
+        expectGrouped {
+            mapOf<Int, ExpectationCreator<String>?>(
+                Int.MIN_VALUE to { toContain("min") },
                 -1 to null,
                 0 to null,
-                1 to expectLambda { toEqual("1") },
-                2 to expectLambda { toEndWith("2") },
-                Int.MAX_VALUE to expectLambda { toEqual("max") }
+                1 to { toEqual("1") },
+                2 to { toEndWith("2") },
+                Int.MAX_VALUE to { toEqual("max") }
             ).forEach { (arg, assertionCreatorOrNull) ->
-                feature { f(::myNullableFun, arg) }.toEqualNullIfNullGivenElse(assertionCreatorOrNull)
+                group("calling myFun with $arg") {
+                    expect(myNullableFun(arg)).toEqualNullIfNullGivenElse(assertionCreatorOrNull)
+                }
+            }
+        }
+    }
+
+    test("ex-data-driven-nesting") {
+        val x1 = 1
+        val x2 = 3
+        val y = 6
+
+        expectGrouped {
+            group("first group") {
+                expect(x1).toEqual(2)
+                group("sub-group") {
+                    expect(x2).toBeGreaterThan(5)
+                }
+            }
+            group("second group") {
+                expect(y) {
+                    group("sub-group 1") {
+                        toBeGreaterThan(0)
+                        toBeLessThan(5)
+                    }
+                    group("sub-group 2") {
+                        notToEqual(6)
+                    }
+                }
             }
         }
     }
 })
+
+

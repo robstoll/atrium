@@ -33,7 +33,6 @@ fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<
 
 fun <T> AssertionContainer<T>.notToBeAnInstanceOf(notExpectedTypes: List<KClass<*>>): Assertion = impl.notToBeAnInstanceOf(this, notExpectedTypes)
 
-
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: AnyAssertions
     get() = getImpl(AnyAssertions::class) { DefaultAnyAssertions() }

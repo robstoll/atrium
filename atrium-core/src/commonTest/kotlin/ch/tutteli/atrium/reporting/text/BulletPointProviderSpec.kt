@@ -44,7 +44,7 @@ class BulletPointProviderSpec : Spek({
                 FeatureAssertionGroupType::class to (">> " to { p ->
                     expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
-                PrefixFeatureAssertionGroupHeader::class to ("=> "  to { p ->
+                PrefixFeatureAssertionGroupHeader::class to ("=> " to { p ->
                     expectWitNewBulletPoint(p, "a") feature { f("m", it.length) } toEqual 2
                 }),
                 PrefixSuccessfulSummaryAssertion::class to ("(/) " to { p ->
@@ -79,13 +79,29 @@ class BulletPointProviderSpec : Spek({
                     expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
                         _logic.append(
                             assertionBuilder.explanatoryGroup
-                                .withInformationType(false)
+                                .withInformationType(withIndent = false)
                                 .withAssertion(_logic.toBe("b"))
                                 .failing
                                 .build()
                         )
                     }
-                })
+                }),
+                HintAssertionGroupType::class to ("(h) " to { p ->
+                    expectWitNewBulletPoint(p, "a")._logic.appendAsGroup {
+                        _logic.append(
+                            assertionBuilder.explanatoryGroup
+                                .withHintType
+                                .withAssertion(_logic.toBe("b"))
+                                .failing
+                                .build()
+                        )
+                    }
+                }),
+                GroupingAssertionGroupType::class to ("== " to { p ->
+                    expectWitNewBulletPoint(p, listOf(1)).group("a group") {
+                        toContain(2)
+                    }
+                }),
             )
 
         defaultBulletPoints.map { (kClass, defaultBulletPoint) ->

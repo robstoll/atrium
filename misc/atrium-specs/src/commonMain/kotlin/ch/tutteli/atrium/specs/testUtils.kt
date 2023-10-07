@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import kotlin.jvm.JvmName
 import kotlin.reflect.*
 
@@ -286,6 +287,8 @@ val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
 val toBeDescr = DescriptionBasic.TO_BE.getDefault()
 val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()
 val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
+val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
+val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 
 expect val lineSeparator: String
 

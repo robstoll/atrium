@@ -93,7 +93,7 @@ class AssertionFormatterParameterObject private constructor(
      *
      * @return The newly created [AssertionFormatterParameterObject].
      */
-    fun createForExplanatoryFilterAssertionGroup(newPrefix : String = prefix): AssertionFormatterParameterObject =
+    fun createForExplanatoryFilterAssertionGroup(newPrefix: String = prefix): AssertionFormatterParameterObject =
         AssertionFormatterParameterObject(
             sb,
             newPrefix,
@@ -103,6 +103,22 @@ class AssertionFormatterParameterObject private constructor(
             numberOfExplanatoryGroups + 1
         )
 
+    /**
+     * Clones the current [AssertionFormatterParameterObject] but uses the given [newPrefix].
+     *
+     * @return The newly created [AssertionFormatterParameterObject].
+     *
+     * @since 1.1.0
+     */
+    fun createWithNewPrefix(newPrefix: String): AssertionFormatterParameterObject =
+        AssertionFormatterParameterObject(
+            sb,
+            newPrefix,
+            indentLevel,
+            assertionFilter,
+            numberOfDoNotFilterGroups,
+            numberOfExplanatoryGroups
+        )
 
     /**
      * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
