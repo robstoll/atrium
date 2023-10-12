@@ -8,38 +8,15 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
     fun entriesOf() {
-        expect(
-            mapOf(
-                1 to "a",
-                2 to "b",
-            )
+        expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(
+            mapOf(2 to "b", 1 to "a")
         )
-            .toContain
-            .inAnyOrder
-            .only
-            .entriesOf(
-                mapOf(
-                    2 to "b",
-                    1 to "a",
-                )
-            )
 
 
         fails {
-            expect(
-                mapOf(
-                    1 to "a",
-                    2 to "b",
-                )
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(
+                mapOf(1 to "a") // fails because subject has additional entries
             )
-                .toContain
-                .inAnyOrder
-                .only
-                .entriesOf(
-                    mapOf(
-                        1 to "a", // fails because subject has additional entries
-                    )
-                )
         }
     }
 }
