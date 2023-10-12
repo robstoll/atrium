@@ -88,6 +88,8 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entriesKeyValue
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.the(
     keyValues: KeyValues<K, V>

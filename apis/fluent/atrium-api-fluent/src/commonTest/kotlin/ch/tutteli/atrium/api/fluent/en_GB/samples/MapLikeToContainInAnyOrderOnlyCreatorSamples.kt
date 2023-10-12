@@ -20,6 +20,20 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entriesKeyValue() {
+        expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
+            KeyValue(2) { toEqual("b") },
+            KeyValue(1) { toEqual("a") },
+        )
+
+        fails {
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
+                KeyValue(1) { toEqual("a") }, // fails because subject has additional entries
+            )
+        }
+    }
+
+    @Test
     fun entriesOf() {
         expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(
             mapOf(2 to "b", 1 to "a")
