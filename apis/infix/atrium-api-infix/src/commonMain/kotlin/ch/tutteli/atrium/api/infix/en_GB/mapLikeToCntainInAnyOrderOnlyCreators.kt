@@ -113,6 +113,8 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entriesOf
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
