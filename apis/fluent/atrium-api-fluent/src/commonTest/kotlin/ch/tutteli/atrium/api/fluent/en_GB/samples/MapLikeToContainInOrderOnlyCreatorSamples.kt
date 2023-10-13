@@ -22,15 +22,15 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
 
     @Test
     fun entriesKeyValue() {
-        expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entries(
-            KeyValue(1) { toEqual("a") },
-            KeyValue(2) { toEqual("b") },
+        expect(mapOf(1 to "apple", 2 to "banana")).toContain.inOrder.only.entries(
+            KeyValue(1) { toStartWith("a") },
+            KeyValue(2) { toStartWith("b") },
         )
 
         fails {
-            expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entries(
-                KeyValue(2) { toEqual("b") }, // fails because subject does not have the same order
-                KeyValue(1) { toEqual("a") },
+            expect(mapOf(1 to "apple", 2 to "banana")).toContain.inOrder.only.entries(
+                KeyValue(2) { toStartWith("b") }, // fails because subject does not have the same order
+                KeyValue(1) { toStartWith("a") },
             )
         }
     }

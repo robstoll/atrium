@@ -21,14 +21,14 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
     fun entriesKeyValue() {
-        expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
-            KeyValue(2) { toEqual("b") },
-            KeyValue(1) { toEqual("a") },
+        expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entries(
+            KeyValue(2) { toStartWith("b") },
+            KeyValue(1) { toStartWith("a") },
         )
 
         fails {
-            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
-                KeyValue(1) { toEqual("a") }, // fails because subject has additional entries
+            expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entries(
+                KeyValue(1) { toStartWith("a") }, // fails because subject has additional entries
             )
         }
     }
