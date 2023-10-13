@@ -81,17 +81,11 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entriesKeyValue
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.the(
     entries: KeyValues<K, V>
 ): Expect<T> = entries(V::class, entries.toList())
 
-/**
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entries
- */
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entries(
     kClass: KClass<V>,
@@ -119,8 +113,6 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
  * @since 0.15.0
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entriesOf
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
