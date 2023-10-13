@@ -69,16 +69,3 @@ fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
         is ExpectInternal<T> -> this
         else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer.toExpect")
     }
-
-/**
- * Casts this [Expect] back to an [ExpectGrouping] so that you can use it in places where an [ExpectGrouping] is used.
- */
-//TODO deprecate with 1.3.0 and move ProofContainer.toExpect to core
-fun <T> Expect<T>.toExpectGrouping(): ExpectGrouping =
-    when (this) {
-        is ExpectInternal<T> -> this
-        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%Expect.toExpectGrouping")
-    }
-
-@Suppress("UNCHECKED_CAST") // safe to cast as long as Expect is the only subtype of ExpectGrouping
-fun (ExpectGrouping.() -> Unit).toAssertionCreator(): Expect<*>.() -> Unit = this as Expect<*>.() -> Unit

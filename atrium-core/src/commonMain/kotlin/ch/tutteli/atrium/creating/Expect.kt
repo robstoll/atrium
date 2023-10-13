@@ -16,7 +16,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * not relevant for newcomers to Atrium (see [https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas](https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas)
  * for more information about the personas).
  */
-interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>, ExpectGrouping
+interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>
 
 /**
  * Represents the extension point for expectation functions and sophisticated builders for subjects of type [T].
@@ -24,13 +24,9 @@ interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>, ExpectGrouping
  * @param T The type of the subject of `this` expectation.
  */
 interface Expect<T>
-typealias ExpectationCreator<T> = Expect<T>.() -> Unit
-
 /**
- * Represents a group of expectations including nested groups of expectations (nested [ExpectGrouping]).
- *
- * It's the extension point for groups of expectations with unrelated subjects.
+ * Type alias which shall help to reduce boilerplate when creating expectationCreator-lambdas.
  *
  * @since 1.1.0
  */
-interface ExpectGrouping
+typealias ExpectationCreator<T> = Expect<T>.() -> Unit

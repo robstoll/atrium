@@ -17,7 +17,6 @@ abstract class BaseExpectImpl<T>(
     override val maybeSubject: Option<T>
 ) : ExpectInternal<T> {
 
-
     // TODO 1.3.0 not every expect should have an own implFactories but only the root,
     // maybe also FeatureExpect but surely not DelegatingExpect or CollectingExpect
     private val implFactories: MutableMap<KClass<*>, (() -> Nothing) -> () -> Any> = mutableMapOf()
@@ -49,7 +48,7 @@ abstract class BaseExpectImpl<T>(
     }
 
 
-    protected fun appendAsGroup(assertions: List<Assertion>): Expect<T> {
+    override fun appendAsGroup(assertions: List<Assertion>): Expect<T> {
         return when (assertions.size) {
             0 -> this
             1 -> append(assertions.first())

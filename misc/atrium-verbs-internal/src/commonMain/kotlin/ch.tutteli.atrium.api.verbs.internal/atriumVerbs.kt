@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
@@ -40,6 +36,7 @@ fun expectGrouped(
     .build()
     ._logic.appendAsGroup(groupingActions.toAssertionCreator())
     .toExpectGrouping()
+    .evaluate()
 
 
 fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
@@ -51,3 +48,5 @@ fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit
 
 private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     _logic.manualFeature("I expected subject") { subject }
+
+fun expectCollector(): ExpectCollector

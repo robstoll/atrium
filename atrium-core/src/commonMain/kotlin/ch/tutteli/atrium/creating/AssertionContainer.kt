@@ -54,7 +54,8 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated
+     *   and the given one does not hold.
      */
     fun append(assertion: Assertion): Expect<T>
 
@@ -64,15 +65,28 @@ interface AssertionContainer<T> {
      *
      * Whether the returned [Expect] is the same as the initial one is up to the implementation (i.e. if a mutable
      * structure is used or an immutable). Atrium strives for an immutable data structure in the long run and will
-     * little by little refactor the code accordingly.
+     * piece by piece refactor the code accordingly.
      *
      * @param assertionCreator The lambda which will create assertions.
      *
      * @return an [Expect] for the subject of `this` expectation.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated and
+     *   one of the given do not hold.
      */
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>
+
+    /**
+     * Appends the given [Assertion]s and returns an [Expect] which includes them.
+     *
+     * @return an [Expect] for the subject of `this` expectation.
+     *
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated and
+     *   one of the given do not hold.
+     *
+     * @since 1.1.0
+     */
+    fun appendAsGroup(assertions: List<Assertion>): Expect<T>
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]

@@ -21,8 +21,7 @@ internal class CollectingExpectImpl<T>(
 
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
         // in case we run into performance problems, the code below is certainly not ideal
-        val allAssertions = mutableListOf<Assertion>()
-        allAssertions.addAll(getAssertions())
+        val allAssertions = ArrayList(assertions)
         assertions.clear()
 
         assertionCreator(this)

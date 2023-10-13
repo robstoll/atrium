@@ -3,10 +3,7 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.creating.ExpectInternal
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
 /**
@@ -32,8 +29,8 @@ inline val <T> Expect<T>._logic: AssertionContainer<T>
  * @since 1.1.0
  */
 //TODO deprecate with 1.3.0 and move toProofContainer to core
-inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.() -> Assertion): ExpectGrouping =
-    _logic.run { append(assertionCreator()) }.toExpectGrouping()
+inline fun ExpectGrouping._logicAppend(assertionCreator: ExpectCollector.() -> Assertion): ExpectGrouping =
+    _logic.run { append(assertionCreator()) }
 
 /**
  * Turns this [ExpectGrouping] into an [AssertionContainer] without known subject type.
@@ -41,8 +38,5 @@ inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.(
  * @since 1.1.0
  */
 //TODO deprecate with 1.3.0 and move toProofContainer to core
-inline val ExpectGrouping._logic: AssertionContainer<*>
-    get() = when (this) {
-        is ExpectInternal<*> -> this
-        else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20ExpectGrouping.toAssertionContainer")
-    }
+inline val ExpectGrouping._logic: ExpectCollector
+    get() = toExpectCollector()
