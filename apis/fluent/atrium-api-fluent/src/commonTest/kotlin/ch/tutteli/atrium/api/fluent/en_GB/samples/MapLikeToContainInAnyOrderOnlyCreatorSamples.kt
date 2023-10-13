@@ -7,11 +7,37 @@ import kotlin.test.Test
 class MapLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
+    fun entries() {
+        expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
+            2 to "b", 1 to "a"
+        )
+
+        fails {
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
+                1 to "a" // fails because subject has additional entries
+            )
+        }
+    }
+
+    @Test
+    fun entriesKeyValue() {
+        expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entries(
+            KeyValue(2) { toStartWith("b") },
+            KeyValue(1) { toStartWith("a") },
+        )
+
+        fails {
+            expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entries(
+                KeyValue(1) { toStartWith("a") }, // fails because subject has additional entries
+            )
+        }
+    }
+
+    @Test
     fun entriesOf() {
         expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(
             mapOf(2 to "b", 1 to "a")
         )
-
 
         fails {
             expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(

@@ -183,8 +183,6 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  *   or it does not have elements (is empty).
  *
  * @since 0.18.0
- *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entriesOf
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.the(
     entriesOf: WithInOrderOnlyReportingOptions<MapLike>
