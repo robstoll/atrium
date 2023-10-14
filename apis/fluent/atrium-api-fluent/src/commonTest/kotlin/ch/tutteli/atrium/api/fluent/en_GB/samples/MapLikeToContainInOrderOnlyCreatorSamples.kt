@@ -10,10 +10,8 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     fun entry() {
         expect(mapOf(1 to "a")).toContain.inOrder.only.entry(1 to "a")
 
-        fails {
-            expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entry(
-                1 to "a", // fails because subject does not have the same order
-            )
+        fails { // because the entry 1="a" (which exists in the subject) is not the only entry
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entry(1 to "a")
         }
     }
 
@@ -23,9 +21,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             KeyValue(1) { toStartWith("a") },
         )
 
-        fails {
+        fails { // because the entry 2="b" (which exists in the subject) is not the only entry
             expect(mapOf(1 to "apple", 2 to "banana")).toContain.inOrder.only.entry(
-                KeyValue(2) { toStartWith("b") }, // fails because subject has more entries
+                KeyValue(2) { toStartWith("b") },
             )
         }
     }
@@ -36,9 +34,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             1 to "a", 2 to "b"
         )
 
-        fails {
+        fails { // because the pair entries (which all exist in the subject) do not have the same order
             expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entries(
-                2 to "b", // fails because subject does not have the same order
+                2 to "b",
                 1 to "a",
             )
         }
@@ -51,9 +49,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             KeyValue(2) { toStartWith("b") },
         )
 
-        fails {
+        fails { // because the key-value entries (which all exist in the subject) do not have the same order
             expect(mapOf(1 to "apple", 2 to "banana")).toContain.inOrder.only.entries(
-                KeyValue(2) { toStartWith("b") }, // fails because subject does not have the same order
+                KeyValue(2) { toStartWith("b") },
                 KeyValue(1) { toStartWith("a") },
             )
         }
@@ -65,10 +63,10 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             mapOf(1 to "a", 2 to "b")
         )
 
-        fails {
+        fails { // because the map entries (which all exist in the subject) do not have the same order
             expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entriesOf(
                 mapOf(
-                    2 to "b", // fails because subject does not have the same order
+                    2 to "b",
                     1 to "a",
                 )
             )
