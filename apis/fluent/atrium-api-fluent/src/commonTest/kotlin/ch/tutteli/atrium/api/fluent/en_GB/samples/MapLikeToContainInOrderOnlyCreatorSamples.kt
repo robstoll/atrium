@@ -18,6 +18,19 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entryKeyValue() {
+        expect(mapOf(1 to "apple")).toContain.inOrder.only.entry(
+            KeyValue(1) { toStartWith("a") },
+        )
+
+        fails {
+            expect(mapOf(1 to "apple", 2 to "banana")).toContain.inOrder.only.entry(
+                KeyValue(2) { toStartWith("b") }, // fails because subject has more entries
+            )
+        }
+    }
+
+    @Test
     fun entries() {
         expect(mapOf(1 to "a", 2 to "b")).toContain.inOrder.only.entries(
             1 to "a", 2 to "b"
