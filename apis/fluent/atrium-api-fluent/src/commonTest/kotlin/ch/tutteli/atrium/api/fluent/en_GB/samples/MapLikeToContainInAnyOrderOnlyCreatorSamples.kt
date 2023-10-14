@@ -7,6 +7,15 @@ import kotlin.test.Test
 class MapLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
+    fun entry() {
+        expect(mapOf(1 to "a")).toContain.inAnyOrder.only.entry(1 to "a")
+
+        fails {
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entry(1 to "a")
+        }
+    }
+
+    @Test
     fun entries() {
         expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
             2 to "b", 1 to "a"
