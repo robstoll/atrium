@@ -4,8 +4,6 @@ plugins {
 
 description = "Convenience module which depends on atrium-api-infix and atrium-verbs"
 
-val niokVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {

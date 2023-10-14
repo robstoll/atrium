@@ -4,13 +4,11 @@ plugins {
 
 description = "Core module of Atrium, containing all contracts/interfaces and default implementations"
 
-val kboxVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                apiWithExclude("ch.tutteli.kbox:kbox:$kboxVersion")
+                api(libs.kbox)
             }
         }
         commonTest {

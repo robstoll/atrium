@@ -4,8 +4,6 @@ plugins {
 
 description = "An infix API in en_GB with a focus on code completion."
 
-val niokVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {
@@ -16,7 +14,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation("ch.tutteli.niok:niok:$niokVersion")
+                implementation(libs.niok)
             }
         }
 
@@ -30,7 +28,7 @@ kotlin {
                 implementation(prefixedProject("verbs"))
             }
         }
-        jvmTest{
+        jvmTest {
             dependencies {
                 implementation(project(":${rootProject.name}-specs")) {
                     exclude(module = "${rootProject.name}-translations-en_GB")

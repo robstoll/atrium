@@ -25,15 +25,15 @@ if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-in
         .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
 }
 
-val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
-    get() = named("jvmMain")
-val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
-    get() = named("jvmTest")
-
-val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: NamedDomainObjectProvider<KotlinSourceSet>
-    get() = named("jsMain")
-val NamedDomainObjectContainer<KotlinSourceSet>.jsTest: NamedDomainObjectProvider<KotlinSourceSet>
-    get() = named("jsTest")
+//val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
+//    get() = named("jvmMain")
+//val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
+//    get() = named("jvmTest")
+//
+//val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: NamedDomainObjectProvider<KotlinSourceSet>
+//    get() = named("jsMain")
+//val NamedDomainObjectContainer<KotlinSourceSet>.jsTest: NamedDomainObjectProvider<KotlinSourceSet>
+//    get() = named("jsTest")
 
 kotlin {
     jvm {

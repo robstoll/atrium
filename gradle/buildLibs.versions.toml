@@ -1,0 +1,29 @@
+[versions]
+dokka = "1.9.0"
+jacocoTool = "0.8.9"
+kotlin = "1.8.22"
+task-tree = "2.1.1"
+tutteli = "4.10.2"
+vlsi = "1.90"
+
+[libraries]
+dokka-plugin = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
+dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
+kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+taskTree = { module = "com.dorongold.plugins:task-tree", version.ref = "task-tree" }
+
+tutteli-dokka = { module = "ch.tutteli.gradle.plugins.dokka:ch.tutteli.gradle.plugins.dokka.gradle.plugin", version.ref = "tutteli" }
+tutteli-junitjacoco = { module = "ch.tutteli.gradle.plugins.junitjacoco:ch.tutteli.gradle.plugins.junitjacoco.gradle.plugin", version.ref = "tutteli" }
+tutteli-moduleinfo = { module = "ch.tutteli.gradle.plugins.kotlin.module.info:ch.tutteli.gradle.plugins.kotlin.module.info.gradle.plugin", version.ref = "tutteli" }
+tutteli-publish = { module = "ch.tutteli.gradle.plugins.publish:ch.tutteli.gradle.plugins.publish.gradle.plugin", version.ref = "tutteli" }
+tutteli-spek = { module = "ch.tutteli.gradle.plugins.spek:ch.tutteli.gradle.plugins.spek.gradle.plugin", version.ref = "tutteli" }
+
+vlsi-crlf = { module = "com.github.vlsi.crlf:com.github.vlsi.crlf.gradle.plugin", version.ref = "vlsi" }
+vlsi-gradle = { module = "com.github.vlsi.gradle-extensions:com.github.vlsi.gradle-extensions.gradle.plugin", version.ref = "vlsi" }
+
+
+[bundles]
+dokka = ["dokka-base", "dokka-plugin"]
+
+[plugins]
+build-parameters = { id = "org.gradlex.build-parameters", version = "1.4.3" }
