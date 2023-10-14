@@ -25,6 +25,8 @@ import kotlin.reflect.KClass
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entry
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
@@ -62,6 +64,8 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entryKeyValue
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entry(
     keyValue: KeyValue<K, V>

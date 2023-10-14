@@ -7,15 +7,36 @@ import kotlin.test.Test
 class MapLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
+    fun entry() {
+        expect(mapOf(1 to "a")).toContain.inAnyOrder.only.entry(1 to "a")
+
+        fails { // because subject has additional entries
+            expect(mapOf(1 to "a", 2 to "b"))
+                .toContain.inAnyOrder.only.entry(1 to "a")
+        }
+    }
+
+    @Test
+    fun entryKeyValue() {
+        expect(mapOf(1 to "apple")).toContain.inAnyOrder.only.entry(
+            KeyValue(1) { toStartWith("a") },
+        )
+
+        fails { // because subject has additional entries
+            expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entry(
+                KeyValue(1) { toStartWith("a") },
+            )
+        }
+    }
+
+    @Test
     fun entries() {
         expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
             2 to "b", 1 to "a"
         )
 
-        fails {
-            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(
-                1 to "a" // fails because subject has additional entries
-            )
+        fails { // because subject has additional entries
+            expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entries(1 to "a")
         }
     }
 
@@ -26,9 +47,9 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
             KeyValue(1) { toStartWith("a") },
         )
 
-        fails {
+        fails { // because subject has additional entries
             expect(mapOf(1 to "apple", 2 to "banana")).toContain.inAnyOrder.only.entries(
-                KeyValue(1) { toStartWith("a") }, // fails because subject has additional entries
+                KeyValue(1) { toStartWith("a") },
             )
         }
     }
@@ -39,9 +60,9 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
             mapOf(2 to "b", 1 to "a")
         )
 
-        fails {
+        fails { // because subject has additional entries
             expect(mapOf(1 to "a", 2 to "b")).toContain.inAnyOrder.only.entriesOf(
-                mapOf(1 to "a") // fails because subject has additional entries
+                mapOf(1 to "a")
             )
         }
     }
