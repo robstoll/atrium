@@ -6,8 +6,11 @@ dependencies {
     api(projects.basics)
     api(projects.dev)
 
-    api("org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:1.9.0")
-    api("org.jetbrains.dokka:dokka-base:1.9.0")
+    api(buildLibs.bundles.dokka)
+    api(buildLibs.tutteli.dokka)
+}
 
-    api("ch.tutteli.gradle.plugins.dokka:ch.tutteli.gradle.plugins.dokka.gradle.plugin:4.10.2")
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().lockFileDirectory =
+        rootProject.projectDir.resolve("gradle")
 }

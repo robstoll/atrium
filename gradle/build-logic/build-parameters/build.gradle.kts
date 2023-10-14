@@ -1,6 +1,6 @@
 plugins {
     id("build-logic.kotlin-dsl-gradle-plugin")
-    id("org.gradlex.build-parameters") version "1.4.3"
+    alias(buildLibs.plugins.build.parameters)
 }
 
 buildParameters {

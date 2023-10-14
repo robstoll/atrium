@@ -4,22 +4,18 @@ plugins {
 
 description = "Runs examples, includes the code and the output in README.md"
 
-val junitPlatformVersion: String by rootProject.extra
-val spekVersion: String by rootProject.extra
-val niokVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         main {
             dependencies {
-                implementation("org.junit.platform:junit-platform-console-standalone:$junitPlatformVersion")
-                implementationWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
-                implementationWithExclude("org.spekframework.spek2:spek-runner-junit5:$spekVersion")
-                implementationWithExclude("org.spekframework.spek2:spek-runtime-jvm:$spekVersion")
-                runtimeOnly("org.jetbrains.kotlin:kotlin-reflect")
+                implementation(libs.junit.platform.console)
+                implementation(libs.spek.jvm)
+                implementation(libs.spek.runner)
+                implementation(libs.spek.runtime)
+                runtimeOnly(kotlin("reflect"))
 
                 implementation(prefixedProject("fluent"))
-                implementationWithExclude("ch.tutteli.niok:niok:$niokVersion")
+                implementation(libs.niok)
             }
         }
         configureEach {

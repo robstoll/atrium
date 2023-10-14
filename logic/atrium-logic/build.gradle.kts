@@ -4,8 +4,6 @@ plugins {
 
 description = "The domain logic of Atrium"
 
-val niokVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {
@@ -17,7 +15,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                implementation("ch.tutteli.niok:niok:$niokVersion")
+                implementation(libs.niok)
             }
         }
 
