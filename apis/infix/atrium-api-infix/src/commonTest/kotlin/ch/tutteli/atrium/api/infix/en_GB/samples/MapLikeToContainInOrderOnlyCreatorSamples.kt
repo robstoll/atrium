@@ -10,8 +10,8 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     fun entry() {
         expect(mapOf(1 to "a")) toContain o inGiven order and only entry (1 to "a")
 
-        fails {
-            expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only entry (1 to "a") // fails because subject does not have the same order
+        fails { // because the entry 1="a" (which exists in the subject) is not the only entry
+            expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only entry (1 to "a")
         }
     }
 
@@ -21,9 +21,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             keyValue(1) { this toStartWith "a" }
         )
 
-        fails {
+        fails { // because the entry 2="b" (which exists in the subject) is not the only entry
             expect(mapOf(1 to "apple", 2 to "banana")) toContain o inGiven order and only entry(
-                keyValue(2) { this toStartWith "b" } // fails because subject has more entries
+                keyValue(2) { this toStartWith "b" }
             )
         }
     }
@@ -35,9 +35,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
             keyValue(2) { this toEqual "b" },
         )
 
-        fails {
+        fails { // because the pair entries (which all exist in the subject) do not have the same order
             expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only the entries(
-                keyValue(2) { this toEqual "b" }, // fails because subject does not have the same order
+                keyValue(2) { this toEqual "b" },
                 keyValue(1) { this toEqual "a" },
             )
         }
@@ -47,9 +47,9 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     fun entriesOf() {
         expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only entriesOf mapOf(1 to "a", 2 to "b")
 
-        fails {
+        fails { // because the map entries (which all exist in the subject) do not have the same order
             expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only entriesOf mapOf(
-                2 to "b", // fails because subject does not have the same order
+                2 to "b",
                 1 to "a",
             )
         }

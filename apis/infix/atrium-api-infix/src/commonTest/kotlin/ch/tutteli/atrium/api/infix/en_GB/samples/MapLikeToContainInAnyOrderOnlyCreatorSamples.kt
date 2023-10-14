@@ -10,7 +10,7 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
     fun entry() {
         expect(mapOf(1 to "a")) toContain o inAny order but only entry (1 to "a")
 
-        fails {
+        fails { // because subject has additional entries
             expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only entry (2 to "c")
         }
     }
@@ -21,9 +21,9 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
             keyValue(1) { this toStartWith "a"  }
         )
 
-        fails {
+        fails { // because subject has additional entries
             expect(mapOf(1 to "apple", 2 to "banana")) toContain o inAny order but only entry(
-                keyValue(1) { this toStartWith "a" } // fails because subject has additional entries
+                keyValue(1) { this toStartWith "a" }
             )
         }
     }
@@ -35,9 +35,9 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
             keyValue(1) { this toEqual "a" },
         )
 
-        fails {
+        fails { // because subject has additional entries
             expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only the entries(
-                keyValue(1) { this toEqual "a" } // fails because subject has additional entries
+                keyValue(1) { this toEqual "a" }
             )
         }
     }
@@ -46,9 +46,8 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
     fun entriesOf() {
         expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only entriesOf mapOf(2 to "b", 1 to "a")
 
-        fails {
-            expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only entriesOf mapOf(1 to "a") // fails because subject has additional entries
+        fails { // because subject has additional entries
+            expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only entriesOf mapOf(1 to "a")
         }
     }
-
 }
