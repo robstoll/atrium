@@ -29,9 +29,9 @@ class MapLikeToContainInAnyOrderCreatorSamples {
     }
 
     @Test
-    fun entries() {
+    fun entriesKeyValue() {
         expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order the entries(keyValue(2) { this toEqual "b" })
-        
+
         fails { // because the value ("b") of key 1 (which exists in the subject) is not "b"
             expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order the entries(keyValue(1) { this toEqual "b" })
         }

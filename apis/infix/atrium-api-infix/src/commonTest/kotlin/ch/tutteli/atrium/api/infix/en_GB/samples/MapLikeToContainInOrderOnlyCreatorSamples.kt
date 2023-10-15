@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
 class MapLikeToContainInOrderOnlyCreatorSamples {
-    
+
     @Test
     fun entry() {
         expect(mapOf(1 to "a")) toContain o inGiven order and only entry (1 to "a")
@@ -29,7 +29,7 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     }
 
     @Test
-    fun entries() {
+    fun entriesKeyValue() {
         expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only the entries(
             keyValue(1) { this toEqual "a" },
             keyValue(2) { this toEqual "b" },

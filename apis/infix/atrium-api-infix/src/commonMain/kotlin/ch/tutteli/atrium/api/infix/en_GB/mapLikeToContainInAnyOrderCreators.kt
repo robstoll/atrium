@@ -20,11 +20,11 @@ import kotlin.reflect.KClass
  *
  * Delegates to `the pairs(keyValuePair)`.
  *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.15.0
+ * @return an [Expect] for the subject of `this` expectation
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     this the pairs(keyValuePair)
@@ -63,11 +63,11 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
  *   or needs to be `null` in case [KeyWithValueCreator.valueAssertionCreatorOrNull] is defined as `null`
  *   -- use the function `keyValue(x) { ... }` to create a [KeyWithValueCreator].
  *
- * @return an [Expect] for the subject of `this` expectation.
- *
- * @since 0.15.0
+ * @return an [Expect] for the subject of `this` expectation
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entryKeyValue
+ *
+ * @since 0.15.0
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entry(
     keyValue: KeyWithValueCreator<K, V>
@@ -89,11 +89,11 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * @param keyValues The [KeyWithValueCreator]s -- use the function
  *   `keyValues(keyValue(key1) { ... }, keyValue(key2) { ... }, ...)` to create a [KeyValues].
  *
- * @return an [Expect] for the subject of `this` expectation.
+ * @return an [Expect] for the subject of `this` expectation
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entriesKeyValue
  *
  * @since 0.15.0
- *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entries
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.the(
     keyValues: KeyValues<K, V>
@@ -125,9 +125,9 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSe
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entriesOf
+ *
+ * @since 0.15.0
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entriesOf(
     expectedMapLike: MapLike

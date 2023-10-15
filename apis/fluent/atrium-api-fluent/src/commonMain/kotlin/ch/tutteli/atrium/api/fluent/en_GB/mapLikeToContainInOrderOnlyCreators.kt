@@ -24,9 +24,9 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
@@ -41,9 +41,9 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entries
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entries(
     keyValuePair: Pair<K, V>,
@@ -63,9 +63,9 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entr
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entryKeyValue
+ *
+ * @since 0.15.0
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entry(
     keyValue: KeyValue<K, V>
@@ -85,9 +85,9 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrde
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entriesKeyValue
+ *
+ * @since 0.15.0
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
@@ -124,9 +124,9 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  *   the default [InOrderOnlyReportingOptions] apply if not specified.
  *   since 0.18.0
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entriesOf
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike,

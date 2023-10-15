@@ -92,8 +92,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  *
- *  @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCaseWithChecker
- *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCaseWithChecker
  */
 @JvmName("valueIgnoringCase")
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(

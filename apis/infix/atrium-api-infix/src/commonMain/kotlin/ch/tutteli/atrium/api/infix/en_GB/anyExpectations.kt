@@ -299,7 +299,7 @@ inline infix fun <T> Expect<T>.and(@Suppress("UNUSED_PARAMETER") o: o): Expect<T
  * For instance `expect(1) toBeLessThan 3 and { it toBe even; it toBeGreaterThan 1 }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
+ * Hence, the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -314,15 +314,15 @@ infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  * For instance, instead of:
  * ```
  * expect("hello world") {
- *   this startsWith "hello"
- *   this endsWith "world"
+ *   this toStartWith "hello"
+ *   this toEndWith "world"
  * }
  * ```
  * You can write
  * ```
  * expect("hello world") {
- *   it startsWith "hello"
- *   it endsWith "world"
+ *   it toStartWith "hello"
+ *   it toEndWith "world"
  * }
  * ```
  *
@@ -337,14 +337,18 @@ inline val <T> Expect<T>.it: Expect<T> get() : Expect<T> = this
  *
  * For instance, instead of:
  * ```
- * expect(person) {
- *   this name toEqual 1
+ * expect {
+ *   ...
+ * }.toThrow<...>{
+ *    this messageToContain "oho"
  * }
  * ```
  * You can write
  * ```
- * expect("hello world") {
- *   its name toEqual 1
+ * expect {
+ *   ...
+ * }.toThrow<...>{
+ *    its messageToContain "oho"
  * }
  * ```
  *

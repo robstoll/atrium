@@ -13,9 +13,12 @@ import kotlin.jvm.JvmName
  *
  * @return The newly created builder.
  *
-* @since 0.15.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entry
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
-val <K, V, T: MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inAnyOrder: EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
+val <K, V, T : MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inAnyOrder: EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>
     get() = _logic.inAnyOrder
 
 /**
@@ -24,9 +27,11 @@ val <K, V, T: MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inAnyOrder: 
  *
  * @return The newly created builder.
  *
-* @since 0.15.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
-val <K, V, T: MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.only: EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>
+val <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.only: EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>
     @JvmName("butOnly")
     get() = _logic.butOnly
 
@@ -36,9 +41,11 @@ val <K, V, T: MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.only: 
  *
  * @return The newly created builder.
  *
-* @since 0.15.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
-val <K, V, T: MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inOrder: EntryPointStep<K, V, T, InOrderSearchBehaviour>
+val <K, V, T : MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inOrder: EntryPointStep<K, V, T, InOrderSearchBehaviour>
     get() = _logic.inOrder
 
 /**
@@ -47,8 +54,10 @@ val <K, V, T: MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inOrder: Ent
  *
  * @return The newly created builder.
  *
-* @since 0.15.0
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
-val <K, V, T: MapLike> EntryPointStep<K, V, T, InOrderSearchBehaviour>.only: EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>
+val <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderSearchBehaviour>.only: EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>
     @JvmName("andOnly")
     get() = _logic.andOnly
