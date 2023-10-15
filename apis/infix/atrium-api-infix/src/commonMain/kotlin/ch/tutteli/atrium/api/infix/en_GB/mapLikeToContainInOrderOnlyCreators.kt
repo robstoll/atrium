@@ -29,6 +29,8 @@ import kotlin.reflect.KClass
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entry
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     this the pairs(keyValuePair)
@@ -85,6 +87,8 @@ infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entryKeyValue
  */
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.entry(
     keyValue: KeyWithValueCreator<K, V>
@@ -124,6 +128,8 @@ inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, 
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.18.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entries
  */
 @JvmName("theKeyValuesWithReportingOption")
 inline infix fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlySearchBehaviour>.the(
@@ -157,6 +163,8 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InOrderOnlyS
  *   or it does not have elements (is empty).
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapLikeToContainInOrderOnlyCreatorSamples.entriesOf
  */
 infix fun <K, V, T : MapLike> EntryPointStep<K, V, T, InOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
