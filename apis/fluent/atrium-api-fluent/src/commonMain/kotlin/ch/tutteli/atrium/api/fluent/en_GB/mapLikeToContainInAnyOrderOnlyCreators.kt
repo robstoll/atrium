@@ -13,7 +13,7 @@ import ch.tutteli.kbox.glue
 import kotlin.reflect.KClass
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain exactly one entry where key and value have to equal the given [keyValuePair].
  *
  * Delegates to [entries].
@@ -21,18 +21,22 @@ import kotlin.reflect.KClass
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entry
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given [keyValuePair] as well as the [otherPairs] where it does not matter
  * in which order they appear.
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entries
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entries(
     keyValuePair: Pair<K, V>,
@@ -40,7 +44,7 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.e
 ): Expect<T> = _logicAppend { keyValuePairsInAnyOrderOnly(keyValuePair glue otherPairs) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain exactly one entry with a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
  * [KeyValue.valueAssertionCreatorOrNull] creates or needs to be `null` in case
@@ -51,13 +55,15 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.e
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entryKeyValue
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entry(
     keyValue: KeyValue<K, V>
 ): Expect<T> = entries(keyValue)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only the given [keyValue] as well as the [otherKeyValues] where it does not matter
  * in which order they appear -- an entry is contained if it has a key as defined by [keyValue]'s [KeyValue.key] and
  * a corresponding value which either holds all assertions [keyValue]'s
@@ -67,6 +73,8 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyO
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entriesKeyValue
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOnlySearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
@@ -82,7 +90,7 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (a [MapLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (a [MapLike])
  * needs to contain only and all entries of the given [expectedMapLike] where it does not matter
  * in which order they appear.
  *
@@ -100,6 +108,8 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderOn
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
  * @since 0.15.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderOnlyCreatorSamples.entriesOf
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderOnlySearchBehaviour>.entriesOf(
     expectedMapLike: MapLike

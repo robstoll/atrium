@@ -4,8 +4,6 @@ plugins {
 
 description = "A fluent expectation function API in en_GB with a focus on code completion"
 
-val niokVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {
@@ -16,7 +14,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation("ch.tutteli.niok:niok:$niokVersion")
+                implementation(libs.niok)
             }
         }
 
@@ -34,6 +32,7 @@ val jacocoAdditional: List<Project> by extra(
     listOf(
         prefixedProject("translations-en_GB"),
         prefixedProject("logic"),
-        prefixedProject("core")
+        prefixedProject("core"),
+        prefixedProject("verbs"),
     )
 )

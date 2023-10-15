@@ -1,17 +1,15 @@
 package ch.tutteli.atrium.specs.verbs
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.AssertionVerb
-import ch.tutteli.atrium.specs.prefixedDescribeTemplate
-import ch.tutteli.atrium.specs.toBeAnInstanceOfDescr
-import ch.tutteli.atrium.specs.toEqualDescr
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
@@ -24,6 +22,9 @@ abstract class VerbSpec(
     forNonNullableCreator: Pair<String, (subject: Int, assertionCreator: Expect<Int>.() -> Unit) -> Expect<Int>>,
     forNullable: Pair<String, (subject: Int?) -> Expect<Int?>>,
     forThrowable: Pair<String, (act: () -> Any?) -> Expect<() -> Any?>>,
+    forGrouping: Pair<String, (description: String, groupingActions: ExpectGrouping.() -> Unit) -> ExpectGrouping>,
+    createSubGroup: Pair<String, ExpectGrouping.(description: String, groupingActions: ExpectGrouping.() -> Unit) -> ExpectGrouping>,
+    createSubExpect: Pair<String, ExpectGrouping.(subject: Int) -> Expect<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -114,11 +115,10 @@ abstract class VerbSpec(
                 assert {
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
-                    @Suppress("DEPRECATION")
-                    (messageToContain(
+                    messageToContain(
                         toBeAnInstanceOfDescr,
                         "Int", "$toEqualDescr: 1"
-                    ))
+                    )
                 }
             }
         }
@@ -152,6 +152,134 @@ abstract class VerbSpec(
                 }
             }
         }
+    }
+    prefixedDescribe("assertion verb which creates an ${ExpectGrouping::class}") {
+        val (_, assertionVerb) = forGrouping
+        val (_, group) = createSubGroup
+        val (_, expect) = createSubExpect
+        context("no expect defined via ${createSubExpect.name}") {
+            it("nothing defined throws and reports missing expect") {
+                assert {
+                    assertionVerb("group description") {}
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "group description:",
+                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
+                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
+                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
+                        )
+                    }
+                }
+
+            }
+            it("only groups defined throws and reports each group with a missing expect") {
+                assert {
+                    assertionVerb("group description") {
+                        group("without expect") {}
+
+                        group("with expect") {
+                            expect(2).toEqual(2)
+                        }
+
+                        group("another without") {}
+                    }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "without expect",
+                            "another without"
+                        )
+                        toContain.exactly(2).values(
+                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
+                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
+                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
+                        )
+                        notToContain("with expect")
+                    }
+                }
+            }
+        }
+
+        context("the first expect holds") {
+            it("does not throw an exception") {
+                assertionVerb("my lovely expectations") {
+                    expect(1).toEqual(1)
+                }
+            }
+            context("a subsequent expect holds") {
+                it("does not throw an exception") {
+                    assertionVerb("my lovely expectations") {
+                        expect(1).toEqual(1)
+                        expect(0).toBeLessThan(2)
+                    }
+                }
+            }
+            context("a subsequent group of expect hold") {
+                it("does not throw an exception") {
+                    assertionVerb("my lovely expectations") {
+                        expect(1).toEqual(1)
+                        group("some group") {
+                            expect(1).toBeLessThan(2)
+                        }
+                    }
+                }
+            }
+            context("a subsequent expect fails") {
+                it("throws an AssertionError") {
+                    assert {
+                        assertionVerb("my lovely expectations") {
+                            expect(1).toEqual(1)
+                            expect(1).toBeLessThan(1)
+                        }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContain("${TO_BE_LESS_THAN.getDefault()}: 1")
+                            notToContain(toEqualDescr)
+                        }
+                    }
+                }
+            }
+
+            context("multiple subsequent expect/group fail") {
+                it("evaluates all and then throws an AssertionError, reporting only failing") {
+                    assert {
+                        assertionVerb("my lovely expectations") {
+                            expect(1).toEqual(1) // holds
+                            expect(2).toEqual(3)
+                            group("verifying Xy") {
+                                expect(4).toBeLessThan(0)
+                                expect(5).toEqual(6)
+                                expect(7).toBeGreaterThan(1) // holds
+                            }
+                            expect(8).toEqual(9)
+                        }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContain(
+                                ": 2",
+                                "$toEqualDescr: 3",
+                                "# verifying Xy",
+                                ": 4",
+                                "${TO_BE_LESS_THAN.getDefault()}: 0",
+                                ": 5",
+                                "$toEqualDescr: 6",
+
+                                ": 8",
+                                "$toEqualDescr: 9",
+                            )
+                            notToContain(
+                                ": 1",
+                                "$toEqualDescr: 1",
+                                ": 7",
+                                "${TO_BE_GREATER_THAN.getDefault()}: 1",
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 })

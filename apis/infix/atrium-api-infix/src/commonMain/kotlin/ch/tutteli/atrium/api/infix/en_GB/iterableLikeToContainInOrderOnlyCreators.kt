@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.utils.toVarArg
 import kotlin.jvm.JvmName
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the [expected] value.
  *
  * Delegates to `the values(expected)`.
@@ -32,7 +32,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
     this the values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the expected [values] in the specified order.
  *
  * @param values The values which are expected to be contained within the [IterableLike]
@@ -46,7 +46,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
     the(WithInOrderOnlyReportingOptions({}, values))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the expected [values] in the specified order.
  *
  * @param values The values which are expected to be contained within the [IterableLike] plus a lambda configuring
@@ -65,7 +65,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only one entry which holds all assertions created by the given [assertionCreatorOrNull]
  * or is `null` in case [assertionCreatorOrNull] is defined as `null`.
  *
@@ -84,7 +84,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
 ): Expect<T> = this the entries(assertionCreatorOrNull)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it either holds all assertions
  * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or it needs to be `null` in case
@@ -103,7 +103,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
 ): Expect<T> = the(WithInOrderOnlyReportingOptions({}, entries))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only the given [entries] in the specified order -- an entry
  * is contained if it either holds all assertions
  * [entries].[assertionCreatorOrNull][Entries.assertionCreatorOrNull] creates or it needs to be `null` in case
@@ -128,7 +128,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only and all elements of [expectedIterableLike] in the specified order.
  *
  * Delegates to [values].
@@ -152,7 +152,7 @@ inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyS
 ): Expect<T> = _logic.toVarArg<E>(expectedIterableLike).let { (first, rest) -> this the values(first, *rest) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the subject (an [IterableLike])
+ * Finishes the specification of the sophisticated `to contain` expectation where the subject (an [IterableLike])
  * needs to contain only and all elements of the given [IterableLike] in the specified order.
  *
  * Delegates to [values].

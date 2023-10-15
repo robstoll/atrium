@@ -19,7 +19,7 @@ import kotlin.reflect.KClass
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
- * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
+ * @param clazz The [AssertionGroupType] which the concrete subclass [canFormat][AssertionFormatter.canFormat].
  */
 abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(
     bulletPoint: String,

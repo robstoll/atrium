@@ -18,7 +18,7 @@ import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] object shall be searched,
  * using a non-disjoint search.
  *
  * Delegates to [values].
@@ -41,7 +41,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
     values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] value as well as
  * the [otherExpected] values shall be searched, using a non-disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
@@ -76,7 +76,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] value shall be searched
  * (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expected)`.
@@ -101,7 +101,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
 ): Expect<T> = values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] value as well as
  * the [otherExpected] values shall be searched (ignoring case), using a non-disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed.
@@ -137,7 +137,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] value shall be searched
  * (ignoring case), using a non-disjoint search where it needs to be contained at least once.
  *
  * Delegates to `atLeast(1).value(expected)`.
@@ -161,7 +161,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
 ): Expect<T> = atLeast(1).value(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the [expected] value as well as
  * the [otherExpected] values shall be searched (ignoring case), using a non-disjoint search
  * where each need to be contained at least once.
  *
@@ -192,7 +192,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
 ): Expect<T> = atLeast(1).values(expected, *otherExpected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
  *
  * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
@@ -220,7 +220,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 ): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
+ * Finishes the specification of the sophisticated `to contain` expectation where the given [Regex] [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
  *
  * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
@@ -251,7 +251,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 ): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given [Regex] [pattern]
+ * Finishes the specification of the sophisticated `to contain` expectation where the given [Regex] [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non-disjoint search.
  *
  * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
@@ -281,7 +281,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
 ): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to have a match (ignoring case), using a non-disjoint search.
  *
  * By non-disjoint is meant that `"aa"` in `"aaaa"` is found three times and not only two times.
@@ -310,7 +310,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
 ): Expect<T> = _logicAppend { regexIgnoringCase(pattern glue otherPatterns) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to to have at least one match (ignoring case),
  * using a non-disjoint search.
  *
@@ -341,7 +341,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
 ): Expect<T> = atLeast(1).regex(pattern, *otherPatterns)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * Finishes the specification of the sophisticated `to contain` expectation where all elements of the [expectedIterableLike]
  * shall be searched, using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
@@ -371,7 +371,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * Finishes the specification of the sophisticated `to contain` expectation where all elements of the [expectedIterableLike]
  * shall be searched (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`
@@ -400,7 +400,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
         .let { (first, rest) -> values(first, *rest) }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where all elements of the [expectedIterableLike]
+ * Finishes the specification of the sophisticated `to contain` expectation where all elements of the [expectedIterableLike]
  * shall be searched (ignoring case), using a non-disjoint search.
  *
  * Delegates to `values(expectedIterable.first(), *expectedIterable.drop(1).toTypedArray())`

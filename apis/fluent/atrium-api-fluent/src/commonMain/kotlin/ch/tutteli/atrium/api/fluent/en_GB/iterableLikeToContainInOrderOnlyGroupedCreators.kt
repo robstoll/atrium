@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import kotlin.jvm.JvmName
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [firstGroup] as well as
  * the [secondGroup] and optionally [otherExpectedGroups] of values need to be contained in [IterableLike]
  * as only elements and in the specified order whereas the values within the groups can occur in any order.
  *
@@ -45,7 +45,7 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [firstGroup] as well as
  * the [secondGroup] and optionally [otherExpectedGroups] of identification lambdas, identifying an entry,
  * need to be contained in [IterableLike] as only elements and in the specified order whereas
  * the identification lambdas within the groups can occur in any order.

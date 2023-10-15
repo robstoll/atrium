@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.utils.Group
 import kotlin.jvm.JvmName
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of values need to be
  * contained in [IterableLike] in the specified order whereas the values within the groups can occur in any order.
  *
@@ -37,7 +37,7 @@ private fun <E> withoutReportingOptions(order: Order<E, Group<E>>) =
     WithInOrderOnlyReportingOptions({}, WithInAnyOrderOnlyReportingOptions({}, order))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of values need to be
  * contained in [IterableLike] in the specified order whereas the values within the groups can occur in any order.
  *
@@ -67,7 +67,7 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSea
 }
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of identification lambdas, identifying an entry,
  * need to be contained in [IterableLike] in the specified order whereas the identification lambdas within the groups
  * can occur in any order.
@@ -94,7 +94,7 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroup
 ): Expect<T> = inAny(withoutReportingOptions(order))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [Order.firstGroup] as well as
+ * Finishes the specification of the sophisticated `to contain` expectation where the expected [Order.firstGroup] as well as
  * the [Order.secondGroup] and optionally [Order.otherExpectedGroups] of identification lambdas, identifying an entry,
  * need to be contained in [IterableLike] in the specified order whereas the identification lambdas within the groups
  * can occur in any order.

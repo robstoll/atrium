@@ -9,6 +9,16 @@ dependencyResolutionManagement {
     repositories {
         gradlePluginPortal()
     }
+    versionCatalogs {
+        create("libs") {
+            from(files("../libs.versions.toml"))
+        }
+    }
+    versionCatalogs {
+        create("buildLibs") {
+            from(files("../buildLibs.versions.toml"))
+        }
+    }
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

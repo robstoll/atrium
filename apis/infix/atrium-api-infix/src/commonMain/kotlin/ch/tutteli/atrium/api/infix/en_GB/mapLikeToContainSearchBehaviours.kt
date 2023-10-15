@@ -9,7 +9,7 @@ import kotlin.jvm.JvmName
 
 /**
  * Defines that the search behaviour "find entries `in any order` in the [MapLike]" shall be applied to this
- * sophisticated `contains` in [MapLike] assertion.
+ * sophisticated `to contain` in [MapLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -33,7 +33,7 @@ infix fun <K, V, T: MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [MapLike]" shall be applied to this
- * sophisticated `contains` in [MapLike] assertion.
+ * sophisticated `to contain` in [MapLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -45,7 +45,7 @@ infix fun <K, V, T: MapLike> EntryPointStep<K, V, T, NoOpSearchBehaviour>.inGive
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [MapLike]" shall be applied to this
- * sophisticated `contains in order` [MapLike] assertion.
+ * sophisticated `to contain in order` [MapLike] expectation.
  *
  * @return The newly created builder.
  *

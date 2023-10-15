@@ -27,7 +27,7 @@ interface ExplanatoryGroup {
         val withWarningType: AssertionsOption<WarningAssertionGroupType, FinalStep>
 
         /**
-         * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
+         * Builder to create an [AssertionGroup] with a [HintAssertionGroupType].
          * @since 1.0.0
          */
         val withHintType: AssertionsOption<HintAssertionGroupType, FinalStep>

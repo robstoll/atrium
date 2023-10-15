@@ -9,7 +9,7 @@ import kotlin.jvm.JvmName
 
 /**
  * Defines that the search behaviour "find entries `in any order` in the [IterableLike]" shall be applied to this
- * sophisticated `contains` in [IterableLike] assertion.
+ * sophisticated `to contain` in [IterableLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -20,7 +20,7 @@ val <E, T: IterableLike> EntryPointStep<E, T, NoOpSearchBehaviour>.inAnyOrder: E
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [IterableLike]" shall be applied to this
- * sophisticated `contains` [IterableLike] assertion.
+ * sophisticated `to contain` in [IterableLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -32,7 +32,7 @@ val <E, T: IterableLike> EntryPointStep<E, T, InAnyOrderSearchBehaviour>.only: E
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [IterableLike]" shall be applied to this
- * sophisticated `contains` in [IterableLike] assertion.
+ * sophisticated `to contain` in [IterableLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -43,7 +43,7 @@ val <E, T: IterableLike> EntryPointStep<E, T, NoOpSearchBehaviour>.inOrder: Entr
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [IterableLike]" shall be applied to this
- * sophisticated `contains in order` [IterableLike] assertion.
+ * sophisticated `to contain in order` in [IterableLike] expectation.
  *
  * @return The newly created builder.
  *
@@ -65,7 +65,7 @@ val <E, T: IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.groupe
     get() = _logic.grouped
 
 /**
- * A filler word to emphasis that the next step defines the order within expected groups of values.
+ * A filler word to emphasise that the next step defines the order within expected groups of values.
  *
  * @return The newly created builder.
  *

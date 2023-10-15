@@ -15,6 +15,7 @@ const val explanatoryBulletPoint = "» "
 const val warningBulletPoint = "❗❗ "
 const val informationBulletPoint = "ℹ "
 const val hintBulletPoint ="\uD83D\uDCA1 "
+const val groupingBulletPoint = "# "
 
 val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
 val indentListBulletPoint = " ".repeat(listBulletPoint.length)
@@ -26,6 +27,7 @@ val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
 val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
 
 val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
+val indentGroupingBulletPointIndent = " ".repeat(groupingBulletPoint.length)
 
 val defaultBulletPoints = mapOf(
     RootAssertionGroupType::class to rootBulletPoint,
@@ -36,6 +38,8 @@ val defaultBulletPoints = mapOf(
     PrefixFailingSummaryAssertion::class to failingBulletPoint,
     ExplanatoryAssertionGroupType::class to explanatoryBulletPoint,
     WarningAssertionGroupType::class to warningBulletPoint,
-    InformationAssertionGroupType::class to informationBulletPoint
+    InformationAssertionGroupType::class to informationBulletPoint,
+    HintAssertionGroupType::class to hintBulletPoint,
+    GroupingAssertionGroupType::class to groupingBulletPoint
 )
 

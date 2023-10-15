@@ -32,5 +32,11 @@ data class Text private constructor(val string: String) {
          * An empty string as [Text]
          */
         val EMPTY = Text("")
+
+        /**
+         * A provider which returns [EMPTY].
+         * @since 1.1.0
+         */
+        val EMPTY_PROVIDER = { EMPTY }
     }
 }

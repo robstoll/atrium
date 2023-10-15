@@ -5,42 +5,40 @@ plugins {
 description = "Provides specifications of Atrium which can be reused by" +
     "APIs and logic/core implementations of Atrium, to verify that they fulfill the specification."
 
-val mockkVersion: String by rootProject.extra
-val spekVersion: String by rootProject.extra
-val niokVersion: String by rootProject.extra
-val spekExtensionsVersion: String by rootProject.extra
-val mockitoKotlinVersion: String by rootProject.extra
-
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api(kotlin("test"))
+
                 api(prefixedProject("core"))
                 // exclude this dependency in case you want to use another translation
                 api(prefixedProject("translations-en_GB"))
                 api(prefixedProject("verbs-internal"))
-                apiWithExclude("io.mockk:mockk-common:$mockkVersion")
+                api(libs.mockk.common)
 
                 implementation(prefixedProject("api-fluent"))
 
-                apiWithExclude("org.spekframework.spek2:spek-dsl-metadata:$spekVersion")
+                api(libs.spek.common)
             }
         }
 
         jvmMain {
             dependencies {
-                apiWithExclude("io.mockk:mockk:$mockkVersion")
-                apiWithExclude("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
-                apiWithExclude("ch.tutteli.niok:niok:$niokVersion")
-                apiWithExclude("ch.tutteli.spek:tutteli-spek-extensions:$spekExtensionsVersion")
-                apiWithExclude("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+                api(libs.mockk.jvm)
+                api(libs.spek.jvm)
+                api(libs.niok)
+                api(libs.tutteli.spek)
+                api(libs.mockitoKotlin)
+                api(kotlin("test-junit5"))
+                api(libs.junit.platform.commons)
             }
         }
 
         jsMain {
             dependencies {
-                api("io.mockk:mockk-dsl-js:$mockkVersion")
-                api("org.spekframework.spek2:spek-dsl-js:$spekVersion")
+                api(libs.mockk.js)
+                api(libs.spek.js)
             }
         }
     }

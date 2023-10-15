@@ -15,9 +15,6 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
-// main
-val kboxVersion by extra("0.16.0")
-val niokVersion by extra("1.4.7")
 
 // test
 val jacocoToolVersion by extra("0.8.9")
