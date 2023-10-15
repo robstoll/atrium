@@ -29,6 +29,20 @@ class MapLikeToContainInOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entries() {
+        expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only the pairs(
+            1 to "a", 2 to "b"
+        )
+
+        fails { // because the pair entries (which all exist in the subject) do not have the same order
+            expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only the pairs(
+                2 to "b",
+                1 to "a",
+            )
+        }
+    }
+
+    @Test
     fun entriesKeyValue() {
         expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only the entries(
             keyValue(1) { this toEqual "a" },
