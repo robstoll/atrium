@@ -40,7 +40,7 @@ kotlin {
 
 val jacocoAdditional: List<Project> by extra(
     listOf(
-        prefixedProject("translations-en_GB"),
+        prefixedProject("translations-de_CH"),
         prefixedProject("logic"),
         prefixedProject("core"),
         prefixedProject("verbs")
