@@ -25,16 +25,6 @@ if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-in
         .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
 }
 
-//val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
-//    get() = named("jvmMain")
-//val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
-//    get() = named("jvmTest")
-//
-//val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: NamedDomainObjectProvider<KotlinSourceSet>
-//    get() = named("jsMain")
-//val NamedDomainObjectContainer<KotlinSourceSet>.jsTest: NamedDomainObjectProvider<KotlinSourceSet>
-//    get() = named("jsTest")
-
 kotlin {
     jvm {
         // for module-info.java and Java sources in test
@@ -74,5 +64,13 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+    }
+}
+
+// this is necessary due to some crazy kotlin plugin voodo. If we define this in the rootProject itself,
+// then it does not work.
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+    rootProject.configure<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension> {
+        lockFileDirectory = rootProject.projectDir.resolve("gradle")
     }
 }
