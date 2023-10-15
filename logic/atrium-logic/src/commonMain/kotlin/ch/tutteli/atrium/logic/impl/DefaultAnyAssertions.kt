@@ -17,7 +17,6 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(TO_EQUAL, expected) { it == expected }
 
-    //TODO make null handled here
     override fun <T> notToBe(container: AssertionContainer<T?>, expected: T?): Assertion =
         container.createDescriptiveAssertion(NOT_TO_EQUAL, expected) { it != expected }
 
