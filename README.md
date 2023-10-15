@@ -398,7 +398,7 @@ expect {
 I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$6$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ not to equal: null but to be an instance of type: String (kotlin.String) -- Class: java.lang.String
+        ◾ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
           » to start with: "firstName"        <1234789>
 ```
 </ex-toThrow2>
@@ -419,7 +419,7 @@ expect {
 I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpec$1$7$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
-        ◾ not to equal: null but to be an instance of type: String (kotlin.String) -- Class: java.lang.String
+        ◾ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow3>
 
@@ -934,7 +934,7 @@ expect(slogan2)        // subject has type String?
 <a name="ex-nullable-3"></a>
 ```text
 I expected subject: null
-◆ not to equal: null but to be an instance of type: String (kotlin.String) -- Class: java.lang.String
+◆ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -951,7 +951,7 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 <a name="ex-nullable-4"></a>
 ```text
 I expected subject: null
-◆ not to equal: null but to be an instance of type: String (kotlin.String) -- Class: java.lang.String
+◆ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
   » to start with: "atrium"        <1234789>
 ```
 </ex-nullable-4>
@@ -1873,7 +1873,7 @@ I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamplesSpe
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
-          ◾ not to equal: null but to be an instance of type: String (kotlin.String) -- Class: java.lang.String
+          ◾ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
           ◾ to contain: 
             ⚬ value: "no no no"        <1234789>
                 » but no match was found
