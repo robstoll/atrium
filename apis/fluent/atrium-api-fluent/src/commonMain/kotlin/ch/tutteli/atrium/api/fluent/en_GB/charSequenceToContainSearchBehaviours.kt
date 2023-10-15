@@ -23,6 +23,8 @@ val <T : CharSequence> EntryPointStep<T, NoOpSearchBehaviour>.ignoringCase: Entr
  * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
  *
  * @return The newly created builder.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainSearchBehaviourSamples.ignoringCaseWithNotChecker
  */
 val <T : CharSequence> NotCheckerStep<T, NotSearchBehaviour>.ignoringCase: NotCheckerStep<T, IgnoringCaseSearchBehaviour>
     get() = _logic.entryPointStepLogic.ignoringCase._logic.notCheckerStep()

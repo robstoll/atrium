@@ -11,12 +11,11 @@ import ch.tutteli.atrium.logic.isSuccess
  *
  * @return The newly created [Expect] if the given assertion is a success.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeASuccessFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeASuccessFeature
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
-fun <E, T : Result<E>> Expect<T>.toBeASuccess(): Expect<E> =
-    _logic.isSuccess().transform()
+fun <E, T : Result<E>> Expect<T>.toBeASuccess(): Expect<E> = _logic.isSuccess().transform()
 
 /**
  * Expects that the subject of `this` expectation (a [Result]) is a success ([Result.isSuccess]) and
@@ -24,9 +23,9 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(): Expect<E> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeASuccess
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeASuccess
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 fun <E, T : Result<E>> Expect<T>.toBeASuccess(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.isSuccess().collectAndAppend(assertionCreator)
@@ -37,9 +36,9 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(assertionCreator: Expect<E>.() -> 
  *
  * @return An [Expect] with the new type [TExpected]
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeAFailureFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeAFailureFeature
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
@@ -51,9 +50,9 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure():
  *
  * @return An [Expect] with the new type [TExpected]
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3.samples.ResultExpectationSamples.toBeAFailure
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeAFailure
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit

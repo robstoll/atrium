@@ -12,7 +12,9 @@ import ch.tutteli.atrium.logic.isSuccess
  *
  * @return The newly created [Expect] if the given assertion is success.
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ResultExpectationSamples.toBeASuccessFeature
+ *
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSuccess: aSuccess): Expect<E> =
     _logic.isSuccess().transform()
@@ -25,7 +27,9 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSucce
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.12.0)
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ResultExpectationSamples.toBeASuccess
+ *
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.12.0)
  */
 infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Expect<T> =
     _logic.isSuccess().collectAndAppend(success.assertionCreator)
@@ -34,9 +38,11 @@ infix fun <E, T : Result<E>> Expect<T>.toBe(success: SuccessWithCreator<E>): Exp
  * Expects that the subject of `this` expectation (a [Result]) is a failure ([Result.isFailure]) and
  * that it encapsulates an exception of type [TExpected].
  *
-* @return An [Expect] with the new type [TExpected]
+ * @return An [Expect] with the new type [TExpected]
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ResultExpectationSamples.toBeAFailureFeature
+ *
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
@@ -48,7 +54,9 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure():
  *
  * @return An [Expect] with the new type [TExpected]
  *
- *  @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ResultExpectationSamples.toBeAFailure
+ *
+ * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
 inline infix fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit

@@ -39,9 +39,9 @@ fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<
  *
  * @return The newly created [Expect] for the transformed subject.
  *
- * @since 0.14.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asListFeature
+ *
+ * @since 0.14.0
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubject.unreported { it.toList() }
 
@@ -54,9 +54,9 @@ fun <E, T : Sequence<E>> Expect<T>.asList(): Expect<List<E>> = _logic.changeSubj
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.14.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.SequenceSubjectChangerSamples.asList
+ *
+ * @since 0.14.0
  */
 fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
     apply { asList()._logic.appendAsGroup(assertionCreator) }

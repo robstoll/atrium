@@ -15,4 +15,13 @@ class CharSequenceToContainSearchBehaviourSamples {
             expect("AAAaaa").toContain.ignoringCase.atMost(3).value("a")
         }
     }
+
+    @Test
+    fun ignoringCaseWithNotChecker() {
+        expect("ABC").notToContain.ignoringCase.value("d")
+
+        fails { // because it contains a `d` which is the same as a `D` when case is ignored
+            expect("abcd").notToContain.ignoringCase.value("D")
+        }
+    }
 }

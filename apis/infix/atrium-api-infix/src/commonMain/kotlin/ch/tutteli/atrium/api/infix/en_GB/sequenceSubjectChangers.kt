@@ -11,6 +11,8 @@ import ch.tutteli.atrium.logic.changeSubject
  * Use `feature { f(it::asIterable) }` if you want to show the transformation in reporting.
  *
  * @return The newly created [Expect] for the transformed subject.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.SequenceSubjectChangerSamples.asIterableFeature
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asIterable(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -24,6 +26,8 @@ infix fun <E, T : Sequence<E>> Expect<T>.asIterable(
  * Use `feature of({ f(it::asIterable) }, assertionCreator)` if you want to show the transformation in reporting.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.SequenceSubjectChangerSamples.asIterable
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Iterable<E>>.() -> Unit): Expect<T> =
     apply { asIterable(o)._logic.appendAsGroup(assertionCreator) }
@@ -37,6 +41,8 @@ infix fun <E, T : Sequence<E>> Expect<T>.asIterable(assertionCreator: Expect<Ite
  * @return The newly created [Expect] for the transformed subject.
  *
  * @since 0.14.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.SequenceSubjectChangerSamples.asList
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asList(
     @Suppress("UNUSED_PARAMETER") o: o
@@ -52,6 +58,8 @@ infix fun <E, T : Sequence<E>> Expect<T>.asList(
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.SequenceSubjectChangerSamples.asListFeature
  */
 infix fun <E, T : Sequence<E>> Expect<T>.asList(assertionCreator: Expect<List<E>>.() -> Unit): Expect<T> =
     apply { asList(o)._logic.appendAsGroup(assertionCreator) }

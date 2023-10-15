@@ -20,9 +20,9 @@ import kotlin.reflect.KClass
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entry
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entry(keyValuePair: Pair<K, V>): Expect<T> =
     entries(keyValuePair)
@@ -38,9 +38,9 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entry
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entries
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entries(
     keyValuePair: Pair<K, V>,
@@ -58,9 +58,9 @@ fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entri
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entryKeyValue
+ *
+ * @since 0.15.0
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entry(
     keyValue: KeyValue<K, V>
@@ -80,9 +80,9 @@ inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyO
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entriesKeyValue
+ *
+ * @since 0.15.0
  */
 inline fun <K, reified V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSearchBehaviour>.entries(
     keyValue: KeyValue<K, V>,
@@ -116,9 +116,9 @@ internal fun <K, V : Any, T : MapLike> EntryPointStep<K, out V?, T, InAnyOrderSe
  *   a [Map], [Sequence] or one of the [Array] types
  *   or the given [expectedMapLike] does not have elements (is empty).
  *
- * @since 0.15.0
- *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.MapLikeToContainInAnyOrderCreatorSamples.entriesOf
+ *
+ * @since 0.15.0
  */
 fun <K, V, T : MapLike> EntryPointStep<K, V, T, InAnyOrderSearchBehaviour>.entriesOf(
     expectedMapLike: MapLike
