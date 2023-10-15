@@ -30,17 +30,6 @@ subprojects {
     version = rootProject.version
 }
 
-//TODO 1.2.0 re-introduce bcTests again? I am currently not sure if it is actually worth it
-// did not have the need to be binary compatible for a while
-//val apiProjects = subprojects.filter {
-//    it.name.startsWith("${rootProject.name}-api")
-//}
-//configure(apiProjects) {
-//    createTestJarTask(apiProject)
-//    createTestSourcesJarTask(apiProject)
-//}
-
-
 // takes some time to configure since gradle 6.9 so only if CI
 if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
     apply(from = "gradle/scripts/check-dexer.gradle")
