@@ -19,6 +19,12 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     /** @since 0.18.0 */
     TO_BE_THE_INSTANCE("ist dieselbe Instanz wie"),
 
+    /** @since 1.1.0 */
+    NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF("entsprich nicht: null sondern ist eine Instanz vom Typ"),
+
+    /** @since 1.1.0 */
+    NOT_TO_BE_AN_INSTANCE_OF("ist nicht eine Instanz vom Typ"),
+
     /** @since 0.18.0 */
     NOT_TO_BE_THE_INSTANCE("ist nicht dieselbe Instanz wie"),
 
@@ -27,7 +33,4 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
 
     /** @since 0.18.0 */
     BECAUSE("denn"),
-
-    /** @since 1.1.0 */
-    NOT_TO_BE_AN_INSTANCE_OF("ist nicht eine Instanz vom Typ")
 }

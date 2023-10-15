@@ -13,11 +13,17 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     /** @since 0.18.0 */
     NOT_TO_EQUAL("not to equal"),
 
+    /** @since 1.1.0 */
+    NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF("not to equal: null but to be an instance of"),
+
     /** @since 0.18.0 */
     TO_BE_AN_INSTANCE_OF("to be an instance of type"),
 
     /** @since 0.18.0 */
     TO_BE_THE_INSTANCE("to be the instance"),
+
+    /** @since 1.1.0 */
+    NOT_TO_BE_AN_INSTANCE_OF("not to be an instance of"),
 
     /** @since 0.18.0 */
     NOT_TO_BE_THE_INSTANCE("not to be the instance"),
@@ -27,7 +33,4 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
 
     /** @since 0.18.0 */
     BECAUSE("because"),
-
-    /** @since 1.1.0 */
-    NOT_TO_BE_AN_INSTANCE_OF("not to be an instance of")
 }

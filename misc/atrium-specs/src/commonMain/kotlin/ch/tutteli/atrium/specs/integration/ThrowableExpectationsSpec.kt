@@ -53,7 +53,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            toBeAnInstanceOfDescr,
+                            notToEqualNullButToBeInstanceOfDescr,
                             String::class.fullName
                         )
                         if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
@@ -67,7 +67,7 @@ abstract class ThrowableExpectationsSpec(
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        toBeAnInstanceOfDescr, String::class.fullName,
+                        notToEqualNullButToBeInstanceOfDescr, String::class.fullName,
                         DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(),
                         "$valueDescr: 1",
                         "$valueDescr: 2.3",

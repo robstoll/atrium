@@ -116,7 +116,7 @@ abstract class VerbSpec(
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        toBeAnInstanceOfDescr,
+                        notToEqualNullButToBeInstanceOfDescr,
                         "Int", "$toEqualDescr: 1"
                     )
                 }
