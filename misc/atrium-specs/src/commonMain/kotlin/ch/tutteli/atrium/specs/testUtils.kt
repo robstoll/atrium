@@ -289,6 +289,7 @@ val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()
 val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
 val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
 val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
+val notToEqualNullButToBeInstanceOfDescr = DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.getDefault()
 
 expect val lineSeparator: String
 

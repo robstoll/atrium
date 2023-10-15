@@ -59,8 +59,8 @@ abstract class AnyExpectationsSpec(
     notToBeInstanceOfKClass: Feature1<Any, KClass<*>, Any>,
     notToBeInstanceOfKClasses: Feature2<Any, KClass<*>, Array<out KClass<*>>, Any>,
 
-    notToBeNullFeature: Feature0<Int?, Int>,
-    notToBeNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
+    notToEqualNullFeature: Feature0<Int?, Int>,
+    notToEqualNull: Feature1<Int?, Expect<Int>.() -> Unit, Int>,
 
     andPair: Fun0<Int>,
     andLazyPair: Fun1<Int, Expect<Int>.() -> Unit>,
@@ -91,8 +91,8 @@ abstract class AnyExpectationsSpec(
         toBeNull.forSubjectLess(),
         toBeAnInstanceOfIntFeature.forSubjectLess(),
         toBeAnInstanceOfInt.forSubjectLess { toEqual(1) },
-        notToBeNullFeature.forSubjectLess(),
-        notToBeNull.forSubjectLess { toEqual(1) }
+        notToEqualNullFeature.forSubjectLess(),
+        notToEqualNull.forSubjectLess { toEqual(1) }
     ) {})
     include(object : SubjectLessSpec<Any>(
         "$describePrefix[Any] ",
@@ -120,10 +120,10 @@ abstract class AnyExpectationsSpec(
             { apply { toBeAnInstanceOfInt.invoke(this) { toEqual(1) } } },
             { apply { toBeAnInstanceOfInt.invoke(this) {} } }),
         assertionCreatorSpecTriple(
-            notToBeNull.name,
+            notToEqualNull.name,
             "$toEqualDescr: 1",
-            { apply { notToBeNull.invoke(this) { toEqual(1) } } },
-            { apply { notToBeNull.invoke(this) {} } })
+            { apply { notToEqualNull.invoke(this) { toEqual(1) } } },
+            { apply { notToEqualNull.invoke(this) {} } })
 
     ) {})
 
@@ -598,16 +598,16 @@ abstract class AnyExpectationsSpec(
     }
 
 
-    describeFun(notToBeNullFeature, notToBeNull) {
-        val notToBeNullFunctions = unifySignatures(notToBeNullFeature, notToBeNull)
+    describeFun(notToEqualNullFeature, notToEqualNull) {
+        val notToEqualNullFunctions = unifySignatures(notToEqualNullFeature, notToEqualNull)
 
         context("subject is null") {
-            notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+            notToEqualNullFunctions.forEach { (name, notToEqualNullFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        expect(null as Int?).notToBeNullFun { toEqual(1) }
+                        expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$toBeAnInstanceOfDescr: Int (kotlin.Int)")
+                        messageToContain("$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
                 }
@@ -616,9 +616,8 @@ abstract class AnyExpectationsSpec(
 
         context("subject is not null") {
 
-
             context("it allows to define an assertion for the subject") {
-                notToBeNullFunctions.forEach { (name, notToBeNullFun, _) ->
+                notToEqualNullFunctions.forEach { (name, notToBeNullFun, _) ->
 
                     it("$name - does not throw if the assertion holds") {
                         expect(1 as Int?).notToBeNullFun { toBeLessThan(2) }
@@ -634,7 +633,7 @@ abstract class AnyExpectationsSpec(
                 }
             }
             context("it allows to define multiple assertions for the subject") {
-                notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+                notToEqualNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
                     it("$name - does not throw if the assertions hold") {
                         expect(1 as Int?).notToBeNullFun { toBeGreaterThan(0); toBeLessThan(2) }
                     }
@@ -665,7 +664,7 @@ abstract class AnyExpectationsSpec(
         }
 
         context("in a feature assertion and subject is null") {
-            notToBeNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+            notToEqualNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
                     class A(val i: Int? = null)
                     expect {
@@ -673,7 +672,7 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             A::class.simpleName!!,
-                            "$toBeAnInstanceOfDescr: Int (kotlin.Int)"
+                            "$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)"
                         )
                         if (hasExtraHint) messageToContain("$toEqualDescr: 1")
                     }
@@ -686,7 +685,7 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             A::class.simpleName!!,
-                            "$toBeAnInstanceOfDescr: Int (kotlin.Int)",
+                            "$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)",
                             //TODO 1.1.0 use $toBeLessThanDescr with Kotlin 1.6 and report to https://youtrack.jetbrains.com/issue/KT-50388
                             "${TO_BE_LESS_THAN.getDefault()}: 1"
                         )
