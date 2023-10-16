@@ -16,6 +16,17 @@ class MapLikeToContainInAnyOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entries() {
+        expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only the pairs(
+            2 to "b", 1 to "a"
+        )
+
+        fails { // because subject has additional entries
+            expect(mapOf(1 to "a", 2 to "b")) toContain o inAny order but only the pairs(1 to "a")
+        }
+    }
+
+    @Test
     fun entryKeyValue() {
         expect(mapOf(1 to "apple")) toContain o inAny order but only entry(
             keyValue(1) { this toStartWith "a"  }
