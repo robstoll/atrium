@@ -2,7 +2,7 @@
 kbox = "0.16.0"
 niok = "1.4.7"
 junitPlatform = "1.9.2"
-spek = "2.0.12"
+spek = "2.0.16"
 spekExtensions = "1.2.1"
 mockk = "1.10.0"
 mockitoKotlin = "2.2.0"
