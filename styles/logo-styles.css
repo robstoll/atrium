@@ -18,11 +18,19 @@
     left: calc(-1 * var(--logo-width) - 5px);
 }
 
+/* since dokka 1.9.10 navigation-wrapper has no longer the class navigation-wrapper but padding changed
+   hence this fix
+ */
+#navigation-wrapper:not(.navigation-wrapper) .library-name a::before {
+    top: -36px;
+}
+
 
 /* adopted from https://blog.logrocket.com/making-dropdown-menus-css/ */
 
 .library-name {
     margin-top: 5px;
+    margin-right: 12px;
 }
 #versions + div:not(.pull-right) {
     /* hide default version from dokka */
@@ -43,6 +51,7 @@
 #versions .dropdown,
 #versions button {
     width: 7rem;
+    font-family: var(--default-font-family);
 }
 #versions .dropdown {
     position: absolute;
@@ -129,16 +138,53 @@
         color: var(--default-font-color);
     }
 }
-/* We want to show the dark mode button also if media is small */
+
 @media screen and (max-width: 759px) {
+    .library-name > a {
+        --logo-width: 50px;
+    }
+
+    .library-name a::before {
+        background: url("../images/logo-icon.svg") center no-repeat;
+        background-size: 50px 50px;
+    }
+
+    #versions .dropdown,
+    #versions button {
+        width: 5rem;
+        font-size: 13px;
+    }
+    #versions ul li,
+    #versions ul li a, #versions button {
+        font-size: 13px;
+    }
+
+    /* We want to show the dark mode button also if media is small */
     #theme-toggle-button {
         display: block;
     }
+
+    .library-name a::before {
+        /* dokka 1.9.10 started to hide the logo on smaller screens, I don't see why, there is enough space for the small icon*/
+        display: inherit;
+    }
+
+    /* dokka only sets this if 760px or bigger but without the alignment of the search and theme icon are displaced */
+    .navigation-controls {
+        align-items: center;
+    }
+
 }
 
 /* fix navigation height */
-.navigation-wrapper {
+#navigation-wrapper {
     height: calc(var(--top-navigation-height) - 19px - 18px);
+}
+/* since dokka 1.9.10 navigation-wrapper is only an id and no longer a id + class */
+#navigation-wrapper:not(.navigation-wrapper) {
+    /* dokka now uses 10px but that looks a bit squeezed, but cannot use 19px top 18px bottom as before
+     as the height changed from 36px to 40px, thus adjusting the padding and height a bit */
+    padding: 19px var(--horizontal-spacing-for-content) 18px;
 }
 
 /* custom classes */
