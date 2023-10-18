@@ -12,11 +12,23 @@ plugins {
 }
 
 tutteliDokka {
-    modeSimple.set(false)
+    writeToDocs.set(false)
 }
 
 val rootProject = this
-listOf("specs", "verbs-internal").forEach { projectName ->
+
+val modulesNotInGhPages = listOf(
+    // deprecated modules only clutter kdoc
+    "api-fluent-kotlin_1_3",
+    "api-infix-kotlin_1_3",
+    "logic-kotlin_1_3",
+    // internal modules are not of interest
+    "specs",
+    "verbs-internal",
+    // a user will most likely never look up translations, only clutter the search
+    "translations-de_CH", "translations-en_GB"
+)
+modulesNotInGhPages.forEach { projectName ->
     prefixedProject(projectName).afterEvaluate {
         val subproject = this
         rootProject.tasks.configureEach<DokkaMultiModuleTask> {
@@ -31,7 +43,7 @@ tasks.configureEach<DokkaMultiModuleTask> {
 
 gradle.taskGraph.whenReady {
     if (hasTask(":dokkaHtmlMultiModule")) {
-        listOf("specs", "verbs-internal").forEach { projectName ->
+        modulesNotInGhPages.forEach { projectName ->
             prefixedProject(projectName)
                 .tasks.configureEach<DokkaTaskPartial> {
                     enabled = false
