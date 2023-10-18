@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
+
 plugins {
     id("build-logic.published-kotlin-multiplatform")
 }
@@ -30,6 +32,12 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
+    }
+}
+
+tasks.configureEach<AbstractDokkaLeafTask> {
+    dokkaSourceSets.configureEach {
+        reportUndocumented.set(false)
     }
 }
 

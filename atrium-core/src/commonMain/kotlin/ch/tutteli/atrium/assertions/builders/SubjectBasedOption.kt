@@ -40,8 +40,11 @@ interface SubjectBasedOption {
             failureHintFactory to ifDefined
     }
 
+    /**
+     * Provides helper methods for [SubjectBasedOption] contract.
+     */
     companion object {
-        @Suppress("DEPRECATION")
+        //TODO 1.2.0 naming looks ood, why using invoke if we don't create a SubjectBasedOption
         operator fun <T, R, PO : DefinedOption<T, R, *>> invoke(
             expect: Expect<T>,
             subStep: PO.() -> Pair<() -> R, (T) -> R>,

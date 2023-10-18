@@ -1,5 +1,4 @@
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
-import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     id("build-logic.gradle-conventions")
@@ -8,14 +7,9 @@ plugins {
 
 val kdocDir = rootProject.projectDir.resolve("misc/kdoc")
 
-tasks.configureEach<DokkaTask> {
-    dokkaSourceSets.configureEach {
-        reportUndocumented.set(true)
-    }
-}
-
 tasks.configureEach<AbstractDokkaLeafTask> {
     dokkaSourceSets.configureEach {
+        reportUndocumented.set(true)
         jdkVersion.set(buildParameters.defaultJdkVersion)
         perPackageOption {
             matchingRegex.set("io.mockk")

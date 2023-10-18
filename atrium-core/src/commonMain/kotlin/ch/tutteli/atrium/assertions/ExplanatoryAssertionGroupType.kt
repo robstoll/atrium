@@ -26,6 +26,9 @@ object WarningAssertionGroupType : ExplanatoryAssertionGroupType
 /**
  * The [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] are used to document
  * the reason for one or multiple assertions.
+ *
+ * @param withIndent defines whether the group header should be indented (hence also all children will be indented
+ *   one level more) or not.
  */
 data class InformationAssertionGroupType(val withIndent: Boolean) : ExplanatoryAssertionGroupType
 
