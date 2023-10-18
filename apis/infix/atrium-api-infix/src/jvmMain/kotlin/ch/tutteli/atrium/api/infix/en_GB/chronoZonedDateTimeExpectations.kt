@@ -261,16 +261,26 @@ infix fun <T : ChronoZonedDateTime<out ChronoLocalDate>> Expect<T>.toBeAfter(
     expected: String
 ): Expect<T> = _logicAppend { isAfter(expected) }
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeBefore] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'toBeLessThan' is deprecated in favour of 'toBeBefore' which is based on ChronoZonedDateTime.isBefore instead of compareTo",
-    ReplaceWith("toBeBefore(expected")
+    ReplaceWith("toBeBefore(expected)")
 )
 infix fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
     throw PleaseUseReplacementException(
         "'toBeLessThan' is deprecated in favour of 'toBeBefore', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeBeforeOrTheSamePointInTimeAs] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'toBeLessThanOrEqualTo is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isBefore and ChronoZonedDateTime.isEqual instead of compareTo",
@@ -281,6 +291,11 @@ infix fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected:
         "'toBeLessThanOrEqualTo is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeBeforeOrTheSamePointInTimeAs] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'notToBeGreaterThan' is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isBefore and ChronoZonedDateTime.isEqual instead of compareTo",
@@ -291,6 +306,11 @@ infix fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeGreaterThan(expected: T)
         "'notToBeGreaterThan' is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeTheSamePointInTimeAs] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'toBeEqualComparingTo' is deprecated in favour of 'toBeTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isEqual instead of compareTo",
@@ -301,6 +321,11 @@ infix fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeEqualComparingTo(expected: 
         "'toBeEqualComparingTo' is deprecated in favour of 'toBeTheSamePointInTimeAs', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeAfterOrTheSamePointInTimeAs] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'toBeGreaterThanOrEqualTo' is deprecated in favour of 'toBeAfterOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isAfter and ChronoZonedDateTime.isEqual instead of compareTo",
@@ -311,6 +336,11 @@ infix fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThanOrEqualTo(expect
         "'toBeGreaterThanOrEqualTo' is deprecated in favour of 'toBeAfterOrTheSamePointInTimeAs', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeAfterOrTheSamePointInTimeAs] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'notToBeLessThan' is deprecated in favour of 'toBeAfterOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isAfter and ChronoZonedDateTime.isEqual instead of compareTo",
@@ -321,6 +351,11 @@ infix fun <T : ChronoZonedDateTime<T>> Expect<T>.notToBeLessThan(expected: T): N
         "'notToBeLessThan' is deprecated in favour of 'toBeAfterOrTheSamePointInTimeAs', use a feature extractor if you want to base your expectation on compareTo"
     )
 
+/**
+ * Deprecated overload which shall give a hint to the user/guide the user to use [toBeAfter] instead.
+ *
+ * @since 1.0.0
+ */
 @Suppress("UNUSED_PARAMETER")
 @Deprecated(
     "'toBeGreaterThan' is deprecated in favour of 'toBeAfter' which is based on ChronoZonedDateTime.isAfter instead of compareTo",

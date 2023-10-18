@@ -1,14 +1,17 @@
 package ch.tutteli.atrium.api.fluent.en_GB.creating.feature
 
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
 
+/**
+ * Represents the default options available for a user if he uses [feature] with the [MetaFeatureOption]-lambda overload.
+ */
 class MetaFeatureOption<T>(expect: Expect<T>) {
 
     @OptIn(ExperimentalComponentFactoryContainer::class)

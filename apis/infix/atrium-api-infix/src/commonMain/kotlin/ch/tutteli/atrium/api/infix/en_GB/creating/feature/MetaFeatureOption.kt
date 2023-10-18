@@ -9,6 +9,9 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
 
+/**
+ * Represents the default options available for a user if he uses [feature] with the [MetaFeatureOption]-lambda overload.
+ */
 class MetaFeatureOption<T>(expect: Expect<T>) {
 
     @OptIn(ExperimentalComponentFactoryContainer::class)

@@ -5,25 +5,47 @@ package ch.tutteli.atrium.core
  */
 sealed class Option<out T> {
 
+    /**
+     * @returns true if this [Option] is [Some].
+     */
     fun isDefined() = this is Some
 
+    /**
+     * Filters the value if defined by the given [predicate].
+     */
     inline fun filter(predicate: (T) -> Boolean): Option<T> = flatMap { if (predicate(it)) Some(it) else None }
 
+    /**
+     * Maps over the value if defined.
+     */
     inline fun <R> map(f: (T) -> R): Option<R> = flatMap { Some(f(it)) }
 
+    /**
+     * Flat-maps over the value if defined.
+     */
     inline fun <R> flatMap(f: (T) -> Option<R>): Option<R> = fold({ None }, f)
 
+    /**
+     * Folds this [Option].
+     */
     inline fun <R> fold(default: () -> R, f: (T) -> R): R = when (this) {
         is Some -> f(value)
         None -> default()
     }
 
     companion object {
+        /**
+         * Factory method to create an [Option].
+         * @return [Some] wrapping the value given by the [provider] if the predicate holds, [None] otherwise.
+         */
         inline fun <T> someIf(predicate: Boolean, provider: () -> T): Option<T> =
             if (predicate) Some(provider()) else None
     }
 }
 
+/**
+ * Get the value of this [Option] if defined or use the [default]-value provider.
+ */
 inline fun <T> Option<T>.getOrElse(default: () -> T): T = fold(default) { it }
 
 /**

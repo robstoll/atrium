@@ -46,6 +46,11 @@ fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBa
     }.showOnlyIfSubjectDefined(expect)
 }
 
+/**
+ * Creates an [Assertion] which warns the user about a bug in Atrium.
+ *
+ * @return the assertion
+ */
 fun createShouldNotBeShownToUserWarning(): Assertion =
     assertionBuilder.explanatoryGroup
         .withWarningType
@@ -83,6 +88,10 @@ interface DescriptiveAssertionWithFailureHint {
     interface FailureHintSubjectDefinedOption<T> :
         SubjectBasedOption.DefinedOption<T, Assertion, FailureHintSubjectAbsentOption<T>> {
 
+        /**
+         * Provides factory methods to create a [FailureHintSubjectDefinedOption]
+         * and serves as extension point.
+         */
         companion object {
             fun <T> create(): FailureHintSubjectDefinedOption<T> = FailureHintSubjectDefinedOptionImpl()
         }
@@ -93,6 +102,10 @@ interface DescriptiveAssertionWithFailureHint {
      */
     interface FailureHintSubjectAbsentOption<T> : SubjectBasedOption.AbsentOption<T, Assertion> {
 
+        /**
+         * Provides factory methods to create a [FailureHintSubjectAbsentOption]
+         * and serves as extension point.
+         */
         companion object {
             fun <T> create(
                 ifDefined: (T) -> Assertion
@@ -146,6 +159,10 @@ interface DescriptiveAssertionWithFailureHint {
             SubjectBasedOption(expect, showSubStep, ShowSubjectDefinedOption.Companion::create)
         }
 
+        /**
+         * Provides factory methods to create a [ShowOption]
+         * and serves as extension point.
+         */
         companion object {
             fun create(
                 test: () -> Boolean,
@@ -159,6 +176,10 @@ interface DescriptiveAssertionWithFailureHint {
      */
     interface ShowSubjectDefinedOption<T> : SubjectBasedOption.DefinedOption<T, Boolean, ShowSubjectAbsentOption<T>> {
 
+        /**
+         * Provides factory methods to create a [ShowSubjectDefinedOption]
+         * and serves as extension point.
+         */
         companion object {
             fun <T> create(): ShowSubjectDefinedOption<T> = ShowSubjectDefinedOptionImpl()
         }
@@ -169,6 +190,10 @@ interface DescriptiveAssertionWithFailureHint {
      */
     interface ShowSubjectAbsentOption<T> : SubjectBasedOption.AbsentOption<T, Boolean> {
 
+        /**
+         * Provides factory methods to create a [ShowSubjectAbsentOption]
+         * and serves as extension point.
+         */
         companion object {
             fun <T> create(
                 ifDefined: (T) -> Boolean
@@ -207,6 +232,10 @@ interface DescriptiveAssertionWithFailureHint {
          */
         val representation: Any
 
+        /**
+         * Provides factory methods to create a [FinalStep]
+         * and serves as extension point.
+         */
         companion object {
             fun create(
                 test: () -> Boolean,
