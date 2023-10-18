@@ -101,17 +101,21 @@ The tag is required for dokka in order that the externalLinkDocumentation and so
 3. update github pages:
 Assumes you have a atrium-gh-pages folder on the same level as atrium where the gh-pages branch is checked out
 
-Either use the following commands or the manual steps below (assuming ATRIUM_VERSION is already set from commands above)
+Either use the following commands or the manual steps below (assuming ATRIUM_PREVIOUS_VERSION and ATRIUM_VERSION
+is already set from commands above)
+
+Increment ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT
 
 export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1.2"
 export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1.1"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.1.3"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.2.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.2.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.3.0"
 
 gr dokkaHtmlMultiModule
-git add . && git commit -m "dokka generation for v$ATRIUM_VERSION"
 
 cd ../atrium-gh-pages
+git add . && git commit -m "dokka generation for v$ATRIUM_VERSION"
+
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
   ./index.html
@@ -126,13 +130,14 @@ perl -0777 -i \
   "./$ATRIUM_VERSION/kdoc/navigation.html"
 
 find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
+    -pe "s@<script.*src=\"https://unpkg\.com.*</script>@@;" \
+    -pe "s@(<div class=\"library-name\">[\S\s]+?)Atrium@\$1<span>Atrium</span>@;" \
     -pe "s@\"((?:\.\./+)*)styles/logo-styles.css\" rel=\"Stylesheet\">@\"../../\${1}styles/logo-styles.css?v=$ATRIUM_GH_PAGES_LOGO_CSS_VERSION\" rel=\"Stylesheet\">\n<link href=\"../../\${1}styles/alert.css?v=$ATRIUM_GH_PAGES_ALERT_CSS_VERSION\" rel=\"Stylesheet\">\n<script id=\"versions-script\" type=\"text/javascript\" src=\"\../../\${1}scripts/versions.js?v=$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION\" data-version=\"$ATRIUM_VERSION\" async=\"async\"></script>@g;" \
     -pe "s@((?:\.\./+)*)images/logo-icon.svg\"([^>]+)>@../../\${1}logo-icon.svg\"\$2>\n<meta name=\"og:image\" content=\"\${1}logo_social.png\"/>@g;" \
-    -pe "s@(<div class=\"library-name\">[\s\n\r]+<a href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\">@g;" \
-    -pe "s@<html>@<html lang=\"en\">@g;" \
+    -pe "s@(<a class=\"library-name--link\" href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\" title=\"Back to Overview Code Documentation of Atrium\">@g;" \
+    -pe "s@<html@<html lang=\"en\"@g;" \
     -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
-    -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
-    -pe "s@(<div class=\"library-name\">\n\s*<a href=\"[^\"]+)index.html\"@\${1}\" title=\"Back to Overview Code Documentation of Atrium\"@g;"
+    -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;"
 
 find "./" -name "*.html" | xargs perl -0777 -i \
     -pe "s@(scripts/versions\.js\?v\=)$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION@\${1}$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT@g;"
@@ -140,7 +145,7 @@ find "./" -name "*.html" | xargs perl -0777 -i \
 cp "./$ATRIUM_PREVIOUS_VERSION/index.html" "./$ATRIUM_VERSION/index.html"
 perl -0777 -i \
   -pe "s/$ATRIUM_PREVIOUS_VERSION/$ATRIUM_VERSION/g;" \
-  -pe "s@Released .*</p>@Released $(date '+%b %d, %Y')</p>@;" \
+  -pe "s@Released .*</p>@Released $(LC_ALL=en_GB date '+%b %d, %Y')</p>@;" \
   "./$ATRIUM_VERSION/index.html"
 git add . && git commit -m "v$ATRIUM_VERSION"
 
