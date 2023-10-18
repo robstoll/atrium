@@ -18,8 +18,8 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
-          cache: 'gradle'
-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.9.0
       - name: check generateLogic committed
         run: ./gradle/scripts/check-generateLogic-committed.sh
         shell: bash
