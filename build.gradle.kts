@@ -1,8 +1,3 @@
-import com.github.vlsi.gradle.dsl.configureEach
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import org.jetbrains.dokka.gradle.*
-
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)

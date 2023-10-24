@@ -1,6 +1,7 @@
 [versions]
 kbox = "0.16.0"
 niok = "1.4.7"
+junitJupiter="5.10.0"
 junitPlatform = "1.9.2"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
@@ -8,8 +9,8 @@ mockk = "1.11.0"
 mockitoKotlin = "2.2.0"
 
 [libraries]
-junit-platform-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitPlatform" }
-junit-platform-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitPlatform" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 junit-platform-commons = { module = "org.junit.platform:junit-platform-commons", version.ref = "junitPlatform" }
 junit-platform-console = { module = "org.junit.platform:junit-platform-console-standalone", version.ref = "junitPlatform" }
 kbox = { module = "ch.tutteli.kbox:kbox", version.ref = "kbox" }
