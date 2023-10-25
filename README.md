@@ -180,6 +180,7 @@ folder, it currently contains sample projects for
 - [jvm -- spek](https://github.com/robstoll/atrium/tree/main/samples/jvm/spel)
 - [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
 - [jvm -- kotest](https://github.com/robstoll/atrium/tree/main/samples/jvm/kotest)
+- [jvm -- TestNG](https://github.com/robstoll/atrium/tree/main/samples/jvm/testng)
 - [multiplatform project](https://github.com/robstoll/atrium/tree/main/samples/multiplatform/)
 
 Are you using a different runner? A PR would be appreciated 😊.
@@ -475,7 +476,7 @@ Notice that stacks are filtered so that you only see what is of interest.
 You can [use your own](#use-own-components) 
 [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/kdoc/atrium-core/ch.tutteli.atrium.reporting/-atrium-error-adjuster)
 to adjust the filtering.
-Stack frames of Atrium and of test runners (Spek, Kotest, and JUnit for JVM, mocha and jasmine for JS) are excluded per default.
+Stack frames of Atrium and of test runners (Spek, Kotest, TestNG, and JUnit for JVM, mocha and jasmine for JS) are excluded per default.
 [Create a Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 in case you use a different runner, we can add yours to the list as well. 
  
