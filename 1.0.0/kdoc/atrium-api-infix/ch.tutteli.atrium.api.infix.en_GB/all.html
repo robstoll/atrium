@@ -60,13 +60,7 @@
   <div class="cover ">
     <h1 class="cover"><span><span>all</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="all.html">T</a><span class="token operator">&gt; </span><a href="all.html"><span class="token function">all</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">t<span class="token operator">: </span><a href="all.html">T</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>ts<span class="token operator">: </span><a href="all.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-all/index.html">All</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="all.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/helperFunctions.kt#L21">source</a>)</span></span></div><p class="paragraph">Helper function to create an <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-all/index.html">All</a> based on the given <a href="all.html">t</a> and <a href="all.html">ts</a> -- allows expressing <code class="lang-kotlin">T, vararg T</code>.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.samples.fails
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   // all regex patterns match
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="all.html">T</a><span class="token operator">&gt; </span><a href="all.html"><span class="token function">all</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">t<span class="token operator">: </span><a href="all.html">T</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>ts<span class="token operator">: </span><a href="all.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-all/index.html">All</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="all.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/helperFunctions.kt#L21">source</a>)</span></span></div><p class="paragraph">Helper function to create an <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-all/index.html">All</a> based on the given <a href="all.html">t</a> and <a href="all.html">ts</a> -- allows expressing <code class="lang-kotlin">T, vararg T</code>.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">// all regex patterns match
 expect("ABC") toContain all("A".toRegex(), "B".toRegex())
 
 // holds because `toContain all(...)` does not search for unique matches
@@ -76,8 +70,6 @@ expect("ABC") toContain all(regex, regex)
 
 fails { // because second regex doesn't match
     expect("ABC") toContain all("A".toRegex(), "X".toRegex())
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
 </div>
       <div class="footer">

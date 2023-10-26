@@ -59,21 +59,13 @@
   <div class="breadcrumbs"><a href="../../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">order</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>order</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">order</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L145">source</a>)</span></span></div><p class="paragraph">Represents the pseudo keyword <code class="lang-kotlin">order</code> as in <a href="../in-any.html">inAny</a> <code class="lang-kotlin">order</code>. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.creating.Expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   expect(listOf("A", "B")) toContain o inGiven order and only the values("A", "B")
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">order</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L145">source</a>)</span></span></div><p class="paragraph">Represents the pseudo keyword <code class="lang-kotlin">order</code> as in <a href="../in-any.html">inAny</a> <code class="lang-kotlin">order</code>. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">expect(listOf("A", "B")) toContain o inGiven order and only the values("A", "B")
 
 fails {
     expect(listOf(5, 3, 2, 2, 4)) toContain o inAny order atMost 2 entry {
         it toBeGreaterThan 2
     }
 
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
   </div>
   <div class="tabbedcontent">

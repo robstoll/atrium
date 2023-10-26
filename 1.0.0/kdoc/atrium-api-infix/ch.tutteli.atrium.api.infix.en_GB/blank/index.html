@@ -59,13 +59,7 @@
   <div class="breadcrumbs"><a href="../../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">blank</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>blank</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">blank</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L71">source</a>)</span></span></div><p class="paragraph">Represents a helper construct which allows expressing blankness. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.samples.fails
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   expect("XZY") notToBe blank
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">blank</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L71">source</a>)</span></span></div><p class="paragraph">Represents a helper construct which allows expressing blankness. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">expect("XZY") notToBe blank
 
 fails {
     expect(" ") notToBe blank
@@ -73,8 +67,6 @@ fails {
 
 fails { // because an empty string is also considered to be a blank string
     expect("") notToBe blank
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
   </div>
   <div class="tabbedcontent">

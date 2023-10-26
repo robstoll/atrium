@@ -60,13 +60,7 @@
   <div class="cover ">
     <h1 class="cover"><span>regex</span><wbr><span><span>Patterns</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="regex-patterns.html"><span class="token function">regexPatterns</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>otherPatterns<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-regex-patterns/index.html">RegexPatterns</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/helperFunctions.kt#L213">source</a>)</span></span></div><p class="paragraph">Helper function to create a <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-regex-patterns/index.html">RegexPatterns</a> based on the given <a href="regex-patterns.html">pattern</a> and <a href="regex-patterns.html">otherPatterns</a> -- allows expressing <code class="lang-kotlin">String, vararg String</code> which are treated as regex patterns.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.infix.en_GB.samples.fails
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   // all regex patterns match
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="regex-patterns.html"><span class="token function">regexPatterns</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>otherPatterns<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-regex-patterns/index.html">RegexPatterns</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/helperFunctions.kt#L213">source</a>)</span></span></div><p class="paragraph">Helper function to create a <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-regex-patterns/index.html">RegexPatterns</a> based on the given <a href="regex-patterns.html">pattern</a> and <a href="regex-patterns.html">otherPatterns</a> -- allows expressing <code class="lang-kotlin">String, vararg String</code> which are treated as regex patterns.</p><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">// all regex patterns match
 expect("ABC") toContain regexPatterns("A(B)?", "(B)?C")
 
 // holds because `toContain regexPatterns(...)` does not search for unique matches
@@ -75,8 +69,6 @@ expect("ABC") toContain regexPatterns("A(B)?", "A(B)?")
 
 fails { // because second regex doesn't match
     expect("ABC") toContain regexPatterns("A", "X")
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
 </div>
       <div class="footer">

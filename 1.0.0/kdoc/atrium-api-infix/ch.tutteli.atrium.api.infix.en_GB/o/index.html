@@ -59,19 +59,11 @@
   <div class="breadcrumbs"><a href="../../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">o</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>o</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">o</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L129">source</a>)</span></span></div><p class="paragraph">Represents a filler, a pseudo keyword where there isn't really a good keyword. A reader should skip this filler without reading it. For instance, <code class="lang-kotlin">contains o atLeast 1...</code> should be read as <code class="lang-kotlin">contains at least once...</code></p><p class="paragraph">It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.12.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.creating.Expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   // `and` is just a filler word does not have any behaviour
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">o</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.0.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L129">source</a>)</span></span></div><p class="paragraph">Represents a filler, a pseudo keyword where there isn't really a good keyword. A reader should skip this filler without reading it. For instance, <code class="lang-kotlin">contains o atLeast 1...</code> should be read as <code class="lang-kotlin">contains at least once...</code></p><p class="paragraph">It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.12.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">// `and` is just a filler word does not have any behaviour
 expect(13) toBeGreaterThan 5 and o toBeLessThan 20
 
 // i.e. the above is equivalent to:
-expect(13) toBeGreaterThan 5 toBeLessThan 20 
-   //sampleEnd
-}</code></pre></div></div></div>
+expect(13) toBeGreaterThan 5 toBeLessThan 20</code></pre></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"></div>
