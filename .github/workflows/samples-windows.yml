@@ -58,3 +58,7 @@ jobs:
       - name: build kotest sample
         run: ./gradlew build
         working-directory: samples\jvm\kotest
+
+      - name: build TestNG sample
+        run: ./gradlew build
+        working-directory: samples\jvm\testng
