@@ -40,6 +40,8 @@ fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.Ent
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainCheckerSamples.butAtMost
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 fun <E, T: IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerStep<E, T, S>.butAtMost(

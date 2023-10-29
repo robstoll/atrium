@@ -27,4 +27,21 @@ class IterableLikeToContainCheckerSamples {
             }
         }
     }
+
+    @Test
+    fun butAtMost() {
+        expect(listOf("A,B,C,A,B,B")).toContain.inAnyOrder.atLeast(2).butAtMost(2).entry{
+            toEqual("A")
+        }
+
+        expect(listOf(1,2,3,4,5,6,4,5,5,7,7,7,7)).toContain.inAnyOrder.atLeast(3).butAtMost(4).entry{
+            toEqual(5)
+        }
+
+        fails {
+            expect(listOf("A,B,B,B,B,B,C,C")).toContain.inAnyOrder.atLeast(3).butAtMost(4).entry{
+                toEqual("A")
+            }
+        }
+    }
 }
