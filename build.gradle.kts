@@ -137,7 +137,8 @@ find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
     -pe "s@(<a class=\"library-name--link\" href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\" title=\"Back to Overview Code Documentation of Atrium\">@g;" \
     -pe "s@<html@<html lang=\"en\"@g;" \
     -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
-    -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;"
+    -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
+    -pe "s@(<code class=\"runnablesample[^>]+>)[\S\s]+?//sampleStart[\n\s]*([\S\s]+?)\s+//sampleEnd[\n\s]*\}@\${1}\${2}@g;"
 
 find "./" -name "*.html" | xargs perl -0777 -i \
     -pe "s@(scripts/versions\.js\?v\=)$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION@\${1}$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT@g;"
