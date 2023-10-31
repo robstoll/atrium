@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-//TODO 1.1.0 include InOrderReportOptions
+//TODO 1.2.0 include InOrderReportOptions --> finish https://github.com/robstoll/atrium/pull/1171
 abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
     keyValuePairs: MFun2<String, Int, Int>,
     keyValuePairsNullable: MFun2<String?, Int?, Int?>,
