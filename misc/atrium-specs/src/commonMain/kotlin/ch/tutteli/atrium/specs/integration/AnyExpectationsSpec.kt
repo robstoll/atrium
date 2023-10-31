@@ -686,8 +686,10 @@ abstract class AnyExpectationsSpec(
                         messageToContain(
                             A::class.simpleName!!,
                             "$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)",
-                            //TODO 1.1.0 use $toBeLessThanDescr with Kotlin 1.6 and report to https://youtrack.jetbrains.com/issue/KT-50388
-                            "${TO_BE_LESS_THAN.getDefault()}: 1"
+                            "$toBeLessThanDescr: 1"
+                            // compiles fine if we use the following workaround, note that:
+                            // val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
+                            //"${TO_BE_LESS_THAN.getDefault()}: 1"
                         )
                     }
                 }
