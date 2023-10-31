@@ -1,12 +1,16 @@
 # Module atrium-api-fluent
 
-Provides an expectation function API in English in a pure fluent style.
+Provides an expectation function API in a pure fluent style.
 
 The main focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
 
-# Module atrium-api-fluent-kotlin_1_3
+Every expectation function starts with `to..`, feature extractors such as `Expect<List<...>>.get(...)` do not start 
+with `to..` where mixtures of feature extractor and expectation function such as `toThrow` are exceptions.
 
-Provides additional expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`).
+Expectation functions which you use often, will usually have a shortcut function, right at the fingertips after the 
+expectation verb (e.g. `Expect<IterableLike>.toContainExactly(...)`) whereas functionality which are not that often use
+are behind a sophisticated builder such as `Expect<IterableLike>.toContain` and offer all available functions. For 
+instance: `Expect<IterableLik>.toContain.inOrder.only.grouped.within.inAnyOrder(...)`
 
 # Module atrium-api-infix
 
@@ -14,9 +18,13 @@ Provides an expectation function API in English in an infix style.
 
 The main focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
 
-# Module atrium-api-infix-kotlin_1_3
+Every expectation function starts with `to..`, feature extractors such as `Expect<List<...>>.get(...)` do not start
+with `to..` where mixtures of feature extractor and expectation function such as `toThrow` are exceptions.
 
-Provides additional expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`).
+Expectation functions which you use often, will usually have a shortcut function, right at the fingertips after the
+expectation verb (e.g. `Expect<IterableLike> toContainExactly ...`) whereas functionality which are not that often use
+are behind a sophisticated builder such as `Expect<IterableLike> toContain o` and offer all available functions. For
+instance: `Expect<IterableLik> toContain o inGiven order and only grouped entries within group inAny order(...)`
 
 # Module atrium-core
 
@@ -27,21 +35,10 @@ Defines core contracts of Atrium and contains default implementation.
 Provides the implementation of expectation functions as well as helper functions for
 expectation function writers.
 
-# Module atrium-logic-kotlin_1_3
-
-Provides the implementation of expectation functions for types introduced in Kotlin 1.3 (e.g. for `Result`)
-
-# Module atrium-translations-en_GB
-
-i18n functionality which will be deprecated with 1.1.0 and removed with 1.2.0
-
-# Module atrium-translations-de_CH
-
-i18n functionality which will be deprecated with 1.1.0 and removed with 1.2.0
-
 # Module atrium-verbs
-Contains the predefined expectation verb `expect`, 
-see <a href="https://github.com/robstoll/atrium#use-own-expectation-verb">Use own expectation verb</a> if you want to define your own.
+Contains the predefined expectation verb `expect` and `expectGrouped`,  
+see <a href="https://github.com/robstoll/atrium#use-own-expectation-verb">Use own expectation verb</a> 
+if you want to define your own.
 
 
 <!-- ---------------------------------------------------------------------------------------------------- -->
@@ -55,9 +52,6 @@ in conjunction with code completion.
 # Package ch.tutteli.atrium.api.fluent.en_GB.creating.feature
 
 Contains helper classes/functions etc. in conjunction with feature extractors.
-
-# Package ch.tutteli.atrium.api.fluent.en_GB.kotlin_1_3
-Contains an API for types introduced with Kotlin 1.3 (e.g. for `Result`).
 
 <!--  Infix API  ------------------------------------------------------------------------------------------------ -->
 
@@ -83,9 +77,6 @@ Contains parameter objects related to `Path`.
 # Package ch.tutteli.atrium.api.infix.en_GB.workaround
 Contains functions necessary for the infix API to work properly due to Kotlin related bugs / or insufficient type
 inference capabilities.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.kotlin_1_3
-Contains an API for types introduced with Kotlin 1.3 (e.g. for `Result`).
 
 <!--  core ------------------------------------------------------------------------------------------------ -->
 
@@ -141,7 +132,7 @@ Text specific, in other words terminal specific, reporting contracts.
 Contains (default) implementations of the interfaces defined in `ch.tutteli.atrium.reporting.text`.
 
 # Package ch.tutteli.atrium.reporting.translating
-Everything involved in translating [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
+Everything involved in translating `Translatable`s.
 
 # Package ch.tutteli.atrium.reporting.translating.impl
 Contains (default) implementations of the interfaces defined in `ch.tutteli.atrium.reporting.translating`.
@@ -310,16 +301,5 @@ Contains (default) implementations of the assertion interfaces defined in `ch.tu
 # Package ch.tutteli.atrium.logic.utils
 Contains inter alia the `mapArgument` function next to other helper functions such as `nullable` and co.
 
-
-# Package ch.tutteli.atrium.logic.kotlin_1_3
-Contains all the assertion interfaces for the Kotlin 1.3 extension (e.g. `ResultAssertions`).
-
-# Package ch.tutteli.atrium.logic.kotlin_1_3.impl
-Contains (default) implementations of the assertion interfaces defined in `ch.tutteli.atrium.logic.kotlin_1_3`.
-
-
-# Package ch.tutteli.atrium.translations
-Contains `Translatable`s.
-
 # Package ch.tutteli.atrium.api.verbs
-Contains the out-of-the-box expectation verb `expect`.
+Contains the out-of-the-box expectation verb `expect` and `expectGrouped`.
