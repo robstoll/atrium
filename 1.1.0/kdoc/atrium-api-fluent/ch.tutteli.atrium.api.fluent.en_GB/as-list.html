@@ -1,0 +1,406 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>asList</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-fluent:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-fluent::ch.tutteli.atrium.api.fluent.en_GB//asList/ch.tutteli.atrium.creating.Expect[kotlin.Array[TypeParam(bounds=[kotlin.Any?])]]#/PointingToDeclaration//-502025397">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-fluent</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a><span class="delimiter">/</span><span class="current">asList</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>as</span><wbr><span><span>List</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;Array&lt;E&gt;&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;E&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(Array&lt;out E&gt;::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(arrayOf("A", "B"))
+    .asList()  // subject is now of type List&lt;String&gt;
+    .toEqual(listOf("A", "B"))
+
+fails {
+    expect(arrayOf("A", "B"))
+        .asList()  // subject is now of type List&lt;String&gt;
+        .toContain("C")  // fails
+        .toContain("D")  // not evaluated/reported because above `toContain` already fails
+    //                      use `.asList { ... }` if you want that all expectations are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"byteArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L69">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;CharArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Byte&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(ByteArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(byteArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Byte&gt;
+    .toEqual(listOf&lt;Byte&gt;(1, 2, 3)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"byteArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L86">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(ByteArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(byteArrayOf(1, 2, 3))
+    .asList { // subject within this expectation-group is of type List&lt;Byte&gt;
+        toEqual(listOf&lt;Byte&gt;(1, 2, 3))
+    } // subject here is back to type Array&lt;Byte&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(byteArrayOf(1, 2, 3))
+        .asList {
+            toContain(98)  // fails
+            toContain(99)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"charArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html">CharArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L103">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;CharArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Char&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(CharArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(charArrayOf('A', 'B', 'C'))
+    .asList() // subject is now of type List&lt;Char&gt;
+    .toEqual(listOf('A', 'B', 'C')) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"charArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html">CharArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html">CharArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L120">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(CharArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(charArrayOf('A', 'B', 'C'))
+    .asList { // subject within this expectation-group is of type List&lt;Char&gt;
+        toEqual(listOf('A', 'B', 'C'))
+    } // subject here is back to type Array&lt;Char&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(charArrayOf('A', 'B', 'C'))
+        .asList {
+            toContain('X')  // fails
+            toContain('Y')  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"shortArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html">ShortArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short/index.html">Short</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L137">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;ShortArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Short&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(ShortArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(shortArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Short&gt;
+    .toEqual(listOf&lt;Short&gt;(1, 2, 3)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"shortArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html">ShortArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short/index.html">Short</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/index.html">ShortArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L154">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(ShortArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(shortArrayOf(1, 2, 3))
+    .asList { // subject within this expectation-group is of type List&lt;Short&gt;
+        toEqual(listOf&lt;Short&gt;(1, 2, 3))
+    } // subject here is back to type Array&lt;Short&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(shortArrayOf(1, 2, 3))
+        .asList {
+            toContain(98)  // fails
+            toContain(99)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"intArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L171">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;IntArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Int&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(IntArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(intArrayOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Int&gt;
+    .toEqual(listOf(1, 2, 3)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"intArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html">IntArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L188">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(IntArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(intArrayOf(1, 2, 3))
+    .asList { // subject within this expectation-group is of type List&lt;Int&gt;
+        toEqual(listOf(1, 2, 3))
+    } // subject here is back to type Array&lt;Int&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(intArrayOf(1, 2, 3))
+        .asList {
+            toContain(98)  // fails
+            toContain(99)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"longArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html">LongArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L205">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;LongArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Double&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(LongArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(longArrayOf(1L, 2L, 3L)) // subject is now of type List&lt;Long&gt;
+    .asList()
+    .toEqual(listOf(1L, 2L, 3L)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"longArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html">LongArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/index.html">LongArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L222">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(LongArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(longArrayOf(1L, 2L, 3L))
+    .asList { // subject within this expectation-group is of type List&lt;Long&gt;
+        toEqual(listOf(1L, 2L, 3L))
+    } // subject here is back to type Array&lt;Long&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(longArrayOf(1L, 2L, 3L))
+        .asList {
+            toContain(98L)  // fails
+            toContain(99L)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"floatArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L239">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;FloatArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Float&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(FloatArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(floatArrayOf(1f, 2f, 3f))
+    .asList() // subject is now of type List&lt;Float&gt;
+    .toEqual(listOf(1f, 2f, 3f)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"floatArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L256">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(FloatArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(floatArrayOf(1f, 2f, 3f))
+    .asList { // subject within this expectation-group is of type List&lt;Float&gt;
+        toEqual(listOf(1f, 2f, 3f))
+    } // subject here is back to type Array&lt;Float&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(floatArrayOf(1f, 2f, 3f))
+        .asList {
+            toContain(98f)  // fails
+            toContain(99f)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"doubleArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html">DoubleArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L273">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;DoubleArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Double&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(DoubleArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(doubleArrayOf(1.1, 2.2, 3.3))
+    .asList() // subject is now of type List&lt;Double&gt;
+    .toEqual(listOf(1.1, 2.2, 3.3)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"doubleArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html">DoubleArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html">DoubleArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L290">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(DoubleArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(doubleArrayOf(1.1, 2.2, 3.3))
+    .asList { // subject within this expectation-group is of type List&lt;Double&gt;
+        toEqual(listOf(1.1, 2.2, 3.3))
+    } // subject here is back to type Array&lt;Double&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(doubleArrayOf(1.1, 2.2, 3.3))
+        .asList {
+            toContain(98.1)  // fails
+            toContain(99.2)  // still evaluated even though above `toContain` already fails
+            //                 use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"boolArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html">BooleanArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L307">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;BooleanArray&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;Boolean&gt;&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(BooleanArray::asList)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(booleanArrayOf(true, false))
+    .asList() // subject is now of type List&lt;Boolean&gt;
+    .toEqual(listOf(true, false)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"boolArrAsList"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html">BooleanArray</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/index.html">BooleanArray</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L324">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature(BooleanArray::asList, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.9.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(booleanArrayOf(true, false))
+    .asList { // subject within this expectation-group is of type List&lt;Boolean&gt;
+        toEqual(listOf(true, false))
+    } // subject here is back to type Array&lt;Boolean&gt;
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(booleanArrayOf(true, true))
+        .asList {
+            // fails
+            toContain(false)
+
+            // still evaluated even though above `toContain` already fails
+            // use `.asList().` if you want a fail fast behaviour
+            toContain.inAnyOrder.atLeast(3).value(true)
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableSubjectChangers.kt#L19">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;E, T : Iterable&lt;E&gt;&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;E&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature { f(it::toList) }</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.asList
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(0..2)
+    .asList()  // subject is now of type List&lt;Int&gt;
+    .toEqual(listOf(0, 1, 2))
+
+fails {
+    expect(0..2)
+        .asList()  // subject is now of type List&lt;Int&gt;
+        .toContain(3)  // fails
+        .toContain(4)  // not evaluated/reported because above `toContain` already fails
+    //                    use `.asList { ... }` if you want that all expectations are evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/iterableSubjectChangers.kt#L34">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature of({ f(it::toList) }, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.asList
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(0..2)  // subject within this expectation-group is of type List&lt;Int&gt;
+    .asList {
+        toEqual(listOf(0, 1, 2))
+    }  // subject here is back to type IntRange
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(0..2)
+        .asList {
+            toContain(3)  // fails
+            toContain(4)  // still evaluated even though above `toContain` already fails
+            //               use `.asList().` if you want a fail fast behaviour
+        }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/sequenceSubjectChangers.kt#L46">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;E, T : Sequence&lt;E&gt;&gt;</code> into <code class="lang-kotlin">Expect&lt;List&lt;E&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature { f(it::toList) }</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(sequenceOf(1, 2, 3))
+    .asList() // subject is now of type List&lt;Int&gt;
+    .toEqual(listOf(1, 2, 3)) 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-list.html"><span class="token function">asList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-list.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/sequenceSubjectChangers.kt#L61">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-list.html">assertionCreator</a> creates for the subject as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting. Use <code class="lang-kotlin">feature of({ f(it::toList) }, assertionCreator)</code> if you want to show the transformation in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(sequenceOf(1, 2, 3))
+    .asList { // subject within this expectation-group is of type List&lt;Int&gt;
+        toEqual(listOf(1, 2, 3))
+    } // subject here is back to type Sequence&lt;Int&gt; 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

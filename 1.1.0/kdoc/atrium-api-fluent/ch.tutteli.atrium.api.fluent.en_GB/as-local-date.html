@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>asLocalDate</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":atrium-api-fluent:dokkaHtmlPartial/jvmMain">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-fluent::ch.tutteli.atrium.api.fluent.en_GB//asLocalDate/ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[java.util.Date])]#/PointingToDeclaration//2105718603">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-fluent</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.fluent.en_GB</a><span class="delimiter">/</span><span class="current">asLocalDate</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>as</span><wbr><span>Local</span><wbr><span><span>Date</span></span></h1>
+  </div>
+  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-api-fluent:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-local-date.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Date.html">Date</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-local-date.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-local-date.html"><span class="token function">asLocalDate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/LocalDate.html">LocalDate</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/dateSubjectChangers.kt#L22">source</a>)</span></span></div><p class="paragraph">Turns <code class="lang-kotlin">Expect&lt;Date&gt;</code> into <code class="lang-kotlin">Expect&lt;LocalDate&gt;</code>.</p><p class="paragraph">The transformation as such is not reflected in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the transformed subject.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.0.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val date = formatter.parse("1995-07-17")
+
+expect(date)
+    .asLocalDate() // subject is now of type LocalDate
+    .toEqual(LocalDate.parse("1995-07-17"))
+
+fails {
+    expect(date)
+        .asLocalDate()                              // subject is now of type LocalDate
+        .toBeAfter(LocalDate.parse("2025-07-17"))   // fails
+        .toBeBefore(LocalDate.parse("1996-07-17"))  // not evaluated/reported because `toBeAfter` already fails
+    //                                                 use `.asLocalDate { ... }` if you want all assertions evaluated
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-local-date.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Date.html">Date</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-local-date.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-local-date.html"><span class="token function">asLocalDate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/LocalDate.html">LocalDate</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="as-local-date.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/dateSubjectChangers.kt#L36">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation holds all assertions the given <a href="as-local-date.html">assertionCreator</a> creates for the subject as<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Date.html">Date</a>.</p><p class="paragraph">The transformation as such is not reflected in reporting.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.0.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   val date = formatter.parse("1995-07-17")
+
+expect(date).asLocalDate { // subject within this expectation-group is of type LocalDate
+    toBeAfterOrTheSamePointInTimeAs(LocalDate.parse("1994-07-17"))
+    toBeBeforeOrTheSamePointInTimeAs(LocalDate.parse("1996-07-17"))
+} // subject here is back to type java.util.Date
+
+fails {
+    // all expectations inside an expectation-group are evaluated together; for more details see:
+    // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+    expect(date).asLocalDate {
+        toBeAfter(LocalDate.parse("2025-07-17"))   // fails
+        toBeBefore(LocalDate.parse("1994-07-17"))  // still evaluated even though `toBeAfter` already fails
+        //                                            use `.asLocalDate().` if you want a fail fast behaviour
+    }
+} 
+   //sampleEnd
+}</code></pre></div></div>  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,318 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AtriumError</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+                <button class="platform-tag platform-selector js-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/jsMain">js</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-core::ch.tutteli.atrium.reporting/AtriumError///PointingToDeclaration//1551150075">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.reporting</a><span class="delimiter">/</span><span class="current">AtriumError</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Atrium</span><wbr><span><span>Error</span></span></h1>
+    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jsMain" data-toggle=":atrium-core:dokkaHtmlPartial/jsMain">js</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">class </span><a href="index.html">AtriumError</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/reporting/AtriumError.kt#L14">source</a>)</span></span></div><p class="paragraph">Indicates that an assertion made by Atrium failed.</p><p class="paragraph">Its stack trace (<code class="lang-kotlin">stackTrace</code> in JVM, <code class="lang-kotlin">stack</code> in JS) might be filtered so that reporting does not include all stack frames. This depends on the chosen <a href="../-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> - so theoretically more than the stack trace could be adjusted or nothing at all.</p><p class="paragraph">To create such an error you need to use the <a href="-companion/create.html">Companion.create</a> function.</p></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">AtriumError</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-assertion-error/index.html">AssertionError</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/atrium-core/src/jsMain/kotlin/ch/tutteli/atrium/reporting/AtriumError.kt#L14">source</a>)</span></span></div><p class="paragraph">Indicates that an assertion made by Atrium failed.</p><p class="paragraph">Its <code class="lang-kotlin">stack</code> might be filtered so that reporting does not include all stack frames. This depends on the chosen <a href="../-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> - so theoretically more than the stack trace could be adjusted.</p><p class="paragraph">As side notice, <code class="lang-kotlin">stack</code> is a property of Error which is currently not visible in Kotlin.</p><p class="paragraph">To create such an error you need to use the <a href="-companion/create.html">AtriumError.Companion.create</a> function.</p></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">AtriumError</a> : <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/AssertionError.html">AssertionError</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/atrium-core/src/jvmMain/kotlin/ch/tutteli/atrium/reporting/AtriumError.kt#L15">source</a>)</span></span></div><p class="paragraph">Indicates that an assertion made by Atrium failed.</p><p class="paragraph">Its <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html">stackTrace</a> might be filtered so that reporting does not include all stack frames. This depends on the chosen <a href="../-atrium-error-adjuster/index.html">AtriumErrorAdjuster</a> - so theoretically more than the stack trace could be adjusted.</p><p class="paragraph">To create such an error you need to use the <a href="-companion/create.html">AtriumError.Companion.create</a> function.</p></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="149035236%2FClasslikes%2F1551150075" anchor-label="Companion" id="149035236%2FClasslikes%2F1551150075" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="149035236%2FClasslikes%2F1551150075"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jsMain" data-toggle=":atrium-core:dokkaHtmlPartial/jsMain">js</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-654012527%2FProperties%2F1551150075" anchor-label="cause" id="-654012527%2FProperties%2F1551150075" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><span data-unresolved-link="kotlin/Throwable/cause/#/PointingToDeclaration/"><span><span>cause</span></span></span></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-654012527%2FProperties%2F1551150075"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jsMain" data-toggle=":atrium-core:dokkaHtmlPartial/jsMain">js</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-654012527%2FProperties%2F-880026277">cause</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-654012527%2FProperties%2F803313021">cause</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#-654012527%2FProperties%2F-1306526917">cause</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1640857015%2FProperties%2F1551150075" anchor-label="message" id="-1640857015%2FProperties%2F1551150075" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain,:atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain,:atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain,:atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../../atrium-core/ch.tutteli.atrium.reporting/-atrium-error/message.html"><span><span>message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1640857015%2FProperties%2F1551150075"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jsMain" data-toggle=":atrium-core:dokkaHtmlPartial/jsMain">js</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#1824300659%2FProperties%2F-880026277">message</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jsMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html#1824300659%2FProperties%2F803313021">message</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="message.html">message</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Usually the error message but an empty string in case of certain test-runners.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1600874513%2FProperties%2F1551150075" anchor-label="stackBacktrace" id="-1600874513%2FProperties%2F1551150075" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain,:atrium-core:dokkaHtmlPartial/jsMain,:atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../ch.tutteli.atrium.core.polyfills/stack-backtrace.html"><span>stack</span><wbr><span><span>Backtrace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1600874513%2FProperties%2F1551150075"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jsMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jsMain" data-toggle=":atrium-core:dokkaHtmlPartial/jsMain">js</button><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword"></span><span class="token keyword">val </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token punctuation">.</span><a href="../../ch.tutteli.atrium.core.polyfills/stack-backtrace.html">stackBacktrace</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the stack trace of the given <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>s representing the different lines.</p></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword"></span><span class="token keyword">val </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token punctuation">.</span><a href="../../ch.tutteli.atrium.core.polyfills/stack-backtrace.html">stackBacktrace</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div><div class="content sourceset-dependent-content" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword"></span><span class="token keyword">val </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token punctuation">.</span><a href="../../ch.tutteli.atrium.core.polyfills/stack-backtrace.html">stackBacktrace</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="282858770%2FFunctions%2F-1306526917" anchor-label="addSuppressed" id="282858770%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#282858770%2FFunctions%2F-1306526917"><span>add</span><wbr><span><span>Suppressed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="282858770%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#282858770%2FFunctions%2F-1306526917"><span class="token function">addSuppressed</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1102069925%2FFunctions%2F-1306526917" anchor-label="fillInStackTrace" id="-1102069925%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1102069925%2FFunctions%2F-1306526917"><span>fill</span><wbr><span>In</span><wbr><span>Stack</span><wbr><span><span>Trace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1102069925%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-1102069925%2FFunctions%2F-1306526917"><span class="token function">fillInStackTrace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="323295835%2FFunctions%2F-1306526917" anchor-label="getLocalizedMessage" id="323295835%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-localized-message.html"><span>get</span><wbr><span>Localized</span><wbr><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="323295835%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="get-localized-message.html"><span class="token function">getLocalizedMessage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">super.message</code> in order to be not affected by the hack implemented in message</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2050903719%2FFunctions%2F-1306526917" anchor-label="getStackTrace" id="2050903719%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2050903719%2FFunctions%2F-1306526917"><span>get</span><wbr><span>Stack</span><wbr><span><span>Trace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2050903719%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#2050903719%2FFunctions%2F-1306526917"><span class="token function">getStackTrace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StackTraceElement.html">StackTraceElement</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="672492560%2FFunctions%2F-1306526917" anchor-label="getSuppressed" id="672492560%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#672492560%2FFunctions%2F-1306526917"><span>get</span><wbr><span><span>Suppressed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="672492560%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#672492560%2FFunctions%2F-1306526917"><span class="token function">getSuppressed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">&gt;</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-418225042%2FFunctions%2F-1306526917" anchor-label="initCause" id="-418225042%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-418225042%2FFunctions%2F-1306526917"><span>init</span><wbr><span><span>Cause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-418225042%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-418225042%2FFunctions%2F-1306526917"><span class="token function">initCause</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-762248569%2FFunctions%2F-1306526917" anchor-label="printStackTrace" id="-762248569%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1769529168%2FFunctions%2F-1306526917"><span>print</span><wbr><span>Stack</span><wbr><span><span>Trace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-762248569%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-1769529168%2FFunctions%2F-1306526917"><span class="token function">printStackTrace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#1841853697%2FFunctions%2F-1306526917"><span class="token function">printStackTrace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/PrintStream.html">PrintStream</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#1175535278%2FFunctions%2F-1306526917"><span class="token function">printStackTrace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/PrintWriter.html">PrintWriter</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2135801318%2FFunctions%2F-1306526917" anchor-label="setStackTrace" id="2135801318%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2135801318%2FFunctions%2F-1306526917"><span>set</span><wbr><span>Stack</span><wbr><span><span>Trace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2135801318%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#2135801318%2FFunctions%2F-1306526917"><span class="token function">setStackTrace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StackTraceElement.html">StackTraceElement</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="504300273%2FFunctions%2F-1306526917" anchor-label="toString" id="504300273%2FFunctions%2F-1306526917" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="504300273%2FFunctions%2F-1306526917"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-core:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-core:dokkaHtmlPartial/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns first <a href="get-localized-message.html">getLocalizedMessage</a> and then the qualified name of this exception.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

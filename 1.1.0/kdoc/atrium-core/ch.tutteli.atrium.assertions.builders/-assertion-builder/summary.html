@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>summary</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-core::ch.tutteli.atrium.assertions.builders/AssertionBuilder/summary/#/PointingToDeclaration//-880026277">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.assertions.builders</a><span class="delimiter">/</span><a href="index.html">AssertionBuilder</a><span class="delimiter">/</span><span class="current">summary</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>summary</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="summary.html">summary</a><span class="token operator">: </span><a href="../-assertion-group-description-and-empty-representation-option/index.html">AssertionGroupDescriptionAndEmptyRepresentationOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type/index.html">SummaryAssertionGroupType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../-assertions-option/index.html">AssertionsOption</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type/index.html">SummaryAssertionGroupType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../-basic-assertion-group-final-step/index.html">BasicAssertionGroupFinalStep</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/assertions/builders/AssertionBuilder.kt#L53">source</a>)</span></span></div><p class="paragraph">Builder to create an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../../ch.tutteli.atrium.assertions/-summary-assertion-group-type/index.html">SummaryAssertionGroupType</a> -- use it if it is essential that also <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which hold are shown to a user in reporting. This kind is inter alia used for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> <code class="lang-kotlin">contains.inAnyOrder.only</code> assertions where it quickly gets confusing if you do not see the assertions which hold.</p><p class="paragraph">For example, hamcrest has this problem; if you write the following using hamcrest:</p><p class="paragraph"><code class="lang-kotlin">expect(listOf(1,1), IsIterableContainingInOrder.contains(1))</code></p><p class="paragraph">it will complain that you expected <code class="lang-kotlin">1</code> but it did not match <code class="lang-kotlin">1</code>. If you could see that it actually matched the first <code class="lang-kotlin">1</code> and only did not match the second <code class="lang-kotlin">1</code>, then it would be clear from the beginning.</p></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

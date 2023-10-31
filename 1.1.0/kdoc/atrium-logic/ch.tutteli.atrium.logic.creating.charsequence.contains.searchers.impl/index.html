@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl////PointingToDeclaration//1591559200">
+  <div class="breadcrumbs"><a href="../index.html">atrium-logic</a><span class="delimiter">/</span><span class="current">ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><p class="paragraph">Contains implementations of <code class="lang-kotlin">CharSequenceContains.Searcher</code>.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1249979327%2FClasslikes%2F1591559200" anchor-label="IgnoringCaseIndexSearcher" id="-1249979327%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ignoring-case-index-searcher/index.html"><span>Ignoring</span><wbr><span>Case</span><wbr><span>Index</span><wbr><span><span>Searcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1249979327%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-ignoring-case-index-searcher/index.html">IgnoringCaseIndexSearcher</a> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour/index.html">IgnoringCaseSearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which implements the <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour/index.html">IgnoringCaseSearchBehaviour</a> behaviour and uses <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">CharSequence.indexOf</a> to find expected objects.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-851603604%2FClasslikes%2F1591559200" anchor-label="IgnoringCaseRegexSearcher" id="-851603604%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ignoring-case-regex-searcher/index.html"><span>Ignoring</span><wbr><span>Case</span><wbr><span>Regex</span><wbr><span><span>Searcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-851603604%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-ignoring-case-regex-searcher/index.html">IgnoringCaseRegexSearcher</a> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour/index.html">IgnoringCaseSearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which implements the <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour/index.html">IgnoringCaseSearchBehaviour</a> behaviour and evaluates the matches of a given regular expression on the input of the search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1153573502%2FClasslikes%2F1591559200" anchor-label="IndexSearcher" id="-1153573502%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-index-searcher/index.html"><span>Index</span><wbr><span><span>Searcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1153573502%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-index-searcher/index.html">IndexSearcher</a> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html">NoOpSearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which uses <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">CharSequence.indexOf</a> to find expected objects.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-755197779%2FClasslikes%2F1591559200" anchor-label="RegexSearcher" id="-755197779%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-regex-searcher/index.html"><span>Regex</span><wbr><span><span>Searcher</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-755197779%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-regex-searcher/index.html">RegexSearcher</a> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html">NoOpSearchBehaviour</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which evaluates the matches of a given regular expression on the input of the search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

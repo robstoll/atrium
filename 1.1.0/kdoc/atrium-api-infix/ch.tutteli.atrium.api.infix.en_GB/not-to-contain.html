@@ -1,0 +1,162 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>notToContain</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.1.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-infix:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-infix::ch.tutteli.atrium.api.infix.en_GB//notToContain/ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[kotlin.CharSequence])]#ch.tutteli.atrium.api.infix.en_GB.o/PointingToDeclaration//105691009">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">notToContain</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>not</span><wbr><span>To</span><wbr><span><span>Contain</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">o<span class="token operator">: </span><a href="o/index.html">o</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-not-checker-step/index.html">NotCheckerStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-not-search-behaviour/index.html">NotSearchBehaviour</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L42">source</a>)</span></span></div><p class="paragraph">Starts a sophisticated <code class="lang-kotlin">toContain</code> assertion building process based on this <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> and already chooses a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.charsequence.contains.steps/-not-checker-step/index.html">NotCheckerStep</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>o</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The filler object <a href="not-to-contain.html">o</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.samples.fails
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect("ABC") notToContain o value "X"
+
+fails {
+    expect("ABC") notToContain o value "B"
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char/index.html">CharSequenceOrNumberOrChar</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L115">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) does not contain <a href="not-to-contain.html">expected</a>'s <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html">toString</a> representation.</p><p class="paragraph">It is a shortcut for <code class="lang-kotlin">noToContain o value expected</code>.</p><p class="paragraph">Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed. This function expects <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char/index.html">CharSequenceOrNumberOrChar</a> (which is a typealias for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>) for your convenience, so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.samples.fails
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect("ABC") notToContain "X"
+
+expect("ABC") notToContain values("X", 'Y', 1)
+
+fails {
+    expect("ABC") notToContain "B"
+}
+
+fails {
+    expect("ABC") notToContain values("B", "X")
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">values<span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-values/index.html">Values</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char/index.html">CharSequenceOrNumberOrChar</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/charSequenceExpectations.kt#L136">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>) does not contain the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html">toString</a> representation of the given <a href="not-to-contain.html">values</a>.</p><p class="paragraph">It is a shortcut for <code class="lang-kotlin">notToContain o the values(expected, *otherExpected)</code>.</p><p class="paragraph">Notice that a runtime check applies which assures that only <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> are passed. This function expects <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-char-sequence-or-number-or-char/index.html">CharSequenceOrNumberOrChar</a> (which is a typealias for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>) for your convenience, so that you can mix <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> for instance.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>values</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The values which should not be found -- use the function <code class="lang-kotlin">values(t, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-values/index.html">Values</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.samples.fails
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect("ABC") notToContain "X"
+
+expect("ABC") notToContain values("X", 'Y', 1)
+
+fails {
+    expect("ABC") notToContain "B"
+}
+
+fails {
+    expect("ABC") notToContain values("B", "X")
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">o<span class="token operator">: </span><a href="o/index.html">o</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.steps/-not-checker-step/index.html">NotCheckerStep</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-not-search-behaviour/index.html">NotSearchBehaviour</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L44">source</a>)</span></span></div><p class="paragraph">Starts a sophisticated <code class="lang-kotlin">toContain</code> assertion building process based on this <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> and already chooses a <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.steps/-not-checker-step/index.html">NotCheckerStep</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>o</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The filler object <a href="not-to-contain.html">o</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.creating.Expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(listOf("A", "B")) notToContain o elementsOf setOf("C", "D")
+
+fails {
+    expect(listOf(1, 8, 5)) notToContain o entry {
+        it toBeGreaterThan 6
+    }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="not-to-contain.html">E</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L332">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>) has at least one element and that it does not contain the <a href="not-to-contain.html">expected</a> value.</p><p class="paragraph">It is a shortcut for <code class="lang-kotlin">notToContain o value expected</code></p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.creating.Expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(listOf("A", "B", "C")) notToContain "D"
+
+fails {
+    expect(listOf("A", "B", "C")) notToContain "A"
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-contain.html"><span class="token function">notToContain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">values<span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-values/index.html">Values</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">E</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="not-to-contain.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableExpectations.kt#L350">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>)  has at least one element and that it does not contain the expected <a href="not-to-contain.html">values</a>.</p><p class="paragraph">It is a shortcut for <code class="lang-kotlin">notToContain o the values(...)</code></p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>values</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The values which should not be contained within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> -- use the function <code class="lang-kotlin">values(t, ...)</code> to create a <a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-values/index.html">Values</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.creating.Expect
+import kotlin.test.Test
+fun main() { 
+   //sampleStart 
+   expect(listOf("A", "B", "C")) notToContain values("D", "E")
+
+fails {
+    expect(listOf("A", "B", "C")) notToContain values("A", "D")
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
