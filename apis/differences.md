@@ -19,7 +19,7 @@ The links point to the KDoc of their included API where you find an overview of 
 ----
 
 Following an excerpt of a build.gradle file which uses both APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/main/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/v1.1.0/README.md#installation)
 for the rest):
 ```kotlin
 dependencies {
