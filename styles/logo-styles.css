@@ -140,24 +140,27 @@
 }
 
 @media screen and (max-width: 759px) {
-    .library-name > a {
-        --logo-width: 50px;
+
+    #navigation-wrapper:not(.not-small) {
+        .library-name > a {
+            --logo-width: 50px;
+        }
+
+        .library-name a::before {
+            background: url("../images/logo-icon.svg") center no-repeat;
+            background-size: 50px 50px;
+        }
+        #versions .dropdown,
+        #versions button {
+            width: 5.5rem;
+            font-size: 13px;
+        }
+        #versions ul li,
+        #versions ul li a, #versions button {
+            font-size: 13px;
+        }
     }
 
-    .library-name a::before {
-        background: url("../images/logo-icon.svg") center no-repeat;
-        background-size: 50px 50px;
-    }
-
-    #versions .dropdown,
-    #versions button {
-        width: 5rem;
-        font-size: 13px;
-    }
-    #versions ul li,
-    #versions ul li a, #versions button {
-        font-size: 13px;
-    }
 
     /* We want to show the dark mode button also if media is small */
     #theme-toggle-button {
