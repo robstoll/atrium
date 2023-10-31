@@ -1,9 +1,13 @@
 <!doctype html>
-<html class="no-js">
-<head>
+<html lang="en" class="no-js">
+<meta name="keywords" content="Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation">
+<meta name="author" content="Robert Stoll">
+<meta name="copyright" content="Robert Stoll">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>noDuplicates</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <title>noDuplicates - Atrium 1.1.0</title>
+<meta name="description" content="Code documentation of Atrium 1.1.0: noDuplicates">
+<link href="../../../../../logo-icon.svg" rel="icon" type="image/svg">
+<meta name="og:image" content="../../../logo_social.png"/>    <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
@@ -18,12 +22,14 @@
         }
     }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/main.css" rel="Stylesheet">
 <link href="../../../styles/prism.css" rel="Stylesheet">
-<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css?v=1.3" rel="Stylesheet">
+<link href="../../../../../styles/alert.css?v=1.1" rel="Stylesheet">
+<script id="versions-script" type="text/javascript" src="../../../../../scripts/versions.js?v=1.3.0" data-version="1.1.0" async="async"></script>
 <link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
@@ -38,8 +44,8 @@
         <div class="navigation-title">
             <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
             <div class="library-name">
-<a class="library-name--link" href="../../../index.html">
-                            Atrium
+<a class="library-name--link" href="../../../../../index.html" title="Back to Overview Code Documentation of Atrium">
+                            <span>Atrium</span>
                     </a>            </div>
             <div class="library-version">1.1.0
             </div>
@@ -62,18 +68,10 @@
   <div class="breadcrumbs"><a href="../../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">noDuplicates</span></div>
   <div class="cover ">
     <h1 class="cover"><span>no</span><wbr><span><span>Duplicates</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">noDuplicates</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L194">source</a>)</span></span></div><p class="paragraph">A helper construct to allow expressing expectations about iterable contains no duplicates. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.creating.Expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   expect(listOf("A", "B")) toHaveElementsAnd noDuplicates
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">noDuplicates</a> : <a href="../-keyword/index.html">Keyword</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/keywords.kt#L194">source</a>)</span></span></div><p class="paragraph">A helper construct to allow expressing expectations about iterable contains no duplicates. It can be used for a parameterless function so that it has one parameter and thus can be used as infix function.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">expect(listOf("A", "B")) toHaveElementsAnd noDuplicates
 
 fails {
     expect(listOf("A", "B", "C", "A")) toHaveElementsAnd noDuplicates
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
   </div>
   <div class="tabbedcontent">

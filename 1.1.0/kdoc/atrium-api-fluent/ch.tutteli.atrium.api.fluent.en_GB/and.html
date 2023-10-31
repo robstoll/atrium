@@ -1,9 +1,13 @@
 <!doctype html>
-<html class="no-js">
-<head>
+<html lang="en" class="no-js">
+<meta name="keywords" content="Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation">
+<meta name="author" content="Robert Stoll">
+<meta name="copyright" content="Robert Stoll">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>and</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <title>and - Atrium 1.1.0</title>
+<meta name="description" content="Code documentation of Atrium 1.1.0: and">
+<link href="../../../../logo-icon.svg" rel="icon" type="image/svg">
+<meta name="og:image" content="../../logo_social.png"/>    <script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
@@ -18,12 +22,14 @@
         }
     }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
-<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css?v=1.3" rel="Stylesheet">
+<link href="../../../../styles/alert.css?v=1.1" rel="Stylesheet">
+<script id="versions-script" type="text/javascript" src="../../../../scripts/versions.js?v=1.3.0" data-version="1.1.0" async="async"></script>
 <link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
@@ -38,8 +44,8 @@
         <div class="navigation-title">
             <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
             <div class="library-name">
-<a class="library-name--link" href="../../index.html">
-                            Atrium
+<a class="library-name--link" href="../../../../index.html" title="Back to Overview Code Documentation of Atrium">
+                            <span>Atrium</span>
                     </a>            </div>
             <div class="library-version">1.1.0
             </div>
@@ -63,12 +69,7 @@
   <div class="cover ">
     <h1 class="cover"><span><span>and</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L272">source</a>)</span></span></div><p class="paragraph">Can be used to create a group of sub assertions when using the fluent API.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1).toBeLessThan(3).and { toBeEven(); toBeGreaterThan(1) }</code> creates two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1. Hence, the reporting might (depending on the configured <a href="../../atrium-core/ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) contain both failing sub-assertions.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   expect(13).toBeAnInstanceOf&lt;Int&gt;().and {
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><span class="token keyword"></span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L272">source</a>)</span></span></div><p class="paragraph">Can be used to create a group of sub assertions when using the fluent API.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1).toBeLessThan(3).and { toBeEven(); toBeGreaterThan(1) }</code> creates two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1. Hence, the reporting might (depending on the configured <a href="../../atrium-core/ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) contain both failing sub-assertions.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">expect(13).toBeAnInstanceOf&lt;Int&gt;().and {
     toBeGreaterThan(5)
     toBeLessThan(20)
 }
@@ -83,20 +84,11 @@ fails {
         notToEqualOneOf(1, 2, 13) // fails
         toBeLessThan(10)          // still evaluated and included in the error report
     }
-} 
-   //sampleEnd
-}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html">and</a><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L258">source</a>)</span></span></div><p class="paragraph">Can be used to separate single assertions.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1).toBeLessThan(2).and.toBeGreaterThan(0)</code> creates two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-fun main() { 
-   //sampleStart 
-   // `and` is just a filler word; does not have any behaviour
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html">and</a><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.1.0/apis/fluent/atrium-api-fluent/src/commonMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/anyExpectations.kt#L258">source</a>)</span></span></div><p class="paragraph">Can be used to separate single assertions.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1).toBeLessThan(2).and.toBeGreaterThan(0)</code> creates two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">// `and` is just a filler word; does not have any behaviour
 expect(13).toBeGreaterThan(5).and.toBeLessThan(20)
 
 // i.e. the above is equivalent to:
-expect(13).toBeGreaterThan(5).toBeLessThan(20) 
-   //sampleEnd
-}</code></pre></div></div></div>
+expect(13).toBeGreaterThan(5).toBeLessThan(20)</code></pre></div></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
