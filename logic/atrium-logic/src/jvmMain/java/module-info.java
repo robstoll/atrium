@@ -1,5 +1,6 @@
 module ch.tutteli.atrium.logic {
     requires transitive ch.tutteli.atrium.core.api;
+    requires            ch.tutteli.kbox;
     requires            ch.tutteli.niok;
     requires static     ch.tutteli.atrium.translations.en_GB;
     requires            kotlin.stdlib;
