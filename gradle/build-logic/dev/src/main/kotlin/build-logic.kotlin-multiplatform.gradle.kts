@@ -67,7 +67,7 @@ kotlin {
     }
 }
 
-// this is necessary due to some crazy kotlin plugin voodo. If we define this in the rootProject itself,
+// this is necessary due to some crazy kotlin plugin voodoo. If we define this in the rootProject itself,
 // then it does not work.
 rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
     rootProject.configure<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension> {
