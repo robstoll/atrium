@@ -4,7 +4,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val atriumVersion = "1.0.0"
+val atriumVersion = "1.1.0"
 val kotestVersion = "5.7.2"
 
 plugins {
