@@ -16,8 +16,10 @@ kotlin {
     }
 }
 
-tasks.configureEach<AbstractDokkaLeafTask> {
-    dokkaSourceSets.configureEach {
-        reportUndocumented.set(false)
+ifIsPublishing {
+    tasks.configureEach<AbstractDokkaLeafTask> {
+        dokkaSourceSets.configureEach {
+            reportUndocumented.set(false)
+        }
     }
 }
