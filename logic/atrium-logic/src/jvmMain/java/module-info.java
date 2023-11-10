@@ -35,7 +35,5 @@ module ch.tutteli.atrium.logic {
     exports ch.tutteli.atrium.logic.creating.typeutils;
 
     exports ch.tutteli.atrium.logic.utils;
-
-    exports ch.tutteli.atrium.logic.impl to ch.tutteli.atrium.logic.kotlin_1_3;
-    exports ch.tutteli.atrium.logic.creating.transformers.impl to ch.tutteli.atrium.logic.kotlin_1_3;
 }
+
