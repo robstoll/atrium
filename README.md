@@ -131,8 +131,7 @@ In case you use a version prior to Kotlin 1.5, then use the following depending 
 <details>
 <summary>I use JS IR but Atrium 1.1.0 was built with LEGACY</summary>
 
-Atrium will support JS IR once we drop kotlin 1.3 entirely. The plan is to deprecate the kotlin_1_3 extension with
-Atrium 1.1.0 and drop it with Atrium 1.2.0 and at the same time switch to JS IR.
+Atrium will support JS IR with v1.2.0 where we drop Kotlin 1.3 support entirely.
 
 In the meantime you can use the special version: 1.1.0-IR-alpha. See https://github.com/robstoll/atrium/releases/tag/v1.1.0-IR-alpha
 for further information
@@ -140,30 +139,6 @@ for further information
 </details>
 
 I have other problems: please take a look at the [Sample Projects](#sample-projects) for further guidance.
-
-
-
-## Extensions
-
-We currently provide the following extensions:
-- kotlin_1_3: expectation functions for Kotlin 1.3 specific types, e.g. for [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)
-  (minimum requirement for Atrium is currently
-  Kotlin 1.2, that's why it is in a different module -- this module will be merged into Atrium with 1.2.0 where we 
-  drop support for kotlin 1.2)
- 
-You can enable it as follows:
-```kotlin
-dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-api-fluent-kotlin_1_3:1.1.0")
-}
-```
-
-<details>
-<summary>I use a version prior to Kotlin 1.5</summary>
-
-Add again the corresponding suffix, see [Installation prior to Kotlin 1.5](#installation-prior-to-kotlin-1.5)
-
-</details>
 
 ## Third-party Extensions
 

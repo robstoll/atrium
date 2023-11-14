@@ -29,8 +29,7 @@ tasks.configureEach<JavaCompile> {
         encoding = "UTF-8"
         compilerArgs.add("-Xlint:deprecation")
         if (buildParameters.java.werror) {
-            //TODO 1.2.0 enable again once we drop the kotlin_1_3 modules (end with a digit and that generates a warning
-//            compilerArgs.add("-Werror")
+            compilerArgs.add("-Werror")
         }
     }
 }

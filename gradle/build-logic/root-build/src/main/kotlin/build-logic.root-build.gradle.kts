@@ -19,10 +19,6 @@ ifIsPublishing {
         writeToDocs.set(false)
 
         val modulesNotInGhPages = listOf(
-            // deprecated modules only clutter kdoc
-            "api-fluent-kotlin_1_3",
-            "api-infix-kotlin_1_3",
-            "logic-kotlin_1_3",
             // internal modules are not of interest
             "specs",
             "verbs-internal",
