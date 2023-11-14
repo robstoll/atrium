@@ -8,3 +8,14 @@ fun Project.prefixedProject(name: String): Project = project(":${rootProject.nam
 // copied from com.github.vlsi.gradle.dsl.configureEach, using this instead so that we don't have to import
 inline fun <reified S : Any> DomainObjectCollection<in S>.configureEach(noinline configuration: S.() -> Unit) =
     withType().configureEach(configuration)
+
+fun isPublishing() = isEnvVariableTrue("PUB")
+fun ifIsPublishing(action: () -> Unit) = ifEnvVariableTrue("PUB", action)
+
+fun ifEnvVariableTrue(name: String, action: () -> Unit) {
+    if (isEnvVariableTrue(name)) {
+        action()
+    }
+}
+
+fun isEnvVariableTrue(name: String) = System.getenv(name).toBoolean()

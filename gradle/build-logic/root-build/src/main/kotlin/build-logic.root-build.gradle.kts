@@ -8,46 +8,49 @@ import java.net.URL
 plugins {
     id("build-logic.gradle-conventions")
     id("org.jetbrains.dokka")
-    id("ch.tutteli.gradle.plugins.dokka")
-}
-
-tutteliDokka {
-    writeToDocs.set(false)
+    id("ch.tutteli.gradle.plugins.dokka") apply isPublishing()
 }
 
 val rootProject = this
 
-val modulesNotInGhPages = listOf(
-    // deprecated modules only clutter kdoc
-    "api-fluent-kotlin_1_3",
-    "api-infix-kotlin_1_3",
-    "logic-kotlin_1_3",
-    // internal modules are not of interest
-    "specs",
-    "verbs-internal",
-    // a user will most likely never look up translations, only clutter the search
-    "translations-de_CH", "translations-en_GB"
-)
-modulesNotInGhPages.forEach { projectName ->
-    prefixedProject(projectName).afterEvaluate {
-        val subproject = this
-        rootProject.tasks.configureEach<DokkaMultiModuleTask> {
-            dependsOn(subproject.tasks.named("cleanDokkaHtmlPartial"))
-        }
-    }
-}
-tasks.configureEach<DokkaMultiModuleTask> {
-    moduleName.set("Atrium")
-    configurePlugins()
-}
+ifIsPublishing {
 
-gradle.taskGraph.whenReady {
-    if (hasTask(":dokkaHtmlMultiModule")) {
+    tutteliDokka {
+        writeToDocs.set(false)
+
+        val modulesNotInGhPages = listOf(
+            // deprecated modules only clutter kdoc
+            "api-fluent-kotlin_1_3",
+            "api-infix-kotlin_1_3",
+            "logic-kotlin_1_3",
+            // internal modules are not of interest
+            "specs",
+            "verbs-internal",
+            // a user will most likely never look up translations, only clutter the search
+            "translations-de_CH", "translations-en_GB"
+        )
         modulesNotInGhPages.forEach { projectName ->
-            prefixedProject(projectName)
-                .tasks.configureEach<DokkaTaskPartial> {
-                    enabled = false
+            prefixedProject(projectName).afterEvaluate {
+                val subproject = this
+                rootProject.tasks.configureEach<DokkaMultiModuleTask> {
+                    dependsOn(subproject.tasks.named("cleanDokkaHtmlPartial"))
                 }
+            }
+        }
+        tasks.configureEach<DokkaMultiModuleTask> {
+            moduleName.set("Atrium")
+            configurePlugins()
+        }
+
+        gradle.taskGraph.whenReady {
+            if (hasTask(":dokkaHtmlMultiModule")) {
+                modulesNotInGhPages.forEach { projectName ->
+                    prefixedProject(projectName)
+                        .tasks.configureEach<DokkaTaskPartial> {
+                            enabled = false
+                        }
+                }
+            }
         }
     }
 }

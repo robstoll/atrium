@@ -1,10 +1,12 @@
 plugins {
     id("build-logic.kotlin-multiplatform")
-    id("ch.tutteli.gradle.plugins.publish")
+    id("ch.tutteli.gradle.plugins.publish") apply isPublishing()
     id("build-logic.publish-to-tmp-maven-repo")
     id("build-logic.dokka")
 }
 
-tutteliPublish {
-    resetLicenses("EUPL-1.2")
+ifIsPublishing {
+    tutteliPublish {
+        resetLicenses("EUPL-1.2")
+    }
 }
