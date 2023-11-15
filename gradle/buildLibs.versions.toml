@@ -1,7 +1,8 @@
 [versions]
 dokka = "1.9.10"
 jacocoTool = "0.8.9"
-kotlin = "1.8.22"
+# if you change the version here, than you need to adopt
+kotlin = "1.9.20"
 task-tree = "2.1.1"
 tutteli = "4.11.0"
 vlsi = "1.90"

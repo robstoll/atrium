@@ -18,5 +18,6 @@ tasks.configureEach<KotlinCompilationTask<*>> {
     compilerOptions {
         // suppress warnings about kotlin 1.4 beeing deprecated
         freeCompilerArgs.add("-Xsuppress-version-warnings")
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
