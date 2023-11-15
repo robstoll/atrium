@@ -37,8 +37,10 @@ kotlin {
 
         jsMain {
             dependencies {
-                api(libs.mockk.js)
-                api(libs.spek.js)
+                // TODO 1.5.0 in case it should be compiled against IR at some point, reactivate again
+                // and remove the own mocks in jsMain
+//                api(libs.mockk.js)
+//                api(libs.spek.js)
             }
         }
     }
