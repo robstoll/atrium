@@ -57,7 +57,7 @@ kotlin {
                 api(kotlin("reflect"))
                 //TODO 1.3.0 shouldn't be necessary https://youtrack.jetbrains.com/issue/KT-63483
                 // need to define it explicitly as Kotlin 1.9.20 defines a dependency on stdlib-jdk8:1.8.22 which clashes
-                api(kotlin("stdlib-jdk8"))
+//                api(kotlin("stdlib-jdk8"))
             }
         }
 
