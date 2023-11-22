@@ -27,16 +27,6 @@ plugins.withId("jacoco") {
     tasks.withType<JacocoReport>()
         .matching { it.name == "jacocoTestReport" }
         .configureEach {
-
-            val jacocoAdditionalExtraName = "jacocoAdditional"
-            if (project.extra.has(jacocoAdditionalExtraName)) {
-                @Suppress("UNCHECKED_CAST")
-                val additional = project.extra.get(jacocoAdditionalExtraName) as List<Project>
-                junitjacoco {
-                    additionalProjectSources.set(additional)
-                }
-            }
-
             reports {
                 html.required.set(true)
             }
