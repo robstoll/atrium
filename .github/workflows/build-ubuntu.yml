@@ -76,3 +76,26 @@ jobs:
 #      - name: composite build atrium-js-sample-test
 #        run: ./gradlew build
 #        working-directory: misc/tools/atrium-js-sample-test
+
+  forwardCompatibility:
+    env:
+      JAVA_VERSION: 17
+      KOTLIN_VERSION: ${{ matrix.kotlin_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        # TODO 1.2.0 add '1.9' once we use JS IR
+        kotlin_version: [ '1.5', '1.6','1.7','1.8' ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Set up JDK ${{ matrix.java_version }}"
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.9.0
+
+      - name: "build using kotlin ${{ matrix.kotlin_version }}"
+        run: ./gradlew build

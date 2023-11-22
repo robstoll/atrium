@@ -3,12 +3,6 @@ plugins {
     id("build-logic.gradle-conventions")
 }
 
-tasks.register<DependencyInsightReportTask>("allDependencyInsight") {
-    group = HelpTasksPlugin.HELP_GROUP
-    description =
-        "Shows insights where the dependency is used. For instance: allDependencyInsight --configuration compile --dependency org.jsoup:jsoup"
-}
-
 java {
     toolchain {
         // reading JAVA_VERSION from env to enable jdk17 build in CI

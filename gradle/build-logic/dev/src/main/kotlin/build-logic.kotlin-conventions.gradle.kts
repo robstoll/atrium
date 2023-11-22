@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -16,7 +17,12 @@ tasks.configureEach<KotlinCompile> {
 
 tasks.configureEach<KotlinCompilationTask<*>> {
     compilerOptions {
+        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         // suppress warnings about kotlin 1.4 beeing deprecated
         freeCompilerArgs.add("-Xsuppress-version-warnings")
+
+        val kotlinVersion = KotlinVersion.fromVersion(buildParameters.kotlin.version)
+        languageVersion.set(kotlinVersion)
+        apiVersion.set(kotlinVersion)
     }
 }
