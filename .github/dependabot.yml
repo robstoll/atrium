@@ -11,7 +11,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/js/kotlin-test"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -19,7 +19,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/jvm/junit5"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -27,7 +27,7 @@ updates:
   - package-ecosystem: maven
     directory: "/samples/jvm/maven"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -35,7 +35,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/jvm/kotest"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -43,7 +43,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/jvm/testng"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -51,7 +51,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/jvm/spek"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -59,7 +59,7 @@ updates:
   - package-ecosystem: gradle
     directory: "/samples/multiplatform/kotlin-test"
     schedule:
-      interval: daily
+      interval: weekly
       time: "04:00"
     open-pull-requests-limit: 10
     labels:
@@ -67,7 +67,7 @@ updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
