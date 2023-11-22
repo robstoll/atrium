@@ -81,7 +81,7 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
 
 Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tutteli.atrium).
 It has the following minimum requirement:
-- Kotlin: 1.2
+- Kotlin: 1.4
 - JVM: 11
 
 In case you use Kotlin 1.5 or newer, then regardless of the target platform, you can use the following group and artifactId
