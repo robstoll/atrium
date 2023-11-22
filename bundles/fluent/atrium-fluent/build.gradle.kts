@@ -23,11 +23,11 @@ kotlin {
     }
 }
 
-val jacocoAdditional by extra(
-    listOf(
+junitjacoco {
+    additionalProjectSources.addAll(
         prefixedProject("verbs"),
         prefixedProject("translations-en_GB"),
         prefixedProject("logic"),
         prefixedProject("core")
     )
-)
+}
