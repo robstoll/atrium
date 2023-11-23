@@ -51,8 +51,6 @@ kotlin {
     }
 
     sourceSets {
-        configureLanguageSettings()
-
         commonMain {
             dependencies {
                 api(kotlin("reflect"))

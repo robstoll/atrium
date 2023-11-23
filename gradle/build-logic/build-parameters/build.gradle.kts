@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id("build-logic.kotlin-dsl-gradle-plugin")
     alias(buildLibs.plugins.build.parameters)
@@ -17,6 +19,12 @@ buildParameters {
     }
 
     group("kotlin") {
+        string("version") {
+            fromEnvironment()
+            @Suppress("DEPRECATION" /* we support kotlin_1_4 on purpose */)
+            defaultValue.set(KotlinVersion.KOTLIN_1_4.version)
+            description.set("kotlin version used for apiVersion and languageVersion")
+        }
         bool("werror") {
             defaultValue.set(true)
             description.set("Treat kotlinc warnings as errors")
