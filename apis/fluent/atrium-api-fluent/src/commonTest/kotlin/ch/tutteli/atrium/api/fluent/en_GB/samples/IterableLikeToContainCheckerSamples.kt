@@ -27,4 +27,28 @@ class IterableLikeToContainCheckerSamples {
             }
         }
     }
+
+    @Test
+    fun notOrAtMost() {
+        expect(listOf("A", "A", "B", "C")).toContain.inAnyOrder.notOrAtMost(2).entry {
+            toEqual("A")
+        }
+
+        expect(listOf(1, 2, 3)).toContain.inAnyOrder.notOrAtMost(2).entry {
+            toBeGreaterThan(1)
+        }
+
+        fails {
+            expect(listOf("A", "B", "B", "B")).toContain.inAnyOrder.notOrAtMost(2).entry {
+                toEqual("B")
+            }
+        }
+
+        fails {
+            expect(listOf(1, 2, 3, 3)).toContain.inAnyOrder.notOrAtMost(2).entry {
+                toBeGreaterThan(1)
+            }
+        }
+
+    }
 }
