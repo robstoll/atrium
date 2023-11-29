@@ -8,7 +8,7 @@
         {
             "matchFileNames": ["samples/**"],
             "schedule": ["every month"],
-            "additionalBranchPrefix": "samples"
+            "additionalBranchPrefix": "samples/"
         }
     ],
     "description": "TODO 3.0 activate again once we support scala",
