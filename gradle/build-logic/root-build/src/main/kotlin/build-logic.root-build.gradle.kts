@@ -1,3 +1,4 @@
+import ch.tutteli.gradle.plugins.dokka.GhPages
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
@@ -16,7 +17,7 @@ val rootProject = this
 ifIsPublishing {
 
     tutteliDokka {
-        writeToDocs.set(false)
+        writeTo.set(GhPages)
 
         val modulesNotInGhPages = listOf(
             // internal modules are not of interest
@@ -41,10 +42,9 @@ ifIsPublishing {
         gradle.taskGraph.whenReady {
             if (hasTask(":dokkaHtmlMultiModule")) {
                 modulesNotInGhPages.forEach { projectName ->
-                    prefixedProject(projectName)
-                        .tasks.configureEach<DokkaTaskPartial> {
-                            enabled = false
-                        }
+                    prefixedProject(projectName).tasks.configureEach<DokkaTaskPartial> {
+                        enabled = false
+                    }
                 }
             }
         }
