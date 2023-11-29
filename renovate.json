@@ -4,6 +4,6 @@
         "github>robstoll/renovate-presets-jvm",
         ":switchToGradleLite"
     ],
-    # TODO 3.0 activate again once we support scala
+    "description": "TODO 3.0 activate again once we support scala",
     "ignorePaths": ["atrium-scala2/"]
 }
