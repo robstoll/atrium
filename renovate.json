@@ -4,6 +4,10 @@
         "github>robstoll/renovate-presets-jvm",
         ":switchToGradleLite"
     ],
+    "packageRules": [
+        "matchFileNames": ["samples/**"],
+        "schedule": ["every month"]
+    ],
     "description": "TODO 3.0 activate again once we support scala",
     "ignorePaths": ["atrium-scala2/"]
 }
