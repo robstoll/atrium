@@ -2,7 +2,7 @@
 kbox = "0.16.0"
 niok = "1.4.7"
 junitJupiter="5.10.1"
-junitPlatform = "1.9.2"
+junitPlatform = "1.10.1"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
 mockk = "1.11.0"
