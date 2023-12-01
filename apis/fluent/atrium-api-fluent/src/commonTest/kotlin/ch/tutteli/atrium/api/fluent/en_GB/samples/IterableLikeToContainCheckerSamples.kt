@@ -35,16 +35,18 @@ class IterableLikeToContainCheckerSamples {
         }
 
         expect(listOf(1, 2, 3)).toContain.inAnyOrder.notOrAtMost(2).entry {
-            toBeGreaterThan(1)
+            // none fulfils the expectation which is fine because we use notOrAtMost
+            // use atMost if you want that at least one element matches
+            toBeGreaterThan(4)
         }
 
-        fails {
+        fails { // because "B" is 3 times in the List
             expect(listOf("A", "B", "B", "B")).toContain.inAnyOrder.notOrAtMost(2).entry {
                 toEqual("B")
             }
         }
 
-        fails {
+        fails { // because there are 3 items greater than 1
             expect(listOf(1, 2, 3, 3)).toContain.inAnyOrder.notOrAtMost(2).entry {
                 toBeGreaterThan(1)
             }
