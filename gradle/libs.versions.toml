@@ -1,12 +1,13 @@
 [versions]
-kbox = "0.16.0"
-niok = "1.4.7"
-junitJupiter="5.10.1"
+junitJupiter = "5.10.1"
 junitPlatform = "1.9.2"
-spek = "2.0.12"
-spekExtensions = "1.2.1"
+kbox = "0.16.0"
 mockk = "1.11.0"
 mockitoKotlin = "2.2.0"
+nexusPublish="1.3.0"
+niok = "1.4.7"
+spek = "2.0.12"
+spekExtensions = "1.2.1"
 
 [libraries]
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
@@ -25,3 +26,6 @@ spek-runner = { module = "org.spekframework.spek2:spek-runner-junit5", version.r
 spek-runtime = { module = "org.spekframework.spek2:spek-runtime-jvm", version.ref = "spek" }
 spek-js = { module = "org.spekframework.spek2:spek-dsl-js", version.ref = "spek" }
 tutteli-spek = { module = "ch.tutteli.spek:tutteli-spek-extensions", version.ref = "spekExtensions" }
+
+[plugins]
+nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexusPublish" }
