@@ -36,3 +36,8 @@ project.afterEvaluate {
         }
     }
 }
+
+// comment out to see workaround working
+//tasks.named("test") {
+//    dependsOn(tasks.named("jsNodeTest"))
+//}

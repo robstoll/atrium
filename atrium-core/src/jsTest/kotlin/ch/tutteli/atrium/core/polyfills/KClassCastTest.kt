@@ -2,11 +2,13 @@ package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 import kotlin.test.Test

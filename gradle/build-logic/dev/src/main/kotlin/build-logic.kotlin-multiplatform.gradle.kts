@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 plugins {
     kotlin("multiplatform")
     id("build-logic.kotlin-conventions")
-    id("ch.tutteli.gradle.plugins.spek")
+//    id("ch.tutteli.gradle.plugins.spek")
 }
 
 if (name != "atrium-specs") {
@@ -13,11 +13,11 @@ if (name != "atrium-specs") {
 
 val spekVersion: String by rootProject.extra
 
-spek {
-    if (rootProject.name != "gradle-kotlin-dsl-accessors") {
-        version = spekVersion
-    }
-}
+//spek {
+//    if (rootProject.name != "gradle-kotlin-dsl-accessors") {
+//        version = spekVersion
+//    }
+//}
 
 //TODO 1.2.0 remove once we moved away from spec to kotlin-test
 if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {
@@ -31,7 +31,7 @@ kotlin {
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform {
-                includeEngines("spek2", "junit-jupiter")
+                includeEngines("junit-jupiter")
             }
         }
     }
@@ -41,8 +41,8 @@ kotlin {
             testTask {
                 useMocha {
                     // timeout in milliseconds,
-                    // Windows regularly has a timeout with the default which
-                    // at the time of writing was 2000
+                    // Windows regularly has a timeout when using the default value
+                    // which was 2000 at the time of writing
                     timeout = "10000"
                 }
             }
