@@ -146,6 +146,8 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  *   or the given [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.elementsOf
  */
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike

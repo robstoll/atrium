@@ -111,6 +111,8 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
  *   or the given [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.elementsOf
  */
 inline infix fun <reified E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
