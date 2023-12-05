@@ -38,7 +38,7 @@ configure(dexerProjects) { subproject ->
     dependencies {
         // we could update it but in the end I think it is actually good that we use an old version
         // this way we know that it even works with an old one
-        r8 "com.android.tools:r8:8.1.72"
+        r8 "com.android.tools:r8:8.2.33"
         d8 subproject
     }
 
