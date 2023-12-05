@@ -11,9 +11,15 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
             listOf("A","B","C")
         )
 
-        fails {
+        fails { // because not all elements found
             expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
-                listOf("A","B")
+                listOf("B", "A")
+            )
+        }
+        
+        fails { // because more elements expected than found
+            expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
+                listOf("B", "A", "C", "D")
             )
         }
     }
