@@ -27,7 +27,7 @@ var refPath;
 var version;
 if (srcAttribute.startsWith("..")) {
     refPath = scriptTag.getAttribute("src").match(/^(?:\.\.\/)+/)[0];
-    version = scriptTag.dataset.version;
+    version = scriptTag.dataset.version || versionPlaceholder;
 } else {
     refPath = "";
     version = versionPlaceholder;
