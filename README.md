@@ -106,7 +106,7 @@ kotlin {
         val commonTest by getting {
             implementation("ch.tutteli.atrium:atrium-fluent:1.1.0")
         }
-        // no need add it to specific targets such as jvmTest, is done automatically starting with Kotlin 1.5
+        // no need to add it to specific targets such as jvmTest, is done automatically starting with Kotlin 1.5
     }
 }
 ```
