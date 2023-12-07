@@ -3,13 +3,14 @@ package ch.tutteli.atrium.core.polyfills
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import kotlin.test.Test
 
 class StringFormatTest {
 
     @Test
     fun withAndWithoutLocal_shouldNotMatter() {
-        expect("dummy subject, see sub assertions") {
+        expectGrouped {
             val oneArg = listOf("robert")
             val twoArgs = listOf("robert", "stoll")
             val threeArgs = listOf("robert", "stoll", "the Atrium")
@@ -24,12 +25,12 @@ class StringFormatTest {
                 Triple("hello %s %s", threeArgs, "hello robert stoll"),
                 Triple("Welcome %s %s here at %s", threeArgs, "Welcome robert stoll here at the Atrium")
             ).forEach { (string, args, expected) ->
-                it feature {
-                    f("($string / $args)", string.format(args.first(), *args.drop(1).toTypedArray()))
-                } toEqual expected
-                it feature {
-                    f("($string / $args)", string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray()))
-                } toEqual expected
+                group("$string / $args") {
+                    expect(string.format(args.first(), *args.drop(1).toTypedArray())) toEqual expected
+                }
+                group("Using Locale de: $string / $args") {
+                    expect(string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray())) toEqual expected
+                }
             }
         }
     }

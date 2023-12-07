@@ -52,7 +52,10 @@ abstract class TextObjectFormatterCommon(
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
         is Throwable -> format(value)
-        else -> limitRepresentation(value.toString()) + classNameAndIdentity(value)
+        else -> {
+            println("here: $value / ${value.toString()}")
+            limitRepresentation(value.toString()) + classNameAndIdentity(value)
+        }
     }
 
     private fun format(string: String) = "\"${limitRepresentation(string)}\"" + identityHash(INDENT, string)
