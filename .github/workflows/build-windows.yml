@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java_version }}
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.11.0
+        uses: gradle/gradle-build-action@v2.11.1
 
       - name: "build using jdk ${{ matrix.java_version }}"
         run: ./gradlew build
