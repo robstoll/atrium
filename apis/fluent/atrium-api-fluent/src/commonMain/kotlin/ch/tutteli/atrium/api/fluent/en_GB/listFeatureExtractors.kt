@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.get
+import ch.tutteli.atrium.logic.last
 
 /**
  * Expects that the given [index] is within the bounds of the subject of `this` expectation (a [List]) and
@@ -26,3 +27,14 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
 fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.get(index).collectAndAppend(assertionCreator)
 
+/**
+ * TODO: docs
+ */
+val <E, T : List<E>> Expect<T>.last: Expect<E>
+    get() = _logic.last().transform()
+
+/**
+ * TODO: docs
+ */
+fun <E, T : List<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    _logic.last().collectAndAppend(assertionCreator)

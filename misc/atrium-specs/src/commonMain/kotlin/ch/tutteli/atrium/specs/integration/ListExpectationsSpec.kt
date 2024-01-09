@@ -15,6 +15,8 @@ abstract class ListExpectationsSpec(
     get: Fun2<List<Int>, Int, Expect<Int>.() -> Unit>,
     getFeatureNullable: Feature1<List<Int?>, Int, Int?>,
     getNullable: Fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>,
+    lastFeature: Feature0<List<Int?>, Int?>,
+    last: Fun1<List<Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
