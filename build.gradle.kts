@@ -67,7 +67,7 @@ export ATRIUM_VERSION=1.2.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
-   -pe "s@latest#/doc@$ATRIUM_VERSION/doc@g;"
+   -pe "s@latest#/kdoc@$ATRIUM_VERSION/kdoc@g;"
 perl -0777 -i \
   -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
   -pe "s/rootProject.version = \"${ATRIUM_VERSION}-SNAPSHOT\"/rootProject.version = \"$ATRIUM_VERSION\"/;" \
@@ -184,7 +184,7 @@ export ATRIUM_VERSION=1.1.0
 export ATRIUM_NEXT_VERSION=1.2.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
-   -pe "s@$ATRIUM_VERSION/doc@latest#/doc@g;" \
+   -pe "s@$ATRIUM_VERSION/kdoc@latest#/kdoc@g;" \
    -pe "s/add \\\`\@since $ATRIUM_VERSION\\\` \(adapt to current/add \\\`\@since $ATRIUM_NEXT_VERSION\\\` \(adapt to current/g;"
 perl -0777 -i \
   -pe "s/rootProject.version = \"$ATRIUM_VERSION\"/rootProject.version = \"${ATRIUM_NEXT_VERSION}-SNAPSHOT\"/;" \
