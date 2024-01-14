@@ -58,4 +58,18 @@ class ListFeatureExtractorSamples {
             }
         }
     }
+
+    @Test
+    fun last() {
+        val list = listOf(1, 2, 3)
+
+        expect(list) { // TODO: comments, fail tests
+            last toEqual(3)
+            last toBeGreaterThan(2) toBeLessThan(4)
+            last {
+                toBeGreaterThan(2)
+                toBeLessThan(4)
+            }
+        }
+    }
 }
