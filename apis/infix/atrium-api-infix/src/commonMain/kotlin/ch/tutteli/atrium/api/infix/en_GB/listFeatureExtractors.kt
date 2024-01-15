@@ -48,5 +48,5 @@ val <E, T : List<E>> Expect<T>.last: Expect<E>
 /**
  * TODO: docs
  */
-fun <E, T : List<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+infix fun <E, T : List<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.last().collectAndAppend(assertionCreator)

@@ -31,6 +31,11 @@ abstract class ListExpectationsSpec(
         getNullable.forSubjectLess(1) { toEqual(null) }
     ) {})
 
+    include(object : SubjectLessSpec<List<Int?>>(describePrefix,
+        lastFeature.forSubjectLess(),
+        last.forSubjectLess { toEqual(1) }
+    ) {})
+
     include(object : AssertionCreatorSpec<List<Int>>(
         describePrefix, list,
         get.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
@@ -84,4 +89,50 @@ abstract class ListExpectationsSpec(
             }
         }
     }
+
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $listNullable") {
+            lastFunctions.forEach { (name, lastFun, _) ->
+                it("$name - can perform sub-assertion on last element with value") {
+                    fluentNullable.lastFun { toEqual(4) }
+                }
+            }
+        }
+    }
+
+    val listNullableLast = listOf(1, 2, 3, null)
+    val fluentNullableList = expect(listNullableLast)
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $listNullableLast") {
+            lastFunctions.forEach { (name, lastFun, _) ->
+                it("$name - can perform sub-assertion on last element with value null") {
+                    fluentNullableList.lastFun { toEqual(null) }
+                }
+            }
+        }
+    }
+
+    val emptyList = listOf<Int?>()
+    val fluentEmptyList = expect(emptyList)
+
+    val listIsEmpty = DescriptionListLikeExpectation.EMPTY.getDefault()
+
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $emptyList") {
+            lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
+                it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        fluentEmptyList.lastFun { toEqual(3) }
+                    }.toThrow<AssertionError> {
+                        messageToContain("last(): $listIsEmpty")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
+                    }
+                }
+            }
+        }
+    }
+
 })
