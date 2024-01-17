@@ -39,7 +39,7 @@ jobs:
 
       - name: Cache android jar
         id: android-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: android-jar-cache
           key: ${{ runner.os }}-android-version-${{ env.android-version }}
