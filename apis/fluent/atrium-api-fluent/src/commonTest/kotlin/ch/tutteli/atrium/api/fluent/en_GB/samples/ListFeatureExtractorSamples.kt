@@ -84,7 +84,7 @@ class ListFeatureExtractorSamples {
             }
         }
 
-        fails{
+        fails {
             expect(listOf<Int>()).last.toEqual(3) // Fails, because list is empty
         }
     }

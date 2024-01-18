@@ -10,6 +10,6 @@ enum class DescriptionListLikeExpectation(override val value: String) : StringBa
     /** @since 0.18.0 */
     INDEX_OUT_OF_BOUNDS("❗❗ Index ausserhalb der Grenzen (index out of bounds)"),
 
-    /** todo: doc */
+    /** @since 1.2.0 */
     EMPTY("leer"),
 }
