@@ -133,10 +133,10 @@ find "./$ATRIUM_VERSION" -name "*.html" | xargs perl -0777 -i \
     -pe "s@<script.*src=\"https://unpkg\.com.*</script>@@;" \
     -pe "s@(<div class=\"library-name\">[\S\s]+?)Atrium@\$1<span>Atrium</span>@;" \
     -pe "s@\"((?:\.\./+)*)styles/logo-styles.css\" rel=\"Stylesheet\">@\"../../\${1}styles/logo-styles.css?v=$ATRIUM_GH_PAGES_LOGO_CSS_VERSION\" rel=\"Stylesheet\">\n<link href=\"../../\${1}styles/alert.css?v=$ATRIUM_GH_PAGES_ALERT_CSS_VERSION\" rel=\"Stylesheet\">\n<script id=\"versions-script\" type=\"text/javascript\" src=\"\../../\${1}scripts/versions.js?v=$ATRIUM_GH_PAGES_VERSIONS_JS_VERSION\" data-version=\"$ATRIUM_VERSION\" async=\"async\"></script>@g;" \
-    -pe "s@((?:\.\./+)*)images/logo-icon.svg\"([^>]+)>@../../\${1}logo-icon.svg\"\$2>\n<meta name=\"og:image\" content=\"\${1}logo_social.png\"/>@g;" \
+    -pe "s@((?:\.\./+)*)images/logo-icon.svg\"([^>]+)>@../../\${1}images/logo-icon.svg\"\$2>\n<meta name=\"og:image\" content=\"../../\${1}images/logo_social.png\"/>@g;" \
     -pe "s@(<a class=\"library-name--link\" href=\"(?:\.\./+)*)index.html\">@\$1../../index.html\" title=\"Back to Overview Code Documentation of Atrium\">@g;" \
     -pe "s@<html@<html lang=\"en\"@g;" \
-    -pe "s@<head>@<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
+    -pe "s@<head>@<head>\n<meta name=\"keywords\" content=\"Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation\">\n<meta name=\"author\" content=\"Robert Stoll\">\n<meta name=\"copyright\" content=\"Robert Stoll\">@g;" \
     -pe "s@<title>([^<]+)</title>@<title>\$1 - Atrium $ATRIUM_VERSION</title>\n<meta name=\"description\" content=\"Code documentation of Atrium $ATRIUM_VERSION: \$1\">@g;" \
     -pe "s@(<code class=\"runnablesample[^>]+>)[\S\s]+?//sampleStart[\n\s]*([\S\s]+?)\s+//sampleEnd[\n\s]*\}@\${1}\${2}@g;"
 
@@ -203,7 +203,7 @@ git push
 alternatively the manual steps:
 
     a) search for `tree/vX.Y.Z` in all .md and build.gradle files and replace it with `tree/v0.12.0`
-b) search for `X.Y.Z/doc` in all .md files and replace with `latest#/doc`
+b) search for `X.Y.Z/kdoc` in all .md files and replace with `latest#/kdoc`
    c) use the main badges in README (uncomment them in README and comment out release badges)
    d) uncomment the warning about taking a sneak peek in README and revert `tree/v0.12.0` still point to the tag
 e) change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
