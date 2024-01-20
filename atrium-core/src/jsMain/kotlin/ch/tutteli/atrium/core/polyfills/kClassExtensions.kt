@@ -14,7 +14,8 @@ private fun KClass<*>.jsFallback(): String? {
     return when {
         js.name == "Boolean" -> "Boolean"
         //TODO no need for <unknown> in case https://youtrack.jetbrains.com/issue/KT-27828 is fixed.
-        !js.name.contains("$") -> "<unknown> (js: ${js.name})"
+        js.name.contains("$").not() -> "<unknown> (js: ${js.name})"
+
         else -> null
     }
 }
@@ -35,12 +36,15 @@ actual fun <T : Any> KClass<out T>.fullName(obj: T): String {
     }
 }
 
+//TODO 1.5.0 does no longer work (since using the IR backend) because $metadata$.interfaces no longer exists
+// numbers are stored instead and we would need to figure out where the number to name mapping is stored
+// in order to retrieve them.
 private fun KClass<*>.objFallback(@Suppress("UNUSED_PARAMETER") obj: Any): String =
     js(
         "var proto = Object.getPrototypeOf(obj);" +
             "var constructor = proto != null ? proto.constructor : null;" +
             "var name = \"`object: \";" +
-            "if (constructor != null && '\$metadata$' in constructor && constructor.\$metadata\$.interfaces.length == 1) {" +
+            "if (constructor != null && '\$metadata$' in constructor && 'interfaces' in constructor.\$metadata$ && constructor.\$metadata$.interfaces.length == 1) {" +
             "name += constructor.\$metadata$.interfaces[0].name + \"`\"" +
             "} else {" +
             "name += \"<unknown>`\";" +
