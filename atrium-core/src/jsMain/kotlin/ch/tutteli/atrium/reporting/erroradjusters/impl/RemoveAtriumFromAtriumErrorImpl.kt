@@ -10,11 +10,9 @@ actual class RemoveAtriumFromAtriumErrorImpl : FilterAtriumErrorAdjuster(),
 
     companion object {
         val atriumRegex = Regex(
-            // kotlin 1.4
-            """([\\|/]atrium[\\|/]atrium-[a-zA-Z0-9-]+[\\|/]src[\\|/])|"""+
-            //kotlin 1.3
-                """([\\|/](atrium-)?atrium-[a-zA-Z0-9-]+.js)"""
-
+            // since Kotlin 1.4 -- writes the src/ path as if the atrium file was in the same project
+            // (see also https://youtrack.jetbrains.com/issue/KT-64220/KJS-IR-Stacktrace-should-not-contain-project-path-when-the-library-was-built)
+            """([\\|/]src[\\|/](generated[\\|/])?(common|js)Main[\\|/](kotlin[\\|/])?ch[\\|/]tutteli[\\|/]atrium[\\|/])"""
         )
     }
 }

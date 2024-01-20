@@ -1,5 +1,5 @@
 [versions]
-kbox = "0.16.0"
+kbox = "1.0.0"
 niok = "1.4.7"
 junitJupiter="5.10.1"
 junitPlatform = "1.9.2"

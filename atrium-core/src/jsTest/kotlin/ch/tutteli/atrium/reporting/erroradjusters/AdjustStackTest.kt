@@ -29,7 +29,7 @@ class AdjustStackTest {
 
     @Test
     fun noOp_makeSureStackBacktraceIsInOutput_issue1383() {
-        expect{
+        expect {
             expect {
                 assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
@@ -64,7 +64,7 @@ class AdjustStackTest {
                 it feature of(UnsupportedOperationException::stackBacktrace) {
                     it notToContain o entry { it toContain "mocha" }
                     it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
-                    it toContain { it toContain Regex("toThrow.*atrium-logic") }
+                    it toContain { it toContain Regex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""") }
                 }
             }
         }
@@ -77,7 +77,7 @@ class AdjustStackTest {
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
                 it toContain { it toContain "mocha" }
-                it notToContain o entry { it toContain "atrium-core" }
+                it notToContain { it toContain Regex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""") }
             }
         }
     }

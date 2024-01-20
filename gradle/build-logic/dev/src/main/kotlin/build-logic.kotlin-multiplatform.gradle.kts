@@ -36,8 +36,7 @@ kotlin {
         }
     }
 
-    //TODO 1.2.0 switch from LEGACY to IR
-    js(LEGACY) {
+    js(IR) {
         nodejs {
             testTask {
                 useMocha {
