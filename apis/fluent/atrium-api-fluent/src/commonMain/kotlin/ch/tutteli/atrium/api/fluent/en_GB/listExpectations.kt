@@ -8,7 +8,6 @@ import ch.tutteli.atrium.logic.last
  * Expects that the subject of `this` expectation (a [List]) is not empty and that the last element
  * in the list holds all assertions the given [assertionCreator] creates for it.
  *
- *  Use the function `last() { ... }` to create an [IndexWithCreator].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
