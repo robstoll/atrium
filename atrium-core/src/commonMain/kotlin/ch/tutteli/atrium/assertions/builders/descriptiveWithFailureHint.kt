@@ -25,25 +25,30 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint
  * which is based on the subject of the expectation and
- * which is only shown the subject is defined.
+ * which is only shown if the subject is defined (and optionally based on a given [showOnlyIf] predicate).
  *
  * You can use [withHelpOnFailureBasedOnSubject] in case you want to:
  * - provide a hint also if the subject is absent.
- * - do not show the hint in certain cases even if the subject is defined
+ * - show the hint even if the subject is absent.
  *
  * Or use [withHelpOnFailure] which does not expect an [Expect] in case your [DescriptiveAssertion] is not based
  * on the subject of the expectation.
+ *
+ * @param expect The [Expect] from which the subject is taken to check if it is defined or not
+ * @param showOnlyIf A predicate which is passed on to [DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf].
+ * @param failureHintFactory The factory which creates the failure hint as such in the form of an [Assertion].
  */
 //TODO if we introduce Proof or something else as replacement for Assertion then not but if we keep Assertion
 // then move to logic and expect ProofContainer with 1.2.0
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnDefinedSubject(
     expect: Expect<T>,
+    showOnlyIf: (T) -> Boolean = { _ -> true },
     failureHintFactory: (T) -> Assertion
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> {
     return withHelpOnFailureBasedOnSubject(expect) {
         ifDefined(failureHintFactory)
             .ifAbsent(::createShouldNotBeShownToUserWarning)
-    }.showOnlyIfSubjectDefined(expect)
+    }.showBasedOnDefinedSubjectOnlyIf(expect, showOnlyIf)
 }
 
 /**
