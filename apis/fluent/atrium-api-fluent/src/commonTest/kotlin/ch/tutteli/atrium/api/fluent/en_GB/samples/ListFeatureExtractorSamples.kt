@@ -98,9 +98,14 @@ class ListFeatureExtractorSamples {
             }
 
         fails {
-            expect(list).last {
-                toBeGreaterThan(3).toBeLessThan (4) // Subject is 3, fails on first expectation, second is skipped
-            }
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+            expect(list).last { // subject within this expectation-group is of type Int (actually 3)
+                toBeGreaterThan(3)   // fails
+                toBeLessThan (4)     // still evaluated, even though  `toBeGreaterThan` already fails,
+                //                      use `.last.` if you want a fail fast behaviour
+            } // subject here is back type List<Int>
         }
 
         fails {
