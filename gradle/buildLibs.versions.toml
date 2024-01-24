@@ -3,7 +3,7 @@ dokka = "1.9.10"
 jacocoTool = "0.8.9"
 kotlin = "1.8.22"
 task-tree = "2.1.1"
-tutteli = "5.0.0"
+tutteli = "5.0.1"
 vlsi = "1.90"
 
 [libraries]
