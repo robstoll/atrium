@@ -69,18 +69,18 @@ class ListFeatureExtractorSamples {
     fun lastFeature() {
         val list = listOf(1, 2, 3)
 
-        expect(list).last.toEqual(3) // Subject is 3
+        expect(list).last.toEqual(3) // subject is 3
 
         expect(list).last // Subject is 3
-            .toBeGreaterThan(2) // Subject is still 3
-            .toBeLessThan(4) // Subject is still 3
+            .toBeGreaterThan(2) // subject is still 3
+            .toBeLessThan(4) // subject is still 3
 
         fails {
-            expect(list).last.toBeGreaterThan(3).toBeLessThan (4) // Subject is 3, fails on first expectation, second is skipped
+            expect(list).last.toBeGreaterThan(3).toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
         }
 
         fails {
-            expect(listOf<Int>()).last.toEqual(3) // Fails, because list is empty
+            expect(listOf<Int>()).last.toEqual(3) // fails, because list is empty
         }
     }
 
@@ -90,11 +90,11 @@ class ListFeatureExtractorSamples {
 
         expect(list)
             .last {
-                toEqual(3) // Subject is 3
+                toEqual(3) // subject is 3
             }
-            .last { // Subject is 3
-                toBeGreaterThan(2) // Subject is still 3
-                toBeLessThan(4) // Subject is still 3
+            .last { // subject is 3
+                toBeGreaterThan(2) // subject is still 3
+                toBeLessThan(4) // subject is still 3
             }
 
         fails {
@@ -110,7 +110,7 @@ class ListFeatureExtractorSamples {
 
         fails {
             expect(listOf<Int>()).last {
-                toEqual(3) // Fails, because list is empty
+                toEqual(3) // fails, because list is empty
             }
         }
     }
