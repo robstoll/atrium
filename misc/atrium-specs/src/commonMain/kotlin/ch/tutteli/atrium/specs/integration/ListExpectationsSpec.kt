@@ -117,7 +117,7 @@ abstract class ListExpectationsSpec(
     val emptyList = listOf<Int?>()
     val fluentEmptyList = expect(emptyList)
 
-    val listIsEmpty = DescriptionListLikeExpectation.EMPTY.getDefault()
+    val listIsEmptyDescr = DescriptionListLikeExpectation.IS_EMPTY.getDefault()
 
     describeFun(lastFeature, last) {
         val lastFunctions = unifySignatures(lastFeature, last)
@@ -127,7 +127,7 @@ abstract class ListExpectationsSpec(
                     expect {
                         fluentEmptyList.lastFun { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageToContain("last(): $listIsEmpty")
+                        messageToContain("last(): $listIsEmptyDescr")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 3")
                     }
                 }

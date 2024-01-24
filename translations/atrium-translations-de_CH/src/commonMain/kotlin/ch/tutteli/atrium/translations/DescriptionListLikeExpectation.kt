@@ -11,5 +11,5 @@ enum class DescriptionListLikeExpectation(override val value: String) : StringBa
     INDEX_OUT_OF_BOUNDS("❗❗ Index ausserhalb der Grenzen (index out of bounds)"),
 
     /** @since 1.2.0 */
-    EMPTY("leer"),
+    IS_EMPTY("❗❗Liste ist leer (list is empty)"),
 }

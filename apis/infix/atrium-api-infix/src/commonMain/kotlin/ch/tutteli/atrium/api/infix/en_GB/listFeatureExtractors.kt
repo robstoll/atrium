@@ -50,3 +50,16 @@ fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCrea
  */
 val <E, T : List<E>> Expect<T>.last: Expect<E>
     get() = _logic.last().transform()
+
+/**
+ * Expects that the subject of `this` expectation (a [List]) is not empty and that the last element
+ * in the list holds all assertions the given [assertionCreator] creates for it.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.last
+ *
+ * @since 1.2.0
+ */
+infix fun <E, T : List<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    _logic.last().collectAndAppend(assertionCreator)
