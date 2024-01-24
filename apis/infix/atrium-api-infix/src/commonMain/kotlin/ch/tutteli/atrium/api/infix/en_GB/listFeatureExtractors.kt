@@ -44,7 +44,7 @@ fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCrea
  *
  * @return The newly created [Expect] for last element.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.last
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.lastFeature
  *
  * @since 1.2.0
  */
