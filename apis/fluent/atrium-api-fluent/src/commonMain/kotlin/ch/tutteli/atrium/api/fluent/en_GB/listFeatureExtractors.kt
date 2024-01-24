@@ -32,7 +32,7 @@ fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() ->
  *
  * @return The newly created [Expect] for last element.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.last
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.lastFeature
  *
  * @since 1.2.0
  */
