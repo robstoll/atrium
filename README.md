@@ -752,7 +752,7 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 <a name="ex-within-expectation-functions"></a>
 ```text
 I expected subject: [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
-◆ ▶ get(10): ❗❗ index out of bounds
+◆ ▶ get(10): ❗❗ Index out of bounds
       » ▶ CANNOT show description as it is based on subject which is not defined: 
           ◾ to equal: 1        (kotlin.Int <1234789>)
       » ▶ first: 
