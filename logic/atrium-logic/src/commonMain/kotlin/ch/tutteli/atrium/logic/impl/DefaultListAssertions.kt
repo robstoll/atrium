@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ListAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
+import ch.tutteli.atrium.translations.DescriptionListLikeExpectation.IS_EMPTY
 import ch.tutteli.atrium.translations.DescriptionListLikeExpectation.INDEX_OUT_OF_BOUNDS
 
 class DefaultListAssertions : ListAssertions {
@@ -15,6 +16,16 @@ class DefaultListAssertions : ListAssertions {
             .withRepresentationForFailure(INDEX_OUT_OF_BOUNDS)
             .withFeatureExtraction {
                 Option.someIf(index < it.size) { it[index] }
+            }
+            .withoutOptions()
+            .build()
+
+    override fun <E, T : List<E>> last(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E> =
+        container.extractFeature
+            .methodCall("last")
+            .withRepresentationForFailure(IS_EMPTY)
+            .withFeatureExtraction {
+                Option.someIf(it.size > 0) { it.last() }
             }
             .withoutOptions()
             .build()

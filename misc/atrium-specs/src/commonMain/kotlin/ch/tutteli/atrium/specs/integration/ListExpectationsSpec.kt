@@ -15,6 +15,8 @@ abstract class ListExpectationsSpec(
     get: Fun2<List<Int>, Int, Expect<Int>.() -> Unit>,
     getFeatureNullable: Feature1<List<Int?>, Int, Int?>,
     getNullable: Fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>,
+    lastFeature: Feature0<List<Int?>, Int?>,
+    last: Fun1<List<Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -27,6 +29,11 @@ abstract class ListExpectationsSpec(
     include(object : SubjectLessSpec<List<Int?>>("$describePrefix[nullable Element] ",
         getFeatureNullable.forSubjectLess(1),
         getNullable.forSubjectLess(1) { toEqual(null) }
+    ) {})
+
+    include(object : SubjectLessSpec<List<Int?>>(describePrefix,
+        lastFeature.forSubjectLess(),
+        last.forSubjectLess { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<List<Int>>(
@@ -82,4 +89,50 @@ abstract class ListExpectationsSpec(
             }
         }
     }
+
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $listNullable") {
+            lastFunctions.forEach { (name, lastFun, _) ->
+                it("$name - can perform sub-assertion on last element with value") {
+                    fluentNullable.lastFun { toEqual(4) }
+                }
+            }
+        }
+    }
+
+    val listNullableLast = listOf(1, 2, 3, null)
+    val fluentNullableList = expect(listNullableLast)
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $listNullableLast") {
+            lastFunctions.forEach { (name, lastFun, _) ->
+                it("$name - can perform sub-assertion on last element with value null") {
+                    fluentNullableList.lastFun { toEqual(null) }
+                }
+            }
+        }
+    }
+
+    val emptyList = listOf<Int?>()
+    val fluentEmptyList = expect(emptyList)
+
+    val listIsEmptyDescr = DescriptionListLikeExpectation.IS_EMPTY.getDefault()
+
+    describeFun(lastFeature, last) {
+        val lastFunctions = unifySignatures(lastFeature, last)
+        context("list $emptyList") {
+            lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
+                it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
+                    expect {
+                        fluentEmptyList.lastFun { toEqual(3) }
+                    }.toThrow<AssertionError> {
+                        messageToContain("last(): $listIsEmptyDescr")
+                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
+                    }
+                }
+            }
+        }
+    }
+
 })

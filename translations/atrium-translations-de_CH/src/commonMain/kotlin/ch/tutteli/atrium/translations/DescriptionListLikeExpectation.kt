@@ -8,5 +8,8 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionListLikeExpectation(override val value: String) : StringBasedTranslatable {
     /** @since 0.18.0 */
-    INDEX_OUT_OF_BOUNDS("❗❗ Index ausserhalb der Grenzen (index out of bounds)")
+    INDEX_OUT_OF_BOUNDS("❗❗ Index ausserhalb der Grenzen (index out of bounds)"),
+
+    /** @since 1.2.0 */
+    IS_EMPTY("❗❗ Liste ist leer (list is empty)"),
 }

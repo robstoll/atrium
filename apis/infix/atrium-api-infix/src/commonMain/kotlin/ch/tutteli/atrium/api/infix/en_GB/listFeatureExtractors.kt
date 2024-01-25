@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.IndexWithCreator
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.get
+import ch.tutteli.atrium.logic.last
 
 /**
  * Expects that the given [index] is within the bounds of the subject of `this` expectation (a [List]) and
@@ -37,3 +38,28 @@ infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> 
  */
 fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCreator<E> =
     IndexWithCreator(index, assertionCreator)
+
+/**
+ * Expects that list is not empty and returns an [Expect] for the last element in list.
+ *
+ * @return The newly created [Expect] for last element.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.lastFeature
+ *
+ * @since 1.2.0
+ */
+val <E, T : List<E>> Expect<T>.last: Expect<E>
+    get() = _logic.last().transform()
+
+/**
+ * Expects that the subject of `this` expectation (a [List]) is not empty and that the last element
+ * in the list holds all assertions the given [assertionCreator] creates for it.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.last
+ *
+ * @since 1.2.0
+ */
+infix fun <E, T : List<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
+    _logic.last().collectAndAppend(assertionCreator)

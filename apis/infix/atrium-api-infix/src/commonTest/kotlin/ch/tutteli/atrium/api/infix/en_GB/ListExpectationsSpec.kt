@@ -3,8 +3,10 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
+import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.property
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -20,6 +22,8 @@ class ListExpectationsSpec : Spek({
         fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Companion::get),
         feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
         fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Companion::get).withNullableSuffix(),
+        property<List<Int?>, Int?>(Expect<List<Int?>>::last),
+        fun1<List<Int?>, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::last),
         "[Atrium][List] "
     )
 
