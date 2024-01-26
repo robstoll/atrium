@@ -30,6 +30,7 @@ if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
     apply(from = "gradle/scripts/check-dexer.gradle")
 }
 
+//TODO 1.3.0 add a relocation publication for translations-de_CH which points to translations-en_GB
 
 // TODO 1.5.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
 //def getSubprojectTasks(String name) {
