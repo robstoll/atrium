@@ -36,6 +36,13 @@ kotlin {
                 }
             }
         }
+        jsTest {
+            dependencies {
+                implementation(project(":${rootProject.name}-specs")) {
+                    exclude(module = "${rootProject.name}-translations-en_GB")
+                }
+            }
+        }
     }
 }
 
