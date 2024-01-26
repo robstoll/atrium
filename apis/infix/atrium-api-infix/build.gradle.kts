@@ -21,19 +21,9 @@ kotlin {
 
         commonTest {
             dependencies {
-                implementation(project(":${rootProject.name}-specs")) {
-                    exclude(module = "${rootProject.name}-translations-en_GB")
-                }
-                implementation(prefixedProject("translations-de_CH"))
+                implementation(project(":${rootProject.name}-specs"))
                 // in order that we can use the correct import in the samples
                 implementation(prefixedProject("verbs"))
-            }
-        }
-        jvmTest {
-            dependencies {
-                implementation(project(":${rootProject.name}-specs")) {
-                    exclude(module = "${rootProject.name}-translations-en_GB")
-                }
             }
         }
     }
@@ -41,7 +31,7 @@ kotlin {
 
 junitjacoco {
     additionalProjectSources.addAll(
-        prefixedProject("translations-de_CH"),
+        prefixedProject("translations-en_GB"),
         prefixedProject("logic"),
         prefixedProject("core"),
         prefixedProject("verbs")

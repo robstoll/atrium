@@ -18,7 +18,7 @@ tasks.configureEach<KotlinCompile> {
 tasks.configureEach<KotlinCompilationTask<*>> {
     compilerOptions {
         freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
-        // suppress warnings about kotlin 1.4 beeing deprecated
+        // suppress warnings about kotlin 1.4 being deprecated
         freeCompilerArgs.add("-Xsuppress-version-warnings")
 
         val kotlinVersion = KotlinVersion.fromVersion(buildParameters.kotlin.version)
