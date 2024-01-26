@@ -1,25 +1,30 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.RootExpect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.manualFeature
+import ch.tutteli.atrium.logic.toAssertionCreator
+import ch.tutteli.atrium.logic.toExpectGrouping
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
-
+import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
+import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb("I expected subject")
         .withOptions {
-            //TODO 1.2.0 we could at least filter out the runner in most cases, even in tests
-            withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
+            withComponent(AtriumErrorAdjuster::class) { c ->
+                MultiAtriumErrorAdjuster(
+                    c.build<RemoveRunnerFromAtriumError>(),
+                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
+                    otherAdjusters = emptyList()
+                )
+            }
         }
         .build()
 
@@ -51,3 +56,6 @@ fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit
 
 private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     _logic.manualFeature("I expected subject") { subject }
+
+
+expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError

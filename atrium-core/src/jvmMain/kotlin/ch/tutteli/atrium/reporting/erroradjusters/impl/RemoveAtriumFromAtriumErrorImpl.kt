@@ -7,5 +7,5 @@ actual class RemoveAtriumFromAtriumErrorImpl : FilterAtriumErrorAdjuster(),
     RemoveAtriumFromAtriumError {
 
     override fun adjustStackTrace(stackTrace: Sequence<StackTraceElement>): Sequence<StackTraceElement> =
-        stackTrace.filter { !it.className.startsWith("ch.tutteli.atrium") }
+        stackTrace.filter { it.className.startsWith("ch.tutteli.atrium").not() }
 }

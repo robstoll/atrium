@@ -15,9 +15,18 @@ import kotlin.test.Test
 
 class AdjustStackTest {
 
+    @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
+    private fun <T> expectWithNoOpErrorAdjuster(subject: T) =
+        expect(subject).withOptions {
+            withComponent(AtriumErrorAdjuster::class ) { _ -> NoOpAtriumErrorAdjuster }
+        }
+
+    private fun <T> expectWithNoOpErrorAdjuster(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+        expectWithNoOpErrorAdjuster(subject)._logic.appendAsGroup(assertionCreator)
+
     @Test
     fun noOp_containsMochaAndAtrium() {
-        expect {
+        expectWithNoOpErrorAdjuster {
             assertNoOp(1) toEqual 2
         }.toThrow<AssertionError> {
             feature(AssertionError::stackBacktrace) toContain entries(
@@ -29,8 +38,8 @@ class AdjustStackTest {
 
     @Test
     fun noOp_makeSureStackBacktraceIsInOutput_issue1383() {
-        expect {
-            expect {
+        expectWithNoOpErrorAdjuster {
+            expectWithNoOpErrorAdjuster {
                 assertNoOp(1) toEqual 2
             }.toThrow<AssertionError> {
                 feature(AssertionError::stackBacktrace) toContain entries(
@@ -44,7 +53,7 @@ class AdjustStackTest {
 
     @Test
     fun removeRunner_containsAtriumButNotMocha() {
-        expect {
+        expectWithNoOpErrorAdjuster {
             assertRemoveRunner(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
@@ -72,7 +81,7 @@ class AdjustStackTest {
 
     @Test
     fun removeAtrium_containsMochaButNotAtrium() {
-        expect {
+        expectWithNoOpErrorAdjuster {
             assertRemoveAtrium(1) toEqual 2
         }.toThrow<AssertionError> {
             it feature of(AssertionError::stackBacktrace) {
@@ -86,10 +95,10 @@ class AdjustStackTest {
     @Test
     fun removeAtrium_containsMochaButNotAtriumInCause() {
         val adjuster = assertRemoveAtrium(1)._logic.components.build<AtriumErrorAdjuster>()
-        expect(adjuster).toBeAnInstanceOf<RemoveAtriumFromAtriumError>()
+        expectWithNoOpErrorAdjuster(adjuster).toBeAnInstanceOf<RemoveAtriumFromAtriumError>()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
-        expect(throwable.cause!!.stackBacktrace) {
+        expectWithNoOpErrorAdjuster(throwable.cause!!.stackBacktrace) {
             it toContain (fun Expect<String>.() {
                 it toContain "mocha"
             })
