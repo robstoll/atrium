@@ -38,14 +38,15 @@ kotlin {
 
     js(IR) {
         nodejs {
-            testTask {
+            //TODO 1.5.0 remove Action again once ambiguous deprecated overload is removed in Kotlin
+            testTask(Action {
                 useMocha {
                     // timeout in milliseconds,
                     // Windows regularly has a timeout with the default which
                     // at the time of writing was 2000
                     timeout = "10000"
                 }
-            }
+            })
         }
     }
 
