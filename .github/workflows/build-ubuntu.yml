@@ -72,10 +72,10 @@ jobs:
         run: ./gradlew build
         working-directory: misc/tools/atrium-samples-test
 
-      # TODO 1.2.0 activate again once we use JS IR
-#      - name: composite build atrium-js-sample-test
-#        run: ./gradlew build
-#        working-directory: misc/tools/atrium-js-sample-test
+      # TODO 1.3.0 activate again once we use JS IR
+  #      - name: composite build atrium-js-sample-test
+  #        run: ./gradlew build
+  #        working-directory: misc/tools/atrium-js-sample-test
 
   forwardCompatibility:
     env:
@@ -85,8 +85,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        # TODO 1.2.0 add '1.9' once we use JS IR
-        kotlin_version: [ '1.5', '1.6','1.7','1.8' ]
+        kotlin_version: [ '1.5', '1.6', '1.7', '1.8', '1.9' ]
     steps:
       - uses: actions/checkout@v4
       - name: "Set up JDK ${{ matrix.java_version }}"

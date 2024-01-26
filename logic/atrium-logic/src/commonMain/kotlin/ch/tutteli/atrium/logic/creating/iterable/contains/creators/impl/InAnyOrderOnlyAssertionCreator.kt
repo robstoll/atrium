@@ -49,7 +49,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
 
             val initialSize = listFromWhichMatchesWillBeRemoved.size
             val assertions = mutableListOf<Assertion>()
-            //TODO 1.2.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 1.3.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val sizeAssertion = container.collectBasedOnSubject(Some(listFromWhichMatchesWillBeRemoved)) {
                 _logic
                     .size { it }
@@ -72,7 +72,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
             }
 
             val description = searchBehaviour.decorateDescription(TO_CONTAIN)
-            //TODO 1.2.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
+            //TODO 1.3.0 could be moved out to a function, is also used in InOrderOnlyBaseAssertionCreator
             val options = InAnyOrderOnlyReportingOptionsImpl().apply(reportingOptions)
             val assertionGroup = (if (searchCriteria.size <= options.maxNumberOfExpectedElementsForSummary) {
                 assertionBuilder.summary.withDescription(description)
