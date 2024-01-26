@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
+
 plugins {
     id("build-logic.published-kotlin-multiplatform")
 }
@@ -28,6 +32,19 @@ kotlin {
         }
     }
 }
+
+tasks.withType<KotlinCompile<*>>().forEach {
+    println("KotlinCompile: ${it.name} -- ${it.kotlinOptions.apiVersion} // ${it.kotlinOptions.languageVersion}")
+}
+tasks.withType<KotlinCompileCommon>().forEach {
+    println("KotlinCompileCommon: ${it.name} -- ${it.kotlinOptions.apiVersion} // ${it.kotlinOptions.languageVersion}")
+}
+tasks.withType<KotlinCompilationTask<*>>().forEach {
+    println("KotlinCompilationTask: ${it.name} -- ${it.compilerOptions.apiVersion.get()} // ${it.compilerOptions.languageVersion.get()}")
+}
+
+
+println("tasks: ${tasks.joinToString("\n- ")}")
 
 junitjacoco {
     additionalProjectSources.addAll(
