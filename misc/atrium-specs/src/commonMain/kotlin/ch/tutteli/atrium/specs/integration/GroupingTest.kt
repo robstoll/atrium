@@ -13,7 +13,7 @@ abstract class GroupingTest(
 ) {
     val groupFun: Expect<Int>.(String, () -> Any?, Expect<Int>.() -> Unit) -> Expect<Int> = group.lambda
 
-    //TODO 1.2.0 add subjectLess and assertionCreator tests
+    //TODO 1.3.0 add subjectLess and assertionCreator tests
 
     @Test
     fun all_sub_expectation_hold__does_not_throw() {

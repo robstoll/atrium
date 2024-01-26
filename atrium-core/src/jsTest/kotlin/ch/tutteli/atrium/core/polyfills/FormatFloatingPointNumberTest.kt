@@ -6,8 +6,8 @@ import kotlin.test.Test
 
 class FormatFloatingPointNumberTest {
 
-    //TODO 1.2.0 move to common-tests formatting floating points should be the same on all platforms
-    //TODO 1.2.0 formatting should be done via ObjectFormatter where the formatter takes the Locale of the user into account
+    //TODO 1.3.0 move to common-tests formatting floating points should be the same on all platforms
+    //TODO 1.3.0 formatting should be done via ObjectFormatter where the formatter takes the Locale of the user into account
     @Test
     fun float_notRoundedPrecisionNotAlwaysOk() {
         expect(formatFloatingPointNumber(1.0f - 0.01f)) toEqual "0.99"

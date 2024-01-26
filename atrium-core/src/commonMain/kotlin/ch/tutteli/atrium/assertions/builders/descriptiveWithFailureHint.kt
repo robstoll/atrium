@@ -186,6 +186,9 @@ interface DescriptiveAssertionWithFailureHint {
          * and serves as extension point.
          */
         companion object {
+            /**
+             * Creates a [ShowSubjectDefinedOption] which provides the [ifDefined] step.
+             */
             fun <T> create(): ShowSubjectDefinedOption<T> = ShowSubjectDefinedOptionImpl()
         }
     }
@@ -200,6 +203,10 @@ interface DescriptiveAssertionWithFailureHint {
          * and serves as extension point.
          */
         companion object {
+            /**
+             * Creates a ShowSubjectAbsentOption where the given [ifDefined] function refers to the previously chosen
+             * [ShowSubjectDefinedOption].
+             */
             fun <T> create(
                 ifDefined: (T) -> Boolean
             ): ShowSubjectAbsentOption<T> = ShowSubjectAbsentOptionImpl(ifDefined)

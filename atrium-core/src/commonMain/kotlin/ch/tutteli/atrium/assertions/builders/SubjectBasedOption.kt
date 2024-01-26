@@ -44,13 +44,21 @@ interface SubjectBasedOption {
      * Provides helper methods for [SubjectBasedOption] contract.
      */
     companion object {
-        //TODO 1.2.0 naming looks ood, why using invoke if we don't create a SubjectBasedOption
+
+        /**
+         * Setups the SubjectBasedOption contract where the given [expect], it's [AssertionContainer.maybeSubject]
+         * respectively, is used to determine if the resulting `ifAbsent` or `ifDefined` option is called where the
+         * [definedOptionFactory] initialises the builder (pattern) and the [subStep] then allows to define the
+         * `ifDefined` and `ifAbsent` steps.
+         *
+         * @return In the end returns the result of either `ifDefined` or `ifAbsent` which [subStep] defines.
+         */
         operator fun <T, R, PO : DefinedOption<T, R, *>> invoke(
             expect: Expect<T>,
             subStep: PO.() -> Pair<() -> R, (T) -> R>,
-            presentOptionFactory: () -> PO
+            definedOptionFactory: () -> PO
         ): R {
-            val (ifAbsent, ifPresent) = presentOptionFactory().subStep()
+            val (ifAbsent, ifPresent) = definedOptionFactory().subStep()
             @Suppress("UNCHECKED_CAST")
             return (expect as AssertionContainer<T>).maybeSubject.fold(ifAbsent, ifPresent)
         }

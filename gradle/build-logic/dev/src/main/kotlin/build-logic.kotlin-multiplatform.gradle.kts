@@ -19,7 +19,7 @@ spek {
     }
 }
 
-//TODO 1.2.0 remove once we moved away from spec to kotlin-test
+//TODO 1.4.0 remove once we moved away from spec to kotlin-test
 if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {
     the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
         .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
