@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
-import ch.tutteli.atrium.api.infix.en_GB.workaround.it
 import ch.tutteli.atrium.specs.integration.TestData
 
 
