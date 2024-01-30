@@ -13,8 +13,8 @@ class Fun0ExpectationsJvmSpec : ch.tutteli.atrium.specs.integration.Fun0Expectat
 ) {
 
     companion object {
-        fun toThrowFeature(expect: Expect<out () -> Any?>) = expect.toThrow<IllegalArgumentException>()
-        fun toThrow(expect: Expect<out () -> Any?>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
+        fun toThrowFeature(expect: Expect<() -> Any?>) = expect.toThrow<IllegalArgumentException>()
+        fun toThrow(expect: Expect<() -> Any?>, assertionCreator: Expect<IllegalArgumentException>.() -> Unit) =
             expect.toThrow<IllegalArgumentException> { assertionCreator() }
     }
 }

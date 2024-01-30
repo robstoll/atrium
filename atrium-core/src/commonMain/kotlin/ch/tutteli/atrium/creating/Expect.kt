@@ -16,14 +16,14 @@ import ch.tutteli.atrium.assertions.Assertion
  * not relevant for newcomers to Atrium (see [https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas](https://github.com/robstoll/atrium-roadmap/wiki/Requirements#personas)
  * for more information about the personas).
  */
-interface ExpectInternal<T> : Expect<T>, AssertionContainer<T>, ExpectGrouping
+interface ExpectInternal<out T> : Expect<T>, AssertionContainer<T>, ExpectGrouping
 
 /**
  * Represents the extension point for expectation functions and sophisticated builders for subjects of type [T].
  *
  * @param T The type of the subject of `this` expectation.
  */
-interface Expect<T>
+interface Expect<out T>
 typealias ExpectationCreator<T> = Expect<T>.() -> Unit
 
 /**

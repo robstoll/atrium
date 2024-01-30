@@ -17,7 +17,7 @@ import kotlin.jvm.JvmName
  *
  * @since 0.9.0
  */
-fun <E> Expect<out Array<out E>>.asList(): Expect<List<E>> =
+fun <E> Expect<Array<out E>>.asList(): Expect<List<E>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**

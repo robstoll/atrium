@@ -13,11 +13,11 @@ class Fun0ExpectationsSpec : ch.tutteli.atrium.specs.integration.Fun0Expectation
     feature1<() -> Int, Expect<Int>.() -> Unit, Int>(Expect<() -> Int>::notToThrow)
 ) {
     companion object {
-        private fun toThrowFeature(expect: Expect<out () -> Any?>) =
+        private fun toThrowFeature(expect: Expect<() -> Any?>) =
             expect.toThrow<IllegalArgumentException>()
 
         private fun toThrow(
-            expect: Expect<out () -> Any?>,
+            expect: Expect<() -> Any?>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.toThrow<IllegalArgumentException> { assertionCreator() }
     }
@@ -25,7 +25,7 @@ class Fun0ExpectationsSpec : ch.tutteli.atrium.specs.integration.Fun0Expectation
     @Suppress("unused", "UNUSED_VALUE", "UNUSED_VARIABLE")
     private fun ambiguityTest() {
         val a1: Expect<() -> Any?> = notImplemented()
-        val a2: Expect<out () -> Int> = notImplemented()
+        val a2: Expect<() -> Int> = notImplemented()
 
         val r1: Expect<IllegalArgumentException> = a1.toThrow<IllegalArgumentException>()
         val r2: Expect<IllegalArgumentException> = a2.toThrow<IllegalArgumentException>()

@@ -15,7 +15,7 @@ import ch.tutteli.atrium.logic.impl.DefaultResultAssertions
 
 fun <E, T : Result<E>> AssertionContainer<T>.isSuccess(): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.isSuccess(this)
 
-fun <TExpected : Throwable> AssertionContainer<out Result<*>>.isFailureOfType(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = impl.isFailureOfType(this, expectedType)
+fun <TExpected : Throwable> AssertionContainer<Result<*>>.isFailureOfType(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = impl.isFailureOfType(this, expectedType)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ResultAssertions

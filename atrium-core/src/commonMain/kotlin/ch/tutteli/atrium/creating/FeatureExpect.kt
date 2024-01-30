@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Represents an [Expect] which results due to a feature extraction from he subject of the expectation.
  */
-interface FeatureExpect<T, R> : Expect<R> {
+interface FeatureExpect<out T, out R> : Expect<R> {
 
     companion object {
 

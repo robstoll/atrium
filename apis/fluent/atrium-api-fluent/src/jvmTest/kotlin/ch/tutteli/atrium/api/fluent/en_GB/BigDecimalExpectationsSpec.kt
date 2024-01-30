@@ -14,7 +14,7 @@ class BigDecimalExpectationsSpec : Spek({
         @Suppress("DEPRECATION") fun1<BigDecimal?, BigDecimal?>(Expect<BigDecimal?>::toEqual).withNullableSuffix(),
         fun1<BigDecimal?, Nothing?>(Expect<BigDecimal?>::toEqual).withNullableSuffix(),
         Expect<Any>::toEqual,
-        @Suppress("DEPRECATION") (Expect<BigDecimal>::notToEqual.name to  Expect<BigDecimal>::notToEqual),
+        @Suppress("DEPRECATION") (Expect<BigDecimal>::notToEqual.name to { notToEqual(it) }),
         Expect<Any>::notToEqual,
         Expect<BigDecimal>::toEqualNumerically.name to Expect<BigDecimal>::toEqualNumerically,
         Expect<BigDecimal>::notToEqualNumerically.name to Expect<BigDecimal>::notToEqualNumerically,

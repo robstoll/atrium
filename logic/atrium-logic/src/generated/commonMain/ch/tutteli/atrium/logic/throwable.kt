@@ -13,7 +13,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultThrowableAssertions
 
 
-fun <TExpected : Throwable> AssertionContainer<out Throwable>.causeIsA(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = impl.causeIsA(this, expectedType)
+fun <TExpected : Throwable> AssertionContainer<Throwable>.causeIsA(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = impl.causeIsA(this, expectedType)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ThrowableAssertions

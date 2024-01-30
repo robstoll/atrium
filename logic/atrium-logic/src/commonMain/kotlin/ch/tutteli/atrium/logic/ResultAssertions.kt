@@ -12,7 +12,7 @@ interface ResultAssertions {
     fun <E, T : Result<E>> isSuccess(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
 
     fun <TExpected : Throwable> isFailureOfType(
-        container: AssertionContainer<out Result<*>>,
+        container: AssertionContainer<Result<*>>,
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected>
 }

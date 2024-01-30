@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 interface ThrowableAssertions {
 
     fun <TExpected : Throwable> causeIsA(
-        container: AssertionContainer<out Throwable>,
+        container: AssertionContainer<Throwable>,
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected>
 }

@@ -19,11 +19,11 @@ import kotlin.reflect.KClass
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrowFeature
  */
-inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
+inline fun <reified TExpected : Throwable> Expect<() -> Any?>.toThrow(): Expect<TExpected> =
     toThrow(TExpected::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
+internal fun <TExpected : Throwable> Expect<() -> Any?>.toThrow(
     kClass: KClass<TExpected>
 ): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
 
@@ -61,7 +61,7 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrow
  */
-inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
+inline fun <reified TExpected : Throwable> Expect<() -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = toThrow(TExpected::class).transformAndAppend(assertionCreator)
 

@@ -18,7 +18,7 @@ class DefaultThrowableAssertions : ThrowableAssertions {
 
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> causeIsA(
-        container: AssertionContainer<out Throwable>,
+        container: AssertionContainer<Throwable>,
         expectedType: KClass<TExpected>
     ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(DescriptionThrowableExpectation.CAUSE) { cause }.transform().let { previousExpect ->

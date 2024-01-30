@@ -20,7 +20,7 @@ import kotlin.reflect.KClass
  * @param T The type of the subject of `this` expectation.
  */
 //TODO 1.3.0 introduce ProofContainer
-interface AssertionContainer<T> {
+interface AssertionContainer<out T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
      * could not be carried out.

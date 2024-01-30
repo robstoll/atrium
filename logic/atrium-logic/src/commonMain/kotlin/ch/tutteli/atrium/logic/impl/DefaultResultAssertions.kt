@@ -27,7 +27,7 @@ class DefaultResultAssertions : ResultAssertions {
 
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <TExpected : Throwable> isFailureOfType(
-        container: AssertionContainer<out Result<*>>,
+        container: AssertionContainer<Result<*>>,
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
         container.manualFeature(EXCEPTION) {

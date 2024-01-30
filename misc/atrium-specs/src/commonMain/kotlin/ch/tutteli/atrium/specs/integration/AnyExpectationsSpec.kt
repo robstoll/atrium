@@ -599,7 +599,7 @@ abstract class AnyExpectationsSpec(
 
 
     describeFun(notToEqualNullFeature, notToEqualNull) {
-        val notToEqualNullFunctions = unifySignatures(notToEqualNullFeature, notToEqualNull)
+        val notToEqualNullFunctions = unifySignatures<Int?, Int>(notToEqualNullFeature, notToEqualNull)
 
         context("subject is null") {
             notToEqualNullFunctions.forEach { (name, notToEqualNullFun, hasExtraHint) ->

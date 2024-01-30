@@ -17,7 +17,7 @@ import kotlin.jvm.JvmName
  *
  * @since 0.12.0
  */
-infix fun <E> Expect<out Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
+infix fun <E> Expect<Array<out E>>.asList(@Suppress("UNUSED_PARAMETER") o: o): Expect<List<E>> =
     _logic.changeSubject.unreported { it.asList() }
 
 /**

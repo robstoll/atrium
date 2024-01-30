@@ -32,7 +32,7 @@ class ResultExpectationsSpec : ResultExpectationsSpec(
         ) = expect toBe aSuccess { assertionCreator() }
 
         private fun toBeAFailure(
-            expect: Expect<out Result<*>>,
+            expect: Expect<Result<*>>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.toBeAFailure<IllegalArgumentException> { assertionCreator() }
 

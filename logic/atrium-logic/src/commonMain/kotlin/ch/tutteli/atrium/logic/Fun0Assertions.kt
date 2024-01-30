@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 interface Fun0Assertions {
 
     fun <TExpected : Throwable> toThrow(
-        container: AssertionContainer<out () -> Any?>,
+        container: AssertionContainer<() -> Any?>,
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<*, TExpected>
 

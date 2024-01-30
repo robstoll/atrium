@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.impl.CollectingExpectImpl
  *
  * @param T The type of the subject of this [Expect].
  */
-interface CollectingExpect<T> : Expect<T> {
+interface CollectingExpect<out T> : Expect<T> {
 
     /**
      * Returns the [Assertion]s which have been [appended][append] to this container.

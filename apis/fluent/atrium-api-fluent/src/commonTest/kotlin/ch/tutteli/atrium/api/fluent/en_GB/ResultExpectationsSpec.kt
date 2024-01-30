@@ -15,7 +15,7 @@ class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpecta
         private fun toBeAFailureFeature(expect: Expect<Result<Int>>) = expect.toBeAFailure<IllegalArgumentException>()
 
         private fun toBeAFailure(
-            expect: Expect<out Result<*>>,
+            expect: Expect<Result<*>>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit
         ) = expect.toBeAFailure<IllegalArgumentException> { assertionCreator() }
 

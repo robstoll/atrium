@@ -67,7 +67,7 @@ internal fun <T> createToBeWithErrorToleranceExplained(
     .build()
 
 internal fun <T : Comparable<T>> toBeWithErrorTolerance(
-    container: AssertionContainer<out T>,
+    container: AssertionContainer<T>,
     expected: T,
     tolerance: T,
     absDiff: (T) -> T,

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.impl.DelegatingExpectImpl
 /**
  * Represents an [Expect] which passes on appended [Assertion]s to a given [Expect].
  */
-interface DelegatingExpect<T> : Expect<T> {
+interface DelegatingExpect<out T> : Expect<T> {
     companion object {
         @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
         operator fun <T> invoke(expect: AssertionContainer<*>, maybeSubject: Option<T>): Expect<T> =

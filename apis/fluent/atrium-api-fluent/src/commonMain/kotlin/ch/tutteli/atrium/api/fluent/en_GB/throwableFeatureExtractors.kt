@@ -60,11 +60,11 @@ fun <T : Throwable> Expect<T>.messageToContain(
  *
  * @since 0.10.0
  */
-inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
+inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(): Expect<TExpected> =
     causeToBeAnInstanceOf(TExpected::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf(
+internal fun <TExpected : Throwable> Expect<Throwable>.causeToBeAnInstanceOf(
     kClass: KClass<TExpected>
 ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = _logic.causeIsA(kClass)
 
@@ -82,6 +82,6 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf
  *
  * @since 0.10.0
  */
-inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
+inline fun <reified TExpected : Throwable> Expect<Throwable>.cause(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = causeToBeAnInstanceOf(TExpected::class).transformAndAppend(assertionCreator)

@@ -182,20 +182,6 @@ fun <T, R> unifySignatures(
     )
 }
 
-// TODO I cant make this work any way I try, it seems to me like I wont be able to unify like this
-//@JvmName("unifySignatures0Feature")
-//fun <T, R> unifySignatures(
-//    f0: Feature0<T, T>,
-//    f1: Feature1<T, Expect<R>.() -> Unit, T>
-//): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, Boolean>> {
-//    val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
-//        { f: Expect<R>.() -> Unit -> (f0.lambda)() }
-//    return listOf(
-//        Triple(f0.name, f0WithSubAssertion, false),
-//        Triple(f1.name, f1.lambda, true)
-//    )
-//}
-
 @JvmName("unifySignatures1Feature")
 fun <T, A1, R> unifySignatures(
     f0: Feature1<T, A1, R>,
@@ -208,16 +194,6 @@ fun <T, A1, R> unifySignatures(
         Triple(f1.name, f1.lambda, true)
     )
 }
-
-@JvmName("unifySignaturesSameReturn0")
-fun <T> unifySignatures(
-    f0: Feature0<T, T>,
-    f1: Fun1<T, Expect<T>.() -> Unit>
-): List<Triple<String, Expect<T>.(Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
-    listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
-        Triple(f1.name, f1.lambda, true)
-    )
 
 @JvmName("unifySignaturesSameReturn1")
 fun <T, A1> unifySignatures(

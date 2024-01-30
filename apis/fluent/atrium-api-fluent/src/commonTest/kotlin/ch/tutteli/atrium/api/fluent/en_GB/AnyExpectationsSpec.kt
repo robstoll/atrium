@@ -59,29 +59,29 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     companion object {
         private fun toEqualNull(expect: Expect<Int?>) = expect.toEqual(null)
 
-        private fun toBeAnInstanceOfIntFeature(expect: Expect<out Any?>): Expect<Int> =
+        private fun toBeAnInstanceOfIntFeature(expect: Expect<Any?>): Expect<Int> =
             expect.toBeAnInstanceOf<Int>()
 
         private fun toBeAnInstanceOfInt(
-            expect: Expect<out Any?>,
+            expect: Expect<Any?>,
             assertionCreator: Expect<Int>.() -> Unit
         ): Expect<Int> =
             expect.toBeAnInstanceOf<Int> { assertionCreator() }
 
-        private fun toBeAnInstanceOfSuperTypeFeature(expect: Expect<out Any?>): Expect<SuperType> =
+        private fun toBeAnInstanceOfSuperTypeFeature(expect: Expect<Any?>): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType>()
 
         private fun toBeAnInstanceOfSuperType(
-            expect: Expect<out Any?>,
+            expect: Expect<Any?>,
             assertionCreator: Expect<SuperType>.() -> Unit
         ): Expect<SuperType> =
             expect.toBeAnInstanceOf<SuperType> { assertionCreator() }
 
-        private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<out Any?>): Expect<SubType> =
+        private fun toBeAnInstanceOfSubTypeFeature(expect: Expect<Any?>): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType>()
 
         private fun toBeAnInstanceOfSubType(
-            expect: Expect<out Any?>,
+            expect: Expect<Any?>,
             assertionCreator: Expect<SubType>.() -> Unit
         ): Expect<SubType> =
             expect.toBeAnInstanceOf<SubType> { assertionCreator() }

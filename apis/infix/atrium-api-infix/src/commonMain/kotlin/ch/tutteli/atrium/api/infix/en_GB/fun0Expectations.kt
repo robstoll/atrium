@@ -17,11 +17,11 @@ import kotlin.reflect.KClass
  *
  * @return An [Expect] with the new type [TExpected].
  */
-inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
+inline fun <reified TExpected : Throwable> Expect<() -> Any?>.toThrow(): Expect<TExpected> =
     toThrow(TExpected::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
+internal fun <TExpected : Throwable> Expect<() -> Any?>.toThrow(
     kClass: KClass<TExpected>
 ): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
 
@@ -57,7 +57,7 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  *
  * @return An [Expect] with the new type [TExpected].
  */
-inline infix fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
+inline infix fun <reified TExpected : Throwable> Expect<() -> Any?>.toThrow(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = toThrow(TExpected::class).transformAndAppend(assertionCreator)
 

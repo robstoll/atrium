@@ -40,7 +40,7 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(assertionCreator: Expect<E>.() -> 
  *
  * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
-inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
+inline fun <reified TExpected : Throwable> Expect<Result<*>>.toBeAFailure(): Expect<TExpected> =
     _logic.isFailureOfType(TExpected::class).transform()
 
 /**
@@ -54,6 +54,6 @@ inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure():
  *
  * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
-inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(
+inline fun <reified TExpected : Throwable> Expect<Result<*>>.toBeAFailure(
     noinline assertionCreator: Expect<TExpected>.() -> Unit
 ): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)

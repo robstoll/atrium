@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents the root of an [Expect] chain, intended as extension point for functionality
  * which should only be available on the root.
  */
-interface RootExpect<T> : Expect<T> {
+interface RootExpect<out T> : Expect<T> {
 
     companion object {
         @ExperimentalNewExpectTypes

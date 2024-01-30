@@ -20,7 +20,7 @@ import kotlin.reflect.KClass
 class DefaultFun0Assertions : Fun0Assertions {
 
     override fun <TExpected : Throwable> toThrow(
-        container: AssertionContainer<out () -> Any?>,
+        container: AssertionContainer<() -> Any?>,
         expectedType: KClass<TExpected>
     ): SubjectChangerBuilder.ExecutionStep<*, TExpected> {
         // we use manualFeature and not extractFeature since we never want to fail the feature extraction
