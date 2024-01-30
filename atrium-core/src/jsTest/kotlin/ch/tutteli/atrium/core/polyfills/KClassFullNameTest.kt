@@ -73,7 +73,7 @@ class KClassFullNameTest {
                 RootAssertionGroupType::class to "${RootAssertionGroupType::class.simpleName}",
                 objInterface::class to "<unknown> (js: objInterface\$1)",
                 objClass::class to "<unknown> (js: objClass\$1)",
-                listOf<Int>()::class to "EmptyList",
+                emptyList<Int>()::class to "EmptyList",
                 listOf(1, 2)::class to "ArrayList",
                 Collection::class to "Collection",
                 Assertion::class to "Assertion"
@@ -93,7 +93,7 @@ class KClassFullNameTest {
 //                objClass to "`object: ${ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class.simpleName}` (js: objClass\$1)",
                 objInterface to "`object: <unknown>` (js: objInterface\$1)",
                 objClass to "`object: <unknown>` (js: objClass\$1)",
-                listOf<Int>() to "EmptyList",
+                emptyList<Int>() to "EmptyList",
                 listOf(1, 2) to "ArrayList"
             ).forEach(fullNameFunIsExpected())
         }

@@ -46,7 +46,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
         return either.fold(
             { maybeThrowable ->
                 val (failureHintAssertions, repForFailure) = maybeThrowable.fold(
-                    { listOf<Assertion>() to representationForFailure },
+                    { emptyList<Assertion>() to representationForFailure },
                     { throwable ->
                         listOf(ThrowableThrownFailureHandler.propertiesOfThrowable(throwable)) to
                             TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
@@ -91,7 +91,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
             },
             { subject ->
                 createFeatureExpect(Some(subject), maybeSubAssertions.fold({
-                    listOf<Assertion>()
+                    emptyList()
                 }) { assertionCreator ->
                     container.collectForCompositionBasedOnSubject(Some(subject), assertionCreator)
                 })

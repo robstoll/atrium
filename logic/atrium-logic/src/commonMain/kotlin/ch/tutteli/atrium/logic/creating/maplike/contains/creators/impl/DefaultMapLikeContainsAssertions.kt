@@ -180,7 +180,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
                         .failing
                         .build()
                 )
-            } else listOf<Assertion>()
+            } else emptyList<Assertion>()
 
             val assertions = featureAssertions + hints
 

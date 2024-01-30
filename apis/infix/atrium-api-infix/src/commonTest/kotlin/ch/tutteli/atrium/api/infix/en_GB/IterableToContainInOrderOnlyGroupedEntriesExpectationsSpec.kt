@@ -46,7 +46,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
         private fun groupFactory(groups: Array<out (Expect<Double>.() -> Unit)?>) =
             when (groups.size) {
                 0 -> object : Group<(Expect<Double>.() -> Unit)?> {
-                    override fun toList() = listOf<Expect<Double>.() -> Unit>()
+                    override fun toList() = emptyList<Expect<Double>.() -> Unit>()
                 }
 
                 1 -> entry(groups[0])

@@ -42,11 +42,11 @@ abstract class CollectionExpectationsSpec(
 
         context("collection is empty") {
             it("${isEmpty.name} - does not throw") {
-                expect(listOf<Int>() as Collection<Int>).isEmptyFun()
+                expect(emptyList<Int>() as Collection<Int>).isEmptyFun()
             }
             it("${isNotEmpty.name} - throws an AssertionError") {
                 expect {
-                    expect(listOf<Int>() as Collection<Int>).isNotEmptyFun()
+                    expect(emptyList<Int>() as Collection<Int>).isNotEmptyFun()
                 }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
             }
         }

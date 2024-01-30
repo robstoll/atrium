@@ -114,7 +114,7 @@ abstract class ListExpectationsSpec(
         }
     }
 
-    val emptyList = listOf<Int?>()
+    val emptyList = emptyList<Int?>()
     val fluentEmptyList = expect(emptyList)
 
     val listIsEmptyDescr = DescriptionListLikeExpectation.IS_EMPTY.getDefault()

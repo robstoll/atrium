@@ -68,21 +68,21 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list toContain o inAny order but only elementsOf listOf<Int>()
-        nList = nList toContain o inAny order but only elementsOf listOf<Int>()
-        subList = subList toContain o inAny order but only elementsOf listOf<Int>()
-        star = star toContain o inAny order but only elementsOf listOf<Int>()
+        list = list toContain o inAny order but only elementsOf emptyList<Int>()
+        nList = nList toContain o inAny order but only elementsOf emptyList<Int>()
+        subList = subList toContain o inAny order but only elementsOf emptyList<Int>()
+        star = star toContain o inAny order but only elementsOf emptyList<Int>()
 
-        list = list toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
-        nList = nList toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+        list = list toContain o inAny order but only the elementsOf(emptyList<Int>(), reportOptionsInAnyOrderOnly = {})
+        nList = nList toContain o inAny order but only the elementsOf(emptyList<Int>(), reportOptionsInAnyOrderOnly = {})
         subList =
-            subList toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the elementsOf(listOf<Int>(), reportOptionsInAnyOrderOnly = {})
+            subList toContain o inAny order but only the elementsOf(emptyList<Int>(), reportOptionsInAnyOrderOnly = {})
+        star = star toContain o inAny order but only the elementsOf(emptyList<Int>(), reportOptionsInAnyOrderOnly = {})
 
-        nList = nList toContain o inAny order but only elementsOf listOf<Int?>()
-        star = star toContain o inAny order but only elementsOf listOf<Int?>()
+        nList = nList toContain o inAny order but only elementsOf emptyList<Int?>()
+        star = star toContain o inAny order but only elementsOf emptyList<Int?>()
 
-        nList = nList toContain o inAny order but only the elementsOf(listOf<Int?>(), reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the elementsOf(listOf<Int?>(), reportOptionsInAnyOrderOnly = {})
+        nList = nList toContain o inAny order but only the elementsOf(emptyList<Int?>(), reportOptionsInAnyOrderOnly = {})
+        star = star toContain o inAny order but only the elementsOf(emptyList<Int?>(), reportOptionsInAnyOrderOnly = {})
     }
 }

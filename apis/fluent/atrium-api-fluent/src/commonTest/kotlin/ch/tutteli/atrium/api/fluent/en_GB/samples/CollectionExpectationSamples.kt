@@ -8,7 +8,7 @@ class CollectionExpectationSamples {
 
     @Test
     fun toBeEmpty() {
-        expect(listOf<Int>()).toBeEmpty()
+        expect(emptyList<Int>()).toBeEmpty()
 
         fails {
             expect(listOf(1, 2, 3)).toBeEmpty()
@@ -20,7 +20,7 @@ class CollectionExpectationSamples {
         expect(listOf(1, 2, 3)).notToBeEmpty()
 
         fails {
-            expect(listOf<Int>()).notToBeEmpty()
+            expect(emptyList<Int>()).notToBeEmpty()
         }
     }
 

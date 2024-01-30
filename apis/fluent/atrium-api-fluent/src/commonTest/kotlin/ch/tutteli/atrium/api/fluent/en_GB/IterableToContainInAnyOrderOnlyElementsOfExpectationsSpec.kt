@@ -55,20 +55,20 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
-        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
-        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
-        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int>())
+        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
+        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
+        subList = subList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
+        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
 
-        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
-        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
-        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
-        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int>(), report = {})
+        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
+        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
+        subList = subList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
+        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
 
-        nList = nList.toContain.inAnyOrder.only.elementsOf(listOf<Int?>())
-        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int?>())
+        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>())
+        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>())
 
-        list = list.toContain.inAnyOrder.only.elementsOf(listOf<Int?>(), report = {})
-        star = star.toContain.inAnyOrder.only.elementsOf(listOf<Int?>(), report = {})
+        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>(), report = {})
+        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>(), report = {})
     }
 }

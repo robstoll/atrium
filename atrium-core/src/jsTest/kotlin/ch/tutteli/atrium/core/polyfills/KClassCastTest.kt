@@ -44,7 +44,7 @@ class KClassCastTest {
                 1L to type<Long>(),
                 1.0f to type<Float>(),
                 1.0 to type<Double>(),
-                listOf<Int>() to type<List<Int>>()
+                emptyList<Int>() to type<List<Int>>()
             ).forEach(castAndStaysSame())
         }
     }
@@ -60,8 +60,8 @@ class KClassCastTest {
                 objClass to ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup::class,
                 objClass to AssertionGroup::class,
                 objClass to Assertion::class,
-                listOf<Int>() to List::class,
-                listOf<Int>() to Collection::class
+                emptyList<Int>() to List::class,
+                emptyList<Int>() to Collection::class
             ).forEach(castAndStaysSame())
         }
     }

@@ -46,7 +46,7 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         private fun groupFactory(groups: Array<out Double>): Group<Double> =
             when (groups.size) {
                 0 -> object : Group<Double> {
-                    override fun toList() = listOf<Double>()
+                    override fun toList() = emptyList<Double>()
                 }
                 1 -> Value(groups[0])
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
@@ -79,7 +79,7 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         private fun nullableGroupFactory(groups: Array<out Double?>): Group<Double?> =
             when (groups.size) {
                 0 -> object : Group<Double?> {
-                    override fun toList() = listOf<Double>()
+                    override fun toList() = emptyList<Double>()
                 }
                 1 -> Value(groups[0])
                 else -> Values(groups[0], *groups.drop(1).toTypedArray())
