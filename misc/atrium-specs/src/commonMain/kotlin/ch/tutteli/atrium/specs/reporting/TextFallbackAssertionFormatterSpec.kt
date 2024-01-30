@@ -51,7 +51,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                     override val type = object : AssertionGroupType {}
                     override val description = Untranslatable("outer group")
                     override val representation = "subject of outer group"
-                    override val assertions = listOf<Assertion>()
+                    override val assertions = emptyList<Assertion>()
                 }
                 )
             }

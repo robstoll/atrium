@@ -104,15 +104,15 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list toContain o inGiven order and only elementsOf(listOf<Int>())
-        nList = nList toContain o inGiven order and only elementsOf(listOf<Int>())
-        subList = subList toContain o inGiven order and only elementsOf(listOf<Int>())
-        star = star toContain o inGiven order and only elementsOf(listOf<Int>())
+        list = list toContain o inGiven order and only elementsOf(emptyList<Int>())
+        nList = nList toContain o inGiven order and only elementsOf(emptyList<Int>())
+        subList = subList toContain o inGiven order and only elementsOf(emptyList<Int>())
+        star = star toContain o inGiven order and only elementsOf(emptyList<Int>())
 
-        list = list toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = { showAlwaysSummary() })
-        nList = nList toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = { showOnlyFailing()})
-        subList = subList toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = {})
-        star = star toContain o inGiven order and only the elementsOf(listOf<Int>(), reportOptionsInOrderOnly = {})
+        list = list toContain o inGiven order and only the elementsOf(emptyList<Int>(), reportOptionsInOrderOnly = { showAlwaysSummary() })
+        nList = nList toContain o inGiven order and only the elementsOf(emptyList<Int>(), reportOptionsInOrderOnly = { showOnlyFailing()})
+        subList = subList toContain o inGiven order and only the elementsOf(emptyList<Int>(), reportOptionsInOrderOnly = {})
+        star = star toContain o inGiven order and only the elementsOf(emptyList<Int>(), reportOptionsInOrderOnly = {})
 
         list = list.toContainExactlyElementsOf(listOf(1))
         nList = nList.toContainExactlyElementsOf(listOf(1))

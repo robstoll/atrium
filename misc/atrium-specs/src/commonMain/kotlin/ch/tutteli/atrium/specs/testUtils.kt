@@ -296,7 +296,7 @@ expect val lineSeparator: String
 fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
 
 val emptyIterableLikeTypes = mapOf(
-    "Iterable" to listOf<Int>(),
+    "Iterable" to emptyList<Int>(),
     "Sequence" to sequenceOf<Int>(),
     "Array" to arrayOf<Int>(),
     "CharArray" to charArrayOf(),

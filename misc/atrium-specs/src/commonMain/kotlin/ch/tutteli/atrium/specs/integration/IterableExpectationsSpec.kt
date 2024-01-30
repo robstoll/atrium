@@ -57,7 +57,7 @@ abstract class IterableExpectationsSpec(
 
         it("throws an AssertionError if an iterable does not have next") {
             expect {
-                expect(listOf<Int>() as Iterable<Int>).toHaveElementsFun()
+                expect(emptyList<Int>() as Iterable<Int>).toHaveElementsFun()
             }.toThrow<AssertionError> { messageToContain(toHaveANextElement) }
         }
     }
@@ -66,7 +66,7 @@ abstract class IterableExpectationsSpec(
         val notToHaveElementsFun = notToHaveElements.lambda
 
         it("does not throw if an iterable has not next") {
-            expect(listOf<Int>() as Iterable<Int>).notToHaveElementsFun()
+            expect(emptyList<Int>() as Iterable<Int>).notToHaveElementsFun()
         }
 
         it("throws an AssertionError if an iterable has next element") {
@@ -139,7 +139,7 @@ abstract class IterableExpectationsSpec(
         describe("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(listOf<Int>() as Iterable<Int>).toHaveElementsAndNoDuplicatesFun()
+                    expect(emptyList<Int>() as Iterable<Int>).toHaveElementsAndNoDuplicatesFun()
                 }.toThrow<AssertionError> {
                     message {
                         toContain(

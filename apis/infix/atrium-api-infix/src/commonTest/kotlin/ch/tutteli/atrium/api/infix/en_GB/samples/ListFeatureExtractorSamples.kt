@@ -71,7 +71,7 @@ class ListFeatureExtractorSamples {
         }
 
         fails {
-            expect(listOf<Int>()).last toEqual 3 // fails, because list is empty
+            expect(emptyList<Int>()).last toEqual 3 // fails, because list is empty
         }
     }
 
@@ -100,7 +100,7 @@ class ListFeatureExtractorSamples {
         }
 
         fails {
-            expect(listOf<Int>()).last {
+            expect(emptyList<Int>()).last {
                 it toEqual 3 // fails, because list is empty
             }
         }

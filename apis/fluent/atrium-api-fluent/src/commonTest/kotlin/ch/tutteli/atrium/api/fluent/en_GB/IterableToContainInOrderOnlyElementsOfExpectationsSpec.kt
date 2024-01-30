@@ -84,15 +84,15 @@ class IterableToContainInOrderOnlyElementsOfExpectationsSpec : Spek({
         var subList: Expect<ArrayList<Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.toContain.inOrder.only.elementsOf(listOf<Int>())
-        nList = nList.toContain.inOrder.only.elementsOf(listOf<Int>())
-        subList = subList.toContain.inOrder.only.elementsOf(listOf<Int>())
-        star = star.toContain.inOrder.only.elementsOf(listOf<Int>())
+        list = list.toContain.inOrder.only.elementsOf(emptyList<Int>())
+        nList = nList.toContain.inOrder.only.elementsOf(emptyList<Int>())
+        subList = subList.toContain.inOrder.only.elementsOf(emptyList<Int>())
+        star = star.toContain.inOrder.only.elementsOf(emptyList<Int>())
 
-        list = list.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { showAlwaysSummary() })
-        nList = nList.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { showOnlyFailing() })
-        subList = subList.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { })
-        star = star.toContain.inOrder.only.elementsOf(listOf<Int>(), report = { })
+        list = list.toContain.inOrder.only.elementsOf(emptyList<Int>(), report = { showAlwaysSummary() })
+        nList = nList.toContain.inOrder.only.elementsOf(emptyList<Int>(), report = { showOnlyFailing() })
+        subList = subList.toContain.inOrder.only.elementsOf(emptyList<Int>(), report = { })
+        star = star.toContain.inOrder.only.elementsOf(emptyList<Int>(), report = { })
 
         list = list.toContainExactlyElementsOf(listOf(1))
         nList = nList.toContainExactlyElementsOf(listOf(1))

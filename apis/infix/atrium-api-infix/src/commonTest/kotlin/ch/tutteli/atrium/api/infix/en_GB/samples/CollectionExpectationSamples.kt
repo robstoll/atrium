@@ -10,7 +10,7 @@ import kotlin.test.Test
 class CollectionExpectationSamples {
     @Test
     fun toBeEmpty() {
-        expect(listOf<Int>()) toBe empty
+        expect(emptyList<Int>()) toBe empty
 
         fails {
             expect(listOf(1, 2, 3)) toBe empty
@@ -22,7 +22,7 @@ class CollectionExpectationSamples {
         expect(listOf(1, 2, 3)) notToBe empty
 
         fails {
-            expect(listOf<Int>()) notToBe empty
+            expect(emptyList<Int>()) notToBe empty
         }
     }
 
