@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
+import ch.tutteli.atrium.specs.integration.MapLikeToContainFormatSpecBase
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
@@ -30,22 +32,32 @@ class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
         private fun toContainKeyValuePairs(
             expect: Expect<Map<out String, Int>>,
             a: Pair<String, Int>,
-            aX: Array<out Pair<String, Int>>
+            aX: Array<out Pair<String, Int>>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Map<out String, Int>> {
             val mapLike: MapLike = if (aX.distinct().size != aX.size || aX.contains(a)) {
                 sequenceOf(a, *aX).asIterable()
             } else {
                 mapOf(a, *aX)
             }
-            return expect toContain o inGiven order and only entriesOf mapLike
+            return if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
+                expect toContain o inGiven order and only entriesOf mapLike
+            } else expect toContain o inGiven order and only the entriesOf(mapLike, reportOptionsInOrderOnly = {})
+
         }
 
         private fun toContainKeyValuePairsNullable(
             expect: Expect<Map<out String?, Int?>>,
             a: Pair<String?, Int?>,
-            aX: Array<out Pair<String?, Int?>>
+            aX: Array<out Pair<String?, Int?>>,
+            report: InOrderOnlyReportingOptions.() -> Unit
         ): Expect<Map<out String?, Int?>> =
-            expect toContain o inGiven order and only entriesOf listOf(a, *aX)
+            if (report === MapLikeToContainFormatSpecBase.emptyInOrderOnlyReportOptions) {
+                expect toContain o inGiven order and only entriesOf listOf(a, *aX)
+            } else expect toContain o inGiven order and only the entriesOf(
+                listOf(a, *aX),
+                reportOptionsInOrderOnly = {}
+            )
     }
 
     @Suppress("unused", "UNUSED_VALUE")
