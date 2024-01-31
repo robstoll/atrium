@@ -78,5 +78,39 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
                         .regex(additionalEntries + "(.|$separator)+$listBulletPoint${entry(key, value)}")
                 }
             }
+
+
+        fun Expect<String>.notToContainEntry(key: String): Expect<String> =
+            notToContain.regex("\\Q${DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault()}.*$key=\\E")
+
+        fun Expect<String>.element(
+            successFailureBulletPoint: String,
+            index: Int,
+            actual: Any,
+            expectedKey: String?,
+            expectedValue: String,
+            explaining: Boolean = false,
+            explainingValue: Boolean = false,
+            withBulletPoint: Boolean = true,
+            withKey: Boolean = true,
+            withValue: Boolean = true
+        ): Expect<String> {
+            val indent = " ".repeat(successFailureBulletPoint.length)
+            val keyValueBulletPoint = if (explaining) explanatoryBulletPoint else featureBulletPoint
+            val indentKeyValueBulletPoint = " ".repeat(keyValueBulletPoint.length)
+            val indentToKeyValue =
+                "$indentRootBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
+
+            return this.toContain.exactly(1).regex(
+                "\\Q${if (withBulletPoint) successFailureBulletPoint else ""}$featureArrow${ IterableToContainSpecBase.elementWithIndex(index)}: $actual\\E.*$separator" +
+                    (if (withKey) "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
+                        "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator"
+                    else "") +
+                    (if (withValue) "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$separator" +
+                        "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expectedValue"
+                    else "")
+            )
+        }
+
     }
 }

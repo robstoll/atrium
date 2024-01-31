@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
-import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nullableCases
+import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
     keyWithValueAssertions: MFun3<String, Int, Expect<Int>.() -> Unit, InOrderOnlyReportingOptions.() -> Unit>,
@@ -76,31 +76,8 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         )
     ) {})
 
-    fun entry(index: Int) = IterableToContainSpecBase.elementWithIndex(index)
-
-    fun Expect<String>.element(
-        successFailureBulletPoint: String,
-        index: Int,
-        actual: Any,
-        expectedKey: String?,
-        expectedValue: String,
-        explaining: Boolean = false,
-        explainingValue: Boolean = false
-    ): Expect<String> {
-        val indent = " ".repeat(successFailureBulletPoint.length)
-        val keyValueBulletPoint = if (explaining) explanatoryBulletPoint else featureBulletPoint
-        val indentKeyValueBulletPoint = " ".repeat(keyValueBulletPoint.length)
-        val indentToKeyValue =
-            "$indentRootBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
-
-        return this.toContain.exactly(1).regex(
-            "\\Q$successFailureBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
-                "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
-                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator" +
-                "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$separator" +
-                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expectedValue"
-        )
-    }
+    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
+        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<String>.elementSuccess(
         index: Int,
@@ -114,21 +91,36 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         actual: Any,
         expectedKey: String?,
         expectedValue: String,
-        explainingValue: Boolean = false
+        explainingValue: Boolean = false,
+        withBulletPoint: Boolean = true,
+        withKey: Boolean = true,
+        withValue: Boolean = true
     ): Expect<String> =
-        element(failingBulletPoint, index, actual, expectedKey, expectedValue, explainingValue = explainingValue)
+        element(
+            failingBulletPoint,
+            index,
+            actual,
+            expectedKey,
+            expectedValue,
+            explainingValue = explainingValue,
+            withBulletPoint = withBulletPoint,
+            withKey = withKey,
+            withValue = withValue
+        )
 
     fun Expect<String>.elementOutOfBound(
         index: Int,
         expectedKey: String,
-        expectedValue: String
+        expectedValue: String,
+        withBulletPoint: Boolean = true
     ): Expect<String> = element(
         failingBulletPoint,
         index,
         IterableToContainSpecBase.sizeExceeded,
         expectedKey,
         expectedValue,
-        explaining = true
+        explaining = true,
+        withBulletPoint = withBulletPoint
     )
 
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
@@ -255,8 +247,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         }
 
         context("report options") {
-            //TODO #1129 add tests, see IterableToContainInOrderOnlyValuesExpectationsSpec -> report options
-            context("") {
+            context("map $map") {
                 it("shows only failing with report option `showOnlyFailing`") {
                     expect {
                         expect(map).toContainFun(
@@ -268,9 +259,9 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(2, 3)
-                            elementSuccess(0, "1", "a", "1")
-                            elementFailing(0, "2", "a", "1")
-                            elementOutOfBound(3, "d", "4")
+                            notToContainEntry("a")
+                            notToContainEntry("b")
+                            elementOutOfBound(2, "c", "$toEqualDescr: 3", withBulletPoint = false)
                         }
                     }
                 }
@@ -284,55 +275,87 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementSuccess(0, "1", "a", "1")
-                            elementFailing(0, "2", "a", "1")
-                            elementOutOfBound(3, "d", "4")
                             toContainSize(2, 3)
+                            notToContainEntry("a")
+                            notToContainEntry("b")
+                            elementOutOfBound(2, "c", "$toEqualDescr: 3", withBulletPoint = false)
                         }
                     }
                 }
-                it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 2") {
+                it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(3)` because there are 2") {
                     expect {
                         expect(map).toContainFun(
                             keyValue("a") { toEqual(1) },
-                            report = { showOnlyFailingIfMoreExpectedElementsThan(1) }
+                            keyValue("b") { toEqual(1) },
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(3) }
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            toContainSize(2, 1)
-                            elementSuccess(0, "1", "a", "1")
+                            notToContain(sizeDescr)
+                            elementSuccess(0, "a=1", "a", "$toEqualDescr: 1")
+                            elementFailing(1, "b=2", "b", "$toEqualDescr: 1")
                         }
                     }
                 }
-                it("shows summary without report option if there are 2 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 2") {
+                it("shows summary without report option if there are  10 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
                     expect {
                         expect(map).toContainFun(
                             keyValue("a") { toEqual(1) },
-                            keyValue("b") { toEqual(2) },
-                            keyValue("c") { toEqual(3) }
+                            keyValue("b") { toEqual(1) },
+                            keyValue("c") { toEqual(3) },
+                            keyValue("d") { toEqual(4) },
+                            keyValue("e") { toEqual(5) },
+                            keyValue("f") { toEqual(6) },
+                            keyValue("g") { toEqual(7) },
+                            keyValue("h") { toEqual(8) },
+                            keyValue("i") { toEqual(9) },
+                            keyValue("j") { toEqual(10) }
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementSuccess(0, "1", "a", "1")
-                            elementFailing(0, "2", "a", "1")
-                            elementOutOfBound(3, "d", "4")
-                            toContainSize(2, 3)
+                            toContainSize(2, 10)
+                            elementSuccess(0, "a=1", "a", "$toEqualDescr: 1")
+                            elementFailing(1, "b=2", "b", "$toEqualDescr: 1")
+                            elementOutOfBound(2, "c", "$toEqualDescr: 3")
+                            elementOutOfBound(3, "d", "$toEqualDescr: 4")
+                            elementOutOfBound(4, "e", "$toEqualDescr: 5")
+                            elementOutOfBound(5, "f", "$toEqualDescr: 6")
+                            elementOutOfBound(6, "g", "$toEqualDescr: 7")
+                            elementOutOfBound(7, "h", "$toEqualDescr: 8")
+                            elementOutOfBound(8, "i", "$toEqualDescr: 9")
+                            elementOutOfBound(9, "j", "$toEqualDescr: 10")
                         }
                     }
                 }
-                it("shows only failing without report option if there are 3 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 2") {
+                it("shows only failing without report option if there are 11 expected elements because default for showOnlyFailingIfMoreExpectedElementsThan is 10") {
                     expect {
                         expect(map).toContainFun(
                             keyValue("a") { toEqual(1) },
-                            keyValue("b") { toEqual(2) },
-                            keyValue("c") { toEqual(3) }
+                            keyValue("b") { toEqual(1) },
+                            keyValue("c") { toEqual(3) },
+                            keyValue("d") { toEqual(4) },
+                            keyValue("e") { toEqual(5) },
+                            keyValue("f") { toEqual(6) },
+                            keyValue("g") { toEqual(7) },
+                            keyValue("h") { toEqual(8) },
+                            keyValue("i") { toEqual(9) },
+                            keyValue("j") { toEqual(10) },
+                            keyValue("k") { toEqual(11) }
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementSuccess(0, "1", "a", "1")
-                            elementFailing(0, "2", "a", "1")
-                            elementOutOfBound(3, "d", "4")
-                            toContainSize(2, 3)
+                            toContainSize(2, 11)
+                            notToContainEntry("a")
+                            elementFailing(1, "b=2", "b", "$toEqualDescr: 1", withBulletPoint = false, withKey = false,)
+                            elementOutOfBound(2, "c", "$toEqualDescr: 3", withBulletPoint = false)
+                            elementOutOfBound(3, "d", "$toEqualDescr: 4", withBulletPoint = false)
+                            elementOutOfBound(4, "e", "$toEqualDescr: 5", withBulletPoint = false)
+                            elementOutOfBound(5, "f", "$toEqualDescr: 6", withBulletPoint = false)
+                            elementOutOfBound(6, "g", "$toEqualDescr: 7", withBulletPoint = false)
+                            elementOutOfBound(7, "h", "$toEqualDescr: 8", withBulletPoint = false)
+                            elementOutOfBound(8, "i", "$toEqualDescr: 9", withBulletPoint = false)
+                            elementOutOfBound(9, "j", "$toEqualDescr: 10", withBulletPoint = false)
+                            elementOutOfBound(10, "k", "$toEqualDescr: 11", withBulletPoint = false)
                         }
                     }
                 }
@@ -340,7 +363,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         }
     }
 
-    nullableCases(describePrefix) {
+    describeFun(keyWithNullableValueAssertions) {
 
         fun Expect<Map<out String?, Int?>>.toContainFun(
             t: Pair<String?, (Expect<Int>.() -> Unit)?>,
