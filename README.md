@@ -2343,7 +2343,7 @@ it suffices to create an extension function for `ArgumentMapperBuilder`.
 
 ## Enhanced Reporting
 
-[Composing expectation functions](#compose-expectation-functions) give already quite a bit of power to an expectation function writer.
+[Composing expectation functions](#compose-expectation-functions) gives already quite a bit of power to an expectation function writer.
 Yet, sometimes we would like to create functions which have a better error reporting than the one we get 
 when we compose expectation functions.
 
@@ -2356,11 +2356,11 @@ was the API level) so that you can reuse and compose them in other ways.
 - `changeSubject` which allows to change the subject either:
    - `unreported`; meaning it does not show up in reporting (e.g. `Expect<Array<out T>>.asList()` uses it, see [arrayAssertions](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/main/kotlin/ch/tutteli/atrium/api/fluent/en_GB/arraySubjectChangers.kt#L20))
    - reported, using `reportBuilder`; meaning a subject transformation which is shown in reporting as it incorporates a transformation (e.g. `toBeAnInstanceOf` uses it, see [AnyAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultAnyAssertions.kt#L70))
-- `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapEntryAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapEntryAssertions.kt#L11))
+- `collect` which allows to collect expectations - especially helpful in composing expectations (see [mapEntryAssertions -> isKeyValue](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultMapEntryAssertions.kt#L11))
 - `extractFeature` for feature extraction where it is not always save to extract (see [`List.get`](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultListAssertions.kt#L13))   
 
 Besides, the `assertionBuilder` allows to create different kinds of Assertions 
-(see [AssertionBuilder](https://docs.atriumlib.org/latest#/kdoc/atrium-core/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html AssertionBuilder) for more information)
+(see [AssertionBuilder](https://docs.atriumlib.org/latest#/kdoc/atrium-core/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information)
 which can be used to create very specific expectation functions. 
 
 You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultFloatingPointAssertions.kt#L72)
@@ -2613,7 +2613,7 @@ See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#pro
 
 The roadmap is maintained at [atrium-roadmap](https://github.com/robstoll/atrium-roadmap).
 The milestones give you an overview of the planned (breaking) changes
--- e.g. the changes for the next major version [1.1.0](https://github.com/robstoll/atrium-roadmap/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A1.1.0+)
+-- e.g. the changes for the next major version [2.0.0](https://github.com/robstoll/atrium-roadmap/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A2.0.0)
 
 You are invited to take part in the discussions related to design decisions, upcoming features and more.
 Bring in your own wishes and ideas into this process.
