@@ -10,6 +10,7 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+//TODO 1.3.0 move to core with ProofContainer
 /**
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
  * a new [Expect] whereas the new [Expect] delegates assertion checking to a given original assertion container.

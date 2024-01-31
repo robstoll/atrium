@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
@@ -13,6 +11,7 @@ import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.FeatureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+//TODO 1.3.0 move to core with ProofContainer
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
  *
