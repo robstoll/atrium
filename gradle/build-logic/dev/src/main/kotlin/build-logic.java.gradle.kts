@@ -8,9 +8,9 @@ java {
         // reading JAVA_VERSION from env to enable jdk17 build in CI
         languageVersion.set(JavaLanguageVersion.of(buildParameters.java.version))
     }
-    consistentResolution {
-        useCompileClasspathVersions()
-    }
+//    consistentResolution {
+//        useCompileClasspathVersions()
+//    }
 }
 
 

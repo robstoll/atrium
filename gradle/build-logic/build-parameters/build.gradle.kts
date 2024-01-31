@@ -22,7 +22,7 @@ buildParameters {
         string("version") {
             fromEnvironment()
             @Suppress("DEPRECATION" /* we support kotlin_1_4 on purpose */)
-            defaultValue.set(KotlinVersion.KOTLIN_1_4.version)
+            defaultValue.set(KotlinVersion.KOTLIN_2_0.version)
             description.set("kotlin version used for apiVersion and languageVersion")
         }
         bool("werror") {
