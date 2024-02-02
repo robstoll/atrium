@@ -72,6 +72,13 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [FAQ](#faq)
+  - [My expectation function is not available for subtypes](#my-expectation-function-is-not-available-for-subtypes)
+  - [I have problems in conjunction with `feature`](#i-have-problems-in-conjunction-with-feature)
+  - [Does Atrium provide something like AssertJ's soft assertion?](#does-atrium-provide-something-like-assertjs-soft-assertion)
+  - [Are there toContain/toHaveElementsAndAll/None/Any expectation functions for `Sequence`/`Array`?](#are-there-tocontaintohaveelementsandallnoneany-expectation-functions-for-sequencearray)
+  - [Where are the expectation functions for java.io.File?](#where-are-the-expectation-functions-for-javaiofile)
+  - [Where are the expectation functions for java.util.Date?](#where-are-the-expectation-functions-for-javautildate)
+  - [Where do I find a list of all available functions?](#where-do-i-find-a-list-of-all-available-functions)
 - [Roadmap](#roadmap)
 - [Contributors and contribute](#contributors-and-contribute)
 - [Sponsors](#sponsors)
@@ -170,6 +177,9 @@ Have a look at
 to see how the infix API looks like, how they differ respectively.
 
 ## Your First Expectation
+See also [AnyExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt)
+for further examples.
+
 We start off with a simple example:
 
 <ex-first>
@@ -337,6 +347,9 @@ If you want to state expectations about multiple unrelated subjects and want to 
 then you might be interested in using `expectGrouped` instead of `expect` -> take a look at the [data driven testing](#data-driven-testing) section.
  
 ## Expect an Exception
+See also [Fun0ExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/Fun0ExpectationSamples.kt)
+for further examples.
+
 <ex-toThrow1>
 
 ```kotlin
@@ -454,11 +467,14 @@ to adjust the filtering.
 Stack frames of Atrium and of test runners (Spek, Kotest, TestNG, and JUnit for JVM, mocha and jasmine for JS) are excluded per default.
 [Create a Feature Request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 in case you use a different runner, we can add yours to the list as well. 
- 
+
 <a name="property-assertions"></a>
 <a name="method-assertions"></a>
 <a name="feature-assertions"></a>
 ## Feature Extractors
+See also [FeatureExtractorSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/FeatureExtractorSamples.kt)
+for further examples.
+
 Many times you are only interested in certain features of the subject and want to state expectations about them. 
 
 There are different use cases for feature extractors. 
@@ -822,6 +838,8 @@ expect(a)
 ``` 
 
 ## Type Expectations
+See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L41)
+for further examples.
 
 <ex-type-expectations-1>
 
@@ -879,6 +897,10 @@ There are two `toBeAnInstanceOf` overloads:
   failing to do so cannot include additional information in error reporting though.
 
 ## Nullable Types
+See also [AnyExpectationSamples -> notToEqualNullFeature and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L62)
+for further examples.
+
+
 Let us look at the case where the subject of the expectation has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html).
 
 <ex-nullable-1>
@@ -972,6 +994,9 @@ to create a specific expectation or use one of the
 The following sub sections show both use cases by examples.
 
 ### Shortcut Functions
+See also
+[IterableExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/IterableExpectationSamples.kt)
+for further examples.
 
 <ex-collection-short-1>
 
@@ -1289,6 +1314,10 @@ We provide again [Shortcut Functions](#shortcut-functions-1) for the most common
 and more [Sophisticated Expectation Builder](#sophisticated-expectation-builders-1) for the other cases.
 
 ### Shortcut Functions
+See also
+[MapExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/MapExpectationSamples.kt)
+for further examples.
+
 <ex-map-1>
 
 ```kotlin
@@ -1537,6 +1566,11 @@ There are more expectation functions, a full list can be found in
 [KDoc of atrium-api-fluent](https://docs.atriumlib.org/latest#/kdoc/atrium-api-fluent).
 
 ## Path Expectations
+See also
+[PathExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathExpectationSamples.kt)
+and
+[PathFeatureExtractorSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathFeatureExtractorSamples.kt)
+for further examples.
 
 Atrium’s expectation functions for paths give detailed failure hints explaining what happened on the file system.
 For example, `toExist` will explain which entry was the first one missing:
@@ -1634,11 +1668,25 @@ You can use a [feature extractor](#feature-extractors), [write your own expectat
 or [propose an addition to Atrium](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=Missing%20Expectation%20Function)
 in such cases.
 
+For instance, instead of the following (which can easily be out of sync):
+```kotlin
+expect(person.name).because("name should be Alexander") {
+    toEqual("Alex")
+}
+```
+It is better to use a feature extractor as follows:
+```kotlin
+expect(person).feature(Person::name).toEqual("Alex")
+```
+
 Just like code comments, `because` can be valuable, but should not be overused.
 
 </details>
 
 ## Data Driven Testing
+See also
+[GroupingSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/GroupingSamples.kt)
+for further examples.
 
 Atrium is not intended for data driven testing in the narrowed sense in terms that it cannot produce multiple tests.
 This is the responsibility of your test runner.
@@ -2112,37 +2160,28 @@ Say you want to build a `toBeBetween` expectation function for `java.util.Date`,
 
 ```kotlin
 fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    toBeGreaterThanOrEqualTo(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
-```
-</code-own-compose-1>
-
-Pretty simple, isn't it?
-Notice though, that this function fails fast, which means, the upper bound is not evaluated 
-if the expectation about the lower bound already fails. 
-You need to use an [expectation-group](#define-single-expectations-or-an-expectation-group) 
-if you want that both are evaluated:
-
-<code-own-compose-2>
-
-```kotlin
-import ch.tutteli.atrium.logic._logic
-
-fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
-    _logic.appendAsGroup {
+    and {
         toBeGreaterThanOrEqualTo(lowerBoundInclusive)
         toBeLessThan(upperBoundExclusive)
     }
 ```
-</code-own-compose-2>
+</code-own-compose-1>
 
-Still simple enough.
+Pretty simple, isn't it?
+Note, using `and {...}` creates an [expectation group-block](#define-single-expectations-or-an-expectation-group) 
+and therefore both `toBeGreaterThanOrEqualTo` and `toBeLessThan` are evaluated and reported.
+If wou prefer a fail-fast behaviour then you could write it as follows but from our experience more context in error
+messages ways more than a tiny bit faster test execution stop: 
+```kotlin
+toBeGreaterThanOrEqualTo(lowerBoundInclusive).and.toBeLessThan(upperBoundExclusive)
+```
 
 <details>
 <summary>💬 Why is a type parameter used in the above examples?</summary>
 
 That is right, we used a type parameter `T: Date` and not `Expect<Date>` directly. 
 You should always do this unless your type is final (not `open`) and does not have type parameters itself - but to have a simple rule, just do it. 
-This way the expectation function is also available for sub types. This is because `Expect` is [invariant](https://kotlinlang.org/docs/reference/generics.html#variance). 
+This way the expectation function is also available for subtypes. This is because `Expect` is [invariant](https://kotlinlang.org/docs/reference/generics.html#variance). 
 Following an example:
 ```kotlin
 interface A { val foo get() = 1 }
@@ -2184,6 +2223,9 @@ fun Expect<Person>.toHaveNumberOfChildren(number: Int): Expect<Person> =
 Three things to notice here: 
 1. we make use of a [feature extractor with class reference](#within-expectation-functions--feature-extractors).
 2. We use the overload which expects an `assertionCreator`-lambda. This way subsequent expectations are still made on `Person` and not on `children`.
+3. We have not used a type parameter in contrast to the previous example, because Person is final and doesn't have type
+   parameters by its own. If it were open, we would again use `fun <T: Person> Expect<T>.toHaveNumberOfChildren` so
+   that this expectation function is also available on subtypes of Person.
  
 Its usage is then as follows:
 
@@ -2530,8 +2572,36 @@ The code documentation is generated with dokka and is hosted on github-pages:
 
 # FAQ
 You find frequently asked questions below.
-If your question is not answered below, then please do not hesitate and ask your question in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
+If your question is not answered below, then please do not hesitate to open a new discussion in 
+[Q&A](https://github.com/robstoll/atrium/discussions/new?category=q-a) or in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
 In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](https://slack.kotlinlang.org/). 
+
+## My expectation function is not available for subtypes
+
+Say you have defined the following
+```kotlin
+interface Foo
+class Bar: Foo
+fun Expect<Foo>.toHaveWings() = ...
+fun test() = expect(Bar()).toHaveWings()
+//                          | compile error wrong receiver: Foo expected Bar given
+```
+`Expect` is [invariant](https://kotlinlang.org/docs/reference/generics.html#variance) which means, if you define
+`Expect<Foo>` then it is only available for `Foo` and not for subtypes. You need to use a type parameter instead and
+use an upper bound to restrict the subject type:
+```kotlin
+fun <T: Foo> Expect<T>.toHaveWings() = ...
+```
+Now, you can use `toHaveWings` also on subtypes of `Foo`.
+
+In general, you should always use the type parameter approach, the only exception is if you deal with final classes
+(e.g. data classes) which don't have a type parameter itself. In such a case there is no benefit to have a type
+parameter but on the other hand, it also doesn't hurt -- less to think about 😉 (your IDE might warn you that it is not necessary though).
+
+## I have problems in conjunction with `feature`
+
+See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
+
 
 ## Does Atrium provide something like AssertJ's soft assertion?
 Of course and even more powerful yet less cumbersome to write in our opinion.
@@ -2604,10 +2674,6 @@ A good alternative is to have a look at the sample files:
 
 + [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 + [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-
-## Problems in conjunction with `feature`
-
-See [Ambiguity Problems](#ambiguity-problems) and [Property does not exist](#property-does-not-exist).
 
 # Roadmap
 
