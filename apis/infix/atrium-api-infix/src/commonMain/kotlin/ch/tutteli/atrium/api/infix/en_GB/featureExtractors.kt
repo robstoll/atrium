@@ -119,7 +119,7 @@ infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
  * @since 0.12.0
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
-infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator< T, R>): Expect<T> =
+infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<T, R>): Expect<T> =
     _logic.manualFeature(
         of.descriptionProvider(_logic.components),
         of.extractor
@@ -367,7 +367,7 @@ fun <T, R> of(description: String, extractor: T.() -> R): Feature<T, R> =
  *
  * Note, you need to enable the new type inference of Kotlin (or use Kotlin 1.4 and above) in order that Kotlin
  * is able to infer the types.
- * As workaround you can use [feature] with the overload which expects `MetaFeatureOption<T>.(T) -> MetaFeature<R>`.
+ * As workaround, you can use [feature] with the overload which expects `MetaFeatureOption<T>.(T) -> MetaFeature<R>`.
  * and use `it` after the call (import from the package workaround). For instance:
  * ```
  * // use
@@ -385,3 +385,59 @@ fun <T, R> of(
     extractor: T.() -> R,
     assertionCreator: Expect<R>.() -> Unit
 ): FeatureWithCreator<T, R> = FeatureWithCreator(description, extractor, assertionCreator)
+
+/**
+ * Extracts the subject of this [Expect] in case it is defined and passes it to the given [assertionCreator]
+ * or adds a failing assertion to this [Expect] in case the subject is absent (e.g. due to a previous extraction
+ * failure).
+ *
+ * Use the overload which expects an [FailureDescriptionWithCreator] if you want to use a custom failure description
+ * in case the subject extraction is not possible as it is absent.
+ *
+ * @param assertionCreator The assertion-creator lambda which is responsible to create and append at least 1 assertion
+ *   to this [Expect].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.extractSubject
+ *
+ * @since 1.2.0
+ */
+infix fun <T> Expect<T>.extractSubject(
+    assertionCreator: Expect<T>.(T) -> Unit
+) = _logic.extractSubject(null, assertionCreator)
+
+/**
+ * Extracts the subject of this [Expect] in case it is defined and passes it to the given
+ * [FailureDescriptionWithCreator.assertionCreator] or adds a failing assertion to this [Expect] in case the subject
+ * is absent (e.g. due to a previous extraction failure) using the given
+ * [FailureDescriptionWithCreator.failureDescription].
+ *
+ * Use the function `withFailureDescription(String) { ... }` to create an [FailureDescriptionWithCreator].
+ *
+ * @param withFailureDescription The parameter object which contains the
+ *   [FailureDescriptionWithCreator.failureDescription] and [FailureDescriptionWithCreator.assertionCreator].
+ *   Use the function `withFailureDescription(String) { ... }` to create an [FailureDescriptionWithCreator].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.extractSubjectWithFailureDescription
+ *
+ * @since 1.2.0
+ */
+infix fun <T> Expect<T>.extractSubject(
+    withFailureDescription: FailureDescriptionWithCreator<T>
+) = _logic.extractSubject(withFailureDescription.failureDescription, withFailureDescription.assertionCreator)
+
+/**
+ * Helper function to create a [FailureDescriptionWithCreator] based on the given [failureDescription]
+ * and [assertionCreator] -- allows expressing `KClass<*>, vararg KClass<*>`.
+ *
+ * @since 1.2.0
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.extractSubjectWithFailureDescription
+ */
+fun <T> withFailureDescription(
+    failureDescription: String,
+    assertionCreator: Expect<T>.(T) -> Unit
+): FailureDescriptionWithCreator<T> = FailureDescriptionWithCreator(failureDescription, assertionCreator)

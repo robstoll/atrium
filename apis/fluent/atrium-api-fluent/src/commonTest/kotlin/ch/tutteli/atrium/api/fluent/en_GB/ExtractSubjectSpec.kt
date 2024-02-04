@@ -1,0 +1,27 @@
+package ch.tutteli.atrium.api.fluent.en_GB
+
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.notImplemented
+
+class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpec(
+    fun2(Expect<Int>::extractSubject),
+    extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
+) {
+
+    @Suppress("unused")
+    private fun ambiguityTest() {
+        val int: Expect<Int> = notImplemented()
+        val nullableInt: Expect<Int?> = notImplemented()
+        val star: Expect<*> = notImplemented()
+
+        int.extractSubject { _ -> toEqual(1) }
+        int.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
+
+        nullableInt.extractSubject { _ -> toEqual(1) }
+        nullableInt.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
+
+        star.extractSubject { _ -> toBeAnInstanceOf<Int>() }
+        star.extractSubject(failureDescription = "custom descr") { _ -> toBeAnInstanceOf<Int>() }
+    }
+}

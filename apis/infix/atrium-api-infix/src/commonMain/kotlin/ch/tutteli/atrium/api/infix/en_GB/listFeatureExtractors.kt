@@ -39,6 +39,7 @@ infix fun <E, T : List<E>> Expect<T>.get(index: IndexWithCreator<E>): Expect<T> 
 fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCreator<E> =
     IndexWithCreator(index, assertionCreator)
 
+//TODO 1.2.0 move to iterableExtractors
 /**
  * Expects that list is not empty and returns an [Expect] for the last element in list.
  *

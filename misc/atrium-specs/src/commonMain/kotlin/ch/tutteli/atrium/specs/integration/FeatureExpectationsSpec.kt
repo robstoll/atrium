@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.get
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
@@ -76,26 +74,26 @@ abstract class FeatureExpectationsSpec(
     additionalContentInException: String? = null,
     return0ImmediateFeatureInfo: String = "${TestData::return0.name}()",
     return1ImmediateFeatureInfo: String = "${TestData::return1.name}(\"a\")",
-    return2ImmediateFeatureInfo: String =  "${TestData::return2.name}(\"a\", 1)",
-    return3ImmediateFeatureInfo: String =  "${TestData::return3.name}(\"a\", 1, true)",
-    return4ImmediateFeatureInfo: String =  "${TestData::return4.name}(\"a\", 1, true, 1.2)",
-    return5ImmediateFeatureInfo: String =  "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
+    return2ImmediateFeatureInfo: String = "${TestData::return2.name}(\"a\", 1)",
+    return3ImmediateFeatureInfo: String = "${TestData::return3.name}(\"a\", 1, true)",
+    return4ImmediateFeatureInfo: String = "${TestData::return4.name}(\"a\", 1, true, 1.2)",
+    return5ImmediateFeatureInfo: String = "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
     return0LazyFeatureInfo: String = "${TestData::return0.name}()",
     return1LazyFeatureInfo: String = "${TestData::return1.name}(\"a\")",
-    return2LazyFeatureInfo: String =  "${TestData::return2.name}(\"a\", 1)",
-    return3LazyFeatureInfo: String =  "${TestData::return3.name}(\"a\", 1, true)",
-    return4LazyFeatureInfo: String =  "${TestData::return4.name}(\"a\", 1, true, 1.2)",
-    return5LazyFeatureInfo: String =  "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
+    return2LazyFeatureInfo: String = "${TestData::return2.name}(\"a\", 1)",
+    return3LazyFeatureInfo: String = "${TestData::return3.name}(\"a\", 1, true)",
+    return4LazyFeatureInfo: String = "${TestData::return4.name}(\"a\", 1, true, 1.2)",
+    return5LazyFeatureInfo: String = "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')",
 
-    return0NullableFeatureInfo: String =  "${TestData::returnNullable0.name}()",
+    return0NullableFeatureInfo: String = "${TestData::returnNullable0.name}()",
     return1NullableFeatureInfo: String = "${TestData::returnNullable1.name}(\"a\")",
     return2NullableFeatureInfo: String = "${TestData::returnNullable2.name}(\"a\", 1)",
     return3NullableFeatureInfo: String = "${TestData::returnNullable3.name}(\"a\", 1, true)",
     return4NullableFeatureInfo: String = "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)",
     return5NullableFeatureInfo: String = "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')",
 
-    lazyWithNestedImmediateFeatureInfo : String = "length",
-    lazyWithNestedLazyFeatureInfo: String  = "length",
+    lazyWithNestedImmediateFeatureInfo: String = "length",
+    lazyWithNestedLazyFeatureInfo: String = "length",
 
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -145,6 +143,7 @@ abstract class FeatureExpectationsSpec(
         *(nullableFailingFunctions.map { (description, lambda, _) -> description to expectLambda(lambda) }).toTypedArray(),
         *(nullableHoldsFunctions.map { (description, lambda) -> description to expectLambda(lambda) }).toTypedArray()
     ) {})
+
     //@formatter:on
 
     fun <T> Suite.checkGenericNarrowingAssertionWithExceptionMessage(

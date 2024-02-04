@@ -1,14 +1,17 @@
 package ch.tutteli.atrium.logic.impl
 
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.FeatureAssertions
+import ch.tutteli.atrium.logic.collect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.MethodCallFormatter
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
@@ -68,4 +71,24 @@ class DefaultFeatureAssertions : FeatureAssertions {
             .withoutOptions()
             .build()
     }
+
+    override fun <T> extractSubject(
+        container: AssertionContainer<T>,
+        failureDescription: String?,
+        assertionCreator: Expect<T>.(T) -> Unit,
+    ): Expect<T> = container.append(
+        container.maybeSubject.fold({
+            assertionBuilder.representationOnly
+                .failing
+                .withRepresentation(
+                    Text(
+                        failureDescription
+                            ?: "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
+                    )
+                )
+                .build()
+        }) { subject ->
+            container.collect { this.assertionCreator(subject) }
+        }
+    )
 }

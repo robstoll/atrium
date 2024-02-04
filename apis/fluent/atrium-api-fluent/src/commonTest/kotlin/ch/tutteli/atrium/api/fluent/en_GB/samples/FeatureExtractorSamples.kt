@@ -465,7 +465,8 @@ class FeatureExtractorSamples {
         val person = Person(name = "John Smith", age = 25)
 
         expect(person)
-            .feature("Actual age", Person::age) { // subject within this expectation-group is now of type Int (actually 25)
+            .feature("Actual age", Person::age) {
+                // subject within this expectation-group is now of type Int (actually 25)
                 toBeLessThan(30)
                 toBeGreaterThan(20)
             } // subject here is back type Person
@@ -529,6 +530,54 @@ class FeatureExtractorSamples {
                     toBeLessThan(20)    // still evaluated even though `toBeLessThan` already fails
                     //                     use `.feature({ extractor }).` if you want fail fast behaviour
                 }
+        }
+    }
+
+    data class Person2(
+        val firstName: String,
+        val lastName: String,
+        val age: Int,
+        val children: Collection<Person2>
+    )
+
+    class DataGenerator {
+        fun getRandomPersonsWithChildren(): List<Person2> =
+            listOf(Person2("Felix", "Mendelssohn", 2, children = emptyList()))
+
+        fun getRandomPersonsHasABugReturnsEmptyList(): List<Person2> = emptyList()
+    }
+
+    private val dataGenerator = DataGenerator()
+    @Test
+    fun extractSubject() {
+        val persons = dataGenerator.getRandomPersonsWithChildren()
+        expect(persons).toHaveElementsAndAll {
+            extractSubject { person ->
+                feature { f(it::children) }.notToHaveElementsOrAll {
+                    because("person should at least be 16 years older than its children") {
+                        feature { f(it::age) }.toBeLessThan(person.age - 16)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun extractSubjectWithFailureDescription() {
+        // imagine the data generator should not return an empty list
+        val persons = dataGenerator.getRandomPersonsHasABugReturnsEmptyList()
+        fails { // because persons is empty
+            expect(persons).toHaveElementsAndAll { // fails
+                // hence the sub-expectations within extractSubject cannot be evaluated
+                // and instead we show the custom failure description
+                extractSubject("no person defined, cannot extract subject") { person ->
+                    feature { f(it::children) }.notToHaveElementsOrAll {
+                        because("person should at least be 16 years older than its children") {
+                            feature { f(it::age) }.toBeLessThan(person.age - 16)
+                        }
+                    }
+                }
+            }
         }
     }
 }
