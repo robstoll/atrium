@@ -1,7 +1,7 @@
 [versions]
 kbox = "1.0.0"
 niok = "1.4.7"
-junitJupiter="5.10.1"
+junitJupiter="5.10.2"
 junitPlatform = "1.9.2"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
