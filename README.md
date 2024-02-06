@@ -47,6 +47,7 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
   - [Feature Extractors](#feature-extractors)
     - [Property and Method](#property-and-methods)
     - [Arbitrary Features](#arbitrary-features)
+    - [Extract Subject](#subject-extraction)
   - [Type Expectations](#type-expectations)
   - [Nullable Types](#nullable-types)
   - [Collection Expectations](#collection-expectations)
@@ -836,6 +837,35 @@ expect(a)
     .feature { f(it::getFoo) }  // works
     .startsWith(...)
 ``` 
+
+## Subject Extraction
+
+`extractSubject` allows to get hold on the subject of the current `Expect` in case it is defined and reports an error
+otherwise. There is rarely a good reason to use it as there are better options:
+- [feature extractor](#feature-extractors) (`feature`, `its` or _logic.extractFeature...)
+- subject changer (_logic.changeSubject...)
+- toHoldThirdLibExpectation (coming soon, see https://github.com/robstoll/atrium/issues/1702).
+
+The only case where it makes sense (which we are aware of so far) is if your method under test generates random results
+(e.g. a data generator) and you want to state expectations which depend on the random generated data. 
+For instance:
+
+<code-extractSubject>
+
+```kotlin
+val persons = dataGenerator.getRandomPersonsWithChildren()
+expect(persons).toHaveElementsAndAll {
+    extractSubject { person ->
+        feature { f(it::children) }.notToHaveElementsOrAll {
+            because("person should at least be 16 years older than its children") {
+                feature { f(it::age) }.toBeLessThan(person.age - 16)
+            }
+        }
+    }
+}
+```
+</code-extractSubject>
+
 
 ## Type Expectations
 See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L41)
@@ -1822,7 +1852,7 @@ my expectations:
 ```
 </ex-data-driven-nesting>
 
-There is one last function worth mentioning here which comes in handy in data-driven testing in case the subject has a 
+There is another function worth mentioning here which comes in handy in data-driven testing in case the subject has a 
 [nullable type]((https://kotlinlang.org/docs/reference/null-safety.html).)
 
 If you wish to make sub expectations on the non-nullable type of the subject, then you can use

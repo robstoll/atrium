@@ -27,6 +27,7 @@ fun <E, T : List<E>> Expect<T>.get(index: Int): Expect<E> =
 fun <E, T : List<E>> Expect<T>.get(index: Int, assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.get(index).collectAndAppend(assertionCreator)
 
+//TODO 1.2.0 move to iterableFeatureExtractors
 /**
  * Expects that list is not empty and returns an [Expect] for the last element in list.
  *

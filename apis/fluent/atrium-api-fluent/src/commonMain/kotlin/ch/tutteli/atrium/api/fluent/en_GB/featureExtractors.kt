@@ -6,8 +6,8 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
-import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.creating.feature.FeatureInfo
+import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import kotlin.reflect.*
 
@@ -38,7 +38,7 @@ fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
  *
  * @since 0.16.0
  */
-fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): Expect<T>  =
+fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): Expect<T> =
     itsInternal(extractor).collectAndAppend(assertionCreator)
 
 @OptIn(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
@@ -382,3 +382,26 @@ fun <T, R> Expect<T>.feature(
 
 private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
     _logic.genericSubjectBasedFeature { MetaFeatureOption(this).provider(it) }
+
+/**
+ * Extracts the subject of this [Expect] in case it is defined and passes it to the given [assertionCreator]
+ * or adds a failing assertion to this [Expect] in case the subject is absent (e.g. due to a previous extraction
+ * failure).
+ *
+ * @param failureDescription The description used in case the subject is absent -
+ *   if `null` is given, then the default failure description is used
+ * @param assertionCreator The assertion-creator lambda which is responsible to create and append at least 1 assertion
+ *   to this [Expect].
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.extractSubject
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.FeatureExtractorSamples.extractSubjectWithFailureDescription
+ *
+ * @since 1.2.0
+ */
+fun <T> Expect<T>.extractSubject(
+    failureDescription: String? =  null,
+    assertionCreator: Expect<T>.(T) -> Unit
+) = _logic.extractSubject(failureDescription, assertionCreator)
+

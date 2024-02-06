@@ -7,6 +7,7 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.*
@@ -36,6 +37,9 @@ fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2,
 
 fun <T, R> AssertionContainer<T>.manualFeature(description: Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
     impl.manualFeature(this, description, provider)
+
+fun <T> AssertionContainer<T>.extractSubject(failureDescription: String?, assertionCreator: Expect<T>.(T) -> Unit): Expect<T> =
+    impl.extractSubject(this, failureDescription, assertionCreator)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: FeatureAssertions

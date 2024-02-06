@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.*
@@ -30,4 +31,10 @@ interface FeatureAssertions {
         description: Translatable,
         provider: T.() -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R>
+
+    fun <T> extractSubject(
+        container: AssertionContainer<T>,
+        failureDescription: String?,
+        assertionCreator: Expect<T>.(T) -> Unit
+    ): Expect<T>
 }

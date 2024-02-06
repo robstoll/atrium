@@ -146,4 +146,31 @@ class FeatureExtractorSpec : Spek({
             feature { f1<Boolean, Int>(it::overloaded, true) }.toEqual(1)
         }
     }
+
+    data class Person2(
+        val firstName: String,
+        val lastName: String,
+        val age: Int,
+        val children: Collection<Person2>
+    )
+
+    class DataGenerator {
+        fun getRandomPersonsWithChildren(): List<Person2> =
+            listOf(Person2("Felix", "Mendelssohn", 2, children = emptyList()))
+    }
+
+    val dataGenerator = DataGenerator()
+
+    test("code-extractSubject"){
+        val persons = dataGenerator.getRandomPersonsWithChildren()
+        expect(persons).toHaveElementsAndAll {
+            extractSubject { person ->
+                feature { f(it::children) }.notToHaveElementsOrAll {
+                    because("person should at least be 16 years older than its children") {
+                        feature { f(it::age) }.toBeLessThan(person.age - 16)
+                    }
+                }
+            }
+        }
+    }
 })

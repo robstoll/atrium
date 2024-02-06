@@ -51,7 +51,7 @@ interface SubjectChangerBuilder {
         /**
          * Entry point of the building process to not only change the subject but also report the change in reporting.
          *
-         * Typically the change is documented by adding a [DescriptiveAssertion] to the new resulting [Expect].
+         * Typically, the change is documented by adding a [DescriptiveAssertion] to the new resulting [Expect].
          *
          * This is basically a guide towards [SubjectChanger.reported],
          * hence in a more verbose manner but also more readable in many cases.

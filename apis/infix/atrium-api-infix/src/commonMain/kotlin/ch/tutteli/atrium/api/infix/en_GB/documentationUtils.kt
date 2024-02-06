@@ -8,6 +8,23 @@ import ch.tutteli.atrium.logic.because
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
  *
+ * Use `because of("reason") { ... }` if you want to use it in an infix style.
+ *
+ * @param reason The explanation for the assertion(s) created by [assertionCreator].
+ * @param assertionCreator The group of assertions to make.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.DocumentationUtilSamples.because
+ *
+ * @since 1.2.0
+ */
+fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+    _logicAppend { because(reason, assertionCreator) }
+
+/**
+ * Allows to state a reason for one or multiple assertions for the current subject.
+ *
  * @param keyWithCreator Combines the reason with the assertionCreator-lambda. Use the function
  *   `of(reason) { ... }` to create a [KeyWithCreator].
  *
