@@ -3,9 +3,11 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 
 class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpec(
     fun2(Companion::extractSubject),
+    fun2(Companion::extractSubjectNullable).withNullableSuffix(),
     extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
 ) {
     companion object {
@@ -13,6 +15,16 @@ class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpe
             expect: Expect<Int>,
             failureDescription: String?,
             assertionCreator: Expect<Int>.(Int) -> Unit
+        ) =
+            if (failureDescription == null) expect extractSubject assertionCreator
+            else expect extractSubject withFailureDescription(failureDescription) { subject ->
+                assertionCreator(subject)
+            }
+
+        fun extractSubjectNullable(
+            expect: Expect<Int?>,
+            failureDescription: String?,
+            assertionCreator: Expect<Int?>.(Int?) -> Unit
         ) =
             if (failureDescription == null) expect extractSubject assertionCreator
             else expect extractSubject withFailureDescription(failureDescription) { subject ->
