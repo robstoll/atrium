@@ -33,7 +33,7 @@ class DefaultThirdPartyAssertions : ThirdPartyAssertions {
                     .withListType
                     .failing
                     .withDescriptionAndRepresentation(description, representation)
-                    .withAssertion(ThrowableThrownFailureHandler.propertiesOfThrowable(e))
+                    .withAssertion(ThrowableThrownFailureHandler.propertiesOfThrowable(e, container))
                     .build()
             }
         }

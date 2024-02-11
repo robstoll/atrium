@@ -1,7 +1,10 @@
 [versions]
 kbox = "1.0.0"
 niok = "1.4.7"
-junitJupiter="5.10.2"
+
+# testing
+assertJ = "3.25.3"
+junitJupiter = "5.10.2"
 junitPlatform = "1.9.2"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
@@ -9,6 +12,7 @@ mockk = "1.11.0"
 mockitoKotlin = "2.2.0"
 
 [libraries]
+assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 junit-platform-commons = { module = "org.junit.platform:junit-platform-commons", version.ref = "junitPlatform" }

@@ -11,11 +11,13 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 
 class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureHandler<T, R> {
@@ -37,7 +39,7 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
         container.maybeSubject.fold(
             { /* nothing to do */ },
             {
-                if (it != null) assertions.add(propertiesOfThrowable(it))
+                if (it != null) assertions.add(propertiesOfThrowable(it, container))
             }
         )
 
@@ -56,17 +58,21 @@ class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureH
          * Returns an [AssertionGroup] with an [ExplanatoryAssertionGroupType] containing properties
          * of the given [throwable].
          */
+        @OptIn(ExperimentalComponentFactoryContainer::class)
         fun propertiesOfThrowable(
             throwable: Throwable,
+            container: AssertionContainer<*>,
             explanation: Assertion = createExplanation(throwable)
-        ): AssertionGroup =
-            assertionBuilder.explanatoryGroup
+        ): AssertionGroup {
+            container.components.build<AtriumErrorAdjuster>().adjust(throwable)
+            return assertionBuilder.explanatoryGroup
                 .withInformationType(withIndent = false)
                 .withAssertions(
                     explanation,
                     createHints(throwable, secondStackFrameOfParent = null)
                 )
                 .build()
+}
 
         private fun createExplanation(throwable: Throwable) =
             assertionBuilder.explanatory

@@ -1,13 +1,10 @@
 package readme.examples
 
-
-
 import readme.examples.utils.expect
 import readme.examples.utils.expectGrouped
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.ExpectationCreator
 import org.spekframework.spek2.Spek
-
 
 /**
  * The tests and error message are written here and automatically placed into the README via generation.
