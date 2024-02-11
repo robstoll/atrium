@@ -72,9 +72,6 @@ abstract class MapExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val fluent = expect(map)
-    val nullableFluent = expect(nullableMap)
-
     val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
     val toContainKeyDescr = DescriptionMapLikeExpectation.TO_CONTAIN_KEY.getDefault()
     val notToContainKeyDescr = DescriptionMapLikeExpectation.NOT_TO_CONTAIN_KEY.getDefault()
@@ -183,11 +180,11 @@ abstract class MapExpectationsSpec(
         context("map with two entries") {
             keysFunctions.forEach { (name, keysFun, _) ->
                 it("$name - toHaveSize(2) holds") {
-                    fluent.keysFun { toHaveSize(2) }
+                    expect(map).keysFun { toHaveSize(2) }
                 }
                 it("$name - toHaveSize(1) throws AssertionError") {
                     expect {
-                        fluent.keysFun { toHaveSize(1) }
+                        expect(map).keysFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("keys: [a, b]")
                     }
@@ -195,11 +192,11 @@ abstract class MapExpectationsSpec(
             }
             valuesFunctions.forEach { (name, valuesFun, _) ->
                 it("$name - toHaveSize(2) holds") {
-                    fluent.valuesFun { toHaveSize(2) }
+                    expect(map).valuesFun { toHaveSize(2) }
                 }
                 it("$name - toHaveSize(1) throws AssertionError") {
                     expect {
-                        fluent.valuesFun { toHaveSize(1) }
+                        expect(map).valuesFun { toHaveSize(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("values: [1, 2]")
                     }
@@ -214,11 +211,11 @@ abstract class MapExpectationsSpec(
         context("map $map") {
             getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
                 it("$name - can perform sub-assertion on existing key") {
-                    fluent.getExistingFun("a") { toEqual(1) }
+                    expect(map).getExistingFun("a") { toEqual(1) }
                 }
                 it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        fluent.getExistingFun("c") { toEqual(3) }
+                        expect(map).getExistingFun("c") { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(\"c\"): $keyDoesNotExist")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 3")
@@ -234,17 +231,17 @@ abstract class MapExpectationsSpec(
         context("map $nullableMap") {
             getExistingFunctions.forEach { (name, getExistingFun, hasExtraHint) ->
                 it("$name - can perform sub-assertion on existing key") {
-                    nullableFluent.getExistingFun("a") { toEqual(null) }
+                    expect(nullableMap).getExistingFun("a") { toEqual(null) }
                 }
                 it("$name - can perform sub-assertion on existing key which is null") {
-                    nullableFluent.getExistingFun(null) { toEqual(1) }
+                    expect(nullableMap).getExistingFun(null) { toEqual(1) }
                 }
                 it("$name - can perform sub-assertion on existing key whose value is null") {
-                    nullableFluent.getExistingFun("b") { toEqual(2) }
+                    expect(nullableMap).getExistingFun("b") { toEqual(2) }
                 }
                 it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        nullableFluent.getExistingFun("c") { toEqual(null) }
+                        expect(nullableMap).getExistingFun("c") { toEqual(null) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(\"c\"): $keyDoesNotExist")
                         if (hasExtraHint) messageToContain("$toEqualDescr: null")

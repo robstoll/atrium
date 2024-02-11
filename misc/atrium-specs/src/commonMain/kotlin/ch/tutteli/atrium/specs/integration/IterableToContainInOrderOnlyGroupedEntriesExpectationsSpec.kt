@@ -236,11 +236,14 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
                 }
             }
 
-            context("empty collection") {
-                val fluentEmpty = expect(setOf<Double?>().asIterable())
+            context("empty iterable") {
                 it("(1.0), (1.2) throws AssertionError") {
                     expect {
-                        fluentEmpty.toContainInOrderOnlyGroupedEntriesFun(context({ toEqual(1.0) }), context({
+                        expect(setOf<Double?>().asIterable()).toContainInOrderOnlyGroupedEntriesFun(context({
+                            toEqual(
+                                1.0
+                            )
+                        }), context({
                             toEqual(
                                 1.2
                             )

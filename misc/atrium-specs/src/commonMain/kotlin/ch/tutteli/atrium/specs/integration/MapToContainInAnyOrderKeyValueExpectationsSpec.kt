@@ -60,7 +60,6 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
             keyWithValueAssertions,
             keyWithNullableValueAssertions
         )
-        val fluent = expect(map)
 
         context("map $map") {
             toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainKeyWithValueAssertionsFun) ->
@@ -71,12 +70,15 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
                     "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toEqual(2) }, keyValue("a") { toEqual(1) })
                 ).forEach { (description, keyValues) ->
                     it("$name - $description does not throw") {
-                        fluent.toContainKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+                        expect(map).toContainKeyWithValueAssertionsFun(
+                            keyValues.first(),
+                            keyValues.drop(1).toTypedArray()
+                        )
                     }
                 }
 
                 it("$name - a { isLessThan(2) } and a { isGreaterThan(0) } does not throw (no unique match)") {
-                    fluent.toContainKeyWithValueAssertionsFun(
+                    expect(map).toContainKeyWithValueAssertionsFun(
                         keyValue("a") { toBeLessThan(2) },
                         arrayOf(keyValue("a") { toBeGreaterThan(0) })
                     )
@@ -84,7 +86,7 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
                 it("$name - a { isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                     expect {
-                        fluent.toContainKeyWithValueAssertionsFun(
+                        expect(map).toContainKeyWithValueAssertionsFun(
                             keyValue("a") { toBeLessThan(3) },
                             arrayOf(keyValue("b") { toBeLessThan(2) }, keyValue("c") { toBeLessThan(1) })
                         )
@@ -106,7 +108,6 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
     describeFun(keyWithNullableValueAssertions) {
         val toContainFun = keyWithNullableValueAssertions.lambda
-        val nullableFluent = expect(nullableMap)
 
         context("map $nullableMap") {
             listOf(
@@ -135,13 +136,13 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
                     )
             ).forEach { (description, keyValues) ->
                 it("$description does not throw") {
-                    nullableFluent.toContainFun(keyValues.first(), keyValues.drop(1).toTypedArray())
+                    expect(nullableMap).toContainFun(keyValues.first(), keyValues.drop(1).toTypedArray())
                 }
             }
 
             it("(a, null), b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
-                    nullableFluent.toContainFun(
+                    expect(nullableMap).toContainFun(
                         keyNullableValue("a", null), arrayOf(
                             keyNullableValue("b") { toBeLessThan(2) },
                             keyNullableValue("c") { toBeLessThan(1) }

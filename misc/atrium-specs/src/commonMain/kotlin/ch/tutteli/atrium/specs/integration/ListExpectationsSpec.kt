@@ -48,9 +48,7 @@ abstract class ListExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val fluent = expect(list)
     val listNullable = listOf(1, null, 3, 4)
-    val fluentNullable = expect(listNullable)
 
     val indexOutOfBounds = DescriptionListLikeExpectation.INDEX_OUT_OF_BOUNDS.getDefault()
 
@@ -63,11 +61,11 @@ abstract class ListExpectationsSpec(
         context("list $list") {
             getFunctions.forEach { (name, getFun, hasExtraHint) ->
                 it("$name - can perform sub-assertion on existing index") {
-                    fluent.getFun(0) { toEqual(1) }
+                    expect(list).getFun(0) { toEqual(1) }
                 }
                 it("$name - non-existing index throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        fluent.getFun(4) { toEqual(3) }
+                        expect(list).getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("get(4): $indexOutOfBounds")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 3")
@@ -84,7 +82,7 @@ abstract class ListExpectationsSpec(
         context("list $listNullable") {
             getFunctions.forEach { (name, getFun, _) ->
                 it("$name - can perform sub-assertion on existing index with value null") {
-                    fluentNullable.getFun(1) { toEqual(null) }
+                    expect(listNullable).getFun(1) { toEqual(null) }
                 }
             }
         }
@@ -95,7 +93,7 @@ abstract class ListExpectationsSpec(
         context("list $listNullable") {
             lastFunctions.forEach { (name, lastFun, _) ->
                 it("$name - can perform sub-assertion on last element with value") {
-                    fluentNullable.lastFun { toEqual(4) }
+                    expect(listNullable).lastFun { toEqual(4) }
                 }
             }
         }
@@ -115,7 +113,6 @@ abstract class ListExpectationsSpec(
     }
 
     val emptyList = emptyList<Int?>()
-    val fluentEmptyList = expect(emptyList)
 
     val listIsEmptyDescr = DescriptionListLikeExpectation.IS_EMPTY.getDefault()
 
@@ -125,7 +122,7 @@ abstract class ListExpectationsSpec(
             lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
                 it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        fluentEmptyList.lastFun { toEqual(3) }
+                        expect(emptyList).lastFun { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("last(): $listIsEmptyDescr")
                         if (hasExtraHint) messageToContain("$toEqualDescr: 3")

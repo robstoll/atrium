@@ -23,8 +23,6 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(text as CharSequence)
-
     fun Expect<CharSequence>.toContainFun(t: String, vararg tX: String) = toContain.invoke(this, t, tX)
 
     fun Expect<CharSequence>.notToContainFun(t: String, vararg tX: String) = notToContain.invoke(this, t, tX)
@@ -55,20 +53,20 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
 
             context("search for 'Hello' and 'Robert'") {
                 it("${toContain.name} 'Hello' does not throw") {
-                    fluent.toContainFun("Hello")
+                    expect(text).toContainFun("Hello")
                 }
                 it("${notToContain.name} 'Hello' throws AssertionError") {
                     expect {
-                        fluent.notToContainFun("Hello")
+                        expect(text).notToContainFun("Hello")
                     }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
                 }
 
                 it("${toContain.name} 'Hello' and 'Robert' does not throw") {
-                    fluent.toContainFun("Hello", "Robert")
+                    expect(text).toContainFun("Hello", "Robert")
                 }
                 it("${notToContain.name} 'Hello' and 'Robert' throws AssertionError") {
                     expect {
-                        fluent.notToContainFun("Hello", "Robert")
+                        expect(text).notToContainFun("Hello", "Robert")
                     }.toThrow<AssertionError> {
                         messageToContain(
                             notToContainDescr,
@@ -82,7 +80,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
             context("search for 'notInThere' and 'neitherInThere'") {
                 it("${toContain.name} 'notInThere' and 'neitherInThere' throws AssertionError") {
                     expect {
-                        fluent.toContainFun("notInThere", "neitherInThere")
+                        expect(text).toContainFun("notInThere", "neitherInThere")
                     }.toThrow<AssertionError> {
                         messageToContain(
                             toContainDescr,
@@ -92,14 +90,14 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     }
                 }
                 it("${notToContain.name} 'notInThere' and 'neitherInThere' does not throw") {
-                    fluent.notToContainFun("notInThere", "neitherInThere")
+                    expect(text).notToContainFun("notInThere", "neitherInThere")
                 }
             }
 
             context("search for 'hello' and 'robert'") {
                 it("${toContain.name} 'hello' and 'robert' throws AssertionError") {
                     expect {
-                        fluent.toContainFun("hello", "robert")
+                        expect(text).toContainFun("hello", "robert")
                     }.toThrow<AssertionError> {
                         message {
                             this.toContain.exactly(2).value(
@@ -114,23 +112,23 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     }
                 }
                 it("${notToContain.name} 'hello' and 'robert' does not throw") {
-                    fluent.notToContainFun("hello", "robert")
+                    expect(text).notToContainFun("hello", "robert")
                 }
             }
 
             context("search for 'Hello' and 'notInThere'") {
                 it("${toContain.name} 'notInThere' throws AssertionError") {
                     expect {
-                        fluent.toContainFun("notInThere")
+                        expect(text).toContainFun("notInThere")
                     }.toThrow<AssertionError> { messageToContain(toContainDescr, "$valueWithIndent: \"notInThere\"") }
                 }
                 it("${notToContain.name} 'notInThere' does not throw") {
-                    fluent.notToContainFun("notInThere")
+                    expect(text).notToContainFun("notInThere")
                 }
 
                 it("${toContain.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'Hello'") {
                     expect {
-                        fluent.toContainFun("Hello", "notInThere")
+                        expect(text).toContainFun("Hello", "notInThere")
                     }.toThrow<AssertionError> {
                         message {
                             toContain(toContainDescr, "$valueWithIndent: \"notInThere\"")
@@ -140,7 +138,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 }
                 it("${notToContain.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'notInThere'") {
                     expect {
-                        fluent.notToContainFun("Hello", "notInThere")
+                        expect(text).notToContainFun("Hello", "notInThere")
                     }.toThrow<AssertionError> {
                         message {
                             toContain(notToContainDescr, "$valueWithIndent: \"Hello\"")
@@ -151,11 +149,11 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
             }
 
             it("${toContain.name} 'Hello' and 'Hello' (searching twice in the same assertion) does not throw") {
-                fluent.toContainFun("Hello", "Hello")
+                expect(text).toContainFun("Hello", "Hello")
             }
 
             it("${notToContain.name} 'notInThere' and 'notInThere' does not throw") {
-                fluent.notToContainFun("notInThere", "notInThere")
+                expect(text).notToContainFun("notInThere", "notInThere")
             }
         }
 

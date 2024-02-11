@@ -44,7 +44,6 @@ abstract class ChronoLocalDateExpectationsSpec(
         december23,
         JapaneseDate.of(2019, 12, 23)
     ).forEach { subject ->
-        val fluent = expect(subject)
 
         describe("$describePrefix subject is $subject") {
             describe("${toBeBefore.name} ...") {
@@ -52,16 +51,16 @@ abstract class ChronoLocalDateExpectationsSpec(
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.toBeBeforeFun(december22)
+                        expect(subject).toBeBeforeFun(december22)
                     }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december22") }
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
-                        fluent.toBeBeforeFun(december23)
+                        expect(subject).toBeBeforeFun(december23)
                     }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december23") }
                 }
                 it("... $december24 does not throw") {
-                    fluent.toBeBeforeFun(december24)
+                    expect(subject).toBeBeforeFun(december24)
                 }
             }
             describe("${toBeBeforeOrTheSamePointInTimeAs.name} ...") {
@@ -69,30 +68,30 @@ abstract class ChronoLocalDateExpectationsSpec(
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.toBeBeforeOrTheSamePointInTimeAsFun(december22)
+                        expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(december22)
                     }.toThrow<AssertionError> { messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.toBeBeforeOrTheSamePointInTimeAsFun(december23)
+                    expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 does not throw") {
-                    fluent.toBeBeforeOrTheSamePointInTimeAsFun(december24)
+                    expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(december24)
                 }
             }
             describe("${toBeAfter.name} ...") {
                 val toBeAfterFun = toBeAfter.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.toBeAfterFun(december22)
+                    expect(subject).toBeAfterFun(december22)
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
-                        fluent.toBeAfterFun(december23)
+                        expect(subject).toBeAfterFun(december23)
                     }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december23") }
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.toBeAfterFun(december24)
+                        expect(subject).toBeAfterFun(december24)
                     }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december24") }
                 }
             }
@@ -100,14 +99,14 @@ abstract class ChronoLocalDateExpectationsSpec(
                 val toBeAfterOrTheSamePointInTimeAsFun = toBeAfterOrTheSamePointInTimeAs.lambda
 
                 it("... $december22 does not throw") {
-                    fluent.toBeAfterOrTheSamePointInTimeAsFun(december22)
+                    expect(subject).toBeAfterOrTheSamePointInTimeAsFun(december22)
                 }
                 it("... $december23 does not throw") {
-                    fluent.toBeAfterOrTheSamePointInTimeAsFun(december23)
+                    expect(subject).toBeAfterOrTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.toBeAfterOrTheSamePointInTimeAsFun(december24)
+                        expect(subject).toBeAfterOrTheSamePointInTimeAsFun(december24)
                     }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $december24") }
                 }
             }
@@ -116,15 +115,15 @@ abstract class ChronoLocalDateExpectationsSpec(
 
                 it("... $december22 throws an AssertionError") {
                     expect {
-                        fluent.toBeTheSamePointInTimeAsFun(december22)
+                        expect(subject).toBeTheSamePointInTimeAsFun(december22)
                     }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december22") }
                 }
                 it("... $december23 does not throw") {
-                    fluent.toBeTheSamePointInTimeAsFun(december23)
+                    expect(subject).toBeTheSamePointInTimeAsFun(december23)
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
-                        fluent.toBeTheSamePointInTimeAsFun(december24)
+                        expect(subject).toBeTheSamePointInTimeAsFun(december24)
                     }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december24") }
                 }
             }

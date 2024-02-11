@@ -58,17 +58,17 @@ abstract class ThirdPartyExpectationsSpec(
             context("expectation holds") {
                 it("shows the description and representation of the third party expectation in reporting") {
                     expect {
-                        expect(1).withOptions {
-                            withComponent(Reporter::class) { c ->
-                                val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
-                                object : Reporter {
-                                    override fun format(assertion: Assertion, sb: StringBuilder): Unit =
-                                        assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
+                    expect(1).withOptions {
+                        withComponent(Reporter::class) { c ->
+                            val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
+                            object : Reporter {
+                                override fun format(assertion: Assertion, sb: StringBuilder): Unit =
+                                    assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
-                                    private fun assertionFilter(assertion: Assertion) = true
-                                }
+                                private fun assertionFilter(assertion: Assertion) = true
                             }
-                        }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
+                        }
+                    }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
                             assertThat(subject + 9).toEqual(10)
                         } //fails, due to customer Reporter we should also see holding third party expectation from above
                             .toEqual(2)

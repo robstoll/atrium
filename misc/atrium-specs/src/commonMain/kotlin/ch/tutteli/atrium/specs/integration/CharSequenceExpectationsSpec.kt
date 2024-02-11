@@ -38,8 +38,6 @@ abstract class CharSequenceExpectationsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(text as CharSequence)
-
     val emptyString: CharSequence = ""
     val blankString: CharSequence = "   "
     val notBlankString: CharSequence = "not blank string"
@@ -111,21 +109,21 @@ abstract class CharSequenceExpectationsSpec(
 
         context("text '$text'") {
             it("${toStartWith.name} 'Hello' does not throw") {
-                fluent.toStartWithFun("Hello")
+                expect(text).toStartWithFun("Hello")
             }
             it("${notToStartWith.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.notToStartWithFun("Hello")
+                    expect(text).notToStartWithFun("Hello")
                 }.toThrow<AssertionError> { messageToContain(NOT_TO_START_WITH.getDefault()) }
             }
 
             it("${toStartWith.name} 'Robert' throws an AssertionError") {
                 expect {
-                    fluent.toStartWithFun("goodbye")
+                    expect(text).toStartWithFun("goodbye")
                 }.toThrow<AssertionError> { messageToContain(TO_START_WITH.getDefault()) }
             }
             it("${notToStartWith.name} 'Robert' does not throw") {
-                fluent.notToStartWithFun("goodbye")
+                expect(text).notToStartWithFun("goodbye")
             }
         }
     }
@@ -137,19 +135,19 @@ abstract class CharSequenceExpectationsSpec(
         context("text '$text'") {
             it("${toEndWith.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.toEndWithFun("Hello")
+                    expect(text).toEndWithFun("Hello")
                 }.toThrow<AssertionError> { messageToContain(TO_END_WITH.getDefault()) }
             }
             it("${notToEndWith.name} 'Hello' does not throw") {
-                fluent.notToEndWithFun("Hello")
+                expect(text).notToEndWithFun("Hello")
             }
 
             it("${toEndWith.name} 'Robert' does not throw") {
-                fluent.toEndWithFun("Robert")
+                expect(text).toEndWithFun("Robert")
             }
             it("${notToEndWith.name} 'Robert' throws an AssertionError") {
                 expect {
-                    fluent.notToEndWithFun("Robert")
+                    expect(text).notToEndWithFun("Robert")
                 }.toThrow<AssertionError> { messageToContain(NOT_TO_END_WITH.getDefault()) }
             }
         }
@@ -160,28 +158,28 @@ abstract class CharSequenceExpectationsSpec(
 
         context("text '$text'") {
             it("${toMatch.name} '^Hello.+' does not throw") {
-                fluent.toMatchFun(Regex("^Hello.+"))
+                expect(text).toMatchFun(Regex("^Hello.+"))
             }
 
             it("${toMatch.name} 'Hello' throws an AssertionError") {
                 expect {
-                    fluent.toMatchFun(Regex("Hello"))
+                    expect(text).toMatchFun(Regex("Hello"))
                 }.toThrow<AssertionError> { messageToContain(TO_MATCH.getDefault()) }
             }
         }
     }
 
-    describeFun(notToMatch.name){
+    describeFun(notToMatch.name) {
         val notToMatchFun = notToMatch.lambda
 
-        context("text '$text"){
-            it("${notToMatch.name} 'Hello' does not throw"){
-                fluent.notToMatchFun(Regex("Hello"))
+        context("text '$text") {
+            it("${notToMatch.name} 'Hello' does not throw") {
+                expect(text).notToMatchFun(Regex("Hello"))
             }
 
-            it("${notToMatch.name} 'Hello my name is Robert' throws an AssertionError"){
+            it("${notToMatch.name} 'Hello my name is Robert' throws an AssertionError") {
                 expect {
-                    fluent.notToMatchFun(Regex("Hello my name is Robert"))
+                    expect(text).notToMatchFun(Regex("Hello my name is Robert"))
                 }.toThrow<AssertionError> { messageToContain(NOT_TO_MATCH.getDefault()) }
             }
         }
