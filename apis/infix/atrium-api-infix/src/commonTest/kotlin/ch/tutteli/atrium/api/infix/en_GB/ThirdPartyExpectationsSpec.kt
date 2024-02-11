@@ -5,9 +5,10 @@ import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class ThirdPartyExpectationSpec : ch.tutteli.atrium.specs.integration.ThirdPartyExpectationsSpec(
+class ThirdPartyExpectationsSpec : ch.tutteli.atrium.specs.integration.ThirdPartyExpectationsSpec(
     fun3(Companion::toHoldThirdPartyExpectation),
-    fun3(Companion::toHoldThirdPartyExpectation).withNullableSuffix(),
+//    fun3(Companion::toHoldThirdPartyExpectation).withNullableSuffix(),
+    fun3<Int?, _, _, _>(Companion::toHoldThirdPartyExpectation).withNullableSuffix(),
 ) {
     companion object {
         fun <T> toHoldThirdPartyExpectation(
@@ -16,7 +17,6 @@ class ThirdPartyExpectationSpec : ch.tutteli.atrium.specs.integration.ThirdParty
             representation: Any?,
             expectationExecutor: (T) -> Unit
         ): Expect<T> = expect toHold thirdPartyExpectation(description, representation, expectationExecutor)
-
     }
 
     @Suppress("unused")
